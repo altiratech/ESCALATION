@@ -6,6 +6,7 @@ import { z } from 'zod';
 import {
   actions,
   archetypes,
+  getDebriefVariants,
   getAdvisorRetrospectivesForOutcome,
   getArchetype,
   getCausalityRevealForOutcome,
@@ -175,6 +176,7 @@ app.use('*', async (context, next) => {
 
 const actionMap = buildActionMap(actions);
 const imageMap = new Map(images.map((asset) => [asset.id, asset]));
+const debriefVariants = getDebriefVariants();
 
 const computeCompositeScore = (view: EpisodeView): number => {
   const outcomeBonus: Record<string, number> = {
@@ -361,7 +363,8 @@ app.post('/api/episodes/:episodeId/actions', async (context) => {
     scenario,
     archetype,
     actions,
-    images
+    images,
+    debriefVariants
   };
   const polisher = createPolisher(context.env);
 
@@ -516,7 +519,8 @@ app.post('/api/episodes/:episodeId/inaction', async (context) => {
     scenario,
     archetype,
     actions,
-    images
+    images,
+    debriefVariants
   };
 
   const preInactionTimer = countdownTelemetry(state.activeCountdown, requestTimestamp);

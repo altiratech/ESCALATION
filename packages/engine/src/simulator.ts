@@ -2,6 +2,7 @@ import type {
   ActionDefinition,
   ActiveCountdown,
   BeatNode,
+  DebriefVariantCandidate,
   GameState,
   ImageAsset,
   RivalArchetype,
@@ -30,6 +31,7 @@ export interface EngineContext {
   archetype: RivalArchetype;
   actions: ActionDefinition[];
   images: ImageAsset[];
+  debriefVariants?: DebriefVariantCandidate[];
 }
 
 export interface InitializeOptions {
@@ -466,16 +468,23 @@ export const resolveTurn = (
     postTraversalBeat
   );
 
-  const turnDebrief = buildTurnDebrief({
+  const turnDebriefPayload = {
     playerAction,
     rivalAction,
     meterBefore,
     meterAfter: state.meters,
+    turn: state.turn,
+    phase: postTraversalBeat.phase,
     rivalNarrativeTokens: rivalResult.triggeredSideEffects,
     narrativeTokens: allNarrativeTokens,
     triggeredEventIds: [...preRivalEvents.map((entry) => entry.id), ...postRivalEvents.map((entry) => entry.id)],
     eventTable: context.scenario.eventTable
-  });
+  };
+  const turnDebrief = buildTurnDebrief(
+    context.debriefVariants
+      ? { ...turnDebriefPayload, debriefVariants: context.debriefVariants }
+      : turnDebriefPayload
+  );
 
   const historyEntry = {
     turn: state.turn,
