@@ -3,7 +3,18 @@ import { cors } from 'hono/cors';
 import { logger } from 'hono/logger';
 import { z } from 'zod';
 
-import { actions, archetypes, getArchetype, getScenario, images, playerActions, scenarios } from '@wargames/content';
+import {
+  actions,
+  archetypes,
+  getAdvisorRetrospectivesForOutcome,
+  getArchetype,
+  getCausalityRevealForOutcome,
+  getScenario,
+  images,
+  narrativeCandidates,
+  playerActions,
+  scenarios
+} from '@wargames/content';
 import {
   buildActionMap,
   buildPostGameReport,
@@ -26,7 +37,6 @@ import { createDb, ensureSchema, type Env } from './db';
 import { createPolisher } from './polisher';
 import {
   type BeatTransitionSource,
-  CorruptEpisodeStateError,
   createEpisode,
   findOrCreateProfile,
   getEpisodeState,
@@ -290,7 +300,12 @@ app.post('/api/episodes/:episodeId/actions', async (context) => {
     });
 
     if (nextState.status === 'completed' && nextState.outcome) {
-      const report = buildPostGameReport(nextState, actionMap);
+      const report = buildPostGameReport(nextState, actionMap, {
+        scenario,
+        archetype,
+        causalityNarrative: getCausalityRevealForOutcome(nextState.outcome),
+        advisorRetrospectives: getAdvisorRetrospectivesForOutcome(nextState.outcome)
+      });
       const episodeView = toEpisodeView(nextState, actionMap, imageMap, requestTimestamp);
       await upsertReport(db, report, episodeRecord.profileId, computeCompositeScore(episodeView));
     }
@@ -440,7 +455,12 @@ app.post('/api/episodes/:episodeId/inaction', async (context) => {
   });
 
   if (result.nextState.status === 'completed' && result.nextState.outcome) {
-    const report = buildPostGameReport(result.nextState, actionMap);
+    const report = buildPostGameReport(result.nextState, actionMap, {
+      scenario,
+      archetype,
+      causalityNarrative: getCausalityRevealForOutcome(result.nextState.outcome),
+      advisorRetrospectives: getAdvisorRetrospectivesForOutcome(result.nextState.outcome)
+    });
     const episodeView = toEpisodeView(result.nextState, actionMap, imageMap, requestTimestamp);
     await upsertReport(db, report, episodeRecord.profileId, computeCompositeScore(episodeView));
   }
@@ -566,7 +586,19 @@ app.get('/api/episodes/:episodeId/report', async (context) => {
     return context.json({ message: 'Report not ready' }, 404);
   }
 
-  const generated = buildPostGameReport(episode, actionMap);
+  const scenario = getScenario(episode.scenarioId);
+  const archetype = getArchetype(episode.rivalArchetypeId);
+  const narrativeOptions = episode.outcome
+    ? {
+        causalityNarrative: getCausalityRevealForOutcome(episode.outcome),
+        advisorRetrospectives: getAdvisorRetrospectivesForOutcome(episode.outcome)
+      }
+    : {};
+  const generated = buildPostGameReport(episode, actionMap, {
+    scenario,
+    archetype,
+    ...narrativeOptions
+  });
   const episodeRecord = await getEpisodeState(db, episodeId);
   if (episodeRecord) {
     const view = toEpisodeView(episode, actionMap, imageMap, Date.now());
@@ -581,7 +613,8 @@ app.get('/api/reference/bootstrap', (context) => {
   return context.json({
     scenarios,
     archetypes,
-    actions: playerActions
+    actions: playerActions,
+    narrativeCandidates
   });
 });
 

@@ -467,3 +467,54 @@ Thread scope limitation: This thread ran under `Code/active/Wargames` and could 
 - adversary threshold logic explanations
 - unseen system events surfaced post-game
 - branch-not-taken summaries at pivotal turns
+
+## 11) Session Update — 2026-03-02 (Audit + narrative/causality integration)
+
+### 11.1 What changed
+
+1. Audited Claude commits `30c2d52` and `ded051d` after push sync.
+2. Found and fixed a timed-beat regression introduced by the H-1 follow-up:
+- Same-beat turns were clearing `activeCountdown` instead of preserving cumulative pressure.
+- `resolveTurn(...)` now preserves the prior countdown when beat does not transition.
+3. Determinism hardening:
+- Removed remaining `Date.now()` fallbacks from engine internals.
+- Countdown/view code now uses caller-supplied `nowMs` or deterministic state-derived defaults.
+4. Narrative candidate pack integration:
+- Added typed `NarrativeCandidatesPack` contracts in shared types.
+- Exported `narrativeCandidates` and helper selectors in content package.
+- `GET /api/reference/bootstrap` now returns `narrativeCandidates`.
+- Web countdown strip now renders thresholded pressure text from the narrative pack.
+5. Full post-game Causality depth implemented:
+- Expanded `PostGameReport` with `fullCausality` payload.
+- Engine report now computes and returns:
+  - hidden meter deltas with source breakdown (player/rival/event/system)
+  - adversary logic summary
+  - unseen low-visibility system events
+  - branch-not-taken summaries
+  - advisor retrospectives
+- API overlays outcome/advisor narrative copy from narrative candidates.
+- Report UI now renders all full-causality sections.
+6. Added tests:
+- same-beat timed countdown preservation
+- narrative pressure-text threshold helper
+- post-game causality payload + narrative overlay coverage
+
+### 11.2 Verification status
+
+1. `npm run lint` passed.
+2. `npm run ci:phase1` passed.
+3. Vitest passed: 9 files / 16 tests.
+4. Monte Carlo warnings unchanged (warning-only policy for concentrated `all_dove`).
+
+### 11.3 Spec drift remaining
+
+1. Rival archetype removal still open (technical spec breaking-change decision pending Ryan).
+2. Dashboard/Intel panel removal still open (timing decision pending Ryan).
+3. YAML content pipeline still open (JSON currently remains canonical for velocity).
+4. `chat_messages` / `advisor_state` / `llm_calls` remain schema-scaffolded and not yet fully populated by feature flows.
+
+### 11.4 Exact next action for resume
+
+1. Commit and push this sprint to `origin/main` (`altiratech/ESCALATION`).
+2. Resolve the remaining 3 spec-drift decisions with Ryan before any broad rival-model/UI-strip refactor.
+3. After decision lock: execute approved drift items in isolated commits with gate runs per milestone.

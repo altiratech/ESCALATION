@@ -22,10 +22,13 @@ export const toEpisodeView = (
   const recentTurn = state.history[state.history.length - 1] ?? null;
   const selectedImageId = recentTurn?.selectedImageId ?? null;
   const activeCountdown = state.activeCountdown
-    ? {
-        ...state.activeCountdown,
-        secondsRemaining: Math.max(0, Math.ceil((state.activeCountdown.expiresAt - (nowMs ?? Date.now())) / 1000))
-      }
+    ? (() => {
+        const referenceNow = nowMs ?? (state.activeCountdown.expiresAt - state.activeCountdown.secondsRemaining * 1000);
+        return {
+          ...state.activeCountdown,
+          secondsRemaining: Math.max(0, Math.ceil((state.activeCountdown.expiresAt - referenceNow) / 1000))
+        };
+      })()
     : null;
 
   return {

@@ -161,4 +161,56 @@ describe('timer runtime behavior', () => {
     expect(nextState.activeCountdown?.beatId).toBe('ns_crisis_window');
     expect(nextState.activeCountdown?.seconds).toBe(90);
   });
+
+  it('preserves countdown on same-beat turns inside timed beats', () => {
+    if (!scenario || !archetype) {
+      throw new Error('Test content unavailable');
+    }
+
+    const state = initializeGameState('timer-same-beat', 'TIMER-SAME-BEAT', {
+      scenario,
+      archetype,
+      actions,
+      images
+    });
+
+    state.currentBeatId = 'ns_crisis_window';
+    state.turn = 7;
+    state.timerMode = 'standard';
+    state.activeCountdown = {
+      beatId: 'ns_crisis_window',
+      seconds: 90,
+      secondsRemaining: 40,
+      expiresAt: 5_040_000,
+      inactionBeatId: 'ns_carrier_faceoff',
+      inactionDeltas: {
+        escalationIndex: 12
+      },
+      inactionNarrative: 'Window expired.',
+      extendsUsed: 0
+    };
+    state.meters.escalationIndex = 0;
+    state.meters.militaryReadiness = 0;
+    state.meters.allianceTrust = 0;
+
+    const selectedAction = actions.find((action) => action.actor === 'player');
+    if (!selectedAction) {
+      throw new Error('Expected at least one player action');
+    }
+
+    state.offeredActionIds = [selectedAction.id];
+
+    const { nextState } = resolveTurn(state, selectedAction.id, {
+      scenario,
+      archetype,
+      actions,
+      images
+    }, 5_000_000);
+
+    expect(nextState.currentBeatId).toBe('ns_crisis_window');
+    expect(nextState.activeCountdown).not.toBeNull();
+    expect(nextState.activeCountdown?.beatId).toBe('ns_crisis_window');
+    expect(nextState.activeCountdown?.expiresAt).toBe(5_040_000);
+    expect(nextState.activeCountdown?.secondsRemaining).toBe(40);
+  });
 });

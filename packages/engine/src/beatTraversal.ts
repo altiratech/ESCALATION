@@ -120,7 +120,7 @@ export const setCountdownForBeat = (state: GameState, beat: BeatNode, nowMs?: nu
 
   const multiplier = state.timerMode === 'relaxed' ? 1.5 : 1;
   const seconds = Math.round(beat.decisionWindow.seconds * multiplier);
-  const now = nowMs ?? Date.now();
+  const now = nowMs ?? 0;
   state.activeCountdown = {
     beatId: beat.id,
     seconds,

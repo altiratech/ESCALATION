@@ -335,6 +335,144 @@ export interface PostGameReport {
     suggestedActionId: string;
     predictedImpact: string;
   };
+  fullCausality: FullCausalityReport;
+}
+
+export type CausalityDeltaSource = 'player' | 'rival' | 'event' | 'system';
+
+export interface CausalityDeltaBreakdown {
+  source: CausalityDeltaSource;
+  delta: number;
+}
+
+export interface HiddenMeterDelta {
+  meter: MeterKey;
+  totalDelta: number;
+  breakdown: CausalityDeltaBreakdown[];
+}
+
+export interface UnseenSystemEvent {
+  turn: number;
+  eventId: string;
+  label: string;
+  visibility: number;
+  meterDeltas: Partial<MeterState>;
+}
+
+export interface BranchNotTakenOption {
+  targetBeatId: string;
+  reason: string;
+}
+
+export interface BranchNotTakenSummary {
+  turn: number;
+  beatId: string;
+  selectedActionId: string;
+  selectedBeatId: string;
+  alternatives: BranchNotTakenOption[];
+}
+
+export interface AdvisorRetrospectiveLine {
+  advisor: string;
+  text: string;
+}
+
+export interface OutcomeNarrativeReveal {
+  title: string;
+  summary: string;
+  causalNote: string;
+}
+
+export interface FullCausalityReport {
+  outcomeNarrative: OutcomeNarrativeReveal;
+  hiddenDeltas: HiddenMeterDelta[];
+  adversaryLogicSummary: string;
+  unseenSystemEvents: UnseenSystemEvent[];
+  branchesNotTaken: BranchNotTakenSummary[];
+  advisorRetrospectives: AdvisorRetrospectiveLine[];
+}
+
+export interface AdvisorLineCandidate {
+  id: string;
+  beatId: string;
+  advisor: string;
+  line: string;
+}
+
+export interface DebriefVariantCandidate {
+  id: string;
+  source: DebriefTag;
+  condition: string;
+  template: string;
+}
+
+export interface PressureTextCandidate {
+  id: string;
+  beatId: string;
+  thresholdSeconds: number;
+  text: string;
+}
+
+export type CausalityRevealField = 'title' | 'summary' | 'causal_note';
+
+export interface CausalityRevealCandidate {
+  id: string;
+  outcome: OutcomeCategory;
+  field: CausalityRevealField;
+  text?: string;
+  template?: string;
+}
+
+export interface AdvisorRetrospectiveCandidate {
+  id: string;
+  advisor: string;
+  outcome: OutcomeCategory;
+  text: string;
+}
+
+export interface AdvisorLinesCategory {
+  category: 'advisor_lines';
+  description: string;
+  entries: AdvisorLineCandidate[];
+}
+
+export interface DebriefVariantsCategory {
+  category: 'debrief_variants';
+  description: string;
+  entries: DebriefVariantCandidate[];
+}
+
+export interface PressureTextCategory {
+  category: 'pressure_text';
+  description: string;
+  entries: PressureTextCandidate[];
+}
+
+export interface CausalityRevealCategory {
+  category: 'causality_reveal';
+  description: string;
+  entries: CausalityRevealCandidate[];
+}
+
+export interface AdvisorRetrospectiveCategory {
+  category: 'advisor_retrospective';
+  description: string;
+  entries: AdvisorRetrospectiveCandidate[];
+}
+
+export type NarrativeCandidatesCategory =
+  | AdvisorLinesCategory
+  | DebriefVariantsCategory
+  | PressureTextCategory
+  | CausalityRevealCategory
+  | AdvisorRetrospectiveCategory;
+
+export interface NarrativeCandidatesPack {
+  version: string;
+  scenario: string;
+  author: string;
+  date: string;
+  categories: NarrativeCandidatesCategory[];
 }
 
 export interface CompressedStateSummary {
@@ -392,6 +530,7 @@ export interface BootstrapPayload {
   scenarios: ScenarioDefinition[];
   archetypes: RivalArchetype[];
   actions: ActionDefinition[];
+  narrativeCandidates: NarrativeCandidatesPack;
 }
 
 export interface StartEpisodeRequest {

@@ -44,7 +44,7 @@ export const buildActionMap = (actions: ActionDefinition[]): Map<string, ActionD
 const buildCountdownForBeat = (
   beat: BeatNode,
   timerMode: TimerMode,
-  now = Date.now()
+  now = 0
 ): ActiveCountdown | null => {
   if (!beat.decisionWindow || timerMode === 'off') {
     return null;
@@ -205,7 +205,10 @@ export interface ResolveInactionOptions {
   now?: number;
 }
 
-export const extendActiveCountdown = (currentState: GameState, now = Date.now()): GameState => {
+export const extendActiveCountdown = (
+  currentState: GameState,
+  now = currentState.activeCountdown?.expiresAt ?? 0
+): GameState => {
   if (currentState.status !== 'active') {
     throw new Error('Episode is already complete.');
   }
@@ -254,7 +257,7 @@ export const resolveInactionTurn = (
   }
 
   const state = deepClone(currentState);
-  const now = options.now ?? Date.now();
+  const now = options.now ?? currentState.activeCountdown?.expiresAt ?? 0;
   const beatMap = buildBeatMap(context.scenario);
   const activeBeat = getBeat(beatMap, state.currentBeatId);
   const decisionWindow = activeBeat.decisionWindow;
@@ -404,6 +407,7 @@ export const resolveTurn = (
   const pressureMultiplier = pressureForTurn(context.scenario, state.turn);
   const beatIdBefore = state.currentBeatId;
   const meterBefore = deepClone(state.meters);
+  const previousCountdown = state.activeCountdown ? deepClone(state.activeCountdown) : null;
   state.activeCountdown = null;
 
   const playerResult = applyActionToState(state, playerAction, 'player', rng, pressureMultiplier);
@@ -509,11 +513,17 @@ export const resolveTurn = (
     state.outcome = traversal.terminalOutcome ?? evaluateOutcome(state);
   } else {
     state.turn += 1;
-    // Only build a fresh countdown if the beat actually changed.
-    // Same-beat actions consume the existing decision window without resetting the timer,
-    // preserving cumulative time pressure within a multi-turn timed beat.
     if (traversal.beatIdBefore !== traversal.beatIdAfter) {
-      state.activeCountdown = buildCountdownForBeat(postTraversalBeat, state.timerMode, nowMs);
+      // traverseBeatGraph applies beat-entry effects (including countdown init) on transition.
+      // Keep a defensive fallback for malformed legacy state.
+      if (!state.activeCountdown && postTraversalBeat.decisionWindow && state.timerMode !== 'off') {
+        state.activeCountdown = buildCountdownForBeat(postTraversalBeat, state.timerMode, nowMs ?? 0);
+      }
+    } else if (previousCountdown && previousCountdown.beatId === state.currentBeatId && state.timerMode !== 'off') {
+      // Preserve remaining time pressure on same-beat turns.
+      state.activeCountdown = previousCountdown;
+    } else {
+      state.activeCountdown = buildCountdownForBeat(postTraversalBeat, state.timerMode, nowMs ?? 0);
     }
     state.offeredActionIds = selectPlayerActionOptions(state, context.scenario, actionMap, rng);
   }

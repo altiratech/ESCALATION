@@ -25,6 +25,27 @@ const formatSeconds = (seconds: number): string => {
   return `${minutes}:${String(remainder).padStart(2, '0')}`;
 };
 
+const pickPressureText = (
+  reference: BootstrapPayload,
+  beatId: string,
+  secondsRemaining: number
+): string | null => {
+  const category = reference.narrativeCandidates.categories.find((entry) => entry.category === 'pressure_text');
+  if (!category || category.category !== 'pressure_text') {
+    return null;
+  }
+
+  const choose = (entries: typeof category.entries): string | null => {
+    const ordered = [...entries].sort((left, right) => left.thresholdSeconds - right.thresholdSeconds);
+    const selected = ordered.find((entry) => secondsRemaining <= entry.thresholdSeconds);
+    return selected?.text ?? null;
+  };
+
+  const beatSpecific = category.entries.filter((entry) => entry.beatId === beatId);
+  const generic = category.entries.filter((entry) => entry.beatId === '_generic');
+  return choose(beatSpecific) ?? choose(generic);
+};
+
 const App = () => {
   const [reference, setReference] = useState<BootstrapPayload | null>(null);
   const [episode, setEpisode] = useState<EpisodeView | null>(null);
@@ -268,6 +289,13 @@ const App = () => {
     episode.timerMode === 'off' &&
     Boolean(currentBeat?.decisionWindow);
   const extendPreviewSeconds = episode.activeCountdown ? Math.max(1, Math.round(episode.activeCountdown.seconds * 0.5)) : 0;
+  const pressureText = (
+    episode.activeCountdown &&
+    remainingSeconds !== null &&
+    remainingSeconds > 0
+  )
+    ? pickPressureText(reference, episode.currentBeatId, remainingSeconds)
+    : null;
 
   return (
     <main className="mx-auto flex w-full max-w-[1400px] flex-col gap-4 px-6 py-5">
@@ -317,6 +345,9 @@ const App = () => {
                   }}
                 />
               </div>
+              {pressureText ? (
+                <p className="text-right text-[0.72rem] text-textMuted">{pressureText}</p>
+              ) : null}
             </div>
           ) : (
             <p className="text-xs text-textMuted">

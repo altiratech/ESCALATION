@@ -45,8 +45,9 @@ npm run dev
 - Timed-beat runtime with ambient countdown, urgency thresholds, timeout-to-inaction branching, and per-beat/episode timer extension controls
 - Timer accessibility mode at episode start (`standard`, `relaxed`, `off`) with explicit `Take No Action` path in `off` mode
 - Beat/timer analytics metadata persisted per run (`beat_progress` table: transitions, timeout/explicit inaction, extension usage)
+- Narrative candidate pack integrated into content pipeline (`narrative_candidates_v1.json`) for timed pressure text and post-game reveal overlays
 - Fog-of-war lite intel ranges
-- End-of-episode post-game intelligence report
+- End-of-episode post-game intelligence report with Full Causality sections (hidden deltas, adversary logic summary, unseen events, branch alternatives, advisor retrospectives)
 
 ## API Surface
 - `POST /api/profiles`
@@ -85,6 +86,9 @@ Primary files:
 - `packages/content/data/images.json`
 
 Add or tune gameplay by editing these JSON files. Engine loads them directly at runtime.
+
+Narrative extension pack:
+- `packages/content/data/narrative_candidates_v1.json`
 
 Beat graph authoring (Phase 1):
 - `ScenarioDefinition.startingBeatId`
