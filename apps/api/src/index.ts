@@ -17,6 +17,7 @@ import {
 import type {
   EpisodeView,
   ExtendCountdownRequest,
+  GameState,
   ResolveInactionRequest,
   SubmitActionRequest
 } from '@wargames/shared-types';
@@ -25,6 +26,7 @@ import { createDb, ensureSchema, type Env } from './db';
 import { createPolisher } from './polisher';
 import {
   type BeatTransitionSource,
+  CorruptEpisodeStateError,
   createEpisode,
   findOrCreateProfile,
   getEpisodeState,
@@ -204,7 +206,12 @@ app.post('/api/episodes/:episodeId/actions', async (context) => {
     return context.json({ message: 'Episode not found' }, 404);
   }
 
-  const state = JSON.parse(episodeRecord.stateJson);
+  let state: GameState;
+  try {
+    state = JSON.parse(episodeRecord.stateJson);
+  } catch {
+    return context.json({ message: 'Corrupt episode state' }, 422);
+  }
   const requestTimestamp = Date.now();
 
   if (state.status === 'completed') {
@@ -350,7 +357,12 @@ app.post('/api/episodes/:episodeId/inaction', async (context) => {
     return context.json({ message: 'Episode not found' }, 404);
   }
 
-  const state = JSON.parse(episodeRecord.stateJson);
+  let state: GameState;
+  try {
+    state = JSON.parse(episodeRecord.stateJson);
+  } catch {
+    return context.json({ message: 'Corrupt episode state' }, 422);
+  }
   const requestTimestamp = Date.now();
 
   if (state.status === 'completed') {
@@ -456,7 +468,12 @@ app.post('/api/episodes/:episodeId/countdown/extend', async (context) => {
     return context.json({ message: 'Episode not found' }, 404);
   }
 
-  const state = JSON.parse(episodeRecord.stateJson);
+  let state: GameState;
+  try {
+    state = JSON.parse(episodeRecord.stateJson);
+  } catch {
+    return context.json({ message: 'Corrupt episode state' }, 422);
+  }
   const requestTimestamp = Date.now();
 
   if (state.status === 'completed') {

@@ -10,6 +10,22 @@ const randomId = (): string => crypto.randomUUID();
 const toJson = (value: unknown): string => JSON.stringify(value);
 const toFlag = (value: boolean): number => (value ? 1 : 0);
 
+export class CorruptEpisodeStateError extends Error {
+  constructor(episodeId: string, cause?: unknown) {
+    super(`Corrupt or unreadable episode state for ${episodeId}`);
+    this.name = 'CorruptEpisodeStateError';
+    this.cause = cause;
+  }
+}
+
+const parseStateJson = (stateJson: string, episodeId: string): GameState => {
+  try {
+    return JSON.parse(stateJson) as GameState;
+  } catch (error) {
+    throw new CorruptEpisodeStateError(episodeId, error);
+  }
+};
+
 export interface EpisodeRecord {
   id: string;
   profileId: string;
@@ -90,7 +106,7 @@ export const getEpisodeStateById = async (
     return null;
   }
 
-  return JSON.parse(record.stateJson) as GameState;
+  return parseStateJson(record.stateJson, episodeId);
 };
 
 export const updateEpisodeStateOptimistic = async (
@@ -217,7 +233,11 @@ export const getReport = async (db: Database, episodeId: string): Promise<PostGa
     return null;
   }
 
-  return JSON.parse(rows[0].reportJson) as PostGameReport;
+  try {
+    return JSON.parse(rows[0].reportJson) as PostGameReport;
+  } catch {
+    return null;
+  }
 };
 
 export const getLatestTurns = async (

@@ -420,7 +420,7 @@ export const resolveTurn = (
 
   const traversal = traverseBeatGraph(state, context.scenario, playerAction, nowMs);
   const beatMap = buildBeatMap(context.scenario);
-  const activeBeat = getBeat(beatMap, state.currentBeatId);
+  const postTraversalBeat = getBeat(beatMap, state.currentBeatId);
 
   degradeIntelQuality(state);
   const visibleRanges = projectVisibleRanges(state, rng);
@@ -459,7 +459,7 @@ export const resolveTurn = (
     state.meters,
     allNarrativeTokens,
     context.archetype,
-    activeBeat
+    postTraversalBeat
   );
 
   const turnDebrief = buildTurnDebrief({
@@ -509,7 +509,12 @@ export const resolveTurn = (
     state.outcome = traversal.terminalOutcome ?? evaluateOutcome(state);
   } else {
     state.turn += 1;
-    state.activeCountdown = buildCountdownForBeat(activeBeat, state.timerMode, nowMs);
+    // Only build a fresh countdown if the beat actually changed.
+    // Same-beat actions consume the existing decision window without resetting the timer,
+    // preserving cumulative time pressure within a multi-turn timed beat.
+    if (traversal.beatIdBefore !== traversal.beatIdAfter) {
+      state.activeCountdown = buildCountdownForBeat(postTraversalBeat, state.timerMode, nowMs);
+    }
     state.offeredActionIds = selectPlayerActionOptions(state, context.scenario, actionMap, rng);
   }
 

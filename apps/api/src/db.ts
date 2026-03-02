@@ -115,9 +115,12 @@ const schemaStatements = [
   )`
 ];
 
+let schemaReady = false;
 let schemaReadyPromise: Promise<void> | null = null;
 
 export const ensureSchema = async (env: Env): Promise<void> => {
+  if (schemaReady) return;
+
   if (schemaReadyPromise) {
     await schemaReadyPromise;
     return;
@@ -127,6 +130,7 @@ export const ensureSchema = async (env: Env): Promise<void> => {
     for (const statement of schemaStatements) {
       await env.DB.prepare(statement).run();
     }
+    schemaReady = true;
   })();
 
   await schemaReadyPromise;
