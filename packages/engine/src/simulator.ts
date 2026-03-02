@@ -84,7 +84,6 @@ export const initializeGameState = (
   const baseState: GameState = {
     id: episodeId,
     scenarioId: context.scenario.id,
-    rivalArchetypeId: context.archetype.id,
     turn: 1,
     maxTurns: context.scenario.maxTurns,
     status: 'active',

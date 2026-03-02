@@ -180,6 +180,7 @@ export interface ScenarioDefinition {
   name: string;
   briefing: string;
   role: string;
+  adversaryProfileId: string;
   maxTurns: number;
   environment: 'generic' | 'coastal' | 'arctic' | 'dense_city' | 'industrial';
   pressureCurve: number[];
@@ -259,7 +260,6 @@ export interface TurnHistoryEntry {
 export interface GameState {
   id: string;
   scenarioId: string;
-  rivalArchetypeId: string;
   turn: number;
   maxTurns: number;
   status: 'active' | 'completed';
@@ -505,7 +505,6 @@ export interface ChatMessage {
 export interface EpisodeView {
   episodeId: string;
   scenarioId: string;
-  rivalArchetypeId: string;
   status: 'active' | 'completed';
   turn: number;
   maxTurns: number;
@@ -536,7 +535,6 @@ export interface BootstrapPayload {
 export interface StartEpisodeRequest {
   profileId: string;
   scenarioId: string;
-  archetypeId: string;
   seed?: string;
   timerMode?: TimerMode;
 }

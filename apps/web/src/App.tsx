@@ -12,9 +12,8 @@ import {
   submitInaction
 } from './api';
 import { ActionCards } from './components/ActionCards';
+import { AdvisorPanel } from './components/AdvisorPanel';
 import { BriefingPanel } from './components/BriefingPanel';
-import { IntelPanel } from './components/IntelPanel';
-import { MeterDashboard } from './components/MeterDashboard';
 import { ReportView } from './components/ReportView';
 import { StartScreen } from './components/StartScreen';
 
@@ -79,7 +78,11 @@ const App = () => {
     if (!reference || !episode) {
       return '';
     }
-    return reference.archetypes.find((entry) => entry.id === episode.rivalArchetypeId)?.name ?? episode.rivalArchetypeId;
+    const scenario = reference.scenarios.find((entry) => entry.id === episode.scenarioId);
+    if (!scenario) {
+      return 'Scenario-embedded';
+    }
+    return reference.archetypes.find((entry) => entry.id === scenario.adversaryProfileId)?.name ?? 'Scenario-embedded';
   }, [reference, episode]);
 
   const currentBeat = useMemo(() => {
@@ -101,7 +104,6 @@ const App = () => {
   const handleStart = async (input: {
     codename: string;
     scenarioId: string;
-    archetypeId: string;
     seed?: string;
     timerMode: 'standard' | 'relaxed' | 'off';
   }): Promise<void> => {
@@ -116,13 +118,11 @@ const App = () => {
       const payload: {
         profileId: string;
         scenarioId: string;
-        archetypeId: string;
         seed?: string;
         timerMode: 'standard' | 'relaxed' | 'off';
       } = {
         profileId: profile.profileId,
         scenarioId: input.scenarioId,
-        archetypeId: input.archetypeId,
         timerMode: input.timerMode
       };
 
@@ -306,7 +306,7 @@ const App = () => {
         </div>
         <div className="text-right">
           <p className="text-sm text-textMain">Commander: {codename || profileId?.slice(0, 8) || 'Unknown'}</p>
-          <p className="text-xs text-textMuted">Rival Profile: {currentArchetypeName}</p>
+          <p className="text-xs text-textMuted">Adversary Model: {currentArchetypeName}</p>
           <p className="text-xs text-textMuted">Timer Mode: {episode.timerMode}</p>
         </div>
       </header>
@@ -367,19 +367,7 @@ const App = () => {
           imageAsset={episode.imageAsset}
           turnDebrief={episode.turnDebrief}
         />
-
-        <div className="space-y-4">
-          <MeterDashboard
-            meters={episode.meters}
-            previousMeters={episode.recentTurn?.meterBefore}
-            visibleRanges={episode.visibleRanges}
-          />
-          <IntelPanel
-            ranges={episode.visibleRanges}
-            intelQuality={episode.intelQuality}
-            turn={episode.turn}
-          />
-        </div>
+        <AdvisorPanel beat={currentBeat} />
       </section>
 
       {showTakeNoAction ? (

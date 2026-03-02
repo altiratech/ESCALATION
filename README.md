@@ -39,14 +39,14 @@ npm run dev
 - One 10-turn scenario
 - 6 core visible meters + hidden latent variables
 - 12 player actions with immediate, probabilistic, and delayed effects
-- 3 rival archetypes with belief-driven policy
+- Scenario-embedded adversary profile with belief-driven policy (no player-selected rival archetype)
 - Beat-graph-driven narrative traversal (18-beat authored graph for Northern Strait)
 - Deterministic Turn Debrief strip (2-3 causal lines per turn, fog-of-war preserving)
 - Timed-beat runtime with ambient countdown, urgency thresholds, timeout-to-inaction branching, and per-beat/episode timer extension controls
 - Timer accessibility mode at episode start (`standard`, `relaxed`, `off`) with explicit `Take No Action` path in `off` mode
 - Beat/timer analytics metadata persisted per run (`beat_progress` table: transitions, timeout/explicit inaction, extension usage)
 - Narrative candidate pack integrated into content pipeline (`narrative_candidates_v2.json`) for timed pressure text, debrief variants, and post-game reveal overlays
-- Fog-of-war lite intel ranges
+- Narrative-first advisor panel sourced from beat-authored guidance (dashboard/intel meter panes removed)
 - End-of-episode post-game intelligence report with Full Causality sections (hidden deltas, adversary logic summary, unseen events, branch alternatives, advisor retrospectives)
 
 ## API Surface

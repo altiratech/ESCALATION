@@ -467,7 +467,7 @@ const buildAdversaryLogicSummary = (
         ? 'favored controlled de-escalation windows'
         : 'oscillated between escalation and restraint';
 
-  const archetypeLabel = archetype?.name ?? state.rivalArchetypeId;
+  const archetypeLabel = archetype?.name ?? 'Scenario-embedded adversary model';
   return `${archetypeLabel} ${stance}. Rival action mix was ${escalatoryTurns}/${rivalActions.length} escalatory-coded turns, with mean threshold belief ${avgThreshold.toFixed(2)}, bluff belief ${avgBluff.toFixed(2)}, and humiliation pressure ${avgHumiliation.toFixed(2)}.`;
 };
 

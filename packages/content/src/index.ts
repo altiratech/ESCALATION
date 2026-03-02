@@ -131,6 +131,11 @@ export const getArchetype = (archetypeId: string): RivalArchetype => {
   return archetype;
 };
 
+export const getScenarioArchetype = (scenarioId: string): RivalArchetype => {
+  const scenario = getScenario(scenarioId);
+  return getArchetype(scenario.adversaryProfileId);
+};
+
 export const getAction = (actionId: string): ActionDefinition => {
   const action = actions.find((entry) => entry.id === actionId);
   if (!action) {

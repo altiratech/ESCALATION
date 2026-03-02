@@ -9,7 +9,6 @@ interface StartScreenProps {
   onStart: (input: {
     codename: string;
     scenarioId: string;
-    archetypeId: string;
     seed?: string;
     timerMode: 'standard' | 'relaxed' | 'off';
   }) => Promise<void>;
@@ -22,28 +21,28 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
   const [seed, setSeed] = useState(randomSeed());
 
   const defaultScenario = reference.scenarios[0]?.id ?? '';
-  const defaultArchetype = reference.archetypes[0]?.id ?? '';
 
   const [scenarioId, setScenarioId] = useState(defaultScenario);
-  const [archetypeId, setArchetypeId] = useState(defaultArchetype);
   const [timerMode, setTimerMode] = useState<'standard' | 'relaxed' | 'off'>('standard');
 
-  const selectedArchetype = useMemo(
-    () => reference.archetypes.find((entry) => entry.id === archetypeId),
-    [reference.archetypes, archetypeId]
+  const selectedScenario = useMemo(
+    () => reference.scenarios.find((entry) => entry.id === scenarioId),
+    [reference.scenarios, scenarioId]
+  );
+  const selectedAdversaryProfile = useMemo(
+    () => reference.archetypes.find((entry) => entry.id === selectedScenario?.adversaryProfileId),
+    [reference.archetypes, selectedScenario?.adversaryProfileId]
   );
 
   const handleStart = async (): Promise<void> => {
     const payload: {
       codename: string;
       scenarioId: string;
-      archetypeId: string;
       seed?: string;
       timerMode: 'standard' | 'relaxed' | 'off';
     } = {
       codename,
       scenarioId,
-      archetypeId,
       timerMode
     };
 
@@ -111,21 +110,12 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
                 ))}
               </select>
             </label>
-
-            <label className="flex flex-col gap-2 text-sm">
-              <span className="label">Rival Archetype</span>
-              <select
-                className="rounded-md border border-borderTone bg-panelRaised px-3 py-2 text-textMain focus:border-accent focus:outline-none"
-                value={archetypeId}
-                onChange={(event) => setArchetypeId(event.target.value)}
-              >
-                {reference.archetypes.map((archetype) => (
-                  <option key={archetype.id} value={archetype.id}>
-                    {archetype.name}
-                  </option>
-                ))}
-              </select>
-            </label>
+            <div className="flex flex-col gap-2 text-sm">
+              <span className="label">Adversary Profile</span>
+              <div className="rounded-md border border-borderTone bg-panelRaised px-3 py-2 text-textMain">
+                {selectedAdversaryProfile?.name ?? 'Scenario-embedded'}
+              </div>
+            </div>
           </div>
 
           <label className="flex flex-col gap-2 text-sm">
@@ -147,21 +137,21 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
             type="button"
             className="mt-2 rounded-md border border-accent bg-accent/10 px-5 py-3 text-sm font-semibold tracking-wide text-accent transition hover:bg-accent/20 disabled:cursor-not-allowed disabled:opacity-45"
             onClick={handleStart}
-            disabled={loading || !codename.trim() || !scenarioId || !archetypeId}
+            disabled={loading || !codename.trim() || !scenarioId}
           >
             {loading ? 'Initializing Theater...' : 'Begin Episode'}
           </button>
         </div>
 
         <aside className="card bg-panelRaised p-5">
-          <p className="label">Rival Profile</p>
-          <h2 className="mt-3 font-display text-2xl text-textMain">{selectedArchetype?.name}</h2>
-          <p className="mt-2 text-sm leading-relaxed text-textMuted">{selectedArchetype?.description}</p>
+          <p className="label">Adversary Model</p>
+          <h2 className="mt-3 font-display text-2xl text-textMain">{selectedAdversaryProfile?.name ?? 'Scenario-embedded profile'}</h2>
+          <p className="mt-2 text-sm leading-relaxed text-textMuted">{selectedAdversaryProfile?.description ?? 'Rival behavior is now fixed by scenario and no longer selectable at start.'}</p>
           <ul className="mt-4 space-y-2 text-xs text-textMuted">
-            <li>Risk Tolerance: {Math.round((selectedArchetype?.riskTolerance ?? 0) * 100)}%</li>
-            <li>Escalation Threshold: {Math.round((selectedArchetype?.escalationThreshold ?? 0) * 100)}%</li>
-            <li>Covert Preference: {Math.round((selectedArchetype?.covertPreference ?? 0) * 100)}%</li>
-            <li>Ego Sensitivity: {Math.round((selectedArchetype?.egoSensitivity ?? 0) * 100)}%</li>
+            <li>Risk Tolerance: {Math.round((selectedAdversaryProfile?.riskTolerance ?? 0) * 100)}%</li>
+            <li>Escalation Threshold: {Math.round((selectedAdversaryProfile?.escalationThreshold ?? 0) * 100)}%</li>
+            <li>Covert Preference: {Math.round((selectedAdversaryProfile?.covertPreference ?? 0) * 100)}%</li>
+            <li>Ego Sensitivity: {Math.round((selectedAdversaryProfile?.egoSensitivity ?? 0) * 100)}%</li>
           </ul>
         </aside>
       </section>

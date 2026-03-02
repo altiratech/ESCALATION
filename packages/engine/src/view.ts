@@ -34,7 +34,6 @@ export const toEpisodeView = (
   return {
     episodeId: state.id,
     scenarioId: state.scenarioId,
-    rivalArchetypeId: state.rivalArchetypeId,
     status: state.status,
     turn: state.turn,
     maxTurns: state.maxTurns,

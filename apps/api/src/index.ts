@@ -8,9 +8,9 @@ import {
   archetypes,
   getDebriefVariants,
   getAdvisorRetrospectivesForOutcome,
-  getArchetype,
   getCausalityRevealForOutcome,
   getScenario,
+  getScenarioArchetype,
   images,
   narrativeCandidates,
   playerActions,
@@ -230,7 +230,6 @@ app.post('/api/profiles', async (context) => {
 const startSchema = z.object({
   profileId: z.string().uuid(),
   scenarioId: z.string().min(1),
-  archetypeId: z.string().min(1),
   seed: z.string().min(1).max(64).optional(),
   timerMode: z.enum(['standard', 'relaxed', 'off']).optional()
 });
@@ -238,7 +237,7 @@ const startSchema = z.object({
 app.post('/api/episodes/start', async (context) => {
   const payload = startSchema.parse(await context.req.json());
   const scenario = getScenario(payload.scenarioId);
-  const archetype = getArchetype(payload.archetypeId);
+  const archetype = getScenarioArchetype(scenario.id);
   const episodeId = crypto.randomUUID();
   const seed = payload.seed ?? episodeId;
 
@@ -358,7 +357,7 @@ app.post('/api/episodes/:episodeId/actions', async (context) => {
   }
 
   const scenario = getScenario(state.scenarioId);
-  const archetype = getArchetype(state.rivalArchetypeId);
+  const archetype = getScenarioArchetype(scenario.id);
   const engineContext = {
     scenario,
     archetype,
@@ -514,7 +513,7 @@ app.post('/api/episodes/:episodeId/inaction', async (context) => {
   }
 
   const scenario = getScenario(state.scenarioId);
-  const archetype = getArchetype(state.rivalArchetypeId);
+  const archetype = getScenarioArchetype(scenario.id);
   const engineContext = {
     scenario,
     archetype,
@@ -705,7 +704,7 @@ app.get('/api/episodes/:episodeId/report', async (context) => {
   }
 
   const scenario = getScenario(episode.scenarioId);
-  const archetype = getArchetype(episode.rivalArchetypeId);
+  const archetype = getScenarioArchetype(scenario.id);
   const narrativeOptions = episode.outcome
     ? {
         causalityNarrative: getCausalityRevealForOutcome(episode.outcome),
