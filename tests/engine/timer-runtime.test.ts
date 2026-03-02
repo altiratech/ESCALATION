@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import { actions, archetypes, images, scenarios } from '@wargames/content';
-import { extendActiveCountdown, initializeGameState, resolveInactionTurn } from '@wargames/engine';
+import { extendActiveCountdown, initializeGameState, resolveInactionTurn, resolveTurn } from '@wargames/engine';
 
 const scenario = scenarios[0];
 const archetype = archetypes[0];
@@ -122,5 +122,43 @@ describe('timer runtime behavior', () => {
 
     expect(nextState.currentBeatId).toBe('ns_open_war');
     expect(nextState.activeCountdown).toBeNull();
+  });
+
+  it('starts countdown when gameplay transitions into a timed beat', () => {
+    if (!scenario || !archetype) {
+      throw new Error('Test content unavailable');
+    }
+
+    const state = initializeGameState('timer-transition', 'TIMER-TRANSITION', {
+      scenario,
+      archetype,
+      actions,
+      images
+    });
+
+    state.currentBeatId = 'ns_alliance_split';
+    state.turn = 7;
+    state.timerMode = 'standard';
+    state.activeCountdown = null;
+    state.meters.escalationIndex = 0;
+    state.meters.allianceTrust = 100;
+    state.meters.economicStability = 100;
+
+    const selectedActionId = state.offeredActionIds[0];
+    if (!selectedActionId) {
+      throw new Error('Expected at least one offered action');
+    }
+
+    const { nextState } = resolveTurn(state, selectedActionId, {
+      scenario,
+      archetype,
+      actions,
+      images
+    });
+
+    expect(nextState.currentBeatId).toBe('ns_crisis_window');
+    expect(nextState.activeCountdown).not.toBeNull();
+    expect(nextState.activeCountdown?.beatId).toBe('ns_crisis_window');
+    expect(nextState.activeCountdown?.seconds).toBe(90);
   });
 });

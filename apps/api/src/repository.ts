@@ -3,11 +3,12 @@ import { and, desc, eq } from 'drizzle-orm';
 import type { GameState, PostGameReport, TurnResolution } from '@wargames/shared-types';
 
 import type { Database } from './db';
-import { episodes, profiles, reports, scores, turnLogs } from './schema';
+import { beatProgress, episodes, profiles, reports, scores, turnLogs } from './schema';
 
 const randomId = (): string => crypto.randomUUID();
 
 const toJson = (value: unknown): string => JSON.stringify(value);
+const toFlag = (value: boolean): number => (value ? 1 : 0);
 
 export interface EpisodeRecord {
   id: string;
@@ -136,6 +137,42 @@ export const insertTurnLog = async (
     imageId: resolution.selectedImageId,
     rngTraceJson: toJson(resolution.rngTrace)
   }).onConflictDoNothing();
+};
+
+export type BeatTransitionSource = 'start' | 'action' | 'timeout' | 'explicit' | 'extend';
+
+export const insertBeatProgress = async (
+  db: Database,
+  payload: {
+    episodeId: string;
+    turnNumber: number;
+    beatIdBefore: string;
+    beatIdAfter: string;
+    transitionSource: BeatTransitionSource;
+    transitioned: boolean;
+    timerMode: 'standard' | 'relaxed' | 'off';
+    timerSeconds: number | null;
+    timerSecondsRemaining: number | null;
+    timerExpired: boolean;
+    extendUsed: boolean;
+    extendTimerUsesRemaining: number;
+  }
+): Promise<void> => {
+  await db.insert(beatProgress).values({
+    id: randomId(),
+    episodeId: payload.episodeId,
+    turnNumber: payload.turnNumber,
+    beatIdBefore: payload.beatIdBefore,
+    beatIdAfter: payload.beatIdAfter,
+    transitionSource: payload.transitionSource,
+    transitioned: toFlag(payload.transitioned),
+    timerMode: payload.timerMode,
+    timerSeconds: payload.timerSeconds,
+    timerSecondsRemaining: payload.timerSecondsRemaining,
+    timerExpired: toFlag(payload.timerExpired),
+    extendUsed: toFlag(payload.extendUsed),
+    extendTimerUsesRemaining: payload.extendTimerUsesRemaining
+  });
 };
 
 export const upsertReport = async (

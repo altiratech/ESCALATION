@@ -44,6 +44,7 @@ npm run dev
 - Deterministic Turn Debrief strip (2-3 causal lines per turn, fog-of-war preserving)
 - Timed-beat runtime with ambient countdown, urgency thresholds, timeout-to-inaction branching, and per-beat/episode timer extension controls
 - Timer accessibility mode at episode start (`standard`, `relaxed`, `off`) with explicit `Take No Action` path in `off` mode
+- Beat/timer analytics metadata persisted per run (`beat_progress` table: transitions, timeout/explicit inaction, extension usage)
 - Fog-of-war lite intel ranges
 - End-of-episode post-game intelligence report
 
@@ -163,6 +164,7 @@ npx wrangler d1 create escalation-db
 ```bash
 cd apps/api
 npx wrangler d1 execute escalation-db --remote --file=../../db/migrations/0001_init.sql
+npx wrangler d1 execute escalation-db --remote --file=../../db/migrations/0002_tracking_analytics.sql
 npx wrangler d1 execute escalation-db --remote --file=../../db/seed/seed.sql
 ```
 

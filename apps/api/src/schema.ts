@@ -37,6 +37,58 @@ export const turnLogs = sqliteTable('turn_logs', {
   createdAt: text('created_at').notNull().default('CURRENT_TIMESTAMP')
 });
 
+export const beatProgress = sqliteTable('beat_progress', {
+  id: text('id').primaryKey(),
+  episodeId: text('episode_id').notNull(),
+  turnNumber: int('turn_number').notNull(),
+  beatIdBefore: text('beat_id_before').notNull(),
+  beatIdAfter: text('beat_id_after').notNull(),
+  transitionSource: text('transition_source').notNull(),
+  transitioned: int('transitioned').notNull().default(0),
+  timerMode: text('timer_mode').notNull(),
+  timerSeconds: int('timer_seconds'),
+  timerSecondsRemaining: int('timer_seconds_remaining'),
+  timerExpired: int('timer_expired').notNull().default(0),
+  extendUsed: int('extend_used').notNull().default(0),
+  extendTimerUsesRemaining: int('extend_timer_uses_remaining').notNull(),
+  createdAt: text('created_at').notNull().default('CURRENT_TIMESTAMP')
+});
+
+export const chatMessages = sqliteTable('chat_messages', {
+  id: text('id').primaryKey(),
+  episodeId: text('episode_id').notNull(),
+  messageId: text('message_id').notNull(),
+  role: text('role').notNull(),
+  content: text('content').notNull(),
+  turnNumber: int('turn_number').notNull(),
+  timestamp: int('timestamp').notNull(),
+  advisorId: text('advisor_id'),
+  createdAt: text('created_at').notNull().default('CURRENT_TIMESTAMP')
+});
+
+export const advisorState = sqliteTable('advisor_state', {
+  id: text('id').primaryKey(),
+  episodeId: text('episode_id').notNull(),
+  advisorId: text('advisor_id').notNull(),
+  turnNumber: int('turn_number').notNull(),
+  mood: text('mood').notNull(),
+  lastSuggestion: text('last_suggestion'),
+  lastReaction: text('last_reaction'),
+  createdAt: text('created_at').notNull().default('CURRENT_TIMESTAMP')
+});
+
+export const llmCalls = sqliteTable('llm_calls', {
+  id: text('id').primaryKey(),
+  episodeId: text('episode_id').notNull(),
+  turnNumber: int('turn_number').notNull(),
+  jobType: text('job_type').notNull(),
+  model: text('model').notNull(),
+  inputTokens: int('input_tokens').notNull(),
+  outputTokens: int('output_tokens').notNull(),
+  latencyMs: int('latency_ms').notNull(),
+  createdAt: text('created_at').notNull().default('CURRENT_TIMESTAMP')
+});
+
 export const reports = sqliteTable('reports', {
   episodeId: text('episode_id').primaryKey(),
   reportJson: text('report_json').notNull(),

@@ -8,7 +8,7 @@
     "build": "tsc -p tsconfig.json --noEmit",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "deploy": "wrangler deploy",
-    "db:migrate": "wrangler d1 execute escalation-db --local --file=../../db/migrations/0001_init.sql",
+    "db:migrate": "wrangler d1 execute escalation-db --local --file=../../db/migrations/0001_init.sql && wrangler d1 execute escalation-db --local --file=../../db/migrations/0002_tracking_analytics.sql",
     "db:seed": "wrangler d1 execute escalation-db --local --file=../../db/seed/seed.sql"
   },
   "dependencies": {

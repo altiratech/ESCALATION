@@ -24,11 +24,13 @@ import type {
 import { createDb, ensureSchema, type Env } from './db';
 import { createPolisher } from './polisher';
 import {
+  type BeatTransitionSource,
   createEpisode,
   findOrCreateProfile,
   getEpisodeState,
   getEpisodeStateById,
   getReport,
+  insertBeatProgress,
   insertTurnLog,
   updateEpisodeStateOptimistic,
   upsertReport
@@ -71,6 +73,26 @@ const computeCompositeScore = (view: EpisodeView): number => {
   return Math.round(baseline + (view.outcome ? outcomeBonus[view.outcome] ?? 0 : 0));
 };
 
+const countdownTelemetry = (
+  countdown: { seconds: number; expiresAt: number } | null | undefined,
+  now: number
+): { timerSeconds: number | null; timerSecondsRemaining: number | null; timerExpired: boolean } => {
+  if (!countdown) {
+    return {
+      timerSeconds: null,
+      timerSecondsRemaining: null,
+      timerExpired: false
+    };
+  }
+
+  const remaining = Math.max(0, Math.ceil((countdown.expiresAt - now) / 1000));
+  return {
+    timerSeconds: countdown.seconds,
+    timerSecondsRemaining: remaining,
+    timerExpired: remaining === 0
+  };
+};
+
 const codenameSchema = z.object({ codename: z.string().min(2).max(40) });
 
 app.post('/api/profiles', async (context) => {
@@ -109,6 +131,20 @@ app.post('/api/episodes/start', async (context) => {
     archetypeId: archetype.id,
     seed,
     state
+  });
+  await insertBeatProgress(db, {
+    episodeId,
+    turnNumber: state.turn,
+    beatIdBefore: state.currentBeatId,
+    beatIdAfter: state.currentBeatId,
+    transitionSource: 'start',
+    transitioned: false,
+    timerMode: state.timerMode,
+    timerSeconds: state.activeCountdown?.seconds ?? null,
+    timerSecondsRemaining: state.activeCountdown?.secondsRemaining ?? null,
+    timerExpired: false,
+    extendUsed: false,
+    extendTimerUsesRemaining: state.extendTimerUsesRemaining
   });
 
   const view = toEpisodeView(state, actionMap, imageMap);
@@ -164,6 +200,7 @@ app.post('/api/episodes/:episodeId/actions', async (context) => {
   }
 
   const state = JSON.parse(episodeRecord.stateJson);
+  const requestTimestamp = Date.now();
 
   if (state.status === 'completed') {
     const completedView = toEpisodeView(state, actionMap, imageMap);
@@ -195,7 +232,17 @@ app.post('/api/episodes/:episodeId/actions', async (context) => {
   };
   const polisher = createPolisher(context.env);
 
-  const finalizeResolvedTurn = async (nextState: typeof state, resolution: ReturnType<typeof resolveTurn>['resolution']) => {
+  const finalizeResolvedTurn = async (
+    nextState: typeof state,
+    resolution: ReturnType<typeof resolveTurn>['resolution'],
+    analytics: {
+      source: BeatTransitionSource;
+      timerSeconds: number | null;
+      timerSecondsRemaining: number | null;
+      timerExpired: boolean;
+      extendUsed: boolean;
+    }
+  ) => {
     const updated = await updateEpisodeStateOptimistic(db, {
       episodeId,
       expectedTurn: payload.expectedTurn,
@@ -215,6 +262,20 @@ app.post('/api/episodes/:episodeId/actions', async (context) => {
     }
 
     await insertTurnLog(db, episodeId, resolution);
+    await insertBeatProgress(db, {
+      episodeId,
+      turnNumber: resolution.turn,
+      beatIdBefore: resolution.beatIdBefore,
+      beatIdAfter: resolution.beatIdAfter,
+      transitionSource: analytics.source,
+      transitioned: resolution.beatIdBefore !== resolution.beatIdAfter,
+      timerMode: nextState.timerMode,
+      timerSeconds: analytics.timerSeconds,
+      timerSecondsRemaining: analytics.timerSecondsRemaining,
+      timerExpired: analytics.timerExpired,
+      extendUsed: analytics.extendUsed,
+      extendTimerUsesRemaining: nextState.extendTimerUsesRemaining
+    });
 
     if (nextState.status === 'completed' && nextState.outcome) {
       const report = buildPostGameReport(nextState, actionMap);
@@ -233,12 +294,12 @@ app.post('/api/episodes/:episodeId/actions', async (context) => {
     });
   };
 
-  if (state.activeCountdown && Date.now() >= state.activeCountdown.expiresAt) {
+  if (state.activeCountdown && requestTimestamp >= state.activeCountdown.expiresAt) {
     let timeoutResult;
     try {
       timeoutResult = resolveInactionTurn(state, engineContext, {
         source: 'timeout',
-        now: Date.now()
+        now: requestTimestamp
       });
     } catch (error) {
       return context.json({
@@ -246,9 +307,16 @@ app.post('/api/episodes/:episodeId/actions', async (context) => {
       }, 400);
     }
 
-    return finalizeResolvedTurn(timeoutResult.nextState, timeoutResult.resolution);
+    return finalizeResolvedTurn(timeoutResult.nextState, timeoutResult.resolution, {
+      source: 'timeout',
+      timerSeconds: state.activeCountdown.seconds,
+      timerSecondsRemaining: 0,
+      timerExpired: true,
+      extendUsed: false
+    });
   }
 
+  const preActionTimer = countdownTelemetry(state.activeCountdown, requestTimestamp);
   let result;
   try {
     result = resolveTurn(state, payload.actionId, engineContext);
@@ -258,7 +326,13 @@ app.post('/api/episodes/:episodeId/actions', async (context) => {
     }, 400);
   }
 
-  return finalizeResolvedTurn(result.nextState, result.resolution);
+  return finalizeResolvedTurn(result.nextState, result.resolution, {
+    source: 'action',
+    timerSeconds: preActionTimer.timerSeconds,
+    timerSecondsRemaining: preActionTimer.timerSecondsRemaining,
+    timerExpired: false,
+    extendUsed: false
+  });
 });
 
 app.post('/api/episodes/:episodeId/inaction', async (context) => {
@@ -272,6 +346,7 @@ app.post('/api/episodes/:episodeId/inaction', async (context) => {
   }
 
   const state = JSON.parse(episodeRecord.stateJson);
+  const requestTimestamp = Date.now();
 
   if (state.status === 'completed') {
     return context.json({
@@ -300,11 +375,12 @@ app.post('/api/episodes/:episodeId/inaction', async (context) => {
     images
   };
 
+  const preInactionTimer = countdownTelemetry(state.activeCountdown, requestTimestamp);
   let result;
   try {
     result = resolveInactionTurn(state, engineContext, {
       source: payload.source,
-      now: Date.now()
+      now: requestTimestamp
     });
   } catch (error) {
     return context.json({
@@ -331,6 +407,20 @@ app.post('/api/episodes/:episodeId/inaction', async (context) => {
   }
 
   await insertTurnLog(db, episodeId, result.resolution);
+  await insertBeatProgress(db, {
+    episodeId,
+    turnNumber: result.resolution.turn,
+    beatIdBefore: result.resolution.beatIdBefore,
+    beatIdAfter: result.resolution.beatIdAfter,
+    transitionSource: payload.source,
+    transitioned: result.resolution.beatIdBefore !== result.resolution.beatIdAfter,
+    timerMode: result.nextState.timerMode,
+    timerSeconds: preInactionTimer.timerSeconds,
+    timerSecondsRemaining: payload.source === 'timeout' ? 0 : preInactionTimer.timerSecondsRemaining,
+    timerExpired: payload.source === 'timeout',
+    extendUsed: false,
+    extendTimerUsesRemaining: result.nextState.extendTimerUsesRemaining
+  });
 
   if (result.nextState.status === 'completed' && result.nextState.outcome) {
     const report = buildPostGameReport(result.nextState, actionMap);
@@ -362,6 +452,7 @@ app.post('/api/episodes/:episodeId/countdown/extend', async (context) => {
   }
 
   const state = JSON.parse(episodeRecord.stateJson);
+  const requestTimestamp = Date.now();
 
   if (state.status === 'completed') {
     return context.json({
@@ -383,7 +474,7 @@ app.post('/api/episodes/:episodeId/countdown/extend', async (context) => {
 
   let nextState;
   try {
-    nextState = extendActiveCountdown(state, Date.now());
+    nextState = extendActiveCountdown(state, requestTimestamp);
   } catch (error) {
     return context.json({
       message: error instanceof Error ? error.message : 'Failed to extend countdown.'
@@ -407,6 +498,21 @@ app.post('/api/episodes/:episodeId/countdown/extend', async (context) => {
       episode: toEpisodeView(latest, actionMap, imageMap)
     });
   }
+
+  await insertBeatProgress(db, {
+    episodeId,
+    turnNumber: state.turn,
+    beatIdBefore: state.currentBeatId,
+    beatIdAfter: state.currentBeatId,
+    transitionSource: 'extend',
+    transitioned: false,
+    timerMode: nextState.timerMode,
+    timerSeconds: nextState.activeCountdown?.seconds ?? null,
+    timerSecondsRemaining: nextState.activeCountdown?.secondsRemaining ?? null,
+    timerExpired: false,
+    extendUsed: true,
+    extendTimerUsesRemaining: nextState.extendTimerUsesRemaining
+  });
 
   const view = toEpisodeView(nextState, actionMap, imageMap);
   const polisher = createPolisher(context.env);

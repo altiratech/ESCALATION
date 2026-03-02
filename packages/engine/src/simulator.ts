@@ -1,5 +1,6 @@
 import type {
   ActionDefinition,
+  ActiveCountdown,
   BeatNode,
   GameState,
   ImageAsset,
@@ -39,6 +40,28 @@ export const buildActionMap = (actions: ActionDefinition[]): Map<string, ActionD
   return new Map(actions.map((action) => [action.id, action]));
 };
 
+const buildCountdownForBeat = (
+  beat: BeatNode,
+  timerMode: TimerMode,
+  now = Date.now()
+): ActiveCountdown | null => {
+  if (!beat.decisionWindow || timerMode === 'off') {
+    return null;
+  }
+
+  const seconds = Math.round(beat.decisionWindow.seconds * (timerMode === 'relaxed' ? 1.5 : 1));
+  return {
+    beatId: beat.id,
+    seconds,
+    secondsRemaining: seconds,
+    expiresAt: now + (seconds * 1000),
+    inactionBeatId: beat.decisionWindow.inactionBeatId,
+    inactionDeltas: beat.decisionWindow.inactionDeltas,
+    inactionNarrative: beat.decisionWindow.inactionNarrative,
+    extendsUsed: 0
+  };
+};
+
 export const initializeGameState = (
   episodeId: string,
   seed: string,
@@ -53,21 +76,7 @@ export const initializeGameState = (
   const timerMode = options.timerMode ?? 'standard';
   const extendTimerUsesRemaining = timerMode === 'off' ? 0 : Math.max(2, timedBeatCount);
 
-  const openingCountdown =
-    openingBeat.decisionWindow && timerMode !== 'off'
-      ? {
-          beatId: openingBeat.id,
-          seconds: Math.round(openingBeat.decisionWindow.seconds * (timerMode === 'relaxed' ? 1.5 : 1)),
-          secondsRemaining: Math.round(openingBeat.decisionWindow.seconds * (timerMode === 'relaxed' ? 1.5 : 1)),
-          expiresAt:
-            Date.now() +
-            Math.round(openingBeat.decisionWindow.seconds * (timerMode === 'relaxed' ? 1.5 : 1)) * 1000,
-          inactionBeatId: openingBeat.decisionWindow.inactionBeatId,
-          inactionDeltas: openingBeat.decisionWindow.inactionDeltas,
-          inactionNarrative: openingBeat.decisionWindow.inactionNarrative,
-          extendsUsed: 0
-        }
-      : null;
+  const openingCountdown = buildCountdownForBeat(openingBeat, timerMode);
 
   const baseState: GameState = {
     id: episodeId,
@@ -336,6 +345,7 @@ export const resolveInactionTurn = (
     state.outcome = targetBeat.terminalOutcome ?? evaluateOutcome(state);
   } else {
     state.turn += 1;
+    state.activeCountdown = buildCountdownForBeat(targetBeat, state.timerMode);
     state.offeredActionIds = selectPlayerActionOptions(state, context.scenario, actionMap, rng);
   }
 
@@ -497,6 +507,7 @@ export const resolveTurn = (
     state.outcome = traversal.terminalOutcome ?? evaluateOutcome(state);
   } else {
     state.turn += 1;
+    state.activeCountdown = buildCountdownForBeat(activeBeat, state.timerMode);
     state.offeredActionIds = selectPlayerActionOptions(state, context.scenario, actionMap, rng);
   }
 

@@ -415,3 +415,55 @@ Thread scope limitation: This thread ran under `Code/active/Wargames` and could 
 - Add schema + repository support for `beat_progress` first.
 - Persist timer usage metadata (mode, timeout vs explicit inaction, extension usage) per turn.
 - Re-run `npm run lint` and `npm run ci:phase1`.
+
+## 10) Session Update — 2026-03-02 (Persistence + analytics milestone)
+
+### 10.1 What changed
+
+1. Added D1 schema/migration support for phase-tracking tables:
+- `beat_progress`
+- `chat_messages`
+- `advisor_state`
+- `llm_calls`
+
+2. Implemented timer/beat analytics writes (API):
+- On episode start (`source=start`).
+- On normal action turn resolution (`source=action`).
+- On timeout inaction auto-resolution (`source=timeout`).
+- On explicit inaction (`source=explicit`).
+- On timer extension (`source=extend`).
+
+3. `beat_progress` now captures:
+- `beat_id_before`, `beat_id_after`, `transition_source`, `transitioned`
+- `timer_mode`, `timer_seconds`, `timer_seconds_remaining`, `timer_expired`
+- `extend_used`, `extend_timer_uses_remaining`
+
+4. Fixed timed-beat runtime edge:
+- countdown now initializes when advancing turns in already-timed beats (not only on beat transition), preventing missing countdown state on certain turn paths.
+
+5. Updated docs/tooling:
+- Added migration file `db/migrations/0002_tracking_analytics.sql`.
+- Updated API workspace migrate command to run both migrations.
+- Updated README migration instructions and analytics notes.
+
+### 10.2 Verification status
+
+1. `npm run lint` passed.
+2. `npm run ci:phase1` passed.
+3. Monte Carlo concentration warnings unchanged (`all_dove`, warning-only policy).
+
+### 10.3 Remaining spec drift
+
+1. Rival archetype removal still open.
+2. Dashboard/Intel panel removal still open.
+3. Full post-game Full Causality Report depth still open.
+4. YAML content pipeline decision still open.
+5. New tables are now present, but `chat_messages` / `advisor_state` / `llm_calls` are currently schema-scaffolded (not yet fully populated by feature flows).
+
+### 10.4 Exact next action
+
+1. Implement Full Causality Report depth:
+- hidden deltas with sources
+- adversary threshold logic explanations
+- unseen system events surfaced post-game
+- branch-not-taken summaries at pivotal turns
