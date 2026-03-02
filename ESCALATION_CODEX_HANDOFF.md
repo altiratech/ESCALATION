@@ -638,3 +638,56 @@ Thread scope limitation: This thread ran under `Code/active/Wargames` and could 
 1. Commit this operational hardening pass and push `main` (including outstanding `e1731fe` ancestry).
 2. Confirm GitHub secrets/vars are set and run first deploy workflow.
 3. Implement next approved structural item: stronger atomic analytics writes or timer extension race tightening beyond optimistic state-json guard (per Round-2 structural queue).
+
+## 14) Session Update — 2026-03-02 (Narrative v2 integration + deterministic debrief selection)
+
+### 14.1 What changed
+
+1. Integrated Claude narrative v2 pack into runtime pipeline:
+- Added `packages/content/data/narrative_candidates_v2.json` to repo and switched content loader to v2.
+- Added schema normalization in `packages/content/src/index.ts` so runtime accepts either:
+  - canonical `category` + `entries`
+  - alternate `name` + `candidates`
+- Resulting runtime object is normalized to the typed `NarrativeCandidatesPack` contract.
+
+2. Reconciled advisor-line precedence deterministically:
+- Implemented explicit merge rule in content loader:
+  - scenario beat `advisorLines` = baseline source of truth
+  - pack `advisor_lines` = appended only when non-duplicate
+- Merged scenarios are now exported directly from content package, preventing drift between embedded and pack-level advisor text.
+
+3. Implemented debrief variant selection logic:
+- Added `getDebriefVariants()` content helper and threaded variants through API -> engine context.
+- `buildTurnDebrief(...)` now supports deterministic template selection from `debrief_variants` by evaluating turn/phase/meter/action/event conditions.
+- Kept deterministic fallback templates if no variant condition matches.
+- Preserved non-negotiable rule: debrief still never mutates state and uses rival-only token channel for secondary effects.
+
+4. Added coverage/tests and updated docs:
+- `tests/engine/debrief.test.ts`: verifies variant selection + rival-token attribution.
+- `tests/engine/narrative-candidates.test.ts`: verifies v2 pressure text thresholds + advisor line merge behavior.
+- `README.md` now points narrative extension docs to `narrative_candidates_v2.json`.
+- Added continuity artifacts from Claude into repo root:
+  - `CLAUDE_NARRATIVE_PACK_v2.md`
+  - `CLAUDE_CONTENT_QA_v2.md`
+
+### 14.2 Verification status
+
+1. `npm run lint` passed.
+2. `npm run ci:phase1` passed.
+3. Vitest passed: 10 files / 20 tests.
+4. Monte Carlo warning profile unchanged (all-dove concentration warnings remain warning-only).
+
+### 14.3 Remaining work after this pass
+
+1. Product/spec drift still pending Ryan decisions:
+- rival archetype removal timing
+- dashboard/intel removal timing
+- JSON vs YAML content pipeline timing
+
+2. Operational follow-up:
+- Deploy workflow is green (`22598473447`), but should continue being monitored on each merge.
+
+### 14.4 Exact next action for resume
+
+1. Implement timed-beat/advisor UX surfacing pass so merged advisor lines and debrief variants are visible with stronger in-game narrative variety.
+2. Then execute the next approved spec-drift decision (archetype removal or dashboard/intel removal), one isolated milestone at a time with full gate runs.
