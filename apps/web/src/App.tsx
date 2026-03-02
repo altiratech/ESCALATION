@@ -292,7 +292,7 @@ const App = () => {
   const pressureText = (
     episode.activeCountdown &&
     remainingSeconds !== null &&
-    remainingSeconds > 0
+    remainingSeconds >= 0
   )
     ? pickPressureText(reference, episode.currentBeatId, remainingSeconds)
     : null;
@@ -351,7 +351,9 @@ const App = () => {
             </div>
           ) : (
             <p className="text-xs text-textMuted">
-              {showTakeNoAction ? 'Timed beat active: choose an action or trigger Take No Action.' : 'No active countdown in this beat.'}
+              {showTakeNoAction
+                ? 'This beat has a decision window. Timer mode is off, so use Take No Action to follow the inaction path.'
+                : 'No active countdown in this beat.'}
             </p>
           )}
         </div>

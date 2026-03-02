@@ -207,7 +207,7 @@ export interface ResolveInactionOptions {
 
 export const extendActiveCountdown = (
   currentState: GameState,
-  now = currentState.activeCountdown?.expiresAt ?? 0
+  now = 0
 ): GameState => {
   if (currentState.status !== 'active') {
     throw new Error('Episode is already complete.');
@@ -471,6 +471,7 @@ export const resolveTurn = (
     rivalAction,
     meterBefore,
     meterAfter: state.meters,
+    rivalNarrativeTokens: rivalResult.triggeredSideEffects,
     narrativeTokens: allNarrativeTokens,
     triggeredEventIds: [...preRivalEvents.map((entry) => entry.id), ...postRivalEvents.map((entry) => entry.id)],
     eventTable: context.scenario.eventTable

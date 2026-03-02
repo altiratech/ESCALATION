@@ -56,6 +56,7 @@ export const buildTurnDebrief = (payload: {
   rivalAction: ActionDefinition;
   meterBefore: MeterState;
   meterAfter: MeterState;
+  rivalNarrativeTokens: string[];
   narrativeTokens: string[];
   triggeredEventIds: string[];
   eventTable: EventDefinition[];
@@ -69,7 +70,7 @@ export const buildTurnDebrief = (payload: {
 
   lines.push(line('PlayerAction', actionLine));
 
-  const rivalToken = payload.narrativeTokens[0];
+  const rivalToken = payload.rivalNarrativeTokens[0];
   const secondaryLine = rivalToken
     ? `The rival answered with ${payload.rivalAction.name.toLowerCase()}, and follow-on reporting suggests ${rivalToken.replaceAll('_', ' ')} across the theater.`
     : `The rival answered with ${payload.rivalAction.name.toLowerCase()}, reinforcing a contested signaling environment.`;

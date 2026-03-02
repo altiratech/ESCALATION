@@ -114,9 +114,18 @@ export const updateEpisodeStateOptimistic = async (
   payload: {
     episodeId: string;
     expectedTurn: number;
+    expectedStateJson?: string;
     nextState: GameState;
   }
 ): Promise<boolean> => {
+  const optimisticChecks = [
+    eq(episodes.id, payload.episodeId),
+    eq(episodes.currentTurn, payload.expectedTurn)
+  ];
+  if (payload.expectedStateJson !== undefined) {
+    optimisticChecks.push(eq(episodes.stateJson, payload.expectedStateJson));
+  }
+
   const result = await db
     .update(episodes)
     .set({
@@ -126,7 +135,7 @@ export const updateEpisodeStateOptimistic = async (
       outcome: payload.nextState.outcome,
       endedAt: payload.nextState.status === 'completed' ? new Date().toISOString() : null
     })
-    .where(and(eq(episodes.id, payload.episodeId), eq(episodes.currentTurn, payload.expectedTurn)));
+    .where(and(...optimisticChecks));
 
   const changes = (result as unknown as { meta?: { changes?: number } }).meta?.changes ?? 0;
   return changes > 0;

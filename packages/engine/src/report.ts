@@ -360,7 +360,7 @@ const buildBranchNotTaken = (
   const beatMap = new Map(scenario.beats.map((beat) => [beat.id, beat]));
   const summaries: PostGameReport['fullCausality']['branchesNotTaken'] = [];
 
-  for (const entry of state.history.slice(-4)) {
+  for (const entry of state.history) {
     const beat = beatMap.get(entry.beatIdBefore);
     if (!beat || beat.branches.length === 0) {
       continue;

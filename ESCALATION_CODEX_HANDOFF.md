@@ -518,3 +518,57 @@ Thread scope limitation: This thread ran under `Code/active/Wargames` and could 
 1. Commit and push complete: `ba8873f` is now on `origin/main` (`altiratech/ESCALATION`).
 2. Resolve the remaining 3 spec-drift decisions with Ryan before any broad rival-model/UI-strip refactor.
 3. After decision lock: execute approved drift items in isolated commits with gate runs per milestone.
+
+## 12) Session Update — 2026-03-02 (Round-2 high-severity follow-up)
+
+### 12.1 What changed
+
+1. Implemented Claude Round-2 high-severity fixes (`R2-C1`, `R2-C2`, `R2-H1`) plus selected fast wins.
+
+2. API seed default determinism (`R2-C1`):
+- `POST /api/episodes/start` now defaults seed to `episodeId` when `payload.seed` is omitted.
+- Removed wall-clock seed generation dependency (`Date.now`) from start path.
+
+3. Report handler residual timestamp leak (`R2-C2`):
+- Removed bare `Date.now()` call in report upsert path.
+- `toEpisodeView(...)` now uses deterministic timestamp derived from state (`0` for completed episodes without active countdown).
+
+4. Extend/action concurrency race hardening (`R2-H1`):
+- `updateEpisodeStateOptimistic(...)` now supports an additional optimistic guard `expectedStateJson`.
+- Action/inaction/extend routes now pass loaded `episodeRecord.stateJson` so concurrent writes on same turn cannot both succeed silently.
+- Effect: extend+action contention now resolves stale-safe instead of silently dropping extension benefit.
+
+5. Additional fast wins from Round-2 queue:
+- Debrief token attribution fix: rival secondary-effect line now uses `rivalNarrativeTokens` rather than mixed token array.
+- Branch-not-taken reveal now evaluates full turn history (not only last 4 entries).
+- `extendActiveCountdown(...)` default `now` fallback changed to deterministic `0` (avoids unusable implicit-expired fallback).
+- Timer-off message in web clarified for decision-window semantics.
+- Countdown pressure text now persists through `0` transition frame.
+
+6. Added regression coverage:
+- `tests/engine/debrief.test.ts` validates rival-token attribution behavior.
+
+### 12.2 Verification status
+
+1. `npm run lint` passed.
+2. `npm run ci:phase1` passed.
+3. Vitest passed: 10 files / 18 tests.
+4. Monte Carlo concentration warnings unchanged (warning-only policy).
+
+### 12.3 Remaining work after this pass
+
+1. Structural:
+- Add ESCALATION CI/CD deploy automation (Atlas-style workflow adaptation).
+- Add deploy verification script for live web/API smoke checks.
+- Decide CORS/rate-limit posture before broader public exposure.
+
+2. Product/spec drift still pending Ryan decisions:
+- archetype removal timing
+- dashboard/intel removal timing
+- JSON vs YAML content pipeline timing
+
+### 12.4 Exact next action for resume
+
+1. Commit and push this round-2 follow-up fix set to `origin/main`.
+2. Implement deploy automation + verify script as the next operational milestone.
+3. Then execute remaining approved fast wins from `CLAUDE_REVIEW_ROUND2.md` in small commits.

@@ -126,8 +126,8 @@ app.post('/api/episodes/start', async (context) => {
   const payload = startSchema.parse(await context.req.json());
   const scenario = getScenario(payload.scenarioId);
   const archetype = getArchetype(payload.archetypeId);
-  const seed = payload.seed ?? `${payload.profileId}:${Date.now()}`;
   const episodeId = crypto.randomUUID();
+  const seed = payload.seed ?? episodeId;
 
   const requestTimestamp = Date.now();
   const state = initializeGameState(episodeId, seed, {
@@ -268,6 +268,7 @@ app.post('/api/episodes/:episodeId/actions', async (context) => {
     const updated = await updateEpisodeStateOptimistic(db, {
       episodeId,
       expectedTurn: payload.expectedTurn,
+      expectedStateJson: episodeRecord.stateJson,
       nextState
     });
 
@@ -423,6 +424,7 @@ app.post('/api/episodes/:episodeId/inaction', async (context) => {
   const updated = await updateEpisodeStateOptimistic(db, {
     episodeId,
     expectedTurn: payload.expectedTurn,
+    expectedStateJson: episodeRecord.stateJson,
     nextState: result.nextState
   });
 
@@ -526,6 +528,7 @@ app.post('/api/episodes/:episodeId/countdown/extend', async (context) => {
   const updated = await updateEpisodeStateOptimistic(db, {
     episodeId,
     expectedTurn: payload.expectedTurn,
+    expectedStateJson: episodeRecord.stateJson,
     nextState
   });
 
@@ -601,7 +604,10 @@ app.get('/api/episodes/:episodeId/report', async (context) => {
   });
   const episodeRecord = await getEpisodeState(db, episodeId);
   if (episodeRecord) {
-    const view = toEpisodeView(episode, actionMap, imageMap, Date.now());
+    const reportViewTimestamp = episode.activeCountdown
+      ? episode.activeCountdown.expiresAt - (episode.activeCountdown.secondsRemaining * 1000)
+      : 0;
+    const view = toEpisodeView(episode, actionMap, imageMap, reportViewTimestamp);
     await upsertReport(db, generated, episodeRecord.profileId, computeCompositeScore(view));
   }
 
