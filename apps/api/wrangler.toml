@@ -1,0 +1,18 @@
+name = "escalation-api"
+main = "src/index.ts"
+compatibility_date = "2026-03-01"
+workers_dev = true
+
+[vars]
+APP_ENV = "development"
+LLM_MODE = "off"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "escalation-db"
+database_id = "d7068c3e-dfa3-4edd-9f49-087d6e292592"
+preview_database_id = "d7068c3e-dfa3-4edd-9f49-087d6e292592"
+
+[[routes]]
+pattern = "escalation.altiratech.com/api/*"
+zone_name = "altiratech.com"

@@ -1,0 +1,857 @@
+[
+  {
+    "id": "backchannel_diplomacy",
+    "actor": "player",
+    "name": "Backchannel Diplomacy",
+    "summary": "Quietly probe off-ramp terms through trusted intermediaries.",
+    "visibility": "secret",
+    "tags": ["diplomacy", "deescalation"],
+    "immediateMeterDeltas": {
+      "escalationIndex": -5,
+      "allianceTrust": 2,
+      "militaryReadiness": -1
+    },
+    "immediateLatentDeltas": {
+      "globalLegitimacy": 3,
+      "rivalDomesticPressure": 2
+    },
+    "sideEffects": [
+      {
+        "id": "leak_backchannel",
+        "chance": 0.14,
+        "meterDeltas": {
+          "domesticCohesion": -3,
+          "allianceTrust": -2,
+          "escalationIndex": 2
+        },
+        "latentDeltas": {
+          "playerDomesticApproval": -3
+        },
+        "narrativeToken": "backchannel_leak"
+      }
+    ],
+    "delayedEffects": [
+      {
+        "delayTurns": 2,
+        "chance": 0.72,
+        "meterDeltas": {
+          "allianceTrust": 3,
+          "escalationIndex": -2
+        },
+        "description": "Backchannel trust dividends materialize."
+      }
+    ],
+    "signal": {
+      "escalatory": -0.4,
+      "deescalatory": 0.8,
+      "bluffSignal": 0.1,
+      "resolveSignal": -0.1,
+      "economicStressSignal": 0,
+      "allianceStressSignal": -0.2,
+      "humiliationRisk": 0.1
+    }
+  },
+  {
+    "id": "public_signaling_speech",
+    "actor": "player",
+    "name": "Public Strategic Address",
+    "summary": "Address the nation and allies with calibrated deterrence language.",
+    "visibility": "public",
+    "tags": ["messaging", "deterrence"],
+    "immediateMeterDeltas": {
+      "domesticCohesion": 4,
+      "allianceTrust": 2,
+      "escalationIndex": 2
+    },
+    "immediateLatentDeltas": {
+      "globalLegitimacy": 1,
+      "playerDomesticApproval": 3
+    },
+    "sideEffects": [
+      {
+        "id": "speech_overreach",
+        "chance": 0.2,
+        "meterDeltas": {
+          "allianceTrust": -3,
+          "escalationIndex": 3
+        },
+        "latentDeltas": {
+          "globalLegitimacy": -2
+        },
+        "narrativeToken": "speech_seen_as_ultimatum"
+      }
+    ],
+    "delayedEffects": [],
+    "signal": {
+      "escalatory": 0.3,
+      "deescalatory": 0.2,
+      "bluffSignal": 0.4,
+      "resolveSignal": 0.5,
+      "economicStressSignal": 0,
+      "allianceStressSignal": 0.1,
+      "humiliationRisk": 0.35
+    }
+  },
+  {
+    "id": "targeted_sanctions",
+    "actor": "player",
+    "name": "Targeted Sanctions",
+    "summary": "Sanction rival-linked strategic entities and individuals.",
+    "visibility": "public",
+    "tags": ["economic", "pressure"],
+    "immediateMeterDeltas": {
+      "allianceTrust": 3,
+      "escalationIndex": 2,
+      "economicStability": -1
+    },
+    "immediateLatentDeltas": {
+      "rivalDomesticPressure": 4,
+      "globalLegitimacy": 1
+    },
+    "sideEffects": [
+      {
+        "id": "sanction_blowback",
+        "chance": 0.22,
+        "meterDeltas": {
+          "energySecurity": -3,
+          "economicStability": -2
+        },
+        "narrativeToken": "targeted_blowback"
+      }
+    ],
+    "delayedEffects": [
+      {
+        "delayTurns": 2,
+        "chance": 0.8,
+        "meterDeltas": {
+          "allianceTrust": 2,
+          "economicStability": -2
+        },
+        "latentDeltas": {
+          "rivalDomesticPressure": 3
+        },
+        "description": "Compliance pressure accumulates as targeted sanctions propagate."
+      }
+    ],
+    "signal": {
+      "escalatory": 0.45,
+      "deescalatory": 0,
+      "bluffSignal": 0.2,
+      "resolveSignal": 0.55,
+      "economicStressSignal": 0.5,
+      "allianceStressSignal": -0.1,
+      "humiliationRisk": 0.4
+    }
+  },
+  {
+    "id": "broad_sanctions",
+    "actor": "player",
+    "name": "Broad Sanctions",
+    "summary": "Impose cross-sector restrictions with coalition backing.",
+    "visibility": "public",
+    "tags": ["economic", "pressure", "high_cost"],
+    "immediateMeterDeltas": {
+      "allianceTrust": 4,
+      "escalationIndex": 4,
+      "economicStability": -3,
+      "energySecurity": -2
+    },
+    "immediateLatentDeltas": {
+      "rivalDomesticPressure": 7,
+      "globalLegitimacy": 2
+    },
+    "sideEffects": [
+      {
+        "id": "global_supply_shock",
+        "chance": 0.28,
+        "meterDeltas": {
+          "economicStability": -4,
+          "domesticCohesion": -2
+        },
+        "narrativeToken": "supply_chain_shock"
+      }
+    ],
+    "delayedEffects": [
+      {
+        "delayTurns": 2,
+        "chance": 0.9,
+        "meterDeltas": {
+          "economicStability": -4,
+          "allianceTrust": 1,
+          "escalationIndex": 2
+        },
+        "description": "Sanctions lag drives domestic cost and retaliatory pressure."
+      }
+    ],
+    "signal": {
+      "escalatory": 0.7,
+      "deescalatory": -0.1,
+      "bluffSignal": 0.1,
+      "resolveSignal": 0.8,
+      "economicStressSignal": 0.85,
+      "allianceStressSignal": 0.15,
+      "humiliationRisk": 0.52
+    }
+  },
+  {
+    "id": "resource_stockpiling",
+    "actor": "player",
+    "name": "Resource Stockpiling",
+    "summary": "Expand strategic fuel and commodity reserves ahead of shocks.",
+    "visibility": "semi-public",
+    "tags": ["energy", "resilience"],
+    "immediateMeterDeltas": {
+      "energySecurity": 5,
+      "economicStability": -2,
+      "escalationIndex": 1
+    },
+    "immediateLatentDeltas": {
+      "playerDomesticApproval": 1
+    },
+    "sideEffects": [
+      {
+        "id": "market_spike",
+        "chance": 0.19,
+        "meterDeltas": {
+          "economicStability": -3,
+          "domesticCohesion": -1
+        },
+        "narrativeToken": "panic_buying"
+      }
+    ],
+    "delayedEffects": [
+      {
+        "delayTurns": 2,
+        "chance": 0.85,
+        "meterDeltas": {
+          "energySecurity": 3,
+          "economicStability": 1
+        },
+        "description": "Stockpiles absorb follow-on supply volatility."
+      }
+    ],
+    "signal": {
+      "escalatory": 0.15,
+      "deescalatory": 0,
+      "bluffSignal": 0.12,
+      "resolveSignal": 0.28,
+      "economicStressSignal": 0.35,
+      "allianceStressSignal": 0,
+      "humiliationRisk": 0.08
+    }
+  },
+  {
+    "id": "cyber_intrusion",
+    "actor": "player",
+    "name": "Cyber Intrusion",
+    "summary": "Penetrate rival systems for intelligence without disruption.",
+    "visibility": "secret",
+    "tags": ["cyber", "intel"],
+    "immediateMeterDeltas": {
+      "escalationIndex": 2,
+      "militaryReadiness": 1,
+      "allianceTrust": 1
+    },
+    "sideEffects": [
+      {
+        "id": "intrusion_exposed",
+        "chance": 0.18,
+        "meterDeltas": {
+          "allianceTrust": -4,
+          "escalationIndex": 4
+        },
+        "latentDeltas": {
+          "globalLegitimacy": -3
+        },
+        "narrativeToken": "cyber_operation_exposed"
+      }
+    ],
+    "delayedEffects": [
+      {
+        "delayTurns": 1,
+        "chance": 0.75,
+        "meterDeltas": {
+          "militaryReadiness": 2,
+          "escalationIndex": -1
+        },
+        "description": "Intercepted insight improves response readiness."
+      }
+    ],
+    "intelQualityBoost": 8,
+    "signal": {
+      "escalatory": 0.35,
+      "deescalatory": 0,
+      "bluffSignal": 0.24,
+      "resolveSignal": 0.36,
+      "economicStressSignal": 0,
+      "allianceStressSignal": 0,
+      "humiliationRisk": 0.3
+    }
+  },
+  {
+    "id": "cyber_disruption",
+    "actor": "player",
+    "name": "Cyber Disruption",
+    "summary": "Disrupt rival logistics and command connectivity.",
+    "visibility": "secret",
+    "tags": ["cyber", "offensive"],
+    "immediateMeterDeltas": {
+      "escalationIndex": 5,
+      "militaryReadiness": 2,
+      "energySecurity": -1
+    },
+    "immediateLatentDeltas": {
+      "rivalDomesticPressure": 5
+    },
+    "sideEffects": [
+      {
+        "id": "blowback_counterstrike",
+        "chance": 0.27,
+        "meterDeltas": {
+          "energySecurity": -5,
+          "economicStability": -2,
+          "escalationIndex": 3
+        },
+        "narrativeToken": "reciprocal_cyber_strike"
+      }
+    ],
+    "delayedEffects": [],
+    "signal": {
+      "escalatory": 0.78,
+      "deescalatory": -0.1,
+      "bluffSignal": 0.18,
+      "resolveSignal": 0.82,
+      "economicStressSignal": 0.2,
+      "allianceStressSignal": 0.12,
+      "humiliationRisk": 0.44
+    }
+  },
+  {
+    "id": "covert_sabotage",
+    "actor": "player",
+    "name": "Covert Sabotage",
+    "summary": "Support deniable disruption of rival logistics nodes.",
+    "visibility": "secret",
+    "tags": ["covert", "offensive"],
+    "immediateMeterDeltas": {
+      "escalationIndex": 6,
+      "allianceTrust": -1,
+      "militaryReadiness": 2
+    },
+    "immediateLatentDeltas": {
+      "rivalDomesticPressure": 6,
+      "globalLegitimacy": -2
+    },
+    "sideEffects": [
+      {
+        "id": "covert_linked_publicly",
+        "chance": 0.21,
+        "meterDeltas": {
+          "allianceTrust": -5,
+          "domesticCohesion": -3,
+          "escalationIndex": 4
+        },
+        "latentDeltas": {
+          "globalLegitimacy": -5
+        },
+        "narrativeToken": "covert_link_exposed"
+      }
+    ],
+    "delayedEffects": [],
+    "signal": {
+      "escalatory": 0.82,
+      "deescalatory": -0.2,
+      "bluffSignal": 0.1,
+      "resolveSignal": 0.9,
+      "economicStressSignal": 0,
+      "allianceStressSignal": 0.3,
+      "humiliationRisk": 0.6
+    }
+  },
+  {
+    "id": "military_posture_increase",
+    "actor": "player",
+    "name": "Military Posture Increase",
+    "summary": "Forward deploy high-readiness forces and publicize readiness.",
+    "visibility": "public",
+    "tags": ["military", "deterrence"],
+    "immediateMeterDeltas": {
+      "militaryReadiness": 6,
+      "escalationIndex": 5,
+      "economicStability": -2,
+      "allianceTrust": 1
+    },
+    "immediateLatentDeltas": {
+      "playerDomesticApproval": 2
+    },
+    "sideEffects": [
+      {
+        "id": "accidental_encounter",
+        "chance": 0.17,
+        "meterDeltas": {
+          "escalationIndex": 6,
+          "allianceTrust": -2
+        },
+        "narrativeToken": "unsafe_intercept"
+      }
+    ],
+    "delayedEffects": [
+      {
+        "delayTurns": 2,
+        "chance": 0.78,
+        "meterDeltas": {
+          "economicStability": -3,
+          "domesticCohesion": -1
+        },
+        "description": "Sustained deployment costs begin to bite."
+      }
+    ],
+    "signal": {
+      "escalatory": 0.86,
+      "deescalatory": -0.3,
+      "bluffSignal": 0.26,
+      "resolveSignal": 0.92,
+      "economicStressSignal": 0.22,
+      "allianceStressSignal": 0.08,
+      "humiliationRisk": 0.48
+    }
+  },
+  {
+    "id": "military_posture_decrease",
+    "actor": "player",
+    "name": "Military Posture Decrease",
+    "summary": "Pull back visible deployments to signal de-escalatory intent.",
+    "visibility": "public",
+    "tags": ["military", "deescalation"],
+    "immediateMeterDeltas": {
+      "militaryReadiness": -5,
+      "escalationIndex": -6,
+      "economicStability": 2,
+      "allianceTrust": -1
+    },
+    "immediateLatentDeltas": {
+      "playerDomesticApproval": -2
+    },
+    "sideEffects": [
+      {
+        "id": "seen_as_weakness",
+        "chance": 0.24,
+        "meterDeltas": {
+          "allianceTrust": -4,
+          "escalationIndex": 3
+        },
+        "latentDeltas": {
+          "rivalDomesticPressure": -2
+        },
+        "narrativeToken": "withdrawal_misread"
+      }
+    ],
+    "delayedEffects": [],
+    "signal": {
+      "escalatory": -0.55,
+      "deescalatory": 0.9,
+      "bluffSignal": 0.18,
+      "resolveSignal": -0.35,
+      "economicStressSignal": -0.12,
+      "allianceStressSignal": 0.42,
+      "humiliationRisk": 0.25
+    }
+  },
+  {
+    "id": "intelligence_surge",
+    "actor": "player",
+    "name": "Intelligence Surge",
+    "summary": "Reallocate assets to improve detection and attribution confidence.",
+    "visibility": "secret",
+    "tags": ["intel", "defensive"],
+    "immediateMeterDeltas": {
+      "militaryReadiness": 2,
+      "economicStability": -1,
+      "escalationIndex": -1
+    },
+    "sideEffects": [
+      {
+        "id": "intel_overreach",
+        "chance": 0.12,
+        "meterDeltas": {
+          "domesticCohesion": -2,
+          "allianceTrust": -1
+        },
+        "narrativeToken": "domestic_surveillance_concerns"
+      }
+    ],
+    "delayedEffects": [
+      {
+        "delayTurns": 1,
+        "chance": 1,
+        "meterDeltas": {
+          "escalationIndex": -1
+        },
+        "description": "Better attribution improves escalation management."
+      }
+    ],
+    "intelQualityBoost": 18,
+    "signal": {
+      "escalatory": -0.1,
+      "deescalatory": 0.22,
+      "bluffSignal": 0,
+      "resolveSignal": 0.2,
+      "economicStressSignal": 0.05,
+      "allianceStressSignal": -0.08,
+      "humiliationRisk": 0.04
+    }
+  },
+  {
+    "id": "limited_concession",
+    "actor": "player",
+    "name": "Offer Limited Concession",
+    "summary": "Offer narrow compromise with strict verification terms.",
+    "visibility": "public",
+    "tags": ["diplomacy", "deescalation"],
+    "immediateMeterDeltas": {
+      "escalationIndex": -7,
+      "allianceTrust": 1,
+      "domesticCohesion": -2,
+      "militaryReadiness": -1
+    },
+    "immediateLatentDeltas": {
+      "globalLegitimacy": 4,
+      "rivalDomesticPressure": -3
+    },
+    "sideEffects": [
+      {
+        "id": "concession_backlash",
+        "chance": 0.27,
+        "meterDeltas": {
+          "domesticCohesion": -4,
+          "allianceTrust": -3
+        },
+        "latentDeltas": {
+          "playerDomesticApproval": -5
+        },
+        "narrativeToken": "hawks_revolt"
+      }
+    ],
+    "delayedEffects": [
+      {
+        "delayTurns": 2,
+        "chance": 0.68,
+        "meterDeltas": {
+          "escalationIndex": -2,
+          "economicStability": 2
+        },
+        "description": "Partial détente eases external risk premium."
+      }
+    ],
+    "signal": {
+      "escalatory": -0.65,
+      "deescalatory": 0.94,
+      "bluffSignal": 0.28,
+      "resolveSignal": -0.12,
+      "economicStressSignal": -0.15,
+      "allianceStressSignal": 0.21,
+      "humiliationRisk": 0.18
+    }
+  },
+
+  {
+    "id": "rival_public_threat",
+    "actor": "rival",
+    "name": "Rival Public Threat",
+    "summary": "Issue explicit warning with deadline language.",
+    "visibility": "public",
+    "tags": ["messaging", "deterrence"],
+    "immediateMeterDeltas": {
+      "escalationIndex": 4,
+      "domesticCohesion": -1,
+      "allianceTrust": -2
+    },
+    "immediateLatentDeltas": {
+      "rivalDomesticPressure": -2
+    },
+    "sideEffects": [],
+    "delayedEffects": [],
+    "signal": {
+      "escalatory": 0.7,
+      "deescalatory": -0.2,
+      "bluffSignal": 0.5,
+      "resolveSignal": 0.6,
+      "economicStressSignal": 0,
+      "allianceStressSignal": 0.3,
+      "humiliationRisk": 0.7
+    }
+  },
+  {
+    "id": "rival_covert_probe",
+    "actor": "rival",
+    "name": "Rival Covert Probe",
+    "summary": "Deniable cyber and HUMINT probing against critical systems.",
+    "visibility": "secret",
+    "tags": ["covert", "cyber"],
+    "immediateMeterDeltas": {
+      "escalationIndex": 2,
+      "energySecurity": -2,
+      "militaryReadiness": -1
+    },
+    "sideEffects": [
+      {
+        "id": "probe_discovered",
+        "chance": 0.2,
+        "meterDeltas": {
+          "allianceTrust": 2,
+          "escalationIndex": 2
+        },
+        "narrativeToken": "probe_attributed"
+      }
+    ],
+    "delayedEffects": [],
+    "signal": {
+      "escalatory": 0.45,
+      "deescalatory": 0,
+      "bluffSignal": 0.18,
+      "resolveSignal": 0.38,
+      "economicStressSignal": 0.05,
+      "allianceStressSignal": 0,
+      "humiliationRisk": 0.22
+    }
+  },
+  {
+    "id": "rival_sanction_retaliation",
+    "actor": "rival",
+    "name": "Rival Sanction Retaliation",
+    "summary": "Counter-sanctions on strategic imports and finance channels.",
+    "visibility": "public",
+    "tags": ["economic", "retaliation"],
+    "immediateMeterDeltas": {
+      "economicStability": -4,
+      "energySecurity": -3,
+      "escalationIndex": 3
+    },
+    "sideEffects": [],
+    "delayedEffects": [
+      {
+        "delayTurns": 2,
+        "chance": 0.84,
+        "meterDeltas": {
+          "economicStability": -3,
+          "domesticCohesion": -1
+        },
+        "description": "Retaliatory restrictions continue to degrade domestic confidence."
+      }
+    ],
+    "signal": {
+      "escalatory": 0.62,
+      "deescalatory": -0.05,
+      "bluffSignal": 0.22,
+      "resolveSignal": 0.66,
+      "economicStressSignal": 0.8,
+      "allianceStressSignal": 0.2,
+      "humiliationRisk": 0.36
+    }
+  },
+  {
+    "id": "rival_military_drill",
+    "actor": "rival",
+    "name": "Rival Military Drill",
+    "summary": "Large-scale readiness drill near contested corridor.",
+    "visibility": "public",
+    "tags": ["military", "posture"],
+    "immediateMeterDeltas": {
+      "escalationIndex": 6,
+      "militaryReadiness": -2,
+      "allianceTrust": -2
+    },
+    "sideEffects": [
+      {
+        "id": "drill_accident",
+        "chance": 0.11,
+        "meterDeltas": {
+          "escalationIndex": 7,
+          "domesticCohesion": -2
+        },
+        "narrativeToken": "drill_accident"
+      }
+    ],
+    "delayedEffects": [],
+    "signal": {
+      "escalatory": 0.88,
+      "deescalatory": -0.22,
+      "bluffSignal": 0.33,
+      "resolveSignal": 0.84,
+      "economicStressSignal": 0.12,
+      "allianceStressSignal": 0.28,
+      "humiliationRisk": 0.52
+    }
+  },
+  {
+    "id": "rival_deescalation_signal",
+    "actor": "rival",
+    "name": "Rival De-Escalation Signal",
+    "summary": "Signal willingness for managed pause and verification.",
+    "visibility": "public",
+    "tags": ["diplomacy", "deescalation"],
+    "immediateMeterDeltas": {
+      "escalationIndex": -5,
+      "allianceTrust": 1,
+      "economicStability": 1
+    },
+    "sideEffects": [
+      {
+        "id": "hardliner_pushback",
+        "chance": 0.18,
+        "meterDeltas": {
+          "escalationIndex": 3,
+          "domesticCohesion": -1
+        },
+        "narrativeToken": "rival_hardliner_pushback"
+      }
+    ],
+    "delayedEffects": [],
+    "signal": {
+      "escalatory": -0.5,
+      "deescalatory": 0.8,
+      "bluffSignal": 0.22,
+      "resolveSignal": -0.08,
+      "economicStressSignal": -0.2,
+      "allianceStressSignal": 0,
+      "humiliationRisk": 0.12
+    }
+  },
+  {
+    "id": "rival_energy_coercion",
+    "actor": "rival",
+    "name": "Rival Energy Coercion",
+    "summary": "Constrict energy flows to pressure domestic resilience.",
+    "visibility": "public",
+    "tags": ["energy", "coercion"],
+    "immediateMeterDeltas": {
+      "energySecurity": -6,
+      "economicStability": -2,
+      "escalationIndex": 3
+    },
+    "sideEffects": [],
+    "delayedEffects": [
+      {
+        "delayTurns": 1,
+        "chance": 0.9,
+        "meterDeltas": {
+          "domesticCohesion": -2,
+          "energySecurity": -2
+        },
+        "description": "Energy shock amplifies domestic anxiety."
+      }
+    ],
+    "signal": {
+      "escalatory": 0.62,
+      "deescalatory": 0,
+      "bluffSignal": 0.12,
+      "resolveSignal": 0.58,
+      "economicStressSignal": 0.88,
+      "allianceStressSignal": 0.18,
+      "humiliationRisk": 0.25
+    }
+  },
+  {
+    "id": "rival_disinfo_campaign",
+    "actor": "rival",
+    "name": "Rival Disinformation Campaign",
+    "summary": "Amplify narratives to fracture domestic trust and alliance cohesion.",
+    "visibility": "secret",
+    "tags": ["information", "covert"],
+    "immediateMeterDeltas": {
+      "domesticCohesion": -5,
+      "allianceTrust": -2,
+      "escalationIndex": 1
+    },
+    "sideEffects": [
+      {
+        "id": "campaign_exposed",
+        "chance": 0.16,
+        "meterDeltas": {
+          "allianceTrust": 2
+        },
+        "latentDeltas": {
+          "globalLegitimacy": 1
+        },
+        "narrativeToken": "disinfo_exposed"
+      }
+    ],
+    "delayedEffects": [],
+    "signal": {
+      "escalatory": 0.38,
+      "deescalatory": 0,
+      "bluffSignal": 0.3,
+      "resolveSignal": 0.2,
+      "economicStressSignal": 0,
+      "allianceStressSignal": 0.42,
+      "humiliationRisk": 0.34
+    }
+  },
+  {
+    "id": "rival_proxy_incident",
+    "actor": "rival",
+    "name": "Rival Proxy Incident",
+    "summary": "A deniable proxy engages in limited kinetic provocation.",
+    "visibility": "semi-public",
+    "tags": ["proxy", "military"],
+    "immediateMeterDeltas": {
+      "escalationIndex": 7,
+      "militaryReadiness": -1,
+      "domesticCohesion": -2
+    },
+    "sideEffects": [],
+    "delayedEffects": [],
+    "signal": {
+      "escalatory": 0.91,
+      "deescalatory": -0.3,
+      "bluffSignal": 0.14,
+      "resolveSignal": 0.8,
+      "economicStressSignal": 0,
+      "allianceStressSignal": 0.24,
+      "humiliationRisk": 0.41
+    }
+  },
+  {
+    "id": "rival_backchannel_reply",
+    "actor": "rival",
+    "name": "Rival Backchannel Reply",
+    "summary": "Respond through private channels with conditional terms.",
+    "visibility": "secret",
+    "tags": ["diplomacy", "covert"],
+    "immediateMeterDeltas": {
+      "escalationIndex": -3,
+      "allianceTrust": 1
+    },
+    "sideEffects": [
+      {
+        "id": "reply_stalls",
+        "chance": 0.24,
+        "meterDeltas": {
+          "escalationIndex": 2,
+          "allianceTrust": -1
+        },
+        "narrativeToken": "private_talks_stall"
+      }
+    ],
+    "delayedEffects": [
+      {
+        "delayTurns": 2,
+        "chance": 0.62,
+        "meterDeltas": {
+          "escalationIndex": -2,
+          "economicStability": 1
+        },
+        "description": "Backchannel procedural talks reduce immediate pressure."
+      }
+    ],
+    "signal": {
+      "escalatory": -0.3,
+      "deescalatory": 0.54,
+      "bluffSignal": 0.3,
+      "resolveSignal": -0.05,
+      "economicStressSignal": -0.1,
+      "allianceStressSignal": 0,
+      "humiliationRisk": 0.1
+    }
+  }
+]

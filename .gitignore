@@ -1,0 +1,15 @@
+node_modules
+.wrangler
+.dist
+dist
+coverage
+.env
+.env.*
+.DS_Store
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+*.tsbuildinfo
+.venv
+tmp
+*.swp

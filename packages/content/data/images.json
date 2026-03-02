@@ -1,0 +1,422 @@
+[
+  {
+    "id": "img_001",
+    "path": "/assets/images/img_001.svg",
+    "domain": "economy",
+    "severity": 0,
+    "environment": "coastal",
+    "perspective": "news_frame",
+    "tags": [
+      "economy",
+      "coastal",
+      "news_frame",
+      "low_tension"
+    ]
+  },
+  {
+    "id": "img_002",
+    "path": "/assets/images/img_002.svg",
+    "domain": "economy",
+    "severity": 1,
+    "environment": "dense_city",
+    "perspective": "satellite",
+    "tags": [
+      "economy",
+      "dense_city",
+      "satellite",
+      "low_tension"
+    ]
+  },
+  {
+    "id": "img_003",
+    "path": "/assets/images/img_003.svg",
+    "domain": "economy",
+    "severity": 2,
+    "environment": "generic",
+    "perspective": "memo",
+    "tags": [
+      "economy",
+      "generic",
+      "memo",
+      "low_tension"
+    ]
+  },
+  {
+    "id": "img_004",
+    "path": "/assets/images/img_004.svg",
+    "domain": "economy",
+    "severity": 3,
+    "environment": "arctic",
+    "perspective": "street",
+    "tags": [
+      "economy",
+      "arctic",
+      "street",
+      "high_tension"
+    ]
+  },
+  {
+    "id": "img_005",
+    "path": "/assets/images/img_005.svg",
+    "domain": "economy",
+    "severity": 4,
+    "environment": "industrial",
+    "perspective": "ticker",
+    "tags": [
+      "economy",
+      "industrial",
+      "ticker",
+      "high_tension"
+    ]
+  },
+  {
+    "id": "img_006",
+    "path": "/assets/images/img_006.svg",
+    "domain": "energy",
+    "severity": 0,
+    "environment": "coastal",
+    "perspective": "news_frame",
+    "tags": [
+      "energy",
+      "coastal",
+      "news_frame",
+      "low_tension"
+    ]
+  },
+  {
+    "id": "img_007",
+    "path": "/assets/images/img_007.svg",
+    "domain": "energy",
+    "severity": 1,
+    "environment": "dense_city",
+    "perspective": "satellite",
+    "tags": [
+      "energy",
+      "dense_city",
+      "satellite",
+      "low_tension"
+    ]
+  },
+  {
+    "id": "img_008",
+    "path": "/assets/images/img_008.svg",
+    "domain": "energy",
+    "severity": 2,
+    "environment": "generic",
+    "perspective": "memo",
+    "tags": [
+      "energy",
+      "generic",
+      "memo",
+      "low_tension"
+    ]
+  },
+  {
+    "id": "img_009",
+    "path": "/assets/images/img_009.svg",
+    "domain": "energy",
+    "severity": 3,
+    "environment": "arctic",
+    "perspective": "street",
+    "tags": [
+      "energy",
+      "arctic",
+      "street",
+      "high_tension"
+    ]
+  },
+  {
+    "id": "img_010",
+    "path": "/assets/images/img_010.svg",
+    "domain": "energy",
+    "severity": 4,
+    "environment": "industrial",
+    "perspective": "ticker",
+    "tags": [
+      "energy",
+      "industrial",
+      "ticker",
+      "high_tension"
+    ]
+  },
+  {
+    "id": "img_011",
+    "path": "/assets/images/img_011.svg",
+    "domain": "unrest",
+    "severity": 0,
+    "environment": "coastal",
+    "perspective": "news_frame",
+    "tags": [
+      "unrest",
+      "coastal",
+      "news_frame",
+      "low_tension"
+    ]
+  },
+  {
+    "id": "img_012",
+    "path": "/assets/images/img_012.svg",
+    "domain": "unrest",
+    "severity": 1,
+    "environment": "dense_city",
+    "perspective": "satellite",
+    "tags": [
+      "unrest",
+      "dense_city",
+      "satellite",
+      "low_tension"
+    ]
+  },
+  {
+    "id": "img_013",
+    "path": "/assets/images/img_013.svg",
+    "domain": "unrest",
+    "severity": 2,
+    "environment": "generic",
+    "perspective": "memo",
+    "tags": [
+      "unrest",
+      "generic",
+      "memo",
+      "low_tension"
+    ]
+  },
+  {
+    "id": "img_014",
+    "path": "/assets/images/img_014.svg",
+    "domain": "unrest",
+    "severity": 3,
+    "environment": "arctic",
+    "perspective": "street",
+    "tags": [
+      "unrest",
+      "arctic",
+      "street",
+      "high_tension"
+    ]
+  },
+  {
+    "id": "img_015",
+    "path": "/assets/images/img_015.svg",
+    "domain": "unrest",
+    "severity": 4,
+    "environment": "industrial",
+    "perspective": "ticker",
+    "tags": [
+      "unrest",
+      "industrial",
+      "ticker",
+      "high_tension"
+    ]
+  },
+  {
+    "id": "img_016",
+    "path": "/assets/images/img_016.svg",
+    "domain": "military",
+    "severity": 0,
+    "environment": "coastal",
+    "perspective": "news_frame",
+    "tags": [
+      "military",
+      "coastal",
+      "news_frame",
+      "low_tension"
+    ]
+  },
+  {
+    "id": "img_017",
+    "path": "/assets/images/img_017.svg",
+    "domain": "military",
+    "severity": 1,
+    "environment": "dense_city",
+    "perspective": "satellite",
+    "tags": [
+      "military",
+      "dense_city",
+      "satellite",
+      "low_tension"
+    ]
+  },
+  {
+    "id": "img_018",
+    "path": "/assets/images/img_018.svg",
+    "domain": "military",
+    "severity": 2,
+    "environment": "generic",
+    "perspective": "memo",
+    "tags": [
+      "military",
+      "generic",
+      "memo",
+      "low_tension"
+    ]
+  },
+  {
+    "id": "img_019",
+    "path": "/assets/images/img_019.svg",
+    "domain": "military",
+    "severity": 3,
+    "environment": "arctic",
+    "perspective": "street",
+    "tags": [
+      "military",
+      "arctic",
+      "street",
+      "high_tension"
+    ]
+  },
+  {
+    "id": "img_020",
+    "path": "/assets/images/img_020.svg",
+    "domain": "military",
+    "severity": 4,
+    "environment": "industrial",
+    "perspective": "ticker",
+    "tags": [
+      "military",
+      "industrial",
+      "ticker",
+      "high_tension"
+    ]
+  },
+  {
+    "id": "img_021",
+    "path": "/assets/images/img_021.svg",
+    "domain": "cyber",
+    "severity": 0,
+    "environment": "coastal",
+    "perspective": "news_frame",
+    "tags": [
+      "cyber",
+      "coastal",
+      "news_frame",
+      "low_tension"
+    ]
+  },
+  {
+    "id": "img_022",
+    "path": "/assets/images/img_022.svg",
+    "domain": "cyber",
+    "severity": 1,
+    "environment": "dense_city",
+    "perspective": "satellite",
+    "tags": [
+      "cyber",
+      "dense_city",
+      "satellite",
+      "low_tension"
+    ]
+  },
+  {
+    "id": "img_023",
+    "path": "/assets/images/img_023.svg",
+    "domain": "cyber",
+    "severity": 2,
+    "environment": "generic",
+    "perspective": "memo",
+    "tags": [
+      "cyber",
+      "generic",
+      "memo",
+      "low_tension"
+    ]
+  },
+  {
+    "id": "img_024",
+    "path": "/assets/images/img_024.svg",
+    "domain": "cyber",
+    "severity": 3,
+    "environment": "arctic",
+    "perspective": "street",
+    "tags": [
+      "cyber",
+      "arctic",
+      "street",
+      "high_tension"
+    ]
+  },
+  {
+    "id": "img_025",
+    "path": "/assets/images/img_025.svg",
+    "domain": "cyber",
+    "severity": 4,
+    "environment": "industrial",
+    "perspective": "ticker",
+    "tags": [
+      "cyber",
+      "industrial",
+      "ticker",
+      "high_tension"
+    ]
+  },
+  {
+    "id": "img_026",
+    "path": "/assets/images/img_026.svg",
+    "domain": "diplomacy",
+    "severity": 0,
+    "environment": "coastal",
+    "perspective": "news_frame",
+    "tags": [
+      "diplomacy",
+      "coastal",
+      "news_frame",
+      "low_tension"
+    ]
+  },
+  {
+    "id": "img_027",
+    "path": "/assets/images/img_027.svg",
+    "domain": "diplomacy",
+    "severity": 1,
+    "environment": "dense_city",
+    "perspective": "satellite",
+    "tags": [
+      "diplomacy",
+      "dense_city",
+      "satellite",
+      "low_tension"
+    ]
+  },
+  {
+    "id": "img_028",
+    "path": "/assets/images/img_028.svg",
+    "domain": "diplomacy",
+    "severity": 2,
+    "environment": "generic",
+    "perspective": "memo",
+    "tags": [
+      "diplomacy",
+      "generic",
+      "memo",
+      "low_tension"
+    ]
+  },
+  {
+    "id": "img_029",
+    "path": "/assets/images/img_029.svg",
+    "domain": "diplomacy",
+    "severity": 3,
+    "environment": "arctic",
+    "perspective": "street",
+    "tags": [
+      "diplomacy",
+      "arctic",
+      "street",
+      "high_tension"
+    ]
+  },
+  {
+    "id": "img_030",
+    "path": "/assets/images/img_030.svg",
+    "domain": "diplomacy",
+    "severity": 4,
+    "environment": "industrial",
+    "perspective": "ticker",
+    "tags": [
+      "diplomacy",
+      "industrial",
+      "ticker",
+      "high_tension"
+    ]
+  }
+]

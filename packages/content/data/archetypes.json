@@ -1,0 +1,53 @@
+[
+  {
+    "id": "paranoid_hawk",
+    "name": "Paranoid Hawk",
+    "description": "Escalates quickly, overweights threats, punishes visible humiliation.",
+    "riskTolerance": 0.82,
+    "escalationThreshold": 0.74,
+    "covertPreference": 0.35,
+    "egoSensitivity": 0.91,
+    "bluffSensitivity": 0.36,
+    "priorities": {
+      "preserveEconomy": 0.34,
+      "preserveRegimeStability": 0.77,
+      "preserveImage": 0.88,
+      "projectStrength": 0.95,
+      "avoidAllianceBreak": 0.49
+    }
+  },
+  {
+    "id": "calculated_technocrat",
+    "name": "Calculated Technocrat",
+    "description": "Risk-managed decision maker, sensitive to economic loss, favors covert pressure.",
+    "riskTolerance": 0.48,
+    "escalationThreshold": 0.46,
+    "covertPreference": 0.79,
+    "egoSensitivity": 0.31,
+    "bluffSensitivity": 0.71,
+    "priorities": {
+      "preserveEconomy": 0.92,
+      "preserveRegimeStability": 0.63,
+      "preserveImage": 0.41,
+      "projectStrength": 0.47,
+      "avoidAllianceBreak": 0.66
+    }
+  },
+  {
+    "id": "image_obsessed_populist",
+    "name": "Image-Obsessed Populist",
+    "description": "Highly reactive to public optics and humiliation, prone to over-corrective responses.",
+    "riskTolerance": 0.69,
+    "escalationThreshold": 0.62,
+    "covertPreference": 0.42,
+    "egoSensitivity": 0.96,
+    "bluffSensitivity": 0.54,
+    "priorities": {
+      "preserveEconomy": 0.51,
+      "preserveRegimeStability": 0.59,
+      "preserveImage": 0.97,
+      "projectStrength": 0.78,
+      "avoidAllianceBreak": 0.37
+    }
+  }
+]
