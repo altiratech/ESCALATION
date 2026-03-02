@@ -43,6 +43,10 @@ const collectReachable = (startBeatId: string, beatMap: Map<string, BeatNode>): 
         stack.push(branch.targetBeatId);
       }
     }
+
+    if (beat.decisionWindow?.inactionBeatId && !visited.has(beat.decisionWindow.inactionBeatId)) {
+      stack.push(beat.decisionWindow.inactionBeatId);
+    }
   }
 
   return visited;
@@ -70,6 +74,13 @@ const computeTerminalReachability = (beatId: string, beatMap: Map<string, BeatNo
   active.add(beatId);
   for (const branch of beat.branches) {
     if (computeTerminalReachability(branch.targetBeatId, beatMap, memo, active)) {
+      active.delete(beatId);
+      memo.set(beatId, true);
+      return true;
+    }
+  }
+  if (beat.decisionWindow?.inactionBeatId) {
+    if (computeTerminalReachability(beat.decisionWindow.inactionBeatId, beatMap, memo, active)) {
       active.delete(beatId);
       memo.set(beatId, true);
       return true;

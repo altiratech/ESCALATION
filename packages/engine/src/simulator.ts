@@ -34,6 +34,7 @@ export interface EngineContext {
 
 export interface InitializeOptions {
   timerMode?: TimerMode;
+  nowMs?: number;
 }
 
 export const buildActionMap = (actions: ActionDefinition[]): Map<string, ActionDefinition> => {
@@ -76,7 +77,7 @@ export const initializeGameState = (
   const timerMode = options.timerMode ?? 'standard';
   const extendTimerUsesRemaining = timerMode === 'off' ? 0 : Math.max(2, timedBeatCount);
 
-  const openingCountdown = buildCountdownForBeat(openingBeat, timerMode);
+  const openingCountdown = buildCountdownForBeat(openingBeat, timerMode, options.nowMs);
 
   const baseState: GameState = {
     id: episodeId,
@@ -281,7 +282,7 @@ export const resolveInactionTurn = (
   const targetBeat = getBeat(beatMap, decisionWindow.inactionBeatId);
   state.currentBeatId = targetBeat.id;
   state.beatHistory.push(targetBeat.id);
-  applyBeatEntryEffects(state, targetBeat);
+  applyBeatEntryEffects(state, targetBeat, now);
 
   degradeIntelQuality(state);
   const visibleRanges = projectVisibleRanges(state, rng);
@@ -345,7 +346,7 @@ export const resolveInactionTurn = (
     state.outcome = targetBeat.terminalOutcome ?? evaluateOutcome(state);
   } else {
     state.turn += 1;
-    state.activeCountdown = buildCountdownForBeat(targetBeat, state.timerMode);
+    state.activeCountdown = buildCountdownForBeat(targetBeat, state.timerMode, now);
     state.offeredActionIds = selectPlayerActionOptions(state, context.scenario, actionMap, rng);
   }
 
@@ -380,7 +381,8 @@ export const resolveInactionTurn = (
 export const resolveTurn = (
   currentState: GameState,
   playerActionId: string,
-  context: EngineContext
+  context: EngineContext,
+  nowMs?: number
 ): { nextState: GameState; resolution: TurnResolution } => {
   if (currentState.status !== 'active') {
     throw new Error('Episode is already complete.');
@@ -416,7 +418,7 @@ export const resolveTurn = (
 
   const postRivalEvents = triggerEvents(state, context.scenario.eventTable, rng, pressureMultiplier);
 
-  const traversal = traverseBeatGraph(state, context.scenario, playerAction);
+  const traversal = traverseBeatGraph(state, context.scenario, playerAction, nowMs);
   const beatMap = buildBeatMap(context.scenario);
   const activeBeat = getBeat(beatMap, state.currentBeatId);
 
@@ -507,7 +509,7 @@ export const resolveTurn = (
     state.outcome = traversal.terminalOutcome ?? evaluateOutcome(state);
   } else {
     state.turn += 1;
-    state.activeCountdown = buildCountdownForBeat(activeBeat, state.timerMode);
+    state.activeCountdown = buildCountdownForBeat(activeBeat, state.timerMode, nowMs);
     state.offeredActionIds = selectPlayerActionOptions(state, context.scenario, actionMap, rng);
   }
 

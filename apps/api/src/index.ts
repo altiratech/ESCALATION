@@ -117,12 +117,16 @@ app.post('/api/episodes/start', async (context) => {
   const seed = payload.seed ?? `${payload.profileId}:${Date.now()}`;
   const episodeId = crypto.randomUUID();
 
+  const requestTimestamp = Date.now();
   const state = initializeGameState(episodeId, seed, {
     scenario,
     archetype,
     actions,
     images
-  }, payload.timerMode ? { timerMode: payload.timerMode } : undefined);
+  }, {
+    timerMode: payload.timerMode ?? 'standard',
+    nowMs: requestTimestamp
+  });
 
   const db = createDb(context.env);
   await createEpisode(db, {
@@ -147,7 +151,7 @@ app.post('/api/episodes/start', async (context) => {
     extendTimerUsesRemaining: state.extendTimerUsesRemaining
   });
 
-  const view = toEpisodeView(state, actionMap, imageMap);
+  const view = toEpisodeView(state, actionMap, imageMap, requestTimestamp);
   const polisher = createPolisher(context.env);
 
   return context.json({
@@ -165,7 +169,8 @@ app.get('/api/episodes/:episodeId', async (context) => {
     return context.json({ message: 'Episode not found' }, 404);
   }
 
-  const view = toEpisodeView(state, actionMap, imageMap);
+  const requestTimestamp = Date.now();
+  const view = toEpisodeView(state, actionMap, imageMap, requestTimestamp);
   const polisher = createPolisher(context.env);
 
   return context.json({
@@ -203,7 +208,7 @@ app.post('/api/episodes/:episodeId/actions', async (context) => {
   const requestTimestamp = Date.now();
 
   if (state.status === 'completed') {
-    const completedView = toEpisodeView(state, actionMap, imageMap);
+    const completedView = toEpisodeView(state, actionMap, imageMap, requestTimestamp);
     return context.json({
       stale: true,
       episode: completedView
@@ -215,7 +220,7 @@ app.post('/api/episodes/:episodeId/actions', async (context) => {
   }
 
   if (payload.expectedTurn < state.turn) {
-    const staleView = toEpisodeView(state, actionMap, imageMap);
+    const staleView = toEpisodeView(state, actionMap, imageMap, requestTimestamp);
     return context.json({
       stale: true,
       episode: staleView
@@ -257,7 +262,7 @@ app.post('/api/episodes/:episodeId/actions', async (context) => {
 
       return context.json({
         stale: true,
-        episode: toEpisodeView(latest, actionMap, imageMap)
+        episode: toEpisodeView(latest, actionMap, imageMap, requestTimestamp)
       });
     }
 
@@ -279,11 +284,11 @@ app.post('/api/episodes/:episodeId/actions', async (context) => {
 
     if (nextState.status === 'completed' && nextState.outcome) {
       const report = buildPostGameReport(nextState, actionMap);
-      const episodeView = toEpisodeView(nextState, actionMap, imageMap);
+      const episodeView = toEpisodeView(nextState, actionMap, imageMap, requestTimestamp);
       await upsertReport(db, report, episodeRecord.profileId, computeCompositeScore(episodeView));
     }
 
-    const view = toEpisodeView(nextState, actionMap, imageMap);
+    const view = toEpisodeView(nextState, actionMap, imageMap, requestTimestamp);
     return context.json({
       stale: false,
       resolution,
@@ -319,7 +324,7 @@ app.post('/api/episodes/:episodeId/actions', async (context) => {
   const preActionTimer = countdownTelemetry(state.activeCountdown, requestTimestamp);
   let result;
   try {
-    result = resolveTurn(state, payload.actionId, engineContext);
+    result = resolveTurn(state, payload.actionId, engineContext, requestTimestamp);
   } catch (error) {
     return context.json({
       message: error instanceof Error ? error.message : 'Failed to resolve action.'
@@ -351,7 +356,7 @@ app.post('/api/episodes/:episodeId/inaction', async (context) => {
   if (state.status === 'completed') {
     return context.json({
       stale: true,
-      episode: toEpisodeView(state, actionMap, imageMap)
+      episode: toEpisodeView(state, actionMap, imageMap, requestTimestamp)
     });
   }
 
@@ -362,7 +367,7 @@ app.post('/api/episodes/:episodeId/inaction', async (context) => {
   if (payload.expectedTurn < state.turn) {
     return context.json({
       stale: true,
-      episode: toEpisodeView(state, actionMap, imageMap)
+      episode: toEpisodeView(state, actionMap, imageMap, requestTimestamp)
     });
   }
 
@@ -402,7 +407,7 @@ app.post('/api/episodes/:episodeId/inaction', async (context) => {
 
     return context.json({
       stale: true,
-      episode: toEpisodeView(latest, actionMap, imageMap)
+      episode: toEpisodeView(latest, actionMap, imageMap, requestTimestamp)
     });
   }
 
@@ -424,11 +429,11 @@ app.post('/api/episodes/:episodeId/inaction', async (context) => {
 
   if (result.nextState.status === 'completed' && result.nextState.outcome) {
     const report = buildPostGameReport(result.nextState, actionMap);
-    const episodeView = toEpisodeView(result.nextState, actionMap, imageMap);
+    const episodeView = toEpisodeView(result.nextState, actionMap, imageMap, requestTimestamp);
     await upsertReport(db, report, episodeRecord.profileId, computeCompositeScore(episodeView));
   }
 
-  const view = toEpisodeView(result.nextState, actionMap, imageMap);
+  const view = toEpisodeView(result.nextState, actionMap, imageMap, requestTimestamp);
   const polisher = createPolisher(context.env);
 
   return context.json({
@@ -457,7 +462,7 @@ app.post('/api/episodes/:episodeId/countdown/extend', async (context) => {
   if (state.status === 'completed') {
     return context.json({
       stale: true,
-      episode: toEpisodeView(state, actionMap, imageMap)
+      episode: toEpisodeView(state, actionMap, imageMap, requestTimestamp)
     });
   }
 
@@ -468,7 +473,7 @@ app.post('/api/episodes/:episodeId/countdown/extend', async (context) => {
   if (payload.expectedTurn < state.turn) {
     return context.json({
       stale: true,
-      episode: toEpisodeView(state, actionMap, imageMap)
+      episode: toEpisodeView(state, actionMap, imageMap, requestTimestamp)
     });
   }
 
@@ -495,7 +500,7 @@ app.post('/api/episodes/:episodeId/countdown/extend', async (context) => {
 
     return context.json({
       stale: true,
-      episode: toEpisodeView(latest, actionMap, imageMap)
+      episode: toEpisodeView(latest, actionMap, imageMap, requestTimestamp)
     });
   }
 
@@ -514,7 +519,7 @@ app.post('/api/episodes/:episodeId/countdown/extend', async (context) => {
     extendTimerUsesRemaining: nextState.extendTimerUsesRemaining
   });
 
-  const view = toEpisodeView(nextState, actionMap, imageMap);
+  const view = toEpisodeView(nextState, actionMap, imageMap, requestTimestamp);
   const polisher = createPolisher(context.env);
 
   return context.json({
@@ -547,7 +552,7 @@ app.get('/api/episodes/:episodeId/report', async (context) => {
   const generated = buildPostGameReport(episode, actionMap);
   const episodeRecord = await getEpisodeState(db, episodeId);
   if (episodeRecord) {
-    const view = toEpisodeView(episode, actionMap, imageMap);
+    const view = toEpisodeView(episode, actionMap, imageMap, Date.now());
     await upsertReport(db, generated, episodeRecord.profileId, computeCompositeScore(view));
   }
 

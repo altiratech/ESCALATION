@@ -1,0 +1,626 @@
+{
+  "version": "1.0.0",
+  "scenario": "northern_strait_flashpoint",
+  "author": "claude-cowork",
+  "date": "2026-03-02",
+  "categories": [
+    {
+      "category": "advisor_lines",
+      "description": "Beat-scoped advisor dialogue candidates. Each entry adds to the existing advisorLines arrays in scenario beats.",
+      "entries": [
+        {
+          "id": "adv_opening_cross_2",
+          "beatId": "ns_opening_signal",
+          "advisor": "cross",
+          "line": "If they interpret caution as permission, the corridor is lost."
+        },
+        {
+          "id": "adv_backchannel_cross_2",
+          "beatId": "ns_backchannel_opening",
+          "advisor": "cross",
+          "line": "Backchannels buy time only if matched by posture."
+        },
+        {
+          "id": "adv_backchannel_chen_2",
+          "beatId": "ns_backchannel_opening",
+          "advisor": "chen",
+          "line": "Silence on our part signals either wisdom or paralysis — they cannot tell which."
+        },
+        {
+          "id": "adv_backchannel_okonkwo_1",
+          "beatId": "ns_backchannel_opening",
+          "advisor": "okonkwo",
+          "line": "If the channel holds, tanker futures will tell us before the cables do."
+        },
+        {
+          "id": "adv_strait_cross_2",
+          "beatId": "ns_strait_pressure",
+          "advisor": "cross",
+          "line": "Forward presence now or contested passage later — choose."
+        },
+        {
+          "id": "adv_strait_okonkwo_2",
+          "beatId": "ns_strait_pressure",
+          "advisor": "okonkwo",
+          "line": "Insurance markets are a leading indicator; they just stopped writing."
+        },
+        {
+          "id": "adv_strait_reed_1",
+          "beatId": "ns_strait_pressure",
+          "advisor": "reed",
+          "line": "Their command frequency shifted to exercise encryption — that is not exercise behavior."
+        },
+        {
+          "id": "adv_trade_cross_1",
+          "beatId": "ns_trade_friction",
+          "advisor": "cross",
+          "line": "Economic leverage without credible force is just noise."
+        },
+        {
+          "id": "adv_trade_okonkwo_2",
+          "beatId": "ns_trade_friction",
+          "advisor": "okonkwo",
+          "line": "Precautionary buying is rational for them but ruinous for us."
+        },
+        {
+          "id": "adv_trade_chen_2",
+          "beatId": "ns_trade_friction",
+          "advisor": "chen",
+          "line": "Sanctions rhetoric outruns sanctions policy — fill the gap before markets do."
+        },
+        {
+          "id": "adv_info_reed_2",
+          "beatId": "ns_info_war",
+          "advisor": "reed",
+          "line": "Attribution will take weeks. Containment must happen in hours."
+        },
+        {
+          "id": "adv_info_chen_2",
+          "beatId": "ns_info_war",
+          "advisor": "chen",
+          "line": "The best counter-narrative is operational competence, not louder messaging."
+        },
+        {
+          "id": "adv_info_okonkwo_1",
+          "beatId": "ns_info_war",
+          "advisor": "okonkwo",
+          "line": "Sentiment gauges are diverging from macro fundamentals — that gap is exploitable or explosive."
+        },
+        {
+          "id": "adv_alliance_chen_2",
+          "beatId": "ns_alliance_split",
+          "advisor": "chen",
+          "line": "A private consensus is worth more than a public declaration right now."
+        },
+        {
+          "id": "adv_alliance_cross_2",
+          "beatId": "ns_alliance_split",
+          "advisor": "cross",
+          "line": "If they sense we are negotiating with ourselves, they will hedge."
+        },
+        {
+          "id": "adv_alliance_okonkwo_1",
+          "beatId": "ns_alliance_split",
+          "advisor": "okonkwo",
+          "line": "Alliance discount is now a measurable spread in defense and sovereign instruments."
+        },
+        {
+          "id": "adv_crisis_cross_2",
+          "beatId": "ns_crisis_window",
+          "advisor": "cross",
+          "line": "The decision is not between war and peace — it is between controlled escalation and drift."
+        },
+        {
+          "id": "adv_crisis_okonkwo_2",
+          "beatId": "ns_crisis_window",
+          "advisor": "okonkwo",
+          "line": "Every second of ambiguity is priced in real time."
+        },
+        {
+          "id": "adv_crisis_chen_2",
+          "beatId": "ns_crisis_window",
+          "advisor": "chen",
+          "line": "If you speak only through force posture, the other side hears only threat."
+        },
+        {
+          "id": "adv_crisis_reed_1",
+          "beatId": "ns_crisis_window",
+          "advisor": "reed",
+          "line": "Command-channel latency suggests they are waiting for us to move first."
+        },
+        {
+          "id": "adv_missile_cross_2",
+          "beatId": "ns_missile_warning",
+          "advisor": "cross",
+          "line": "Fueling signatures do not reverse. Act on what we see, not what we hope."
+        },
+        {
+          "id": "adv_missile_chen_2",
+          "beatId": "ns_missile_warning",
+          "advisor": "chen",
+          "line": "Miscalculation at this altitude is not recoverable through diplomacy."
+        },
+        {
+          "id": "adv_missile_reed_2",
+          "beatId": "ns_missile_warning",
+          "advisor": "reed",
+          "line": "Electronic coverage degrades in 40 minutes — that is the real clock."
+        },
+        {
+          "id": "adv_covert_cross_1",
+          "beatId": "ns_covert_shadow",
+          "advisor": "cross",
+          "line": "Shadow operations accelerate when they believe we are not watching."
+        },
+        {
+          "id": "adv_covert_reed_2",
+          "beatId": "ns_covert_shadow",
+          "advisor": "reed",
+          "line": "The pattern has shifted from probing to preparation."
+        },
+        {
+          "id": "adv_covert_okonkwo_2",
+          "beatId": "ns_covert_shadow",
+          "advisor": "okonkwo",
+          "line": "Insurance underwriters have already priced in what intelligence has not confirmed."
+        },
+        {
+          "id": "adv_carrier_cross_2",
+          "beatId": "ns_carrier_faceoff",
+          "advisor": "cross",
+          "line": "Force geometry says we have advantage for six hours — not twelve."
+        },
+        {
+          "id": "adv_carrier_chen_2",
+          "beatId": "ns_carrier_faceoff",
+          "advisor": "chen",
+          "line": "A live deconfliction channel is worth more than a strike plan right now."
+        },
+        {
+          "id": "adv_carrier_reed_2",
+          "beatId": "ns_carrier_faceoff",
+          "advisor": "reed",
+          "line": "Both sides are interpreting noise as signal."
+        },
+        {
+          "id": "adv_ceasefire_cross_1",
+          "beatId": "ns_ceasefire_channel",
+          "advisor": "cross",
+          "line": "Ceasefire without maintained posture invites resumption."
+        },
+        {
+          "id": "adv_ceasefire_okonkwo_2",
+          "beatId": "ns_ceasefire_channel",
+          "advisor": "okonkwo",
+          "line": "A framework without enforcement triggers is a press release."
+        }
+      ]
+    },
+    {
+      "category": "debrief_variants",
+      "description": "Turn debrief line templates. Placeholders use curly braces. Source tags match TurnDebriefLine.source.",
+      "entries": [
+        {
+          "id": "debrief_player_default",
+          "source": "PlayerAction",
+          "condition": "default",
+          "template": "You authorized {action_name}; {strongest_shift_meter} {qualitative_shift} after implementation."
+        },
+        {
+          "id": "debrief_player_bounded",
+          "source": "PlayerAction",
+          "condition": "no_significant_shift",
+          "template": "You authorized {action_name}; immediate effects remained bounded under current conditions."
+        },
+        {
+          "id": "debrief_player_high_escalation",
+          "source": "PlayerAction",
+          "condition": "escalation_delta_gte_8",
+          "template": "You authorized {action_name}; escalation pressure intensified sharply following execution."
+        },
+        {
+          "id": "debrief_player_stabilizing",
+          "source": "PlayerAction",
+          "condition": "escalation_delta_lte_neg5",
+          "template": "You authorized {action_name}; conditions appear to have stabilized in the near term."
+        },
+        {
+          "id": "debrief_player_costly",
+          "source": "PlayerAction",
+          "condition": "multi_meter_negative",
+          "template": "You authorized {action_name}; implementation costs exceeded initial estimates across multiple indicators."
+        },
+        {
+          "id": "debrief_rival_default",
+          "source": "SecondaryEffect",
+          "condition": "has_token",
+          "template": "The rival answered with {rival_action_name}, and follow-on reporting suggests {token_phrase} across the theater."
+        },
+        {
+          "id": "debrief_rival_no_token",
+          "source": "SecondaryEffect",
+          "condition": "no_token",
+          "template": "The rival answered with {rival_action_name}, reinforcing a contested signaling environment."
+        },
+        {
+          "id": "debrief_rival_escalatory",
+          "source": "SecondaryEffect",
+          "condition": "rival_escalation_delta_gte_6",
+          "template": "The rival answered with {rival_action_name}; their posture shifted markedly toward confrontation."
+        },
+        {
+          "id": "debrief_rival_conciliatory",
+          "source": "SecondaryEffect",
+          "condition": "rival_escalation_delta_lte_neg4",
+          "template": "The rival answered with {rival_action_name}; signals suggest a measured pullback from previous positioning."
+        },
+        {
+          "id": "debrief_rival_ambiguous",
+          "source": "SecondaryEffect",
+          "condition": "rival_escalation_delta_abs_lt_3",
+          "template": "The rival answered with {rival_action_name}; intent remains difficult to parse from available reporting."
+        },
+        {
+          "id": "debrief_event_visible",
+          "source": "SystemEvent",
+          "condition": "has_visible_event",
+          "template": "Operational reporting indicates {event_label} activity; intelligence handling remains partially contested."
+        },
+        {
+          "id": "debrief_event_hidden",
+          "source": "SystemEvent",
+          "condition": "has_events_none_visible",
+          "template": "System activity accelerated in the background; available reporting remains incomplete."
+        },
+        {
+          "id": "debrief_event_multi",
+          "source": "SystemEvent",
+          "condition": "multiple_visible_events",
+          "template": "Multiple concurrent developments reported; analytical bandwidth is stretched across competing priorities."
+        },
+        {
+          "id": "debrief_event_high_vis",
+          "source": "SystemEvent",
+          "condition": "event_visibility_gte_0.9",
+          "template": "A high-profile development has entered the public record: {event_label}. Containment options narrowed."
+        },
+        {
+          "id": "debrief_beat_transition",
+          "source": "SystemEvent",
+          "condition": "beat_transition_occurred",
+          "template": "The strategic landscape has shifted — operational priorities are recalibrating."
+        },
+        {
+          "id": "debrief_crisis_entry",
+          "source": "SystemEvent",
+          "condition": "phase_transition_to_crisis",
+          "template": "The situation has crossed into a narrower decision corridor. Response windows are compressing."
+        },
+        {
+          "id": "debrief_climax_entry",
+          "source": "SystemEvent",
+          "condition": "phase_transition_to_climax",
+          "template": "Events have reached a decisive phase. The next actions carry irreversible weight."
+        }
+      ]
+    },
+    {
+      "category": "pressure_text",
+      "description": "UI countdown overlay text for timed beats. Keyed by secondsRemaining thresholds. Shown to player during active countdown.",
+      "entries": [
+        {
+          "id": "pressure_crisis_window_75",
+          "beatId": "ns_crisis_window",
+          "thresholdSeconds": 75,
+          "text": "Command channels are holding for your directive."
+        },
+        {
+          "id": "pressure_crisis_window_60",
+          "beatId": "ns_crisis_window",
+          "thresholdSeconds": 60,
+          "text": "Allied capitals have flagged the delay. Coordination options narrow."
+        },
+        {
+          "id": "pressure_crisis_window_45",
+          "beatId": "ns_crisis_window",
+          "thresholdSeconds": 45,
+          "text": "Signal intelligence indicates the rival is interpreting your silence."
+        },
+        {
+          "id": "pressure_crisis_window_30",
+          "beatId": "ns_crisis_window",
+          "thresholdSeconds": 30,
+          "text": "Forward commanders report declining confidence in restraint on both sides."
+        },
+        {
+          "id": "pressure_crisis_window_15",
+          "beatId": "ns_crisis_window",
+          "thresholdSeconds": 15,
+          "text": "The decision horizon is closing. Inaction will be read as a signal."
+        },
+        {
+          "id": "pressure_crisis_window_5",
+          "beatId": "ns_crisis_window",
+          "thresholdSeconds": 5,
+          "text": "Window expiring. No directive will default to contingency posture."
+        },
+        {
+          "id": "pressure_missile_60",
+          "beatId": "ns_missile_warning",
+          "thresholdSeconds": 60,
+          "text": "Warning operators await guidance on threat classification."
+        },
+        {
+          "id": "pressure_missile_45",
+          "beatId": "ns_missile_warning",
+          "thresholdSeconds": 45,
+          "text": "Regional embassies are requesting immediate confirmation of U.S. intent."
+        },
+        {
+          "id": "pressure_missile_30",
+          "beatId": "ns_missile_warning",
+          "thresholdSeconds": 30,
+          "text": "Electronic countermeasure coverage is degrading. The real clock is shorter than the display."
+        },
+        {
+          "id": "pressure_missile_15",
+          "beatId": "ns_missile_warning",
+          "thresholdSeconds": 15,
+          "text": "Launch-ready indicators are active. The window for preemptive clarity is nearly closed."
+        },
+        {
+          "id": "pressure_missile_5",
+          "beatId": "ns_missile_warning",
+          "thresholdSeconds": 5,
+          "text": "Final seconds. Silence will be interpreted as paralysis by both sides."
+        },
+        {
+          "id": "pressure_generic_75",
+          "beatId": "_generic",
+          "thresholdSeconds": 75,
+          "text": "The clock is running. Your team awaits direction."
+        },
+        {
+          "id": "pressure_generic_50",
+          "beatId": "_generic",
+          "thresholdSeconds": 50,
+          "text": "Time pressure is mounting. Options narrow with each passing moment."
+        },
+        {
+          "id": "pressure_generic_25",
+          "beatId": "_generic",
+          "thresholdSeconds": 25,
+          "text": "The decision window is closing. Remaining options are increasingly constrained."
+        },
+        {
+          "id": "pressure_generic_10",
+          "beatId": "_generic",
+          "thresholdSeconds": 10,
+          "text": "Critical seconds remaining. Inaction becomes the de facto decision."
+        }
+      ]
+    },
+    {
+      "category": "causality_reveal",
+      "description": "Post-game content shown when fog-of-war is fully lifted. References exact meter values and causal chains. NEVER shown during play.",
+      "entries": [
+        {
+          "id": "causality_stabilization_title",
+          "outcome": "stabilization",
+          "field": "title",
+          "text": "Managed De-Escalation"
+        },
+        {
+          "id": "causality_stabilization_summary",
+          "outcome": "stabilization",
+          "field": "summary",
+          "text": "Through sustained diplomatic engagement and credible deterrence posture, you achieved a verified framework that reduced immediate confrontation risk. Alliance trust held above the fracture threshold and escalation pressure was contained below the critical band."
+        },
+        {
+          "id": "causality_stabilization_note",
+          "outcome": "stabilization",
+          "field": "causal_note",
+          "template": "Key inflection: your policy mix kept escalationIndex below 45 while maintaining allianceTrust above 54 by turn {resolution_turn}. The ceasefire channel opened because both conditions held simultaneously — losing either would have routed to carrier_faceoff or frozen_line."
+        },
+        {
+          "id": "causality_frozen_title",
+          "outcome": "frozen_conflict",
+          "field": "title",
+          "text": "Uneasy Deterrence"
+        },
+        {
+          "id": "causality_frozen_summary",
+          "outcome": "frozen_conflict",
+          "field": "summary",
+          "text": "Neither side escalated to open conflict, but no diplomatic framework emerged to resolve the underlying dispute. The crisis receded from immediate danger but remains structurally embedded in the region's security architecture."
+        },
+        {
+          "id": "causality_frozen_note",
+          "outcome": "frozen_conflict",
+          "field": "causal_note",
+          "template": "The frozen outcome triggered because no terminal condition was met before turn limits. EscalationIndex peaked at {peak_escalation} on turn {peak_turn} but never crossed the war threshold while alliance trust held above fragmentation level. This is a deferred crisis, not a resolution."
+        },
+        {
+          "id": "causality_war_title",
+          "outcome": "war",
+          "field": "title",
+          "text": "Strategic Breakdown"
+        },
+        {
+          "id": "causality_war_summary",
+          "outcome": "war",
+          "field": "summary",
+          "text": "A contested engagement crossed the political point of no return. Alliance cohesion splintered as capitals pivoted to force protection and national contingencies. The escalation index exceeded survivable thresholds while alliance trust collapsed beneath the coordination floor."
+        },
+        {
+          "id": "causality_war_note",
+          "outcome": "war",
+          "field": "causal_note",
+          "template": "The war outcome required escalationIndex > 85, militaryReadiness > 60, AND allianceTrust < 35 — all three simultaneously. Your path crossed these thresholds because {primary_driver}. The critical turn was {critical_turn}, where {critical_action} pushed escalation past the point of diplomatic recovery."
+        },
+        {
+          "id": "causality_econ_title",
+          "outcome": "economic_collapse",
+          "field": "title",
+          "text": "Systemic Financial Break"
+        },
+        {
+          "id": "causality_econ_summary",
+          "outcome": "economic_collapse",
+          "field": "summary",
+          "text": "Credit channels seized, emergency interventions lagged, and strategic options narrowed under fiscal stress. The crisis transformed from a deterrence problem into a systemic economic stabilization emergency."
+        },
+        {
+          "id": "causality_econ_note",
+          "outcome": "economic_collapse",
+          "field": "causal_note",
+          "template": "Economic collapse triggered when economicStability fell below 20 (final: {final_econ}). The cascade accelerated after turn {cascade_turn} when {cascade_trigger}. Market spiral dynamics compounded each turn — once economicStability dropped below 38, the trade_friction to market_spiral to economic_break path became nearly deterministic."
+        },
+        {
+          "id": "causality_regime_title",
+          "outcome": "regime_instability",
+          "field": "title",
+          "text": "Domestic Legitimacy Crisis"
+        },
+        {
+          "id": "causality_regime_summary",
+          "outcome": "regime_instability",
+          "field": "summary",
+          "text": "Sustained pressure and contradictory emergency directives fractured domestic legitimacy. Security institutions pivoted inward as political continuity became uncertain, subordinating the external theater to domestic survival."
+        },
+        {
+          "id": "causality_regime_note",
+          "outcome": "regime_instability",
+          "field": "causal_note",
+          "template": "Regime instability triggered when domesticCohesion fell below 22 (final: {final_cohesion}). The info_war to urban_unrest to regime_shock path was driven by sustained cohesion erosion. Turn {critical_turn} was decisive — {critical_event} dropped cohesion below recovery threshold while your attention was on {player_focus}."
+        }
+      ]
+    },
+    {
+      "category": "advisor_retrospective",
+      "description": "Post-game advisor commentary with full knowledge. Shown in post-game report only.",
+      "entries": [
+        {
+          "id": "retro_cross_stabilization",
+          "advisor": "cross",
+          "outcome": "stabilization",
+          "text": "Deterrence held because force posture was credible. That is the only reason the channel opened."
+        },
+        {
+          "id": "retro_cross_frozen",
+          "advisor": "cross",
+          "outcome": "frozen_conflict",
+          "text": "We avoided catastrophe but ceded strategic initiative. The corridor remains contested."
+        },
+        {
+          "id": "retro_cross_war",
+          "advisor": "cross",
+          "outcome": "war",
+          "text": "The failure was not military. It was the gap between signaling intent and maintaining alliance discipline."
+        },
+        {
+          "id": "retro_cross_econ",
+          "advisor": "cross",
+          "outcome": "economic_collapse",
+          "text": "We cannot fight what we cannot fund. The economic front was the real center of gravity."
+        },
+        {
+          "id": "retro_cross_regime",
+          "advisor": "cross",
+          "outcome": "regime_instability",
+          "text": "Internal fracture always undermines external strategy. We lost the home front first."
+        },
+        {
+          "id": "retro_chen_stabilization",
+          "advisor": "chen",
+          "outcome": "stabilization",
+          "text": "The framework works because both sides found language they could sell domestically. That is fragile, not permanent."
+        },
+        {
+          "id": "retro_chen_frozen",
+          "advisor": "chen",
+          "outcome": "frozen_conflict",
+          "text": "The absence of war is not peace. We deferred the question, and the next crisis will arrive with less room."
+        },
+        {
+          "id": "retro_chen_war",
+          "advisor": "chen",
+          "outcome": "war",
+          "text": "Every missed off-ramp compounded the next. The trajectory became irreversible three turns before it looked that way."
+        },
+        {
+          "id": "retro_chen_econ",
+          "advisor": "chen",
+          "outcome": "economic_collapse",
+          "text": "Economic collapse narrows political space to zero. There are no diplomatic options when governments cannot govern."
+        },
+        {
+          "id": "retro_chen_regime",
+          "advisor": "chen",
+          "outcome": "regime_instability",
+          "text": "When domestic legitimacy fractures, foreign policy becomes an afterthought. We lost agency before we lost the crisis."
+        },
+        {
+          "id": "retro_okonkwo_stabilization",
+          "advisor": "okonkwo",
+          "outcome": "stabilization",
+          "text": "Markets will stabilize if verification holds. The spread compression has already begun."
+        },
+        {
+          "id": "retro_okonkwo_frozen",
+          "advisor": "okonkwo",
+          "outcome": "frozen_conflict",
+          "text": "Risk premium remains elevated. The market is pricing in the next escalation, not celebrating the pause."
+        },
+        {
+          "id": "retro_okonkwo_war",
+          "advisor": "okonkwo",
+          "outcome": "war",
+          "text": "The balance sheet absorbed what diplomacy could not. Recovery will be measured in quarters, not weeks."
+        },
+        {
+          "id": "retro_okonkwo_econ",
+          "advisor": "okonkwo",
+          "outcome": "economic_collapse",
+          "text": "The cascade followed textbook stress mechanics: liquidity withdrawal, counterparty fear, then systemic lock. Earlier intervention was the only answer."
+        },
+        {
+          "id": "retro_okonkwo_regime",
+          "advisor": "okonkwo",
+          "outcome": "regime_instability",
+          "text": "Domestic instability is the one risk that monetary policy cannot reach. The economic damage is second-order but lasting."
+        },
+        {
+          "id": "retro_reed_stabilization",
+          "advisor": "reed",
+          "outcome": "stabilization",
+          "text": "The intelligence picture held long enough for the framework. Collection gaps remain — do not confuse resolution with clarity."
+        },
+        {
+          "id": "retro_reed_frozen",
+          "advisor": "reed",
+          "outcome": "frozen_conflict",
+          "text": "Both sides are still running operations in the shadow layer. The frozen surface conceals active maneuvering."
+        },
+        {
+          "id": "retro_reed_war",
+          "advisor": "reed",
+          "outcome": "war",
+          "text": "Attribution failures compounded decision errors. Better intelligence would not have prevented war, but it would have given us one more turn."
+        },
+        {
+          "id": "retro_reed_econ",
+          "advisor": "reed",
+          "outcome": "economic_collapse",
+          "text": "Economic indicators were the clearest signal channel throughout. The intelligence community was watching the wrong dashboard."
+        },
+        {
+          "id": "retro_reed_regime",
+          "advisor": "reed",
+          "outcome": "regime_instability",
+          "text": "We tracked external threats while the domestic threat multiplied unchecked. That is a structural blind spot, not an operational failure."
+        }
+      ]
+    }
+  ]
+}

@@ -12,7 +12,8 @@ import { projectVisibleRanges } from './intel';
 export const toEpisodeView = (
   state: GameState,
   actionMap: Map<string, ActionDefinition>,
-  imageMap: Map<string, ImageAsset>
+  imageMap: Map<string, ImageAsset>,
+  nowMs?: number
 ): EpisodeView => {
   const previewRng = new SeededRng(state.rngState ^ 0x9e3779b9);
   const visibleRanges: Record<keyof typeof state.meters, MeterRange> =
@@ -23,7 +24,7 @@ export const toEpisodeView = (
   const activeCountdown = state.activeCountdown
     ? {
         ...state.activeCountdown,
-        secondsRemaining: Math.max(0, Math.ceil((state.activeCountdown.expiresAt - Date.now()) / 1000))
+        secondsRemaining: Math.max(0, Math.ceil((state.activeCountdown.expiresAt - (nowMs ?? Date.now())) / 1000))
       }
     : null;
 

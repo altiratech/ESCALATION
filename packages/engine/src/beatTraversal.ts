@@ -107,7 +107,7 @@ export const applyMeterOverrides = (state: GameState, beat: BeatNode): void => {
   }
 };
 
-export const setCountdownForBeat = (state: GameState, beat: BeatNode): void => {
+export const setCountdownForBeat = (state: GameState, beat: BeatNode, nowMs?: number): void => {
   if (!beat.decisionWindow) {
     state.activeCountdown = null;
     return;
@@ -120,7 +120,7 @@ export const setCountdownForBeat = (state: GameState, beat: BeatNode): void => {
 
   const multiplier = state.timerMode === 'relaxed' ? 1.5 : 1;
   const seconds = Math.round(beat.decisionWindow.seconds * multiplier);
-  const now = Date.now();
+  const now = nowMs ?? Date.now();
   state.activeCountdown = {
     beatId: beat.id,
     seconds,
@@ -133,19 +133,20 @@ export const setCountdownForBeat = (state: GameState, beat: BeatNode): void => {
   };
 };
 
-export const applyBeatEntryEffects = (state: GameState, beat: BeatNode): void => {
+export const applyBeatEntryEffects = (state: GameState, beat: BeatNode, nowMs?: number): void => {
   if (beat.advisorUnlock && !state.activeAdvisors.includes(beat.advisorUnlock)) {
     state.activeAdvisors.push(beat.advisorUnlock);
   }
 
   applyMeterOverrides(state, beat);
-  setCountdownForBeat(state, beat);
+  setCountdownForBeat(state, beat, nowMs);
 };
 
 export const traverseBeatGraph = (
   state: GameState,
   scenario: ScenarioDefinition,
-  playerAction: ActionDefinition
+  playerAction: ActionDefinition,
+  nowMs?: number
 ): BeatTraversalResult => {
   const beatMap = buildBeatMap(scenario);
   const currentBeat = getBeat(beatMap, state.currentBeatId);
@@ -174,7 +175,7 @@ export const traverseBeatGraph = (
   const targetBeat = getBeat(beatMap, targetBeatId);
   state.currentBeatId = targetBeat.id;
   state.beatHistory.push(targetBeat.id);
-  applyBeatEntryEffects(state, targetBeat);
+  applyBeatEntryEffects(state, targetBeat, nowMs);
 
   return {
     beatIdBefore: currentBeat.id,
