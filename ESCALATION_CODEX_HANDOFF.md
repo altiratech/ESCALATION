@@ -392,6 +392,10 @@ Thread scope limitation: This thread ran under `Code/active/Wargames` and could 
 2. `npm run ci:phase1` passed.
 3. `vitest` suite passed (7 files / 12 tests).
 4. Monte Carlo concentration warnings remain unchanged and non-blocking.
+5. Git + GitHub bootstrap complete:
+- Local git initialized at `Code/active/Wargames`.
+- Remote repo created: `https://github.com/altiratech/ESCALATION`.
+- Initial pushed commit: `78f6b78` on `main`.
 
 ### 9.3 Spec drift still remaining
 
