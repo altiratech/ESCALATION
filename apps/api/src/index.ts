@@ -48,14 +48,125 @@ import {
   upsertReport
 } from './repository';
 
+const DEFAULT_ALLOWED_ORIGINS = [
+  'https://escalation.altiratech.com',
+  'https://escalation-web.pages.dev',
+  'http://localhost:5173',
+  'http://127.0.0.1:5173'
+];
+
+const RATE_LIMITED_METHODS = new Set(['POST', 'PUT', 'PATCH', 'DELETE']);
+const RATE_LIMIT_PRUNE_THRESHOLD = 2_000;
+
+type RateLimitEntry = {
+  count: number;
+  resetAt: number;
+};
+
+const rateLimitStore = new Map<string, RateLimitEntry>();
+
+const normalizeOrigin = (origin: string): string => origin.trim().replace(/\/+$/, '');
+
+const parsePositiveInt = (raw: string | undefined, fallback: number): number => {
+  const parsed = Number.parseInt(raw ?? '', 10);
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : fallback;
+};
+
+const resolveAllowedOrigins = (env: Env): { allowAll: boolean; origins: Set<string> } => {
+  const configured = env.CORS_ALLOW_ORIGINS?.trim();
+  if (configured === '*') {
+    return { allowAll: true, origins: new Set() };
+  }
+
+  if (configured) {
+    return {
+      allowAll: false,
+      origins: new Set(
+        configured
+          .split(',')
+          .map((origin) => normalizeOrigin(origin))
+          .filter((origin) => origin.length > 0)
+      )
+    };
+  }
+
+  return {
+    allowAll: false,
+    origins: new Set(DEFAULT_ALLOWED_ORIGINS)
+  };
+};
+
 const app = new Hono<{ Bindings: Env }>();
 
 app.use('*', logger());
 app.use('*', cors({
-  origin: '*',
-  allowHeaders: ['Content-Type'],
+  origin: (origin, context) => {
+    const { allowAll, origins } = resolveAllowedOrigins(context.env);
+    if (allowAll) {
+      return origin;
+    }
+    if (!origin) {
+      return null;
+    }
+    return origins.has(normalizeOrigin(origin)) ? origin : null;
+  },
+  allowHeaders: ['Content-Type', 'Authorization'],
   allowMethods: ['GET', 'POST', 'OPTIONS']
 }));
+
+app.use('/api/*', async (context, next) => {
+  if (!RATE_LIMITED_METHODS.has(context.req.method)) {
+    await next();
+    return;
+  }
+
+  if (context.req.path === '/api/healthz') {
+    await next();
+    return;
+  }
+
+  if (context.env.RATE_LIMIT_ENABLED === '0') {
+    await next();
+    return;
+  }
+
+  const maxRequests = parsePositiveInt(context.env.RATE_LIMIT_MAX_REQUESTS, 120);
+  const windowMs = parsePositiveInt(context.env.RATE_LIMIT_WINDOW_SECONDS, 60) * 1000;
+  const now = Date.now();
+  const forwardedFor = context.req.header('CF-Connecting-IP') ?? context.req.header('X-Forwarded-For') ?? 'unknown';
+  const clientIp = forwardedFor.split(',')[0]?.trim() || 'unknown';
+  const key = `${clientIp}:${context.req.method}`;
+
+  if (rateLimitStore.size > RATE_LIMIT_PRUNE_THRESHOLD) {
+    for (const [entryKey, entry] of rateLimitStore.entries()) {
+      if (now >= entry.resetAt) {
+        rateLimitStore.delete(entryKey);
+      }
+    }
+  }
+
+  let entry = rateLimitStore.get(key);
+  if (!entry || now >= entry.resetAt) {
+    entry = { count: 0, resetAt: now + windowMs };
+    rateLimitStore.set(key, entry);
+  }
+
+  if (entry.count >= maxRequests) {
+    const retryAfterSeconds = Math.max(1, Math.ceil((entry.resetAt - now) / 1000));
+    context.header('Retry-After', String(retryAfterSeconds));
+    context.header('X-RateLimit-Limit', String(maxRequests));
+    context.header('X-RateLimit-Remaining', '0');
+    context.header('X-RateLimit-Reset', String(Math.ceil(entry.resetAt / 1000)));
+    return context.json({ message: 'Rate limit exceeded. Try again shortly.' }, 429);
+  }
+
+  entry.count += 1;
+  context.header('X-RateLimit-Limit', String(maxRequests));
+  context.header('X-RateLimit-Remaining', String(Math.max(0, maxRequests - entry.count)));
+  context.header('X-RateLimit-Reset', String(Math.ceil(entry.resetAt / 1000)));
+
+  await next();
+});
 
 app.use('*', async (context, next) => {
   await ensureSchema(context.env);

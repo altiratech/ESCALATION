@@ -111,6 +111,10 @@ Default mode is deterministic template-only facts.
 Set in Worker env (`apps/api/wrangler.toml` or Cloudflare vars):
 - `LLM_MODE=off` (default)
 - `LLM_MODE=mock` (mock tone-polish adapter)
+- `CORS_ALLOW_ORIGINS` (comma-separated allowlist; use `*` only for temporary diagnostics)
+- `RATE_LIMIT_ENABLED=1` (set `0` to disable)
+- `RATE_LIMIT_MAX_REQUESTS=120` (per IP + method, within the configured window)
+- `RATE_LIMIT_WINDOW_SECONDS=60`
 
 No provider key is required for MVP.
 
@@ -180,6 +184,41 @@ npm run deploy --workspace @wargames/api
 6. Deploy web app (static) using your Cloudflare web hosting flow and point it to Worker API route.
 
 7. Attach DNS for `escalation.altiratech.com` in Cloudflare.
+
+## GitHub Actions CI/CD
+- `CI` workflow (`.github/workflows/ci.yml`) runs on pull requests.
+- `Deploy` workflow (`.github/workflows/deploy.yml`) runs on `main` pushes and:
+  1. runs lint + `ci:phase1`,
+  2. deploys API Worker,
+  3. builds/deploys web to Cloudflare Pages,
+  4. runs post-deploy verification checks.
+
+Required repo secrets:
+- `CLOUDFLARE_API_TOKEN`
+- `CLOUDFLARE_ACCOUNT_ID`
+
+Optional repo variables:
+- `CLOUDFLARE_PAGES_PROJECT` (default `escalation-web`)
+- `CLOUDFLARE_PAGES_BRANCH` (default `main`)
+- `ESCALATION_VERIFY_API_HEALTH_URL`
+- `ESCALATION_VERIFY_API_BOOTSTRAP_URL`
+- `ESCALATION_VERIFY_WEB_URL`
+
+## Deployment Verification
+Run production verification checks manually:
+
+```bash
+./scripts/verify-deploy.sh
+```
+
+Override targets via env vars:
+
+```bash
+VERIFY_API_HEALTH_URL=https://escalation.altiratech.com/api/healthz \
+VERIFY_API_BOOTSTRAP_URL=https://escalation.altiratech.com/api/reference/bootstrap \
+VERIFY_WEB_URL=https://escalation.altiratech.com \
+./scripts/verify-deploy.sh
+```
 
 ## Notes
 - No real-world leaders/networks are referenced.

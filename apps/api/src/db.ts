@@ -5,6 +5,10 @@ import * as schema from './schema';
 export interface Env {
   DB: D1Database;
   APP_ENV?: string;
+  CORS_ALLOW_ORIGINS?: string;
+  RATE_LIMIT_ENABLED?: '0' | '1';
+  RATE_LIMIT_MAX_REQUESTS?: string;
+  RATE_LIMIT_WINDOW_SECONDS?: string;
   LLM_MODE?: 'off' | 'mock';
   LLM_API_KEY?: string;
 }

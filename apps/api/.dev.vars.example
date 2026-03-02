@@ -1,3 +1,7 @@
 LLM_MODE=off
 # LLM_MODE=mock
 # LLM_API_KEY=
+CORS_ALLOW_ORIGINS=http://localhost:5173,http://127.0.0.1:5173,https://escalation.altiratech.com,https://escalation-web.pages.dev
+RATE_LIMIT_ENABLED=1
+RATE_LIMIT_MAX_REQUESTS=120
+RATE_LIMIT_WINDOW_SECONDS=60

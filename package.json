@@ -15,6 +15,7 @@
     "validate:content": "node --import tsx scripts/validate-content.ts",
     "simulate:balance": "node --import tsx scripts/monte-carlo.ts",
     "test:token-regression": "node --import tsx scripts/token-regression.ts",
+    "verify:deploy": "./scripts/verify-deploy.sh",
     "ci:phase1": "npm run validate:content && npm run simulate:balance && npm run test:token-regression && npm run test",
     "lint": "npm run typecheck --workspace @wargames/engine && npm run typecheck --workspace @wargames/api && npm run typecheck --workspace @wargames/web",
     "generate:images": "node scripts/generate-placeholders.mjs",

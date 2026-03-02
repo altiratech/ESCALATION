@@ -572,3 +572,69 @@ Thread scope limitation: This thread ran under `Code/active/Wargames` and could 
 1. Commit and push this round-2 follow-up fix set to `origin/main`.
 2. Implement deploy automation + verify script as the next operational milestone.
 3. Then execute remaining approved fast wins from `CLAUDE_REVIEW_ROUND2.md` in small commits.
+
+## 13) Session Update — 2026-03-02 (Operational hardening: CI/CD + verification + API perimeter)
+
+### 13.1 What changed
+
+1. CI/CD split and deploy automation:
+- Updated `.github/workflows/ci.yml` to PR validation + manual dispatch only.
+- Added `.github/workflows/deploy.yml` to run on `main` push/manual dispatch:
+  - quality gate (`lint` + `ci:phase1`)
+  - API Worker deploy (`npm run deploy --workspace @wargames/api`)
+  - Web build + Pages deploy (`wrangler pages deploy apps/web/dist`)
+  - post-deploy verification via script.
+
+2. Deploy verification automation:
+- Added `scripts/verify-deploy.sh`.
+- Script verifies:
+  - API health (`/api/healthz`)
+  - bootstrap payload shape (`/api/reference/bootstrap` contains scenarios/actions)
+  - web shell marker check.
+- Added root script alias: `npm run verify:deploy`.
+
+3. API perimeter hardening:
+- Replaced wildcard CORS behavior with origin allowlist logic.
+- Added new env controls:
+  - `CORS_ALLOW_ORIGINS`
+  - `RATE_LIMIT_ENABLED`
+  - `RATE_LIMIT_MAX_REQUESTS`
+  - `RATE_LIMIT_WINDOW_SECONDS`
+- Added baseline in-memory per-IP write-method rate limiting (POST/PUT/PATCH/DELETE) with `429` and standard rate-limit headers.
+- Updated `apps/api/wrangler.toml`, `apps/api/.dev.vars.example`, and `apps/api/src/db.ts` env typing.
+
+4. Documentation updates:
+- README now documents CI/CD workflow behavior, required Cloudflare secrets/vars, and deploy verification usage.
+
+### 13.2 Verification status
+
+1. Baseline pre-edit checks run and passed:
+- `npm run lint`
+- `npm run ci:phase1`
+
+2. Post-edit checks run and passed:
+- `npm run lint`
+- `npm run ci:phase1` (18 tests passed; Monte Carlo warning profile unchanged)
+
+3. `bash -n scripts/verify-deploy.sh` passed (syntax check).
+- Live endpoint verification script execution is environment-dependent and intended for CI or network-enabled local shell.
+
+### 13.3 Remaining work after this pass
+
+1. Push backlog still pending locally:
+- Existing local commit `e1731fe` is still ahead of `origin/main`.
+- This hardening pass is currently uncommitted local changes.
+
+2. Product/spec drift decisions still pending Ryan:
+- Rival archetype removal timing.
+- Dashboard/Intel removal timing.
+- JSON vs YAML content pipeline timing.
+
+3. Content lane:
+- Claude v2 narrative pack files are present locally but not yet integrated/switched in loader.
+
+### 13.4 Exact next action for resume
+
+1. Commit this operational hardening pass and push `main` (including outstanding `e1731fe` ancestry).
+2. Confirm GitHub secrets/vars are set and run first deploy workflow.
+3. Implement next approved structural item: stronger atomic analytics writes or timer extension race tightening beyond optimistic state-json guard (per Round-2 structural queue).

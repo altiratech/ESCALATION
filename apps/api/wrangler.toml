@@ -6,6 +6,10 @@ workers_dev = true
 [vars]
 APP_ENV = "development"
 LLM_MODE = "off"
+CORS_ALLOW_ORIGINS = "http://localhost:5173,http://127.0.0.1:5173,https://escalation.altiratech.com,https://escalation-web.pages.dev"
+RATE_LIMIT_ENABLED = "1"
+RATE_LIMIT_MAX_REQUESTS = "120"
+RATE_LIMIT_WINDOW_SECONDS = "60"
 
 [[d1_databases]]
 binding = "DB"
