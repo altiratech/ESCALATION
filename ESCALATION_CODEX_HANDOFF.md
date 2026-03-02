@@ -515,6 +515,6 @@ Thread scope limitation: This thread ran under `Code/active/Wargames` and could 
 
 ### 11.4 Exact next action for resume
 
-1. Commit and push this sprint to `origin/main` (`altiratech/ESCALATION`).
+1. Commit and push complete: `ba8873f` is now on `origin/main` (`altiratech/ESCALATION`).
 2. Resolve the remaining 3 spec-drift decisions with Ryan before any broad rival-model/UI-strip refactor.
 3. After decision lock: execute approved drift items in isolated commits with gate runs per milestone.
