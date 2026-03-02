@@ -691,3 +691,45 @@ Thread scope limitation: This thread ran under `Code/active/Wargames` and could 
 
 1. Implement timed-beat/advisor UX surfacing pass so merged advisor lines and debrief variants are visible with stronger in-game narrative variety.
 2. Then execute the next approved spec-drift decision (archetype removal or dashboard/intel removal), one isolated milestone at a time with full gate runs.
+
+## 15) Session Update — 2026-03-02 (Spec drift execution: archetype selector removal + dashboard/intel removal)
+
+### 15.1 What changed
+
+1. Rival archetype selector removal (player-facing):
+- Removed `archetypeId` from start-request contract (`StartEpisodeRequest`) and API start schema.
+- Start screen no longer renders a rival archetype dropdown.
+- Episode start now derives adversary profile from scenario content (`ScenarioDefinition.adversaryProfileId`) instead of player input.
+- Added `adversaryProfileId` to scenario schema and set Northern Strait to `calculated_technocrat`.
+
+2. State/view contract alignment for selector removal:
+- Removed `rivalArchetypeId` from `GameState` and `EpisodeView` shared types.
+- Engine initialization no longer stores player-selected archetype on state.
+- API/action/report paths now resolve adversary profile from scenario ID.
+- Report adversary summary fallback text updated to scenario-embedded phrasing.
+
+3. Dashboard/Intel panel removal from web UI:
+- Removed `MeterDashboard` and `IntelPanel` from active game layout in `App.tsx`.
+- Added new narrative-first `AdvisorPanel` component showing beat-authored advisor guidance cards.
+- Header copy updated from `Rival Profile` to `Adversary Model`.
+
+4. Content/runtime support:
+- Added scenario field and helper wiring in content layer (`getScenarioArchetype`).
+- README updated to reflect no player-selected archetype and advisor-panel-first situational awareness.
+
+### 15.2 Verification status
+
+1. `npm run lint` passed.
+2. `npm run ci:phase1` passed.
+3. Vitest passed: 10 files / 20 tests.
+4. Monte Carlo warning profile unchanged (`all_dove` concentration warnings remain warning-only).
+
+### 15.3 Remaining spec drift after this pass
+
+1. YAML content pipeline decision still open (JSON remains active authoring/runtime format).
+2. Rival behavior remains profile-driven internally (scenario-owned profile), not yet fully refactored to remove profile/archetype constructs from engine internals.
+
+### 15.4 Exact next action for resume
+
+1. Decide whether to execute full internal adversary-model refactor (remove archetype constructs entirely vs keep scenario-owned profile model for MVP).
+2. If approved, perform DB/schema/runtime rename pass (`archetype_*` -> `adversary_profile_*`) and remove remaining archetype terminology from API/bootstrap/report surfaces.
