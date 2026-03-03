@@ -25,10 +25,11 @@ if ! grep -q '"actions"' <<<"${api_bootstrap}"; then
   exit 1
 fi
 
-scenario_id="$(python3 - <<'PY' <<<"${api_bootstrap}"
-import json, sys
+scenario_id="$(API_BOOTSTRAP_JSON="${api_bootstrap}" python3 - <<'PY'
+import json
+import os
 
-data = json.load(sys.stdin)
+data = json.loads(os.environ["API_BOOTSTRAP_JSON"])
 scenarios = data.get("scenarios") or []
 if not scenarios:
     raise SystemExit("No scenarios in bootstrap payload")
@@ -43,10 +44,11 @@ fi
 echo "Verifying profile creation: ${API_PROFILE_URL}"
 profile_payload="$(printf '{"codename":"SMOKE-%s"}' "$(date +%s)")"
 profile_response="$(curl -fsS -X POST "${API_PROFILE_URL}" -H 'Content-Type: application/json' --data "${profile_payload}")"
-profile_id="$(python3 - <<'PY' <<<"${profile_response}"
-import json, sys
+profile_id="$(API_PROFILE_JSON="${profile_response}" python3 - <<'PY'
+import json
+import os
 
-data = json.load(sys.stdin)
+data = json.loads(os.environ["API_PROFILE_JSON"])
 profile_id = data.get("profileId")
 if not profile_id:
     raise SystemExit("Profile response missing profileId")
@@ -61,10 +63,11 @@ fi
 echo "Verifying episode start route: ${API_EPISODE_START_URL}"
 start_payload="$(printf '{"profileId":"%s","scenarioId":"%s","timerMode":"off"}' "${profile_id}" "${scenario_id}")"
 start_response="$(curl -fsS -X POST "${API_EPISODE_START_URL}" -H 'Content-Type: application/json' --data "${start_payload}")"
-python3 - <<'PY' <<<"${start_response}"
-import json, sys
+API_EPISODE_JSON="${start_response}" python3 - <<'PY'
+import json
+import os
 
-data = json.load(sys.stdin)
+data = json.loads(os.environ["API_EPISODE_JSON"])
 required_fields = ["episodeId", "scenarioId", "status", "turn", "maxTurns", "offeredActions"]
 missing = [field for field in required_fields if field not in data]
 if missing:
