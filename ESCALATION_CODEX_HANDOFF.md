@@ -857,3 +857,31 @@ Thread scope limitation: This thread ran under `Code/active/Wargames` and could 
 1. Commit and push transaction-coupled persistence changes.
 2. Verify deploy workflow on push.
 3. Continue next gameplay milestone.
+
+## 19) Session Update — 2026-03-02 (Push/deploy closeout for transaction-coupled persistence)
+
+### 19.1 What changed
+
+1. Committed and pushed transaction-coupled persistence milestone:
+- Commit: `b8e2d4e`
+- Scope: atomic action/inaction persistence (`episodes` + `turn_logs` + `beat_progress`) via `persistResolvedTurnAtomic(...)`.
+
+2. Re-validated baseline before push:
+- `npm run lint` passed.
+- `npm run ci:phase1` passed (11 files / 22 tests).
+
+3. Deploy execution + remediation:
+- Push-triggered Deploy run `22604841035` initially failed (`deploy_api` + `deploy_web`) with Cloudflare auth errors (`10000/9109`).
+- Reset GitHub `CLOUDFLARE_API_TOKEN` from local Wrangler OAuth credentials and re-ran `22604841035`.
+- Rerun completed successfully: `quality_gate`, `deploy_api`, `deploy_web`, `verify_deploy`.
+
+### 19.2 Current risk
+
+1. GitHub `CLOUDFLARE_API_TOKEN` is currently OAuth-derived (short-lived) after emergency remediation.
+2. Replace with a verified long-lived custom API token to avoid recurrence.
+
+### 19.3 Exact next action for resume
+
+1. Rotate GitHub `CLOUDFLARE_API_TOKEN` back to long-lived custom token and run a fresh manual Deploy verification.
+2. Continue next gameplay milestone:
+- extend-route atomic persistence parity (`episode update` + `beat_progress` transaction coupling).
