@@ -7,7 +7,7 @@ import type {
   MeterState,
   PostGameReport,
   ReportTimelinePoint,
-  RivalArchetype,
+  AdversaryProfile,
   ScenarioDefinition,
   TurnHistoryEntry
 } from '@wargames/shared-types';
@@ -444,7 +444,7 @@ const derivePrimaryDriver = (hiddenDeltas: PostGameReport['fullCausality']['hidd
 const buildAdversaryLogicSummary = (
   state: GameState,
   actionMap: Map<string, ActionDefinition>,
-  archetype?: RivalArchetype
+  adversaryProfile?: AdversaryProfile
 ): string => {
   const rivalActions = state.history
     .map((entry) => actionMap.get(entry.rivalActionId))
@@ -467,13 +467,13 @@ const buildAdversaryLogicSummary = (
         ? 'favored controlled de-escalation windows'
         : 'oscillated between escalation and restraint';
 
-  const archetypeLabel = archetype?.name ?? 'Scenario-embedded adversary model';
-  return `${archetypeLabel} ${stance}. Rival action mix was ${escalatoryTurns}/${rivalActions.length} escalatory-coded turns, with mean threshold belief ${avgThreshold.toFixed(2)}, bluff belief ${avgBluff.toFixed(2)}, and humiliation pressure ${avgHumiliation.toFixed(2)}.`;
+  const profileLabel = adversaryProfile?.name ?? 'Scenario-embedded adversary model';
+  return `${profileLabel} ${stance}. Rival action mix was ${escalatoryTurns}/${rivalActions.length} escalatory-coded turns, with mean threshold belief ${avgThreshold.toFixed(2)}, bluff belief ${avgBluff.toFixed(2)}, and humiliation pressure ${avgHumiliation.toFixed(2)}.`;
 };
 
 export interface BuildPostGameReportOptions {
   scenario?: ScenarioDefinition;
-  archetype?: RivalArchetype;
+  adversaryProfile?: AdversaryProfile;
   causalityNarrative?: {
     title: string | null;
     summary: string | null;
@@ -558,7 +558,7 @@ export const buildPostGameReport = (
         causalNote
       },
       hiddenDeltas,
-      adversaryLogicSummary: buildAdversaryLogicSummary(state, actionMap, options.archetype),
+      adversaryLogicSummary: buildAdversaryLogicSummary(state, actionMap, options.adversaryProfile),
       unseenSystemEvents,
       branchesNotTaken,
       advisorRetrospectives

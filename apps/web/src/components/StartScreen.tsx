@@ -30,8 +30,8 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
     [reference.scenarios, scenarioId]
   );
   const selectedAdversaryProfile = useMemo(
-    () => reference.archetypes.find((entry) => entry.id === selectedScenario?.adversaryProfileId),
-    [reference.archetypes, selectedScenario?.adversaryProfileId]
+    () => reference.adversaryProfiles.find((entry) => entry.id === selectedScenario?.adversaryProfileId),
+    [reference.adversaryProfiles, selectedScenario?.adversaryProfileId]
   );
 
   const handleStart = async (): Promise<void> => {

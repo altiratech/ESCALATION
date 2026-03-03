@@ -2,7 +2,7 @@ import type {
   ActionDefinition,
   BeliefState,
   GameState,
-  RivalArchetype,
+  AdversaryProfile,
   ScenarioDefinition
 } from '@wargames/shared-types';
 
@@ -24,28 +24,28 @@ export const scoreRivalAction = (
   action: ActionDefinition,
   state: GameState,
   beliefs: BeliefState,
-  archetype: RivalArchetype,
+  adversaryProfile: AdversaryProfile,
   rng: SeededRng
 ): number => {
   const pressure = projectedPressure(state);
-  const escalationNeed = pressure + beliefs.humiliation * archetype.egoSensitivity * 0.5;
+  const escalationNeed = pressure + beliefs.humiliation * adversaryProfile.egoSensitivity * 0.5;
 
   const strengthProjection =
-    normalize(action.signal.resolveSignal) * archetype.priorities.projectStrength +
-    normalize(action.signal.escalatory) * archetype.riskTolerance;
+    normalize(action.signal.resolveSignal) * adversaryProfile.priorities.projectStrength +
+    normalize(action.signal.escalatory) * adversaryProfile.riskTolerance;
 
-  const economyPenalty = normalize(action.signal.economicStressSignal) * archetype.priorities.preserveEconomy;
-  const alliancePenalty = normalize(action.signal.allianceStressSignal) * archetype.priorities.avoidAllianceBreak;
+  const economyPenalty = normalize(action.signal.economicStressSignal) * adversaryProfile.priorities.preserveEconomy;
+  const alliancePenalty = normalize(action.signal.allianceStressSignal) * adversaryProfile.priorities.avoidAllianceBreak;
 
-  const covertBonus = action.visibility === 'secret' ? archetype.covertPreference : 1 - archetype.covertPreference;
+  const covertBonus = action.visibility === 'secret' ? adversaryProfile.covertPreference : 1 - adversaryProfile.covertPreference;
 
-  const bluffPunishBias = beliefs.bluffProb * archetype.bluffSensitivity;
+  const bluffPunishBias = beliefs.bluffProb * adversaryProfile.bluffSensitivity;
   const perceivedWeaknessTarget = beliefs.economicallyWeakProb * 0.6 + beliefs.allianceFragileProb * 0.4;
 
   const assertiveBonus = normalize(action.signal.escalatory) * (escalationNeed + bluffPunishBias + perceivedWeaknessTarget * 0.3);
-  const deescalationBonus = normalize(action.signal.deescalatory) * beliefs.deescalateUnderPressure * (1 - archetype.riskTolerance + 0.2);
+  const deescalationBonus = normalize(action.signal.deescalatory) * beliefs.deescalateUnderPressure * (1 - adversaryProfile.riskTolerance + 0.2);
 
-  const imageModifier = beliefs.humiliation * archetype.egoSensitivity * normalize(action.signal.humiliationRisk);
+  const imageModifier = beliefs.humiliation * adversaryProfile.egoSensitivity * normalize(action.signal.humiliationRisk);
   const noise = rng.nextCenteredNoise(0.08);
 
   return (
@@ -53,7 +53,7 @@ export const scoreRivalAction = (
     assertiveBonus * 1.4 +
     deescalationBonus * 0.9 +
     covertBonus * 0.45 +
-    imageModifier * archetype.priorities.preserveImage -
+    imageModifier * adversaryProfile.priorities.preserveImage -
     economyPenalty * 0.8 -
     alliancePenalty * 0.5 +
     noise
@@ -63,7 +63,7 @@ export const scoreRivalAction = (
 export const chooseRivalAction = (
   state: GameState,
   scenario: ScenarioDefinition,
-  archetype: RivalArchetype,
+  adversaryProfile: AdversaryProfile,
   beliefs: BeliefState,
   actionMap: Map<string, ActionDefinition>,
   rng: SeededRng
@@ -78,7 +78,7 @@ export const chooseRivalAction = (
 
   const scored: RivalScoredAction[] = candidates.map((action) => ({
     action,
-    score: scoreRivalAction(action, state, beliefs, archetype, rng)
+    score: scoreRivalAction(action, state, beliefs, adversaryProfile, rng)
   }));
 
   scored.sort((left, right) => right.score - left.score);

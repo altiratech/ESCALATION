@@ -7,7 +7,7 @@ Cloudflare-native, single-player strategic escalation simulator.
 - Backend: Hono on Cloudflare Workers
 - Database: Cloudflare D1 + Drizzle ORM
 - Engine: deterministic TypeScript simulation core (seeded RNG)
-- Content: data-driven JSON definitions for scenarios, actions, archetypes, and image metadata
+- Content: data-driven JSON definitions for scenarios, actions, adversary profiles, and image metadata
 
 ## Quick Start (One Command)
 From repo root:
@@ -39,7 +39,7 @@ npm run dev
 - One 10-turn scenario
 - 6 core visible meters + hidden latent variables
 - 12 player actions with immediate, probabilistic, and delayed effects
-- Scenario-embedded adversary profile with belief-driven policy (no player-selected rival archetype)
+- Scenario-embedded adversary profile with belief-driven policy (no player-selected rival profile)
 - Beat-graph-driven narrative traversal (18-beat authored graph for Northern Strait)
 - Deterministic Turn Debrief strip (2-3 causal lines per turn, fog-of-war preserving)
 - Timed-beat runtime with ambient countdown, urgency thresholds, timeout-to-inaction branching, and per-beat/episode timer extension controls
@@ -82,7 +82,7 @@ tests/
 Primary files:
 - `packages/content/data/scenarios.json`
 - `packages/content/data/actions.json`
-- `packages/content/data/archetypes.json`
+- `packages/content/data/adversary_profiles.json`
 - `packages/content/data/images.json`
 
 Add or tune gameplay by editing these JSON files. Engine loads them directly at runtime.

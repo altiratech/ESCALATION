@@ -1,20 +1,20 @@
 import { describe, expect, it } from 'vitest';
 
-import { actions, archetypes, images, scenarios } from '@wargames/content';
+import { actions, adversaryProfiles, images, scenarios } from '@wargames/content';
 import { initializeGameState, traverseBeatGraph } from '@wargames/engine';
 
 const scenario = scenarios[0];
-const archetype = archetypes[0];
+const adversaryProfile = adversaryProfiles[0];
 
 describe('beat traversal', () => {
   it('transitions to escalation beat when threshold branch conditions are met', () => {
-    if (!scenario || !archetype) {
+    if (!scenario || !adversaryProfile) {
       throw new Error('Test content unavailable');
     }
 
     const state = initializeGameState('beat-threshold', 'BEAT-THRESHOLD', {
       scenario,
-      archetype,
+      adversaryProfile,
       actions,
       images
     });
@@ -33,13 +33,13 @@ describe('beat traversal', () => {
   });
 
   it('uses fallback branch when no gated branch conditions pass', () => {
-    if (!scenario || !archetype) {
+    if (!scenario || !adversaryProfile) {
       throw new Error('Test content unavailable');
     }
 
     const state = initializeGameState('beat-fallback', 'BEAT-FALLBACK', {
       scenario,
-      archetype,
+      adversaryProfile,
       actions,
       images
     });
@@ -59,13 +59,13 @@ describe('beat traversal', () => {
   });
 
   it('returns terminal outcome when traversal enters terminal beat', () => {
-    if (!scenario || !archetype) {
+    if (!scenario || !adversaryProfile) {
       throw new Error('Test content unavailable');
     }
 
     const state = initializeGameState('beat-terminal', 'BEAT-TERMINAL', {
       scenario,
-      archetype,
+      adversaryProfile,
       actions,
       images
     });

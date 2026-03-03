@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import {
   actions,
-  archetypes,
+  adversaryProfiles,
   getAdvisorRetrospectivesForOutcome,
   getCausalityRevealForOutcome,
   images,
@@ -17,17 +17,17 @@ import {
 } from '@wargames/engine';
 
 const scenario = scenarios[0];
-const archetype = archetypes[0];
+const adversaryProfile = adversaryProfiles[0];
 
 describe('post-game causality report', () => {
   it('builds full causality sections with narrative pack overlays', () => {
-    if (!scenario || !archetype) {
-      throw new Error('Scenario/archetype unavailable');
+    if (!scenario || !adversaryProfile) {
+      throw new Error('Scenario/adversaryProfile unavailable');
     }
 
     let state = initializeGameState('report-causality', 'REPORT-CAUSALITY', {
       scenario,
-      archetype,
+      adversaryProfile,
       actions,
       images
     }, {
@@ -42,7 +42,7 @@ describe('post-game causality report', () => {
 
       const { nextState } = resolveTurn(state, selected, {
         scenario,
-        archetype,
+        adversaryProfile,
         actions,
         images
       }, 10_000 + (safety * 1_000));
@@ -52,7 +52,7 @@ describe('post-game causality report', () => {
     const outcome = state.outcome ?? evaluateOutcome(state);
     const report = buildPostGameReport(state, buildActionMap(actions), {
       scenario,
-      archetype,
+      adversaryProfile,
       causalityNarrative: getCausalityRevealForOutcome(outcome),
       advisorRetrospectives: getAdvisorRetrospectivesForOutcome(outcome)
     });

@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS episodes (
   id TEXT PRIMARY KEY,
   profile_id TEXT NOT NULL,
   scenario_id TEXT NOT NULL,
-  archetype_id TEXT NOT NULL,
+  adversary_profile_id TEXT NOT NULL,
   seed TEXT NOT NULL,
   status TEXT NOT NULL,
   current_turn INTEGER NOT NULL,

@@ -1,20 +1,20 @@
 import { describe, expect, it } from 'vitest';
 
-import { actions, archetypes, images, scenarios } from '@wargames/content';
+import { actions, adversaryProfiles, images, scenarios } from '@wargames/content';
 import { evaluateOutcome, initializeGameState } from '@wargames/engine';
 
 const scenario = scenarios[0];
-const archetype = archetypes[1];
+const adversaryProfile = adversaryProfiles[1];
 
 describe('outcome evaluation', () => {
   it('detects war condition', () => {
-    if (!scenario || !archetype) {
+    if (!scenario || !adversaryProfile) {
       throw new Error('Test data unavailable');
     }
 
     const state = initializeGameState('outcome-war', 'SEED-WAR', {
       scenario,
-      archetype,
+      adversaryProfile,
       actions,
       images
     });
@@ -27,13 +27,13 @@ describe('outcome evaluation', () => {
   });
 
   it('detects economic collapse after consecutive low econ turns', () => {
-    if (!scenario || !archetype) {
+    if (!scenario || !adversaryProfile) {
       throw new Error('Test data unavailable');
     }
 
     const state = initializeGameState('outcome-econ', 'SEED-ECON', {
       scenario,
-      archetype,
+      adversaryProfile,
       actions,
       images
     });

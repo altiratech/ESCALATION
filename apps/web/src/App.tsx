@@ -74,7 +74,7 @@ const App = () => {
     void load();
   }, []);
 
-  const currentArchetypeName = useMemo(() => {
+  const currentAdversaryProfileName = useMemo(() => {
     if (!reference || !episode) {
       return '';
     }
@@ -82,7 +82,7 @@ const App = () => {
     if (!scenario) {
       return 'Scenario-embedded';
     }
-    return reference.archetypes.find((entry) => entry.id === scenario.adversaryProfileId)?.name ?? 'Scenario-embedded';
+    return reference.adversaryProfiles.find((entry) => entry.id === scenario.adversaryProfileId)?.name ?? 'Scenario-embedded';
   }, [reference, episode]);
 
   const currentBeat = useMemo(() => {
@@ -306,7 +306,7 @@ const App = () => {
         </div>
         <div className="text-right">
           <p className="text-sm text-textMain">Commander: {codename || profileId?.slice(0, 8) || 'Unknown'}</p>
-          <p className="text-xs text-textMuted">Adversary Model: {currentArchetypeName}</p>
+          <p className="text-xs text-textMuted">Adversary Model: {currentAdversaryProfileName}</p>
           <p className="text-xs text-textMuted">Timer Mode: {episode.timerMode}</p>
         </div>
       </header>

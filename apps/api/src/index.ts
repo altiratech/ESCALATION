@@ -5,12 +5,12 @@ import { z } from 'zod';
 
 import {
   actions,
-  archetypes,
+  adversaryProfiles,
   getDebriefVariants,
   getAdvisorRetrospectivesForOutcome,
   getCausalityRevealForOutcome,
   getScenario,
-  getScenarioArchetype,
+  getScenarioAdversaryProfile,
   images,
   narrativeCandidates,
   playerActions,
@@ -237,14 +237,14 @@ const startSchema = z.object({
 app.post('/api/episodes/start', async (context) => {
   const payload = startSchema.parse(await context.req.json());
   const scenario = getScenario(payload.scenarioId);
-  const archetype = getScenarioArchetype(scenario.id);
+  const adversaryProfile = getScenarioAdversaryProfile(scenario.id);
   const episodeId = crypto.randomUUID();
   const seed = payload.seed ?? episodeId;
 
   const requestTimestamp = Date.now();
   const state = initializeGameState(episodeId, seed, {
     scenario,
-    archetype,
+    adversaryProfile,
     actions,
     images
   }, {
@@ -256,7 +256,7 @@ app.post('/api/episodes/start', async (context) => {
   await createEpisode(db, {
     profileId: payload.profileId,
     scenarioId: scenario.id,
-    archetypeId: archetype.id,
+    adversaryProfileId: adversaryProfile.id,
     seed,
     state
   });
@@ -357,10 +357,10 @@ app.post('/api/episodes/:episodeId/actions', async (context) => {
   }
 
   const scenario = getScenario(state.scenarioId);
-  const archetype = getScenarioArchetype(scenario.id);
+  const adversaryProfile = getScenarioAdversaryProfile(scenario.id);
   const engineContext = {
     scenario,
-    archetype,
+    adversaryProfile,
     actions,
     images,
     debriefVariants
@@ -416,7 +416,7 @@ app.post('/api/episodes/:episodeId/actions', async (context) => {
     if (nextState.status === 'completed' && nextState.outcome) {
       const report = buildPostGameReport(nextState, actionMap, {
         scenario,
-        archetype,
+        adversaryProfile,
         causalityNarrative: getCausalityRevealForOutcome(nextState.outcome),
         advisorRetrospectives: getAdvisorRetrospectivesForOutcome(nextState.outcome)
       });
@@ -513,10 +513,10 @@ app.post('/api/episodes/:episodeId/inaction', async (context) => {
   }
 
   const scenario = getScenario(state.scenarioId);
-  const archetype = getScenarioArchetype(scenario.id);
+  const adversaryProfile = getScenarioAdversaryProfile(scenario.id);
   const engineContext = {
     scenario,
-    archetype,
+    adversaryProfile,
     actions,
     images,
     debriefVariants
@@ -573,7 +573,7 @@ app.post('/api/episodes/:episodeId/inaction', async (context) => {
   if (result.nextState.status === 'completed' && result.nextState.outcome) {
     const report = buildPostGameReport(result.nextState, actionMap, {
       scenario,
-      archetype,
+      adversaryProfile,
       causalityNarrative: getCausalityRevealForOutcome(result.nextState.outcome),
       advisorRetrospectives: getAdvisorRetrospectivesForOutcome(result.nextState.outcome)
     });
@@ -704,7 +704,7 @@ app.get('/api/episodes/:episodeId/report', async (context) => {
   }
 
   const scenario = getScenario(episode.scenarioId);
-  const archetype = getScenarioArchetype(scenario.id);
+  const adversaryProfile = getScenarioAdversaryProfile(scenario.id);
   const narrativeOptions = episode.outcome
     ? {
         causalityNarrative: getCausalityRevealForOutcome(episode.outcome),
@@ -713,7 +713,7 @@ app.get('/api/episodes/:episodeId/report', async (context) => {
     : {};
   const generated = buildPostGameReport(episode, actionMap, {
     scenario,
-    archetype,
+    adversaryProfile,
     ...narrativeOptions
   });
   const episodeRecord = await getEpisodeState(db, episodeId);
@@ -732,7 +732,7 @@ app.get('/api/reference/bootstrap', (context) => {
   context.header('Cache-Control', 'public, max-age=300');
   return context.json({
     scenarios,
-    archetypes,
+    adversaryProfiles,
     actions: playerActions,
     narrativeCandidates
   });

@@ -30,7 +30,7 @@ export interface EpisodeRecord {
   id: string;
   profileId: string;
   scenarioId: string;
-  archetypeId: string;
+  adversaryProfileId: string;
   seed: string;
   status: string;
   currentTurn: number;
@@ -71,7 +71,7 @@ export const createEpisode = async (
   payload: {
     profileId: string;
     scenarioId: string;
-    archetypeId: string;
+    adversaryProfileId: string;
     seed: string;
     state: GameState;
   }
@@ -80,7 +80,7 @@ export const createEpisode = async (
     id: payload.state.id,
     profileId: payload.profileId,
     scenarioId: payload.scenarioId,
-    archetypeId: payload.archetypeId,
+    adversaryProfileId: payload.adversaryProfileId,
     seed: payload.seed,
     status: payload.state.status,
     currentTurn: payload.state.turn,
@@ -165,26 +165,39 @@ export const insertTurnLog = async (
 };
 
 export type BeatTransitionSource = 'start' | 'action' | 'timeout' | 'explicit' | 'extend';
+export interface BeatProgressPayload {
+  episodeId: string;
+  turnNumber: number;
+  beatIdBefore: string;
+  beatIdAfter: string;
+  transitionSource: BeatTransitionSource;
+  transitioned: boolean;
+  timerMode: 'standard' | 'relaxed' | 'off';
+  timerSeconds: number | null;
+  timerSecondsRemaining: number | null;
+  timerExpired: boolean;
+  extendUsed: boolean;
+  extendTimerUsesRemaining: number;
+}
+
+export const buildBeatProgressId = (payload: BeatProgressPayload): string =>
+  [
+    payload.episodeId,
+    payload.turnNumber,
+    payload.transitionSource,
+    payload.beatIdBefore,
+    payload.beatIdAfter,
+    payload.timerMode,
+    payload.extendUsed ? 'extend' : 'no-extend',
+    payload.timerExpired ? 'expired' : 'active'
+  ].join(':');
 
 export const insertBeatProgress = async (
   db: Database,
-  payload: {
-    episodeId: string;
-    turnNumber: number;
-    beatIdBefore: string;
-    beatIdAfter: string;
-    transitionSource: BeatTransitionSource;
-    transitioned: boolean;
-    timerMode: 'standard' | 'relaxed' | 'off';
-    timerSeconds: number | null;
-    timerSecondsRemaining: number | null;
-    timerExpired: boolean;
-    extendUsed: boolean;
-    extendTimerUsesRemaining: number;
-  }
+  payload: BeatProgressPayload
 ): Promise<void> => {
   await db.insert(beatProgress).values({
-    id: randomId(),
+    id: buildBeatProgressId(payload),
     episodeId: payload.episodeId,
     turnNumber: payload.turnNumber,
     beatIdBefore: payload.beatIdBefore,
@@ -197,7 +210,7 @@ export const insertBeatProgress = async (
     timerExpired: toFlag(payload.timerExpired),
     extendUsed: toFlag(payload.extendUsed),
     extendTimerUsesRemaining: payload.extendTimerUsesRemaining
-  });
+  }).onConflictDoNothing();
 };
 
 export const upsertReport = async (

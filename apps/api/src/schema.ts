@@ -10,7 +10,7 @@ export const episodes = sqliteTable('episodes', {
   id: text('id').primaryKey(),
   profileId: text('profile_id').notNull(),
   scenarioId: text('scenario_id').notNull(),
-  archetypeId: text('archetype_id').notNull(),
+  adversaryProfileId: text('adversary_profile_id').notNull(),
   seed: text('seed').notNull(),
   status: text('status').notNull(),
   currentTurn: int('current_turn').notNull(),

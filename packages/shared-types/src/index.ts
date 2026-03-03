@@ -117,7 +117,7 @@ export interface ActionDefinition {
   maxTurn?: number;
 }
 
-export interface RivalArchetype {
+export interface AdversaryProfile {
   id: string;
   name: string;
   description: string;
@@ -527,7 +527,7 @@ export interface EpisodeView {
 
 export interface BootstrapPayload {
   scenarios: ScenarioDefinition[];
-  archetypes: RivalArchetype[];
+  adversaryProfiles: AdversaryProfile[];
   actions: ActionDefinition[];
   narrativeCandidates: NarrativeCandidatesPack;
 }

@@ -1,21 +1,21 @@
 import { describe, expect, it } from 'vitest';
 
-import { actions, archetypes, images, scenarios } from '@wargames/content';
+import { actions, adversaryProfiles, images, scenarios } from '@wargames/content';
 import { initializeGameState, resolveTurn } from '@wargames/engine';
 
 const scenario = scenarios[0];
-const archetype = archetypes[0];
+const adversaryProfile = adversaryProfiles[0];
 
 describe('deterministic seed mode', () => {
   it('replays identical outcome with same seed and choices', () => {
-    if (!scenario || !archetype) {
+    if (!scenario || !adversaryProfile) {
       throw new Error('Test data unavailable');
     }
 
     const run = (): { trace: number[]; outcome: string | null } => {
       let state = initializeGameState('episode-test', 'SEED-ALPHA', {
         scenario,
-        archetype,
+        adversaryProfile,
         actions,
         images
       });
@@ -25,7 +25,7 @@ describe('deterministic seed mode', () => {
         const selected = state.offeredActionIds[0] as string;
         const { nextState, resolution } = resolveTurn(state, selected, {
           scenario,
-          archetype,
+          adversaryProfile,
           actions,
           images
         });

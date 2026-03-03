@@ -733,3 +733,85 @@ Thread scope limitation: This thread ran under `Code/active/Wargames` and could 
 
 1. Decide whether to execute full internal adversary-model refactor (remove archetype constructs entirely vs keep scenario-owned profile model for MVP).
 2. If approved, perform DB/schema/runtime rename pass (`archetype_*` -> `adversary_profile_*`) and remove remaining archetype terminology from API/bootstrap/report surfaces.
+
+## 16) Session Update — 2026-03-02 (Timer analytics idempotency hardening)
+
+### 16.1 What changed
+
+1. Beat-progress analytics writes are now deterministic and idempotent:
+- Added `buildBeatProgressId(...)` in `apps/api/src/repository.ts`.
+- ID now derives from episode + turn + transition shape instead of `randomUUID`.
+- `insertBeatProgress(...)` now uses `onConflictDoNothing()` to prevent duplicate rows on retry/replay of the same transition event.
+
+2. Added regression coverage for analytics ID stability:
+- New test: `tests/api/beat-progress-id.test.ts`.
+- Verifies equivalent events produce the same ID (even with non-key telemetry differences like `timerSecondsRemaining`), while different transition sources produce distinct IDs.
+
+### 16.2 Verification status
+
+1. Pre-edit baseline checks:
+- `npm run lint` passed.
+- `npm run ci:phase1` passed.
+
+2. Post-edit checks:
+- `npm run lint` passed.
+- `npm run ci:phase1` passed.
+- Vitest now: 11 files / 22 tests passed.
+
+### 16.3 Remaining work after this pass
+
+1. YAML content pipeline decision remains open (JSON pipeline still canonical).
+2. Optional deeper adversary terminology/schema refactor remains open (`archetype_*` internal naming).
+3. If desired, next hardening step is full write-transaction coupling for episode + turn-log + beat-progress persistence.
+
+### 16.4 Exact next action for resume
+
+1. Commit and push this analytics idempotency patch.
+2. Decide whether to execute transaction-level persistence coupling next or move directly into the remaining YAML/spec-drift decision path.
+
+## 17) Session Update — 2026-03-02 (Internal adversary refactor + storage rename)
+
+### 17.1 What changed
+
+1. Internal adversary model terminology was refactored across runtime contracts:
+- `RivalArchetype` type renamed to `AdversaryProfile` in shared types.
+- Bootstrap contract now uses `adversaryProfiles` (was `archetypes`).
+- Content loader exports/queries now use `adversaryProfiles`, `getAdversaryProfile`, and `getScenarioAdversaryProfile`.
+
+2. Content storage naming aligned:
+- Renamed content data file:
+  - `packages/content/data/archetypes.json` -> `packages/content/data/adversary_profiles.json`
+- Updated loader and README references to the new file path.
+
+3. API/runtime wiring aligned to profile terminology:
+- API imports/variables now use `adversaryProfile` naming throughout start/action/inaction/report flows.
+- Engine context and helper signatures now use `adversaryProfile` terminology.
+- Web UI reference usage now resolves `reference.adversaryProfiles`.
+
+4. Episode storage column renamed with compatibility bridge:
+- Fresh schema and migration baseline now use `episodes.adversary_profile_id` (replacing `archetype_id`).
+- Added runtime schema-compat helper in `apps/api/src/db.ts`:
+  - detects legacy `archetype_id` column
+  - adds `adversary_profile_id` if missing
+  - backfills from legacy column when present.
+
+### 17.2 Verification status
+
+1. `npm run lint` passed.
+2. `npm run ci:phase1` passed.
+3. Vitest passed: 11 files / 22 tests.
+4. Monte Carlo warning profile unchanged (`all_dove` concentration remains warning-only).
+
+### 17.3 Remaining work after this pass
+
+1. YAML content pipeline decision remains open (JSON remains active runtime/authoring path).
+2. Optional persistence hardening remains:
+- transaction-level coupling for episode update + turn log + beat progress writes.
+3. Legacy column cleanup follow-up (optional):
+- remove `archetype_id` from long-lived DBs after all environments are migrated and verified.
+
+### 17.4 Exact next action for resume
+
+1. Push this refactor to `origin/main`.
+2. Run deploy workflow + smoke verification to confirm no bootstrap/UI contract regressions.
+3. Then continue with the next gameplay/runtime milestone.

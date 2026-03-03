@@ -1,5 +1,5 @@
 import actionsData from '../data/actions.json';
-import archetypesData from '../data/archetypes.json';
+import adversaryProfilesData from '../data/adversary_profiles.json';
 import scenariosData from '../data/scenarios.json';
 import imagesData from '../data/images.json';
 import narrativeCandidatesData from '../data/narrative_candidates_v2.json';
@@ -16,12 +16,12 @@ import type {
   NarrativeCandidatesPack,
   OutcomeCategory,
   PressureTextCandidate,
-  RivalArchetype,
+  AdversaryProfile,
   ScenarioDefinition
 } from '@wargames/shared-types';
 
 export const actions = actionsData as ActionDefinition[];
-export const archetypes = archetypesData as RivalArchetype[];
+export const adversaryProfiles = adversaryProfilesData as AdversaryProfile[];
 export const images = imagesData as ImageAsset[];
 
 type RawNarrativeCategory = {
@@ -123,17 +123,17 @@ export const getScenario = (scenarioId: string): ScenarioDefinition => {
   return scenario;
 };
 
-export const getArchetype = (archetypeId: string): RivalArchetype => {
-  const archetype = archetypes.find((entry) => entry.id === archetypeId);
-  if (!archetype) {
-    throw new Error(`Archetype not found: ${archetypeId}`);
+export const getAdversaryProfile = (adversaryProfileId: string): AdversaryProfile => {
+  const adversaryProfile = adversaryProfiles.find((entry) => entry.id === adversaryProfileId);
+  if (!adversaryProfile) {
+    throw new Error(`Adversary profile not found: ${adversaryProfileId}`);
   }
-  return archetype;
+  return adversaryProfile;
 };
 
-export const getScenarioArchetype = (scenarioId: string): RivalArchetype => {
+export const getScenarioAdversaryProfile = (scenarioId: string): AdversaryProfile => {
   const scenario = getScenario(scenarioId);
-  return getArchetype(scenario.adversaryProfileId);
+  return getAdversaryProfile(scenario.adversaryProfileId);
 };
 
 export const getAction = (actionId: string): ActionDefinition => {

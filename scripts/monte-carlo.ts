@@ -1,6 +1,6 @@
-import { actions, archetypes, images, scenarios } from '@wargames/content';
+import { actions, adversaryProfiles, images, scenarios } from '@wargames/content';
 import { buildActionMap, initializeGameState, resolveTurn } from '@wargames/engine';
-import type { ActionDefinition, GameState, OutcomeCategory, RivalArchetype, ScenarioDefinition } from '@wargames/shared-types';
+import type { ActionDefinition, GameState, OutcomeCategory, AdversaryProfile, ScenarioDefinition } from '@wargames/shared-types';
 
 type PolicyId = 'all_hawk' | 'all_dove' | 'random' | 'adversarial';
 
@@ -68,13 +68,13 @@ const chooseAction = (state: GameState, policy: PolicyId, seed: string): ActionD
 
 const runEpisode = (
   scenario: ScenarioDefinition,
-  archetype: RivalArchetype,
+  adversaryProfile: AdversaryProfile,
   policy: PolicyId,
   runSeed: string
 ): { outcome: OutcomeCategory | null; terminalBeatId: string; visitedBeats: Set<string> } => {
   let state = initializeGameState(`mc-${runSeed}`, runSeed, {
     scenario,
-    archetype,
+    adversaryProfile,
     actions,
     images
   });
@@ -85,7 +85,7 @@ const runEpisode = (
     const action = chooseAction(state, policy, `${runSeed}:${state.turn}:${policy}`);
     const { nextState } = resolveTurn(state, action.id, {
       scenario,
-      archetype,
+      adversaryProfile,
       actions,
       images
     });
@@ -114,14 +114,14 @@ for (const scenario of scenarios) {
   const globalBeatCoverage = new Set<string>();
   const terminalDistribution = new Map<string, number>();
 
-  for (const archetype of archetypes) {
+  for (const adversaryProfile of adversaryProfiles) {
     for (const policy of policies) {
       const policyTerminalDistribution = new Map<string, number>();
       let runs = 0;
 
       for (let index = 0; index < RUNS_PER_POLICY; index += 1) {
-        const runSeed = `${scenario.id}:${archetype.id}:${policy}:${index}`;
-        const result = runEpisode(scenario, archetype, policy, runSeed);
+        const runSeed = `${scenario.id}:${adversaryProfile.id}:${policy}:${index}`;
+        const result = runEpisode(scenario, adversaryProfile, policy, runSeed);
         runs += 1;
 
         terminalDistribution.set(result.terminalBeatId, (terminalDistribution.get(result.terminalBeatId) ?? 0) + 1);
@@ -139,13 +139,13 @@ for (const scenario of scenarios) {
       const policyShare = policyTop / Math.max(1, runs);
       if (policyShare > 0.8) {
         console.warn(
-          `[WARN] Highly concentrated policy distribution for ${scenario.id}/${archetype.id}/${policy}: ${(policyShare * 100).toFixed(1)}%`
+          `[WARN] Highly concentrated policy distribution for ${scenario.id}/${adversaryProfile.id}/${policy}: ${(policyShare * 100).toFixed(1)}%`
         );
       }
     }
   }
 
-  const totalRuns = archetypes.length * policies.length * RUNS_PER_POLICY;
+  const totalRuns = adversaryProfiles.length * policies.length * RUNS_PER_POLICY;
   const topTerminal = [...terminalDistribution.entries()].sort((a, b) => b[1] - a[1])[0];
   const topShare = (topTerminal?.[1] ?? 0) / Math.max(1, totalRuns);
 

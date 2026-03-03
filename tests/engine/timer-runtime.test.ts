@@ -1,20 +1,20 @@
 import { describe, expect, it } from 'vitest';
 
-import { actions, archetypes, images, scenarios } from '@wargames/content';
+import { actions, adversaryProfiles, images, scenarios } from '@wargames/content';
 import { extendActiveCountdown, initializeGameState, resolveInactionTurn, resolveTurn } from '@wargames/engine';
 
 const scenario = scenarios[0];
-const archetype = archetypes[0];
+const adversaryProfile = adversaryProfiles[0];
 
 describe('timer runtime behavior', () => {
   it('extends active countdown once per beat and decrements episode allowance', () => {
-    if (!scenario || !archetype) {
+    if (!scenario || !adversaryProfile) {
       throw new Error('Test content unavailable');
     }
 
     const state = initializeGameState('timer-extend', 'TIMER-EXTEND', {
       scenario,
-      archetype,
+      adversaryProfile,
       actions,
       images
     });
@@ -47,13 +47,13 @@ describe('timer runtime behavior', () => {
   });
 
   it('resolves timeout into authored inaction branch', () => {
-    if (!scenario || !archetype) {
+    if (!scenario || !adversaryProfile) {
       throw new Error('Test content unavailable');
     }
 
     const state = initializeGameState('timer-timeout', 'TIMER-TIMEOUT', {
       scenario,
-      archetype,
+      adversaryProfile,
       actions,
       images
     });
@@ -80,7 +80,7 @@ describe('timer runtime behavior', () => {
 
     const { nextState, resolution } = resolveInactionTurn(state, {
       scenario,
-      archetype,
+      adversaryProfile,
       actions,
       images
     }, {
@@ -95,13 +95,13 @@ describe('timer runtime behavior', () => {
   });
 
   it('supports explicit Take No Action path when timer mode is off', () => {
-    if (!scenario || !archetype) {
+    if (!scenario || !adversaryProfile) {
       throw new Error('Test content unavailable');
     }
 
     const state = initializeGameState('timer-off', 'TIMER-OFF', {
       scenario,
-      archetype,
+      adversaryProfile,
       actions,
       images
     }, { timerMode: 'off' });
@@ -112,7 +112,7 @@ describe('timer runtime behavior', () => {
 
     const { nextState } = resolveInactionTurn(state, {
       scenario,
-      archetype,
+      adversaryProfile,
       actions,
       images
     }, {
@@ -125,13 +125,13 @@ describe('timer runtime behavior', () => {
   });
 
   it('starts countdown when gameplay transitions into a timed beat', () => {
-    if (!scenario || !archetype) {
+    if (!scenario || !adversaryProfile) {
       throw new Error('Test content unavailable');
     }
 
     const state = initializeGameState('timer-transition', 'TIMER-TRANSITION', {
       scenario,
-      archetype,
+      adversaryProfile,
       actions,
       images
     });
@@ -151,7 +151,7 @@ describe('timer runtime behavior', () => {
 
     const { nextState } = resolveTurn(state, selectedActionId, {
       scenario,
-      archetype,
+      adversaryProfile,
       actions,
       images
     });
@@ -163,13 +163,13 @@ describe('timer runtime behavior', () => {
   });
 
   it('preserves countdown on same-beat turns inside timed beats', () => {
-    if (!scenario || !archetype) {
+    if (!scenario || !adversaryProfile) {
       throw new Error('Test content unavailable');
     }
 
     const state = initializeGameState('timer-same-beat', 'TIMER-SAME-BEAT', {
       scenario,
-      archetype,
+      adversaryProfile,
       actions,
       images
     });
@@ -202,7 +202,7 @@ describe('timer runtime behavior', () => {
 
     const { nextState } = resolveTurn(state, selectedAction.id, {
       scenario,
-      archetype,
+      adversaryProfile,
       actions,
       images
     }, 5_000_000);

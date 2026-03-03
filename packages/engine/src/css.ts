@@ -1,4 +1,4 @@
-import type { CompressedStateSummary, GameState, MeterKey, RivalArchetype } from '@wargames/shared-types';
+import type { CompressedStateSummary, GameState, MeterKey, AdversaryProfile } from '@wargames/shared-types';
 
 const pressureLabelByMeter: Record<MeterKey, string> = {
   economicStability: 'market stress',
@@ -27,23 +27,23 @@ const dominantPressure = (state: GameState): string => {
   return `Primary pressure vector: ${pressureLabelByMeter[top.meter]} (index ${Math.round(top.score)}).`;
 };
 
-const adversaryPosture = (state: GameState, archetype: RivalArchetype): string => {
+const adversaryPosture = (state: GameState, adversaryProfile: AdversaryProfile): string => {
   if (state.beliefs.humiliation > 0.6) {
-    return `${archetype.name} leadership posture is publicly defensive and prone to reputational overreaction.`;
+    return `${adversaryProfile.name} leadership posture is publicly defensive and prone to reputational overreaction.`;
   }
   if (state.beliefs.thresholdHighProb < 0.35) {
-    return `${archetype.name} leadership appears to assess your escalation ceiling as limited.`;
+    return `${adversaryProfile.name} leadership appears to assess your escalation ceiling as limited.`;
   }
   if (state.beliefs.bluffProb > 0.6) {
-    return `${archetype.name} command circle increasingly treats your signaling as coercive bluffing.`;
+    return `${adversaryProfile.name} command circle increasingly treats your signaling as coercive bluffing.`;
   }
-  return `${archetype.name} posture remains watchful with mixed confidence in your threshold discipline.`;
+  return `${adversaryProfile.name} posture remains watchful with mixed confidence in your threshold discipline.`;
 };
 
 export const buildCompressedStateSummary = (payload: {
   state: GameState;
   role: string;
-  archetype: RivalArchetype;
+  adversaryProfile: AdversaryProfile;
   narrativeTokens: string[];
 }): CompressedStateSummary => {
   const latest = payload.state.history[payload.state.history.length - 1];
@@ -66,7 +66,7 @@ export const buildCompressedStateSummary = (payload: {
     lastActionPair,
     activeBeatId: payload.state.currentBeatId,
     narrativeTokens: payload.narrativeTokens.slice(0, 8),
-    adversaryPosture: adversaryPosture(payload.state, payload.archetype)
+    adversaryPosture: adversaryPosture(payload.state, payload.adversaryProfile)
   };
 };
 

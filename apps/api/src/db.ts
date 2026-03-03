@@ -27,7 +27,7 @@ const schemaStatements = [
     id TEXT PRIMARY KEY,
     profile_id TEXT NOT NULL,
     scenario_id TEXT NOT NULL,
-    archetype_id TEXT NOT NULL,
+    adversary_profile_id TEXT NOT NULL,
     seed TEXT NOT NULL,
     status TEXT NOT NULL,
     current_turn INTEGER NOT NULL,
@@ -122,6 +122,21 @@ const schemaStatements = [
 let schemaReady = false;
 let schemaReadyPromise: Promise<void> | null = null;
 
+const ensureEpisodeProfileColumn = async (env: Env): Promise<void> => {
+  const tableInfo = await env.DB.prepare('PRAGMA table_info(episodes)').all<{ name: string }>();
+  const columns = new Set((tableInfo.results ?? []).map((column) => column.name));
+  if (columns.has('adversary_profile_id')) {
+    return;
+  }
+
+  await env.DB.prepare('ALTER TABLE episodes ADD COLUMN adversary_profile_id TEXT').run();
+  if (columns.has('archetype_id')) {
+    await env.DB.prepare(
+      'UPDATE episodes SET adversary_profile_id = archetype_id WHERE adversary_profile_id IS NULL'
+    ).run();
+  }
+};
+
 export const ensureSchema = async (env: Env): Promise<void> => {
   if (schemaReady) return;
 
@@ -134,6 +149,7 @@ export const ensureSchema = async (env: Env): Promise<void> => {
     for (const statement of schemaStatements) {
       await env.DB.prepare(statement).run();
     }
+    await ensureEpisodeProfileColumn(env);
     schemaReady = true;
   })();
 

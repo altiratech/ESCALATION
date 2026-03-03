@@ -1,20 +1,20 @@
 import { describe, expect, it } from 'vitest';
 
-import { actions, archetypes, images, scenarios } from '@wargames/content';
+import { actions, adversaryProfiles, images, scenarios } from '@wargames/content';
 import { applyActionToState, applyDueDelayedEffects, initializeGameState, SeededRng } from '@wargames/engine';
 
 const scenario = scenarios[0];
-const archetype = archetypes[0];
+const adversaryProfile = adversaryProfiles[0];
 
 describe('state update mechanics', () => {
   it('queues and applies delayed effects on scheduled turn', () => {
-    if (!scenario || !archetype) {
+    if (!scenario || !adversaryProfile) {
       throw new Error('Test data unavailable');
     }
 
     const state = initializeGameState('episode-delay', 'SEED-DELAY', {
       scenario,
-      archetype,
+      adversaryProfile,
       actions,
       images
     });

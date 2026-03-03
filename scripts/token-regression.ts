@@ -1,4 +1,4 @@
-import { actions, archetypes, images, scenarios } from '@wargames/content';
+import { actions, adversaryProfiles, images, scenarios } from '@wargames/content';
 import {
   buildCompressedStateSummary,
   estimateTokenCount,
@@ -27,15 +27,15 @@ const enforceBudget = (name: keyof typeof budgets, value: number): void => {
 };
 
 const scenario = scenarios[0];
-const archetype = archetypes[0];
+const adversaryProfile = adversaryProfiles[0];
 
-if (!scenario || !archetype) {
-  throw new Error('Scenario/archetype content missing.');
+if (!scenario || !adversaryProfile) {
+  throw new Error('Scenario/adversaryProfile content missing.');
 }
 
 const state = initializeGameState('token-regression', 'TOKEN-REGRESSION', {
   scenario,
-  archetype,
+  adversaryProfile,
   actions,
   images
 });
@@ -44,7 +44,7 @@ const beat = getBeat(buildBeatMap(scenario), state.currentBeatId);
 const css = buildCompressedStateSummary({
   state,
   role: scenario.role,
-  archetype,
+  adversaryProfile,
   narrativeTokens: []
 });
 const cssText = serializeCompressedStateSummary(css);

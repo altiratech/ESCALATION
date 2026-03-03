@@ -2,7 +2,7 @@ import type {
   ActionDefinition,
   BeliefState,
   GameState,
-  RivalArchetype,
+  AdversaryProfile,
   TurnResolution
 } from '@wargames/shared-types';
 
@@ -15,7 +15,7 @@ export const updateBeliefs = (
   beliefs: BeliefState,
   playerAction: ActionDefinition,
   state: GameState,
-  rivalArchetype: RivalArchetype,
+  rivalProfile: AdversaryProfile,
   rng: SeededRng
 ): BeliefState => {
   const next: BeliefState = { ...beliefs };
@@ -51,7 +51,7 @@ export const updateBeliefs = (
   const humiliationImpulse =
     Math.max(0, playerAction.signal.humiliationRisk) *
     (playerAction.visibility === 'public' ? 0.14 : 0.06) *
-    rivalArchetype.egoSensitivity;
+    rivalProfile.egoSensitivity;
   next.humiliation = clampProbability(next.humiliation * 0.7 + humiliationImpulse + boundedNoise(rng, 0.03));
 
   return next;

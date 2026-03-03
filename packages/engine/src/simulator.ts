@@ -5,7 +5,7 @@ import type {
   DebriefVariantCandidate,
   GameState,
   ImageAsset,
-  RivalArchetype,
+  AdversaryProfile,
   ScenarioDefinition,
   TurnDebrief,
   TimerMode,
@@ -28,7 +28,7 @@ import { clamp, deepClone } from './utils';
 
 export interface EngineContext {
   scenario: ScenarioDefinition;
-  archetype: RivalArchetype;
+  adversaryProfile: AdversaryProfile;
   actions: ActionDefinition[];
   images: ImageAsset[];
   debriefVariants?: DebriefVariantCandidate[];
@@ -415,10 +415,10 @@ export const resolveTurn = (
   const delayedDescriptions = applyDueDelayedEffects(state, rng, pressureMultiplier);
   const preRivalEvents = triggerEvents(state, context.scenario.eventTable, rng, pressureMultiplier);
 
-  const beliefsAfter = updateBeliefs(state.beliefs, playerAction, state, context.archetype, rng);
+  const beliefsAfter = updateBeliefs(state.beliefs, playerAction, state, context.adversaryProfile, rng);
   state.beliefs = beliefsAfter;
 
-  const rivalAction = chooseRivalAction(state, context.scenario, context.archetype, beliefsAfter, actionMap, rng);
+  const rivalAction = chooseRivalAction(state, context.scenario, context.adversaryProfile, beliefsAfter, actionMap, rng);
   const rivalResult = applyActionToState(state, rivalAction, 'rival', rng, pressureMultiplier);
 
   const postRivalEvents = triggerEvents(state, context.scenario.eventTable, rng, pressureMultiplier);
@@ -463,7 +463,7 @@ export const resolveTurn = (
     meterBefore,
     state.meters,
     allNarrativeTokens,
-    context.archetype,
+    context.adversaryProfile,
     postTraversalBeat
   );
 

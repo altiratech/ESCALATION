@@ -4,7 +4,7 @@ import type {
   GameState,
   MeterState,
   NarrativeBundle,
-  RivalArchetype
+  AdversaryProfile
 } from '@wargames/shared-types';
 
 import { getDominantDomain } from './utils';
@@ -112,7 +112,7 @@ export const buildNarrativeBundle = (
   meterBefore: MeterState,
   meterAfter: MeterState,
   narrativeTokens: string[],
-  rivalArchetype: RivalArchetype,
+  rivalProfile: AdversaryProfile,
   activeBeat?: BeatNode
 ): NarrativeBundle => {
   const shifts = describeMeterShift(meterBefore, meterAfter);
@@ -135,7 +135,7 @@ export const buildNarrativeBundle = (
   const shiftSentence = shifts.length > 0 ? `Key shifts this turn: ${shifts.join('; ')}.` : 'No single metric moved decisively, but pressure remains cumulative.';
 
   const beatFragment = activeBeat?.sceneFragments[0] ?? '';
-  const briefingParagraph = `Turn ${turn}: You authorized ${playerAction.name.toLowerCase()} while the rival answered with ${rivalAction.name.toLowerCase()}. ${tempoPhrase} ${shiftSentence} ${beatFragment} Rival posture reflects ${rivalArchetype.name.toLowerCase()} behavior under stress.`
+  const briefingParagraph = `Turn ${turn}: You authorized ${playerAction.name.toLowerCase()} while the rival answered with ${rivalAction.name.toLowerCase()}. ${tempoPhrase} ${shiftSentence} ${beatFragment} Rival posture reflects ${rivalProfile.name.toLowerCase()} behavior under stress.`
     .replace(/\s+/g, ' ')
     .trim();
 
@@ -153,7 +153,7 @@ export const buildNarrativeBundle = (
   const beatHeadlines = activeBeat?.headlines ?? [];
   const headlines = [
     tokenHeadlinesList[0] ?? beatHeadlines[0] ?? defaultHeadline,
-    tokenHeadlinesList[1] ?? beatHeadlines[1] ?? `${rivalArchetype.name} leadership circle hardens narrative discipline.`
+    tokenHeadlinesList[1] ?? beatHeadlines[1] ?? `${rivalProfile.name} leadership circle hardens narrative discipline.`
   ];
 
   return {
