@@ -916,5 +916,6 @@ Thread scope limitation: This thread ran under `Code/active/Wargames` and could 
 
 ### 20.4 Exact next action for resume
 
-1. Push extend-route atomic parity changes and verify Deploy workflow.
-2. Continue gameplay roadmap with post-game/reporting polish and remaining YAML pipeline decision.
+1. Deploy verification complete: push `fe209a3` + Deploy run `22605268289` all green.
+2. Rotate GitHub `CLOUDFLARE_API_TOKEN` back to long-lived custom token (remove OAuth fallback risk).
+3. Continue gameplay roadmap with post-game/reporting polish and remaining YAML pipeline decision.
