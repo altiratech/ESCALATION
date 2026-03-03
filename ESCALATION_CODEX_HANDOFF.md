@@ -919,3 +919,25 @@ Thread scope limitation: This thread ran under `Code/active/Wargames` and could 
 1. Deploy verification complete: push `fe209a3` + Deploy run `22605268289` all green.
 2. Rotate GitHub `CLOUDFLARE_API_TOKEN` back to long-lived custom token (remove OAuth fallback risk).
 3. Continue gameplay roadmap with post-game/reporting polish and remaining YAML pipeline decision.
+
+## 21) Session Update — 2026-03-03 (Cloudflare token rotation verified)
+
+### 21.1 What changed
+
+1. Rotated GitHub deploy credential:
+- Updated `CLOUDFLARE_API_TOKEN` for `altiratech/ESCALATION` from user-provided clipboard token (Cloudflare custom-token workflow).
+
+2. Verified with fresh manual deploy:
+- Triggered `Deploy` workflow dispatch run `22635867337`.
+- Result: all jobs passed (`quality_gate`, `deploy_api`, `deploy_web`, `verify_deploy`).
+
+### 21.2 Operational status
+
+1. Deploy auth is currently stable.
+2. Continue periodic post-rotation verification runs to catch credential drift quickly.
+
+### 21.3 Exact next action for resume
+
+1. Continue gameplay milestone queue from latest shipped baseline (`fe209a3`):
+- post-game/reporting polish
+- remaining YAML pipeline decision.
