@@ -18,6 +18,42 @@ const visibilityTone = (visibility: ActionDefinition['visibility']): string => {
   return 'border-positive/70 text-positive';
 };
 
+const postureHint = (action: ActionDefinition): string => {
+  const netEscalation = action.signal.escalatory - action.signal.deescalatory;
+  if (netEscalation >= 20) {
+    return 'Likely to signal a harder public posture and compress decision space.';
+  }
+  if (netEscalation <= -20) {
+    return 'Signals restraint and may reopen diplomatic channels.';
+  }
+  return 'Balanced posture with mixed strategic signaling.';
+};
+
+const visibilityHint = (visibility: ActionDefinition['visibility']): string => {
+  if (visibility === 'public') {
+    return 'Immediately visible to allies, adversaries, and press channels.';
+  }
+  if (visibility === 'semi-public') {
+    return 'Likely to leak through coalition and diplomatic channels.';
+  }
+  return 'Covert by default, but exposure risk remains if operations degrade.';
+};
+
+const riskHint = (action: ActionDefinition): string => {
+  const dominant = Math.max(
+    action.signal.humiliationRisk,
+    action.signal.economicStressSignal,
+    action.signal.allianceStressSignal
+  );
+  if (dominant === action.signal.humiliationRisk) {
+    return 'Primary risk: adversary humiliation response.';
+  }
+  if (dominant === action.signal.economicStressSignal) {
+    return 'Primary risk: market stress and commercial disruption.';
+  }
+  return 'Primary risk: coalition friction and alliance strain.';
+};
+
 export const ActionCards = ({ actions, disabled, onSelect }: ActionCardsProps) => {
   const sorted = useMemo(() => {
     return [...actions].sort((left, right) => left.name.localeCompare(right.name));
@@ -51,6 +87,11 @@ export const ActionCards = ({ actions, disabled, onSelect }: ActionCardsProps) =
                   {tag}
                 </span>
               ))}
+            </div>
+            <div className="mt-3 space-y-1 text-[0.66rem] leading-relaxed text-textMuted">
+              <p>{visibilityHint(action.visibility)}</p>
+              <p className="hidden text-accent/90 group-hover:block">{postureHint(action)}</p>
+              <p className="hidden text-warning/90 group-hover:block">{riskHint(action)}</p>
             </div>
             <p className="mt-3 text-[0.62rem] uppercase tracking-[0.12em] text-accent/85">Commit Action</p>
           </button>

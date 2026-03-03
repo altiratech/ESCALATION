@@ -287,6 +287,7 @@ const App = () => {
       !loading &&
       episode.status === 'active'
   );
+  const showExtendTimer = Boolean(episode.activeCountdown && episode.timerMode !== 'off');
   const showTakeNoAction =
     episode.status === 'active' &&
     episode.timerMode === 'off' &&
@@ -299,43 +300,38 @@ const App = () => {
   )
     ? pickPressureText(reference, episode.currentBeatId, remainingSeconds)
     : null;
+  const intelFeed: string[] = [...episode.briefing.headlines];
+  if (episode.briefing.memoLine) {
+    intelFeed.push(episode.briefing.memoLine);
+  }
+  if (episode.briefing.tickerLine) {
+    intelFeed.push(episode.briefing.tickerLine);
+  }
+  if (pressureText) {
+    intelFeed.push(pressureText);
+  }
 
   return (
     <main className="mx-auto flex w-full max-w-[1500px] flex-col gap-5 px-4 py-5 sm:px-6">
-      <header className="card overflow-hidden px-5 py-4 sm:px-6">
-        <div className="flex flex-wrap items-start justify-between gap-4">
-          <div>
-            <p className="label">Escalation // Command Layer</p>
-            <h1 className="mt-2 font-display text-3xl text-accent sm:text-4xl">ESCALATION</h1>
-            <p className="mt-2 text-sm text-textMuted">Deterministic strategic escalation simulator</p>
+      <header className="card overflow-hidden px-3 py-2.5 sm:px-4">
+        <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
+          <div className="flex flex-wrap items-center gap-2 text-textMuted">
+            <span className="font-semibold text-textMain">{codename || profileId?.slice(0, 8) || 'Unknown'}</span>
+            <span className="text-borderTone">|</span>
+            <span>{currentScenarioName}</span>
+            <span className="text-borderTone">|</span>
+            <span>Turn {episode.turn}/{episode.maxTurns}</span>
+            <span className="text-borderTone">|</span>
+            <span>{pacingLabel[episode.timerMode]}</span>
           </div>
-          <div className="grid gap-1 text-right text-xs text-textMuted">
-            <p className="text-sm text-textMain">Commander: {codename || profileId?.slice(0, 8) || 'Unknown'}</p>
-            <p>Scenario: {currentScenarioName}</p>
-          </div>
-        </div>
-        <div className="mt-4 flex flex-wrap gap-2">
-          <span className="hud-chip">Turn {episode.turn}/{episode.maxTurns}</span>
-          <span className="hud-chip">Pacing: {pacingLabel[episode.timerMode]}</span>
-          <span className="hud-chip">Status: Active</span>
-        </div>
-      </header>
-
-      {error ? (
-        <div className="rounded-lg border border-warning/70 bg-warning/10 px-3 py-2 text-sm text-warning">{error}</div>
-      ) : null}
-
-      <section className="card px-4 py-4 sm:px-5">
-        <div className="grid gap-4 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
-          <div className="space-y-1">
-            <p className="label">Decision Window</p>
+          <div className="flex flex-wrap items-center gap-2">
             {episode.activeCountdown && remainingSeconds !== null ? (
-              <>
-                <div className="flex items-baseline gap-3">
-                  <span className={`font-mono text-2xl sm:text-3xl ${countdownToneClass}`}>{formatSeconds(remainingSeconds)}</span>
-                  <span className="text-xs uppercase tracking-[0.12em] text-textMuted">{countdownUrgencyLabel}</span>
+              <div className="rounded-md border border-borderTone bg-panelRaised/70 px-2 py-1">
+                <div className="flex items-center gap-2">
+                  <span className={`font-mono text-[0.76rem] ${countdownToneClass}`}>{formatSeconds(remainingSeconds)}</span>
+                  <span className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">{countdownUrgencyLabel}</span>
                 </div>
-                <div className="h-2 overflow-hidden rounded-md bg-borderTone/70">
+                <div className="mt-1 h-1 w-24 overflow-hidden rounded-sm bg-borderTone/70">
                   <div
                     className={`h-full transition-[width] duration-200 ${progressToneClass}`}
                     style={{
@@ -343,30 +339,22 @@ const App = () => {
                     }}
                   />
                 </div>
-                {pressureText ? <p className="text-xs leading-relaxed text-textMuted">{pressureText}</p> : null}
-              </>
-            ) : (
-              <p className="text-xs text-textMuted">
-                {showTakeNoAction
-                  ? 'Untimed pacing is active. Use Take No Action when you choose to hold position.'
-                  : 'No active countdown in this beat.'}
-              </p>
-            )}
-          </div>
-
-          <div className="flex flex-wrap items-center justify-end gap-2">
-            <button
-              type="button"
-              className="rounded-md border border-borderTone px-3 py-2 text-[0.68rem] font-semibold uppercase tracking-[0.1em] text-textMuted transition hover:border-accent hover:text-textMain disabled:cursor-not-allowed disabled:opacity-45"
-              onClick={() => void handleExtendTimer()}
-              disabled={!canExtendTimer}
-            >
-              Extend +{formatSeconds(extendPreviewSeconds)}
-            </button>
+              </div>
+            ) : null}
+            {showExtendTimer ? (
+              <button
+                type="button"
+                className="rounded-md border border-borderTone px-2 py-1 text-[0.62rem] font-semibold uppercase tracking-[0.1em] text-textMuted transition hover:border-accent hover:text-textMain disabled:cursor-not-allowed disabled:opacity-45"
+                onClick={() => void handleExtendTimer()}
+                disabled={!canExtendTimer}
+              >
+                Extend +{formatSeconds(extendPreviewSeconds)}
+              </button>
+            ) : null}
             {showTakeNoAction ? (
               <button
                 type="button"
-                className="rounded-md border border-warning/70 bg-warning/10 px-3 py-2 text-[0.68rem] font-semibold uppercase tracking-[0.1em] text-warning transition hover:bg-warning/20 disabled:cursor-not-allowed disabled:opacity-45"
+                className="rounded-md border border-warning/70 bg-warning/10 px-2 py-1 text-[0.62rem] font-semibold uppercase tracking-[0.1em] text-warning transition hover:bg-warning/20 disabled:cursor-not-allowed disabled:opacity-45"
                 onClick={() => void handleInaction('explicit')}
                 disabled={loading || episode.status !== 'active'}
               >
@@ -375,10 +363,33 @@ const App = () => {
             ) : null}
           </div>
         </div>
-      </section>
+        {pressureText ? <p className="mt-2 text-[0.7rem] text-textMuted">{pressureText}</p> : null}
+      </header>
 
-      <section className="grid gap-5 xl:grid-cols-[1.22fr_0.78fr]">
-        <div className="space-y-5">
+      {error ? (
+        <div className="rounded-lg border border-warning/70 bg-warning/10 px-3 py-2 text-sm text-warning">{error}</div>
+      ) : null}
+
+      <section className="grid gap-5 lg:grid-cols-[0.35fr_0.9fr_0.8fr]">
+        <aside className="order-3 card p-4 lg:order-1">
+          <div className="flex items-center justify-between">
+            <p className="label">Intel Feed</p>
+            <span className="text-[0.62rem] uppercase tracking-[0.12em] text-textMuted">Live</span>
+          </div>
+          <div className="mt-3 max-h-[32rem] space-y-2 overflow-y-auto pr-1 text-xs leading-relaxed text-textMuted">
+            {intelFeed.length > 0 ? intelFeed.slice(0, 8).map((item, index) => (
+              <p key={`${item}:${index}`} className="rounded-md border border-borderTone/70 bg-panelRaised/45 px-2 py-1.5">
+                {item}
+              </p>
+            )) : (
+              <p className="rounded-md border border-borderTone/70 bg-panelRaised/45 px-2 py-1.5">
+                Intelligence stream is stabilizing.
+              </p>
+            )}
+          </div>
+        </aside>
+
+        <div className="order-1 lg:order-2">
           <BriefingPanel
             turn={episode.turn}
             maxTurns={episode.maxTurns}
@@ -386,13 +397,16 @@ const App = () => {
             imageAsset={episode.imageAsset}
             turnDebrief={episode.turnDebrief}
           />
+        </div>
+
+        <div className="order-2 space-y-5 lg:order-3">
+          <AdvisorPanel beat={currentBeat} />
           <ActionCards
             actions={episode.offeredActions}
             disabled={loading || episode.status !== 'active'}
             onSelect={handleActionSelect}
           />
         </div>
-        <AdvisorPanel beat={currentBeat} />
       </section>
     </main>
   );

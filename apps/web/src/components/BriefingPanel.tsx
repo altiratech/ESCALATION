@@ -1,3 +1,5 @@
+import { useMemo, useState } from 'react';
+
 import type { ImageAsset, NarrativeBundle, TurnDebrief } from '@wargames/shared-types';
 
 interface BriefingPanelProps {
@@ -9,18 +11,49 @@ interface BriefingPanelProps {
 }
 
 const sourceLabel: Record<TurnDebrief['lines'][number]['tag'], string> = {
-  PlayerAction: '[Player Action]',
-  SecondaryEffect: '[Secondary Effect]',
-  SystemEvent: '[System Event]'
+  PlayerAction: '[Action]',
+  SecondaryEffect: '[Ripple]',
+  SystemEvent: '[System]'
 };
 
 export const BriefingPanel = ({ turn, maxTurns, briefing, imageAsset, turnDebrief }: BriefingPanelProps) => {
+  const [expandedHeadline, setExpandedHeadline] = useState<number | null>(0);
+
+  const signalDetails = useMemo(() => {
+    return briefing.headlines.map((_, index) => {
+      const details: string[] = [];
+      if (index === 0 && briefing.memoLine) {
+        details.push(briefing.memoLine);
+      }
+      if (index === 1 && briefing.tickerLine) {
+        details.push(briefing.tickerLine);
+      }
+      if (details.length === 0 && index === 0 && briefing.tickerLine) {
+        details.push(briefing.tickerLine);
+      }
+      if (details.length === 0) {
+        details.push('Analyst desk is still validating corroborating signals from theater channels.');
+      }
+      return details;
+    });
+  }, [briefing.headlines, briefing.memoLine, briefing.tickerLine]);
+
+  const signalSource = (index: number): string => {
+    if (index === 0) {
+      return 'SIGINT';
+    }
+    if (index === 1) {
+      return 'MARKET';
+    }
+    return 'OSINT';
+  };
+
   return (
     <section className="card flex h-full flex-col p-5 sm:p-6">
       <div className="flex flex-wrap items-start justify-between gap-2">
         <div>
-          <p className="label">Mission Briefing</p>
-          <h2 className="mt-2 font-display text-2xl text-textMain">Turn {turn} Situation</h2>
+          <p className="label">Situation Report</p>
+          <h2 className="mt-2 font-display text-2xl text-textMain">Turn {turn} Command Brief</h2>
         </div>
         <p className="rounded-md border border-borderTone bg-panelRaised/70 px-2 py-1 text-[0.68rem] uppercase tracking-[0.12em] text-textMuted">
           Turn {turn} / {maxTurns}
@@ -32,12 +65,34 @@ export const BriefingPanel = ({ turn, maxTurns, briefing, imageAsset, turnDebrie
       <div className="mt-5">
         <p className="label">Incoming Signals</p>
       </div>
-      <div className="mt-2 grid gap-2 sm:grid-cols-2">
-        {briefing.headlines.map((headline) => (
-          <div key={headline} className="rounded-md border border-borderTone bg-panelRaised/75 px-3 py-2 text-[0.8rem] leading-relaxed text-textMain">
-            {headline}
-          </div>
-        ))}
+      <div className="mt-2 space-y-2">
+        {briefing.headlines.map((headline, index) => {
+          const open = expandedHeadline === index;
+          return (
+            <article key={headline} className="rounded-md border border-borderTone bg-panelRaised/75">
+              <button
+                type="button"
+                className="flex w-full items-start justify-between gap-3 px-3 py-2 text-left transition hover:bg-panelRaised"
+                onClick={() => setExpandedHeadline(open ? null : index)}
+              >
+                <div>
+                  <p className="text-[0.62rem] uppercase tracking-[0.12em] text-textMuted">{signalSource(index)}</p>
+                  <p className="mt-1 text-[0.8rem] leading-relaxed text-textMain">{headline}</p>
+                </div>
+                <span className="mt-1 text-[0.62rem] uppercase tracking-[0.1em] text-accent">
+                  {open ? 'Hide' : 'Open'}
+                </span>
+              </button>
+              {open ? (
+                <div className="space-y-1 border-t border-borderTone/70 px-3 py-2 text-[0.72rem] leading-relaxed text-textMuted">
+                  {(signalDetails[index] ?? []).map((detail) => (
+                    <p key={`${headline}:${detail}`}>{detail}</p>
+                  ))}
+                </div>
+              ) : null}
+            </article>
+          );
+        })}
       </div>
 
       {imageAsset ? (
@@ -68,7 +123,7 @@ export const BriefingPanel = ({ turn, maxTurns, briefing, imageAsset, turnDebrie
 
       {turnDebrief && turnDebrief.lines.length > 0 ? (
         <section className="mt-5 rounded-lg border border-borderTone bg-panelRaised/60 p-3">
-          <p className="label">Deterministic Debrief</p>
+          <p className="label">Turn Assessment</p>
           <div className="mt-2 space-y-2 text-[0.78rem] leading-relaxed text-textMuted">
             {turnDebrief.lines.map((entry, index) => (
               <p key={`${entry.tag}-${index}`}>

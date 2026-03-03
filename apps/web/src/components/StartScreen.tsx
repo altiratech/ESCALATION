@@ -33,10 +33,26 @@ const timerModes = [
   }
 ] as const;
 
+const advisorNameById: Record<string, string> = {
+  cross: 'ADM Vivian Cross',
+  chen: 'Dr. Elias Chen',
+  okonkwo: 'Sarah Okonkwo',
+  reed: 'COL Marcus Reed'
+};
+
+const environmentLabel: Record<string, string> = {
+  coastal: 'Maritime theater',
+  arctic: 'Arctic theater',
+  dense_city: 'Urban theater',
+  industrial: 'Industrial theater',
+  generic: 'Global theater'
+};
+
 export const StartScreen = ({ reference, loading, error, onStart }: StartScreenProps) => {
   const [codename, setCodename] = useState('SABLE-ONE');
   const [seed, setSeed] = useState('');
   const [showAdvanced, setShowAdvanced] = useState(false);
+  const [expandedSignal, setExpandedSignal] = useState<number | null>(0);
 
   const defaultScenario = reference.scenarios[0]?.id ?? '';
 
@@ -58,6 +74,39 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
     () => (startingBeat?.headlines ?? []).slice(0, 3),
     [startingBeat]
   );
+  const signalDetails = useMemo(
+    () =>
+      openingSignals.map((_, index) => {
+        const details: string[] = [];
+        if (index === 0 && startingBeat?.memoLine) {
+          details.push(startingBeat.memoLine);
+        }
+        if (index === 1 && startingBeat?.tickerLine) {
+          details.push(startingBeat.tickerLine);
+        }
+        if (index === 0 && startingBeat?.sceneFragments[1]) {
+          details.push(startingBeat.sceneFragments[1]);
+        }
+        if (details.length === 0) {
+          details.push('Additional field confirmation is pending from intelligence channels.');
+        }
+        return details;
+      }),
+    [openingSignals, startingBeat?.memoLine, startingBeat?.tickerLine, startingBeat?.sceneFragments]
+  );
+  const advisorFirstTakes = useMemo(() => {
+    if (!startingBeat) {
+      return [];
+    }
+
+    return Object.entries(startingBeat.advisorLines)
+      .map(([advisorId, lines]) => ({
+        advisorId,
+        line: lines[0] ?? ''
+      }))
+      .filter((entry) => entry.line.length > 0)
+      .slice(0, 4);
+  }, [startingBeat]);
 
   const handleStart = async (): Promise<void> => {
     const payload: {
@@ -85,10 +134,12 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
         <div className="space-y-6">
           <div className="space-y-3">
             <p className="label">Escalation // Pre-Mission Dossier</p>
-            <h1 className="font-display text-4xl leading-none text-accent sm:text-5xl">ESCALATION</h1>
+            <h1 className="font-display text-4xl leading-none text-accent sm:text-5xl">
+              {selectedScenario?.name ?? 'Scenario Briefing'}
+            </h1>
             <p className="max-w-2xl text-sm leading-relaxed text-textMuted">
-              You are entering a ten-turn strategic crisis simulation with hidden state, rival adaptation, and deterministic
-              causality.
+              The situation is deteriorating. Your next ten turns will decide whether this crisis stabilizes, hardens into
+              conflict, or breaks containment entirely.
             </p>
           </div>
 
@@ -204,13 +255,13 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
 
         <aside className="space-y-4">
           <article className="card h-full bg-panelRaised/75 p-5">
-            <p className="label">Classified Brief</p>
+            <p className="label">Scenario Brief</p>
             <h2 className="mt-3 font-display text-2xl text-textMain">{selectedScenario?.name ?? 'No scenario selected'}</h2>
             <p className="mt-3 text-sm leading-relaxed text-textMuted">
               {selectedScenario?.briefing ?? 'Select a scenario to review strategic role and escalation context.'}
             </p>
             <div className="mt-4 rounded-md border border-borderTone/70 bg-surface/35 px-3 py-2">
-              <p className="label">Cold Open</p>
+              <p className="label">Situation Report</p>
               <p className="mt-2 text-sm leading-relaxed text-textMain">
                 {startingBeat?.sceneFragments[0] ?? 'Opening intelligence package unavailable.'}
               </p>
@@ -219,10 +270,42 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
               <div className="mt-4">
                 <p className="label">Initial Intelligence</p>
                 <div className="mt-2 space-y-2">
-                  {openingSignals.map((headline) => (
-                    <p key={headline} className="rounded-md border border-borderTone/70 bg-surface/35 px-2 py-1.5 text-xs leading-relaxed text-textMuted">
-                      {headline}
-                    </p>
+                  {openingSignals.map((headline, index) => {
+                    const open = expandedSignal === index;
+                    return (
+                      <article key={headline} className="rounded-md border border-borderTone/70 bg-surface/35">
+                        <button
+                          type="button"
+                          className="flex w-full items-start justify-between gap-3 px-2 py-1.5 text-left"
+                          onClick={() => setExpandedSignal(open ? null : index)}
+                        >
+                          <p className="text-xs leading-relaxed text-textMuted">{headline}</p>
+                          <span className="text-[0.62rem] uppercase tracking-[0.1em] text-accent">{open ? 'Hide' : 'Open'}</span>
+                        </button>
+                        {open ? (
+                          <div className="space-y-1 border-t border-borderTone/70 px-2 py-1.5 text-[0.7rem] leading-relaxed text-textMuted">
+                            {signalDetails[index]?.map((detail) => (
+                              <p key={`${headline}:${detail}`}>{detail}</p>
+                            ))}
+                          </div>
+                        ) : null}
+                      </article>
+                    );
+                  })}
+                </div>
+              </div>
+            ) : null}
+            {advisorFirstTakes.length > 0 ? (
+              <div className="mt-4">
+                <p className="label">Senior Staff Assessment</p>
+                <div className="mt-2 space-y-2">
+                  {advisorFirstTakes.map((entry) => (
+                    <div key={entry.advisorId} className="rounded-md border border-borderTone/70 bg-surface/35 px-2 py-1.5">
+                      <p className="text-[0.62rem] uppercase tracking-[0.12em] text-textMuted">
+                        {advisorNameById[entry.advisorId] ?? entry.advisorId.toUpperCase()}
+                      </p>
+                      <p className="mt-1 text-xs leading-relaxed text-textMain">{entry.line}</p>
+                    </div>
                   ))}
                 </div>
               </div>
@@ -233,8 +316,10 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
                 <span className="text-textMain">{selectedScenario?.role ?? 'N/A'}</span>
               </div>
               <div className="flex items-center justify-between rounded-md border border-borderTone/70 bg-surface/35 px-2 py-1.5">
-                <span>Environment</span>
-                <span className="text-textMain">{selectedScenario?.environment ?? 'N/A'}</span>
+                <span>Theater</span>
+                <span className="text-textMain">
+                  {selectedScenario?.environment ? environmentLabel[selectedScenario.environment] ?? 'Global theater' : 'N/A'}
+                </span>
               </div>
             </div>
           </article>
