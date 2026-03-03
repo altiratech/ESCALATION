@@ -67,7 +67,7 @@ export const findOrCreateProfile = async (db: Database, codenameRaw: string): Pr
 };
 
 export const createEpisode = async (
-  db: Database,
+  rawDb: D1Database,
   payload: {
     profileId: string;
     scenarioId: string;
@@ -76,17 +76,47 @@ export const createEpisode = async (
     state: GameState;
   }
 ): Promise<void> => {
-  await db.insert(episodes).values({
-    id: payload.state.id,
-    profileId: payload.profileId,
-    scenarioId: payload.scenarioId,
-    adversaryProfileId: payload.adversaryProfileId,
-    seed: payload.seed,
-    status: payload.state.status,
-    currentTurn: payload.state.turn,
-    outcome: payload.state.outcome,
-    stateJson: toJson(payload.state)
-  });
+  const episodeColumnsInfo = await rawDb.prepare('PRAGMA table_info(episodes)').all<{ name: string }>();
+  const episodeColumns = new Set((episodeColumnsInfo.results ?? []).map((column) => column.name));
+  const stateJson = toJson(payload.state);
+
+  if (episodeColumns.has('archetype_id')) {
+    await rawDb.prepare(
+      `INSERT INTO episodes (
+        id, profile_id, scenario_id, adversary_profile_id, archetype_id, seed,
+        status, current_turn, outcome, state_json
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+    ).bind(
+      payload.state.id,
+      payload.profileId,
+      payload.scenarioId,
+      payload.adversaryProfileId,
+      payload.adversaryProfileId,
+      payload.seed,
+      payload.state.status,
+      payload.state.turn,
+      payload.state.outcome,
+      stateJson
+    ).run();
+    return;
+  }
+
+  await rawDb.prepare(
+    `INSERT INTO episodes (
+      id, profile_id, scenario_id, adversary_profile_id, seed,
+      status, current_turn, outcome, state_json
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`
+  ).bind(
+    payload.state.id,
+    payload.profileId,
+    payload.scenarioId,
+    payload.adversaryProfileId,
+    payload.seed,
+    payload.state.status,
+    payload.state.turn,
+    payload.state.outcome,
+    stateJson
+  ).run();
 };
 
 export const getEpisodeState = async (

@@ -45,6 +45,12 @@ const pickPressureText = (
   return choose(beatSpecific) ?? choose(generic);
 };
 
+const pacingLabel: Record<'standard' | 'relaxed' | 'off', string> = {
+  standard: 'Real-Time',
+  relaxed: 'Extended',
+  off: 'Untimed'
+};
+
 const App = () => {
   const [reference, setReference] = useState<BootstrapPayload | null>(null);
   const [episode, setEpisode] = useState<EpisodeView | null>(null);
@@ -74,17 +80,6 @@ const App = () => {
     void load();
   }, []);
 
-  const currentAdversaryProfileName = useMemo(() => {
-    if (!reference || !episode) {
-      return '';
-    }
-    const scenario = reference.scenarios.find((entry) => entry.id === episode.scenarioId);
-    if (!scenario) {
-      return 'Scenario-embedded';
-    }
-    return reference.adversaryProfiles.find((entry) => entry.id === scenario.adversaryProfileId)?.name ?? 'Scenario-embedded';
-  }, [reference, episode]);
-
   const currentBeat = useMemo(() => {
     if (!reference || !episode) {
       return null;
@@ -92,6 +87,12 @@ const App = () => {
     const scenario = reference.scenarios.find((entry) => entry.id === episode.scenarioId);
     return scenario?.beats.find((beat) => beat.id === episode.currentBeatId) ?? null;
   }, [reference, episode?.scenarioId, episode?.currentBeatId]);
+  const currentScenarioName = useMemo(() => {
+    if (!reference || !episode) {
+      return 'Unknown';
+    }
+    return reference.scenarios.find((entry) => entry.id === episode.scenarioId)?.name ?? 'Unknown';
+  }, [reference, episode?.scenarioId]);
 
   const applyEpisodeUpdate = useCallback(async (nextEpisode: EpisodeView): Promise<void> => {
     setEpisode(nextEpisode);
@@ -305,20 +306,18 @@ const App = () => {
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
             <p className="label">Escalation // Command Layer</p>
-            <h1 className="mt-2 font-display text-3xl text-accent sm:text-4xl">WARGAMES</h1>
+            <h1 className="mt-2 font-display text-3xl text-accent sm:text-4xl">ESCALATION</h1>
             <p className="mt-2 text-sm text-textMuted">Deterministic strategic escalation simulator</p>
           </div>
           <div className="grid gap-1 text-right text-xs text-textMuted">
             <p className="text-sm text-textMain">Commander: {codename || profileId?.slice(0, 8) || 'Unknown'}</p>
-            <p>Adversary Model: {currentAdversaryProfileName}</p>
-            <p>Beat: {episode.currentBeatId}</p>
+            <p>Scenario: {currentScenarioName}</p>
           </div>
         </div>
         <div className="mt-4 flex flex-wrap gap-2">
           <span className="hud-chip">Turn {episode.turn}/{episode.maxTurns}</span>
-          <span className="hud-chip">Timer: {episode.timerMode}</span>
-          <span className="hud-chip">Beat Phase: {currentBeat?.phase ?? 'unknown'}</span>
-          <span className="hud-chip">Extends Left: {episode.extendTimerUsesRemaining}</span>
+          <span className="hud-chip">Pacing: {pacingLabel[episode.timerMode]}</span>
+          <span className="hud-chip">Status: Active</span>
         </div>
       </header>
 
@@ -349,7 +348,7 @@ const App = () => {
             ) : (
               <p className="text-xs text-textMuted">
                 {showTakeNoAction
-                  ? 'Timer mode is off. Use explicit no-action to follow inaction branches on timed beats.'
+                  ? 'Untimed pacing is active. Use Take No Action when you choose to hold position.'
                   : 'No active countdown in this beat.'}
               </p>
             )}

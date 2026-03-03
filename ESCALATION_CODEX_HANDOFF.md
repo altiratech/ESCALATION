@@ -1019,3 +1019,49 @@ Thread scope limitation: This thread ran under `Code/active/Wargames` and could 
 1. Commit and push UX Sprint 1 shell changes.
 2. Verify push-triggered Deploy workflow.
 3. Run a live smoke playtest on `https://escalation.altiratech.com` and capture UI polish adjustments for Sprint 1.1.
+
+## 24) Session Update — 2026-03-03 (Tier 1/2 vision corrections + legacy DB start fix)
+
+### 24.1 What changed
+
+1. Removed brand/fog-of-war leaks on start + in-game headers:
+- Replaced large `WARGAMES` title with `ESCALATION`.
+- Removed in-game adversary-model name exposure.
+- Removed raw beat ID exposure and beat-phase chip exposure.
+
+2. Removed player-visible internal adversary and graph metadata:
+- Deleted start-screen adversary profile panel (including internal parameter percentages).
+- Removed beat-graph/timed-beat count cards from start flow.
+
+3. Hid deterministic seed behind advanced options:
+- Seed is now optional and hidden by default under `Show advanced options`.
+- Default flow uses auto-seed with no visible replay tooling.
+
+4. Reframed timer language to player-facing pacing labels:
+- `Standard/Relaxed/Off` presentation replaced with `Real-Time/Extended/Untimed` copy in start and in-game HUD.
+
+5. Fixed runtime D1 compatibility bug on legacy schemas:
+- `createEpisode(...)` now writes both `adversary_profile_id` and `archetype_id` when legacy `archetype_id` exists in `episodes`.
+- Start endpoint now uses raw D1 insert compatibility path to avoid `NOT NULL constraint failed: episodes.archetype_id`.
+
+### 24.2 Verification status
+
+1. `npm run lint` passed.
+2. `npm run ci:phase1` passed (11 files / 22 tests).
+3. `npm run build --workspace @wargames/web` passed.
+
+### 24.3 Remaining work after this pass
+
+1. Tier 3 spec-alignment items remain open:
+- full Situation Room zone layout
+- chat/free-form input
+- Intel feed replacement surface
+- cinematic transitions/effects/audio cues.
+2. Optional DB cleanup follow-up remains:
+- explicit migration to fully retire legacy `archetype_id` constraints once all deployed environments are verified.
+
+### 24.4 Exact next action for resume
+
+1. Push this Tier 1/2 + DB compatibility patch and verify Deploy workflow.
+2. Re-test live start flow for prior `D1_ERROR` regression.
+3. Begin Tier 3 implementation slice: Situation Room left-rail Intel feed + ambient status strip.

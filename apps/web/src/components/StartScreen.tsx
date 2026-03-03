@@ -18,24 +18,25 @@ const randomSeed = (): string => Math.random().toString(36).slice(2, 10).toUpper
 const timerModes = [
   {
     id: 'standard',
-    label: 'Standard',
-    detail: 'Authored beat windows with full pressure.'
+    label: 'Real-Time',
+    detail: 'Live decision pressure with active countdown windows.'
   },
   {
     id: 'relaxed',
-    label: 'Relaxed',
-    detail: '1.5x countdown windows and fewer forced snaps.'
+    label: 'Extended',
+    detail: 'More deliberation time without removing urgency.'
   },
   {
     id: 'off',
-    label: 'Off',
-    detail: 'No countdown. Use explicit Take No Action.'
+    label: 'Untimed',
+    detail: 'No countdown pressure. You choose when to hold position.'
   }
 ] as const;
 
 export const StartScreen = ({ reference, loading, error, onStart }: StartScreenProps) => {
   const [codename, setCodename] = useState('SABLE-ONE');
-  const [seed, setSeed] = useState(randomSeed());
+  const [seed, setSeed] = useState('');
+  const [showAdvanced, setShowAdvanced] = useState(false);
 
   const defaultScenario = reference.scenarios[0]?.id ?? '';
 
@@ -46,13 +47,17 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
     () => reference.scenarios.find((entry) => entry.id === scenarioId),
     [reference.scenarios, scenarioId]
   );
-  const selectedAdversaryProfile = useMemo(
-    () => reference.adversaryProfiles.find((entry) => entry.id === selectedScenario?.adversaryProfileId),
-    [reference.adversaryProfiles, selectedScenario?.adversaryProfileId]
+  const startingBeatId = selectedScenario?.startingBeatId;
+  const startingBeat = useMemo(() => {
+    if (!selectedScenario || !startingBeatId) {
+      return null;
+    }
+    return selectedScenario.beats.find((beat) => beat.id === startingBeatId) ?? null;
+  }, [selectedScenario, startingBeatId]);
+  const openingSignals = useMemo(
+    () => (startingBeat?.headlines ?? []).slice(0, 3),
+    [startingBeat]
   );
-  const beatCount = selectedScenario?.beats.length ?? 0;
-  const timedBeatCount = selectedScenario?.beats.filter((beat) => beat.decisionWindow).length ?? 0;
-  const profile = selectedAdversaryProfile ?? null;
 
   const handleStart = async (): Promise<void> => {
     const payload: {
@@ -80,29 +85,27 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
         <div className="space-y-6">
           <div className="space-y-3">
             <p className="label">Escalation // Pre-Mission Dossier</p>
-            <h1 className="font-display text-4xl leading-none text-accent sm:text-5xl">WARGAMES</h1>
+            <h1 className="font-display text-4xl leading-none text-accent sm:text-5xl">ESCALATION</h1>
             <p className="max-w-2xl text-sm leading-relaxed text-textMuted">
-              Ten turns, hidden state, and rival adaptation under uncertainty. Every run is deterministic to its seed and
-              every branch is attributable in post-game causality review.
+              You are entering a ten-turn strategic crisis simulation with hidden state, rival adaptation, and deterministic
+              causality.
             </p>
           </div>
 
-          <div className="grid gap-3 sm:grid-cols-3">
+          <div className="grid gap-3 sm:grid-cols-2">
             <div className="card bg-panelRaised/70 p-3">
               <p className="label">Episode Length</p>
               <p className="mt-2 font-display text-2xl text-textMain">{selectedScenario?.maxTurns ?? 0} turns</p>
             </div>
             <div className="card bg-panelRaised/70 p-3">
-              <p className="label">Beat Graph</p>
-              <p className="mt-2 font-display text-2xl text-textMain">{beatCount} beats</p>
-            </div>
-            <div className="card bg-panelRaised/70 p-3">
-              <p className="label">Timed Beats</p>
-              <p className="mt-2 font-display text-2xl text-textMain">{timedBeatCount}</p>
+              <p className="label">Pacing</p>
+              <p className="mt-2 font-display text-2xl text-textMain">
+                {timerModes.find((mode) => mode.id === timerMode)?.label ?? 'Real-Time'}
+              </p>
             </div>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid gap-4 sm:grid-cols-1">
             <label className="flex flex-col gap-2 text-sm">
               <span className="label">Commander Codename</span>
               <input
@@ -112,27 +115,9 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
                 maxLength={40}
               />
             </label>
-
-            <label className="flex flex-col gap-2 text-sm">
-              <span className="label">Deterministic Seed</span>
-              <div className="flex gap-2">
-                <input
-                  className="w-full rounded-lg border border-borderTone bg-panelRaised/80 px-3 py-2.5 text-textMain focus:border-accent focus:outline-none"
-                  value={seed}
-                  onChange={(event) => setSeed(event.target.value)}
-                />
-                <button
-                  type="button"
-                  className="rounded-lg border border-borderTone px-3 py-2 text-xs uppercase tracking-[0.12em] text-textMuted transition hover:border-accent hover:text-textMain"
-                  onClick={() => setSeed(randomSeed())}
-                >
-                  Reseed
-                </button>
-              </div>
-            </label>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid gap-4 sm:grid-cols-1">
             <label className="flex flex-col gap-2 text-sm">
               <span className="label">Scenario</span>
               <select
@@ -147,16 +132,10 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
                 ))}
               </select>
             </label>
-            <div className="flex flex-col gap-2 text-sm">
-              <span className="label">Adversary Profile</span>
-              <div className="rounded-lg border border-borderTone bg-panelRaised/80 px-3 py-2.5 text-textMain">
-                {selectedAdversaryProfile?.name ?? 'Scenario-embedded'}
-              </div>
-            </div>
           </div>
 
           <div className="space-y-2">
-            <p className="label">Timer Mode</p>
+            <p className="label">Pacing Preference</p>
             <div className="grid gap-2 sm:grid-cols-3">
               {timerModes.map((mode) => {
                 const active = timerMode === mode.id;
@@ -179,6 +158,38 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
             </div>
           </div>
 
+          <div className="rounded-lg border border-borderTone/80 bg-panelRaised/45 px-3 py-2">
+            <button
+              type="button"
+              className="text-[0.68rem] uppercase tracking-[0.12em] text-textMuted hover:text-textMain"
+              onClick={() => setShowAdvanced((current) => !current)}
+            >
+              {showAdvanced ? 'Hide advanced options' : 'Show advanced options'}
+            </button>
+            {showAdvanced ? (
+              <div className="mt-2 space-y-2">
+                <label className="flex flex-col gap-2 text-sm">
+                  <span className="label">Deterministic Seed (optional)</span>
+                  <div className="flex gap-2">
+                    <input
+                      className="w-full rounded-lg border border-borderTone bg-panelRaised/80 px-3 py-2.5 text-textMain focus:border-accent focus:outline-none"
+                      value={seed}
+                      onChange={(event) => setSeed(event.target.value)}
+                      placeholder="Leave blank for auto-seed"
+                    />
+                    <button
+                      type="button"
+                      className="rounded-lg border border-borderTone px-3 py-2 text-xs uppercase tracking-[0.12em] text-textMuted transition hover:border-accent hover:text-textMain"
+                      onClick={() => setSeed(randomSeed())}
+                    >
+                      Generate
+                    </button>
+                  </div>
+                </label>
+              </div>
+            ) : null}
+          </div>
+
           {error ? <p className="rounded-lg border border-warning/60 bg-warning/10 px-3 py-2 text-sm text-warning">{error}</p> : null}
 
           <button
@@ -193,11 +204,29 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
 
         <aside className="space-y-4">
           <article className="card h-full bg-panelRaised/75 p-5">
-            <p className="label">Scenario Brief</p>
+            <p className="label">Classified Brief</p>
             <h2 className="mt-3 font-display text-2xl text-textMain">{selectedScenario?.name ?? 'No scenario selected'}</h2>
             <p className="mt-3 text-sm leading-relaxed text-textMuted">
               {selectedScenario?.briefing ?? 'Select a scenario to review strategic role and escalation context.'}
             </p>
+            <div className="mt-4 rounded-md border border-borderTone/70 bg-surface/35 px-3 py-2">
+              <p className="label">Cold Open</p>
+              <p className="mt-2 text-sm leading-relaxed text-textMain">
+                {startingBeat?.sceneFragments[0] ?? 'Opening intelligence package unavailable.'}
+              </p>
+            </div>
+            {openingSignals.length > 0 ? (
+              <div className="mt-4">
+                <p className="label">Initial Intelligence</p>
+                <div className="mt-2 space-y-2">
+                  {openingSignals.map((headline) => (
+                    <p key={headline} className="rounded-md border border-borderTone/70 bg-surface/35 px-2 py-1.5 text-xs leading-relaxed text-textMuted">
+                      {headline}
+                    </p>
+                  ))}
+                </div>
+              </div>
+            ) : null}
             <div className="mt-4 grid gap-2 text-xs text-textMuted">
               <div className="flex items-center justify-between rounded-md border border-borderTone/70 bg-surface/35 px-2 py-1.5">
                 <span>Role</span>
@@ -208,20 +237,6 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
                 <span className="text-textMain">{selectedScenario?.environment ?? 'N/A'}</span>
               </div>
             </div>
-          </article>
-
-          <article className="card bg-panelRaised/75 p-5">
-            <p className="label">Adversary Model</p>
-            <h3 className="mt-3 font-display text-xl text-textMain">{profile?.name ?? 'Scenario-embedded profile'}</h3>
-            <p className="mt-2 text-sm leading-relaxed text-textMuted">
-              {profile?.description ?? 'Rival behavior is fixed by scenario and not selectable at runtime.'}
-            </p>
-            <ul className="mt-4 space-y-1.5 text-xs text-textMuted">
-              <li>Risk Tolerance: {Math.round((profile?.riskTolerance ?? 0) * 100)}%</li>
-              <li>Escalation Threshold: {Math.round((profile?.escalationThreshold ?? 0) * 100)}%</li>
-              <li>Covert Preference: {Math.round((profile?.covertPreference ?? 0) * 100)}%</li>
-              <li>Ego Sensitivity: {Math.round((profile?.egoSensitivity ?? 0) * 100)}%</li>
-            </ul>
           </article>
         </aside>
       </section>

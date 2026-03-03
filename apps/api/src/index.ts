@@ -253,7 +253,7 @@ app.post('/api/episodes/start', async (context) => {
   });
 
   const db = createDb(context.env);
-  await createEpisode(db, {
+  await createEpisode(context.env.DB, {
     profileId: payload.profileId,
     scenarioId: scenario.id,
     adversaryProfileId: adversaryProfile.id,
