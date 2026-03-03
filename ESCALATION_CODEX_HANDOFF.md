@@ -1121,3 +1121,69 @@ Thread scope limitation: This thread ran under `Code/active/Wargames` and could 
 - add a bottom command input shell (chat/free-form placeholder path),
 - tighten mobile responsive behavior for the new 3-zone layout.
 3. Resolve remaining spec-drift policy calls with Ryan (YAML pipeline timing and next cinematic scope boundary).
+
+## 26) Session Update — 2026-03-03 (Sprint 1.2 command shell + mobile responsiveness pass)
+
+### 26.1 What changed
+
+1. Added persistent bottom command-input surface:
+- New component: `apps/web/src/components/CommandInput.tsx`.
+- Includes:
+  - free-text command input (`Enter` to send, `Shift+Enter` newline),
+  - compact command transcript (player/system),
+  - quick action chips (dispatch actions directly),
+  - per-turn channel-ready system line.
+
+2. Wired command shell into active turn loop:
+- `apps/web/src/App.tsx` now mounts `CommandInput` as a sticky bottom surface.
+- Added lightweight command parser (`parseCommandAction`) to map text -> offered action IDs using:
+  - action ID exact match,
+  - action name exact match,
+  - prefix-aware matching (`action ...`, `execute ...`),
+  - unique fuzzy containment fallback.
+- Added explicit hold/no-action command handling:
+  - `hold`, `stand by`, `standby`, `no action`, `take no action`.
+  - Executes explicit no-action path only when untimed mode + decision window is active.
+
+3. Mobile tightening for current 3-zone layout:
+- Intel rail now collapses on mobile by default (top 3 items) with `Show more/Show less`.
+- Reduced inter-panel spacing on small screens.
+- Added extra bottom padding to avoid overlap with sticky command channel.
+
+4. Scope boundary maintained:
+- No deterministic engine mutation.
+- No API contract changes.
+- Command shell currently uses constrained action-matching behavior and communicates that full interpret-mode routing is pending.
+
+### 26.2 Verification status
+
+1. Local:
+- `npm run lint` passed.
+- `npm run build --workspace @wargames/web` passed.
+- `npm run ci:phase1` passed (11 files / 22 tests).
+
+2. CI/Deploy:
+- Commit `bd97194` pushed.
+- Deploy run `22648119224` passed all jobs (`quality_gate`, `deploy_api`, `deploy_web`, `verify_deploy`).
+
+### 26.3 Remaining work after this pass
+
+1. Command shell is UI-constrained:
+- no backend interpret endpoint yet,
+- no persistent chat history in DB-backed flow yet.
+
+2. Tier-3 spec alignment still open:
+- full free-form gameplay pipeline,
+- cinematic cold-open/alert/audio layers,
+- final 5-zone Situation Room spec finish.
+
+3. Content/schema enrichment still open:
+- scenario-level context fields (region/date/stakeholders/etc.) remain thin.
+
+### 26.4 Exact next action for resume
+
+1. Implement Sprint 1.3:
+- add free-form interpret API path (bounded action envelope + confidence handling),
+- wire command shell to that endpoint with narrative rejection on low confidence.
+2. Keep deterministic invariants unchanged (LLM never mutates game state).
+3. Re-run full gates and deploy verify after each integration step.
