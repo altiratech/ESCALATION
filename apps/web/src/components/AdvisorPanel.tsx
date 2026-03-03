@@ -49,14 +49,19 @@ export const AdvisorPanel = ({ beat }: AdvisorPanelProps) => {
   }, [beat]);
 
   return (
-    <section className="card h-full space-y-4 p-4">
+    <section className="card h-full space-y-4 p-4 sm:p-5">
       <div className="flex items-center justify-between">
-        <p className="label">Advisor Panel</p>
-        <p className="text-xs text-textMuted">{beat ? beat.phase.toUpperCase() : 'NO BEAT'}</p>
+        <div>
+          <p className="label">Advisor Channel</p>
+          <h2 className="mt-2 font-display text-xl text-textMain">Strategic Inputs</h2>
+        </div>
+        <p className="rounded-md border border-borderTone bg-panelRaised/80 px-2 py-1 text-[0.65rem] uppercase tracking-[0.12em] text-textMuted">
+          {beat ? beat.phase : 'no beat'}
+        </p>
       </div>
 
       {advisorEntries.length === 0 ? (
-        <p className="rounded-md border border-borderTone bg-panelRaised px-3 py-2 text-sm text-textMuted">
+        <p className="rounded-lg border border-borderTone bg-panelRaised/70 px-3 py-2 text-sm text-textMuted">
           No advisor guidance is available for this beat.
         </p>
       ) : (
@@ -70,15 +75,18 @@ export const AdvisorPanel = ({ beat }: AdvisorPanelProps) => {
             const tone = stanceTone[profile.stance] ?? 'text-textMain';
 
             return (
-              <article key={entry.advisorId} className="rounded-md border border-borderTone bg-panelRaised p-3">
+              <article key={entry.advisorId} className="rounded-lg border border-borderTone bg-panelRaised/75 p-3">
                 <div className="flex items-center justify-between gap-2">
                   <div>
                     <p className="text-sm font-semibold text-textMain">{profile.name}</p>
                     <p className="text-[0.68rem] uppercase tracking-[0.1em] text-textMuted">{profile.title}</p>
                   </div>
-                  <span className={`text-[0.68rem] uppercase tracking-[0.12em] ${tone}`}>{profile.stance}</span>
+                  <span className={`rounded-md border border-borderTone/70 px-2 py-0.5 text-[0.62rem] uppercase tracking-[0.12em] ${tone}`}>{profile.stance}</span>
                 </div>
-                <p className="mt-3 text-sm leading-relaxed text-textMain">{entry.lines[0] ?? 'Awaiting guidance.'}</p>
+                <div className="mt-3 space-y-1.5">
+                  <p className="text-sm leading-relaxed text-textMain">{entry.lines[0] ?? 'Awaiting guidance.'}</p>
+                  {entry.lines[1] ? <p className="text-xs leading-relaxed text-textMuted">{entry.lines[1]}</p> : null}
+                </div>
               </article>
             );
           })}

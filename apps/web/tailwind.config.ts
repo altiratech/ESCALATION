@@ -16,7 +16,7 @@ export default {
         textMuted: '#9ca7b3'
       },
       fontFamily: {
-        display: ['"Source Serif 4"', 'Georgia', 'serif'],
+        display: ['"Chakra Petch"', '"Source Serif 4"', 'Georgia', 'serif'],
         body: ['"IBM Plex Sans"', '"Segoe UI"', 'sans-serif']
       },
       boxShadow: {

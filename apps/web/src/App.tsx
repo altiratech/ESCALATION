@@ -272,6 +272,8 @@ const App = () => {
         : countdownRatio <= 0.5
           ? 'text-warning'
           : 'text-textMain';
+  const countdownUrgencyLabel =
+    countdownRatio === null ? 'No active window' : countdownRatio <= 0.25 ? 'Critical' : countdownRatio <= 0.5 ? 'Elevated' : 'Stable';
   const progressToneClass =
     countdownRatio === null ? 'bg-borderTone' : countdownRatio <= 0.25 ? 'bg-red-500' : countdownRatio <= 0.5 ? 'bg-warning' : 'bg-textMain';
   const canExtendTimer = Boolean(
@@ -298,99 +300,101 @@ const App = () => {
     : null;
 
   return (
-    <main className="mx-auto flex w-full max-w-[1400px] flex-col gap-4 px-6 py-5">
-      <header className="card flex flex-wrap items-center justify-between gap-3 px-5 py-3">
-        <div>
-          <p className="label">ESCALATION // COMMAND LAYER</p>
-          <h1 className="font-display text-2xl text-accent">WARGAMES</h1>
+    <main className="mx-auto flex w-full max-w-[1500px] flex-col gap-5 px-4 py-5 sm:px-6">
+      <header className="card overflow-hidden px-5 py-4 sm:px-6">
+        <div className="flex flex-wrap items-start justify-between gap-4">
+          <div>
+            <p className="label">Escalation // Command Layer</p>
+            <h1 className="mt-2 font-display text-3xl text-accent sm:text-4xl">WARGAMES</h1>
+            <p className="mt-2 text-sm text-textMuted">Deterministic strategic escalation simulator</p>
+          </div>
+          <div className="grid gap-1 text-right text-xs text-textMuted">
+            <p className="text-sm text-textMain">Commander: {codename || profileId?.slice(0, 8) || 'Unknown'}</p>
+            <p>Adversary Model: {currentAdversaryProfileName}</p>
+            <p>Beat: {episode.currentBeatId}</p>
+          </div>
         </div>
-        <div className="text-right">
-          <p className="text-sm text-textMain">Commander: {codename || profileId?.slice(0, 8) || 'Unknown'}</p>
-          <p className="text-xs text-textMuted">Adversary Model: {currentAdversaryProfileName}</p>
-          <p className="text-xs text-textMuted">Timer Mode: {episode.timerMode}</p>
+        <div className="mt-4 flex flex-wrap gap-2">
+          <span className="hud-chip">Turn {episode.turn}/{episode.maxTurns}</span>
+          <span className="hud-chip">Timer: {episode.timerMode}</span>
+          <span className="hud-chip">Beat Phase: {currentBeat?.phase ?? 'unknown'}</span>
+          <span className="hud-chip">Extends Left: {episode.extendTimerUsesRemaining}</span>
         </div>
       </header>
 
       {error ? (
-        <div className="rounded-md border border-warning/70 bg-warning/10 px-3 py-2 text-sm text-warning">{error}</div>
+        <div className="rounded-lg border border-warning/70 bg-warning/10 px-3 py-2 text-sm text-warning">{error}</div>
       ) : null}
 
-      <section className="card px-5 py-3">
-        <div className="flex flex-wrap items-center justify-between gap-4">
-          <div className="flex flex-wrap items-center gap-3 text-xs text-textMuted">
-            <span className="label">Ambient Status</span>
-            <span>Beat: {episode.currentBeatId}</span>
-            <span>Timer Uses Left: {episode.extendTimerUsesRemaining}</span>
+      <section className="card px-4 py-4 sm:px-5">
+        <div className="grid gap-4 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+          <div className="space-y-1">
+            <p className="label">Decision Window</p>
+            {episode.activeCountdown && remainingSeconds !== null ? (
+              <>
+                <div className="flex items-baseline gap-3">
+                  <span className={`font-mono text-2xl sm:text-3xl ${countdownToneClass}`}>{formatSeconds(remainingSeconds)}</span>
+                  <span className="text-xs uppercase tracking-[0.12em] text-textMuted">{countdownUrgencyLabel}</span>
+                </div>
+                <div className="h-2 overflow-hidden rounded-md bg-borderTone/70">
+                  <div
+                    className={`h-full transition-[width] duration-200 ${progressToneClass}`}
+                    style={{
+                      width: `${Math.max(0, Math.min(100, ((remainingSeconds / Math.max(1, episode.activeCountdown.seconds)) * 100)))}%`
+                    }}
+                  />
+                </div>
+                {pressureText ? <p className="text-xs leading-relaxed text-textMuted">{pressureText}</p> : null}
+              </>
+            ) : (
+              <p className="text-xs text-textMuted">
+                {showTakeNoAction
+                  ? 'Timer mode is off. Use explicit no-action to follow inaction branches on timed beats.'
+                  : 'No active countdown in this beat.'}
+              </p>
+            )}
           </div>
 
-          {episode.activeCountdown && remainingSeconds !== null ? (
-            <div className="min-w-[280px] space-y-2">
-              <div className="flex items-center justify-end gap-3">
-                <span className="text-xs text-textMuted">Decision Window</span>
-                <span className={`font-mono text-sm ${countdownToneClass}`}>{formatSeconds(remainingSeconds)}</span>
-                <button
-                  type="button"
-                  className="rounded-sm border border-borderTone px-2 py-1 text-[0.7rem] text-textMuted transition hover:border-accent hover:text-textMain disabled:cursor-not-allowed disabled:opacity-45"
-                  onClick={() => void handleExtendTimer()}
-                  disabled={!canExtendTimer}
-                >
-                  Extend +{formatSeconds(extendPreviewSeconds)}
-                </button>
-              </div>
-              <div className="h-1.5 overflow-hidden rounded-sm bg-borderTone/70">
-                <div
-                  className={`h-full transition-[width] duration-200 ${progressToneClass}`}
-                  style={{
-                    width: `${Math.max(0, Math.min(100, ((remainingSeconds / Math.max(1, episode.activeCountdown.seconds)) * 100)))}%`
-                  }}
-                />
-              </div>
-              {pressureText ? (
-                <p className="text-right text-[0.72rem] text-textMuted">{pressureText}</p>
-              ) : null}
-            </div>
-          ) : (
-            <p className="text-xs text-textMuted">
-              {showTakeNoAction
-                ? 'This beat has a decision window. Timer mode is off, so use Take No Action to follow the inaction path.'
-                : 'No active countdown in this beat.'}
-            </p>
-          )}
+          <div className="flex flex-wrap items-center justify-end gap-2">
+            <button
+              type="button"
+              className="rounded-md border border-borderTone px-3 py-2 text-[0.68rem] font-semibold uppercase tracking-[0.1em] text-textMuted transition hover:border-accent hover:text-textMain disabled:cursor-not-allowed disabled:opacity-45"
+              onClick={() => void handleExtendTimer()}
+              disabled={!canExtendTimer}
+            >
+              Extend +{formatSeconds(extendPreviewSeconds)}
+            </button>
+            {showTakeNoAction ? (
+              <button
+                type="button"
+                className="rounded-md border border-warning/70 bg-warning/10 px-3 py-2 text-[0.68rem] font-semibold uppercase tracking-[0.1em] text-warning transition hover:bg-warning/20 disabled:cursor-not-allowed disabled:opacity-45"
+                onClick={() => void handleInaction('explicit')}
+                disabled={loading || episode.status !== 'active'}
+              >
+                Take No Action
+              </button>
+            ) : null}
+          </div>
         </div>
       </section>
 
-      <section className="grid gap-4 xl:grid-cols-[1.2fr_0.8fr]">
-        <BriefingPanel
-          turn={episode.turn}
-          maxTurns={episode.maxTurns}
-          briefing={episode.briefing}
-          imageAsset={episode.imageAsset}
-          turnDebrief={episode.turnDebrief}
-        />
+      <section className="grid gap-5 xl:grid-cols-[1.22fr_0.78fr]">
+        <div className="space-y-5">
+          <BriefingPanel
+            turn={episode.turn}
+            maxTurns={episode.maxTurns}
+            briefing={episode.briefing}
+            imageAsset={episode.imageAsset}
+            turnDebrief={episode.turnDebrief}
+          />
+          <ActionCards
+            actions={episode.offeredActions}
+            disabled={loading || episode.status !== 'active'}
+            onSelect={handleActionSelect}
+          />
+        </div>
         <AdvisorPanel beat={currentBeat} />
       </section>
-
-      {showTakeNoAction ? (
-        <section className="card flex flex-wrap items-center justify-between gap-3 px-4 py-3">
-          <p className="text-sm text-textMuted">
-            Timer mode is off for this timed beat. Use explicit no-action to enter the authored inaction branch.
-          </p>
-          <button
-            type="button"
-            className="rounded-sm border border-warning/70 bg-warning/10 px-3 py-2 text-xs font-semibold uppercase tracking-[0.08em] text-warning transition hover:bg-warning/20 disabled:cursor-not-allowed disabled:opacity-45"
-            onClick={() => void handleInaction('explicit')}
-            disabled={loading || episode.status !== 'active'}
-          >
-            Take No Action
-          </button>
-        </section>
-      ) : null}
-
-      <ActionCards
-        actions={episode.offeredActions}
-        disabled={loading || episode.status !== 'active'}
-        onSelect={handleActionSelect}
-      />
     </main>
   );
 };

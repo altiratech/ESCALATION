@@ -24,31 +24,35 @@ export const ActionCards = ({ actions, disabled, onSelect }: ActionCardsProps) =
   }, [actions]);
 
   return (
-    <section className="card p-4">
-      <p className="label">Decision Options</p>
+    <section className="card p-4 sm:p-5">
+      <div className="flex items-center justify-between gap-3">
+        <p className="label">Decision Options</p>
+        <p className="text-[0.68rem] uppercase tracking-[0.12em] text-textMuted">{sorted.length} Available</p>
+      </div>
       <div className="mt-3 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
         {sorted.map((action) => (
           <button
             key={action.id}
             type="button"
-            className="group rounded-md border border-borderTone bg-panelRaised px-3 py-3 text-left transition hover:border-accent/70 hover:bg-panel disabled:cursor-not-allowed disabled:opacity-55"
+            className="group rounded-lg border border-borderTone bg-panelRaised/80 px-3 py-3 text-left transition hover:-translate-y-0.5 hover:border-accent/70 hover:bg-panel disabled:cursor-not-allowed disabled:opacity-55"
             disabled={disabled}
             onClick={() => onSelect(action.id)}
           >
             <div className="flex items-center justify-between">
               <p className="font-display text-[1rem] text-textMain group-hover:text-accent">{action.name}</p>
-              <span className={`rounded px-1.5 py-0.5 text-[0.6rem] uppercase tracking-[0.12em] border ${visibilityTone(action.visibility)}`}>
+              <span className={`rounded-md px-1.5 py-0.5 text-[0.6rem] uppercase tracking-[0.12em] border ${visibilityTone(action.visibility)}`}>
                 {action.visibility}
               </span>
             </div>
             <p className="mt-2 text-xs leading-relaxed text-textMuted">{action.summary}</p>
             <div className="mt-2 flex flex-wrap gap-1">
               {action.tags.slice(0, 3).map((tag) => (
-                <span key={tag} className="rounded-sm border border-borderTone px-1.5 py-0.5 text-[0.58rem] uppercase tracking-[0.1em] text-textMuted">
+                <span key={tag} className="rounded-md border border-borderTone/80 px-1.5 py-0.5 text-[0.58rem] uppercase tracking-[0.1em] text-textMuted">
                   {tag}
                 </span>
               ))}
             </div>
+            <p className="mt-3 text-[0.62rem] uppercase tracking-[0.12em] text-accent/85">Commit Action</p>
           </button>
         ))}
       </div>

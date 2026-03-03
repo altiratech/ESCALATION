@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -9,22 +9,56 @@
 }
 
 body {
-  @apply bg-surface bg-texture text-textMain font-body min-h-screen;
+  @apply text-textMain font-body min-h-screen;
   margin: 0;
+  background-color: #0a1118;
+  background-image:
+    radial-gradient(circle at 14% 10%, rgba(201, 168, 106, 0.16) 0%, transparent 34%),
+    radial-gradient(circle at 92% 14%, rgba(106, 162, 133, 0.12) 0%, transparent 30%),
+    linear-gradient(120deg, rgba(45, 59, 73, 0.45) 0%, rgba(10, 17, 24, 0.96) 35%, rgba(10, 17, 24, 1) 100%);
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.16;
+  background-image: repeating-linear-gradient(
+    180deg,
+    rgba(156, 167, 179, 0.1) 0px,
+    rgba(156, 167, 179, 0.1) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+  z-index: 0;
 }
 
 #root {
   min-height: 100vh;
+  position: relative;
+  z-index: 1;
 }
 
 .card {
-  @apply bg-panel border border-borderTone rounded-md shadow-hard;
+  @apply border border-borderTone shadow-hard;
+  border-radius: 14px;
+  background: linear-gradient(155deg, rgba(27, 37, 48, 0.92) 0%, rgba(21, 28, 35, 0.96) 100%);
+  backdrop-filter: blur(4px);
 }
 
 .label {
-  @apply uppercase tracking-[0.12em] text-[0.68rem] text-textMuted;
+  @apply uppercase tracking-[0.14em] text-[0.66rem] text-textMuted font-semibold;
 }
 
 .value {
   @apply font-display text-[1.05rem] text-textMain;
+}
+
+.hud-chip {
+  @apply inline-flex items-center gap-1 rounded-md border border-borderTone/80 px-2 py-1 text-[0.62rem] uppercase tracking-[0.14em] text-textMuted;
+}
+
+.hud-separator {
+  @apply h-px w-full bg-borderTone/70;
 }

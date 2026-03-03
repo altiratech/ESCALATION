@@ -978,3 +978,44 @@ Thread scope limitation: This thread ran under `Code/active/Wargames` and could 
 
 1. Push post-game prioritization changes and verify Deploy workflow.
 2. Continue gameplay roadmap with next report/UX polish slice.
+
+## 23) Session Update — 2026-03-03 (UX Sprint 1 shell overhaul for live playtesting)
+
+### 23.1 What changed
+
+1. Start screen was redesigned into a mission-dossier flow:
+- Added stronger pre-mission structure (episode length, beat graph, timed beat count).
+- Replaced timer-mode dropdown with explicit mode cards (`standard`, `relaxed`, `off`) and clearer behavior text.
+- Expanded scenario brief/adversary brief side rail for faster run setup context.
+
+2. Active gameplay shell was overhauled for clearer command-center flow:
+- Reworked top command header into chip-based status telemetry (turn, timer mode, phase, extends left).
+- Rebuilt decision-window strip with urgency label, larger countdown, and integrated extend/no-action controls.
+- Shifted layout to a two-column command shell with briefing + actions on left and advisor rail on right.
+
+3. Supporting component visual system updated:
+- `BriefingPanel` now presents turn situation, incoming signal blocks, and debrief with stronger hierarchy.
+- `ActionCards` now has clearer card affordances and decision-count context.
+- `AdvisorPanel` now surfaces stance and optional secondary line with improved readability.
+- Global UI styling updated in `index.css` + Tailwind display font update for a stronger visual identity.
+
+### 23.2 Verification status
+
+1. `npm run lint` passed.
+2. `npm run ci:phase1` passed (11 files / 22 tests).
+3. `npm run build --workspace @wargames/web` passed.
+
+### 23.3 Remaining work after this pass
+
+1. YAML content pipeline decision remains open (JSON remains canonical runtime/authoring path).
+2. Report UX follow-up still open:
+- render action display names (instead of IDs) in pivotal/alternative report sections.
+3. Live UX tuning after user playtests:
+- tighten spacing/copy on mobile breakpoints
+- tune timer-strip urgency copy based on observed player behavior.
+
+### 23.4 Exact next action for resume
+
+1. Commit and push UX Sprint 1 shell changes.
+2. Verify push-triggered Deploy workflow.
+3. Run a live smoke playtest on `https://escalation.altiratech.com` and capture UI polish adjustments for Sprint 1.1.
