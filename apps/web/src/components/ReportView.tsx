@@ -135,6 +135,7 @@ export const ReportView = ({ report, onRestart }: ReportViewProps) => {
 
       <section className="card p-5">
         <p className="label">Branches Not Taken</p>
+        <p className="mt-2 text-xs text-textMuted">Top counterfactual branches by stress impact and pivot relevance (max 6).</p>
         {report.fullCausality.branchesNotTaken.length > 0 ? (
           <div className="mt-3 space-y-3">
             {report.fullCausality.branchesNotTaken.map((entry) => (

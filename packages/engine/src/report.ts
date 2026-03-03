@@ -41,6 +41,7 @@ const meterKeys: MeterKey[] = [
   'allianceTrust',
   'escalationIndex'
 ];
+const MAX_BRANCH_NOT_TAKEN = 6;
 
 const round = (value: number): number => Number(value.toFixed(2));
 
@@ -351,14 +352,18 @@ const buildBranchReason = (
 const buildBranchNotTaken = (
   state: GameState,
   actionMap: Map<string, ActionDefinition>,
-  scenario?: ScenarioDefinition
+  scenario?: ScenarioDefinition,
+  pivotalTurn?: number
 ): PostGameReport['fullCausality']['branchesNotTaken'] => {
   if (!scenario) {
     return [];
   }
 
   const beatMap = new Map(scenario.beats.map((beat) => [beat.id, beat]));
-  const summaries: PostGameReport['fullCausality']['branchesNotTaken'] = [];
+  const scoredSummaries: Array<{
+    score: number;
+    summary: PostGameReport['fullCausality']['branchesNotTaken'][number];
+  }> = [];
 
   for (const entry of state.history) {
     const beat = beatMap.get(entry.beatIdBefore);
@@ -379,16 +384,34 @@ const buildBranchNotTaken = (
       continue;
     }
 
-    summaries.push({
-      turn: entry.turn,
-      beatId: entry.beatIdBefore,
-      selectedActionId: entry.playerActionId,
-      selectedBeatId: entry.beatIdAfter,
-      alternatives: alternatives.slice(0, 3)
+    const stressShift = Math.abs(stressScore(entry.meterAfter) - stressScore(entry.meterBefore));
+    const pivotProximityBonus =
+      typeof pivotalTurn === 'number'
+        ? Math.max(0, 4 - Math.abs(entry.turn - pivotalTurn)) * 0.5
+        : 0;
+    const score = stressShift + (alternatives.length * 0.75) + pivotProximityBonus;
+
+    scoredSummaries.push({
+      score,
+      summary: {
+        turn: entry.turn,
+        beatId: entry.beatIdBefore,
+        selectedActionId: entry.playerActionId,
+        selectedBeatId: entry.beatIdAfter,
+        alternatives: alternatives.slice(0, 3)
+      }
     });
   }
 
-  return summaries;
+  return scoredSummaries
+    .sort((left, right) => {
+      if (right.score !== left.score) {
+        return right.score - left.score;
+      }
+      return right.summary.turn - left.summary.turn;
+    })
+    .slice(0, MAX_BRANCH_NOT_TAKEN)
+    .map((entry) => entry.summary);
 };
 
 const buildUnseenSystemEvents = (
@@ -493,7 +516,7 @@ export const buildPostGameReport = (
   const alternative = pickAlternative(pivotal, actionMap);
   const hiddenDeltas = computeHiddenDeltas(state, actionMap, options.scenario);
   const unseenSystemEvents = buildUnseenSystemEvents(state, options.scenario);
-  const branchesNotTaken = buildBranchNotTaken(state, actionMap, options.scenario);
+  const branchesNotTaken = buildBranchNotTaken(state, actionMap, options.scenario, pivotal.turn);
   const primaryDriver = derivePrimaryDriver(hiddenDeltas);
   const peakEscalationTurn = [...state.history].sort(
     (left, right) => right.meterAfter.escalationIndex - left.meterAfter.escalationIndex

@@ -65,5 +65,6 @@ describe('post-game causality report', () => {
     expect(report.fullCausality.advisorRetrospectives.length).toBeGreaterThan(0);
     expect(Array.isArray(report.fullCausality.unseenSystemEvents)).toBe(true);
     expect(Array.isArray(report.fullCausality.branchesNotTaken)).toBe(true);
+    expect(report.fullCausality.branchesNotTaken.length).toBeLessThanOrEqual(6);
   });
 });

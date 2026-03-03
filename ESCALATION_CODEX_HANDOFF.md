@@ -941,3 +941,40 @@ Thread scope limitation: This thread ran under `Code/active/Wargames` and could 
 1. Continue gameplay milestone queue from latest shipped baseline (`fe209a3`):
 - post-game/reporting polish
 - remaining YAML pipeline decision.
+
+## 22) Session Update — 2026-03-03 (Post-game branch-not-taken prioritization polish)
+
+### 22.1 What changed
+
+1. Prioritized and capped branch-not-taken summaries in post-game report generation:
+- Updated `buildBranchNotTaken(...)` in `packages/engine/src/report.ts` to score branch alternatives by:
+  - turn stress shift magnitude
+  - alternative branch count
+  - proximity to pivotal turn
+- Report now returns top 6 branch-not-taken entries (instead of every eligible turn).
+
+2. Wired pivotal-turn context into branch prioritization:
+- `buildPostGameReport(...)` now passes `pivotal.turn` into branch-not-taken ranking.
+
+3. Updated report UI labeling:
+- `apps/web/src/components/ReportView.tsx` now clarifies this section is a prioritized top-6 counterfactual set.
+
+4. Added regression coverage:
+- `tests/engine/report-causality.test.ts` now asserts `branchesNotTaken.length <= 6`.
+
+### 22.2 Verification status
+
+1. `npm run lint` passed.
+2. `npm run ci:phase1` passed.
+3. Vitest passed: 11 files / 22 tests.
+
+### 22.3 Remaining work after this pass
+
+1. YAML content pipeline decision remains open (JSON still canonical).
+2. Optional report UX follow-up:
+- render action display names in report view for pivotal/alternative sections (currently action IDs).
+
+### 22.4 Exact next action for resume
+
+1. Push post-game prioritization changes and verify Deploy workflow.
+2. Continue gameplay roadmap with next report/UX polish slice.
