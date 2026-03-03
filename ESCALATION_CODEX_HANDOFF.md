@@ -885,3 +885,36 @@ Thread scope limitation: This thread ran under `Code/active/Wargames` and could 
 1. Rotate GitHub `CLOUDFLARE_API_TOKEN` back to long-lived custom token and run a fresh manual Deploy verification.
 2. Continue next gameplay milestone:
 - extend-route atomic persistence parity (`episode update` + `beat_progress` transaction coupling).
+
+## 20) Session Update — 2026-03-02 (Extend-route atomic persistence parity)
+
+### 20.1 What changed
+
+1. Added atomic helper for non-turn state transitions with beat analytics:
+- New repository function: `persistEpisodeAndBeatProgressAtomic(...)` in `apps/api/src/repository.ts`.
+- It wraps two writes in one transaction:
+  - optimistic `episodes` update with stale guard (`expectedTurn` + optional `expectedStateJson`)
+  - `beat_progress` insert (`INSERT OR IGNORE`, deterministic ID)
+- On stale mismatch, transaction rolls back and no analytics row is emitted.
+
+2. Migrated extend endpoint to the atomic helper:
+- `POST /api/episodes/:episodeId/countdown/extend` now calls `persistEpisodeAndBeatProgressAtomic(...)`.
+- Prior non-atomic sequence (`updateEpisodeStateOptimistic(...)` then `insertBeatProgress(...)`) was removed from this route.
+
+### 20.2 Verification status
+
+1. `npm run lint` passed.
+2. `npm run ci:phase1` passed.
+3. Vitest passed: 11 files / 22 tests.
+
+### 20.3 Remaining work after this pass
+
+1. Cloudflare deploy secret hygiene:
+- Re-verify `CLOUDFLARE_API_TOKEN` remains long-lived custom token (not OAuth-derived).
+2. Optional persistence hardening follow-up:
+- unify atomic persistence helpers to reduce SQL duplication between turn and non-turn flows.
+
+### 20.4 Exact next action for resume
+
+1. Push extend-route atomic parity changes and verify Deploy workflow.
+2. Continue gameplay roadmap with post-game/reporting polish and remaining YAML pipeline decision.

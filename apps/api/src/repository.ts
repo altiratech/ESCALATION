@@ -198,6 +198,20 @@ export interface PersistResolvedTurnResult {
   beatInserted: boolean;
 }
 
+export interface PersistEpisodeAndBeatProgressPayload {
+  episodeId: string;
+  expectedTurn: number;
+  expectedStateJson?: string;
+  nextState: GameState;
+  beatProgress: BeatProgressPayload;
+  endedAt: string | null;
+}
+
+export interface PersistEpisodeAndBeatProgressResult {
+  updated: boolean;
+  beatInserted: boolean;
+}
+
 export const buildBeatProgressId = (payload: BeatProgressPayload): string =>
   [
     payload.episodeId,
@@ -300,6 +314,82 @@ export const persistResolvedTurnAtomic = async (
     return {
       updated: true,
       turnInserted: getChanges(turnInsertResult) > 0,
+      beatInserted: getChanges(beatInsertResult) > 0
+    };
+  } catch (error) {
+    try {
+      await rawDb.prepare('ROLLBACK').run();
+    } catch {
+      // Ignore rollback errors; preserve original failure.
+    }
+    throw error;
+  }
+};
+
+export const persistEpisodeAndBeatProgressAtomic = async (
+  rawDb: D1Database,
+  payload: PersistEpisodeAndBeatProgressPayload
+): Promise<PersistEpisodeAndBeatProgressResult> => {
+  const nextStateJson = toJson(payload.nextState);
+  const expectedStateJson = payload.expectedStateJson ?? null;
+  const beatProgressId = buildBeatProgressId(payload.beatProgress);
+
+  await rawDb.prepare('BEGIN IMMEDIATE').run();
+  try {
+    const updateResult = await rawDb.prepare(
+      `UPDATE episodes
+       SET current_turn = ?1,
+           status = ?2,
+           state_json = ?3,
+           outcome = ?4,
+           ended_at = ?5
+       WHERE id = ?6
+         AND current_turn = ?7
+         AND (?8 IS NULL OR state_json = ?8)`
+    ).bind(
+      payload.nextState.turn,
+      payload.nextState.status,
+      nextStateJson,
+      payload.nextState.outcome,
+      payload.endedAt,
+      payload.episodeId,
+      payload.expectedTurn,
+      expectedStateJson
+    ).run();
+
+    if (getChanges(updateResult) === 0) {
+      await rawDb.prepare('ROLLBACK').run();
+      return {
+        updated: false,
+        beatInserted: false
+      };
+    }
+
+    const beatInsertResult = await rawDb.prepare(
+      `INSERT OR IGNORE INTO beat_progress (
+        id, episode_id, turn_number, beat_id_before, beat_id_after,
+        transition_source, transitioned, timer_mode, timer_seconds,
+        timer_seconds_remaining, timer_expired, extend_used, extend_timer_uses_remaining
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+    ).bind(
+      beatProgressId,
+      payload.beatProgress.episodeId,
+      payload.beatProgress.turnNumber,
+      payload.beatProgress.beatIdBefore,
+      payload.beatProgress.beatIdAfter,
+      payload.beatProgress.transitionSource,
+      toFlag(payload.beatProgress.transitioned),
+      payload.beatProgress.timerMode,
+      payload.beatProgress.timerSeconds,
+      payload.beatProgress.timerSecondsRemaining,
+      toFlag(payload.beatProgress.timerExpired),
+      toFlag(payload.beatProgress.extendUsed),
+      payload.beatProgress.extendTimerUsesRemaining
+    ).run();
+
+    await rawDb.prepare('COMMIT').run();
+    return {
+      updated: true,
       beatInserted: getChanges(beatInsertResult) > 0
     };
   } catch (error) {

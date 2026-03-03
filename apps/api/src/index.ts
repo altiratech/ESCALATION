@@ -44,8 +44,8 @@ import {
   getEpisodeStateById,
   getReport,
   insertBeatProgress,
+  persistEpisodeAndBeatProgressAtomic,
   persistResolvedTurnAtomic,
-  updateEpisodeStateOptimistic,
   upsertReport
 } from './repository';
 
@@ -643,26 +643,7 @@ app.post('/api/episodes/:episodeId/countdown/extend', async (context) => {
     }, 400);
   }
 
-  const updated = await updateEpisodeStateOptimistic(db, {
-    episodeId,
-    expectedTurn: payload.expectedTurn,
-    expectedStateJson: episodeRecord.stateJson,
-    nextState
-  });
-
-  if (!updated) {
-    const latest = await getEpisodeStateById(db, episodeId);
-    if (!latest) {
-      return context.json({ message: 'Episode no longer available' }, 404);
-    }
-
-    return context.json({
-      stale: true,
-      episode: toEpisodeView(latest, actionMap, imageMap, requestTimestamp)
-    });
-  }
-
-  await insertBeatProgress(db, {
+  const beatProgressPayload = {
     episodeId,
     turnNumber: state.turn,
     beatIdBefore: state.currentBeatId,
@@ -675,7 +656,28 @@ app.post('/api/episodes/:episodeId/countdown/extend', async (context) => {
     timerExpired: false,
     extendUsed: true,
     extendTimerUsesRemaining: nextState.extendTimerUsesRemaining
+  } as const;
+
+  const persistence = await persistEpisodeAndBeatProgressAtomic(context.env.DB, {
+    episodeId,
+    expectedTurn: payload.expectedTurn,
+    expectedStateJson: episodeRecord.stateJson,
+    nextState,
+    beatProgress: beatProgressPayload,
+    endedAt: nextState.status === 'completed' ? new Date(requestTimestamp).toISOString() : null
   });
+
+  if (!persistence.updated) {
+    const latest = await getEpisodeStateById(db, episodeId);
+    if (!latest) {
+      return context.json({ message: 'Episode no longer available' }, 404);
+    }
+
+    return context.json({
+      stale: true,
+      episode: toEpisodeView(latest, actionMap, imageMap, requestTimestamp)
+    });
+  }
 
   const view = toEpisodeView(nextState, actionMap, imageMap, requestTimestamp);
   const polisher = createPolisher(context.env);
