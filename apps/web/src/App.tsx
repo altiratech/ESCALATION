@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-import type { BootstrapPayload, EpisodeView, PostGameReport } from '@wargames/shared-types';
+import type { ActionDefinition, BootstrapPayload, EpisodeView, PostGameReport } from '@wargames/shared-types';
 
 import {
   bootstrapReference,
@@ -14,6 +14,7 @@ import {
 import { ActionCards } from './components/ActionCards';
 import { AdvisorPanel } from './components/AdvisorPanel';
 import { BriefingPanel } from './components/BriefingPanel';
+import { CommandInput } from './components/CommandInput';
 import { ReportView } from './components/ReportView';
 import { StartScreen } from './components/StartScreen';
 
@@ -51,6 +52,55 @@ const pacingLabel: Record<'standard' | 'relaxed' | 'off', string> = {
   off: 'Untimed'
 };
 
+const normalizeCommand = (value: string): string => value.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+
+const parseCommandAction = (
+  command: string,
+  actions: ActionDefinition[]
+): { action: ActionDefinition | null; ambiguous: ActionDefinition[] } => {
+  const normalizedCommand = normalizeCommand(command);
+  if (!normalizedCommand) {
+    return { action: null, ambiguous: [] };
+  }
+
+  const byId = actions.find(
+    (entry) =>
+      entry.id.toLowerCase() === command.trim().toLowerCase() ||
+      normalizeCommand(entry.id) === normalizedCommand
+  );
+  if (byId) {
+    return { action: byId, ambiguous: [] };
+  }
+
+  const withoutPrefixes = normalizedCommand
+    .replace(/^\/?action\s+/, '')
+    .replace(/^\/?execute\s+/, '')
+    .trim();
+  const query = withoutPrefixes || normalizedCommand;
+  if (!query) {
+    return { action: null, ambiguous: [] };
+  }
+  const byExactName = actions.find((entry) => normalizeCommand(entry.name) === query);
+  if (byExactName) {
+    return { action: byExactName, ambiguous: [] };
+  }
+
+  const candidates = actions.filter((entry) => {
+    const name = normalizeCommand(entry.name);
+    return name.includes(query) || query.includes(name);
+  });
+
+  if (candidates.length === 1) {
+    return { action: candidates[0] ?? null, ambiguous: [] };
+  }
+
+  if (candidates.length > 1) {
+    return { action: null, ambiguous: candidates.slice(0, 4) };
+  }
+
+  return { action: null, ambiguous: [] };
+};
+
 const App = () => {
   const [reference, setReference] = useState<BootstrapPayload | null>(null);
   const [episode, setEpisode] = useState<EpisodeView | null>(null);
@@ -62,6 +112,7 @@ const App = () => {
   const [bootstrapping, setBootstrapping] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [countdownRemaining, setCountdownRemaining] = useState<number | null>(null);
+  const [intelExpandedMobile, setIntelExpandedMobile] = useState(false);
   const timeoutGuardRef = useRef<string | null>(null);
 
   useEffect(() => {
@@ -242,6 +293,38 @@ const App = () => {
     timeoutGuardRef.current = null;
   };
 
+  const handleCommandSubmit = useCallback(async (commandText: string): Promise<string> => {
+    if (!episode) {
+      return 'No active episode detected. Begin an episode to issue commands.';
+    }
+
+    if (loading || episode.status !== 'active') {
+      return 'Command channel is busy. Wait for current resolution to complete.';
+    }
+
+    const normalized = normalizeCommand(commandText);
+    const holdCommand = ['hold', 'stand by', 'standby', 'no action', 'take no action'].includes(normalized);
+    if (holdCommand) {
+      if (episode.timerMode === 'off' && currentBeat?.decisionWindow) {
+        await handleInaction('explicit');
+        return 'Command accepted: holding position and taking no action for this beat.';
+      }
+      return 'Hold command recognized, but explicit no-action is only available on untimed decision beats.';
+    }
+
+    const parsed = parseCommandAction(commandText, episode.offeredActions);
+    if (parsed.action) {
+      await handleActionSelect(parsed.action.id);
+      return `Command mapped to action: ${parsed.action.name}. Executing now.`;
+    }
+
+    if (parsed.ambiguous.length > 0) {
+      return `Multiple actions match that order: ${parsed.ambiguous.map((entry) => entry.name).join(', ')}. Use a more specific command.`;
+    }
+
+    return 'Free-form interpretation is not active yet. Use "action <name>" or select an action card.';
+  }, [currentBeat?.decisionWindow, episode, handleActionSelect, handleInaction, loading]);
+
   if (bootstrapping || !reference) {
     return (
       <main className="mx-auto flex min-h-screen w-full max-w-3xl items-center justify-center px-6">
@@ -310,9 +393,10 @@ const App = () => {
   if (pressureText) {
     intelFeed.push(pressureText);
   }
+  const intelFeedVisible = intelExpandedMobile ? intelFeed.slice(0, 8) : intelFeed.slice(0, 3);
 
   return (
-    <main className="mx-auto flex w-full max-w-[1500px] flex-col gap-5 px-4 py-5 sm:px-6">
+    <main className="mx-auto flex w-full max-w-[1500px] flex-col gap-5 px-4 py-5 pb-24 sm:px-6 lg:pb-8">
       <header className="card overflow-hidden px-3 py-2.5 sm:px-4">
         <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
           <div className="flex flex-wrap items-center gap-2 text-textMuted">
@@ -370,14 +454,14 @@ const App = () => {
         <div className="rounded-lg border border-warning/70 bg-warning/10 px-3 py-2 text-sm text-warning">{error}</div>
       ) : null}
 
-      <section className="grid gap-5 lg:grid-cols-[0.35fr_0.9fr_0.8fr]">
+      <section className="grid gap-4 sm:gap-5 lg:grid-cols-[0.35fr_0.9fr_0.8fr]">
         <aside className="order-3 card p-4 lg:order-1">
           <div className="flex items-center justify-between">
             <p className="label">Intel Feed</p>
             <span className="text-[0.62rem] uppercase tracking-[0.12em] text-textMuted">Live</span>
           </div>
           <div className="mt-3 max-h-[32rem] space-y-2 overflow-y-auto pr-1 text-xs leading-relaxed text-textMuted">
-            {intelFeed.length > 0 ? intelFeed.slice(0, 8).map((item, index) => (
+            {intelFeed.length > 0 ? intelFeedVisible.map((item, index) => (
               <p key={`${item}:${index}`} className="rounded-md border border-borderTone/70 bg-panelRaised/45 px-2 py-1.5">
                 {item}
               </p>
@@ -387,6 +471,15 @@ const App = () => {
               </p>
             )}
           </div>
+          {intelFeed.length > 3 ? (
+            <button
+              type="button"
+              className="mt-3 rounded-md border border-borderTone px-2 py-1 text-[0.62rem] uppercase tracking-[0.1em] text-textMuted transition hover:border-accent hover:text-textMain lg:hidden"
+              onClick={() => setIntelExpandedMobile((current) => !current)}
+            >
+              {intelExpandedMobile ? 'Show less' : `Show ${Math.min(5, intelFeed.length - 3)} more`}
+            </button>
+          ) : null}
         </aside>
 
         <div className="order-1 lg:order-2">
@@ -399,7 +492,7 @@ const App = () => {
           />
         </div>
 
-        <div className="order-2 space-y-5 lg:order-3">
+        <div className="order-2 space-y-4 sm:space-y-5 lg:order-3">
           <AdvisorPanel beat={currentBeat} />
           <ActionCards
             actions={episode.offeredActions}
@@ -407,6 +500,16 @@ const App = () => {
             onSelect={handleActionSelect}
           />
         </div>
+      </section>
+
+      <section className="sticky bottom-3 z-20">
+        <CommandInput
+          turn={episode.turn}
+          actions={episode.offeredActions}
+          disabled={loading || episode.status !== 'active'}
+          onSubmitCommand={handleCommandSubmit}
+          onSelectAction={handleActionSelect}
+        />
       </section>
     </main>
   );
