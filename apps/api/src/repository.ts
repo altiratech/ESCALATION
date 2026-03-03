@@ -141,6 +141,8 @@ export const updateEpisodeStateOptimistic = async (
   return changes > 0;
 };
 
+const getChanges = (result: unknown): number => (result as { meta?: { changes?: number } }).meta?.changes ?? 0;
+
 export const insertTurnLog = async (
   db: Database,
   episodeId: string,
@@ -180,6 +182,22 @@ export interface BeatProgressPayload {
   extendTimerUsesRemaining: number;
 }
 
+export interface PersistResolvedTurnPayload {
+  episodeId: string;
+  expectedTurn: number;
+  expectedStateJson?: string;
+  nextState: GameState;
+  resolution: TurnResolution;
+  beatProgress: BeatProgressPayload;
+  endedAt: string | null;
+}
+
+export interface PersistResolvedTurnResult {
+  updated: boolean;
+  turnInserted: boolean;
+  beatInserted: boolean;
+}
+
 export const buildBeatProgressId = (payload: BeatProgressPayload): string =>
   [
     payload.episodeId,
@@ -191,6 +209,108 @@ export const buildBeatProgressId = (payload: BeatProgressPayload): string =>
     payload.extendUsed ? 'extend' : 'no-extend',
     payload.timerExpired ? 'expired' : 'active'
   ].join(':');
+
+export const persistResolvedTurnAtomic = async (
+  rawDb: D1Database,
+  payload: PersistResolvedTurnPayload
+): Promise<PersistResolvedTurnResult> => {
+  const nextStateJson = toJson(payload.nextState);
+  const expectedStateJson = payload.expectedStateJson ?? null;
+
+  const turnLogId = `${payload.episodeId}:${payload.resolution.turn}`;
+  const beatProgressId = buildBeatProgressId(payload.beatProgress);
+
+  await rawDb.prepare('BEGIN IMMEDIATE').run();
+  try {
+    const updateResult = await rawDb.prepare(
+      `UPDATE episodes
+       SET current_turn = ?1,
+           status = ?2,
+           state_json = ?3,
+           outcome = ?4,
+           ended_at = ?5
+       WHERE id = ?6
+         AND current_turn = ?7
+         AND (?8 IS NULL OR state_json = ?8)`
+    ).bind(
+      payload.nextState.turn,
+      payload.nextState.status,
+      nextStateJson,
+      payload.nextState.outcome,
+      payload.endedAt,
+      payload.episodeId,
+      payload.expectedTurn,
+      expectedStateJson
+    ).run();
+
+    if (getChanges(updateResult) === 0) {
+      await rawDb.prepare('ROLLBACK').run();
+      return {
+        updated: false,
+        turnInserted: false,
+        beatInserted: false
+      };
+    }
+
+    const turnInsertResult = await rawDb.prepare(
+      `INSERT OR IGNORE INTO turn_logs (
+        id, episode_id, turn_number, player_action_id, rival_action_id,
+        events_json, belief_json, visible_meters_json, true_meters_json,
+        briefing_text, headlines_json, image_id, rng_trace_json
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+    ).bind(
+      turnLogId,
+      payload.episodeId,
+      payload.resolution.turn,
+      payload.resolution.playerActionId,
+      payload.resolution.rivalActionId,
+      toJson(payload.resolution.triggeredEvents),
+      toJson(payload.resolution.beliefsAfter),
+      toJson(payload.resolution.visibleRanges),
+      toJson(payload.resolution.meterAfter),
+      payload.resolution.narrative.briefingParagraph,
+      toJson(payload.resolution.narrative.headlines),
+      payload.resolution.selectedImageId,
+      toJson(payload.resolution.rngTrace)
+    ).run();
+
+    const beatInsertResult = await rawDb.prepare(
+      `INSERT OR IGNORE INTO beat_progress (
+        id, episode_id, turn_number, beat_id_before, beat_id_after,
+        transition_source, transitioned, timer_mode, timer_seconds,
+        timer_seconds_remaining, timer_expired, extend_used, extend_timer_uses_remaining
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+    ).bind(
+      beatProgressId,
+      payload.beatProgress.episodeId,
+      payload.beatProgress.turnNumber,
+      payload.beatProgress.beatIdBefore,
+      payload.beatProgress.beatIdAfter,
+      payload.beatProgress.transitionSource,
+      toFlag(payload.beatProgress.transitioned),
+      payload.beatProgress.timerMode,
+      payload.beatProgress.timerSeconds,
+      payload.beatProgress.timerSecondsRemaining,
+      toFlag(payload.beatProgress.timerExpired),
+      toFlag(payload.beatProgress.extendUsed),
+      payload.beatProgress.extendTimerUsesRemaining
+    ).run();
+
+    await rawDb.prepare('COMMIT').run();
+    return {
+      updated: true,
+      turnInserted: getChanges(turnInsertResult) > 0,
+      beatInserted: getChanges(beatInsertResult) > 0
+    };
+  } catch (error) {
+    try {
+      await rawDb.prepare('ROLLBACK').run();
+    } catch {
+      // Ignore rollback errors; preserve original failure.
+    }
+    throw error;
+  }
+};
 
 export const insertBeatProgress = async (
   db: Database,

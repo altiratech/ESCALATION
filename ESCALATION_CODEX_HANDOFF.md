@@ -815,3 +815,45 @@ Thread scope limitation: This thread ran under `Code/active/Wargames` and could 
 1. Push this refactor to `origin/main`.
 2. Run deploy workflow + smoke verification to confirm no bootstrap/UI contract regressions.
 3. Then continue with the next gameplay/runtime milestone.
+
+## 18) Session Update — 2026-03-02 (Transaction-coupled turn persistence hardening)
+
+### 18.1 What changed
+
+1. Added atomic persistence helper for resolved turns:
+- New repository function: `persistResolvedTurnAtomic(...)` in `apps/api/src/repository.ts`.
+- It wraps three operations in a single DB transaction:
+  - optimistic episode state update
+  - `turn_logs` insert (`INSERT OR IGNORE`)
+  - `beat_progress` insert (`INSERT OR IGNORE`, deterministic ID)
+- If optimistic update does not match (stale request), the transaction rolls back and no log/analytics writes are emitted.
+
+2. Routed action/inaction paths to the atomic helper:
+- `POST /api/episodes/:episodeId/actions` now uses `persistResolvedTurnAtomic(...)` inside `finalizeResolvedTurn`.
+- `POST /api/episodes/:episodeId/inaction` now uses `persistResolvedTurnAtomic(...)`.
+- Prior non-atomic sequence (`updateEpisodeStateOptimistic` + `insertTurnLog` + `insertBeatProgress`) was removed from these routes.
+
+3. Preserved existing behavior outside scope:
+- Start and extend endpoints still use existing write paths.
+- Post-game report generation/upsert remains unchanged and runs after successful turn persistence.
+
+### 18.2 Verification status
+
+1. `npm run lint` passed.
+2. `npm run ci:phase1` passed.
+3. Vitest passed: 11 files / 22 tests.
+4. Monte Carlo warning profile unchanged (`all_dove` concentration warnings remain warning-only).
+
+### 18.3 Remaining work after this pass
+
+1. YAML content pipeline decision remains open (JSON remains canonical).
+2. Optional next persistence hardening:
+- extend-route atomic coupling (`episode update` + `beat_progress`) for parity with action/inaction.
+3. Optional legacy DB cleanup:
+- remove `archetype_id` after all environments are verified on `adversary_profile_id`.
+
+### 18.4 Exact next action for resume
+
+1. Commit and push transaction-coupled persistence changes.
+2. Verify deploy workflow on push.
+3. Continue next gameplay milestone.

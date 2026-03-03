@@ -44,7 +44,7 @@ import {
   getEpisodeStateById,
   getReport,
   insertBeatProgress,
-  insertTurnLog,
+  persistResolvedTurnAtomic,
   updateEpisodeStateOptimistic,
   upsertReport
 } from './repository';
@@ -378,27 +378,7 @@ app.post('/api/episodes/:episodeId/actions', async (context) => {
       extendUsed: boolean;
     }
   ) => {
-    const updated = await updateEpisodeStateOptimistic(db, {
-      episodeId,
-      expectedTurn: payload.expectedTurn,
-      expectedStateJson: episodeRecord.stateJson,
-      nextState
-    });
-
-    if (!updated) {
-      const latest = await getEpisodeStateById(db, episodeId);
-      if (!latest) {
-        return context.json({ message: 'Episode no longer available' }, 404);
-      }
-
-      return context.json({
-        stale: true,
-        episode: toEpisodeView(latest, actionMap, imageMap, requestTimestamp)
-      });
-    }
-
-    await insertTurnLog(db, episodeId, resolution);
-    await insertBeatProgress(db, {
+    const beatProgressPayload = {
       episodeId,
       turnNumber: resolution.turn,
       beatIdBefore: resolution.beatIdBefore,
@@ -411,7 +391,29 @@ app.post('/api/episodes/:episodeId/actions', async (context) => {
       timerExpired: analytics.timerExpired,
       extendUsed: analytics.extendUsed,
       extendTimerUsesRemaining: nextState.extendTimerUsesRemaining
+    } as const;
+
+    const persistence = await persistResolvedTurnAtomic(context.env.DB, {
+      episodeId,
+      expectedTurn: payload.expectedTurn,
+      expectedStateJson: episodeRecord.stateJson,
+      nextState,
+      resolution,
+      beatProgress: beatProgressPayload,
+      endedAt: nextState.status === 'completed' ? new Date(requestTimestamp).toISOString() : null
     });
+
+    if (!persistence.updated) {
+      const latest = await getEpisodeStateById(db, episodeId);
+      if (!latest) {
+        return context.json({ message: 'Episode no longer available' }, 404);
+      }
+
+      return context.json({
+        stale: true,
+        episode: toEpisodeView(latest, actionMap, imageMap, requestTimestamp)
+      });
+    }
 
     if (nextState.status === 'completed' && nextState.outcome) {
       const report = buildPostGameReport(nextState, actionMap, {
@@ -535,27 +537,7 @@ app.post('/api/episodes/:episodeId/inaction', async (context) => {
     }, 400);
   }
 
-  const updated = await updateEpisodeStateOptimistic(db, {
-    episodeId,
-    expectedTurn: payload.expectedTurn,
-    expectedStateJson: episodeRecord.stateJson,
-    nextState: result.nextState
-  });
-
-  if (!updated) {
-    const latest = await getEpisodeStateById(db, episodeId);
-    if (!latest) {
-      return context.json({ message: 'Episode no longer available' }, 404);
-    }
-
-    return context.json({
-      stale: true,
-      episode: toEpisodeView(latest, actionMap, imageMap, requestTimestamp)
-    });
-  }
-
-  await insertTurnLog(db, episodeId, result.resolution);
-  await insertBeatProgress(db, {
+  const beatProgressPayload = {
     episodeId,
     turnNumber: result.resolution.turn,
     beatIdBefore: result.resolution.beatIdBefore,
@@ -568,7 +550,29 @@ app.post('/api/episodes/:episodeId/inaction', async (context) => {
     timerExpired: payload.source === 'timeout',
     extendUsed: false,
     extendTimerUsesRemaining: result.nextState.extendTimerUsesRemaining
+  } as const;
+
+  const persistence = await persistResolvedTurnAtomic(context.env.DB, {
+    episodeId,
+    expectedTurn: payload.expectedTurn,
+    expectedStateJson: episodeRecord.stateJson,
+    nextState: result.nextState,
+    resolution: result.resolution,
+    beatProgress: beatProgressPayload,
+    endedAt: result.nextState.status === 'completed' ? new Date(requestTimestamp).toISOString() : null
   });
+
+  if (!persistence.updated) {
+    const latest = await getEpisodeStateById(db, episodeId);
+    if (!latest) {
+      return context.json({ message: 'Episode no longer available' }, 404);
+    }
+
+    return context.json({
+      stale: true,
+      episode: toEpisodeView(latest, actionMap, imageMap, requestTimestamp)
+    });
+  }
 
   if (result.nextState.status === 'completed' && result.nextState.outcome) {
     const report = buildPostGameReport(result.nextState, actionMap, {
