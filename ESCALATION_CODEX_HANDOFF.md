@@ -1065,3 +1065,59 @@ Thread scope limitation: This thread ran under `Code/active/Wargames` and could 
 1. Push this Tier 1/2 + DB compatibility patch and verify Deploy workflow.
 2. Re-test live start flow for prior `D1_ERROR` regression.
 3. Begin Tier 3 implementation slice: Situation Room left-rail Intel feed + ambient status strip.
+
+## 25) Session Update — 2026-03-03 (Sprint 1.1 UI depth pass + deploy smoke hardening)
+
+### 25.1 What changed
+
+1. Reworked in-episode command-room layout and status strip behavior:
+- Folded countdown controls into the ambient top strip.
+- Added left-rail `Intel Feed` sourced from headlines + memo/ticker + pressure text.
+- Moved decision options into the right decision lane beneath advisor counsel.
+
+2. Added narrative depth interactions for gameplay surfaces:
+- `BriefingPanel`: headline cards are now expandable with contextual signal details; debrief relabeled to `Turn Assessment`.
+- `AdvisorPanel`: removed beat-phase leak badge, added expandable advisor cards with bios/lens context and full line expansion.
+- `ActionCards`: added qualitative hover hints for signal posture, visibility impact, and dominant risk domain.
+
+3. Applied opening-screen polish aligned to review notes:
+- Hero title now anchors on scenario name (no redundant `ESCALATION` repetition).
+- Replaced `Cold Open` label with `Situation Report`.
+- Added expandable `Initial Intelligence` entries and `Senior Staff Assessment` advisor-first-takes section.
+- Reframed `environment` to player-facing `Theater` language.
+
+4. Hardened deploy verification to catch start-flow regressions:
+- Extended `scripts/verify-deploy.sh` to create a profile and execute `/api/episodes/start` smoke checks (required fields + active status + non-empty offered actions).
+- Fixed JSON parsing implementation after initial CI failure by switching parser inputs to environment-variable JSON payloads.
+
+### 25.2 Verification status
+
+1. Local:
+- `npm run lint` passed.
+- `npm run build --workspace @wargames/web` passed.
+- `npm run ci:phase1` passed (11 files / 22 tests).
+
+2. CI/Deploy:
+- Commit `0cfb360` pushed; Deploy run `22647216618` failed only in `verify_deploy` due shell parser bug in new smoke step.
+- Follow-up fix commit `aef0349` pushed; Deploy run `22647356721` passed all jobs (`quality_gate`, `deploy_api`, `deploy_web`, `verify_deploy`).
+
+### 25.3 Remaining work after this pass
+
+1. Tier-3 spec alignment remains incomplete:
+- full five-zone Situation Room target,
+- persistent chat/free-form command surface,
+- cinematic cold-open/alert/sound treatment.
+
+2. Content/schema enrichment remains open:
+- scenario-level region/date/stakeholder/context fields are still thin; current UI depth uses available v1 fields and light framing.
+
+3. YAML authoring migration decision remains open:
+- JSON remains canonical runtime pipeline.
+
+### 25.4 Exact next action for resume
+
+1. Run live playtest on `https://escalation.altiratech.com` focused on start-screen context clarity + turn-one decision flow.
+2. Build Sprint 1.2 slice:
+- add a bottom command input shell (chat/free-form placeholder path),
+- tighten mobile responsive behavior for the new 3-zone layout.
+3. Resolve remaining spec-drift policy calls with Ryan (YAML pipeline timing and next cinematic scope boundary).
