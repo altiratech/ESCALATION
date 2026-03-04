@@ -158,7 +158,7 @@ export const CommandInput = ({ turn, actions, disabled, onSubmitCommand, onSelec
       </div>
 
       <p className="mt-2 text-[0.66rem] text-textMuted">
-        Free-form interpretation is currently constrained to action matching. Full interpret-mode routing follows in the next milestone.
+        Commands route through confidence-gated interpretation. Low-confidence orders are rejected with clarification prompts.
       </p>
     </section>
   );

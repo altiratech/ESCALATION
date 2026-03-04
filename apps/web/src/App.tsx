@@ -1,12 +1,13 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-import type { ActionDefinition, BootstrapPayload, EpisodeView, PostGameReport } from '@wargames/shared-types';
+import type { BootstrapPayload, EpisodeView, PostGameReport } from '@wargames/shared-types';
 
 import {
   bootstrapReference,
   createProfile,
   extendCountdown,
   fetchReport,
+  interpretCommand as interpretEpisodeCommand,
   startEpisode,
   submitAction,
   submitInaction
@@ -53,53 +54,6 @@ const pacingLabel: Record<'standard' | 'relaxed' | 'off', string> = {
 };
 
 const normalizeCommand = (value: string): string => value.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
-
-const parseCommandAction = (
-  command: string,
-  actions: ActionDefinition[]
-): { action: ActionDefinition | null; ambiguous: ActionDefinition[] } => {
-  const normalizedCommand = normalizeCommand(command);
-  if (!normalizedCommand) {
-    return { action: null, ambiguous: [] };
-  }
-
-  const byId = actions.find(
-    (entry) =>
-      entry.id.toLowerCase() === command.trim().toLowerCase() ||
-      normalizeCommand(entry.id) === normalizedCommand
-  );
-  if (byId) {
-    return { action: byId, ambiguous: [] };
-  }
-
-  const withoutPrefixes = normalizedCommand
-    .replace(/^\/?action\s+/, '')
-    .replace(/^\/?execute\s+/, '')
-    .trim();
-  const query = withoutPrefixes || normalizedCommand;
-  if (!query) {
-    return { action: null, ambiguous: [] };
-  }
-  const byExactName = actions.find((entry) => normalizeCommand(entry.name) === query);
-  if (byExactName) {
-    return { action: byExactName, ambiguous: [] };
-  }
-
-  const candidates = actions.filter((entry) => {
-    const name = normalizeCommand(entry.name);
-    return name.includes(query) || query.includes(name);
-  });
-
-  if (candidates.length === 1) {
-    return { action: candidates[0] ?? null, ambiguous: [] };
-  }
-
-  if (candidates.length > 1) {
-    return { action: null, ambiguous: candidates.slice(0, 4) };
-  }
-
-  return { action: null, ambiguous: [] };
-};
 
 const App = () => {
   const [reference, setReference] = useState<BootstrapPayload | null>(null);
@@ -312,18 +266,43 @@ const App = () => {
       return 'Hold command recognized, but explicit no-action is only available on untimed decision beats.';
     }
 
-    const parsed = parseCommandAction(commandText, episode.offeredActions);
-    if (parsed.action) {
-      await handleActionSelect(parsed.action.id);
-      return `Command mapped to action: ${parsed.action.name}. Executing now.`;
-    }
+    setLoading(true);
+    setError(null);
+    try {
+      const interpretation = await interpretEpisodeCommand(episode.episodeId, {
+        expectedTurn: episode.turn,
+        commandText
+      });
 
-    if (parsed.ambiguous.length > 0) {
-      return `Multiple actions match that order: ${parsed.ambiguous.map((entry) => entry.name).join(', ')}. Use a more specific command.`;
-    }
+      if (interpretation.stale) {
+        setEpisode(interpretation.episode);
+        return 'Command target was stale. Synced to latest turn state.';
+      }
 
-    return 'Free-form interpretation is not active yet. Use "action <name>" or select an action card.';
-  }, [currentBeat?.decisionWindow, episode, handleActionSelect, handleInaction, loading]);
+      if (interpretation.decision !== 'execute' || !interpretation.interpretedActionId) {
+        return interpretation.message;
+      }
+
+      const actionResponse = await submitAction(episode.episodeId, {
+        expectedTurn: episode.turn,
+        actionId: interpretation.interpretedActionId
+      });
+
+      if (actionResponse.stale) {
+        setEpisode(actionResponse.episode);
+        return `${interpretation.message} State advanced before execution; command was not applied.`;
+      }
+
+      await applyEpisodeUpdate(actionResponse.episode);
+      return interpretation.message;
+    } catch (submitError) {
+      const message = submitError instanceof Error ? submitError.message : 'Command interpretation failed';
+      setError(message);
+      return message;
+    } finally {
+      setLoading(false);
+    }
+  }, [applyEpisodeUpdate, currentBeat?.decisionWindow, episode, handleInaction, loading]);
 
   if (bootstrapping || !reference) {
     return (

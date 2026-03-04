@@ -544,6 +544,29 @@ export interface SubmitActionRequest {
   actionId: string;
 }
 
+export interface InterpretCommandRequest {
+  expectedTurn: number;
+  commandText: string;
+}
+
+export type InterpretDecision = 'execute' | 'review' | 'reject';
+
+export interface InterpretCommandSuggestion {
+  actionId: string;
+  actionName: string;
+}
+
+export interface InterpretCommandResponse {
+  stale: boolean;
+  episode: EpisodeView;
+  confidence: number;
+  decision: InterpretDecision;
+  interpretedActionId: string | null;
+  interpretedActionName: string | null;
+  message: string;
+  suggestions: InterpretCommandSuggestion[];
+}
+
 export interface ResolveInactionRequest {
   expectedTurn: number;
   source: 'timeout' | 'explicit';

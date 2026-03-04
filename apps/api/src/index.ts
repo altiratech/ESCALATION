@@ -27,9 +27,11 @@ import {
 } from '@wargames/engine';
 
 import type {
+  ActionDefinition,
   EpisodeView,
   ExtendCountdownRequest,
   GameState,
+  InterpretCommandRequest,
   ResolveInactionRequest,
   SubmitActionRequest
 } from '@wargames/shared-types';
@@ -48,6 +50,7 @@ import {
   persistResolvedTurnAtomic,
   upsertReport
 } from './repository';
+import { interpretCommand as interpretCommandText } from './interpret';
 
 const DEFAULT_ALLOWED_ORIGINS = [
   'https://escalation.altiratech.com',
@@ -315,6 +318,106 @@ const inactionSchema = z.object({
 
 const extendCountdownSchema = z.object({
   expectedTurn: z.number().int().min(1)
+});
+
+const interpretSchema = z.object({
+  expectedTurn: z.number().int().min(1),
+  commandText: z.string().min(1).max(300)
+});
+
+app.post('/api/episodes/:episodeId/interpret', async (context) => {
+  const episodeId = context.req.param('episodeId');
+  const payload = interpretSchema.parse(await context.req.json()) as InterpretCommandRequest;
+  const db = createDb(context.env);
+  const episodeRecord = await getEpisodeState(db, episodeId);
+
+  if (!episodeRecord) {
+    return context.json({ message: 'Episode not found' }, 404);
+  }
+
+  let state: GameState;
+  try {
+    state = JSON.parse(episodeRecord.stateJson);
+  } catch {
+    return context.json({ message: 'Corrupt episode state' }, 422);
+  }
+
+  const requestTimestamp = Date.now();
+  const polisher = createPolisher(context.env);
+
+  if (state.status === 'completed') {
+    const completedView = toEpisodeView(state, actionMap, imageMap, requestTimestamp);
+    return context.json({
+      stale: true,
+      confidence: 1,
+      decision: 'reject',
+      interpretedActionId: null,
+      interpretedActionName: null,
+      message: 'Episode is already complete.',
+      suggestions: [],
+      episode: {
+        ...completedView,
+        briefing: await polisher.polish(completedView.briefing)
+      }
+    });
+  }
+
+  if (payload.expectedTurn > state.turn) {
+    return context.json({ message: 'Turn mismatch: future turn submitted.' }, 409);
+  }
+
+  if (payload.expectedTurn < state.turn) {
+    const staleView = toEpisodeView(state, actionMap, imageMap, requestTimestamp);
+    return context.json({
+      stale: true,
+      confidence: 1,
+      decision: 'review',
+      interpretedActionId: null,
+      interpretedActionName: null,
+      message: 'Command state is stale. Syncing latest turn context.',
+      suggestions: [],
+      episode: {
+        ...staleView,
+        briefing: await polisher.polish(staleView.briefing)
+      }
+    });
+  }
+
+  const offeredActions = state.offeredActionIds
+    .map((actionId) => actionMap.get(actionId))
+    .filter((action): action is ActionDefinition => Boolean(action));
+  const interpretation = interpretCommandText(payload.commandText, offeredActions);
+  const currentView = toEpisodeView(state, actionMap, imageMap, requestTimestamp);
+
+  const confidencePercent = Math.round(interpretation.confidence * 100);
+  let message: string;
+  if (interpretation.decision === 'execute' && interpretation.interpretedActionName) {
+    message = `Interpreted as "${interpretation.interpretedActionName}" (${confidencePercent}% confidence).`;
+  } else if (interpretation.decision === 'review') {
+    if (interpretation.suggestions.length > 0) {
+      message = `Interpretation uncertain (${confidencePercent}%). Clarify with: ${interpretation.suggestions.map((entry) => entry.actionName).join(', ')}.`;
+    } else {
+      message = `Interpretation uncertain (${confidencePercent}%). Rephrase or use an action card.`;
+    }
+  } else if (interpretation.suggestions.length > 0) {
+    message = `Unable to map command (${confidencePercent}% confidence). Try: ${interpretation.suggestions.map((entry) => entry.actionName).join(', ')}.`;
+  } else {
+    message = `Unable to map command (${confidencePercent}% confidence). Rephrase or use an action card.`;
+  }
+
+  return context.json({
+    stale: false,
+    confidence: interpretation.confidence,
+    decision: interpretation.decision,
+    interpretedActionId: interpretation.interpretedActionId,
+    interpretedActionName: interpretation.interpretedActionName,
+    message,
+    suggestions: interpretation.suggestions,
+    episode: {
+      ...currentView,
+      briefing: await polisher.polish(currentView.briefing)
+    }
+  });
 });
 
 app.post('/api/episodes/:episodeId/actions', async (context) => {

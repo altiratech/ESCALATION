@@ -2,6 +2,8 @@ import type {
   BootstrapPayload,
   EpisodeView,
   ExtendCountdownRequest,
+  InterpretCommandRequest,
+  InterpretCommandResponse,
   PostGameReport,
   ProfileResponse,
   ResolveInactionRequest,
@@ -91,6 +93,21 @@ export const submitInaction = async (
   });
 
   return parseJson<ActionSubmitResponse>(response);
+};
+
+export const interpretCommand = async (
+  episodeId: string,
+  payload: InterpretCommandRequest
+): Promise<InterpretCommandResponse> => {
+  const response = await fetch(apiUrl(`/api/episodes/${episodeId}/interpret`), {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(payload)
+  });
+
+  return parseJson<InterpretCommandResponse>(response);
 };
 
 export interface CountdownExtendResponse {
