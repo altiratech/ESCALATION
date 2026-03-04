@@ -574,7 +574,11 @@ const App = () => {
         </div>
 
         <div className="order-2 space-y-4 sm:space-y-5 lg:order-3">
-          <AdvisorPanel beat={currentBeat} />
+          <AdvisorPanel
+            beat={currentBeat}
+            scenarioId={episode.scenarioId}
+            advisorDossiers={reference.advisorDossiers}
+          />
           <ActionCards
             actions={episode.offeredActions}
             disabled={loading || episode.status !== 'active'}

@@ -5,6 +5,8 @@ import imagesData from '../data/images.json';
 import narrativeCandidatesData from '../data/narrative_candidates_v2.json';
 import intelFragmentsData from '../data/intel_fragments_ns.json';
 import newsWireData from '../data/news_wire_ns.json';
+import scenarioWorldData from '../data/scenario_world_ns.json';
+import advisorDossiersData from '../data/advisor_dossiers.json';
 
 import type {
   ActionDefinition,
@@ -20,6 +22,8 @@ import type {
   NewsWireArticle,
   OutcomeCategory,
   PressureTextCandidate,
+  ScenarioWorldDefinition,
+  AdvisorDossier,
   AdversaryProfile,
   ScenarioDefinition
 } from '@wargames/shared-types';
@@ -29,6 +33,8 @@ export const adversaryProfiles = adversaryProfilesData as AdversaryProfile[];
 export const images = imagesData as ImageAsset[];
 export const intelFragments = intelFragmentsData as IntelFragment[];
 export const newsWire = newsWireData as NewsWireArticle[];
+export const scenarioWorld = [scenarioWorldData as ScenarioWorldDefinition];
+export const advisorDossiers = advisorDossiersData as AdvisorDossier[];
 
 type RawNarrativeCategory = {
   category?: string;

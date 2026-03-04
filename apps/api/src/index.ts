@@ -15,6 +15,8 @@ import {
   intelFragments,
   narrativeCandidates,
   newsWire,
+  scenarioWorld,
+  advisorDossiers,
   playerActions,
   scenarios
 } from '@wargames/content';
@@ -870,7 +872,9 @@ app.get('/api/reference/bootstrap', (context) => {
     actions: playerActions,
     narrativeCandidates,
     intelFragments,
-    newsWire
+    newsWire,
+    scenarioWorld,
+    advisorDossiers
   });
 });
 

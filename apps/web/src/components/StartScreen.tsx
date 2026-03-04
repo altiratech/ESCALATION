@@ -48,6 +48,9 @@ const environmentLabel: Record<string, string> = {
   generic: 'Global theater'
 };
 
+const clipText = (value: string, limit = 220): string =>
+  value.length > limit ? `${value.slice(0, limit - 1).trimEnd()}…` : value;
+
 export const StartScreen = ({ reference, loading, error, onStart }: StartScreenProps) => {
   const [codename, setCodename] = useState('SABLE-ONE');
   const [seed, setSeed] = useState('');
@@ -62,6 +65,10 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
   const selectedScenario = useMemo(
     () => reference.scenarios.find((entry) => entry.id === scenarioId),
     [reference.scenarios, scenarioId]
+  );
+  const selectedScenarioWorld = useMemo(
+    () => reference.scenarioWorld.find((entry) => entry.scenarioId === scenarioId) ?? null,
+    [reference.scenarioWorld, scenarioId]
   );
   const startingBeatId = selectedScenario?.startingBeatId;
   const startingBeat = useMemo(() => {
@@ -107,6 +114,18 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
       .filter((entry) => entry.line.length > 0)
       .slice(0, 4);
   }, [startingBeat]);
+  const stakeholderPreview = useMemo(
+    () => (selectedScenarioWorld?.stakeholders ?? []).slice(0, 3),
+    [selectedScenarioWorld]
+  );
+  const keyFeaturePreview = useMemo(
+    () => (selectedScenarioWorld?.region.keyFeatures ?? []).slice(0, 4),
+    [selectedScenarioWorld]
+  );
+  const intelligenceGapPreview = useMemo(
+    () => (selectedScenarioWorld?.intelligenceGaps ?? []).slice(0, 2),
+    [selectedScenarioWorld]
+  );
 
   const handleStart = async (): Promise<void> => {
     const payload: {
@@ -266,6 +285,20 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
                 {startingBeat?.sceneFragments[0] ?? 'Opening intelligence package unavailable.'}
               </p>
             </div>
+            {selectedScenarioWorld ? (
+              <div className="mt-4 rounded-md border border-borderTone/70 bg-surface/35 px-3 py-2">
+                <p className="label">Theater Snapshot</p>
+                <p className="mt-2 text-xs leading-relaxed text-textMain">
+                  {selectedScenarioWorld.region.name} · {selectedScenarioWorld.dateAnchor.month} {selectedScenarioWorld.dateAnchor.year}
+                </p>
+                <p className="mt-1 text-[0.72rem] leading-relaxed text-textMuted">
+                  {selectedScenarioWorld.region.coordinates}
+                </p>
+                <p className="mt-2 text-[0.72rem] leading-relaxed text-textMuted">
+                  {clipText(selectedScenarioWorld.economicBackdrop.globalConditions)}
+                </p>
+              </div>
+            ) : null}
             {openingSignals.length > 0 ? (
               <div className="mt-4">
                 <p className="label">Initial Intelligence</p>
@@ -295,6 +328,18 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
                 </div>
               </div>
             ) : null}
+            {keyFeaturePreview.length > 0 ? (
+              <div className="mt-4">
+                <p className="label">Strategic Features</p>
+                <div className="mt-2 space-y-1.5">
+                  {keyFeaturePreview.map((feature) => (
+                    <p key={feature} className="rounded-md border border-borderTone/70 bg-surface/35 px-2 py-1.5 text-[0.72rem] leading-relaxed text-textMuted">
+                      {feature}
+                    </p>
+                  ))}
+                </div>
+              </div>
+            ) : null}
             {advisorFirstTakes.length > 0 ? (
               <div className="mt-4">
                 <p className="label">Senior Staff Assessment</p>
@@ -306,6 +351,36 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
                       </p>
                       <p className="mt-1 text-xs leading-relaxed text-textMain">{entry.line}</p>
                     </div>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+            {stakeholderPreview.length > 0 ? (
+              <div className="mt-4">
+                <p className="label">Primary Stakeholders</p>
+                <div className="mt-2 space-y-2">
+                  {stakeholderPreview.map((stakeholder) => (
+                    <div key={stakeholder.id} className="rounded-md border border-borderTone/70 bg-surface/35 px-2 py-1.5">
+                      <p className="text-[0.62rem] uppercase tracking-[0.12em] text-textMuted">
+                        {stakeholder.type.replace('_', ' ')}
+                      </p>
+                      <p className="mt-1 text-xs text-textMain">{stakeholder.name}</p>
+                      <p className="mt-1 text-[0.72rem] leading-relaxed text-textMuted">
+                        {clipText(stakeholder.disposition, 140)}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+            {intelligenceGapPreview.length > 0 ? (
+              <div className="mt-4">
+                <p className="label">Known Intelligence Gaps</p>
+                <div className="mt-2 space-y-1.5">
+                  {intelligenceGapPreview.map((gap) => (
+                    <p key={gap} className="rounded-md border border-borderTone/70 bg-surface/35 px-2 py-1.5 text-[0.72rem] leading-relaxed text-textMuted">
+                      {gap}
+                    </p>
                   ))}
                 </div>
               </div>

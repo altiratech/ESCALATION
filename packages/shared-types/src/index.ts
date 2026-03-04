@@ -521,6 +521,104 @@ export interface NewsWireArticle {
   narrativeWeight: NewsWireNarrativeWeight;
 }
 
+export interface ScenarioWorldAlliance {
+  name: string;
+  description: string;
+}
+
+export interface ScenarioWorldStakeholder {
+  id: string;
+  name: string;
+  type: string;
+  description: string;
+  influence: string;
+  disposition: string;
+}
+
+export interface ScenarioWorldTimelineEvent {
+  daysBeforeStart: number;
+  event: string;
+  significance: string;
+}
+
+export interface ScenarioWorldDefinition {
+  scenarioId: string;
+  region: {
+    name: string;
+    description: string;
+    coordinates: string;
+    keyFeatures: string[];
+    climateSeason: string;
+  };
+  dateAnchor: {
+    year: number;
+    month: string;
+    dayRange: string;
+    timeContext: string;
+  };
+  playerNation: {
+    name: string;
+    governmentType: string;
+    currentLeader: string;
+    domesticContext: string;
+    militaryPosture: string;
+    alliances: ScenarioWorldAlliance[];
+  };
+  rivalState: {
+    name: string;
+    governmentType: string;
+    leaderTitle: string;
+    domesticContext: string;
+    militaryCapability: string;
+    economicLeverage: string;
+    knownRedLines: string;
+  };
+  stakeholders: ScenarioWorldStakeholder[];
+  economicBackdrop: {
+    globalConditions: string;
+    straitEconomicValue: string;
+    vulnerabilities: string;
+    marketSentiment: string;
+  };
+  crisisTimeline: ScenarioWorldTimelineEvent[];
+  intelligenceGaps: string[];
+  legalFramework: {
+    maritimeLaw: string;
+    treatyObligations: string;
+    sanctionsFramework: string;
+  };
+}
+
+export interface AdvisorScenarioSpecific {
+  openingAssessment: string;
+  redLine: string;
+  preferredEndstate: string;
+}
+
+export interface AdvisorTrustTriggers {
+  gainsConfidence: string;
+  losesConfidence: string;
+}
+
+export interface AdvisorDossier {
+  id: string;
+  name: string;
+  title: string;
+  organization: string;
+  stance: string;
+  shortBio: string;
+  fullBio: string;
+  perspective: string;
+  decisionFramework: string;
+  blindSpots: string;
+  relationships: Record<string, string>;
+  formativeExperience: string;
+  catchphrases: string[];
+  pressureResponse: string;
+  trustTriggers: AdvisorTrustTriggers;
+  scenarioSpecific: Record<string, AdvisorScenarioSpecific>;
+}
+
 export interface CompressedStateSummary {
   roleLine: string;
   turnCounter: string;
@@ -578,6 +676,8 @@ export interface BootstrapPayload {
   narrativeCandidates: NarrativeCandidatesPack;
   intelFragments: IntelFragment[];
   newsWire: NewsWireArticle[];
+  scenarioWorld: ScenarioWorldDefinition[];
+  advisorDossiers: AdvisorDossier[];
 }
 
 export interface StartEpisodeRequest {
