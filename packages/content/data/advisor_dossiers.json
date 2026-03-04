@@ -1,0 +1,150 @@
+[
+  {
+    "id": "cross",
+    "name": "ADM Vivian Cross",
+    "title": "Commander, U.S. Indo-Pacific Command",
+    "organization": "INDOPACOM",
+    "stance": "Hawk",
+    "shortBio": "Four-star naval commander with 34 years in the Pacific fleet. Credible voice on deterrence posture and forward presence — built her reputation on actionable hardware readiness.",
+    "fullBio": "Vivian Cross rose through the surface warfare line, commanding four destroyers and three task forces before her flag rank. Her career spans the East Asia rebalance era, the South China Sea grounding incidents of 2015–2017, and the sustained forward presence posture of 2018–2024. She is known for meticulous operational discipline: her commands executed complex maneuver exercises with zero safety incidents across 90+ port calls. Her reputation crystallized during the 2022 strait transit surge, when her task force maintained a 96-hour response tempo across 47 transits in a contested environment. She views diplomacy as credible only when backed by visible hardware. Her 2023 memoir, *Resolve at Sea*, frames deterrence as a function of predictable, costly defensive posture rather than bluff. Cross has testified before SASC on three occasions, advocating for acceleration of DDG modernization and expanded carrier air wing readiness. Her blind spot is institutional: she equates public commitment with operational sustainability, sometimes underweighting political cost and alliance tolerance for visible escalation.",
+    "perspective": "Sees crisis as a game of signaling cost and resolve. The earlier you plant an unmistakable show of force, the cheaper deterrence is. Ambiguity invites miscalculation. Once a red line is public, the credibility of maintaining it is not negotiable.",
+    "decisionFramework": "Optimizes for forward credibility and demonstrated resolve. Favors visible, reversible shows of force (carrier movement, strait transits, air operations) that raise the cost of the other side's next move without forcing an irreversible commitment. Views economic or diplomatic tools as secondary — useful only if paired with tangible military readiness.",
+    "blindSpots": "Tends to underestimate the political cost of sustained visible escalation on alliance cohesion. Assumes U.S. public tolerance for forward deployments is stable; misses how domestic rhetoric shifts cost calculus. Overweights hardware readiness as a proxy for strategic advantage — sometimes misreads situations where opponents are willing to absorb losses for political gain.",
+    "relationships": {
+      "chen": "Respects Chen's intelligence network access but sees his caution as fence-sitting. Often frames Chen's backchannel work as 'buying time for the other side to prepare.' Privately believes Chen's diplomatic sensibility blinds him to irrevocable commitment thresholds.",
+      "okonkwo": "Values Okonkwo's sanctions architecture as a useful complement to military posture, but treats it as secondary — a tool to constrain coalition drift, not as a decision driver. Has pushed back on Okonkwo's risk estimates, arguing they overstate short-term market fragility.",
+      "reed": "Professional respect for Reed's operational intelligence, but wants clarity over ambiguity. Finds Reed's deniability framework limiting in a time-critical crisis. Believes Reed's asymmetric moves work best after military credibility is established, not instead of it."
+    },
+    "formativeExperience": "In 2019, as a two-star commanding Seventh Fleet operations, Cross was ordered to stand down a planned freedom-of-navigation operation in the disputed strait after a last-minute diplomatic overture from Beijing. The crisis was averted, but Cross interpreted the order as a sign of wavering commitment at the political level. She spent the next eighteen months quietly rebuilding crew readiness and air wing proficiency — positioning her commands to execute at a moment's notice. When a similar incident occurred eighteen months later, her force was first-responder. The contrast shaped her view: visible preparation creates deterrent effect; ambiguity creates vulnerability. It is a lesson she has applied ever since.",
+    "catchphrases": [
+      "Show steel early or the window closes.",
+      "Forward credibility is not negotiable.",
+      "Ambiguity invites miscalculation.",
+      "Hardware readiness is resolve made visible.",
+      "The cost of deterrence is paid once. The cost of capitulation is paid forever."
+    ],
+    "pressureResponse": "Under extreme pressure, Cross becomes more attached to the escalation ladder she has already climbed. She will argue for incremental ratcheting rather than reversal, framing each step as necessary to maintain credibility of prior statements. At the absolute extreme, she may advocate for a fait accompli move — a unilateral action that makes reversal politically impossible.",
+    "trustTriggers": {
+      "gainsConfidence": "Visible, unambiguous military readiness (carrier moves, rapid force repositioning, public authorizations). Clear signaling that deters without requiring imminent use. Actions that raise opponent costs without domestic political backlash.",
+      "losesConfidence": "Wavering public commitments, diplomatic outreach framed as 'off-ramps,' delays in hardware deployment, or player rhetoric that emphasizes restraint and de-escalation over deterrent posture."
+    },
+    "scenarioSpecific": {
+      "northern_strait_flashpoint": {
+        "openingAssessment": "The rival state is probing for weaknesses in allied resolve. Their movements are coordinated and deliberate — not panic, not accident. The window for a visible show of force that deters further escalation is closing rapidly. Within 72 hours, if we have not demonstrated overwhelming local superiority and international commitment, they will escalate to a blockade posture, and we will have lost the initiative.",
+        "redLine": "A de facto blockade of the strait lasting more than 48 hours or a military engagement that results in vessel loss without a prior, public military commitment.",
+        "preferredEndstate": "Rival forces withdraw to pre-crisis positions after facing clear, public demonstration of allied superiority in the strait. U.S. carrier strike group, allied surface combatants, and international observers make deterrence visible and irreversible."
+      }
+    }
+  },
+  {
+    "id": "chen",
+    "name": "Dr. Elias Chen",
+    "title": "Senior Director for Asia Policy, National Security Council",
+    "organization": "NSC",
+    "stance": "Dove",
+    "shortBio": "Diplomat-strategist with 22 years in Asia policy. Expert in allied coalition management and backchannel negotiation. Treats escalation control as the primary objective — even if it means accepting interim outcomes that are tactically suboptimal.",
+    "fullBio": "Elias Chen earned his Ph.D. in International Relations at Princeton, writing his dissertation on the 1962 Cuban Missile Crisis as a case study in backchannel negotiation under time pressure. He joined State as an East Asia desk officer in 2004 and served in five embassies across the Pacific rim before rotating to NSC in 2018. He was the principal architect of the 2021 'Osaka Consensus' multilateral confidence-building agreement, which, while modest in scope, survived two bilateral crises without rupture. His approach is clinically procedural: he maps stakeholder red lines, identifies permissible move space, and builds off-ramps before they are needed. He is fluent in Mandarin and maintains a network of backchannel contacts across foreign ministries that rivals intelligence channels in timeliness. His reputation for calm is sometimes mistaken for passivity; colleagues note that he makes decisions slowly but rarely reverses them. His blind spot is option preservation: he is so attentive to keeping diplomatic space open that he sometimes delays hard choices, creating conditions where the decision-maker (the player) feels trapped between poor options rather than seeing a spectrum of acceptable outcomes.",
+    "perspective": "Escalation is reversible only if both sides believe reversal serves their interests. The goal is not to defeat the opponent but to create a mutual exit where both parties can claim a face-saving outcome. Crisis is an opportunity to reset expectations and build durable protocols. Speed is dangerous; patience allows hidden interests to surface.",
+    "decisionFramework": "Optimizes for crisis termination with minimal structural damage to the international system and allied coalitions. Treats military moves as bargaining signals, not as preparatory steps. Favors diplomatic openings, backchannel messaging, and procedural mechanisms (emergency hotlines, third-party mediation, temporary ceasefires) that lower the cost of de-escalation.",
+    "blindSpots": "Sometimes underestimates the role of audience costs in commitment — assumes that private assurances to allies are sufficient, missing how public rhetoric locks leaders in. Overweights the leverage of procedural complexity; some opponents view negotiation itself as weakness. May preserve too many options simultaneously, creating ambiguity about where the red line actually lies.",
+    "relationships": {
+      "cross": "Sees Cross as operationally brilliant but strategically shortsighted. Believes Cross equates hardware with leverage, missing how military escalation can foreclose diplomatic space irreversibly. Values Cross's tactical intelligence but resists her recommendations for visible force posture.",
+      "okonkwo": "Strong working relationship. Both see escalation through constraint lenses — Cross through military constraint, Chen through economic constraint. Chen sometimes leans on Okonkwo to show that moderate economic measures can achieve strategic outcomes without kinetic escalation, thereby reducing pressure from Cross.",
+      "reed": "Professional but wary. Chen views Reed's deniable operations as incompatible with stable de-escalation, because attribution ambiguity prevents clear signaling. Prefers transparent actions that allow both sides to interpret intent and adjust accordingly."
+    },
+    "formativeExperience": "In 2015, as a deputy chief of mission in the region, Chen negotiated a quiet restoration of diplomatic channels after a bilateral incident that had triggered military mobilization. His approach — offering a minor procedural concession (joint investigation panel) in exchange for de-escalation — worked, but took 96 hours of around-the-clock negotiation. The rival state interpreted his availability and patience as weakness and escalated demands. He got the de-escalation anyway, but at the cost of conceding ground on a secondary issue. The experience taught him that process and patience must be paired with explicit costs for non-compliance, or opponents exploit the space itself.",
+    "catchphrases": [
+      "Escalation ladders have rungs in both directions. Find one going down.",
+      "Preserve diplomatic oxygen before this hardens.",
+      "Process matters more than speed when reversibility is the goal.",
+      "Ambiguity in private channels; clarity in public signaling.",
+      "The crisis ends when both sides see the off-ramp at the same time."
+    ],
+    "pressureResponse": "Under extreme pressure, Chen becomes more methodical and slower to move. He will request more backchannel time, propose additional mediation layers, and emphasize the risk of miscalculation. At the extreme, he may advocate for accepting an interim outcome that preserves negotiation space, even if it appears to yield ground.",
+    "trustTriggers": {
+      "gainsConfidence": "Player rhetoric emphasizing restraint, patience with backchannel process, willingness to consider diplomatic off-ramps. Clear signals that de-escalation is a viable option. Actions that preserve allied unity without triggering public commitment spirals.",
+      "losesConfidence": "Military mobilization without diplomatic overture, public escalatory rhetoric, dismissal of backchannel channels, or moves that foreclose the opponent's exit options (forcing them into a corner)."
+    },
+    "scenarioSpecific": {
+      "northern_strait_flashpoint": {
+        "openingAssessment": "The rival state is testing coalition resilience and exploring space for negotiation. Their moves are concerning but not yet irrevocable. There is a narrow window — perhaps 72–96 hours — where we can open a backchannel, clarify both sides' red lines, and propose a procedural off-ramp. After that window, domestic pressure and military escalation will make de-escalation politically costly for everyone.",
+        "redLine": "A public, irreversible military commitment that forecloses negotiation space — such as a unilateral blockade or an attack on rival forces without prior diplomatic signaling of intent.",
+        "preferredEndstate": "Both sides stand down from operational readiness, accept a joint investigation into the incident, and reestablish communication protocols. The rival state maintains plausible deniability; allied states preserve public unity. No vessel losses, no public ultimatums."
+      }
+    }
+  },
+  {
+    "id": "okonkwo",
+    "name": "Sarah Okonkwo",
+    "title": "Director of International Finance & Sanctions, U.S. Department of Treasury",
+    "organization": "Treasury",
+    "stance": "Pragmatist",
+    "shortBio": "Treasury operator with 18 years in sanctions architecture and financial intelligence. Laser-focused on coalition leverage and market contagion risk. Pushes for options that preserve strategic options while containing spillover to allied economies.",
+    "fullBio": "Sarah Okonkwo entered Treasury as a financial analyst during the 2008 crisis and transitioned into sanctions architecture after the 2011 Iran secondary sanctions regime was deployed. She has designed or co-designed six multilateral sanctions packages, from the 2014 Russia regime through the current financial task force structures. She is known for meticulous cost-benefit modeling: she maps second-order effects (insurance market behavior, commodity basis risk, credit-default swaps, cross-border correspondent banking flows) before recommending sanctions action. Her networks span allied finance ministries, central bank governors, and market surveillance teams. She sees financial leverage as a tool that works only if the coalition holds; the moment one major economy breaks ranks, the regime collapses and credibility is destroyed. Her reputation is clinical, sometimes cold — she will recommend accepting a suboptimal political outcome if the alternative is a sanctions regime that fragments the coalition. Her blind spot is political messaging: she focuses so intensely on technical coalition coherence that she sometimes misses how public framing of sanctions affects domestic support for the overall strategy.",
+    "perspective": "Financial leverage is only credible if it is sustainable across a coalition. The moment you impose sanctions that damage your allies more than the target, you create incentive for defection. The art is finding the narrow band of costs that hurts the opponent more than it hurts you, and that requires constant market monitoring and real-time adjustment.",
+    "decisionFramework": "Optimizes for coalition coherence and contained economic spillover. Favors graduated economic pressure (targeted sectoral sanctions, financial restrictions on key entities) that signals seriousness without triggering market panic or triggering defection by economically vulnerable allies. Views military moves as dangerous because they introduce binary risk — either they deter or they trigger escalation — whereas financial tools allow incremental adjustment.",
+    "blindSpots": "Sometimes underweights the political dimension of economic pressure. Assumes that careful technical design is sufficient to maintain coalition discipline, missing how nationalist politics and domestic pressure can override cost-benefit calculations. Overestimates the speed at which markets price in geopolitical risk; panics move faster than analysis.",
+    "relationships": {
+      "cross": "Respects Cross's military expertise but sees military escalation as economically dangerous — it triggers panic, which is hard to control. Has sometimes pushed back on Cross's timeline for visible force, arguing that premature military moves cause market dislocation before sanctions are positioned. Believes military and economic tools must be sequenced, not simultaneous.",
+      "chen": "Strong working relationship. Both see their tools (economic + diplomatic) as complementary rather than opposed. Chen uses diplomatic channels to frame sanctions as calibrated, proportionate, and reversible; Okonkwo uses financial intelligence to show Chen where coalition solidarity is weakening, so he can adjust diplomatic messaging.",
+      "reed": "Wary of Reed's asymmetric operations, especially anything that could be attributed to the U.S. and damage coalition trust. Has argued that covert operations introduce attribution risk that could fragment economic measures before they mature. Prefers transparent action to deniable action."
+    },
+    "formativeExperience": "In 2016, Okonkwo helped architect a secondary sanctions regime against a rival financial system. The technical design was flawless — it isolated specific sectoral links while protecting allied exporters. But it was implemented simultaneously with a surprise military exercise by another agency, which triggered market panic. Commodity markets spiked, currency volatility spiked, and two allied nations faced severe spillover costs. One of them quietly began exploring workarounds to the sanctions. The regime survived, but barely. The experience taught her that financial tools have fragile coalitional margins; they cannot survive competing signals from other parts of government.",
+    "catchphrases": [
+      "Markets price fear faster than facts.",
+      "Financial leverage is only credible if the coalition holds.",
+      "Escalation without coordination fragments the tools you need most.",
+      "Every day of uncertainty compounds hedging costs.",
+      "Economic pressure is reversible only if it does not break the coalition."
+    ],
+    "pressureResponse": "Under extreme pressure, Okonkwo becomes more conservative and data-driven. She will request additional market monitoring time, propose smaller, incremental sanctions steps, and emphasize the risk of market panic and coalition defection. She resists binary choices, always looking for a graduated alternative.",
+    "trustTriggers": {
+      "gainsConfidence": "Player coordination with allies before financial measures are announced, graduated economic pressure that preserves coalition coherence, willingness to pause or reverse measures if coalition strain is evident, clear communication with market participants about limitations and reversibility.",
+      "losesConfidence": "Uncoordinated military escalation that triggers market panic, unilateral sanctions that break coalition unity, or inflammatory rhetoric that makes it politically harder for allies to maintain discipline."
+    },
+    "scenarioSpecific": {
+      "northern_strait_flashpoint": {
+        "openingAssessment": "The rival state is creating leverage through uncertainty. Markets are already pricing fear — insurance rates, commodity volatility, currency basis shifts. Shipping costs are moving before any sanctions are imposed, which means the coalition is fragile. We have perhaps 72 hours before secondary defection begins and one ally starts seeking workarounds. Our window is narrow, and it requires both clear signaling and visible coalition discipline.",
+        "redLine": "A unilateral sanctions regime that fragments allied unity or economic measures that impose catastrophic spillover on allied economies (e.g., oil market dislocation, financial system freezes).",
+        "preferredEndstate": "A calibrated, coalition-endorsed sectoral sanctions package targeting the rival state's key economic vulnerabilities, paired with visible military commitment from cross. Joint communication to markets emphasizing reversibility and proportionality. Coalition holds; spillover is contained to acceptable levels."
+      }
+    }
+  },
+  {
+    "id": "reed",
+    "name": "COL Marcus Reed",
+    "title": "Chief of Operations, Clandestine Service, Central Intelligence Agency",
+    "organization": "CIA Ops",
+    "stance": "Wildcard",
+    "shortBio": "Covert operations planner with 21 years in intelligence tradecraft. Expert in regional asset networks and asymmetric pressure tactics. Prefers deniable moves and indirect leverage over overt declarations — willing to operate in gray zones that other advisors avoid.",
+    "fullBio": "Marcus Reed joined the agency at 26, starting in case officer training after a five-year Army intelligence career. His first deployment was in South Asia during the drone campaign surge of 2012–2015; he later transitioned to regional operations planning across the Pacific. He has run asset networks in contested environments, conducted counterintelligence operations, and planned covert action proposals (none executed in his tenure). His operational style is patient and architecturally sophisticated: he spends months building collection access, understanding opponent decision-making, and positioning assets before recommending any overt action. He is known for identifying leverage points that other agencies miss — middlemen, sectoral vulnerabilities, factional divisions within opponent hierarchies. His reputation in the intelligence community is high; policy officials sometimes view him as opaque or evasive, unwilling to take clear positions. His blind spot is overconfidence in deniability: he is sometimes surprised when actions he believed were well-covered are attributed to the U.S. anyway, either through operational security failures or because the opponent infers attribution from pattern and motive.",
+    "perspective": "Overt moves telegraph your position and constrain your options. Deniable leverage is more powerful because the opponent is forced to respond to a threat without being able to escalate openly against you. Patience and positioning matter more than speed. The best leverage is something the opponent cannot credibly deny you can apply, but also cannot credibly attribute to you.",
+    "decisionFramework": "Optimizes for asymmetric leverage and operational flexibility. Favors covert pressure (asset positioning, intelligence operations, supply chain interference, information operations) that constrains the opponent without triggering overt military escalation or requiring public commitment. Views overt military and economic tools as closing off future options; prefers to keep leverage hidden until it is needed.",
+    "blindSpots": "Sometimes underestimates the visibility of covert operations in a highly surveilled environment. Assumes attribution barriers are higher than they are. Overweights the leverage of information operations — tends to believe deniable psychological pressure can substitute for credible military or economic commitment. May recommend covert action when overt commitment would be more effective.",
+    "relationships": {
+      "cross": "Professional but sometimes tense. Cross wants clarity and overt commitment; Reed prefers ambiguity and hidden leverage. Reed has argued that visible military escalation forecloses options; Cross has pushed back that hidden leverage creates ambiguity the opponent can exploit. They work together but with different timelines — Cross thinks hours, Reed thinks weeks.",
+      "chen": "Mutual wariness. Chen sees Reed's deniable operations as incompatible with stable backchannel signaling — attribution ambiguity prevents clear communication. Reed sees Chen's transparency as foreclosing leverage. Both respect each other's competence but disagree fundamentally on when clarity versus ambiguity is strategically advantageous.",
+      "okonkwo": "Limited direct relationship. Okonkwo worries that Reed's covert operations introduce attribution risk that can undermine financial regime credibility. Reed argues that well-executed covert action enhances sanctions leverage by creating multiple pressure points the opponent cannot openly respond to. They coordinate on tight protocols but have different risk tolerances."
+    },
+    "formativeExperience": "In 2018, Reed developed an intelligence operation targeting a rival state's key financial node — a network of intermediaries through which they were moving capital. The operation was designed to be deniable and multi-vector: surveillance, supply chain interference, and information seeding about their financial vulnerabilities. It worked too well. The rival state's media began publicly blaming the U.S. for the financial disruption, and even though attribution was technically ambiguous, the operational effect created a crisis. Reed's operation was terminated, but it taught him an important lesson: deniability is easier to maintain when leverage is passive (denial/surveillance) than when it is active (interference). The experience made him more careful about threshold effects — the point at which covert pressure becomes visible and forces both sides to overtly acknowledge what was previously hidden.",
+    "catchphrases": [
+      "Signal intercepts are noisy — assume they want us seeing ambiguity as intent.",
+      "Attribution barriers are lower than we think. Plan for exposure.",
+      "The best leverage is what they cannot credibly deny you can apply, but also cannot credibly blame you for.",
+      "Patience compounds advantage. Speed is defensive.",
+      "Deniability is fragile once leverage becomes active. Use it sparingly."
+    ],
+    "pressureResponse": "Under extreme pressure, Reed becomes more operational and less strategic. He will propose increasingly aggressive covert actions, may overstate the leverage of hidden assets, and may recommend operations that carry high attribution risk. At the extreme, he may argue for a deniable covert action that, if exposed, would be plausibly deniable but strategically catastrophic.",
+    "trustTriggers": {
+      "gainsConfidence": "Player tolerance for intelligence operations and covert pressure, willingness to keep options open and avoid public commitment, appreciation for asymmetric leverage and multi-vector pressure, patient decision-making that allows asset positioning and preparation.",
+      "losesConfidence": "Pressure for immediate overt action, public commitments that foreclose covert options, inflammatory rhetoric that makes deniability impossible, or impatience with intelligence-gathering timelines."
+    },
+    "scenarioSpecific": {
+      "northern_strait_flashpoint": {
+        "openingAssessment": "The rival state is testing coalition surveillance and response time. They have signaling ambiguity on their side — they can claim their moves are routine, not coordinated. Our collection is improving but still has gaps. The opponent believes we are seeing rehearsed patterns, not true intent. We have 96–120 hours to position assets, develop leverage through supply chain intelligence, and create the impression that we have more insight into their planning than they think we do.",
+        "redLine": "Attribution of a U.S. covert operation that breaks cover and forecloses future deniable leverage, or escalation of covert pressure into territory that requires overt military response.",
+        "preferredEndstate": "Rival state stands down after receiving private (deniable) intelligence signals about coalition asset positioning and supply chain vulnerabilities. U.S. and allies maintain collection access; covert leverage remains hidden, available for future use. No overt action required; no attribution. Opponent believes they miscalculated and retreated."
+      }
+    }
+  }
+]

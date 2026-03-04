@@ -325,6 +325,34 @@ const interpretSchema = z.object({
   commandText: z.string().min(1).max(300)
 });
 
+const buildInterpretationMessage = (input: {
+  decision: 'execute' | 'review' | 'reject';
+  confidencePercent: number;
+  interpretedActionName: string | null;
+  suggestions: Array<{ actionName: string }>;
+  roleLabel: string;
+}): string => {
+  const { decision, confidencePercent, interpretedActionName, suggestions, roleLabel } = input;
+  const listedSuggestions = suggestions.map((entry) => entry.actionName).join(', ');
+
+  if (decision === 'execute' && interpretedActionName) {
+    return `Command mapped to "${interpretedActionName}" (${confidencePercent}% confidence).`;
+  }
+
+  if (decision === 'review') {
+    if (suggestions.length > 0) {
+      return `${roleLabel} channel needs clarification (${confidencePercent}% confidence). Confirm one: ${listedSuggestions}.`;
+    }
+    return `${roleLabel} channel needs clarification (${confidencePercent}% confidence). Rephrase or use an action card.`;
+  }
+
+  if (suggestions.length > 0) {
+    return `${roleLabel} directive not recognized (${confidencePercent}% confidence). Try: ${listedSuggestions}.`;
+  }
+
+  return `${roleLabel} directive not recognized (${confidencePercent}% confidence). Rephrase or use an action card.`;
+};
+
 app.post('/api/episodes/:episodeId/interpret', async (context) => {
   const episodeId = context.req.param('episodeId');
   const payload = interpretSchema.parse(await context.req.json()) as InterpretCommandRequest;
@@ -388,22 +416,17 @@ app.post('/api/episodes/:episodeId/interpret', async (context) => {
     .filter((action): action is ActionDefinition => Boolean(action));
   const interpretation = interpretCommandText(payload.commandText, offeredActions);
   const currentView = toEpisodeView(state, actionMap, imageMap, requestTimestamp);
+  const scenario = getScenario(state.scenarioId);
+  const roleLabel = scenario.role || 'Command';
 
   const confidencePercent = Math.round(interpretation.confidence * 100);
-  let message: string;
-  if (interpretation.decision === 'execute' && interpretation.interpretedActionName) {
-    message = `Interpreted as "${interpretation.interpretedActionName}" (${confidencePercent}% confidence).`;
-  } else if (interpretation.decision === 'review') {
-    if (interpretation.suggestions.length > 0) {
-      message = `Interpretation uncertain (${confidencePercent}%). Clarify with: ${interpretation.suggestions.map((entry) => entry.actionName).join(', ')}.`;
-    } else {
-      message = `Interpretation uncertain (${confidencePercent}%). Rephrase or use an action card.`;
-    }
-  } else if (interpretation.suggestions.length > 0) {
-    message = `Unable to map command (${confidencePercent}% confidence). Try: ${interpretation.suggestions.map((entry) => entry.actionName).join(', ')}.`;
-  } else {
-    message = `Unable to map command (${confidencePercent}% confidence). Rephrase or use an action card.`;
-  }
+  const message = buildInterpretationMessage({
+    decision: interpretation.decision,
+    confidencePercent,
+    interpretedActionName: interpretation.interpretedActionName,
+    suggestions: interpretation.suggestions,
+    roleLabel
+  });
 
   return context.json({
     stale: false,

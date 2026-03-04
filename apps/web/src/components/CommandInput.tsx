@@ -6,7 +6,7 @@ interface CommandInputProps {
   turn: number;
   actions: ActionDefinition[];
   disabled: boolean;
-  onSubmitCommand: (commandText: string) => Promise<string>;
+  onSubmitCommand: (commandText: string) => Promise<CommandSubmitResult>;
   onSelectAction: (actionId: string) => Promise<void>;
 }
 
@@ -16,12 +16,19 @@ interface CommandLine {
   text: string;
 }
 
+export interface CommandSubmitResult {
+  message: string;
+  decision?: 'execute' | 'review' | 'reject';
+  suggestions?: ActionDefinition[];
+}
+
 const normalizeText = (value: string): string => value.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
 
 export const CommandInput = ({ turn, actions, disabled, onSubmitCommand, onSelectAction }: CommandInputProps) => {
   const [draft, setDraft] = useState('');
   const [sending, setSending] = useState(false);
   const [lines, setLines] = useState<CommandLine[]>([]);
+  const [pendingSuggestions, setPendingSuggestions] = useState<ActionDefinition[]>([]);
   const nextLineIdRef = useRef(1);
   const lastTurnRef = useRef<number | null>(null);
 
@@ -41,6 +48,7 @@ export const CommandInput = ({ turn, actions, disabled, onSubmitCommand, onSelec
       return;
     }
     lastTurnRef.current = turn;
+    setPendingSuggestions([]);
     appendLine('system', `Turn ${turn}: command channel ready.`);
   }, [turn]);
 
@@ -68,8 +76,13 @@ export const CommandInput = ({ turn, actions, disabled, onSubmitCommand, onSelec
 
     try {
       const response = await onSubmitCommand(commandText);
-      appendLine('system', response);
+      setPendingSuggestions(response.suggestions ?? []);
+      appendLine('system', response.message);
+      if (response.decision === 'review' && (response.suggestions?.length ?? 0) > 0) {
+        appendLine('system', 'Clarify by selecting one of the suggested actions below.');
+      }
     } catch (error) {
+      setPendingSuggestions([]);
       appendLine('system', error instanceof Error ? error.message : 'Command dispatch failed.');
     } finally {
       setSending(false);
@@ -83,12 +96,32 @@ export const CommandInput = ({ turn, actions, disabled, onSubmitCommand, onSelec
 
     appendLine('player', `Execute ${action.name}`);
     setSending(true);
+    setPendingSuggestions([]);
 
     try {
       await onSelectAction(action.id);
       appendLine('system', `Quick action request sent: ${action.name}.`);
     } catch (error) {
       appendLine('system', error instanceof Error ? error.message : 'Quick action dispatch failed.');
+    } finally {
+      setSending(false);
+    }
+  };
+
+  const confirmSuggestedAction = async (action: ActionDefinition): Promise<void> => {
+    if (sending || disabled) {
+      return;
+    }
+
+    appendLine('player', `Confirm ${action.name}`);
+    setSending(true);
+
+    try {
+      await onSelectAction(action.id);
+      setPendingSuggestions([]);
+      appendLine('system', `Confirmed and dispatched: ${action.name}.`);
+    } catch (error) {
+      appendLine('system', error instanceof Error ? error.message : 'Suggested action dispatch failed.');
     } finally {
       setSending(false);
     }
@@ -111,6 +144,27 @@ export const CommandInput = ({ turn, actions, disabled, onSubmitCommand, onSelec
               {line.text}
             </p>
           ))}
+        </div>
+      ) : null}
+
+      {pendingSuggestions.length > 0 ? (
+        <div className="mt-2 rounded-md border border-accent/40 bg-accent/10 p-2">
+          <p className="text-[0.62rem] uppercase tracking-[0.1em] text-accent">Clarify Command</p>
+          <div className="mt-1.5 flex flex-wrap gap-1.5">
+            {pendingSuggestions.map((action) => (
+              <button
+                key={`confirm:${action.id}`}
+                type="button"
+                className="rounded-md border border-accent/60 px-2 py-1 text-[0.6rem] uppercase tracking-[0.09em] text-textMain transition hover:bg-accent/15 disabled:cursor-not-allowed disabled:opacity-45"
+                onClick={() => {
+                  void confirmSuggestedAction(action);
+                }}
+                disabled={disabled || sending}
+              >
+                Confirm {action.name}
+              </button>
+            ))}
+          </div>
         </div>
       ) : null}
 
@@ -158,7 +212,7 @@ export const CommandInput = ({ turn, actions, disabled, onSubmitCommand, onSelec
       </div>
 
       <p className="mt-2 text-[0.66rem] text-textMuted">
-        Commands route through confidence-gated interpretation. Low-confidence orders are rejected with clarification prompts.
+        Commands route through confidence-gated interpretation. Ambiguous orders trigger one-tap clarify options.
       </p>
     </section>
   );

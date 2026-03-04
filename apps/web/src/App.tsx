@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-import type { BootstrapPayload, EpisodeView, PostGameReport } from '@wargames/shared-types';
+import type { ActionDefinition, BootstrapPayload, EpisodeView, PostGameReport } from '@wargames/shared-types';
 
 import {
   bootstrapReference,
@@ -15,7 +15,7 @@ import {
 import { ActionCards } from './components/ActionCards';
 import { AdvisorPanel } from './components/AdvisorPanel';
 import { BriefingPanel } from './components/BriefingPanel';
-import { CommandInput } from './components/CommandInput';
+import { CommandInput, type CommandSubmitResult } from './components/CommandInput';
 import { ReportView } from './components/ReportView';
 import { StartScreen } from './components/StartScreen';
 
@@ -247,13 +247,17 @@ const App = () => {
     timeoutGuardRef.current = null;
   };
 
-  const handleCommandSubmit = useCallback(async (commandText: string): Promise<string> => {
+  const handleCommandSubmit = useCallback(async (commandText: string): Promise<CommandSubmitResult> => {
     if (!episode) {
-      return 'No active episode detected. Begin an episode to issue commands.';
+      return {
+        message: 'No active episode detected. Begin an episode to issue commands.'
+      };
     }
 
     if (loading || episode.status !== 'active') {
-      return 'Command channel is busy. Wait for current resolution to complete.';
+      return {
+        message: 'Command channel is busy. Wait for current resolution to complete.'
+      };
     }
 
     const normalized = normalizeCommand(commandText);
@@ -261,9 +265,13 @@ const App = () => {
     if (holdCommand) {
       if (episode.timerMode === 'off' && currentBeat?.decisionWindow) {
         await handleInaction('explicit');
-        return 'Command accepted: holding position and taking no action for this beat.';
+        return {
+          message: 'Command accepted: holding position and taking no action for this beat.'
+        };
       }
-      return 'Hold command recognized, but explicit no-action is only available on untimed decision beats.';
+      return {
+        message: 'Hold command recognized, but explicit no-action is only available on untimed decision beats.'
+      };
     }
 
     setLoading(true);
@@ -276,11 +284,23 @@ const App = () => {
 
       if (interpretation.stale) {
         setEpisode(interpretation.episode);
-        return 'Command target was stale. Synced to latest turn state.';
+        return {
+          message: 'Command target was stale. Synced to latest turn state.'
+        };
       }
 
       if (interpretation.decision !== 'execute' || !interpretation.interpretedActionId) {
-        return interpretation.message;
+        const suggestionActions: ActionDefinition[] = interpretation.decision === 'review'
+          ? interpretation.suggestions
+            .map((suggestion) => episode.offeredActions.find((action) => action.id === suggestion.actionId))
+            .filter((action): action is ActionDefinition => Boolean(action))
+          : [];
+
+        return {
+          message: interpretation.message,
+          decision: interpretation.decision,
+          suggestions: suggestionActions
+        };
       }
 
       const actionResponse = await submitAction(episode.episodeId, {
@@ -290,15 +310,22 @@ const App = () => {
 
       if (actionResponse.stale) {
         setEpisode(actionResponse.episode);
-        return `${interpretation.message} State advanced before execution; command was not applied.`;
+        return {
+          message: `${interpretation.message} State advanced before execution; command was not applied.`
+        };
       }
 
       await applyEpisodeUpdate(actionResponse.episode);
-      return interpretation.message;
+      return {
+        message: interpretation.message,
+        decision: interpretation.decision
+      };
     } catch (submitError) {
       const message = submitError instanceof Error ? submitError.message : 'Command interpretation failed';
       setError(message);
-      return message;
+      return {
+        message
+      };
     } finally {
       setLoading(false);
     }

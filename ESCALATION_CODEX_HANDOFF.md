@@ -1187,3 +1187,156 @@ Thread scope limitation: This thread ran under `Code/active/Wargames` and could 
 - wire command shell to that endpoint with narrative rejection on low confidence.
 2. Keep deterministic invariants unchanged (LLM never mutates game state).
 3. Re-run full gates and deploy verify after each integration step.
+
+## 27) Session Update — 2026-03-03 (Sprint 1.3 confidence-gated interpret endpoint + command routing)
+
+### 27.1 What changed
+
+1. Added bounded interpret service in API layer:
+- New module: `apps/api/src/interpret.ts`.
+- Implements deterministic command interpretation against offered actions with confidence scoring:
+  - exact ID/name match (high confidence),
+  - prefix/contains/tag match (mid confidence),
+  - ambiguous/unknown fallbacks (review/reject confidence bands).
+- Decision bands:
+  - `execute` when confidence >= 0.7,
+  - `review` when confidence >= 0.4 and < 0.7,
+  - `reject` below 0.4.
+
+2. Added new command interpretation endpoint:
+- `POST /api/episodes/:episodeId/interpret` in `apps/api/src/index.ts`.
+- Endpoint behavior:
+  - validates stale/turn mismatch similar to action routes,
+  - never mutates game state,
+  - returns structured interpretation response with confidence, decision, interpreted action ID/name, suggestions, and current episode view.
+
+3. Updated shared and web API contracts:
+- Added shared types:
+  - `InterpretCommandRequest`,
+  - `InterpretCommandResponse`,
+  - `InterpretDecision`,
+  - `InterpretCommandSuggestion`.
+- Added web client call in `apps/web/src/api.ts`: `interpretCommand(...)`.
+
+4. Routed command shell through backend interpret flow:
+- `apps/web/src/App.tsx` command submit now:
+  - handles explicit local hold/no-action keywords as before for untimed decision windows,
+  - calls `/interpret` for all other commands,
+  - executes `/actions` only when interpretation decision is `execute`,
+  - surfaces API narrative rejection/review messages directly to the command transcript.
+- Removed old local command-to-action parser in `App.tsx` (backend now authoritative for command interpretation).
+
+5. Added targeted API tests:
+- New test file: `tests/api/interpret-command.test.ts` covering:
+  - exact ID execution,
+  - exact name execution,
+  - ambiguous review response,
+  - reject path for unmatched command.
+
+### 27.2 Verification status
+
+1. Local:
+- `npm run lint` passed.
+- `npm run ci:phase1` passed (12 files / 26 tests).
+- `npm run build --workspace @wargames/web` passed.
+
+2. CI/Deploy:
+- Commit `0828b84` pushed.
+- Deploy run `22648861979` passed all jobs (`quality_gate`, `deploy_api`, `deploy_web`, `verify_deploy`).
+
+### 27.3 Remaining work after this pass
+
+1. Interpret layer is deterministic/heuristic only:
+- no external LLM interpret call yet,
+- no modifier envelope generation yet.
+
+2. Narrative rejection language is functional but minimal:
+- could be expanded with role-aware flavor text and richer clarification guidance.
+
+3. Full free-form roadmap still open:
+- robust confidence calibration,
+- optional `review`-band confirm-to-execute flow,
+- eventual improvise/stitch integration boundaries.
+
+### 27.4 Exact next action for resume
+
+1. Implement Sprint 1.4 confirm/clarify flow:
+- for `review` decisions, present suggested action chips and one-tap confirm execution from command channel.
+2. Add role-aware rejection templates in interpret endpoint response copy.
+3. Keep deterministic invariants intact (interpret output proposes action only; engine remains sole state mutator).
+
+## 28) Session Update — 2026-03-03 (Sprint 1.4 command clarify-confirm flow + content intake QA)
+
+### 28.1 What changed
+
+1. Implemented Sprint 1.4 confirm/clarify UX in command channel:
+- `apps/web/src/components/CommandInput.tsx`
+  - introduced structured submit result contract (`CommandSubmitResult`),
+  - added pending review suggestions state,
+  - renders one-tap `Confirm <Action>` chips when interpret decision is `review`,
+  - dispatches confirmed action directly through existing deterministic action route.
+- `apps/web/src/App.tsx`
+  - command submit handler now returns structured result payloads (`message`, `decision`, `suggestions`) instead of plain strings,
+  - maps API review suggestions to currently offered action definitions for confirm chips,
+  - preserves explicit untimed no-action keyword handling and stale-state synchronization behavior.
+
+2. Added role-aware interpret endpoint response copy:
+- `apps/api/src/index.ts`
+  - added `buildInterpretationMessage(...)` helper for consistent decision-band messaging,
+  - `review`/`reject` responses now use scenario role label (`scenario.role`) for in-world command feedback,
+  - `execute` messaging remains explicit and confidence-scored.
+- Deterministic invariants preserved: interpret route still does not mutate state.
+
+3. Reviewed and accepted newly authored narrative/world-building content pack:
+- Added files:
+  - `packages/content/data/advisor_dossiers.json`
+  - `packages/content/data/rival_leader_ns.json`
+  - `packages/content/data/scenario_world_ns.json`
+  - `packages/content/data/intel_fragments_ns.json`
+  - `packages/content/data/news_wire_ns.json`
+  - `packages/content/data/action_narratives_ns.json`
+  - `packages/content/data/cinematics_ns.json`
+  - `packages/content/data/debrief_deep_ns.json`
+  - `packages/content/data/NEWS_WIRE_NS_MANIFEST.md`
+  - `packages/content/data/NEWS_WIRE_QUICK_REFERENCE.md`
+- Intake QA performed:
+  - JSON parse validation for all new files,
+  - cross-check of beat IDs/phases against `scenarios.json`,
+  - action ID cross-check for `action_narratives_ns.json` against canonical player action IDs,
+  - outcome-key consistency checks for `debrief_deep_ns.json`.
+- Fixed one referential integrity issue:
+  - `news_wire_ns.json` entries for beat `ns_frozen_line` were tagged `phase: "climax"` and were corrected to `phase: "resolution"` (4 entries).
+
+### 28.2 Verification status
+
+1. Local:
+- `npm run lint` passed.
+- `npm run ci:phase1` passed (12 files / 26 tests).
+- `npm run build --workspace @wargames/web` passed.
+- Additional intake validation script checks passed:
+  - `intel_fragments_ns.json`: 90 entries, 18/18 beat coverage, phase-consistent.
+  - `news_wire_ns.json`: 120 entries, 18/18 beat coverage, phase-consistent after fix.
+  - `action_narratives_ns.json`: 12 action narrative blocks, all action IDs valid.
+
+2. CI/Deploy:
+- Pending push/deploy for this session’s commit(s).
+
+### 28.3 Remaining work after this pass
+
+1. New narrative/world-building assets are included but not yet wired into runtime loaders/UI surfaces:
+- `news_wire_ns.json` not yet driving live in-episode intel/news feed filtering,
+- `intel_fragments_ns.json` not yet bound into scenario bootstrap and reveal logic,
+- `scenario_world_ns.json`, `rival_leader_ns.json`, and `advisor_dossiers.json` not yet surfaced in start-screen dossier or post-game causality views,
+- `action_narratives_ns.json` not yet connected to action-resolution narrative generation.
+
+2. Free-form command roadmap remains partially open:
+- no external LLM interpret backend yet,
+- no modifier envelope synthesis,
+- no persistent DB-backed command chat transcript yet.
+
+### 28.4 Exact next action for resume
+
+1. Integrate `news_wire_ns.json` into runtime content loader + UI feed:
+- select by current beat/phase with deterministic ordering and fallback behavior.
+2. Integrate `intel_fragments_ns.json` into briefing/intel surfaces with fog-of-war-safe exposure rules.
+3. Keep deterministic engine authority unchanged; these assets are presentation/content enrichment only.

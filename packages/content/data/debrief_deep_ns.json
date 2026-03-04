@@ -1,0 +1,340 @@
+{
+  "scenarioId": "northern_strait_flashpoint",
+  "strategyArcSummaries": {
+    "frozen_conflict": {
+      "headline": "Military standoff hardened into indefinite stalemate, both powers maintain costly forward presence",
+      "narrative": "The Northern Strait Crisis crystallized into a bitter stalemate when both you and the rival regime correctly read each other's redlines and chose costly deterrence over capitulation. Your administration maintained maximum naval pressure while signaling through quiet back-channels that military conflict was not inevitable—a posture that required iron discipline at home and ruthless suppression of hawks. The rival's leader, facing domestic pressure to appear strong, deployed forward assets as a show of force but lacked either the political capital or genuine confidence in outcomes to cross into kinetic warfare. Intelligence reveals that the rival's military actually discouraged further escalation in three separate war council sessions; they believed your navy's surface fleet was more capable than public doctrine suggested, and internal assessments of allied air superiority proved decisive in their calculus. The result: neither side can claim victory, both sides are locked into expensive forward deployments that drain budgets and tie up forces elsewhere, and the underlying political grievances remain completely unresolved. The frozen conflict is strategically incoherent—unsustainable long-term, yet impossible to break without accepting massive risk.",
+      "keyTurningPoint": "The rival regime's decision to match your naval surge without escalating to strikes on shipping traffic. This gave you the political space to avoid war-footing mobilization while maintaining credible deterrence. Had they blockaded trade or struck a merchant vessel, you would have faced overwhelming domestic pressure to respond with force.",
+      "whatIfNote": "If you had matched the rival's early military posturing with visible mobilization of second-line forces, the rival likely would have withdrawn, ending the crisis months earlier. Conversely, if you had accepted economic costs instead of naval pressure, the rival would have consolidated its territorial gains and you'd be fighting to reverse them later."
+    },
+    "stabilization": {
+      "headline": "Diplomacy breakthrough locks in status quo ante with multilateral guarantees and trust-building protocols",
+      "narrative": "Against the odds, your steady refusal to accept either capitulation or escalation created negotiating space. You maintained credible military deterrence while your NSC envoys worked through back-channels to identify the rival's actual redlines: they were not seeking territorial conquest, but political legitimacy and freedom from what they perceived as alliance encirclement. A multilateral settlement emerged that surprised even skeptical observers: the rival withdrew military assets and restored normal maritime traffic, your alliance partners committed to a no-first-strike pledge, and a neutral third party was established to mediate future disputes. Intelligence reveals the rival's inner circle was deeply divided on whether to negotiate—the civilian leadership wanted off the escalation treadmill, while military hawks feared losing face. Your administration's visible strength in the crisis gave the rival's moderates enough political cover to claim they had 'forced the alliance to blink.' The settlement is fragile and depends on sustained diplomatic effort, but it represents the only stable outcome: both sides got partial credit, neither side faces domestic political obliteration, and the underlying security dilemma is temporarily suspended. The real work—addressing why the crisis happened at all—remains ahead, but at least it's no longer being conducted under the shadow of imminent war.",
+      "keyTurningPoint": "Your decision to couple military strength with explicit diplomatic outreach rather than treating them as alternatives. This gave the rival regime's peacefully-inclined factions the internal political ammunition they needed to override the hawks. Had you signaled only military resolve without offering a negotiated off-ramp, the hardliners on both sides would have maintained control of policy.",
+      "whatIfNote": "If your administration had moved to negotiations earlier, the rival would have interpreted it as weakness and pushed for greater concessions. The credible military pressure was essential to getting them to the table as genuine partners, not victor-magnanimous-to-defeated-foe."
+    },
+    "regime_instability": {
+      "headline": "Rival regime fractures as military failure discredits hardliners, triggering internal power struggle",
+      "narrative": "Your administration's superior strategic clarity and willingness to exploit every advantage created cascading failures in the rival regime. What began as a controlled military posture metastasized into a crisis that the rival's leadership could neither escalate nor escape—they had no plausible victory condition and their costs mounted daily. Intelligence reveals that the rival's military ultimately advised the civilian leadership that any major escalation would likely result in defeat, a catastrophic assessment that shattered the regime's unified front. The hardliners who had orchestrated the original crisis found themselves isolated, their nationalist rhetoric exposed as divorced from military reality. Fissures opened between the civilian government, the military, and intelligence services over whether to continue the confrontation or seek a face-saving exit. Your administration's visible refusal to back down combined with quiet intelligence hints that the alliance stood united proved decisive—it convinced the regime's moderates that they had miscalculated the balance of power. The result: internal purges, loss of confidence in top military leadership, weakened grip on domestic politics. The regime survived, but badly wounded and potentially vulnerable to internal challenges to its authority structure. Your success in the crisis was complete in military and strategic terms, but the unintended consequence was to destabilize a neighboring power—with all the unpredictability that entails.",
+      "keyTurningPoint": "When you refused every escalatory trap the rival's hardliners laid—they kept raising the stakes hoping to provoke you into an overreaction that would rally domestic support. Your steely discipline forced them to own every escalation unilaterally, with zero allied consensus and with military advice suggesting it was strategically unsound.",
+      "whatIfNote": "If your administration had responded to their provocations with visible overreaction, even once, it would have provided them the narrative they needed to consolidate domestic support around 'standing up to foreign aggression.' Your restraint was militarily sophisticated but politically ruthless toward them."
+    },
+    "economic_collapse": {
+      "headline": "Blockade and trade war spirals into severe recession, rival economy contracts 8-12%, allied economies feel sharp spillover",
+      "narrative": "What began as a manageable crisis became an economic calamity through a series of mutual escalations neither side fully anticipated. Your administration's decision to restrict energy imports combined with blocking access to critical technology components triggered a cascade: the rival regime responded with counter-sanctions and partial blockade threats, leading to insurance companies refusing coverage for ships transiting the Strait, which in turn triggered a freight-rate spike that rippled through global supply chains. The rival's currency collapsed as foreign investment fled, their central bank burned through reserves attempting stabilization, and manufacturing sectors dependent on imported components seized up. Your own economy felt the shock waves—energy prices spiked, certain export sectors faced retaliation, and allied partners suffered collateral damage to their trade relationships. Intelligence reveals the rival's regime did not anticipate the speed or severity of the economic unraveling; they had assumed their state capacity and foreign reserves could weather months of economic pressure. They were wrong. By the time both sides sought a negotiated exit, the damage was already locked in: the rival's regime faced food-price inflation that threatened social stability, your electorate was fractured between those who wanted to ease pressure and those who wanted to intensify it, and allied governments were publicly questioning whether victory in the military standoff was worth the economic cost. The settlement you eventually reached stopped the hemorrhaging, but it came far too late to prevent severe damage to the rival economy and meaningful spillover effects on your own.",
+      "keyTurningPoint": "Your administration's decision to couple military pressure with economic sanctions rather than treating them as separate policy tracks. Each reinforced the other in a vicious cycle, and by the time you recognized the depth of the spillover effects, reversing course was politically impossible without appearing to capitulate.",
+      "whatIfNote": "If you had maintained military pressure but delayed or modulated economic pressure, the rival regime might have absorbed the military costs without the economy spiraling. Conversely, if you had relied only on economic pressure without credible military deterrence, they would have simply weathered the sanctions and consolidated territorial gains."
+    },
+    "war": {
+      "headline": "Kinetic escalation erupts into sustained naval conflict, both sides suffer significant losses before ceasefire",
+      "narrative": "The margin between deterrence and disaster proved razor-thin. A single tactical incident—your interpretation of which remains disputed to this day—triggered the firing sequence: contested waters became an active combat zone within hours. Your naval forces, better trained and equipped, inflicted significant damage on the rival's fleet in the opening phase. But the rival regime, having committed to conflict, escalated to strikes on merchant shipping and coastal infrastructure. What was supposed to be a limited naval engagement metastasized into a broader conflict that neither side had genuinely prepared for. Your administration faced an agonizing choice: accept an unfavorable ceasefire or expand the conflict to air and cyber domains to break the rival's capacity to continue. Intelligence reveals that the rival's regime did not expect you to accept combat losses and maintain the fight—they believed you would cave after the first significant engagement. They were wrong, and they escalated desperately as a result. The human cost was significant: several hundred military casualties on your side, over a thousand on the rival's side (though exact figures remain classified). The economic cost was staggering—damaged port infrastructure, disrupted supply chains, and the specter of wider alliance involvement hung over every escalation decision. When the ceasefire finally held, both sides claimed partial victory: you retained naval superiority and demonstrated resolve, they maintained de facto control of disputed waters and proved they could inflict costs. The underlying political conflict remained unresolved, and the ceasefire was frozen by exhaustion, not by agreement on terms. The war solved nothing and cost everything.",
+      "keyTurningPoint": "The moment your navy responded to the initial rival attack. Some in your administration believed this was the only choice—immediate response to assert credibility. But a handful of advisors argue that a 48-hour diplomatic window before military response might have offered a face-saving off-ramp. The counterfactual will never be tested.",
+      "whatIfNote": "If your administration had responded to the initial provocation with diplomatic escalation instead of kinetic response, the rival regime might have stood down—they may have attacked hoping you would blink. Conversely, if you had not responded decisively, every subsequent escalation by the rival would have been emboldened by the absence of consequences."
+    }
+  },
+  "historicalParallels": [
+    {
+      "id": "parallel_001",
+      "title": "Cuban Missile Crisis (1962)",
+      "period": "October 1962",
+      "summary": "The Soviet Union placed nuclear-armed missiles in Cuba, triggering a 13-day standoff with the United States over naval blockade and strategic brinkmanship. President Kennedy imposed a quarantine, Soviet Premier Khrushchev's regime faced pressure from military hardliners to escalate, and back-channel diplomacy revealed that both sides had genuine redlines that neither was willing to cross for the contested territory. A face-saving withdrawal was negotiated: the Soviets removed missiles from Cuba, the US removed missiles from Turkey (in secret), and both sides stepped back from the nuclear brink.",
+      "lessonForPlayer": "The Cuban Missile Crisis demonstrates that even when military superiority appears decisive, a rational adversary will refuse to capitulate if they have a viable off-ramp. Your credible military pressure was necessary to bring the rival to negotiations, but the existence of a negotiated settlement option was equally important. If you had ruled out diplomacy entirely, even rational adversaries face unbearable domestic political costs and escalate desperately.",
+      "relevantOutcomes": ["stabilization", "frozen_conflict"],
+      "tags": ["escalation", "signaling", "nuclear", "alliance", "diplomacy"]
+    },
+    {
+      "id": "parallel_002",
+      "title": "Falklands War (1982)",
+      "period": "April-June 1982",
+      "summary": "Argentina invaded the Falkland Islands, expecting Britain to accept the fait accompli and negotiate. Instead, Britain responded with overwhelming military force, deployed a naval task force 8,000 miles from home, and fought a brief but intense war to retake the islands. Argentina's military junta had miscalculated British resolve; they believed the Falklands were too far away and too strategically unimportant for Britain to defend. When Britain did defend them, Argentina's domestic military hardliners were discredited, and the junta's grip on power weakened.",
+      "lessonForPlayer": "The Falklands War teaches that an adversary may miscalculate your commitment to defend interests they believe you will not defend. Britain's willingness to pay significant military costs to restore the status quo ante proved decisive. However, Argentina's regime instability that followed suggests that even when you 'win,' decisively in military terms, the collateral damage to your adversary's domestic stability creates unpredictable secondary effects.",
+      "relevantOutcomes": ["war", "regime_instability"],
+      "tags": ["military", "alliance", "signaling", "regime change"]
+    },
+    {
+      "id": "parallel_003",
+      "title": "Taiwan Strait Crisis of 1996",
+      "period": "March 1996",
+      "summary": "China conducted military exercises and launched missiles near Taiwan in response to Taiwan's democratic elections and a visit by the U.S. President to Taipei. The United States responded by dispatching two aircraft carrier battle groups to the region, a show of force that surprised China and was perceived as more overwhelming than Beijing had anticipated. China backed down and eventually allowed the elections to proceed. This became a template for crisis management in the Strait: visible military commitment, escalation that doesn't cross into kinetic warfare, and eventual face-saving withdrawal by the provocateur.",
+      "lessonForPlayer": "The 1996 Taiwan Strait Crisis shows how forward-deployed military assets backed by clear alliance commitment can deter aggression without escalating to war. China's regime did not face significant internal instability after backing down because they could claim they had 'demonstrated strength' without suffering defeat. The crisis froze before becoming catastrophic, and both sides eventually accepted the status quo with a new understanding of each other's redlines.",
+      "relevantOutcomes": ["frozen_conflict", "stabilization"],
+      "tags": ["maritime", "escalation", "alliance", "signaling", "deterrence"]
+    },
+    {
+      "id": "parallel_004",
+      "title": "Cod Wars (1958-1976)",
+      "period": "Multiple escalations: 1958, 1972-1973, 1975-1976",
+      "summary": "Iceland unilaterally extended its fishing jurisdiction to 4 miles, then 12 miles, then 50 miles, and finally 200 miles offshore. Britain, which relied on North Atlantic cod fishing, responded with naval vessels to protect British trawlers. The escalations were bloodless but economically consequential: nets were cut, vessels were rammed, and both sides maintained the confrontation over years. Eventually, Iceland's claimed 200-mile zone became the international norm, and Britain had to accept the loss of traditional fishing grounds. The winner of the military confrontation (Britain's superior navy) lost the economic and political dispute (Iceland's jurisdiction claim).",
+      "lessonForPlayer": "The Cod Wars demonstrate that military superiority does not automatically translate to achieving your strategic objective. Iceland possessed neither military strength nor alliance backing, but it possessed domestic political will and a clearly articulated legal claim that eventually became international law. Your military advantage in the Northern Strait is analogous to Britain's naval advantage in the Cod Wars: sufficient to prevent the rival from taking further territory, but insufficient to reverse their existing gains or force them to renounce their claims.",
+      "relevantOutcomes": ["frozen_conflict"],
+      "tags": ["maritime", "economic", "persistence", "domestic politics"]
+    },
+    {
+      "id": "parallel_005",
+      "title": "Suez Crisis (1956)",
+      "period": "July-November 1956",
+      "summary": "Egypt's President Nasser nationalized the Suez Canal, and Britain and France believed this was a strategic catastrophe requiring military reversal. They coordinated with Israel to launch a military invasion with the goal of overthrowing Nasser and recapturing the canal. However, the Soviet Union (then in Cold War competition with the West) supported Egypt diplomatically and threatened military intervention. The United States, surprisingly, opposed the invasion and applied economic pressure to force Britain and France to withdraw. The result: Nasser remained in power, the canal was under Egyptian control (though it operated reasonably well), and Britain and France suffered humiliation and loss of prestige.",
+      "lessonForPlayer": "The Suez Crisis demonstrates that military capability is not sufficient if the broader alliance structure opposes your intervention. Britain and France had overwhelming military advantages but faced resistance from the United States and the Soviet Union. In the Northern Strait, if your closest allies become ambivalent about your military strategy, you face a similar problem: capability without coalition consensus becomes unaffordable. The crisis also shows how a regime under pressure (Nasser's Egypt) can use nationalism and anti-colonialism to consolidate domestic support even after military defeat.",
+      "relevantOutcomes": ["stabilization", "frozen_conflict"],
+      "tags": ["alliance", "diplomacy", "nationhood", "economic pressure"]
+    },
+    {
+      "id": "parallel_006",
+      "title": "Berlin Blockade (1948-1949)",
+      "period": "June 1948-May 1949",
+      "summary": "The Soviet Union blockaded West Berlin, preventing land access and attempting to force the Western powers to abandon the city or recognize Soviet authority over it. The United States responded with an airlift, flying supplies into Berlin continuously for 11 months, demonstrating that the blockade could not achieve Soviet objectives. Stalin eventually ended the blockade, realizing that the airlift made the strategy futile. Both sides learned important lessons: the Soviets learned that the Americans would bear significant costs to maintain their position, and the Americans learned that credible, sustained commitment could deter without escalating to war.",
+      "lessonForPlayer": "The Berlin Blockade teaches that an embargo or blockade can be overcome by a sufficiently resourceful and committed opponent. However, it also teaches that the blockader's willingness to maintain pressure over extended periods is crucial. In the Northern Strait, if the rival attempts an economic or energy blockade, your response will determine the outcome: a fragmented response that fractures over weeks will fail, but a united and sustained response that can absorb costs will succeed.",
+      "relevantOutcomes": ["frozen_conflict", "economic_collapse"],
+      "tags": ["economic pressure", "alliance", "commitment", "Cold War"]
+    },
+    {
+      "id": "parallel_007",
+      "title": "Kargil Conflict (1999)",
+      "period": "May-July 1999",
+      "summary": "Pakistani forces crossed the Line of Control in Kashmir and occupied high-altitude positions in the Kargil region. India responded with air and ground operations to expel them. The conflict escalated rapidly but remained conventional; both sides were mindful that nuclear-armed escalation was catastrophic. International pressure, especially from the United States, eventually forced Pakistan to withdraw. India emerged with a military victory and demonstrated willingness to defend territory through force, but Pakistan emerged with a narrative of having 'tested Indian defenses' and maintained its political claim over Kashmir.",
+      "lessonForPlayer": "The Kargil Conflict shows how even when one side achieves a military victory, the underlying political dispute remains unresolved if the defeated side retains territory and political leverage. Pakistan lost the military engagement but retained its strategic narrative and capacity to create future crises. In your outcome, if you achieve military victory but the rival retains its core political grievance and territorial gains, you face a similar dynamic: the crisis may freeze, but it will not be resolved.",
+      "relevantOutcomes": ["war", "frozen_conflict"],
+      "tags": ["military", "nuclear", "Kashmir", "signaling", "persistence"]
+    },
+    {
+      "id": "parallel_008",
+      "title": "Golan Heights and 1973 Yom Kippur War",
+      "period": "October 1973",
+      "summary": "Syria and Egypt launched a coordinated surprise attack on Israel to recover territory lost in the 1967 Six-Day War. The war lasted three weeks and resulted in tactical Israeli victory (Israel pushed back Syrian and Egyptian forces), but it shattered Israel's myth of invincibility and demonstrated that Israel could not maintain permanently frozen borders without diplomatic settlement. The war eventually led to the Camp David Accords (Egypt-Israel) and a quasi-settlement over the Golan Heights (Syria retains disputed claims but accepted cease-fire lines).",
+      "lessonForPlayer": "The Yom Kippur War demonstrates that military victory without addressing the underlying political dispute can be ephemeral. Israel won the war but found itself in a costly long-term military posture in the Golan and Sinai until diplomatic settlements (partial, in the case of the Golan) were reached. Your military dominance in the Northern Strait is similar: sufficient to freeze the conflict, but not sufficient to resolve the underlying political grievance. A purely military solution will eventually require diplomatic backing to be sustainable.",
+      "relevantOutcomes": ["frozen_conflict", "stabilization"],
+      "tags": ["military", "diplomatic", "territory", "settlement", "persistence"]
+    }
+  ],
+  "advisorPostMortems": {
+    "cross": {
+      "frozen_conflict": {
+        "assessment": "We held the line. Navy performed exactly as briefed—positioning was sound, rules of engagement were tight, and we didn't give them any escalation excuse. The rival regime blinked first on kinetic action, which tells you everything about their confidence in a sustained fight. What frustrates me is that we could've pushed harder earlier and forced a better outcome.",
+        "selfCritique": "I pushed too hard for forward positioning early and didn't account for how much that would alarm the civilian leadership. The optics cost us political bandwidth we needed later.",
+        "recommendation": "Next time, build the military pressure more gradually and maintain constant dialogue with the NSC on escalation ramifications. Superior capability is worthless if you can't sustain the political will to use it."
+      },
+      "stabilization": {
+        "assessment": "This is the outcome that makes me most uneasy. We achieved diplomatic settlement, which is objectively good, but we did it at the moment when military pressure was at its peak. We had them on their heels and we stepped back. That said—they've held the agreement, no violations detected. Maybe the diplomatic play was smarter than my instinct allowed.",
+        "selfCritique": "I was too quick to dismiss the back-channel diplomacy. Chen saw something I didn't: that they were ready to fold if given a political off-ramp. I fought it because I wanted the military solution.",
+        "recommendation": "Don't mistake military readiness for strategic clarity. Sometimes the other side is desperate to exit, and catching that moment is worth more than incremental military advantage. Stronger integration between military posturing and diplomatic signaling would've sealed this faster."
+      },
+      "regime_instability": {
+        "assessment": "We broke them militarily and politically. Their hardliners are isolated, their military is demoralized, and their civilian leadership is hanging by threads. The regime will be inward-focused for years. This is what victory looks like—except it's not stable, and we have no idea what replaces them or whether it's better or worse for us long-term.",
+        "selfCritique": "I didn't anticipate how fragile their regime actually was. I prepared for a long standoff and they fractured. I should've been ready with follow-on options the moment the opportunity appeared.",
+        "recommendation": "In future crises, establish contingency diplomatic and intelligence pathways for rapid regime shifts. We won the military/political game but we're now improvising on what comes next. That's dangerous."
+      },
+      "economic_collapse": {
+        "assessment": "The economic strategy was sound in theory—isolate their economy, degrade their capacity to sustain military operations. But the spillover was worse than anyone modeled. Their economy didn't just crack, it shattered, and the global supply chain shock hit us harder than we anticipated. We won militarily and economically lost. That's not a victory in any strategic sense.",
+        "selfCritique": "I recommended dual military and economic pressure without sufficiently stress-testing the model for second-order effects. If the Treasury had modeled worse-case spillover, we might have chosen a different economic mix.",
+        "recommendation": "Military and economic pressure are not additive—they're multiplicative in their effects. Next time, run severe-scenario economic modeling before coupling them. And maintain visible off-ramps during economic campaigns so the other side can back down without accepting complete capitulation."
+      },
+      "war": {
+        "assessment": "We fought and we won, but the cost was real. Several hundred casualties, damaged infrastructure we'll be rebuilding for years, and the rival is now a military counterpart that we can't underestimate. They absorbed significant losses and kept fighting, which means we misjudged their capacity for pain. That's a serious intelligence failure on our part.",
+        "selfCritique": "I was confident that our initial force advantage would translate to rapid enemy collapse. It didn't. They fought harder than expected and escalated more desperately. I should've built in larger reserves for a longer conflict.",
+        "recommendation": "Never assume an adversary will rationally capitulate after early military setbacks. Build war plans for grinding conflicts, not decisive first-strike victories. And maintain constant off-ramp options—we ceasefire'd when we were exhausted, not because we'd achieved our political objectives."
+      }
+    },
+    "chen": {
+      "frozen_conflict": {
+        "assessment": "The stalemate is what happens when two rational adversaries understand each other's redlines and neither has the political capital to cross theirs. We maintained military deterrence while signaling diplomatic openness. That was the right balance, and the frozen conflict is frustrating but stable. It's not a failure—it's the baseline of deterrence working.",
+        "selfCritique": "I should've pushed harder earlier for explicit back-channel communication. We discovered in hindsight that their civilian government was searching for a diplomatic off-ramp we could've provided sooner. That's on me—I was too cautious about appearing to negotiate from weakness.",
+        "recommendation": "In frozen conflicts, continuous low-level diplomatic contact is not a sign of weakness—it's insurance. Establish back-channel communication channels early and keep them hot, even when public posturing is confrontational."
+      },
+      "stabilization": {
+        "assessment": "This is the outcome the negotiating track was designed for. We built sufficient military pressure to make the rival regime recognize the costs of escalation, then we provided them a way to step back and claim internal victory. The multilateral settlement with guarantees means we're not relying on bilateral trust—we're relying on institutional commitments. That's more durable.",
+        "selfCritique": "I was too hesitant in the early stages to push for direct talks. I deferred to Cross's view that we needed more military pressure first. We could've accelerated this timeline significantly if I'd been more aggressive diplomatically earlier.",
+        "recommendation": "Don't wait for maximum military pressure to open diplomatic channels. Parallel tracks—military deterrence plus quiet diplomacy—give you more options and faster resolution. The moment we established back-channel communication, the trajectory changed."
+      },
+      "regime_instability": {
+        "assessment": "We successfully exploited their regime's internal fractures, but I'm deeply uncomfortable with the unintended consequence. We didn't set out to destabilize their government—we set out to resolve the crisis. Now we're responsible for managing whatever comes next, and we have limited control over that outcome. This feels like a Pyrrhic victory.",
+        "selfCritique": "I should've recommended explicitly addressing their internal political dynamics earlier. If we'd understood how fragile their consensus was, we could've factored that into our diplomatic strategy and potentially guided them toward a less destabilizing resolution.",
+        "recommendation": "Regime stability is a legitimate strategic consideration. If your military/economic pressure is eroding a neighboring regime's internal cohesion, consider whether you want that outcome and what you'll do if the regime fragments. Sometimes accepting a costly frozen conflict is preferable to destabilizing a nuclear-armed neighbor."
+      },
+      "economic_collapse": {
+        "assessment": "The economic cascade was precisely what I warned against in our internal debates. Economic pressure and military pressure compound each other in ways that are hard to control. Their economy is now in severe recession, our economy is feeling significant spillover pain, and allied economies are fractured. This is the definition of a mutually destructive stalemate—we all lost.",
+        "selfCritique": "I should've been more forceful in recommending that we decouple economic and military pressure. I raised the concern but I didn't make it a red line when it should have been.",
+        "recommendation": "Economic sanctions without an explicit off-ramp are escalatory in ways that are often invisible until they're catastrophic. Before coupling them with military pressure, establish clear de-escalation pathways and timeline expectations with your allies so you don't end up in a collective trap."
+      },
+      "war": {
+        "assessment": "War was the failure of diplomacy. We never established back-channel communication that might have provided an off-ramp before the first shots were fired. Once kinetic action started, all diplomatic leverage evaporated—you're in a military problem, not a diplomatic problem, and we played cleanup instead of prevention.",
+        "selfCritique": "I underestimated how close we were to the brink. I thought we had more time to develop diplomatic options. We didn't. I should've pushed for emergency back-channel establishment the moment military posturing reached maximum.",
+        "recommendation": "When military pressure reaches maximum, diplomatic channels become more important, not less. Every escalation needs a visible off-ramp, and that off-ramp needs to be established before the escalation, not after."
+      }
+    },
+    "okonkwo": {
+      "frozen_conflict": {
+        "assessment": "The cost-benefit math on this outcome is grim. We're spending approximately 1.2% of defense GDP to maintain forward position indefinitely. The rival is spending roughly 2.1% of their (smaller) economy, so they're bearing higher relative costs. But 'indefinitely' has no endpoint, which means this is a permanent budget item with no clear off-ramp. The frozen conflict is the most expensive outcome in NPV terms because there's no time horizon where we stop paying.",
+        "selfCritique": "I didn't push hard enough on the 'indefinite' costs. I showed the annual numbers but I didn't force the administration to confront that this could run for decades. If I'd modeled the 20-year cost, maybe the political calculation would've shifted toward a more aggressive negotiation strategy.",
+        "recommendation": "Force decision-makers to confront indefinite costs with explicit time horizons. Don't say 'ongoing costs'—say 'costs for 20 years, 50 years, indefinitely.' The framing matters for budget negotiations and long-term planning."
+      },
+      "stabilization": {
+        "assessment": "Stabilization has short-term costs (diplomacy, guarantees, verification mechanisms) but the NPV is significantly better than frozen conflict. We're spending approximately 0.3% of GDP on implementation and verification for the settlement, which is a 75% reduction from frozen-conflict costs. The rival is accepting similar verification costs. More importantly, both economies get back to normal patterns after the transition period. This is economically rational.",
+        "selfCritique": "I could've modeled the stabilization pathway earlier if I'd been more creative about what economic incentives might induce negotiation. I focused too much on costs and not enough on potential mutual gains from de-escalation.",
+        "recommendation": "Economic analysis of conflicts should include positive-sum pathways, not just costs. If you can model how de-escalation benefits both economies, you have a powerful argument for diplomacy that goes beyond the abstract principles."
+      },
+      "regime_instability": {
+        "assessment": "The rival's economic collapse is expensive for them (estimated 9-11% contraction) but it creates significant uncertainty for our economic planning too. We don't know what regime emerges or whether they'll honor existing commercial arrangements. The short-term cost to them looks like a win for us, but it creates long-term economic instability that's costly and unpredictable. Estimated impact on our economy: 1.5-2% drag for 2-3 years post-instability.",
+        "selfCritique": "I should've weighted the uncertainty costs more heavily. Yes, we 'win' economically in the short term because their economy collapses faster than ours, but we lose in the medium term because we face unknown counter-party risk with their successor regime.",
+        "recommendation": "When analyzing regime destabilization, include the cost of post-transition uncertainty. A weakened but stable regime is often preferable to an unstable one, economically speaking."
+      },
+      "economic_collapse": {
+        "assessment": "This is unambiguous economic failure for both sides. Their economy contracts 8-12%, ours contracts 2-3%, allied economies average 1-2%. In absolute terms we damage them more, but in relative terms we all lose. Estimated wealth destruction: their side $150-200 billion, our side $40-60 billion, allied side $25-40 billion. This is a case where economic pressure won the battle but lost the war—the trade war locked both sides into mutually reinforcing contraction.",
+        "selfCritique": "I should've insisted on a mandatory economic modeling review before coupling military and sanctions pressure. The two strategies interact in nonlinear ways that static analysis misses. Once the freight rate spike started, the cascade was unstoppable.",
+        "recommendation": "Economic warfare is not linear. Model the full supply-chain cascade before committing to sanctions. Include second and third-order effects. And maintain off-ramps: if economic indicators show severe spillover, pre-commit to sanctions relief to prevent mutual destruction."
+      },
+      "war": {
+        "assessment": "War is an economic disaster. Direct military costs (logistics, munitions, replacement equipment) are estimated at $8-12 billion. Opportunity costs (delayed projects, disrupted supply chains) are estimated at another $15-20 billion. Infrastructure damage is estimated at $4-6 billion. Total: $27-38 billion in value destruction, with our economy bearing roughly 30% of the global impact. And that's assuming the conflict stays conventional and limited—nuclear escalation would be orders of magnitude worse.",
+        "selfCritique": "I failed to communicate with sufficient force how catastrophic war would be, economically speaking. I provided numbers but I didn't translate them into political understanding. If the public had understood the true cost, it might have constrained military escalation decisions.",
+        "recommendation": "In crisis situations, make the economic cost of war explicit and visible to decision-makers constantly. Don't bury it in appendices. Use analogies to familiar economic shocks so the magnitude becomes visceral, not abstract."
+      }
+    },
+    "reed": {
+      "frozen_conflict": {
+        "assessment": "Stalemate is what we call a 'win from the standpoint of preventing worse outcomes.' The rival's regime didn't collapse, we didn't escalate into hot war, and everyone's still breathing. Operationally, the intelligence picture stabilized—we have good visibility into their movements, their regime appears to be in normal paranoia mode (so no surprises), and our assets in-country remain uncompromised. But 'not bad' isn't strategy.",
+        "selfCritique": "I was too skeptical early about the potential for negotiations because I didn't trust the rival's regime to honor deals. Turns out they can be rational about their own survival even if they're aggressive about regional posturing. I should've weighted 'desperate for a way out' more heavily.",
+        "recommendation": "Never assume a regime that's escalating is irrational about its own survival. They can be simultaneously reckless in provocation and rational about accepting off-ramps once escalation costs exceed tolerance. Signal the off-ramp early and watch for when they start taking it seriously."
+      },
+      "stabilization": {
+        "assessment": "This is the hardest outcome to manage from a covert-action perspective because now we're relying on institutional guarantees instead of leverage. Our operations in their country have to shift from 'maintain pressure' to 'verify compliance.' We keep our human networks in place but we're not running active destabilization ops anymore. The regime is weaker and more paranoid post-settlement, so our exposure risk actually increased.",
+        "selfCritique": "I should've built contingency networks before the settlement locked in place. Now we're managing an intelligence relationship with a regime that knows we were actively working against them. That requires either rebuilding trust or maintaining very quiet, very deep operations.",
+        "recommendation": "Settlement creates transparency obligations that can compromise intelligence networks. Before signing, identify which operations will become untenable and which can continue. And brief leadership on the fact that verification sometimes requires maintaining operations that diplomacy says you're not running."
+      },
+      "regime_instability": {
+        "assessment": "Operationally, this is a nightmare and a opportunity simultaneously. Their regime is fracturing, their intelligence services are turning inward (purging), and their military is in crisis mode. But their instability creates unpredictability: we don't know who's in charge in any given sector, signal intelligence is degrading because their command structure is chaotic, and the risk of miscalculation increases because no one has clear authority. We're winning the power struggle but losing visibility.",
+        "selfCritique": "I should've pushed harder for maintaining covert communication channels to their moderates before the regime fractured. Once they started purging, those lines evaporated and we lost operational leverage we might have used.",
+        "recommendation": "Regime destabilization is tactically exciting but strategically dangerous. Maintain back-channel communication to multiple power centers before they fragment, so you have pathways to whoever emerges. Otherwise, you're flying blind in a nuclear-armed state, which is unacceptable risk."
+      },
+      "economic_collapse": {
+        "assessment": "Economic collapse creates intelligence opportunities (desperate regimes do desperate things, SIGINT windows open) and intelligence dangers (desperate regimes accelerate weapons programs, coups become possible, state actors act without normal oversight). Their regime is managing a domestic economic crisis while also managing the international standoff. We're getting excellent intelligence on their internal debates because their secure communication is failing under stress. But we're also seeing indicators of weapons-program acceleration, which is worse than the baseline.",
+        "selfCritique": "I didn't flag the weapons-acceleration indicators forcefully enough. The political leadership was focused on the economic pressure working, so they didn't want to hear that we were simultaneously pushing them toward riskier military options. I should've insisted on visibility.",
+        "recommendation": "Economic pressure creates perverse incentives toward escalation. As the regime feels economically cornered, they often escalate militarily as compensation. Signal intelligence has to feed this information back to policy-makers constantly, not buried in routine reports."
+      },
+      "war": {
+        "assessment": "War creates chaos that's both operationally useful and operationally catastrophic. Secure communications degrade, individual actors make decisions without unified command authority, and intelligence collection opportunities multiply. But asset safety becomes nearly impossible to guarantee, compartmentalized operations collapse, and the risk of covert operations being exposed as sources of conflict escalation becomes acute. We lost two operational networks in the opening phase of the conflict, and we're still recovering from that exposure.",
+        "selfCritique": "I should've executed a controlled asset extraction the moment the firing started. I delayed to preserve network continuity and that was the wrong call. Assets are worthless if they're dead or burned.",
+        "recommendation": "In war scenarios, establish automatic asset-extraction protocols triggered by specific escalation thresholds. Don't wait for a war-decision moment—war is already decided when kinetic action starts. Extract and reposition before the first shot or accept the asset losses."
+      }
+    }
+  },
+  "rivalPerspective": {
+    "frozen_conflict": {
+      "internalNarrative": "Our leadership council was divided between the hardliners who wanted to push further and the pragmatists who recognized that we had miscalculated your navy's capabilities. We learned through intelligence that your alliance partners were more unified than we'd assumed and that your logistical capacity to sustain forward deployment was superior to our models suggested. The decision to maintain forward position without escalating kinetics was a face-saving compromise: we demonstrated strength to our population, we retained the territorial changes we'd achieved, but we accepted that further escalation would likely result in our defeat. The outcome feels like a draw—neither of us gained decisively, but neither of us lost catastrophically.",
+      "regimeAssessment": "Internally, our military came under significant criticism for not pressing the advantage when we had momentum. The hardliners argue we should have escalated when your initial response was measured. The pragmatists defend the non-escalation decision based on war-game simulations that showed high probability of our major-unit losses. The civilian government backed the pragmatists because the domestic cost of a failed military campaign would have been regime-threatening. We survived, but at the cost of internal divisions we'll be managing for years.",
+      "publicNarrative": "We told our population that we had successfully challenged the alliance's dominance in the region, that we had demonstrated our willingness to defend our interests through force, and that the alliance had been forced to respect our new military reality. This narrative sustained domestic support for the forward position, even though internally we recognized that we'd backed away from full escalation due to military inferiority."
+    },
+    "stabilization": {
+      "internalNarrative": "The settlement negotiation was chaotic internally. The hardliners opposed any agreement, claiming it was capitulation despite your 'mutual concessions' framing. But the pragmatists understood what you understood: we had mutual redlines and neither side was going to cross theirs without accepting catastrophic costs. When your NSC envoys finally established contact through back-channels, we realized you were genuinely seeking an exit as much as we were. The settlement gave both our sides political cover: we withdrew military assets but claimed victory for 'forcing the alliance to negotiate as equals.' You maintained naval presence but committed to no-first-strike, which we interpreted as recognition of our legitimate security interests.",
+      "regimeAssessment": "The settlement strengthened our civilian government relative to the military hardliners. We were able to say to the public that diplomacy had 'succeeded where brute force would have failed,' which marginalized the military's hawkish faction. The agreement is fragile and depends on sustained diplomatic effort, but it gives us a politically sustainable path through the crisis. Our intelligence services are skeptical of your no-first-strike pledge, but we're accepting the verification mechanisms because they give us warning time if you change policy.",
+      "publicNarrative": "We presented the settlement as a triumph of our strength and diplomatic skill: we had challenged the alliance, demonstrated our military capability, and forced them to negotiate as equals. The public accepted this narrative because they wanted off the war-footing psychology and the settlement provided that permission."
+    },
+    "regime_instability": {
+      "internalNarrative": "We miscalculated severely. We believed we could manage a limited crisis and emerge with enhanced prestige. Instead, the crisis exposed our military weaknesses, our intelligence failures, and the fragility of our internal consensus. When your steady pressure combined with our hardliners' inability to articulate a winning strategy, the moderates in our government started questioning the regime's coherence. Our military leadership was essentially telling the civilian government that we could not win a sustained conflict, which is regime-delegitimizing information. The purges and leadership struggles that followed were the regime's immune system attacking itself in response to the crisis.",
+      "regimeAssessment": "We're in a period of acute instability. The regime survived but it's wounded and internally fractured. The military has lost prestige because they recommended non-escalation. The hardliners are isolated but not eliminated. The civilians are trying to consolidate control but they lack the security apparatus to do so firmly because the security apparatus is also purging itself. We're probably looking at months of internal political struggle before we stabilize at a new baseline—and that baseline might be significantly weaker than our pre-crisis position.",
+      "publicNarrative": "We're telling the public a sanitized version of events: that our military performed admirably, that leadership made tough but necessary choices, and that we remain strong despite external pressure. The public is partially believing this because they see ongoing military strength and regime continuity, but there's undercurrent awareness that something significant went wrong. Expect future instability as these contradictions between official narrative and observed reality become unbridgeable."
+    },
+    "economic_collapse": {
+      "internalNarrative": "We expected economic pressure but we underestimated the cascade effect. When your sanctions combined with our own military spending and the disruption to shipping, the economy seized faster than any of our models predicted. Our central bank burned through reserves attempting stabilization and failed. Currency collapsed, unemployment spiked, food prices soared. What was supposed to be a manageable military crisis became an existential economic threat. The regime's legitimacy is now tied to whether we can recover without external bailout, and we're in no position to ask for Western bailout because we're still politically opposed. We're trapped between regime-survival (which requires economic recovery) and regime-legitimacy (which prevents us from accepting Western assistance that would look like capitulation).",
+      "regimeAssessment": "The economic collapse is delegitimizing the regime faster than the military crisis did. Our population is experiencing real economic hardship—prices are rising, jobs are disappearing, and the government's response appears impotent. The regime survived the military crisis, but the economic crisis might finish what the military couldn't start. We're probably looking at either forced internal reforms, leadership changes, or escalating internal repression to maintain order.",
+      "publicNarrative": "We're blaming external economic warfare and sanctions for the collapse, which is partially true but doesn't explain why our own policies amplified the effect. We're telling our population that sacrifice is necessary and temporary, that we'll emerge stronger, that the alliance underestimated our resilience. The public is skeptical but temporarily accepting because they don't have better alternatives. That acceptance will erode if the economic situation doesn't improve significantly in 6-12 months."
+    },
+    "war": {
+      "internalNarrative": "War was the failure of both our judgment and yours, but we accepted the fight we provoked because backing down at that moment was politically impossible. When your navy moved to counter our escalation, our hardliners had achieved the public provocation they wanted, and civilian leadership couldn't absorb the political cost of standing down. So we escalated hoping you would blink. You didn't. We fought with the military we had, which was inferior to yours in training and equipment, and we took heavy losses. The regime survived but the military is broken, the public is traumatized, and the underlying territorial dispute remains unresolved. We lost the war, the region, and credibility in a single crisis.",
+      "regimeAssessment": "The regime is barely holding together post-war. The military is demoralized and purging itself for command failures. The hardliners who insisted on escalation are politically isolated but still dangerous because they're backed by military units. The civilian government is trying to manage the aftermath but they lack credible authority because the war's outcome discredited their leadership. Expect coup risk to be elevated for months.",
+      "publicNarrative": "We're telling the public that we fought valiantly against a superior enemy, that we inflicted significant damage (which is partially true), and that we're regrouping for future resistance. The public doesn't believe this narrative because they see defeated military units returning home, and they're processing a traumatic war experience. The regime's ability to maintain this narrative will degrade significantly if another provocation or internal crisis emerges in the next 6-12 months."
+    }
+  },
+  "playerGradeDescriptors": {
+    "masterful": {
+      "title": "Diplomatic Mastery",
+      "description": "You integrated military deterrence with shrewd diplomatic maneuvering, creating a settlement that addressed root causes while preserving your strategic position. You read the rival's internal politics precisely, identified the moment when their hardliners had lost consensus, and offered them a face-saving path. This is the outcome where both sides emerged politically intact, the crisis resolved, and the regional balance stabilized."
+    },
+    "competent": {
+      "title": "Credible Deterrence",
+      "description": "You maintained military pressure effectively, prevented escalation to kinetics through clear signaling of redlines, and either froze the conflict or negotiated a settlement from a position of strength. Your alliance held, your domestic consensus remained stable, and you emerged with enhanced strategic credibility. The underlying dispute remains, but the acute crisis is managed."
+    },
+    "mixed": {
+      "title": "Pyrrhic Military Success",
+      "description": "You achieved military victory or forced regime concessions, but at significant cost to yourself, your economy, your allies, or regional stability. You won the tactical/operational level but your overall strategic position may have eroded due to the collateral damage. This includes outcomes where you succeeded but the rival regime destabilized unpredictably."
+    },
+    "poor": {
+      "title": "Strategic Failure",
+      "description": "You either allowed escalation into kinetic war without sufficient justification, accepted an economically destructive stalemate that drained resources without resolution, or fractured your alliance through poor communication. You faced a fundamentally manageable crisis and converted it into either a military loss or an unaffordable long-term commitment."
+    },
+    "catastrophic": {
+      "title": "Crisis Mismanagement",
+      "description": "You escalated the crisis into full-scale war that could have been avoided through better judgment, allowed the rival to achieve their objectives while you bore the costs, or triggered broader regional instability. This is the outcome where you had multiple paths to acceptable resolution and chose the worst one."
+    }
+  },
+  "lessonsLearned": [
+    {
+      "id": "lesson_001",
+      "title": "Escalation Ladders Have Rungs, Not Steps",
+      "insight": "Escalation rarely moves in smooth increments. Moves on the escalation ladder can be reversible (naval positioning, economic sanctions) or potentially irreversible (kinetic action, regime change). Identifying which actions are reversible and which are irreversible is critical to managing a crisis without stumbling into unintended war. The Northern Strait crisis had multiple points where reversibility was lost—naval positioning was reversible, but once your navy actually fired in response to a rival attack, the crisis became kinetic and much harder to manage.",
+      "relevantOutcomes": ["war", "frozen_conflict", "stabilization"],
+      "tags": ["escalation", "signaling", "brinkmanship"]
+    },
+    {
+      "id": "lesson_002",
+      "title": "Signaling Must Be Both Credible and Interpretable",
+      "insight": "Your military positioning, economic sanctions, and diplomatic outreach are all signals to the rival regime about what you will and won't do. If your signals are unclear, ambiguous, or contradictory, the rival will make worst-case assumptions and escalate to cover their risk. If your signals are too clear about redlines you're not actually willing to cross, you lose credibility when you back down. The most effective signaling combines visible capability (navy positioned and trained) with explicit communication of intent (back-channel messages about what triggers your escalation).",
+      "relevantOutcomes": ["stabilization", "frozen_conflict"],
+      "tags": ["signaling", "communication", "credibility"]
+    },
+    {
+      "id": "lesson_003",
+      "title": "Domestic Politics Constrains Foreign Policy More Than Capability Does",
+      "insight": "Your military and economic capacity to escalate or de-escalate is subordinate to your domestic political ability to sustain a policy. A military campaign your public doesn't support will eventually collapse. An economic embargo your allies won't maintain will unravel. A diplomatic settlement your hardliners oppose will be undermined. The rival regime faces the same constraint. Sometimes the limiting factor on conflict resolution is not what either side is capable of, but what their respective domestic politics will permit. The most successful outcomes involve giving both sides domestic political cover—a way to claim they've achieved something valuable.",
+      "relevantOutcomes": ["stabilization", "regime_instability"],
+      "tags": ["domestic politics", "alliance management", "coalition"]
+    },
+    {
+      "id": "lesson_004",
+      "title": "Economic Pressure and Military Pressure Are Multiplicative, Not Additive",
+      "insight": "When you couple economic sanctions with military pressure, the effects compound in ways that are often nonlinear and difficult to predict. The rival's economy doesn't just decline—it crashes due to supply-chain disruption, insurance market dislocation, currency flight, and FDI withdrawal. These effects can trigger regime instability, humanitarian crisis, and desperation-driven escalation. Effective crisis management sometimes requires choosing between military or economic pressure, not both. If you deploy both, you need explicit de-escalation pathways and exit strategies because the dual pressure can create a cycle neither side can escape without accepting complete loss.",
+      "relevantOutcomes": ["economic_collapse", "regime_instability"],
+      "tags": ["economic pressure", "coercion", "spillover effects"]
+    },
+    {
+      "id": "lesson_005",
+      "title": "Intelligence Fog About Regime Stability Is Dangerous",
+      "insight": "You probably have reasonable intelligence about the rival regime's military capability and deployed forces. You almost certainly have poor intelligence about the regime's internal stability, the depth of disagreements between hardliners and pragmatists, and the regime leader's true tolerance for military risk. This intelligence gap is dangerous because it means you might escalate expecting the regime to back down, only to find they're actually willing to fight. Or you might offer a diplomatic solution assuming they're desperate for one, only to find their hardliners have just taken control. Treat regime-stability assessments as potentially very wrong and build decision-making that's robust to large errors in your understanding of their internal politics.",
+      "relevantOutcomes": ["war", "regime_instability"],
+      "tags": ["intelligence", "fog of war", "assumption validation"]
+    },
+    {
+      "id": "lesson_006",
+      "title": "Covert Action in Crisis Escalates Risk Without Always Adding Value",
+      "insight": "Your intelligence services might identify opportunities for covert action—targeted strikes against the rival's command structure, exploitation of intelligence networks, support for internal opposition figures. These actions can seem low-cost because they're deniable and don't officially escalate. But they create risk of discovery that the rival interprets as you've already crossed into hostile action, triggering them to escalate kinetically in response. In most crisis scenarios, keeping covert actions compartmentalized and separate from official military/diplomatic policy is wiser than trying to integrate them. The exception is when covert action enables your diplomatic strategy (e.g., providing intelligence to your side's negotiators that helps them craft credible settlements).",
+      "relevantOutcomes": ["war", "frozen_conflict"],
+      "tags": ["covert action", "intelligence", "risk management"]
+    },
+    {
+      "id": "lesson_007",
+      "title": "Alliance Cohesion Is Your Strongest Leverage",
+      "insight": "The rival regime's decision-making is heavily influenced by whether they believe your alliance is unified or fracturing. A unified alliance backing you creates exponential deterrent effect—the rival has to prepare for potential intervention by multiple powers simultaneously, which multiplies their required force commitment. A fracturing alliance signals that they only need to pressure the weakest link to break your coalition. Throughout the Northern Strait crisis, your allies' statements, willingness to impose sanctions, and visible military support were often more consequential than your own actions. Protecting alliance cohesion sometimes means accepting outcomes you're not entirely happy with, or refraining from escalation your military wanted, specifically to maintain allied backing.",
+      "relevantOutcomes": ["stabilization", "frozen_conflict"],
+      "tags": ["alliance", "coalition management", "leverage"]
+    },
+    {
+      "id": "lesson_008",
+      "title": "Regime Destabilization Can Be Worse Than Regime Continuity",
+      "insight": "If your military and economic pressure successfully destabilizes the rival regime, you've solved the immediate crisis but created a new, possibly worse problem: an unstable nuclear-armed state with unclear command authority, internal power struggles, and actors making decisions without normal oversight. A weakened but coherent rival regime is often preferable to an internally fractured one, because coherent regimes can honor agreements and manage escalation risks through normal command channels. Before pursuing a strategy aimed at regime destabilization, consider whether regime change is actually your strategic objective. If it's not, dial back the pressure when you see signs of regime fracture, or you'll end up managing a regional instability problem.",
+      "relevantOutcomes": ["regime_instability"],
+      "tags": ["regime change", "stability", "second-order effects"]
+    },
+    {
+      "id": "lesson_009",
+      "title": "Frozen Conflicts Are Expensive Because They Have No Off-Ramp",
+      "insight": "A frozen conflict—stalemate without settlement—is strategically frustrating because both sides maintain maximum deterrence (expensive) but neither side escalates kinetically (also expensive in that it prevents moving to a cheaper equilibrium). Frozen conflicts tend to persist for years or decades because exiting them requires one side to accept territory loss or prestige loss. Your defense budget will include frozen-conflict costs indefinitely unless you're willing to either escalate to war (hoping to win decisively enough to impose terms) or negotiate a settlement (accepting something less than maximum victory). When facing a frozen conflict, ask yourself: are we prepared to fund this indefinitely, or do we need to pursue one of the riskier but finite alternatives?",
+      "relevantOutcomes": ["frozen_conflict"],
+      "tags": ["stalemate", "commitment", "long-term costs"]
+    },
+    {
+      "id": "lesson_010",
+      "title": "Exits Are Harder to Negotiate Than Entries",
+      "insight": "At the start of the crisis, you could have negotiated the rival's redlines and your own redlines more directly, potentially preventing the escalation entirely. Once the crisis has escalated and both sides have made public commitments, domestic constituencies have mobilized, and pride is invested, negotiating an exit becomes far more difficult. Both sides need to be able to claim they've achieved something valuable, or their domestic politics won't permit settlement. The hardest part of crisis resolution is often not stopping the escalation—it's giving both sides a way to claim victory while standing down. Start negotiating the exit before you've escalated so far that you both need to save face.",
+      "relevantOutcomes": ["stabilization"],
+      "tags": ["negotiation", "settlement", "endgame"]
+    }
+  ]
+}

@@ -1,0 +1,131 @@
+{
+  "scenarioId": "northern_strait_flashpoint",
+  "openingCinematic": {
+    "title": "Flashpoint",
+    "subtitle": "Where empires intersect",
+    "fragments": [
+      "Satellite imagery. The Northern Strait at dawn. A ribbon of grey water cutting between two landmasses, thin as a razor blade.",
+      "Container ships move through the frame like blood cells through veins. Hundreds per month. Trillions in commerce.",
+      "The camera descends. Deck-level view of a merchant vessel, its captain on the bridge, checking charts. Radio chatter in the background. Routine. Professional.",
+      "Cut to underground. A war room. Banks of screens. Officers in two different uniforms studying the same waterway from opposite sides. Both waiting. Both certain the other will move first.",
+      "A desk. Papers stamped CLASSIFIED. A decision memo sits unsigned.",
+      "Back to the water. A fishing trawler changes course. Not fishing. Never was.",
+      "A phone rings.",
+      "The game begins."
+    ],
+    "closingLine": "You have 24 hours before this becomes irreversible.",
+    "musicCue": "tense_low"
+  },
+  "phaseTransitions": {
+    "opening_to_rising": {
+      "fragments": [
+        "Hours have passed. The trawler is gone—sunk, or never existed on paper.",
+        "Your advisors are pale. Words like 'provocation' and 'response' have entered the briefing.",
+        "The strait is still open. For now.",
+        "But the ships are choosing different routes."
+      ],
+      "musicCue": "rising_drone"
+    },
+    "rising_to_crisis": {
+      "fragments": [
+        "The phone doesn't stop ringing.",
+        "A cargo vessel reported damaged. Rival forces claim innocence. Yours don't believe them.",
+        "Markets have noticed. Currency shifts. Energy futures spike.",
+        "The moment you were trained to prevent is arriving faster than you expected."
+      ],
+      "musicCue": "crisis_pulse"
+    },
+    "crisis_to_climax": {
+      "fragments": [
+        "There is no more room for anything except a choice.",
+        "Every option now carries a flag. Military. Economic. Political.",
+        "The rival's ultimatum expires in hours. Yours goes out simultaneously.",
+        "The strait is no longer a waterway. It is a line you will not cross."
+      ],
+      "musicCue": "climax_surge"
+    }
+  },
+  "endings": {
+    "frozen_conflict": {
+      "title": "The Standoff",
+      "fragments": [
+        "Six months later. The Northern Strait is still there. So is the tension.",
+        "Shipping reroutes around the conflict, adding weeks to journeys, billions to costs. The old routes remember what happened. No one uses them.",
+        "Naval vessels from both sides maintain stations. Separate but parallel. They know each other's captain's names now. They nod at sea.",
+        "Markets adapted. Energy prices never came down. Supply chains rewired away from the strait. Economies digest the inefficiency.",
+        "Your nation's alliance holds, but it is thinner. Some members asked why you didn't escalate. Others asked why you didn't blink first.",
+        "The rival leader remains in power. They didn't lose. Neither did you. But nobody won.",
+        "In think tanks and war colleges, analysts debate endlessly what could have broken the stalemate. The answer is always the same: nothing that either side was willing to pay."
+      ],
+      "epilogueNote": "The Northern Strait remains open to commerce but closed to confidence. Shipping insurance premiums never returned to pre-crisis levels. Both militaries now budget for permanent forward deployment. The status quo is sustainable only as long as both sides are content to bleed money instead of soldiers.",
+      "tone": "somber",
+      "musicCue": "tense_low"
+    },
+    "stabilization": {
+      "title": "The Compromise",
+      "fragments": [
+        "The accord was negotiated in the third week, when both sides understood the math.",
+        "It sits in a neutral capital, a piece of paper that cost more to write than most treaties. Neither side claims victory. Both claim they prevented catastrophe.",
+        "Joint maritime patrols began in the second month. Young officers from opposing navies, standing watch together over the shipping lanes.",
+        "The price was steep. Your nation granted economic concessions—tariff reductions, technology transfers, recognition of disputed boundaries that you'd rather forget.",
+        "The rival made moves too. Opened ports that were closed. Released three detained vessels. Agreed to independent maritime arbitration.",
+        "The strait reopened gradually. Shipping returned, but cautiously. Insurers watched for six months before rates normalized.",
+        "The alliance held, though not without friction. Some members wanted you to push harder. You explain endlessly why this outcome was the only one where everyone kept what mattered.",
+        "A year later, the joint patrols are routine. Sometimes officers from both sides share coffee on the water. They don't become friends. But they stop being enemies long enough to let commerce flow."
+      ],
+      "epilogueNote": "The Stabilization Accord became a blueprint for other contested waterways. It was hailed as enlightened pragmatism by some, cowardice by others. The truth is somewhere in the middle—a world where mutual economic interest proved stronger than mutual suspicion.",
+      "tone": "bittersweet",
+      "musicCue": "bittersweet_resolve"
+    },
+    "regime_instability": {
+      "title": "The Rupture",
+      "fragments": [
+        "The rival regime didn't survive your pressure.",
+        "By month two, their economy was fractured. Currency collapsed. Street protests in three major cities. Their military couldn't be paid on time.",
+        "Internal factions turned on the leadership. Officers who wanted to escalate. Economists who demanded negotiation. Politicians who smelled opportunity.",
+        "By month four, the coup was bloodless. By month five, a new government was already apologizing for the provocation and offering trade concessions.",
+        "You did not fire a shot. The rival military fell apart on its own.",
+        "But the celebration is muted. The new regime is unstable. There will be refugee flows. Economic collapse cascades into humanitarian crisis. Your borders are unprepared.",
+        "The alliance looks to you with complicated expressions. You won, they say. But the winning created a vacuum. There is no rival power anymore. Now there is chaos.",
+        "Your nation's military is deployed to manage the border. Not in combat. In containment. The Strait is safe, but the region is not."
+      ],
+      "epilogueNote": "The subsequent collapse of the rival regime spawned a regional power vacuum that took three years to stabilize. Your nation became the de facto guarantor of maritime security, a role no one voted for and many resented. The moral victory of internal destabilization came at the cost of indefinite regional entanglement.",
+      "tone": "ambiguous",
+      "musicCue": "hollow_victory"
+    },
+    "economic_collapse": {
+      "title": "The Cascade",
+      "fragments": [
+        "The economic weapon worked. Too well.",
+        "By week three, energy prices had doubled. By week five, they tripled. Supply chains seized up across three continents.",
+        "Shipping through the strait stopped not because of military blockade but because insurers refused to cover the routes. The market did what military would not.",
+        "Secondary effects cascaded. Manufacturing hubs ran out of components. Hospitals reported shortages. Power generation facilities found themselves unable to fuel turbines.",
+        "The rival's economy imploded first. But yours didn't escape the contagion. Investment fled. Currency weakened. Unemployment spiked.",
+        "Allied nations turned inward. They blamed you for the crisis. Some negotiated directly with the rival. Others simply shut their borders.",
+        "By month two, the Northern Strait was forgotten. The crisis had become global. Governments fell in three countries. Protests consumed the streets of the capital city.",
+        "The rival regime collapsed, but so did yours. Not in a coup. In a slow grinding rotation of political power, each government more desperate than the last."
+      ],
+      "epilogueNote": "The economic cascade that started in the Northern Strait became a global recession lasting eighteen months. GDP contracted across seventeen nations. The rival regime fell, but your own government barely survived three no-confidence votes. History records it as a clear strategic defeat despite tactical dominance: the cost of victory exceeded the cost of surrender.",
+      "tone": "devastating",
+      "musicCue": "economic_collapse"
+    },
+    "war": {
+      "title": "The Crossing",
+      "fragments": [
+        "When the rival's first strike came, it was almost a relief. The waiting was over.",
+        "Naval engagement in the strait lasted fourteen hours. By the end, two carrier-class vessels were burning. Dozens of smaller craft gone.",
+        "Land operations began at dawn. The strait's northern shore became a contested zone within six hours.",
+        "Your population learned quickly what war meant. The casualty counts rolled in daily. Morning briefings became funeral announcements.",
+        "By day three, the alliance began actual military coordination. By day five, a full conventional war was underway across three disputed territories.",
+        "The rival's military fought harder than intelligence suggested they would. Every mile cost lives. Your supply lines stretched. Reinforcements moved through the night.",
+        "By week two, chemical weapons were reported—denied by the rival, confirmed by observers. The war entered a different register of brutality.",
+        "By month one, the death count was in the tens of thousands. Civilians evacuated from the strait region. Refugee camps swelled. The hospitals couldn't keep pace.",
+        "The war didn't end in victory. It ended in exhaustion. Both sides negotiated a ceasefire in month three, with territory divided roughly along the frontline.",
+        "When it was over, the Northern Strait was a graveyard of vessels. Naval graveyards on both shores. A memorial, hastily built, where a thousand names were already carved."
+      ],
+      "epilogueNote": "The War for the Northern Strait lasted ninety-two days and killed more than eighty thousand combatants and civilians. The strait itself became an international maritime cemetery, cordoned off for five years before shipping resumed. The rival regime survived but was permanently weakened. Your nation won but was transformed—a generation carried the scars, economic, psychological, and political. Memorials were built, but no one who lived through it ever forgot the cost of allowing the standoff to break.",
+      "tone": "devastating",
+      "musicCue": "war_aftermath"
+    }
+  }
+}
