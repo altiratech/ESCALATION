@@ -475,6 +475,52 @@ export interface NarrativeCandidatesPack {
   categories: NarrativeCandidatesCategory[];
 }
 
+export type IntelSourceType = 'SIGINT' | 'HUMINT' | 'OSINT' | 'GEOINT' | 'MASINT' | 'FININT';
+export type IntelClassification = 'UNCLASSIFIED' | 'CONFIDENTIAL' | 'SECRET' | 'SECRET/SCI' | 'TOP SECRET/SCI';
+export type IntelConfidence = 'low' | 'moderate' | 'high';
+
+export interface IntelFragment {
+  id: string;
+  beatId: string;
+  phase: BeatPhase;
+  sourceType: IntelSourceType;
+  classification: IntelClassification;
+  confidence: IntelConfidence;
+  headline: string;
+  body: string;
+  analystNote?: string;
+  contradicts?: string;
+  tags: string[];
+}
+
+export type NewsWireOutletType =
+  | 'wire'
+  | 'broadsheet'
+  | 'financial'
+  | 'defense_trade'
+  | 'tabloid'
+  | 'state_media'
+  | 'social_media';
+
+export type NewsWireRegion = 'domestic' | 'allied' | 'rival' | 'neutral' | 'international' | 'regional';
+export type NewsWireTone = 'neutral' | 'hawkish' | 'dovish' | 'alarmist' | 'skeptical' | 'analytical';
+export type NewsWireNarrativeWeight = 'background' | 'developing' | 'breaking' | 'exclusive' | 'opinion';
+
+export interface NewsWireArticle {
+  id: string;
+  beatId: string;
+  phase: BeatPhase;
+  outlet: string;
+  outletType: NewsWireOutletType;
+  region: NewsWireRegion;
+  headline: string;
+  lede: string;
+  pullQuote?: string;
+  tone: NewsWireTone;
+  tags: string[];
+  narrativeWeight: NewsWireNarrativeWeight;
+}
+
 export interface CompressedStateSummary {
   roleLine: string;
   turnCounter: string;
@@ -530,6 +576,8 @@ export interface BootstrapPayload {
   adversaryProfiles: AdversaryProfile[];
   actions: ActionDefinition[];
   narrativeCandidates: NarrativeCandidatesPack;
+  intelFragments: IntelFragment[];
+  newsWire: NewsWireArticle[];
 }
 
 export interface StartEpisodeRequest {

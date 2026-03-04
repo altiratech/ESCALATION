@@ -12,7 +12,9 @@ import {
   getScenario,
   getScenarioAdversaryProfile,
   images,
+  intelFragments,
   narrativeCandidates,
+  newsWire,
   playerActions,
   scenarios
 } from '@wargames/content';
@@ -866,7 +868,9 @@ app.get('/api/reference/bootstrap', (context) => {
     scenarios,
     adversaryProfiles,
     actions: playerActions,
-    narrativeCandidates
+    narrativeCandidates,
+    intelFragments,
+    newsWire
   });
 });
 

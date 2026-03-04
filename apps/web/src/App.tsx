@@ -55,6 +55,29 @@ const pacingLabel: Record<'standard' | 'relaxed' | 'off', string> = {
 
 const normalizeCommand = (value: string): string => value.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
 
+interface IntelFeedEntry {
+  id: string;
+  channel: string;
+  headline: string;
+  detail?: string;
+}
+
+const clipLine = (value: string, max = 180): string =>
+  value.length > max ? `${value.slice(0, max - 1).trimEnd()}…` : value;
+
+const pickDeterministicWindow = <T,>(entries: T[], limit: number, anchor: number): T[] => {
+  if (entries.length <= limit) {
+    return entries;
+  }
+
+  const offset = Math.max(0, anchor) % entries.length;
+  const selected: T[] = [];
+  for (let index = 0; index < limit; index += 1) {
+    selected.push(entries[(offset + index) % entries.length] as T);
+  }
+  return selected;
+};
+
 const App = () => {
   const [reference, setReference] = useState<BootstrapPayload | null>(null);
   const [episode, setEpisode] = useState<EpisodeView | null>(null);
@@ -389,15 +412,63 @@ const App = () => {
   )
     ? pickPressureText(reference, episode.currentBeatId, remainingSeconds)
     : null;
-  const intelFeed: string[] = [...episode.briefing.headlines];
+
+  const beatIntelFragments = reference.intelFragments
+    .filter((entry) => entry.beatId === episode.currentBeatId && (!currentBeat || entry.phase === currentBeat.phase))
+    .sort((left, right) => left.id.localeCompare(right.id));
+  const beatNewsArticles = reference.newsWire
+    .filter((entry) => entry.beatId === episode.currentBeatId && (!currentBeat || entry.phase === currentBeat.phase))
+    .sort((left, right) => left.id.localeCompare(right.id));
+
+  const selectedIntelFragments = pickDeterministicWindow(beatIntelFragments, 2, episode.turn - 1);
+  const selectedNewsArticles = pickDeterministicWindow(beatNewsArticles, 2, episode.turn + 1);
+
+  const intelFeed: IntelFeedEntry[] = [
+    ...episode.briefing.headlines.map((headline, index) => ({
+      id: `brief:${index}`,
+      channel: index === 0 ? 'Briefing' : 'Update',
+      headline
+    }))
+  ];
   if (episode.briefing.memoLine) {
-    intelFeed.push(episode.briefing.memoLine);
+    intelFeed.push({
+      id: 'memo',
+      channel: 'Memo',
+      headline: episode.briefing.memoLine
+    });
   }
   if (episode.briefing.tickerLine) {
-    intelFeed.push(episode.briefing.tickerLine);
+    intelFeed.push({
+      id: 'ticker',
+      channel: 'Market',
+      headline: episode.briefing.tickerLine
+    });
   }
+
+  for (const fragment of selectedIntelFragments) {
+    intelFeed.push({
+      id: fragment.id,
+      channel: `${fragment.sourceType} · ${fragment.confidence.toUpperCase()}`,
+      headline: fragment.headline,
+      detail: clipLine(fragment.analystNote ?? fragment.body)
+    });
+  }
+
+  for (const article of selectedNewsArticles) {
+    intelFeed.push({
+      id: article.id,
+      channel: `${article.outlet} · ${article.tone.toUpperCase()}`,
+      headline: article.headline,
+      detail: clipLine(article.lede)
+    });
+  }
+
   if (pressureText) {
-    intelFeed.push(pressureText);
+    intelFeed.push({
+      id: 'timer-pressure',
+      channel: 'Timer',
+      headline: pressureText
+    });
   }
   const intelFeedVisible = intelExpandedMobile ? intelFeed.slice(0, 8) : intelFeed.slice(0, 3);
 
@@ -468,9 +539,13 @@ const App = () => {
           </div>
           <div className="mt-3 max-h-[32rem] space-y-2 overflow-y-auto pr-1 text-xs leading-relaxed text-textMuted">
             {intelFeed.length > 0 ? intelFeedVisible.map((item, index) => (
-              <p key={`${item}:${index}`} className="rounded-md border border-borderTone/70 bg-panelRaised/45 px-2 py-1.5">
-                {item}
-              </p>
+              <article key={`${item.id}:${index}`} className="rounded-md border border-borderTone/70 bg-panelRaised/45 px-2 py-1.5">
+                <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">{item.channel}</p>
+                <p className="mt-1 text-[0.72rem] text-textMain">{item.headline}</p>
+                {item.detail ? (
+                  <p className="mt-1 text-[0.67rem] text-textMuted">{item.detail}</p>
+                ) : null}
+              </article>
             )) : (
               <p className="rounded-md border border-borderTone/70 bg-panelRaised/45 px-2 py-1.5">
                 Intelligence stream is stabilizing.

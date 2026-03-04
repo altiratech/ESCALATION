@@ -1340,3 +1340,72 @@ Thread scope limitation: This thread ran under `Code/active/Wargames` and could 
 - select by current beat/phase with deterministic ordering and fallback behavior.
 2. Integrate `intel_fragments_ns.json` into briefing/intel surfaces with fog-of-war-safe exposure rules.
 3. Keep deterministic engine authority unchanged; these assets are presentation/content enrichment only.
+
+## 29) Session Update — 2026-03-04 (Bootstrap + live intel feed wiring for `news_wire` and `intel_fragments`)
+
+### 29.1 What changed
+
+1. Extended shared bootstrap contract for narrative intel packs:
+- `packages/shared-types/src/index.ts`
+  - added typed interfaces:
+    - `IntelFragment`,
+    - `NewsWireArticle`,
+    - supporting union types for source/classification/confidence/outlet/tone/weight.
+  - extended `BootstrapPayload` with:
+    - `intelFragments: IntelFragment[]`
+    - `newsWire: NewsWireArticle[]`
+
+2. Wired content package exports for new narrative intel sources:
+- `packages/content/src/index.ts`
+  - imported:
+    - `../data/intel_fragments_ns.json`
+    - `../data/news_wire_ns.json`
+  - exported typed arrays:
+    - `intelFragments`
+    - `newsWire`
+
+3. Wired API bootstrap endpoint to include new packs:
+- `apps/api/src/index.ts`
+  - `GET /api/reference/bootstrap` now returns `intelFragments` and `newsWire` alongside scenarios/actions/narrativeCandidates.
+
+4. Integrated deterministic beat-aware rendering in live in-game Intel Feed:
+- `apps/web/src/App.tsx`
+  - added deterministic selection helpers:
+    - `pickDeterministicWindow(...)` for stable, non-random feed rotation by turn,
+    - `clipLine(...)` for compact feed detail text.
+  - Intel Feed now composes:
+    - existing briefing items (headlines/memo/ticker),
+    - beat+phase-matched `intelFragments` entries (source/confidence + headline + detail),
+    - beat+phase-matched `newsWire` entries (outlet/tone + headline + lede),
+    - existing timer pressure text.
+  - rendering upgraded from flat strings to structured feed entries (`channel`, `headline`, optional `detail`) while preserving mobile show-more behavior.
+
+### 29.2 Verification status
+
+1. Local:
+- `npm run lint` passed.
+- `npm run ci:phase1` passed (12 files / 26 tests).
+- `npm run build --workspace @wargames/web` passed.
+
+2. CI/Deploy:
+- Pending push/deploy for this session’s commit.
+
+### 29.3 Remaining work after this pass
+
+1. `news_wire` / `intel_fragments` are now bootstrapped and visible in live in-game intel rail, but not yet surfaced in:
+- start-screen dossier,
+- post-game causality/deep reveal sections.
+
+2. Additional narrative packs still not runtime-wired:
+- `scenario_world_ns.json`
+- `rival_leader_ns.json`
+- `advisor_dossiers.json`
+- `action_narratives_ns.json`
+- `cinematics_ns.json`
+- `debrief_deep_ns.json`
+
+### 29.4 Exact next action for resume
+
+1. Integrate `scenario_world_ns.json` into start-screen dossier blocks (region/date/stakeholders/economic context) with concise expansion UI.
+2. Integrate `advisor_dossiers.json` into advisor card deep-dive panel for in-episode context.
+3. Keep deterministic and fog-of-war constraints unchanged (presentation only; no state mutation).

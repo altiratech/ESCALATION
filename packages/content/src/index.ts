@@ -3,6 +3,8 @@ import adversaryProfilesData from '../data/adversary_profiles.json';
 import scenariosData from '../data/scenarios.json';
 import imagesData from '../data/images.json';
 import narrativeCandidatesData from '../data/narrative_candidates_v2.json';
+import intelFragmentsData from '../data/intel_fragments_ns.json';
+import newsWireData from '../data/news_wire_ns.json';
 
 import type {
   ActionDefinition,
@@ -12,8 +14,10 @@ import type {
   DebriefTag,
   DebriefVariantCandidate,
   ImageAsset,
+  IntelFragment,
   NarrativeCandidatesCategory,
   NarrativeCandidatesPack,
+  NewsWireArticle,
   OutcomeCategory,
   PressureTextCandidate,
   AdversaryProfile,
@@ -23,6 +27,8 @@ import type {
 export const actions = actionsData as ActionDefinition[];
 export const adversaryProfiles = adversaryProfilesData as AdversaryProfile[];
 export const images = imagesData as ImageAsset[];
+export const intelFragments = intelFragmentsData as IntelFragment[];
+export const newsWire = newsWireData as NewsWireArticle[];
 
 type RawNarrativeCategory = {
   category?: string;
