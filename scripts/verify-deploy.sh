@@ -25,17 +25,21 @@ if ! grep -q '"actions"' <<<"${api_bootstrap}"; then
   exit 1
 fi
 
-scenario_id="$(API_BOOTSTRAP_JSON="${api_bootstrap}" python3 - <<'PY'
+bootstrap_tmp="$(mktemp)"
+printf '%s' "${api_bootstrap}" > "${bootstrap_tmp}"
+scenario_id="$(python3 - "${bootstrap_tmp}" <<'PY'
 import json
-import os
+import sys
 
-data = json.loads(os.environ["API_BOOTSTRAP_JSON"])
+with open(sys.argv[1], 'r', encoding='utf-8') as handle:
+    data = json.load(handle)
 scenarios = data.get("scenarios") or []
 if not scenarios:
     raise SystemExit("No scenarios in bootstrap payload")
 print(scenarios[0]["id"])
 PY
 )"
+rm -f "${bootstrap_tmp}"
 if [[ -z "${scenario_id}" ]]; then
   echo "API bootstrap check failed: unable to resolve scenario id" >&2
   exit 1
@@ -44,17 +48,21 @@ fi
 echo "Verifying profile creation: ${API_PROFILE_URL}"
 profile_payload="$(printf '{"codename":"SMOKE-%s"}' "$(date +%s)")"
 profile_response="$(curl -fsS -X POST "${API_PROFILE_URL}" -H 'Content-Type: application/json' --data "${profile_payload}")"
-profile_id="$(API_PROFILE_JSON="${profile_response}" python3 - <<'PY'
+profile_tmp="$(mktemp)"
+printf '%s' "${profile_response}" > "${profile_tmp}"
+profile_id="$(python3 - "${profile_tmp}" <<'PY'
 import json
-import os
+import sys
 
-data = json.loads(os.environ["API_PROFILE_JSON"])
+with open(sys.argv[1], 'r', encoding='utf-8') as handle:
+    data = json.load(handle)
 profile_id = data.get("profileId")
 if not profile_id:
     raise SystemExit("Profile response missing profileId")
 print(profile_id)
 PY
 )"
+rm -f "${profile_tmp}"
 if [[ -z "${profile_id}" ]]; then
   echo "Profile verification failed: missing profile id" >&2
   exit 1
@@ -63,11 +71,14 @@ fi
 echo "Verifying episode start route: ${API_EPISODE_START_URL}"
 start_payload="$(printf '{"profileId":"%s","scenarioId":"%s","timerMode":"off"}' "${profile_id}" "${scenario_id}")"
 start_response="$(curl -fsS -X POST "${API_EPISODE_START_URL}" -H 'Content-Type: application/json' --data "${start_payload}")"
-API_EPISODE_JSON="${start_response}" python3 - <<'PY'
+start_tmp="$(mktemp)"
+printf '%s' "${start_response}" > "${start_tmp}"
+python3 - "${start_tmp}" <<'PY'
 import json
-import os
+import sys
 
-data = json.loads(os.environ["API_EPISODE_JSON"])
+with open(sys.argv[1], 'r', encoding='utf-8') as handle:
+    data = json.load(handle)
 required_fields = ["episodeId", "scenarioId", "status", "turn", "maxTurns", "offeredActions"]
 missing = [field for field in required_fields if field not in data]
 if missing:
@@ -78,6 +89,7 @@ if not isinstance(data["offeredActions"], list) or not data["offeredActions"]:
     raise SystemExit("Episode start response has empty offeredActions")
 print(f"episode_started={data['episodeId']} turn={data['turn']}")
 PY
+rm -f "${start_tmp}"
 
 echo "Verifying web shell: ${WEB_URL}"
 web_html="$(curl -fsS "${WEB_URL}")"
