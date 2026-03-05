@@ -1484,3 +1484,105 @@ Thread scope limitation: This thread ran under `Code/active/Wargames` and could 
 1. Integrate `action_narratives_ns.json` into action-resolution presentation layer with deterministic beat/phase/action matching.
 2. Integrate `rival_leader_ns.json` into post-game adversary logic reveal/context sections.
 3. Preserve deterministic authority boundaries (no simulation-rule changes, presentation only).
+
+## 31) Session Update — 2026-03-05 (Action-narrative + rival-leader runtime integration)
+
+### 31.1 What changed
+
+1. Extended shared runtime contracts for authored action/reveal packs:
+- `packages/shared-types/src/index.ts`
+  - added:
+    - `ActionNarrativePhaseContent`
+    - `ActionNarrativeDefinition`
+    - `RivalLeaderDefinition`
+    - `RivalLeaderReveal`
+    - supporting pressure-point / statement / inner-circle interfaces
+  - extended:
+    - `BootstrapPayload` with `actionNarratives: ActionNarrativeDefinition[]`
+    - `FullCausalityReport` with `rivalLeaderReveal: RivalLeaderReveal | null`
+
+2. Wired content exports for new authored packs:
+- `packages/content/src/index.ts`
+  - imported:
+    - `../data/action_narratives_ns.json`
+    - `../data/rival_leader_ns.json`
+  - exported:
+    - `actionNarratives`
+    - `rivalLeader`
+    - `getRivalLeader(scenarioId, adversaryProfileId?)`
+
+3. Wired API bootstrap + report generation:
+- `apps/api/src/index.ts`
+  - `GET /api/reference/bootstrap` now returns `actionNarratives`
+  - all post-game report build paths now pass:
+    - `rivalLeader: getRivalLeader(scenario.id, adversaryProfile.id)`
+
+4. Wired deterministic recent-turn action narrative rendering:
+- `apps/web/src/App.tsx`
+  - derives `recentActionNarrative` from:
+    - `episode.recentTurn.playerActionId`
+    - scenario beat phase at `beatIdBefore`
+    - authored phase fallback order:
+      - current phase
+      - then `climax`
+      - then `crisis`
+      - then `rising`
+      - then `opening`
+- `apps/web/src/components/BriefingPanel.tsx`
+  - renders a new collapsible `Operational Readout` block showing:
+    - order framing
+    - execution narrative
+    - rival desk reaction
+    - alliance desk reaction
+
+5. Wired rival leader reveal into Full Causality report:
+- `packages/engine/src/report.ts`
+  - added `buildRivalLeaderReveal(...)`
+  - includes deterministic reveal object in `fullCausality`
+- `apps/web/src/components/ReportView.tsx`
+  - renders `Rival Leader Reveal` with:
+    - name / title / age
+    - psychological summary
+    - decision style / risk appetite / information diet
+    - red line / golden bridge
+    - top pressure points
+    - recent signaling
+
+6. Fixed test/lookup canonicality issue exposed by the new reveal path:
+- `tests/engine/report-causality.test.ts`
+  - no longer uses `adversaryProfiles[0]`
+  - now resolves adversary via `getScenarioAdversaryProfile(scenario.id)`
+- Reason:
+  - `scenarios[0]` is bound to `calculated_technocrat`
+  - `adversaryProfiles[0]` was `paranoid_hawk`
+  - this mismatch correctly suppressed authored leader reveal content and caused a false-negative test
+
+### 31.2 Verification status
+
+1. Local:
+- `npm run lint` passed.
+- `npm run build --workspace @wargames/web` passed.
+- `npx vitest run tests/engine/report-causality.test.ts` passed.
+- `npm run ci:phase1` passed (12 files / 26 tests).
+
+2. Intermediate failures resolved in-session:
+- `apps/web/src/App.tsx`
+  - fixed block-scoped declaration ordering (`currentScenario` before `currentBeat`) to restore typecheck/build.
+- `tests/engine/report-causality.test.ts`
+  - fixed scenario/adversary fixture mismatch so authored reveal content resolves through canonical scenario pairing.
+
+### 31.3 Remaining spec drift after this pass
+
+1. Runtime-authored packs still pending integration:
+- `packages/content/data/cinematics_ns.json`
+- `packages/content/data/debrief_deep_ns.json`
+
+2. Broader drift still open:
+- YAML authoring pipeline still not adopted; JSON remains canonical.
+- Legacy DB compatibility cleanup remains optional follow-up once `adversary_profile_id` migration is fully verified in all environments.
+
+### 31.4 Exact next action for resume
+
+1. Integrate `debrief_deep_ns.json` into richer post-turn and/or post-game explanatory surfaces using deterministic tag/phase selection.
+2. Integrate `cinematics_ns.json` into start/opening or beat-transition presentation without changing engine authority.
+3. Preserve fog-of-war boundaries and keep all new content wiring presentation-only.
