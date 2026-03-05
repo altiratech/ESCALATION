@@ -1,6 +1,13 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-import type { ActionDefinition, BootstrapPayload, EpisodeView, PostGameReport } from '@wargames/shared-types';
+import type {
+  ActionDefinition,
+  ActionNarrativePhaseContent,
+  BeatPhase,
+  BootstrapPayload,
+  EpisodeView,
+  PostGameReport
+} from '@wargames/shared-types';
 
 import {
   bootstrapReference,
@@ -78,6 +85,24 @@ const pickDeterministicWindow = <T,>(entries: T[], limit: number, anchor: number
   return selected;
 };
 
+const actionNarrativePhaseOrder = (phase: BeatPhase | null | undefined): BeatPhase[] => {
+  if (phase === 'resolution') {
+    return ['climax', 'crisis', 'rising', 'opening'];
+  }
+  if (!phase) {
+    return ['crisis', 'rising', 'opening'];
+  }
+  return [phase, 'climax', 'crisis', 'rising', 'opening'].filter(
+    (value, index, array): value is BeatPhase => array.indexOf(value) === index
+  );
+};
+
+interface RecentActionNarrativeView {
+  actionName: string;
+  phaseLabel: string;
+  detail: ActionNarrativePhaseContent;
+}
+
 const App = () => {
   const [reference, setReference] = useState<BootstrapPayload | null>(null);
   const [episode, setEpisode] = useState<EpisodeView | null>(null);
@@ -108,19 +133,52 @@ const App = () => {
     void load();
   }, []);
 
-  const currentBeat = useMemo(() => {
+  const currentScenario = useMemo(() => {
     if (!reference || !episode) {
       return null;
     }
-    const scenario = reference.scenarios.find((entry) => entry.id === episode.scenarioId);
-    return scenario?.beats.find((beat) => beat.id === episode.currentBeatId) ?? null;
-  }, [reference, episode?.scenarioId, episode?.currentBeatId]);
+    return reference.scenarios.find((entry) => entry.id === episode.scenarioId) ?? null;
+  }, [reference, episode?.scenarioId]);
+  const currentBeat = useMemo(() => {
+    if (!currentScenario || !episode) {
+      return null;
+    }
+    return currentScenario.beats.find((beat) => beat.id === episode.currentBeatId) ?? null;
+  }, [currentScenario, episode?.currentBeatId]);
   const currentScenarioName = useMemo(() => {
-    if (!reference || !episode) {
+    if (!currentScenario) {
       return 'Unknown';
     }
-    return reference.scenarios.find((entry) => entry.id === episode.scenarioId)?.name ?? 'Unknown';
-  }, [reference, episode?.scenarioId]);
+    return currentScenario.name;
+  }, [currentScenario]);
+  const recentActionNarrative = useMemo<RecentActionNarrativeView | null>(() => {
+    if (!reference || !currentScenario || !episode?.recentTurn) {
+      return null;
+    }
+
+    const action = reference.actions.find((entry) => entry.id === episode.recentTurn?.playerActionId);
+    const actionNarrative = reference.actionNarratives.find((entry) => entry.actionId === episode.recentTurn?.playerActionId);
+    const beatBefore = currentScenario.beats.find((beat) => beat.id === episode.recentTurn?.beatIdBefore);
+
+    if (!action || !actionNarrative) {
+      return null;
+    }
+
+    const detail = actionNarrativePhaseOrder(beatBefore?.phase).reduce<ActionNarrativePhaseContent | null>(
+      (selected, phase) => selected ?? actionNarrative.phases[phase] ?? null,
+      null
+    );
+
+    if (!detail) {
+      return null;
+    }
+
+    return {
+      actionName: action.name,
+      phaseLabel: beatBefore?.phase ?? 'crisis',
+      detail
+    };
+  }, [currentScenario, episode?.recentTurn, reference]);
 
   const applyEpisodeUpdate = useCallback(async (nextEpisode: EpisodeView): Promise<void> => {
     setEpisode(nextEpisode);
@@ -570,6 +628,7 @@ const App = () => {
             briefing={episode.briefing}
             imageAsset={episode.imageAsset}
             turnDebrief={episode.turnDebrief}
+            recentActionNarrative={recentActionNarrative}
           />
         </div>
 

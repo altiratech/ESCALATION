@@ -2,9 +2,10 @@ import { describe, expect, it } from 'vitest';
 
 import {
   actions,
-  adversaryProfiles,
   getAdvisorRetrospectivesForOutcome,
   getCausalityRevealForOutcome,
+  getRivalLeader,
+  getScenarioAdversaryProfile,
   images,
   scenarios
 } from '@wargames/content';
@@ -17,7 +18,7 @@ import {
 } from '@wargames/engine';
 
 const scenario = scenarios[0];
-const adversaryProfile = adversaryProfiles[0];
+const adversaryProfile = scenario ? getScenarioAdversaryProfile(scenario.id) : null;
 
 describe('post-game causality report', () => {
   it('builds full causality sections with narrative pack overlays', () => {
@@ -53,6 +54,7 @@ describe('post-game causality report', () => {
     const report = buildPostGameReport(state, buildActionMap(actions), {
       scenario,
       adversaryProfile,
+      rivalLeader: getRivalLeader(scenario.id, adversaryProfile.id),
       causalityNarrative: getCausalityRevealForOutcome(outcome),
       advisorRetrospectives: getAdvisorRetrospectivesForOutcome(outcome)
     });
@@ -62,6 +64,8 @@ describe('post-game causality report', () => {
     expect(report.fullCausality.outcomeNarrative.summary.length).toBeGreaterThan(0);
     expect(report.fullCausality.outcomeNarrative.causalNote.length).toBeGreaterThan(0);
     expect(report.fullCausality.adversaryLogicSummary.length).toBeGreaterThan(20);
+    expect(report.fullCausality.rivalLeaderReveal?.publicName).toBe('Aleksandr Volkov');
+    expect(report.fullCausality.rivalLeaderReveal?.pressurePoints.length).toBeGreaterThan(0);
     expect(report.fullCausality.advisorRetrospectives.length).toBeGreaterThan(0);
     expect(Array.isArray(report.fullCausality.unseenSystemEvents)).toBe(true);
     expect(Array.isArray(report.fullCausality.branchesNotTaken)).toBe(true);

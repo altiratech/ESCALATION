@@ -5,8 +5,10 @@ import imagesData from '../data/images.json';
 import narrativeCandidatesData from '../data/narrative_candidates_v2.json';
 import intelFragmentsData from '../data/intel_fragments_ns.json';
 import newsWireData from '../data/news_wire_ns.json';
+import actionNarrativesData from '../data/action_narratives_ns.json';
 import scenarioWorldData from '../data/scenario_world_ns.json';
 import advisorDossiersData from '../data/advisor_dossiers.json';
+import rivalLeaderData from '../data/rival_leader_ns.json';
 
 import type {
   ActionDefinition,
@@ -22,10 +24,12 @@ import type {
   NewsWireArticle,
   OutcomeCategory,
   PressureTextCandidate,
-  ScenarioWorldDefinition,
+  ActionNarrativeDefinition,
   AdvisorDossier,
   AdversaryProfile,
-  ScenarioDefinition
+  RivalLeaderDefinition,
+  ScenarioDefinition,
+  ScenarioWorldDefinition
 } from '@wargames/shared-types';
 
 export const actions = actionsData as ActionDefinition[];
@@ -33,8 +37,10 @@ export const adversaryProfiles = adversaryProfilesData as AdversaryProfile[];
 export const images = imagesData as ImageAsset[];
 export const intelFragments = intelFragmentsData as IntelFragment[];
 export const newsWire = newsWireData as NewsWireArticle[];
+export const actionNarratives = (actionNarrativesData as { actions: ActionNarrativeDefinition[] }).actions;
 export const scenarioWorld = [scenarioWorldData as ScenarioWorldDefinition];
 export const advisorDossiers = advisorDossiersData as AdvisorDossier[];
+export const rivalLeader = rivalLeaderData as RivalLeaderDefinition;
 
 type RawNarrativeCategory = {
   category?: string;
@@ -146,6 +152,16 @@ export const getAdversaryProfile = (adversaryProfileId: string): AdversaryProfil
 export const getScenarioAdversaryProfile = (scenarioId: string): AdversaryProfile => {
   const scenario = getScenario(scenarioId);
   return getAdversaryProfile(scenario.adversaryProfileId);
+};
+
+export const getRivalLeader = (scenarioId: string, adversaryProfileId?: string): RivalLeaderDefinition | null => {
+  if (rivalLeader.scenarioId !== scenarioId) {
+    return null;
+  }
+  if (adversaryProfileId && rivalLeader.adversaryProfileId !== adversaryProfileId) {
+    return null;
+  }
+  return rivalLeader;
 };
 
 export const getAction = (actionId: string): ActionDefinition => {

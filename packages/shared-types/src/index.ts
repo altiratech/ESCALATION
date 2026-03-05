@@ -387,6 +387,7 @@ export interface FullCausalityReport {
   outcomeNarrative: OutcomeNarrativeReveal;
   hiddenDeltas: HiddenMeterDelta[];
   adversaryLogicSummary: string;
+  rivalLeaderReveal: RivalLeaderReveal | null;
   unseenSystemEvents: UnseenSystemEvent[];
   branchesNotTaken: BranchNotTakenSummary[];
   advisorRetrospectives: AdvisorRetrospectiveLine[];
@@ -521,6 +522,20 @@ export interface NewsWireArticle {
   narrativeWeight: NewsWireNarrativeWeight;
 }
 
+export interface ActionNarrativePhaseContent {
+  preActionBrief: string;
+  executionNarrative: string;
+  successOutcome: string;
+  complicationOutcome: string;
+  rivalReaction: string;
+  allianceReaction: string;
+}
+
+export interface ActionNarrativeDefinition {
+  actionId: string;
+  phases: Partial<Record<BeatPhase, ActionNarrativePhaseContent>>;
+}
+
 export interface ScenarioWorldAlliance {
   name: string;
   description: string;
@@ -619,6 +634,74 @@ export interface AdvisorDossier {
   scenarioSpecific: Record<string, AdvisorScenarioSpecific>;
 }
 
+export interface RivalLeaderPressurePoint {
+  id: string;
+  name: string;
+  description: string;
+  exploitability: string;
+  risk: string;
+}
+
+export interface RivalLeaderPublicStatement {
+  context: string;
+  quote: string;
+  analystNote: string;
+}
+
+export interface RivalLeaderInnerCircleMember {
+  title: string;
+  role: string;
+  influence: string;
+  disposition: string;
+  knownView: string;
+}
+
+export interface RivalLeaderDefinition {
+  scenarioId: string;
+  adversaryProfileId: string;
+  leader: {
+    title: string;
+    publicName: string;
+    aliases: string[];
+    age: string;
+    background: string;
+    psychologicalProfile: {
+      summary: string;
+      strengths: string[];
+      vulnerabilities: string[];
+      decisionStyle: string;
+      riskAppetite: string;
+      informationDiet: string;
+    };
+    motivations: {
+      primary: string;
+      secondary: string;
+      redLine: string;
+      goldenBridge: string;
+    };
+    pressurePoints: RivalLeaderPressurePoint[];
+    intelFragments: Partial<Record<BeatPhase, string[]>>;
+    publicStatements: RivalLeaderPublicStatement[];
+    innerCircle: RivalLeaderInnerCircleMember[];
+  };
+}
+
+export interface RivalLeaderReveal {
+  title: string;
+  publicName: string;
+  age: string;
+  background: string;
+  psychologicalSummary: string;
+  decisionStyle: string;
+  riskAppetite: string;
+  informationDiet: string;
+  redLine: string;
+  goldenBridge: string;
+  pressurePoints: RivalLeaderPressurePoint[];
+  publicStatements: RivalLeaderPublicStatement[];
+  innerCircle: RivalLeaderInnerCircleMember[];
+}
+
 export interface CompressedStateSummary {
   roleLine: string;
   turnCounter: string;
@@ -676,6 +759,7 @@ export interface BootstrapPayload {
   narrativeCandidates: NarrativeCandidatesPack;
   intelFragments: IntelFragment[];
   newsWire: NewsWireArticle[];
+  actionNarratives: ActionNarrativeDefinition[];
   scenarioWorld: ScenarioWorldDefinition[];
   advisorDossiers: AdvisorDossier[];
 }

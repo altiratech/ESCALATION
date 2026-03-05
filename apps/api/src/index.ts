@@ -5,10 +5,12 @@ import { z } from 'zod';
 
 import {
   actions,
+  actionNarratives,
   adversaryProfiles,
   getDebriefVariants,
   getAdvisorRetrospectivesForOutcome,
   getCausalityRevealForOutcome,
+  getRivalLeader,
   getScenario,
   getScenarioAdversaryProfile,
   images,
@@ -549,6 +551,7 @@ app.post('/api/episodes/:episodeId/actions', async (context) => {
       const report = buildPostGameReport(nextState, actionMap, {
         scenario,
         adversaryProfile,
+        rivalLeader: getRivalLeader(scenario.id, adversaryProfile.id),
         causalityNarrative: getCausalityRevealForOutcome(nextState.outcome),
         advisorRetrospectives: getAdvisorRetrospectivesForOutcome(nextState.outcome)
       });
@@ -708,6 +711,7 @@ app.post('/api/episodes/:episodeId/inaction', async (context) => {
     const report = buildPostGameReport(result.nextState, actionMap, {
       scenario,
       adversaryProfile,
+      rivalLeader: getRivalLeader(scenario.id, adversaryProfile.id),
       causalityNarrative: getCausalityRevealForOutcome(result.nextState.outcome),
       advisorRetrospectives: getAdvisorRetrospectivesForOutcome(result.nextState.outcome)
     });
@@ -850,6 +854,7 @@ app.get('/api/episodes/:episodeId/report', async (context) => {
   const generated = buildPostGameReport(episode, actionMap, {
     scenario,
     adversaryProfile,
+    rivalLeader: getRivalLeader(scenario.id, adversaryProfile.id),
     ...narrativeOptions
   });
   const episodeRecord = await getEpisodeState(db, episodeId);
@@ -873,6 +878,7 @@ app.get('/api/reference/bootstrap', (context) => {
     narrativeCandidates,
     intelFragments,
     newsWire,
+    actionNarratives,
     scenarioWorld,
     advisorDossiers
   });

@@ -8,6 +8,7 @@ import type {
   PostGameReport,
   ReportTimelinePoint,
   AdversaryProfile,
+  RivalLeaderDefinition,
   ScenarioDefinition,
   TurnHistoryEntry
 } from '@wargames/shared-types';
@@ -494,9 +495,35 @@ const buildAdversaryLogicSummary = (
   return `${profileLabel} ${stance}. Rival action mix was ${escalatoryTurns}/${rivalActions.length} escalatory-coded turns, with mean threshold belief ${avgThreshold.toFixed(2)}, bluff belief ${avgBluff.toFixed(2)}, and humiliation pressure ${avgHumiliation.toFixed(2)}.`;
 };
 
+const buildRivalLeaderReveal = (
+  rivalLeader?: RivalLeaderDefinition
+): PostGameReport['fullCausality']['rivalLeaderReveal'] => {
+  if (!rivalLeader) {
+    return null;
+  }
+
+  const latestStatements = rivalLeader.leader.publicStatements.slice(-2);
+  return {
+    title: rivalLeader.leader.title,
+    publicName: rivalLeader.leader.publicName,
+    age: rivalLeader.leader.age,
+    background: rivalLeader.leader.background,
+    psychologicalSummary: rivalLeader.leader.psychologicalProfile.summary,
+    decisionStyle: rivalLeader.leader.psychologicalProfile.decisionStyle,
+    riskAppetite: rivalLeader.leader.psychologicalProfile.riskAppetite,
+    informationDiet: rivalLeader.leader.psychologicalProfile.informationDiet,
+    redLine: rivalLeader.leader.motivations.redLine,
+    goldenBridge: rivalLeader.leader.motivations.goldenBridge,
+    pressurePoints: rivalLeader.leader.pressurePoints.slice(0, 3),
+    publicStatements: latestStatements,
+    innerCircle: rivalLeader.leader.innerCircle.slice(0, 3)
+  };
+};
+
 export interface BuildPostGameReportOptions {
   scenario?: ScenarioDefinition;
   adversaryProfile?: AdversaryProfile;
+  rivalLeader?: RivalLeaderDefinition | null;
   causalityNarrative?: {
     title: string | null;
     summary: string | null;
@@ -582,6 +609,7 @@ export const buildPostGameReport = (
       },
       hiddenDeltas,
       adversaryLogicSummary: buildAdversaryLogicSummary(state, actionMap, options.adversaryProfile),
+      rivalLeaderReveal: buildRivalLeaderReveal(options.rivalLeader ?? undefined),
       unseenSystemEvents,
       branchesNotTaken,
       advisorRetrospectives

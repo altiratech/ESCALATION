@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 
-import type { ImageAsset, NarrativeBundle, TurnDebrief } from '@wargames/shared-types';
+import type { ActionNarrativePhaseContent, ImageAsset, NarrativeBundle, TurnDebrief } from '@wargames/shared-types';
 
 interface BriefingPanelProps {
   turn: number;
@@ -8,6 +8,11 @@ interface BriefingPanelProps {
   briefing: NarrativeBundle;
   imageAsset: ImageAsset | null;
   turnDebrief: TurnDebrief | null;
+  recentActionNarrative: {
+    actionName: string;
+    phaseLabel: string;
+    detail: ActionNarrativePhaseContent;
+  } | null;
 }
 
 const sourceLabel: Record<TurnDebrief['lines'][number]['tag'], string> = {
@@ -16,8 +21,9 @@ const sourceLabel: Record<TurnDebrief['lines'][number]['tag'], string> = {
   SystemEvent: '[System]'
 };
 
-export const BriefingPanel = ({ turn, maxTurns, briefing, imageAsset, turnDebrief }: BriefingPanelProps) => {
+export const BriefingPanel = ({ turn, maxTurns, briefing, imageAsset, turnDebrief, recentActionNarrative }: BriefingPanelProps) => {
   const [expandedHeadline, setExpandedHeadline] = useState<number | null>(0);
+  const [showOperationalReadout, setShowOperationalReadout] = useState(true);
 
   const signalDetails = useMemo(() => {
     return briefing.headlines.map((_, index) => {
@@ -119,6 +125,48 @@ export const BriefingPanel = ({ turn, maxTurns, briefing, imageAsset, turnDebrie
         <div className="mt-4 rounded-md border border-accent/50 bg-panelRaised/80 px-2 py-1 text-[0.72rem] text-accent">
           {briefing.tickerLine}
         </div>
+      ) : null}
+
+      {recentActionNarrative ? (
+        <section className="mt-5 rounded-lg border border-borderTone bg-panelRaised/60 p-3">
+          <button
+            type="button"
+            className="flex w-full items-center justify-between gap-3 text-left"
+            onClick={() => setShowOperationalReadout((current) => !current)}
+          >
+            <div>
+              <p className="label">Operational Readout</p>
+              <p className="mt-1 text-sm text-textMain">
+                {recentActionNarrative.actionName} · {recentActionNarrative.phaseLabel}
+              </p>
+            </div>
+            <span className="text-[0.62rem] uppercase tracking-[0.1em] text-accent">
+              {showOperationalReadout ? 'Hide' : 'Open'}
+            </span>
+          </button>
+          {showOperationalReadout ? (
+            <div className="mt-3 space-y-3 border-t border-borderTone/70 pt-3">
+              <p className="text-[0.75rem] leading-relaxed text-textMuted">
+                <span className="text-textMain">Order frame:</span> {recentActionNarrative.detail.preActionBrief}
+              </p>
+              <p className="text-sm leading-relaxed text-textMain">{recentActionNarrative.detail.executionNarrative}</p>
+              <div className="grid gap-3 lg:grid-cols-2">
+                <article className="rounded-md border border-borderTone/70 bg-surface/35 p-2">
+                  <p className="text-[0.62rem] uppercase tracking-[0.12em] text-textMuted">Rival Desk</p>
+                  <p className="mt-1 text-[0.72rem] leading-relaxed text-textMuted">
+                    {recentActionNarrative.detail.rivalReaction}
+                  </p>
+                </article>
+                <article className="rounded-md border border-borderTone/70 bg-surface/35 p-2">
+                  <p className="text-[0.62rem] uppercase tracking-[0.12em] text-textMuted">Alliance Desk</p>
+                  <p className="mt-1 text-[0.72rem] leading-relaxed text-textMuted">
+                    {recentActionNarrative.detail.allianceReaction}
+                  </p>
+                </article>
+              </div>
+            </div>
+          ) : null}
+        </section>
       ) : null}
 
       {turnDebrief && turnDebrief.lines.length > 0 ? (

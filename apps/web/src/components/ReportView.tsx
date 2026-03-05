@@ -73,6 +73,55 @@ export const ReportView = ({ report, onRestart }: ReportViewProps) => {
         </article>
       </section>
 
+      {report.fullCausality.rivalLeaderReveal ? (
+        <section className="card p-5">
+          <p className="label">Rival Leader Reveal</p>
+          <h2 className="mt-2 font-display text-2xl text-textMain">
+            {report.fullCausality.rivalLeaderReveal.publicName}
+          </h2>
+          <p className="mt-1 text-xs uppercase tracking-[0.12em] text-textMuted">
+            {report.fullCausality.rivalLeaderReveal.title} · Age {report.fullCausality.rivalLeaderReveal.age}
+          </p>
+          <p className="mt-3 text-sm leading-relaxed text-textMuted">
+            {report.fullCausality.rivalLeaderReveal.psychologicalSummary}
+          </p>
+          <div className="mt-4 grid gap-4 lg:grid-cols-2">
+            <div className="space-y-2 text-sm text-textMuted">
+              <p><span className="text-textMain">Decision style:</span> {report.fullCausality.rivalLeaderReveal.decisionStyle}</p>
+              <p><span className="text-textMain">Risk appetite:</span> {report.fullCausality.rivalLeaderReveal.riskAppetite}</p>
+              <p><span className="text-textMain">Red line:</span> {report.fullCausality.rivalLeaderReveal.redLine}</p>
+              <p><span className="text-textMain">Golden bridge:</span> {report.fullCausality.rivalLeaderReveal.goldenBridge}</p>
+            </div>
+            <div className="space-y-2 text-sm text-textMuted">
+              <p><span className="text-textMain">Information diet:</span> {report.fullCausality.rivalLeaderReveal.informationDiet}</p>
+              <p>{report.fullCausality.rivalLeaderReveal.background}</p>
+            </div>
+          </div>
+          <div className="mt-4 grid gap-4 lg:grid-cols-2">
+            <article>
+              <p className="label">Pressure Points</p>
+              <ul className="mt-2 space-y-2 text-sm text-textMuted">
+                {report.fullCausality.rivalLeaderReveal.pressurePoints.map((point) => (
+                  <li key={point.id}>
+                    <span className="text-textMain">{point.name}</span>: {point.exploitability}
+                  </li>
+                ))}
+              </ul>
+            </article>
+            <article>
+              <p className="label">Recent Signaling</p>
+              <ul className="mt-2 space-y-2 text-sm text-textMuted">
+                {report.fullCausality.rivalLeaderReveal.publicStatements.map((statement) => (
+                  <li key={statement.context}>
+                    <span className="text-textMain">{statement.context}</span>: {statement.analystNote}
+                  </li>
+                ))}
+              </ul>
+            </article>
+          </div>
+        </section>
+      ) : null}
+
       <section className="card p-5">
         <p className="label">Hidden Deltas (Revealed)</p>
         <div className="mt-3 overflow-x-auto">
