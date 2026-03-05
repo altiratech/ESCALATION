@@ -1409,3 +1409,78 @@ Thread scope limitation: This thread ran under `Code/active/Wargames` and could 
 1. Integrate `scenario_world_ns.json` into start-screen dossier blocks (region/date/stakeholders/economic context) with concise expansion UI.
 2. Integrate `advisor_dossiers.json` into advisor card deep-dive panel for in-episode context.
 3. Keep deterministic and fog-of-war constraints unchanged (presentation only; no state mutation).
+
+## 30) Session Update — 2026-03-04 (Scenario-world + advisor-dossier runtime integration)
+
+### 30.1 What changed
+
+1. Extended shared runtime contracts for the two new dossier packs:
+- `packages/shared-types/src/index.ts`
+  - added `ScenarioWorldDefinition` family of interfaces,
+  - added `AdvisorDossier` family of interfaces,
+  - extended `BootstrapPayload` with:
+    - `scenarioWorld: ScenarioWorldDefinition[]`
+    - `advisorDossiers: AdvisorDossier[]`
+
+2. Wired content exports for new packs:
+- `packages/content/src/index.ts`
+  - imported:
+    - `../data/scenario_world_ns.json`
+    - `../data/advisor_dossiers.json`
+  - exported:
+    - `scenarioWorld`
+    - `advisorDossiers`
+
+3. Wired API bootstrap payload:
+- `apps/api/src/index.ts`
+  - `GET /api/reference/bootstrap` now returns `scenarioWorld` and `advisorDossiers` in addition to existing narrative packs.
+
+4. Wired Start Screen dossier runtime rendering:
+- `apps/web/src/components/StartScreen.tsx`
+  - selects world entry by `scenarioId`,
+  - adds new dossier sections backed by `scenarioWorld`:
+    - theater snapshot (region/date/coordinates + macro context),
+    - strategic features,
+    - primary stakeholders,
+    - known intelligence gaps,
+  - keeps safe clipping/fallbacks and no state mutation.
+
+5. Wired in-turn Advisor Panel deep-dive runtime rendering:
+- `apps/web/src/components/AdvisorPanel.tsx`
+  - refactored panel to use dossier-provided metadata instead of hardcoded local map,
+  - renders dossier-backed context:
+    - background,
+    - lens,
+    - decision frame,
+    - scenario-specific assessment/red line,
+  - preserves beat-authored advisory lines as primary live counsel text.
+- `apps/web/src/App.tsx`
+  - passes `scenarioId` + `advisorDossiers` into `AdvisorPanel`.
+
+### 30.2 Verification status
+
+1. Local:
+- `npm run lint` passed.
+- `npm run ci:phase1` passed (12 files / 26 tests).
+- `npm run build --workspace @wargames/web` passed.
+
+2. CI/Deploy:
+- Push: `d3b9725` (`main` -> `origin/main`)
+- Deploy run: `22694980000`
+- Result: all jobs green (`quality_gate`, `deploy_api`, `deploy_web`, `verify_deploy`).
+
+### 30.3 Remaining work after this pass
+
+1. Newly ingested narrative packs still pending runtime wiring:
+- `rival_leader_ns.json`
+- `action_narratives_ns.json`
+- `cinematics_ns.json`
+- `debrief_deep_ns.json`
+
+2. `scenario_world_ns.json` includes a duplicate `economicLeverage` key under `rivalState` (JSON parser currently keeps last value). This should be cleaned in content QA to avoid ambiguous authoring intent.
+
+### 30.4 Exact next action for resume
+
+1. Integrate `action_narratives_ns.json` into action-resolution presentation layer with deterministic beat/phase/action matching.
+2. Integrate `rival_leader_ns.json` into post-game adversary logic reveal/context sections.
+3. Preserve deterministic authority boundaries (no simulation-rule changes, presentation only).
