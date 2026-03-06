@@ -62,7 +62,12 @@ export const ActionCards = ({ actions, disabled, onSelect }: ActionCardsProps) =
   return (
     <section className="card p-4 sm:p-5">
       <div className="flex items-center justify-between gap-3">
-        <p className="label">Decision Options</p>
+        <div>
+          <p className="label">Primary Decision</p>
+          <p className="mt-2 text-sm leading-relaxed text-textMuted">
+            Choose one option to resolve this turn. Selecting a card immediately advances play.
+          </p>
+        </div>
         <p className="text-[0.68rem] uppercase tracking-[0.12em] text-textMuted">{sorted.length} Available</p>
       </div>
       <div className="mt-3 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
@@ -93,7 +98,7 @@ export const ActionCards = ({ actions, disabled, onSelect }: ActionCardsProps) =
               <p className="hidden text-accent/90 group-hover:block">{postureHint(action)}</p>
               <p className="hidden text-warning/90 group-hover:block">{riskHint(action)}</p>
             </div>
-            <p className="mt-3 text-[0.62rem] uppercase tracking-[0.12em] text-accent/85">Commit Action</p>
+            <p className="mt-3 text-[0.62rem] uppercase tracking-[0.12em] text-accent/85">Select And Resolve Turn</p>
           </button>
         ))}
       </div>

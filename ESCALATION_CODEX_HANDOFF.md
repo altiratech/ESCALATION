@@ -1771,3 +1771,69 @@ Thread scope limitation: This thread ran under `Code/active/Wargames` and could 
 - legacy DB compatibility cleanup,
 - or next scenario/content expansion.
 2. Keep deterministic engine authority unchanged unless Ryan explicitly reprioritizes feature scope.
+
+## 34) 2026-03-06 Real-World Scenario Reset + UX Clarity Pass
+
+### 34.1 What changed
+
+1. Authored a durable realignment brief:
+- `REAL_WORLD_SCENARIO_REALIGNMENT_2026-03-06.md`
+- Locks new direction:
+  - real-world geography and strategic context for flagship scenarios
+  - fictionalized individuals only
+  - Northern Strait retained as prototype/reference, not intended public flagship
+  - recommended first real-world flagship target: Taiwan Strait
+
+2. Fixed advisor collapse bug:
+- `apps/web/src/components/AdvisorPanel.tsx`
+- Root cause was fallback-to-default logic that reopened the first advisor after user clicked `Hide`.
+- Behavior now:
+  - first advisor opens by default on beat entry
+  - user can explicitly collapse all advisor cards
+  - default-open state resets only when the beat changes
+
+3. Clarified primary gameplay path in UI:
+- `apps/web/src/components/ActionCards.tsx`
+- Decision cards now explicitly state that choosing a card resolves the current turn.
+- CTA text changed to emphasize immediate turn resolution.
+
+4. Demoted typed command input to advanced/secondary path:
+- `apps/web/src/components/CommandInput.tsx`
+- Renamed surface to `Advanced Command Channel`.
+- Added explicit copy that typed commands are optional and secondary to clicking a decision card.
+
+5. Reduced dead-space / split-loop problem:
+- `apps/web/src/App.tsx`
+- Removed sticky-bottom command overlay.
+- Moved right-column order to:
+  - `ActionCards`
+  - `CommandInput`
+  - `AdvisorPanel`
+- Result: action selection is now the most visible interaction in the right rail.
+
+### 34.2 Verification status
+
+1. `npm run lint` passed.
+2. `npm run build --workspace @wargames/web` passed.
+3. `npm run ci:phase1` passed (13 files / 27 tests).
+4. Existing Monte Carlo concentration warnings remain unchanged for all-dove policy probes; no new failures introduced.
+
+### 34.3 Product/content direction now locked
+
+1. ESCALATION should be framed as scenario intelligence, not generic geopolitical fiction.
+2. Public-official scenarios remain useful as acquisition/marketing surface.
+3. Financial and corporate overlays remain the monetization path and Altira-suite fit.
+4. Existing Claude-authored content is not being discarded; it should be converted.
+5. Keep/rewrite/retain-reference audit now exists in:
+- `REAL_WORLD_SCENARIO_REALIGNMENT_2026-03-06.md`
+
+### 34.4 Exact next action for resume
+
+1. Choose and author the first real-world flagship scenario package, with Taiwan Strait currently the recommended first target.
+2. Start conversion in this order:
+- scenario-world foundation
+- opening brief / turn-1 framing
+- intel fragments + news wire
+- action narratives
+- rival leader / deep debrief / cinematics
+3. Keep deterministic engine and current content architecture intact during conversion.

@@ -130,7 +130,12 @@ export const CommandInput = ({ turn, actions, disabled, onSubmitCommand, onSelec
   return (
     <section className="card border-accent/40 bg-surface/95 p-3 sm:p-4">
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <p className="label">Command Channel</p>
+        <div>
+          <p className="label">Advanced Command Channel</p>
+          <p className="mt-2 text-xs leading-relaxed text-textMuted">
+            Optional. Use this for custom phrasing or quick shortcuts if you do not want to click a decision card.
+          </p>
+        </div>
         <span className="text-[0.62rem] uppercase tracking-[0.12em] text-textMuted">
           {disabled || sending ? 'Processing' : 'Open'}
         </span>
@@ -194,7 +199,7 @@ export const CommandInput = ({ turn, actions, disabled, onSubmitCommand, onSelec
               void submit();
             }
           }}
-          placeholder="Type an order (e.g., action Public Warning)"
+          placeholder="Optional: type a custom order (e.g., action Public Warning)"
           rows={2}
           className="w-full rounded-md border border-borderTone bg-panelRaised/75 px-3 py-2 text-sm text-textMain focus:border-accent focus:outline-none"
           disabled={disabled || sending}
@@ -212,7 +217,7 @@ export const CommandInput = ({ turn, actions, disabled, onSubmitCommand, onSelec
       </div>
 
       <p className="mt-2 text-[0.66rem] text-textMuted">
-        Commands route through confidence-gated interpretation. Ambiguous orders trigger one-tap clarify options.
+        Typed commands are interpreted before execution. If intent is unclear, the system will ask you to confirm one of the suggested actions.
       </p>
     </section>
   );

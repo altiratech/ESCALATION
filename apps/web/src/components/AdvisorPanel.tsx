@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import type { AdvisorDossier, BeatNode } from '@wargames/shared-types';
 
@@ -41,7 +41,7 @@ const stanceTone: Record<string, string> = {
 };
 
 export const AdvisorPanel = ({ beat, scenarioId, advisorDossiers }: AdvisorPanelProps) => {
-  const [expandedAdvisorId, setExpandedAdvisorId] = useState<string | null>(null);
+  const [expandedAdvisorId, setExpandedAdvisorId] = useState<string | null | undefined>(undefined);
 
   const advisorEntries = useMemo(() => {
     if (!beat) {
@@ -59,10 +59,16 @@ export const AdvisorPanel = ({ beat, scenarioId, advisorDossiers }: AdvisorPanel
     [advisorDossiers]
   );
 
+  useEffect(() => {
+    setExpandedAdvisorId(undefined);
+  }, [beat?.id]);
+
   const defaultExpandedId = advisorEntries[0]?.advisorId ?? null;
-  const activeExpandedId = advisorEntries.some((entry) => entry.advisorId === expandedAdvisorId)
-    ? expandedAdvisorId
-    : defaultExpandedId;
+  const activeExpandedId = expandedAdvisorId === undefined
+    ? defaultExpandedId
+    : advisorEntries.some((entry) => entry.advisorId === expandedAdvisorId)
+      ? expandedAdvisorId
+      : null;
 
   return (
     <section className="card h-full space-y-4 p-4 sm:p-5">
@@ -70,6 +76,9 @@ export const AdvisorPanel = ({ beat, scenarioId, advisorDossiers }: AdvisorPanel
         <div>
           <p className="label">Advisor Channel</p>
           <h2 className="mt-2 font-display text-xl text-textMain">Strategic Inputs</h2>
+          <p className="mt-1 text-xs leading-relaxed text-textMuted">
+            Open any advisor for their operating lens and this turn&apos;s reasoning.
+          </p>
         </div>
         <p className="rounded-md border border-borderTone bg-panelRaised/80 px-2 py-1 text-[0.65rem] uppercase tracking-[0.12em] text-textMuted">
           Live Counsel

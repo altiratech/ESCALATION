@@ -666,27 +666,24 @@ const App = () => {
         </div>
 
         <div className="order-2 space-y-4 sm:space-y-5 lg:order-3">
-          <AdvisorPanel
-            beat={currentBeat}
-            scenarioId={episode.scenarioId}
-            advisorDossiers={reference.advisorDossiers}
-          />
           <ActionCards
             actions={episode.offeredActions}
             disabled={loading || episode.status !== 'active'}
             onSelect={handleActionSelect}
           />
+          <CommandInput
+            turn={episode.turn}
+            actions={episode.offeredActions}
+            disabled={loading || episode.status !== 'active'}
+            onSubmitCommand={handleCommandSubmit}
+            onSelectAction={handleActionSelect}
+          />
+          <AdvisorPanel
+            beat={currentBeat}
+            scenarioId={episode.scenarioId}
+            advisorDossiers={reference.advisorDossiers}
+          />
         </div>
-      </section>
-
-      <section className="sticky bottom-3 z-20">
-        <CommandInput
-          turn={episode.turn}
-          actions={episode.offeredActions}
-          disabled={loading || episode.status !== 'active'}
-          onSubmitCommand={handleCommandSubmit}
-          onSelectAction={handleActionSelect}
-        />
       </section>
     </main>
   );
