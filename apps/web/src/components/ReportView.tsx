@@ -1,9 +1,10 @@
-import type { MeterKey, PostGameReport } from '@wargames/shared-types';
+import type { AdvisorDossier, MeterKey, PostGameReport } from '@wargames/shared-types';
 
 import { TimelineChart } from './TimelineChart';
 
 interface ReportViewProps {
   report: PostGameReport;
+  advisorDossiers: AdvisorDossier[];
   onRestart: () => void;
 }
 
@@ -18,7 +19,10 @@ const meterLabel: Record<MeterKey, string> = {
 
 const signed = (value: number): string => `${value > 0 ? '+' : ''}${value.toFixed(1)}`;
 
-export const ReportView = ({ report, onRestart }: ReportViewProps) => {
+export const ReportView = ({ report, advisorDossiers, onRestart }: ReportViewProps) => {
+  const advisorNameById = new Map(advisorDossiers.map((entry) => [entry.id, entry.name]));
+  const deepDebrief = report.fullCausality.deepDebrief;
+
   return (
     <main className="mx-auto flex w-full max-w-6xl flex-col gap-4 px-6 py-6">
       <section className="card p-5">
@@ -73,6 +77,56 @@ export const ReportView = ({ report, onRestart }: ReportViewProps) => {
         </article>
       </section>
 
+      {deepDebrief ? (
+        <section className="card p-5">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <p className="label">Deep Debrief</p>
+              <h2 className="mt-2 font-display text-2xl text-textMain">{deepDebrief.grade.title}</h2>
+            </div>
+            <p className="rounded-md border border-borderTone bg-panelRaised/70 px-3 py-1 text-[0.68rem] uppercase tracking-[0.12em] text-textMuted">
+              Report Score {deepDebrief.grade.score}
+            </p>
+          </div>
+          <p className="mt-3 text-sm leading-relaxed text-textMuted">{deepDebrief.grade.description}</p>
+
+          {deepDebrief.strategyArc ? (
+            <div className="mt-5 rounded-lg border border-borderTone/70 bg-panelRaised/40 p-4">
+              <p className="label">Strategic Arc</p>
+              <h3 className="mt-2 text-lg text-textMain">{deepDebrief.strategyArc.headline}</h3>
+              <p className="mt-3 text-sm leading-relaxed text-textMuted">{deepDebrief.strategyArc.narrative}</p>
+              <div className="mt-4 grid gap-4 lg:grid-cols-2">
+                <article className="rounded-md border border-borderTone/70 bg-surface/30 p-3">
+                  <p className="label">Key Turning Point</p>
+                  <p className="mt-2 text-sm leading-relaxed text-textMuted">{deepDebrief.strategyArc.keyTurningPoint}</p>
+                </article>
+                <article className="rounded-md border border-borderTone/70 bg-surface/30 p-3">
+                  <p className="label">Counterfactual</p>
+                  <p className="mt-2 text-sm leading-relaxed text-textMuted">{deepDebrief.strategyArc.whatIfNote}</p>
+                </article>
+              </div>
+            </div>
+          ) : null}
+
+          {deepDebrief.rivalPerspective ? (
+            <div className="mt-5 grid gap-4 lg:grid-cols-3">
+              <article className="rounded-md border border-borderTone/70 bg-panelRaised/40 p-4">
+                <p className="label">Rival Internal View</p>
+                <p className="mt-2 text-sm leading-relaxed text-textMuted">{deepDebrief.rivalPerspective.internalNarrative}</p>
+              </article>
+              <article className="rounded-md border border-borderTone/70 bg-panelRaised/40 p-4">
+                <p className="label">Regime Assessment</p>
+                <p className="mt-2 text-sm leading-relaxed text-textMuted">{deepDebrief.rivalPerspective.regimeAssessment}</p>
+              </article>
+              <article className="rounded-md border border-borderTone/70 bg-panelRaised/40 p-4">
+                <p className="label">Public Narrative</p>
+                <p className="mt-2 text-sm leading-relaxed text-textMuted">{deepDebrief.rivalPerspective.publicNarrative}</p>
+              </article>
+            </div>
+          ) : null}
+        </section>
+      ) : null}
+
       {report.fullCausality.rivalLeaderReveal ? (
         <section className="card p-5">
           <p className="label">Rival Leader Reveal</p>
@@ -118,6 +172,66 @@ export const ReportView = ({ report, onRestart }: ReportViewProps) => {
                 ))}
               </ul>
             </article>
+          </div>
+        </section>
+      ) : null}
+
+      {deepDebrief && (deepDebrief.advisorReflections.length > 0 || deepDebrief.historicalParallels.length > 0 || deepDebrief.lessonsLearned.length > 0) ? (
+        <section className="grid gap-4 lg:grid-cols-2">
+          <article className="card p-5">
+            <p className="label">Advisor Post-Mortems</p>
+            {deepDebrief.advisorReflections.length > 0 ? (
+              <div className="mt-3 space-y-3">
+                {deepDebrief.advisorReflections.map((entry) => (
+                  <article key={entry.advisor} className="rounded-md border border-borderTone/70 bg-panelRaised/40 p-3">
+                    <p className="text-sm text-textMain">{advisorNameById.get(entry.advisor) ?? entry.advisor.toUpperCase()}</p>
+                    <p className="mt-2 text-sm leading-relaxed text-textMuted">{entry.assessment}</p>
+                    <p className="mt-2 text-xs leading-relaxed text-textMuted">
+                      <span className="text-textMain">Self-critique:</span> {entry.selfCritique}
+                    </p>
+                    <p className="mt-2 text-xs leading-relaxed text-textMuted">
+                      <span className="text-textMain">Recommendation:</span> {entry.recommendation}
+                    </p>
+                  </article>
+                ))}
+              </div>
+            ) : (
+              <p className="mt-3 text-sm text-textMuted">No deep advisor post-mortems were authored for this outcome.</p>
+            )}
+          </article>
+
+          <article className="card p-5">
+            <p className="label">Historical Parallels</p>
+            {deepDebrief.historicalParallels.length > 0 ? (
+              <div className="mt-3 space-y-3">
+                {deepDebrief.historicalParallels.map((entry) => (
+                  <article key={entry.id} className="rounded-md border border-borderTone/70 bg-panelRaised/40 p-3">
+                    <p className="text-sm text-textMain">{entry.title}</p>
+                    <p className="mt-1 text-[0.68rem] uppercase tracking-[0.12em] text-textMuted">{entry.period}</p>
+                    <p className="mt-2 text-sm leading-relaxed text-textMuted">{entry.summary}</p>
+                    <p className="mt-2 text-xs leading-relaxed text-textMuted">
+                      <span className="text-textMain">Why it matters:</span> {entry.lessonForPlayer}
+                    </p>
+                  </article>
+                ))}
+              </div>
+            ) : (
+              <p className="mt-3 text-sm text-textMuted">No authored historical parallels matched this outcome.</p>
+            )}
+          </article>
+        </section>
+      ) : null}
+
+      {deepDebrief && deepDebrief.lessonsLearned.length > 0 ? (
+        <section className="card p-5">
+          <p className="label">Lessons Learned</p>
+          <div className="mt-3 grid gap-3 lg:grid-cols-2">
+            {deepDebrief.lessonsLearned.map((entry) => (
+              <article key={entry.id} className="rounded-md border border-borderTone/70 bg-panelRaised/40 p-3">
+                <p className="text-sm text-textMain">{entry.title}</p>
+                <p className="mt-2 text-sm leading-relaxed text-textMuted">{entry.insight}</p>
+              </article>
+            ))}
           </div>
         </section>
       ) : null}

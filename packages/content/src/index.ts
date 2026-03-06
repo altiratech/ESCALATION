@@ -9,12 +9,14 @@ import actionNarrativesData from '../data/action_narratives_ns.json';
 import scenarioWorldData from '../data/scenario_world_ns.json';
 import advisorDossiersData from '../data/advisor_dossiers.json';
 import rivalLeaderData from '../data/rival_leader_ns.json';
+import debriefDeepData from '../data/debrief_deep_ns.json';
 
 import type {
   ActionDefinition,
   AdvisorLineCandidate,
   AdvisorRetrospectiveCandidate,
   CausalityRevealCandidate,
+  DebriefDeepDefinition,
   DebriefTag,
   DebriefVariantCandidate,
   ImageAsset,
@@ -41,6 +43,7 @@ export const actionNarratives = (actionNarrativesData as { actions: ActionNarrat
 export const scenarioWorld = [scenarioWorldData as ScenarioWorldDefinition];
 export const advisorDossiers = advisorDossiersData as AdvisorDossier[];
 export const rivalLeader = rivalLeaderData as RivalLeaderDefinition;
+export const debriefDeep = debriefDeepData as DebriefDeepDefinition;
 
 type RawNarrativeCategory = {
   category?: string;
@@ -162,6 +165,13 @@ export const getRivalLeader = (scenarioId: string, adversaryProfileId?: string):
     return null;
   }
   return rivalLeader;
+};
+
+export const getDebriefDeep = (scenarioId: string): DebriefDeepDefinition | null => {
+  if (debriefDeep.scenarioId !== scenarioId) {
+    return null;
+  }
+  return debriefDeep;
 };
 
 export const getAction = (actionId: string): ActionDefinition => {

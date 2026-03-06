@@ -421,7 +421,7 @@ const App = () => {
   }
 
   if (report) {
-    return <ReportView report={report} onRestart={reset} />;
+    return <ReportView report={report} advisorDossiers={reference.advisorDossiers} onRestart={reset} />;
   }
 
   if (!episode) {

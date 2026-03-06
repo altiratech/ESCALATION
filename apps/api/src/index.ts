@@ -7,6 +7,7 @@ import {
   actions,
   actionNarratives,
   adversaryProfiles,
+  getDebriefDeep,
   getDebriefVariants,
   getAdvisorRetrospectivesForOutcome,
   getCausalityRevealForOutcome,
@@ -552,6 +553,7 @@ app.post('/api/episodes/:episodeId/actions', async (context) => {
         scenario,
         adversaryProfile,
         rivalLeader: getRivalLeader(scenario.id, adversaryProfile.id),
+        deepDebrief: getDebriefDeep(scenario.id),
         causalityNarrative: getCausalityRevealForOutcome(nextState.outcome),
         advisorRetrospectives: getAdvisorRetrospectivesForOutcome(nextState.outcome)
       });
@@ -712,6 +714,7 @@ app.post('/api/episodes/:episodeId/inaction', async (context) => {
       scenario,
       adversaryProfile,
       rivalLeader: getRivalLeader(scenario.id, adversaryProfile.id),
+      deepDebrief: getDebriefDeep(scenario.id),
       causalityNarrative: getCausalityRevealForOutcome(result.nextState.outcome),
       advisorRetrospectives: getAdvisorRetrospectivesForOutcome(result.nextState.outcome)
     });
@@ -855,6 +858,7 @@ app.get('/api/episodes/:episodeId/report', async (context) => {
     scenario,
     adversaryProfile,
     rivalLeader: getRivalLeader(scenario.id, adversaryProfile.id),
+    deepDebrief: getDebriefDeep(scenario.id),
     ...narrativeOptions
   });
   const episodeRecord = await getEpisodeState(db, episodeId);

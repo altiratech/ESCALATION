@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import {
   actions,
+  getDebriefDeep,
   getAdvisorRetrospectivesForOutcome,
   getCausalityRevealForOutcome,
   getRivalLeader,
@@ -55,6 +56,7 @@ describe('post-game causality report', () => {
       scenario,
       adversaryProfile,
       rivalLeader: getRivalLeader(scenario.id, adversaryProfile.id),
+      deepDebrief: getDebriefDeep(scenario.id),
       causalityNarrative: getCausalityRevealForOutcome(outcome),
       advisorRetrospectives: getAdvisorRetrospectivesForOutcome(outcome)
     });
@@ -66,6 +68,9 @@ describe('post-game causality report', () => {
     expect(report.fullCausality.adversaryLogicSummary.length).toBeGreaterThan(20);
     expect(report.fullCausality.rivalLeaderReveal?.publicName).toBe('Aleksandr Volkov');
     expect(report.fullCausality.rivalLeaderReveal?.pressurePoints.length).toBeGreaterThan(0);
+    expect(report.fullCausality.deepDebrief?.grade.title.length).toBeGreaterThan(0);
+    expect(report.fullCausality.deepDebrief?.historicalParallels.length).toBeGreaterThan(0);
+    expect(report.fullCausality.deepDebrief?.lessonsLearned.length).toBeGreaterThan(0);
     expect(report.fullCausality.advisorRetrospectives.length).toBeGreaterThan(0);
     expect(Array.isArray(report.fullCausality.unseenSystemEvents)).toBe(true);
     expect(Array.isArray(report.fullCausality.branchesNotTaken)).toBe(true);

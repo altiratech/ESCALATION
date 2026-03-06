@@ -383,11 +383,86 @@ export interface OutcomeNarrativeReveal {
   causalNote: string;
 }
 
+export type PlayerGradeKey = 'masterful' | 'competent' | 'mixed' | 'poor' | 'catastrophic';
+
+export interface DebriefDeepStrategyArc {
+  headline: string;
+  narrative: string;
+  keyTurningPoint: string;
+  whatIfNote: string;
+}
+
+export interface DebriefDeepHistoricalParallel {
+  id: string;
+  title: string;
+  period: string;
+  summary: string;
+  lessonForPlayer: string;
+  relevantOutcomes: OutcomeCategory[];
+  tags: string[];
+}
+
+export interface DebriefDeepLesson {
+  id: string;
+  title: string;
+  insight: string;
+  relevantOutcomes: OutcomeCategory[];
+  tags: string[];
+}
+
+export interface DebriefDeepAdvisorPostMortem {
+  assessment: string;
+  selfCritique: string;
+  recommendation: string;
+}
+
+export interface DebriefDeepRivalPerspective {
+  internalNarrative: string;
+  regimeAssessment: string;
+  publicNarrative: string;
+}
+
+export interface DebriefDeepGradeDescriptor {
+  title: string;
+  description: string;
+}
+
+export interface DebriefDeepDefinition {
+  scenarioId: string;
+  strategyArcSummaries: Partial<Record<OutcomeCategory, DebriefDeepStrategyArc>>;
+  historicalParallels: DebriefDeepHistoricalParallel[];
+  advisorPostMortems: Record<string, Partial<Record<OutcomeCategory, DebriefDeepAdvisorPostMortem>>>;
+  rivalPerspective: Partial<Record<OutcomeCategory, DebriefDeepRivalPerspective>>;
+  playerGradeDescriptors: Record<PlayerGradeKey, DebriefDeepGradeDescriptor>;
+  lessonsLearned: DebriefDeepLesson[];
+}
+
+export interface DebriefDeepGrade {
+  key: PlayerGradeKey;
+  title: string;
+  description: string;
+  score: number;
+}
+
+export interface DebriefDeepAdvisorReflection extends DebriefDeepAdvisorPostMortem {
+  advisor: string;
+}
+
+export interface DebriefDeepReport {
+  grade: DebriefDeepGrade;
+  strategyArc: DebriefDeepStrategyArc | null;
+  rivalPerspective: DebriefDeepRivalPerspective | null;
+  historicalParallels: DebriefDeepHistoricalParallel[];
+  lessonsLearned: DebriefDeepLesson[];
+  advisorReflections: DebriefDeepAdvisorReflection[];
+}
+
 export interface FullCausalityReport {
   outcomeNarrative: OutcomeNarrativeReveal;
   hiddenDeltas: HiddenMeterDelta[];
   adversaryLogicSummary: string;
   rivalLeaderReveal: RivalLeaderReveal | null;
+  deepDebrief: DebriefDeepReport | null;
   unseenSystemEvents: UnseenSystemEvent[];
   branchesNotTaken: BranchNotTakenSummary[];
   advisorRetrospectives: AdvisorRetrospectiveLine[];

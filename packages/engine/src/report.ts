@@ -1,10 +1,13 @@
 import type {
   ActionDefinition,
   BranchCondition,
+  DebriefDeepDefinition,
   EventDefinition,
   GameState,
   MeterKey,
   MeterState,
+  OutcomeCategory,
+  PlayerGradeKey,
   PostGameReport,
   ReportTimelinePoint,
   AdversaryProfile,
@@ -520,10 +523,88 @@ const buildRivalLeaderReveal = (
   };
 };
 
+const computeReportScore = (state: GameState, outcome: OutcomeCategory): number => {
+  const outcomeBonus: Record<OutcomeCategory, number> = {
+    stabilization: 16,
+    frozen_conflict: 8,
+    war: -20,
+    regime_instability: -12,
+    economic_collapse: -18
+  };
+
+  const baseline =
+    state.meters.economicStability * 0.22 +
+    state.meters.energySecurity * 0.14 +
+    state.meters.domesticCohesion * 0.16 +
+    state.meters.militaryReadiness * 0.08 +
+    state.meters.allianceTrust * 0.2 +
+    (100 - state.meters.escalationIndex) * 0.2;
+
+  return Math.round(baseline + outcomeBonus[outcome]);
+};
+
+const gradeKeyForScore = (score: number): PlayerGradeKey => {
+  if (score >= 78) {
+    return 'masterful';
+  }
+  if (score >= 62) {
+    return 'competent';
+  }
+  if (score >= 46) {
+    return 'mixed';
+  }
+  if (score >= 30) {
+    return 'poor';
+  }
+  return 'catastrophic';
+};
+
+const buildDeepDebrief = (
+  state: GameState,
+  outcome: OutcomeCategory,
+  deepDebrief?: DebriefDeepDefinition | null
+): PostGameReport['fullCausality']['deepDebrief'] => {
+  if (!deepDebrief) {
+    return null;
+  }
+
+  const score = computeReportScore(state, outcome);
+  const gradeKey = gradeKeyForScore(score);
+  const gradeDescriptor = deepDebrief.playerGradeDescriptors[gradeKey];
+
+  return {
+    grade: {
+      key: gradeKey,
+      title: gradeDescriptor?.title ?? gradeKey,
+      description: gradeDescriptor?.description ?? '',
+      score
+    },
+    strategyArc: deepDebrief.strategyArcSummaries[outcome] ?? null,
+    rivalPerspective: deepDebrief.rivalPerspective[outcome] ?? null,
+    historicalParallels: deepDebrief.historicalParallels
+      .filter((entry) => entry.relevantOutcomes.includes(outcome))
+      .slice(0, 3),
+    lessonsLearned: deepDebrief.lessonsLearned
+      .filter((entry) => entry.relevantOutcomes.includes(outcome))
+      .slice(0, 4),
+    advisorReflections: Object.entries(deepDebrief.advisorPostMortems)
+      .flatMap(([advisor, byOutcome]) => {
+        const reflection = byOutcome[outcome];
+        return reflection
+          ? [{
+              advisor,
+              ...reflection
+            }]
+          : [];
+      })
+  };
+};
+
 export interface BuildPostGameReportOptions {
   scenario?: ScenarioDefinition;
   adversaryProfile?: AdversaryProfile;
   rivalLeader?: RivalLeaderDefinition | null;
+  deepDebrief?: DebriefDeepDefinition | null;
   causalityNarrative?: {
     title: string | null;
     summary: string | null;
@@ -610,6 +691,7 @@ export const buildPostGameReport = (
       hiddenDeltas,
       adversaryLogicSummary: buildAdversaryLogicSummary(state, actionMap, options.adversaryProfile),
       rivalLeaderReveal: buildRivalLeaderReveal(options.rivalLeader ?? undefined),
+      deepDebrief: buildDeepDebrief(state, outcome, options.deepDebrief ?? null),
       unseenSystemEvents,
       branchesNotTaken,
       advisorRetrospectives
