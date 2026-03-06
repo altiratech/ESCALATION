@@ -1586,3 +1586,98 @@ Thread scope limitation: This thread ran under `Code/active/Wargames` and could 
 1. Integrate `debrief_deep_ns.json` into richer post-turn and/or post-game explanatory surfaces using deterministic tag/phase selection.
 2. Integrate `cinematics_ns.json` into start/opening or beat-transition presentation without changing engine authority.
 3. Preserve fog-of-war boundaries and keep all new content wiring presentation-only.
+
+## 32) Session Update — 2026-03-06 (Deep-debrief report integration)
+
+### 32.1 What changed
+
+1. Extended shared contracts for authored deep-debrief content:
+- `packages/shared-types/src/index.ts`
+  - added:
+    - `DebriefDeepDefinition`
+    - `DebriefDeepStrategyArc`
+    - `DebriefDeepHistoricalParallel`
+    - `DebriefDeepLesson`
+    - `DebriefDeepAdvisorPostMortem`
+    - `DebriefDeepRivalPerspective`
+    - `DebriefDeepReport`
+    - supporting grade/descriptor interfaces
+  - extended `FullCausalityReport` with:
+    - `deepDebrief: DebriefDeepReport | null`
+
+2. Wired content export/helper for the authored pack:
+- `packages/content/src/index.ts`
+  - imported:
+    - `../data/debrief_deep_ns.json`
+  - exported:
+    - `debriefDeep`
+    - `getDebriefDeep(scenarioId)`
+
+3. Wired API report generation:
+- `apps/api/src/index.ts`
+  - all `buildPostGameReport(...)` call sites now pass:
+    - `deepDebrief: getDebriefDeep(scenario.id)`
+
+4. Built deterministic deep-debrief assembly in engine report builder:
+- `packages/engine/src/report.ts`
+  - added report-score computation and deterministic grade bucketing
+  - added `buildDeepDebrief(...)`
+  - report now includes:
+    - player grade descriptor
+    - outcome strategy arc
+    - rival perspective
+    - filtered historical parallels
+    - filtered lessons learned
+    - advisor post-mortems for the resolved outcome
+
+5. Rendered the new authored material in post-game UI:
+- `apps/web/src/components/ReportView.tsx`
+  - added `Deep Debrief` section with:
+    - grade + report score
+    - strategic arc
+    - key turning point
+    - counterfactual note
+    - rival internal/regime/public views
+  - added supporting sections for:
+    - advisor post-mortems
+    - historical parallels
+    - lessons learned
+- `apps/web/src/App.tsx`
+  - now passes `advisorDossiers` into `ReportView` so post-mortem cards can show readable advisor names.
+
+6. Extended tests:
+- `tests/engine/report-causality.test.ts`
+  - now passes `deepDebrief: getDebriefDeep(scenario.id)`
+  - asserts deep-debrief grade, parallels, and lessons are present.
+
+### 32.2 Why this integration path was chosen
+
+1. `debrief_deep_ns.json` is authored as an outcome-level analysis pack, not a turn-level text pack.
+2. Using it in the final report is the safe/native fit:
+- no awkward turn-time mapping,
+- no hidden-state leakage during play,
+- no engine-rule changes.
+3. This keeps the deterministic simulation authoritative and treats authored text strictly as a post-game explanatory layer.
+
+### 32.3 Verification status
+
+1. Local:
+- `npm run lint` passed.
+- `npx vitest run tests/engine/report-causality.test.ts` passed.
+- `npm run build --workspace @wargames/web` passed.
+- `npm run ci:phase1` passed (12 files / 26 tests).
+
+### 32.4 Remaining spec drift after this pass
+
+1. Remaining unwired Northern Strait authored pack:
+- `packages/content/data/cinematics_ns.json`
+
+2. Broader drift still open:
+- YAML authoring pipeline still not adopted; JSON remains canonical.
+- Legacy DB compatibility cleanup remains optional follow-up once `adversary_profile_id` migration is fully verified in all environments.
+
+### 32.5 Exact next action for resume
+
+1. Integrate `cinematics_ns.json` into start/opening and beat-transition presentation.
+2. Keep the integration presentation-only and fog-of-war safe.
+3. Do not expose internal beat IDs, hidden state, or outcome spoilers in cinematic surfaces.
