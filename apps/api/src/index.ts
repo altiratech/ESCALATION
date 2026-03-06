@@ -7,6 +7,7 @@ import {
   actions,
   actionNarratives,
   adversaryProfiles,
+  cinematics,
   getDebriefDeep,
   getDebriefVariants,
   getAdvisorRetrospectivesForOutcome,
@@ -883,6 +884,7 @@ app.get('/api/reference/bootstrap', (context) => {
     intelFragments,
     newsWire,
     actionNarratives,
+    cinematics,
     scenarioWorld,
     advisorDossiers
   });

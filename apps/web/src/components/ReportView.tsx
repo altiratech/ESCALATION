@@ -1,10 +1,11 @@
-import type { AdvisorDossier, MeterKey, PostGameReport } from '@wargames/shared-types';
+import type { AdvisorDossier, CinematicsDefinition, MeterKey, PostGameReport } from '@wargames/shared-types';
 
 import { TimelineChart } from './TimelineChart';
 
 interface ReportViewProps {
   report: PostGameReport;
   advisorDossiers: AdvisorDossier[];
+  cinematics: CinematicsDefinition | null;
   onRestart: () => void;
 }
 
@@ -19,9 +20,10 @@ const meterLabel: Record<MeterKey, string> = {
 
 const signed = (value: number): string => `${value > 0 ? '+' : ''}${value.toFixed(1)}`;
 
-export const ReportView = ({ report, advisorDossiers, onRestart }: ReportViewProps) => {
+export const ReportView = ({ report, advisorDossiers, cinematics, onRestart }: ReportViewProps) => {
   const advisorNameById = new Map(advisorDossiers.map((entry) => [entry.id, entry.name]));
   const deepDebrief = report.fullCausality.deepDebrief;
+  const endingCinematic = cinematics?.endings[report.outcome] ?? null;
 
   return (
     <main className="mx-auto flex w-full max-w-6xl flex-col gap-4 px-6 py-6">
@@ -41,6 +43,28 @@ export const ReportView = ({ report, advisorDossiers, onRestart }: ReportViewPro
         <p className="mt-2 text-sm leading-relaxed text-textMuted">{report.fullCausality.outcomeNarrative.causalNote}</p>
         <p className="mt-3 text-xs text-textMuted">Baseline outcome model: {report.outcomeExplanation}</p>
       </section>
+
+      {endingCinematic ? (
+        <section className="card p-5">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <p className="label">Aftermath Sequence</p>
+              <h2 className="mt-2 font-display text-2xl text-textMain">{endingCinematic.title}</h2>
+            </div>
+            <p className="rounded-md border border-borderTone bg-panelRaised/70 px-3 py-1 text-[0.68rem] uppercase tracking-[0.12em] text-textMuted">
+              {endingCinematic.tone}
+            </p>
+          </div>
+          <div className="mt-4 space-y-3 text-sm leading-relaxed text-textMuted">
+            {endingCinematic.fragments.map((fragment) => (
+              <p key={fragment}>{fragment}</p>
+            ))}
+          </div>
+          <p className="mt-4 border-l-2 border-accent/70 pl-4 text-sm leading-relaxed text-textMain">
+            {endingCinematic.epilogueNote}
+          </p>
+        </section>
+      ) : null}
 
       <section className="card p-5">
         <p className="label">Timeline</p>

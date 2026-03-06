@@ -55,6 +55,7 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
   const [codename, setCodename] = useState('SABLE-ONE');
   const [seed, setSeed] = useState('');
   const [showAdvanced, setShowAdvanced] = useState(false);
+  const [showOpeningSequence, setShowOpeningSequence] = useState(false);
   const [expandedSignal, setExpandedSignal] = useState<number | null>(0);
 
   const defaultScenario = reference.scenarios[0]?.id ?? '';
@@ -65,6 +66,10 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
   const selectedScenario = useMemo(
     () => reference.scenarios.find((entry) => entry.id === scenarioId),
     [reference.scenarios, scenarioId]
+  );
+  const selectedCinematics = useMemo(
+    () => reference.cinematics.find((entry) => entry.scenarioId === scenarioId) ?? null,
+    [reference.cinematics, scenarioId]
   );
   const selectedScenarioWorld = useMemo(
     () => reference.scenarioWorld.find((entry) => entry.scenarioId === scenarioId) ?? null,
@@ -279,6 +284,37 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
             <p className="mt-3 text-sm leading-relaxed text-textMuted">
               {selectedScenario?.briefing ?? 'Select a scenario to review strategic role and escalation context.'}
             </p>
+            {selectedCinematics ? (
+              <div className="mt-4 rounded-md border border-borderTone/70 bg-surface/35 px-3 py-2">
+                <button
+                  type="button"
+                  className="flex w-full items-start justify-between gap-3 text-left"
+                  onClick={() => setShowOpeningSequence((current) => !current)}
+                >
+                  <div>
+                    <p className="label">Opening Sequence</p>
+                    <p className="mt-2 text-sm text-textMain">{selectedCinematics.openingCinematic.title}</p>
+                    <p className="mt-1 text-[0.72rem] uppercase tracking-[0.12em] text-textMuted">
+                      {selectedCinematics.openingCinematic.subtitle}
+                    </p>
+                  </div>
+                  <span className="text-[0.62rem] uppercase tracking-[0.1em] text-accent">
+                    {showOpeningSequence ? 'Hide' : 'Open'}
+                  </span>
+                </button>
+                <div className="mt-3 space-y-2 border-t border-borderTone/70 pt-3 text-[0.78rem] leading-relaxed text-textMuted">
+                  {(showOpeningSequence
+                    ? selectedCinematics.openingCinematic.fragments
+                    : selectedCinematics.openingCinematic.fragments.slice(0, 2)
+                  ).map((fragment) => (
+                    <p key={fragment}>{fragment}</p>
+                  ))}
+                  <p className="border-l-2 border-accent/70 pl-3 text-sm text-textMain">
+                    {selectedCinematics.openingCinematic.closingLine}
+                  </p>
+                </div>
+              </div>
+            ) : null}
             <div className="mt-4 rounded-md border border-borderTone/70 bg-surface/35 px-3 py-2">
               <p className="label">Situation Report</p>
               <p className="mt-2 text-sm leading-relaxed text-textMain">

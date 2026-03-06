@@ -611,6 +611,37 @@ export interface ActionNarrativeDefinition {
   phases: Partial<Record<BeatPhase, ActionNarrativePhaseContent>>;
 }
 
+export type CinematicPhaseTransitionKey = 'opening_to_rising' | 'rising_to_crisis' | 'crisis_to_climax';
+export type CinematicEndingTone = 'somber' | 'bittersweet' | 'ambiguous' | 'devastating';
+
+export interface OpeningCinematic {
+  title: string;
+  subtitle: string;
+  fragments: string[];
+  closingLine: string;
+  musicCue: string;
+}
+
+export interface CinematicTransition {
+  fragments: string[];
+  musicCue: string;
+}
+
+export interface CinematicEnding {
+  title: string;
+  fragments: string[];
+  epilogueNote: string;
+  tone: CinematicEndingTone;
+  musicCue: string;
+}
+
+export interface CinematicsDefinition {
+  scenarioId: string;
+  openingCinematic: OpeningCinematic;
+  phaseTransitions: Partial<Record<CinematicPhaseTransitionKey, CinematicTransition>>;
+  endings: Partial<Record<OutcomeCategory, CinematicEnding>>;
+}
+
 export interface ScenarioWorldAlliance {
   name: string;
   description: string;
@@ -835,6 +866,7 @@ export interface BootstrapPayload {
   intelFragments: IntelFragment[];
   newsWire: NewsWireArticle[];
   actionNarratives: ActionNarrativeDefinition[];
+  cinematics: CinematicsDefinition[];
   scenarioWorld: ScenarioWorldDefinition[];
   advisorDossiers: AdvisorDossier[];
 }

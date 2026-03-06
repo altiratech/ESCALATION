@@ -6,6 +6,7 @@ import narrativeCandidatesData from '../data/narrative_candidates_v2.json';
 import intelFragmentsData from '../data/intel_fragments_ns.json';
 import newsWireData from '../data/news_wire_ns.json';
 import actionNarrativesData from '../data/action_narratives_ns.json';
+import cinematicsData from '../data/cinematics_ns.json';
 import scenarioWorldData from '../data/scenario_world_ns.json';
 import advisorDossiersData from '../data/advisor_dossiers.json';
 import rivalLeaderData from '../data/rival_leader_ns.json';
@@ -16,6 +17,7 @@ import type {
   AdvisorLineCandidate,
   AdvisorRetrospectiveCandidate,
   CausalityRevealCandidate,
+  CinematicsDefinition,
   DebriefDeepDefinition,
   DebriefTag,
   DebriefVariantCandidate,
@@ -40,6 +42,7 @@ export const images = imagesData as ImageAsset[];
 export const intelFragments = intelFragmentsData as IntelFragment[];
 export const newsWire = newsWireData as NewsWireArticle[];
 export const actionNarratives = (actionNarrativesData as { actions: ActionNarrativeDefinition[] }).actions;
+export const cinematics = [cinematicsData as CinematicsDefinition];
 export const scenarioWorld = [scenarioWorldData as ScenarioWorldDefinition];
 export const advisorDossiers = advisorDossiersData as AdvisorDossier[];
 export const rivalLeader = rivalLeaderData as RivalLeaderDefinition;
@@ -172,6 +175,11 @@ export const getDebriefDeep = (scenarioId: string): DebriefDeepDefinition | null
     return null;
   }
   return debriefDeep;
+};
+
+export const getCinematics = (scenarioId: string): CinematicsDefinition | null => {
+  const cinematicPack = cinematics.find((entry) => entry.scenarioId === scenarioId);
+  return cinematicPack ?? null;
 };
 
 export const getAction = (actionId: string): ActionDefinition => {

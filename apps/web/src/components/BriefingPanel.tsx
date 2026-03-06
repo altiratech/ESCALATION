@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import type { ActionNarrativePhaseContent, ImageAsset, NarrativeBundle, TurnDebrief } from '@wargames/shared-types';
 
@@ -13,6 +13,12 @@ interface BriefingPanelProps {
     phaseLabel: string;
     detail: ActionNarrativePhaseContent;
   } | null;
+  phaseTransition: {
+    key: string;
+    fromLabel: string;
+    toLabel: string;
+    fragments: string[];
+  } | null;
 }
 
 const sourceLabel: Record<TurnDebrief['lines'][number]['tag'], string> = {
@@ -21,9 +27,22 @@ const sourceLabel: Record<TurnDebrief['lines'][number]['tag'], string> = {
   SystemEvent: '[System]'
 };
 
-export const BriefingPanel = ({ turn, maxTurns, briefing, imageAsset, turnDebrief, recentActionNarrative }: BriefingPanelProps) => {
+export const BriefingPanel = ({
+  turn,
+  maxTurns,
+  briefing,
+  imageAsset,
+  turnDebrief,
+  recentActionNarrative,
+  phaseTransition
+}: BriefingPanelProps) => {
   const [expandedHeadline, setExpandedHeadline] = useState<number | null>(0);
   const [showOperationalReadout, setShowOperationalReadout] = useState(true);
+  const [showPhaseTransition, setShowPhaseTransition] = useState(true);
+
+  useEffect(() => {
+    setShowPhaseTransition(true);
+  }, [phaseTransition?.key]);
 
   const signalDetails = useMemo(() => {
     return briefing.headlines.map((_, index) => {
@@ -67,6 +86,33 @@ export const BriefingPanel = ({ turn, maxTurns, briefing, imageAsset, turnDebrie
       </div>
 
       <p className="mt-4 border-l-2 border-accent/70 pl-4 text-sm leading-relaxed text-textMain">{briefing.briefingParagraph}</p>
+
+      {phaseTransition ? (
+        <section className="mt-5 rounded-lg border border-accent/40 bg-accent/10 p-3">
+          <button
+            type="button"
+            className="flex w-full items-center justify-between gap-3 text-left"
+            onClick={() => setShowPhaseTransition((current) => !current)}
+          >
+            <div>
+              <p className="label">Phase Shift</p>
+              <p className="mt-1 text-sm text-textMain">
+                {phaseTransition.fromLabel} {'->'} {phaseTransition.toLabel}
+              </p>
+            </div>
+            <span className="text-[0.62rem] uppercase tracking-[0.1em] text-accent">
+              {showPhaseTransition ? 'Hide' : 'Open'}
+            </span>
+          </button>
+          {showPhaseTransition ? (
+            <div className="mt-3 space-y-2 border-t border-accent/20 pt-3 text-[0.78rem] leading-relaxed text-textMuted">
+              {phaseTransition.fragments.map((fragment) => (
+                <p key={fragment}>{fragment}</p>
+              ))}
+            </div>
+          ) : null}
+        </section>
+      ) : null}
 
       <div className="mt-5">
         <p className="label">Incoming Signals</p>

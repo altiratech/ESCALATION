@@ -5,6 +5,7 @@ import type {
   ActionNarrativePhaseContent,
   BeatPhase,
   BootstrapPayload,
+  CinematicPhaseTransitionKey,
   EpisodeView,
   PostGameReport
 } from '@wargames/shared-types';
@@ -97,6 +98,8 @@ const actionNarrativePhaseOrder = (phase: BeatPhase | null | undefined): BeatPha
   );
 };
 
+const formatPhaseLabel = (phase: BeatPhase): string => phase.charAt(0).toUpperCase() + phase.slice(1);
+
 interface RecentActionNarrativeView {
   actionName: string;
   phaseLabel: string;
@@ -151,6 +154,12 @@ const App = () => {
     }
     return currentScenario.name;
   }, [currentScenario]);
+  const currentCinematics = useMemo(() => {
+    if (!reference || !episode) {
+      return null;
+    }
+    return reference.cinematics.find((entry) => entry.scenarioId === episode.scenarioId) ?? null;
+  }, [reference, episode?.scenarioId]);
   const recentActionNarrative = useMemo<RecentActionNarrativeView | null>(() => {
     if (!reference || !currentScenario || !episode?.recentTurn) {
       return null;
@@ -179,6 +188,29 @@ const App = () => {
       detail
     };
   }, [currentScenario, episode?.recentTurn, reference]);
+  const phaseTransition = useMemo(() => {
+    if (!currentScenario || !currentBeat || !currentCinematics || !episode?.recentTurn) {
+      return null;
+    }
+
+    const previousBeat = currentScenario.beats.find((beat) => beat.id === episode.recentTurn?.beatIdBefore);
+    if (!previousBeat || previousBeat.phase === currentBeat.phase) {
+      return null;
+    }
+
+    const transitionKey = `${previousBeat.phase}_to_${currentBeat.phase}` as CinematicPhaseTransitionKey;
+    const transition = currentCinematics.phaseTransitions[transitionKey];
+    if (!transition) {
+      return null;
+    }
+
+    return {
+      key: transitionKey,
+      fromLabel: formatPhaseLabel(previousBeat.phase),
+      toLabel: formatPhaseLabel(currentBeat.phase),
+      fragments: transition.fragments
+    };
+  }, [currentBeat, currentCinematics, currentScenario, episode?.recentTurn]);
 
   const applyEpisodeUpdate = useCallback(async (nextEpisode: EpisodeView): Promise<void> => {
     setEpisode(nextEpisode);
@@ -421,7 +453,7 @@ const App = () => {
   }
 
   if (report) {
-    return <ReportView report={report} advisorDossiers={reference.advisorDossiers} onRestart={reset} />;
+    return <ReportView report={report} advisorDossiers={reference.advisorDossiers} cinematics={currentCinematics} onRestart={reset} />;
   }
 
   if (!episode) {
@@ -629,6 +661,7 @@ const App = () => {
             imageAsset={episode.imageAsset}
             turnDebrief={episode.turnDebrief}
             recentActionNarrative={recentActionNarrative}
+            phaseTransition={phaseTransition}
           />
         </div>
 
