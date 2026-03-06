@@ -1681,3 +1681,93 @@ Thread scope limitation: This thread ran under `Code/active/Wargames` and could 
 1. Integrate `cinematics_ns.json` into start/opening and beat-transition presentation.
 2. Keep the integration presentation-only and fog-of-war safe.
 3. Do not expose internal beat IDs, hidden state, or outcome spoilers in cinematic surfaces.
+
+## 33) Session Update — 2026-03-06 (Cinematics runtime integration)
+
+### 33.1 What changed
+
+1. Extended shared/bootstrap contracts for cinematic presentation content:
+- `packages/shared-types/src/index.ts`
+  - added:
+    - `CinematicsDefinition`
+    - `OpeningCinematic`
+    - `CinematicTransition`
+    - `CinematicEnding`
+    - supporting transition-key / tone types
+  - extended `BootstrapPayload` with:
+    - `cinematics: CinematicsDefinition[]`
+
+2. Wired content export/helper:
+- `packages/content/src/index.ts`
+  - imported:
+    - `../data/cinematics_ns.json`
+  - exported:
+    - `cinematics`
+    - `getCinematics(scenarioId)`
+
+3. Wired API bootstrap:
+- `apps/api/src/index.ts`
+  - `GET /api/reference/bootstrap` now returns `cinematics`
+
+4. Wired Start Screen opening cinematic preview:
+- `apps/web/src/components/StartScreen.tsx`
+  - resolves selected cinematic pack by `scenarioId`
+  - renders a collapsible `Opening Sequence` block with:
+    - title
+    - subtitle
+    - preview/full fragment list
+    - closing line
+
+5. Wired in-turn phase-transition cinematic presentation:
+- `apps/web/src/App.tsx`
+  - derives `phaseTransition` from:
+    - `episode.recentTurn.beatIdBefore`
+    - current beat phase
+    - cinematic transition key (`opening_to_rising`, `rising_to_crisis`, `crisis_to_climax`)
+- `apps/web/src/components/BriefingPanel.tsx`
+  - renders a collapsible `Phase Shift` card when phase changed and authored transition text exists
+
+6. Wired authored ending/aftermath cinematic presentation:
+- `apps/web/src/components/ReportView.tsx`
+  - now accepts scenario `cinematics`
+  - renders `Aftermath Sequence` from outcome-specific ending block:
+    - title
+    - full fragment sequence
+    - epilogue note
+    - tone marker
+
+7. Added integration guard test:
+- `tests/engine/cinematics-content.test.ts`
+  - verifies authored opening, transition, and stabilization ending are all reachable through content helper
+
+### 33.2 Integration boundary
+
+1. Cinematics stay outside deterministic engine/state logic.
+2. They are bootstrap-fed presentation overlays only.
+3. No gameplay branching, timing, or outcome calculation depends on cinematic content.
+
+### 33.3 Verification status
+
+1. Local:
+- `npm run lint` passed.
+- `npx vitest run tests/engine/cinematics-content.test.ts tests/engine/report-causality.test.ts` passed.
+- `npm run build --workspace @wargames/web` passed.
+- `npm run ci:phase1` passed (13 files / 27 tests).
+
+### 33.4 Remaining spec drift after this pass
+
+1. Northern Strait authored runtime packs:
+- now fully wired (`intel_fragments`, `news_wire`, `scenario_world`, `advisor_dossiers`, `action_narratives`, `rival_leader`, `debrief_deep`, `cinematics`)
+
+2. Broader drift still open:
+- YAML authoring pipeline still not adopted; JSON remains canonical.
+- Legacy DB compatibility cleanup remains optional follow-up once `adversary_profile_id` migration is fully verified in all environments.
+
+### 33.5 Exact next action for resume
+
+1. Decide the next top-level workstream:
+- post-MVP UI polish / live-test refinement,
+- YAML authoring pipeline decision,
+- legacy DB compatibility cleanup,
+- or next scenario/content expansion.
+2. Keep deterministic engine authority unchanged unless Ryan explicitly reprioritizes feature scope.
