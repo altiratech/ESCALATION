@@ -34,6 +34,20 @@ body::before {
   z-index: 0;
 }
 
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.08;
+  background-image:
+    linear-gradient(90deg, rgba(125, 155, 180, 0.08) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(125, 155, 180, 0.08) 1px, transparent 1px);
+  background-size: 120px 120px;
+  mask-image: radial-gradient(circle at center, black 35%, transparent 100%);
+  z-index: 0;
+}
+
 #root {
   min-height: 100vh;
   position: relative;
@@ -61,4 +75,78 @@ body::before {
 
 .hud-separator {
   @apply h-px w-full bg-borderTone/70;
+}
+
+.console-topbar {
+  @apply border border-borderTone/80 shadow-hard;
+  border-radius: 10px;
+  background:
+    linear-gradient(180deg, rgba(18, 26, 34, 0.96) 0%, rgba(11, 17, 23, 0.98) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(201, 168, 106, 0.08),
+    0 18px 40px rgba(0, 0, 0, 0.26);
+}
+
+.console-panel {
+  @apply border border-borderTone/80 shadow-hard;
+  border-radius: 10px;
+  background:
+    linear-gradient(180deg, rgba(18, 25, 33, 0.96) 0%, rgba(12, 18, 24, 0.98) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(125, 155, 180, 0.07),
+    0 16px 34px rgba(0, 0, 0, 0.22);
+}
+
+.console-subpanel {
+  @apply rounded-md border border-borderTone/70 bg-panelRaised/50;
+}
+
+.console-kicker {
+  @apply text-[0.62rem] font-semibold uppercase tracking-[0.22em] text-accent/95;
+}
+
+.console-chip {
+  @apply inline-flex items-center gap-2 rounded-md border border-borderTone/70 bg-panelRaised/45 px-2.5 py-1 text-[0.65rem] uppercase tracking-[0.12em] text-textMuted;
+}
+
+.console-chip strong {
+  @apply text-textMain;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+}
+
+.console-metric {
+  @apply rounded-md border border-borderTone/70 bg-panelRaised/45 px-3 py-2;
+}
+
+.console-metric-label {
+  @apply text-[0.58rem] uppercase tracking-[0.14em] text-textMuted;
+}
+
+.console-metric-value {
+  @apply mt-1 font-display text-[1rem] text-textMain;
+}
+
+.console-feed-item {
+  @apply rounded-md border border-borderTone/70 bg-panelRaised/45 px-2.5 py-2;
+}
+
+.console-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(201, 168, 106, 0.45) rgba(18, 25, 33, 0.6);
+}
+
+.console-scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.console-scroll::-webkit-scrollbar-track {
+  background: rgba(18, 25, 33, 0.5);
+}
+
+.console-scroll::-webkit-scrollbar-thumb {
+  background: rgba(201, 168, 106, 0.42);
+  border-radius: 999px;
 }

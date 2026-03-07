@@ -29,6 +29,7 @@ export const CommandInput = ({ turn, actions, disabled, onSubmitCommand, onSelec
   const [sending, setSending] = useState(false);
   const [lines, setLines] = useState<CommandLine[]>([]);
   const [pendingSuggestions, setPendingSuggestions] = useState<ActionDefinition[]>([]);
+  const [isOpen, setIsOpen] = useState(false);
   const nextLineIdRef = useRef(1);
   const lastTurnRef = useRef<number | null>(null);
 
@@ -51,6 +52,12 @@ export const CommandInput = ({ turn, actions, disabled, onSubmitCommand, onSelec
     setPendingSuggestions([]);
     appendLine('system', `Turn ${turn}: command channel ready.`);
   }, [turn]);
+
+  useEffect(() => {
+    if (pendingSuggestions.length > 0 || lines.length > 1) {
+      setIsOpen(true);
+    }
+  }, [lines.length, pendingSuggestions.length]);
 
   const quickActions = useMemo(() => actions.slice(0, 6), [actions]);
   const suggestedActions = useMemo(() => {
@@ -128,21 +135,25 @@ export const CommandInput = ({ turn, actions, disabled, onSubmitCommand, onSelec
   };
 
   return (
-    <section className="card border-accent/40 bg-surface/95 p-3 sm:p-4">
+    <section className="console-panel p-3 sm:p-4">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div>
           <p className="label">Advanced Command Channel</p>
-          <p className="mt-2 text-xs leading-relaxed text-textMuted">
-            Optional. Use this for custom phrasing or quick shortcuts if you do not want to click a decision card.
+          <p className="mt-2 text-[0.72rem] leading-relaxed text-textMuted">
+            Optional. Use typed orders only when you want custom phrasing or parser-assisted shortcuts.
           </p>
         </div>
-        <span className="text-[0.62rem] uppercase tracking-[0.12em] text-textMuted">
-          {disabled || sending ? 'Processing' : 'Open'}
-        </span>
+        <button
+          type="button"
+          className="rounded-md border border-borderTone/80 px-2 py-1 text-[0.6rem] uppercase tracking-[0.12em] text-textMuted transition hover:border-accent hover:text-textMain"
+          onClick={() => setIsOpen((current) => !current)}
+        >
+          {disabled || sending ? 'Processing' : isOpen ? 'Collapse' : 'Open'}
+        </button>
       </div>
 
       {lines.length > 0 ? (
-        <div className="mt-2 max-h-32 space-y-1 overflow-y-auto rounded-md border border-borderTone/70 bg-panelRaised/45 p-2 text-[0.7rem]">
+        <div className={`console-scroll mt-2 max-h-24 space-y-1 overflow-y-auto rounded-md border border-borderTone/70 bg-panelRaised/45 p-2 text-[0.68rem] ${isOpen ? '' : 'opacity-80'}`}>
           {lines.map((line) => (
             <p key={line.id} className={line.role === 'player' ? 'text-textMain' : 'text-textMuted'}>
               <span className="mr-1 text-[0.6rem] uppercase tracking-[0.1em] text-accent">{line.role === 'player' ? 'You' : 'System'}</span>
@@ -152,7 +163,13 @@ export const CommandInput = ({ turn, actions, disabled, onSubmitCommand, onSelec
         </div>
       ) : null}
 
-      {pendingSuggestions.length > 0 ? (
+      {!isOpen && pendingSuggestions.length === 0 ? (
+        <p className="mt-2 text-[0.66rem] text-textMuted">
+          The main action loop is card-based. Open this panel only if you want to type a custom order.
+        </p>
+      ) : null}
+
+      {isOpen && pendingSuggestions.length > 0 ? (
         <div className="mt-2 rounded-md border border-accent/40 bg-accent/10 p-2">
           <p className="text-[0.62rem] uppercase tracking-[0.1em] text-accent">Clarify Command</p>
           <div className="mt-1.5 flex flex-wrap gap-1.5">
@@ -173,6 +190,8 @@ export const CommandInput = ({ turn, actions, disabled, onSubmitCommand, onSelec
         </div>
       ) : null}
 
+      {isOpen ? (
+        <>
       <div className="mt-2 flex flex-wrap gap-1.5">
         {(suggestedActions.length > 0 ? suggestedActions : quickActions.slice(0, 3)).map((action) => (
           <button
@@ -219,6 +238,8 @@ export const CommandInput = ({ turn, actions, disabled, onSubmitCommand, onSelec
       <p className="mt-2 text-[0.66rem] text-textMuted">
         Typed commands are interpreted before execution. If intent is unclear, the system will ask you to confirm one of the suggested actions.
       </p>
+        </>
+      ) : null}
     </section>
   );
 };

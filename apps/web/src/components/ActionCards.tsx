@@ -60,32 +60,42 @@ export const ActionCards = ({ actions, disabled, onSelect }: ActionCardsProps) =
   }, [actions]);
 
   return (
-    <section className="card p-4 sm:p-5">
-      <div className="flex items-center justify-between gap-3">
+    <section className="console-panel p-3 sm:p-4">
+      <div className="flex items-start justify-between gap-3">
         <div>
           <p className="label">Primary Decision</p>
-          <p className="mt-2 text-sm leading-relaxed text-textMuted">
-            Choose one option to resolve this turn. Selecting a card immediately advances play.
+          <p className="mt-2 text-[0.74rem] leading-relaxed text-textMuted">
+            Choose one response to resolve the turn. Cards are the primary control path; every row shows signal, exposure, and downside before you commit.
           </p>
         </div>
-        <p className="text-[0.68rem] uppercase tracking-[0.12em] text-textMuted">{sorted.length} Available</p>
+        <p className="text-[0.62rem] uppercase tracking-[0.12em] text-textMuted">{sorted.length} options</p>
       </div>
-      <div className="mt-3 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+      <div className="console-scroll mt-3 max-h-[30rem] space-y-2 overflow-y-auto pr-1">
         {sorted.map((action) => (
           <button
             key={action.id}
             type="button"
-            className="group rounded-lg border border-borderTone bg-panelRaised/80 px-3 py-3 text-left transition hover:-translate-y-0.5 hover:border-accent/70 hover:bg-panel disabled:cursor-not-allowed disabled:opacity-55"
+            className="group w-full rounded-md border border-borderTone/80 bg-panelRaised/55 px-3 py-3 text-left transition hover:border-accent/70 hover:bg-panelRaised/75 disabled:cursor-not-allowed disabled:opacity-55"
             disabled={disabled}
             onClick={() => onSelect(action.id)}
           >
-            <div className="flex items-center justify-between">
-              <p className="font-display text-[1rem] text-textMain group-hover:text-accent">{action.name}</p>
-              <span className={`rounded-md px-1.5 py-0.5 text-[0.6rem] uppercase tracking-[0.12em] border ${visibilityTone(action.visibility)}`}>
-                {action.visibility}
-              </span>
+            <div className="flex items-start justify-between gap-3">
+              <div className="min-w-0">
+                <div className="flex flex-wrap items-center gap-2">
+                  <p className="font-display text-[0.98rem] text-textMain group-hover:text-accent">{action.name}</p>
+                  <span className={`rounded-md px-1.5 py-0.5 text-[0.55rem] uppercase tracking-[0.12em] border ${visibilityTone(action.visibility)}`}>
+                    {action.visibility}
+                  </span>
+                </div>
+                <p className="mt-1 text-[0.75rem] leading-relaxed text-textMuted">{action.summary}</p>
+              </div>
+              <span className="shrink-0 text-[0.58rem] uppercase tracking-[0.12em] text-accent/90">Commit</span>
             </div>
-            <p className="mt-2 text-xs leading-relaxed text-textMuted">{action.summary}</p>
+            <div className="mt-2 grid gap-1 text-[0.67rem] leading-relaxed text-textMuted">
+              <p><span className="text-textMain">Signal:</span> {postureHint(action)}</p>
+              <p><span className="text-textMain">Exposure:</span> {visibilityHint(action.visibility)}</p>
+              <p><span className="text-textMain">Risk:</span> {riskHint(action)}</p>
+            </div>
             <div className="mt-2 flex flex-wrap gap-1">
               {action.tags.slice(0, 3).map((tag) => (
                 <span key={tag} className="rounded-md border border-borderTone/80 px-1.5 py-0.5 text-[0.58rem] uppercase tracking-[0.1em] text-textMuted">
@@ -93,12 +103,6 @@ export const ActionCards = ({ actions, disabled, onSelect }: ActionCardsProps) =
                 </span>
               ))}
             </div>
-            <div className="mt-3 space-y-1 text-[0.66rem] leading-relaxed text-textMuted">
-              <p>{visibilityHint(action.visibility)}</p>
-              <p className="hidden text-accent/90 group-hover:block">{postureHint(action)}</p>
-              <p className="hidden text-warning/90 group-hover:block">{riskHint(action)}</p>
-            </div>
-            <p className="mt-3 text-[0.62rem] uppercase tracking-[0.12em] text-accent/85">Select And Resolve Turn</p>
           </button>
         ))}
       </div>

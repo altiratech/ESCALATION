@@ -71,33 +71,40 @@ export const AdvisorPanel = ({ beat, scenarioId, advisorDossiers }: AdvisorPanel
       : null;
 
   return (
-    <section className="card h-full space-y-4 p-4 sm:p-5">
+    <section className="console-panel h-full p-3 sm:p-4">
       <div className="flex items-center justify-between">
         <div>
           <p className="label">Advisor Channel</p>
-          <h2 className="mt-2 font-display text-xl text-textMain">Strategic Inputs</h2>
-          <p className="mt-1 text-xs leading-relaxed text-textMuted">
-            Open any advisor for their operating lens and this turn&apos;s reasoning.
+          <h2 className="mt-2 font-display text-lg text-textMain">Strategic Inputs</h2>
+          <p className="mt-1 text-[0.72rem] leading-relaxed text-textMuted">
+            Open an advisor for their lens, scenario-specific red line, and this turn&apos;s reasoning.
           </p>
         </div>
-        <p className="rounded-md border border-borderTone bg-panelRaised/80 px-2 py-1 text-[0.65rem] uppercase tracking-[0.12em] text-textMuted">
+        <p className="rounded-md border border-borderTone bg-panelRaised/60 px-2 py-1 text-[0.6rem] uppercase tracking-[0.12em] text-textMuted">
           Live Counsel
         </p>
       </div>
 
       {advisorEntries.length === 0 ? (
-        <p className="rounded-lg border border-borderTone bg-panelRaised/70 px-3 py-2 text-sm text-textMuted">
+        <p className="mt-3 rounded-md border border-borderTone bg-panelRaised/60 px-3 py-2 text-sm text-textMuted">
           No advisor guidance is available for this beat.
         </p>
       ) : (
-        <div className="space-y-3">
+        <div className="console-scroll mt-3 max-h-[32rem] space-y-2 overflow-y-auto pr-1">
           {advisorEntries.map((entry) => {
             const dossier = dossierByAdvisorId.get(entry.advisorId) ?? fallbackProfile(entry.advisorId);
             const scenarioSpecific = dossier.scenarioSpecific[scenarioId];
             const tone = stanceTone[dossier.stance] ?? 'text-textMain';
 
             return (
-              <article key={entry.advisorId} className="rounded-lg border border-borderTone bg-panelRaised/75 p-3">
+              <article
+                key={entry.advisorId}
+                className={`rounded-md border px-3 py-3 transition ${
+                  activeExpandedId === entry.advisorId
+                    ? 'border-accent/50 bg-panelRaised/80'
+                    : 'border-borderTone/70 bg-panelRaised/50'
+                }`}
+              >
                 <button
                   type="button"
                   className="w-full text-left"
@@ -106,7 +113,7 @@ export const AdvisorPanel = ({ beat, scenarioId, advisorDossiers }: AdvisorPanel
                   <div className="flex items-center justify-between gap-2">
                     <div>
                       <p className="text-sm font-semibold text-textMain">{dossier.name}</p>
-                      <p className="text-[0.68rem] uppercase tracking-[0.1em] text-textMuted">
+                      <p className="text-[0.62rem] uppercase tracking-[0.12em] text-textMuted">
                         {dossier.title} · {dossier.organization}
                       </p>
                     </div>
@@ -114,37 +121,37 @@ export const AdvisorPanel = ({ beat, scenarioId, advisorDossiers }: AdvisorPanel
                       <span className={`rounded-md border border-borderTone/70 px-2 py-0.5 text-[0.62rem] uppercase tracking-[0.12em] ${tone}`}>
                         {dossier.stance}
                       </span>
-                      <span className="text-[0.62rem] uppercase tracking-[0.1em] text-accent">
+                      <span className="text-[0.58rem] uppercase tracking-[0.12em] text-accent">
                         {activeExpandedId === entry.advisorId ? 'Hide' : 'Open'}
                       </span>
                     </div>
                   </div>
-                  <p className="mt-3 text-sm leading-relaxed text-textMain">{entry.lines[0] ?? 'Awaiting guidance.'}</p>
+                  <p className="mt-2 text-[0.8rem] leading-relaxed text-textMain">{entry.lines[0] ?? 'Awaiting guidance.'}</p>
                 </button>
                 {activeExpandedId === entry.advisorId ? (
-                  <div className="mt-3 space-y-2 border-t border-borderTone/70 pt-3">
-                    <p className="text-[0.72rem] leading-relaxed text-textMuted">
+                  <div className="mt-3 grid gap-2 border-t border-borderTone/70 pt-3">
+                    <p className="text-[0.7rem] leading-relaxed text-textMuted">
                       <span className="text-textMain">Background:</span> {clipText(dossier.shortBio, 180)}
                     </p>
-                    <p className="text-[0.72rem] leading-relaxed text-textMuted">
+                    <p className="text-[0.7rem] leading-relaxed text-textMuted">
                       <span className="text-textMain">Lens:</span> {clipText(dossier.perspective, 220)}
                     </p>
-                    <p className="text-[0.72rem] leading-relaxed text-textMuted">
-                      <span className="text-textMain">Decision Frame:</span> {clipText(dossier.decisionFramework, 240)}
+                    <p className="text-[0.7rem] leading-relaxed text-textMuted">
+                      <span className="text-textMain">Decision frame:</span> {clipText(dossier.decisionFramework, 240)}
                     </p>
                     {scenarioSpecific ? (
                       <>
-                        <p className="text-[0.72rem] leading-relaxed text-textMuted">
+                        <p className="text-[0.7rem] leading-relaxed text-textMuted">
                           <span className="text-textMain">Scenario Assessment:</span> {clipText(scenarioSpecific.openingAssessment, 240)}
                         </p>
-                        <p className="text-[0.72rem] leading-relaxed text-textMuted">
+                        <p className="text-[0.7rem] leading-relaxed text-textMuted">
                           <span className="text-textMain">Red Line:</span> {clipText(scenarioSpecific.redLine, 200)}
                         </p>
                       </>
                     ) : null}
                     <div className="space-y-1.5">
                       {entry.lines.slice(1).map((line, index) => (
-                        <p key={`${entry.advisorId}:detail:${index}`} className="text-[0.75rem] leading-relaxed text-textMuted">
+                        <p key={`${entry.advisorId}:detail:${index}`} className="text-[0.72rem] leading-relaxed text-textMuted">
                           {line}
                         </p>
                       ))}

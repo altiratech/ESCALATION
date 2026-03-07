@@ -44,9 +44,12 @@ const trendArrow = (delta: number): string => {
 
 export const MeterDashboard = ({ meters, previousMeters, visibleRanges }: MeterDashboardProps) => {
   return (
-    <section className="card p-4">
-      <p className="label">System Dashboard</p>
-      <div className="mt-3 space-y-3">
+    <section className="console-panel p-3">
+      <div className="flex items-center justify-between gap-3">
+        <p className="label">System Telemetry</p>
+        <span className="text-[0.62rem] uppercase tracking-[0.12em] text-textMuted">Live</span>
+      </div>
+      <div className="mt-3 grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
         {(Object.keys(meters) as MeterKey[]).map((key) => {
           const value = meters[key];
           const previous = previousMeters?.[key] ?? value;
@@ -54,25 +57,25 @@ export const MeterDashboard = ({ meters, previousMeters, visibleRanges }: MeterD
           const range = visibleRanges[key];
 
           return (
-            <div key={key} className="rounded-md border border-borderTone bg-panelRaised px-3 py-2">
-              <div className="flex items-center justify-between text-sm">
-                <span className="text-textMain">{meterLabels[key]}</span>
-                <span className="font-display text-base text-textMain">
+            <div key={key} className="console-subpanel px-2.5 py-2">
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-[0.68rem] uppercase tracking-[0.12em] text-textMuted">{meterLabels[key]}</span>
+                <span className="font-display text-[0.95rem] text-textMain">
                   {Math.round(value)}
-                  <span className="ml-2 text-xs text-textMuted">
+                  <span className="ml-1.5 text-[0.58rem] text-textMuted">
                     {trendArrow(delta)} {Math.abs(Math.round(delta))}
                   </span>
                 </span>
               </div>
 
-              <div className="mt-2 h-2 overflow-hidden rounded-full bg-surface">
+              <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-surface">
                 <div
                   className={`h-full ${barColor(key, value)}`}
                   style={{ width: `${value}%` }}
                 />
               </div>
 
-              <p className="mt-1 text-[0.68rem] uppercase tracking-[0.12em] text-textMuted">
+              <p className="mt-1.5 text-[0.6rem] uppercase tracking-[0.12em] text-textMuted">
                 Intel: {range.low}-{range.high} (conf. {range.confidence})
               </p>
             </div>

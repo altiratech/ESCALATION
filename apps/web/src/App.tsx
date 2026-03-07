@@ -24,6 +24,8 @@ import { ActionCards } from './components/ActionCards';
 import { AdvisorPanel } from './components/AdvisorPanel';
 import { BriefingPanel } from './components/BriefingPanel';
 import { CommandInput, type CommandSubmitResult } from './components/CommandInput';
+import { IntelPanel } from './components/IntelPanel';
+import { MeterDashboard } from './components/MeterDashboard';
 import { ReportView } from './components/ReportView';
 import { StartScreen } from './components/StartScreen';
 
@@ -566,38 +568,69 @@ const App = () => {
       headline: pressureText
     });
   }
-  const intelFeedVisible = intelExpandedMobile ? intelFeed.slice(0, 8) : intelFeed.slice(0, 3);
+  const intelFeedVisible = intelExpandedMobile ? intelFeed : intelFeed.slice(0, 6);
+  const rangeValues = Object.values(episode.visibleRanges);
+  const averageIntelConfidence = Math.round(
+    rangeValues.reduce((total, range) => total + range.confidence, 0) / Math.max(1, rangeValues.length)
+  );
+  const escalationStateLabel =
+    episode.meters.escalationIndex >= 75
+      ? 'Critical'
+      : episode.meters.escalationIndex >= 55
+        ? 'Elevated'
+        : 'Managed';
+  const allianceStateLabel =
+    episode.meters.allianceTrust >= 68
+      ? 'Aligned'
+      : episode.meters.allianceTrust >= 45
+        ? 'Strained'
+        : 'Fractured';
+  const marketComposite = Math.round((episode.meters.economicStability + episode.meters.energySecurity) / 2);
+  const marketStressLabel =
+    marketComposite >= 65
+      ? 'Contained'
+      : marketComposite >= 45
+        ? 'Elevated'
+        : 'Severe';
+  const intelStateLabel =
+    averageIntelConfidence >= 80
+      ? 'High Confidence'
+      : averageIntelConfidence >= 60
+        ? 'Working Estimate'
+        : 'Fragmentary';
+  const decisionSummary = recentActionNarrative
+    ? clipLine(recentActionNarrative.detail.successOutcome, 140)
+    : 'Select one action card to advance the turn. Typed orders remain optional.';
+  const theaterTimeContext = currentScenarioWorld?.dateAnchor.timeContext ?? null;
 
   return (
-    <main className="mx-auto flex w-full max-w-[1500px] flex-col gap-5 px-4 py-5 pb-24 sm:px-6 lg:pb-8">
-      <header className="card overflow-hidden px-3 py-2.5 sm:px-4">
-        <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
-          <div className="flex flex-wrap items-center gap-2 text-textMuted">
-            <span className="font-semibold text-textMain">{codename || profileId?.slice(0, 8) || 'Unknown'}</span>
-            <span className="text-borderTone">|</span>
-            <span>{currentScenarioName}</span>
-            <span className="text-borderTone">|</span>
-            <span>Turn {episode.turn}/{episode.maxTurns}</span>
-            <span className="text-borderTone">|</span>
-            <span>{pacingLabel[episode.timerMode]}</span>
+    <main className="mx-auto flex w-full max-w-[1680px] flex-col gap-4 px-3 py-3 pb-8 sm:px-4 lg:px-5">
+      <header className="console-topbar px-3 py-3 sm:px-4">
+        <div className="flex flex-col gap-3 xl:flex-row xl:items-start xl:justify-between">
+          <div className="space-y-1">
+            <p className="label">ESCALATION // WAR ROOM</p>
+            <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-textMuted">
+              <span className="font-display text-xl text-textMain">{currentScenarioName}</span>
+              <span className="text-borderTone">/</span>
+              <span>{codename || profileId?.slice(0, 8) || 'Unknown'}</span>
+              <span className="text-borderTone">/</span>
+              <span>{pacingLabel[episode.timerMode]}</span>
+            </div>
+            {theaterTimeContext ? (
+              <p className="max-w-4xl text-[0.72rem] leading-relaxed text-textMuted">{theaterTimeContext}</p>
+            ) : null}
           </div>
           <div className="flex flex-wrap items-center gap-2">
-            {episode.activeCountdown && remainingSeconds !== null ? (
-              <div className="rounded-md border border-borderTone bg-panelRaised/70 px-2 py-1">
-                <div className="flex items-center gap-2">
-                  <span className={`font-mono text-[0.76rem] ${countdownToneClass}`}>{formatSeconds(remainingSeconds)}</span>
-                  <span className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">{countdownUrgencyLabel}</span>
-                </div>
-                <div className="mt-1 h-1 w-24 overflow-hidden rounded-sm bg-borderTone/70">
-                  <div
-                    className={`h-full transition-[width] duration-200 ${progressToneClass}`}
-                    style={{
-                      width: `${Math.max(0, Math.min(100, ((remainingSeconds / Math.max(1, episode.activeCountdown.seconds)) * 100)))}%`
-                    }}
-                  />
-                </div>
-              </div>
-            ) : null}
+            <div className="console-chip">
+              <strong>Clock</strong>
+              <span className={countdownToneClass}>
+                {episode.activeCountdown && remainingSeconds !== null ? formatSeconds(remainingSeconds) : 'Standby'}
+              </span>
+            </div>
+            <div className="console-chip">
+              <strong>Intel</strong>
+              <span>{intelStateLabel}</span>
+            </div>
             {showExtendTimer ? (
               <button
                 type="button"
@@ -620,22 +653,58 @@ const App = () => {
             ) : null}
           </div>
         </div>
+
+        <div className="mt-3 grid gap-2 sm:grid-cols-2 xl:grid-cols-5">
+          <div className="console-metric">
+            <p className="console-metric-label">Turn</p>
+            <p className="console-metric-value">{episode.turn}/{episode.maxTurns}</p>
+          </div>
+          <div className="console-metric">
+            <p className="console-metric-label">Escalation</p>
+            <p className="console-metric-value">{escalationStateLabel}</p>
+          </div>
+          <div className="console-metric">
+            <p className="console-metric-label">Alliance</p>
+            <p className="console-metric-value">{allianceStateLabel}</p>
+          </div>
+          <div className="console-metric">
+            <p className="console-metric-label">Market Stress</p>
+            <p className="console-metric-value">{marketStressLabel}</p>
+          </div>
+          <div className="console-metric">
+            <p className="console-metric-label">Decision Window</p>
+            <p className="console-metric-value">
+              {episode.activeCountdown && remainingSeconds !== null ? countdownUrgencyLabel : episode.timerMode === 'off' ? 'Player Held' : 'Closed'}
+            </p>
+          </div>
+        </div>
+
+        {episode.activeCountdown && remainingSeconds !== null ? (
+          <div className="mt-3 h-1.5 overflow-hidden rounded-sm bg-borderTone/70">
+            <div
+              className={`h-full transition-[width] duration-200 ${progressToneClass}`}
+              style={{
+                width: `${Math.max(0, Math.min(100, ((remainingSeconds / Math.max(1, episode.activeCountdown.seconds)) * 100)))}%`
+              }}
+            />
+          </div>
+        ) : null}
         {pressureText ? <p className="mt-2 text-[0.7rem] text-textMuted">{pressureText}</p> : null}
       </header>
 
       {error ? (
-        <div className="rounded-lg border border-warning/70 bg-warning/10 px-3 py-2 text-sm text-warning">{error}</div>
+        <div className="rounded-md border border-warning/70 bg-warning/10 px-3 py-2 text-sm text-warning">{error}</div>
       ) : null}
 
-      <section className="grid gap-4 sm:gap-5 lg:grid-cols-[0.35fr_0.9fr_0.8fr]">
-        <aside className="order-3 card p-4 lg:order-1">
+      <section className="grid min-h-0 gap-4 xl:grid-cols-[0.34fr_0.94fr_0.72fr]">
+        <aside className="console-panel order-2 flex min-h-[40rem] flex-col p-3 xl:order-1">
           <div className="flex items-center justify-between">
             <p className="label">Intel Feed</p>
             <span className="text-[0.62rem] uppercase tracking-[0.12em] text-textMuted">Live</span>
           </div>
-          <div className="mt-3 max-h-[32rem] space-y-2 overflow-y-auto pr-1 text-xs leading-relaxed text-textMuted">
+          <div className="console-scroll mt-3 flex-1 space-y-2 overflow-y-auto pr-1 text-xs leading-relaxed text-textMuted">
             {intelFeed.length > 0 ? intelFeedVisible.map((item, index) => (
-              <article key={`${item.id}:${index}`} className="rounded-md border border-borderTone/70 bg-panelRaised/45 px-2 py-1.5">
+              <article key={`${item.id}:${index}`} className="console-feed-item">
                 <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">{item.channel}</p>
                 <p className="mt-1 text-[0.72rem] text-textMain">{item.headline}</p>
                 {item.detail ? (
@@ -654,12 +723,12 @@ const App = () => {
               className="mt-3 rounded-md border border-borderTone px-2 py-1 text-[0.62rem] uppercase tracking-[0.1em] text-textMuted transition hover:border-accent hover:text-textMain lg:hidden"
               onClick={() => setIntelExpandedMobile((current) => !current)}
             >
-              {intelExpandedMobile ? 'Show less' : `Show ${Math.min(5, intelFeed.length - 3)} more`}
+              {intelExpandedMobile ? 'Show less' : `Show ${Math.max(1, Math.min(intelFeed.length - 6, 6))} more`}
             </button>
           ) : null}
         </aside>
 
-        <div className="order-1 lg:order-2">
+        <div className="order-1 min-h-[40rem] xl:order-2">
           <BriefingPanel
             turn={episode.turn}
             maxTurns={episode.maxTurns}
@@ -672,11 +741,16 @@ const App = () => {
           />
         </div>
 
-        <div className="order-2 space-y-4 sm:space-y-5 lg:order-3">
+        <div className="order-3 space-y-4 xl:order-3">
           <ActionCards
             actions={episode.offeredActions}
             disabled={loading || episode.status !== 'active'}
             onSelect={handleActionSelect}
+          />
+          <AdvisorPanel
+            beat={currentBeat}
+            scenarioId={episode.scenarioId}
+            advisorDossiers={reference.advisorDossiers}
           />
           <CommandInput
             turn={episode.turn}
@@ -685,12 +759,46 @@ const App = () => {
             onSubmitCommand={handleCommandSubmit}
             onSelectAction={handleActionSelect}
           />
-          <AdvisorPanel
-            beat={currentBeat}
-            scenarioId={episode.scenarioId}
-            advisorDossiers={reference.advisorDossiers}
-          />
         </div>
+      </section>
+
+      <section className="grid gap-4 xl:grid-cols-[1.1fr_0.8fr_0.62fr]">
+        <MeterDashboard
+          meters={episode.meters}
+          previousMeters={episode.recentTurn?.meterBefore}
+          visibleRanges={episode.visibleRanges}
+        />
+        <IntelPanel ranges={episode.visibleRanges} intelQuality={episode.intelQuality} turn={episode.turn} />
+        <section className="console-panel p-3">
+          <div className="flex items-center justify-between gap-3">
+            <p className="label">Command Posture</p>
+            <span className="text-[0.62rem] uppercase tracking-[0.12em] text-textMuted">
+              {episode.offeredActions.length} options live
+            </span>
+          </div>
+          <div className="mt-3 grid gap-2">
+            <div className="console-subpanel px-2.5 py-2">
+              <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Latest Readout</p>
+              <p className="mt-1 text-[0.74rem] leading-relaxed text-textMain">{decisionSummary}</p>
+            </div>
+            <div className="console-subpanel px-2.5 py-2">
+              <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Action Model</p>
+              <p className="mt-1 text-[0.7rem] leading-relaxed text-textMuted">
+                Primary loop: select one action card. Typed orders stay available for custom phrasing or parser shortcuts.
+              </p>
+            </div>
+            <div className="console-subpanel px-2.5 py-2">
+              <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Window Status</p>
+              <p className="mt-1 text-[0.74rem] leading-relaxed text-textMain">
+                {episode.activeCountdown && remainingSeconds !== null
+                  ? `${countdownUrgencyLabel} (${formatSeconds(remainingSeconds)} remaining)`
+                  : showTakeNoAction
+                    ? 'Untimed decision beat. Hold explicitly if you want to stand down.'
+                    : 'No timed decision pressure on the current beat.'}
+              </p>
+            </div>
+          </div>
+        </section>
       </section>
     </main>
   );
