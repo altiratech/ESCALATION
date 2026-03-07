@@ -2078,3 +2078,22 @@ Thread scope limitation: This thread ran under `Code/active/Wargames` and could 
 2. Then decide whether the next iteration is:
 - a focused shell-polish pass on the live Taiwan Strait scenario
 - or the first role-based overlay / second flagship scenario track
+
+## 38. Risk-Ticker Dedupe Follow-Up (2026-03-07 ET)
+
+### 38.1 What changed
+
+1. Removed the redundant standalone `briefing.tickerLine` callout from the middle command pane in:
+- `apps/web/src/components/BriefingPanel.tsx`
+
+2. The ticker still remains available in the places that make sense:
+- left intel feed
+- expandable market signal detail inside `Incoming Signals`
+
+### 38.2 Verification status
+
+1. `npm run build --workspace @wargames/web` passed.
+
+### 38.3 Exact next action for resume
+
+1. Push the dedupe patch, verify deploy, and continue live-shell polish based on fresh visual review.

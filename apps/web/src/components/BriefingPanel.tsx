@@ -234,12 +234,6 @@ export const BriefingPanel = ({
             </figure>
           ) : null}
 
-          {briefing.tickerLine ? (
-            <div className="rounded-md border border-accent/50 bg-panelRaised/80 px-3 py-2 text-[0.72rem] text-accent">
-              {briefing.tickerLine}
-            </div>
-          ) : null}
-
           {recentActionNarrative ? (
             <section className="console-subpanel px-3 py-3">
               <button
