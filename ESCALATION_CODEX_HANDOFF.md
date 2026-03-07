@@ -2275,3 +2275,39 @@ Current naming rule:
 2. Refresh the live site and confirm:
 - browser tab shows `Altira Flashpoint`
 - any surfaced lexicon imagery no longer shows `ESCALATION`
+
+## 43. Deploy Verification Fix After Flashpoint Rename (2026-03-07 ET)
+
+### 43.1 What happened
+
+1. GitHub Actions deploy run `22802829136` failed in `verify_deploy`, but the failure was not a build or deploy regression.
+2. `quality_gate`, `deploy_api`, and `deploy_web` all succeeded.
+3. Root cause:
+- `scripts/verify-deploy.sh` still expected an `ESCALATION` web-shell marker
+- after the rename, production was healthy but the stale verification check produced a false negative
+
+### 43.2 What changed
+
+1. Updated:
+- `scripts/verify-deploy.sh`
+
+2. Web-shell verification now accepts:
+- `Altira Flashpoint`
+- plus the legacy transition markers already tolerated by the script
+
+### 43.3 What passed
+
+1. Local production verification:
+- `./scripts/verify-deploy.sh`
+
+2. Verified live production steps:
+- API health
+- bootstrap payload
+- profile creation
+- episode start
+- web shell
+
+### 43.4 Exact next action for resume
+
+1. Commit and push the verifier fix.
+2. Confirm the next GitHub Actions deploy run passes `verify_deploy`.

@@ -93,8 +93,8 @@ rm -f "${start_tmp}"
 
 echo "Verifying web shell: ${WEB_URL}"
 web_html="$(curl -fsS "${WEB_URL}")"
-if ! grep -Eq 'ESCALATION|WARGAMES|wargames-escalation' <<<"${web_html}"; then
-  echo "Web verification failed: expected ESCALATION marker not found" >&2
+if ! grep -Eiq 'Altira Flashpoint|ESCALATION|WARGAMES|wargames-escalation' <<<"${web_html}"; then
+  echo "Web verification failed: expected Altira Flashpoint/legacy marker not found" >&2
   exit 1
 fi
 
