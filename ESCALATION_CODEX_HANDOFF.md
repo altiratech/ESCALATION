@@ -2355,3 +2355,62 @@ Current naming rule:
 2. Decide whether the next Flashpoint cycle is:
 - another clarity tuning pass
 - or the next flagship scenario / role-overlay step
+
+## 45. Flashpoint Mission Console Redesign (2026-03-07 ET)
+
+### 45.1 What changed
+
+1. Start flow:
+- removed the prior `home -> brief -> dossier` start presentation
+- replaced it with a denser professional `Mission Console` plus separate `Theater Dossier`
+- removed product-marketing blocks and scenario-preview copy from the entry screen
+- kept the dossier as the only deeper pre-launch context surface
+
+2. Visual system:
+- rebased the shared web shell onto the Atlas/Signal terminal language:
+  - `IBM Plex Sans Condensed`
+  - `IBM Plex Mono`
+  - flatter squared panels
+  - harder borders
+  - darker graphite shell with brighter amber accents
+- implemented those changes through shared web theme primitives so the same styling now carries into gameplay too
+
+3. Mission-console content:
+- the new start surface now focuses only on:
+  - scenario selection
+  - codename
+  - pacing
+  - advanced seed control
+  - direct launch into Turn 1
+- the right-column scenario brief / featured-scenario treatment has been removed from start
+
+### 45.2 What passed
+
+1. Validation:
+- `npm run lint`
+- `npm run build --workspace @wargames/web`
+- `npm run ci:phase1`
+
+2. Results:
+- `13/13` test files passed
+- `27/27` tests passed
+- Monte Carlo concentration warnings unchanged and non-blocking
+
+### 45.3 Spec drift remaining
+
+1. UI:
+- start-screen direction is now aligned with the requested Atlas/Signal tone
+- some gameplay components still retain older rounded utility classes even though the shared shell is now flatter
+
+2. Product/spec:
+- second flagship scenario has not started
+- first role overlay has not started
+- broader spec-drift items outside this pass still remain, including persistence/schema work and unresolved larger product-scope removals
+
+### 45.4 Exact next action for resume
+
+1. Push and deploy the mission-console redesign.
+2. Review the live mission console and war-room shell together.
+3. If the shell direction feels right, do one narrower gameplay polish pass next:
+- align residual buttons/cards/tags further with the terminal system
+- then move back to scenario-library / role-overlay expansion

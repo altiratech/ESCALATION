@@ -14,7 +14,7 @@ interface StartScreenProps {
   }) => Promise<void>;
 }
 
-type StartFlowStep = 'home' | 'brief' | 'dossier';
+type StartFlowStep = 'console' | 'dossier';
 
 const randomSeed = (): string => Math.random().toString(36).slice(2, 10).toUpperCase();
 
@@ -51,60 +51,11 @@ const environmentLabel: Record<string, string> = {
   generic: 'Global theater'
 };
 
-const audienceLenses = [
-  {
-    label: 'Public Leadership',
-    detail: 'National security, emergency, and continuity leaders.'
-  },
-  {
-    label: 'Corporate Resilience',
-    detail: 'Operational leaders stress-testing infrastructure and supply exposure.'
-  },
-  {
-    label: 'Financial Risk',
-    detail: 'Risk, investment, and compliance operators modeling spillover effects.'
-  }
-];
-
-const launchFlow = [
-  {
-    label: '1. Select the mission',
-    detail: 'Pick the scenario, codename, and pacing model.'
-  },
-  {
-    label: '2. Take only the context you need',
-    detail: 'Use the brief for a fast start or open the dossier for deeper theater detail.'
-  },
-  {
-    label: '3. Resolve Turn 1',
-    detail: 'The war room opens with a live command brief and one decision set.'
-  }
-];
-
-const productHighlights = [
-  {
-    label: 'Scenario Format',
-    value: '10-turn crisis runs'
-  },
-  {
-    label: 'Grounding',
-    value: 'Real-world theaters'
-  },
-  {
-    label: 'Replay',
-    value: 'Deterministic seed path'
-  },
-  {
-    label: 'Review',
-    value: 'Full causality report'
-  }
-];
-
 const clipText = (value: string, limit = 240): string =>
   value.length > limit ? `${value.slice(0, limit - 1).trimEnd()}…` : value;
 
 export const StartScreen = ({ reference, loading, error, onStart }: StartScreenProps) => {
-  const [step, setStep] = useState<StartFlowStep>('home');
+  const [step, setStep] = useState<StartFlowStep>('console');
   const [codename, setCodename] = useState('SABLE-ONE');
   const [seed, setSeed] = useState('');
   const [showAdvanced, setShowAdvanced] = useState(false);
@@ -179,6 +130,7 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
       null
     );
   }, [selectedScenarioWorld]);
+
   const turnOneCarryForward = useMemo(() => {
     const items = [
       {
@@ -197,13 +149,59 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
         label: 'How Turn 1 resolves',
         text:
           timerMode === 'off'
-            ? 'This launch opens an untimed decision beat. The turn advances only when you commit one action or explicitly take no action.'
-            : 'This launch opens a live decision beat. The turn advances when you commit one action or let the active window expire.'
+            ? 'Untimed. Turn 1 resolves only when you commit one action or explicitly take no action.'
+            : 'Live. Turn 1 resolves when you commit one action or let the active decision window expire.'
       }
     ];
 
     return items.filter((item) => item.text.trim().length > 0);
-  }, [crisisStartEvent?.event, selectedScenario?.briefing, selectedScenarioWorld?.economicBackdrop.marketSentiment, startingBeat?.headlines, timerMode]);
+  }, [
+    crisisStartEvent?.event,
+    selectedScenario?.briefing,
+    selectedScenarioWorld?.economicBackdrop.marketSentiment,
+    startingBeat?.headlines,
+    timerMode
+  ]);
+
+  const runProfile = useMemo(
+    () => [
+      {
+        label: 'Scenario',
+        value: selectedScenario?.name ?? 'No scenario selected'
+      },
+      {
+        label: 'Role',
+        value: selectedScenario?.role ?? 'N/A'
+      },
+      {
+        label: 'Theater',
+        value: selectedScenario?.environment
+          ? environmentLabel[selectedScenario.environment] ?? 'Global theater'
+          : 'N/A'
+      },
+      {
+        label: 'Episode Format',
+        value: `${selectedScenario?.maxTurns ?? 0}-turn crisis run`
+      }
+    ],
+    [selectedScenario]
+  );
+
+  const systemNotes = useMemo(
+    () => [
+      'Turn 1 opens immediately after launch.',
+      'Scenario exposition has been moved to the theater dossier.',
+      'The primary gameplay loop remains card-based in the war room.'
+    ],
+    []
+  );
+
+  const theaterStamp = selectedScenarioWorld
+    ? `${selectedScenarioWorld.region.name} / ${selectedScenarioWorld.dateAnchor.month} ${selectedScenarioWorld.dateAnchor.year}`
+    : 'Theater data pending';
+
+  const currentTimerLabel =
+    timerModes.find((mode) => mode.id === timerMode)?.label ?? 'Real-Time';
 
   const handleStart = async (): Promise<void> => {
     const payload: {
@@ -225,592 +223,546 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
     await onStart(payload);
   };
 
-  if (step === 'home') {
-    return (
-      <main className="mx-auto flex min-h-screen w-full max-w-[1520px] items-center px-4 py-6 sm:px-6 lg:px-8">
-        <section className="grid w-full gap-6 xl:grid-cols-[1.1fr_0.9fr]">
-          <div className="console-panel p-6 sm:p-8">
-            <p className="console-kicker">Altira Flashpoint // Scenario Intelligence</p>
-            <h1 className="mt-4 max-w-4xl font-display text-4xl leading-none text-textMain sm:text-5xl lg:text-6xl">
-              Decision-grade crisis simulations for leaders navigating real-world shock scenarios.
-            </h1>
-            <p className="mt-5 max-w-3xl text-sm leading-relaxed text-textMuted sm:text-base">
-              Altira Flashpoint models real theaters through deterministic, replayable crisis runs. The product is built
-              to show how policy, operations, and markets can start to unravel under pressure.
-            </p>
+  const sidebar = (
+    <aside className="console-sidebar flex flex-col">
+      <div className="console-sidebar-brand">Altira Flashpoint</div>
 
-            <div className="mt-6">
-              <p className="label">Primary users</p>
-              <div className="mt-3 flex flex-wrap gap-2">
-                {audienceLenses.map((lens) => (
-                  <div key={lens.label} className="rounded-md border border-borderTone/80 bg-panelRaised/55 px-3 py-2">
-                    <p className="text-[0.62rem] uppercase tracking-[0.12em] text-textMain">{lens.label}</p>
-                    <p className="mt-1 text-[0.68rem] leading-relaxed text-textMuted">{lens.detail}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
+      <div className="console-sidebar-section">
+        <p className="console-sidebar-label">Navigation</p>
+        <button
+          type="button"
+          className={`console-nav-item ${step === 'console' ? 'console-nav-item-active' : ''}`}
+          onClick={() => setStep('console')}
+        >
+          <span>Mission Console</span>
+          <span className="text-[0.58rem] text-textMuted">INIT</span>
+        </button>
+        <button
+          type="button"
+          className={`console-nav-item ${step === 'dossier' ? 'console-nav-item-active' : ''}`}
+          onClick={() => setStep('dossier')}
+        >
+          <span>Theater Dossier</span>
+          <span className="text-[0.58rem] text-textMuted">CTX</span>
+        </button>
+      </div>
 
-            <div className="mt-6 grid gap-3 lg:grid-cols-3">
-              {launchFlow.map((stepItem) => (
-                <article key={stepItem.label} className="console-subpanel px-3 py-3">
-                  <p className="label">{stepItem.label}</p>
-                  <p className="mt-2 text-[0.78rem] leading-relaxed text-textMuted">{stepItem.detail}</p>
-                </article>
-              ))}
-            </div>
+      <div className="console-sidebar-section">
+        <p className="console-sidebar-label">Active Theater</p>
+        <div className="console-nav-meta">
+          <p className="text-[0.74rem] uppercase tracking-[0.08em] text-textMain">
+            {selectedScenario?.name ?? 'No scenario selected'}
+          </p>
+          <p className="mt-2 text-[0.62rem] uppercase tracking-[0.14em] text-textMuted">
+            {theaterStamp}
+          </p>
+        </div>
+      </div>
 
-            <div className="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-              {productHighlights.map((highlight) => (
-                <div key={highlight.label} className="console-metric">
-                  <p className="console-metric-label">{highlight.label}</p>
-                  <p className="console-metric-value">{highlight.value}</p>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-6 flex flex-wrap gap-3">
-              <button
-                type="button"
-                className="rounded-lg border border-accent bg-accent/15 px-5 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-accent transition hover:bg-accent/25"
-                onClick={() => setStep('brief')}
-              >
-                Start a Scenario
-              </button>
-              <button
-                type="button"
-                className="rounded-lg border border-borderTone px-5 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-textMuted transition hover:border-accent hover:text-textMain"
-                onClick={() => setStep('dossier')}
-              >
-                Review Theater Dossier
-              </button>
-            </div>
+      <div className="console-sidebar-section">
+        <p className="console-sidebar-label">Run State</p>
+        <div className="space-y-2">
+          <div className="console-nav-meta">
+            <p className="text-[0.58rem] uppercase tracking-[0.14em] text-textMuted">Pacing</p>
+            <p className="mt-1 text-[0.72rem] uppercase tracking-[0.08em] text-textMain">{currentTimerLabel}</p>
           </div>
+          <div className="console-nav-meta">
+            <p className="text-[0.58rem] uppercase tracking-[0.14em] text-textMuted">Launch Path</p>
+            <p className="mt-1 text-[0.72rem] uppercase tracking-[0.08em] text-textMain">Turn 1 direct entry</p>
+          </div>
+        </div>
+      </div>
+    </aside>
+  );
 
-          <aside className="space-y-4">
-            <section className="console-panel p-5">
-              <p className="label">Featured Scenario</p>
-              <h2 className="mt-3 font-display text-3xl text-textMain">
-                {selectedScenario?.name ?? 'No scenario selected'}
-              </h2>
-              <p className="mt-3 text-sm leading-relaxed text-textMuted">
-                {selectedScenario?.briefing ?? 'Select a scenario to review the current featured crisis run.'}
-              </p>
-              {selectedScenarioWorld ? (
-                <div className="mt-4 grid gap-2">
-                  <div className="console-subpanel px-3 py-2">
-                    <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Theater</p>
-                    <p className="mt-1 text-sm text-textMain">
-                      {selectedScenarioWorld.region.name} · {selectedScenarioWorld.dateAnchor.month} {selectedScenarioWorld.dateAnchor.year}
-                    </p>
-                  </div>
-                  <div className="console-subpanel px-3 py-2">
-                    <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Why it matters</p>
-                    <p className="mt-1 text-[0.78rem] leading-relaxed text-textMuted">
-                      {clipText(selectedScenarioWorld.economicBackdrop.straitEconomicValue, 220)}
-                    </p>
-                  </div>
-                </div>
-              ) : null}
-            </section>
-
-            <section className="console-panel p-5">
-              <p className="label">Current Build</p>
-              <div className="mt-3 space-y-2">
-                <div className="console-subpanel px-3 py-2">
-                  <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Live Theater</p>
-                  <p className="mt-1 text-sm text-textMain">Taiwan Strait flagship scenario</p>
-                </div>
-                <div className="console-subpanel px-3 py-2">
-                  <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Role Path</p>
-                  <p className="mt-1 text-[0.78rem] leading-relaxed text-textMuted">
-                    Public-official lens live now. Corporate and financial overlays are the next expansion path.
-                  </p>
-                </div>
-                <div className="console-subpanel px-3 py-2">
-                  <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Run Output</p>
-                  <p className="mt-1 text-[0.78rem] leading-relaxed text-textMuted">
-                    Every episode ends with a full causality review so the player can see what the rival inferred,
-                    what the system hid, and what branches were not taken.
-                  </p>
-                </div>
-              </div>
-            </section>
-          </aside>
-        </section>
-      </main>
-    );
-  }
-
-  if (step === 'brief') {
+  if (step === 'console') {
     return (
-      <main className="mx-auto flex min-h-screen w-full max-w-[1480px] items-center px-4 py-6 sm:px-6 lg:px-8">
-        <section className="grid w-full gap-6 xl:grid-cols-[1.08fr_0.92fr]">
-          <div className="console-panel p-6 sm:p-8">
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <div>
-                <p className="console-kicker">Altira Flashpoint // Mission Setup</p>
-                <h1 className="mt-3 font-display text-4xl text-textMain sm:text-5xl">Scenario Brief</h1>
-              </div>
-              <button
-                type="button"
-                className="rounded-lg border border-borderTone px-3 py-2 text-xs uppercase tracking-[0.12em] text-textMuted transition hover:border-accent hover:text-textMain"
-                onClick={() => setStep('home')}
-              >
-                Back
-              </button>
-            </div>
+      <main className="console-shell">
+        <section className="grid min-h-[calc(100vh-1.5rem)] gap-4 xl:grid-cols-[240px_minmax(0,1fr)]">
+          {sidebar}
 
-            <p className="mt-4 max-w-3xl text-sm leading-relaxed text-textMuted">
-              Choose the scenario, your codename, and pacing. Deeper context has been moved out of this screen into the
-              dedicated theater dossier so this launch step stays focused.
-            </p>
+          <div className="flex min-w-0 flex-col gap-4">
+            <header className="console-topbar px-4 py-4 sm:px-5">
+              <div className="flex flex-col gap-3 xl:flex-row xl:items-start xl:justify-between">
+                <div>
+                  <p className="console-kicker">Altira Flashpoint // Mission Console</p>
+                  <h1 className="mt-2 font-display text-3xl uppercase tracking-[0.08em] text-textMain sm:text-4xl">
+                    Initialize Scenario Run
+                  </h1>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  <div className="console-chip">
+                    <strong>Scenario</strong>
+                    <span>{selectedScenario?.name ?? 'None'}</span>
+                  </div>
+                  <div className="console-chip">
+                    <strong>Pacing</strong>
+                    <span>{currentTimerLabel}</span>
+                  </div>
+                </div>
+              </div>
+              <p className="mt-3 max-w-4xl text-[0.76rem] leading-relaxed text-textMuted">
+                Configure the run, then launch directly into Turn 1. This screen stays procedural; scenario context and
+                narrative framing live in the theater dossier.
+              </p>
+            </header>
 
-            <div className="mt-5 grid gap-3 sm:grid-cols-3">
-              <div className="console-subpanel px-3 py-3">
-                <p className="label">1. Configure</p>
-                <p className="mt-2 text-[0.76rem] leading-relaxed text-textMuted">
-                  Set codename, scenario, and pacing.
-                </p>
-              </div>
-              <div className="console-subpanel px-3 py-3">
-                <p className="label">2. Optional depth</p>
-                <p className="mt-2 text-[0.76rem] leading-relaxed text-textMuted">
-                  Open the dossier only if you want the longer theater frame before launch.
-                </p>
-              </div>
-              <div className="console-subpanel px-3 py-3">
-                <p className="label">3. Launch Turn 1</p>
-                <p className="mt-2 text-[0.76rem] leading-relaxed text-textMuted">
-                  Entering the war room opens the first live decision set immediately.
-                </p>
-              </div>
-            </div>
-
-            <div className="mt-5 grid gap-3 sm:grid-cols-3">
-              <div className="console-subpanel px-3 py-2.5">
-                <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Role</p>
-                <p className="mt-1 text-sm text-textMain">{selectedScenario?.role ?? 'N/A'}</p>
-              </div>
-              <div className="console-subpanel px-3 py-2.5">
-                <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Theater</p>
-                <p className="mt-1 text-sm text-textMain">
-                  {selectedScenario?.environment ? environmentLabel[selectedScenario.environment] ?? 'Global theater' : 'N/A'}
-                </p>
-              </div>
-              <div className="console-subpanel px-3 py-2.5">
-                <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Episode Format</p>
-                <p className="mt-1 text-sm text-textMain">{selectedScenario?.maxTurns ?? 0}-turn crisis run</p>
-              </div>
-            </div>
-
-            <div className="mt-5 grid gap-4">
-              <label className="flex flex-col gap-2 text-sm">
-                <span className="label">Commander Codename</span>
-                <input
-                  className="rounded-lg border border-borderTone bg-panelRaised/80 px-3 py-2.5 text-textMain focus:border-accent focus:outline-none"
-                  value={codename}
-                  onChange={(event) => setCodename(event.target.value)}
-                  maxLength={40}
-                />
-              </label>
-
-              <label className="flex flex-col gap-2 text-sm">
-                <span className="label">Scenario</span>
-                <select
-                  className="rounded-lg border border-borderTone bg-panelRaised/80 px-3 py-2.5 text-textMain focus:border-accent focus:outline-none"
-                  value={scenarioId}
-                  onChange={(event) => setScenarioId(event.target.value)}
-                >
-                  {reference.scenarios.map((scenario) => (
-                    <option key={scenario.id} value={scenario.id}>
-                      {scenario.name}
-                    </option>
-                  ))}
-                </select>
-              </label>
-            </div>
-
-            <div className="mt-5 space-y-2">
-              <p className="label">Pacing Preference</p>
-              <div className="grid gap-2 sm:grid-cols-3">
-                {timerModes.map((mode) => {
-                  const active = timerMode === mode.id;
-                  return (
-                    <button
-                      key={mode.id}
-                      type="button"
-                      className={`rounded-lg border px-3 py-3 text-left transition ${
-                        active
-                          ? 'border-accent bg-accent/15 text-textMain'
-                          : 'border-borderTone bg-panelRaised/80 text-textMuted hover:border-accent/60 hover:text-textMain'
-                      }`}
-                      onClick={() => setTimerMode(mode.id)}
-                    >
-                      <p className="text-xs font-semibold uppercase tracking-[0.12em]">{mode.label}</p>
-                      <p className="mt-1 text-[0.72rem] leading-relaxed">{mode.detail}</p>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            <div className="mt-5 rounded-lg border border-borderTone/80 bg-panelRaised/45 px-3 py-2">
-              <button
-                type="button"
-                className="text-[0.68rem] uppercase tracking-[0.12em] text-textMuted hover:text-textMain"
-                onClick={() => setShowAdvanced((current) => !current)}
-              >
-                {showAdvanced ? 'Hide advanced options' : 'Show advanced options'}
-              </button>
-              {showAdvanced ? (
-                <div className="mt-2 space-y-2">
-                  <label className="flex flex-col gap-2 text-sm">
-                    <span className="label">Deterministic Seed (optional)</span>
-                    <div className="flex gap-2">
+            <section className="grid gap-4 2xl:grid-cols-[1.08fr_0.92fr]">
+              <section className="console-panel p-5 sm:p-6">
+                <p className="label">Mission Parameters</p>
+                <div className="mt-4 grid gap-4 lg:grid-cols-[1.08fr_0.92fr]">
+                  <div className="space-y-4">
+                    <label className="block text-sm">
+                      <span className="label">Commander Codename</span>
                       <input
-                        className="w-full rounded-lg border border-borderTone bg-panelRaised/80 px-3 py-2.5 text-textMain focus:border-accent focus:outline-none"
-                        value={seed}
-                        onChange={(event) => setSeed(event.target.value)}
-                        placeholder="Leave blank for auto-seed"
+                        className="console-input mt-2"
+                        value={codename}
+                        onChange={(event) => setCodename(event.target.value)}
+                        maxLength={40}
                       />
-                      <button
-                        type="button"
-                        className="rounded-lg border border-borderTone px-3 py-2 text-xs uppercase tracking-[0.12em] text-textMuted transition hover:border-accent hover:text-textMain"
-                        onClick={() => setSeed(randomSeed())}
+                    </label>
+
+                    <label className="block text-sm">
+                      <span className="label">Scenario</span>
+                      <select
+                        className="console-input mt-2"
+                        value={scenarioId}
+                        onChange={(event) => setScenarioId(event.target.value)}
                       >
-                        Generate
-                      </button>
+                        {reference.scenarios.map((scenario) => (
+                          <option key={scenario.id} value={scenario.id}>
+                            {scenario.name}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                  </div>
+
+                  <div className="space-y-3">
+                    <div className="console-subpanel px-3 py-3">
+                      <p className="label">Launch Protocol</p>
+                      <p className="mt-2 text-[0.76rem] leading-relaxed text-textMuted">
+                        Use the mission console to initialize the run. Open the dossier only when you need deeper
+                        geographic, legal, and actor context before launch.
+                      </p>
                     </div>
-                  </label>
+                    <div className="console-subpanel px-3 py-3">
+                      <p className="label">Turn Entry</p>
+                      <p className="mt-2 text-[0.76rem] leading-relaxed text-textMuted">
+                        Launching enters the war room immediately and opens the first live decision set. There is no
+                        intermediate preview screen.
+                      </p>
+                    </div>
+                  </div>
                 </div>
-              ) : null}
-            </div>
 
-            {error ? (
-              <p className="mt-5 rounded-lg border border-warning/60 bg-warning/10 px-3 py-2 text-sm text-warning">
-                {error}
-              </p>
-            ) : null}
+                <div className="mt-5 space-y-2">
+                  <p className="label">Pacing Preference</p>
+                  <div className="grid gap-2 xl:grid-cols-3">
+                    {timerModes.map((mode) => {
+                      const active = timerMode === mode.id;
+                      return (
+                        <button
+                          key={mode.id}
+                          type="button"
+                          className={`border px-3 py-3 text-left transition ${
+                            active
+                              ? 'border-accent bg-accent/12 text-textMain'
+                              : 'border-borderTone bg-panelRaised text-textMuted hover:border-accent/70 hover:text-textMain'
+                          }`}
+                          onClick={() => setTimerMode(mode.id)}
+                        >
+                          <p className="font-mono text-[0.62rem] uppercase tracking-[0.16em]">{mode.label}</p>
+                          <p className="mt-2 text-[0.74rem] leading-relaxed">{mode.detail}</p>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
 
-            <div className="mt-6 flex flex-wrap gap-3">
-              <button
-                type="button"
-                className="rounded-lg border border-borderTone px-4 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-textMuted transition hover:border-accent hover:text-textMain"
-                onClick={() => setStep('dossier')}
-              >
-                Review Theater Dossier
-              </button>
-              <button
-                type="button"
-                className="rounded-lg border border-accent bg-accent/15 px-5 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-accent transition hover:bg-accent/25 disabled:cursor-not-allowed disabled:opacity-45"
-                onClick={() => void handleStart()}
-                disabled={loading || !codename.trim() || !scenarioId}
-              >
-                {loading ? 'Launching Turn 1...' : 'Launch Turn 1'}
-              </button>
-            </div>
+                {error ? (
+                  <p className="mt-5 border border-warning/60 bg-warning/10 px-3 py-2 text-sm text-warning">
+                    {error}
+                  </p>
+                ) : null}
+
+                <div className="mt-6 flex flex-wrap gap-3">
+                  <button
+                    type="button"
+                    className="console-button console-button-secondary"
+                    onClick={() => setStep('dossier')}
+                  >
+                    Open Theater Dossier
+                  </button>
+                  <button
+                    type="button"
+                    className="console-button console-button-primary"
+                    onClick={() => void handleStart()}
+                    disabled={loading || !codename.trim() || !scenarioId}
+                  >
+                    {loading ? 'Launching Turn 1...' : 'Launch Turn 1'}
+                  </button>
+                </div>
+              </section>
+
+              <div className="space-y-4">
+                <section className="console-panel p-5">
+                  <p className="label">Run Profile</p>
+                  <div className="mt-3 grid gap-2 sm:grid-cols-2">
+                    {runProfile.map((item) => (
+                      <div key={item.label} className="console-subpanel px-3 py-2.5">
+                        <p className="text-[0.56rem] uppercase tracking-[0.16em] text-textMuted">{item.label}</p>
+                        <p className="mt-2 text-[0.8rem] uppercase tracking-[0.06em] text-textMain">{item.value}</p>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+
+                <section className="console-panel p-5">
+                  <div className="flex items-center justify-between gap-3">
+                    <p className="label">Advanced Options</p>
+                    <button
+                      type="button"
+                      className="console-button console-button-ghost"
+                      onClick={() => setShowAdvanced((current) => !current)}
+                    >
+                      {showAdvanced ? 'Hide' : 'Open'}
+                    </button>
+                  </div>
+                  <p className="mt-2 text-[0.74rem] leading-relaxed text-textMuted">
+                    Deterministic seed control is optional and primarily useful for replay and debugging.
+                  </p>
+                  {showAdvanced ? (
+                    <div className="mt-3 space-y-3">
+                      <label className="block text-sm">
+                        <span className="label">Deterministic Seed</span>
+                        <div className="mt-2 flex gap-2">
+                          <input
+                            className="console-input"
+                            value={seed}
+                            onChange={(event) => setSeed(event.target.value)}
+                            placeholder="Leave blank for auto-seed"
+                          />
+                          <button
+                            type="button"
+                            className="console-button console-button-secondary shrink-0"
+                            onClick={() => setSeed(randomSeed())}
+                          >
+                            Generate
+                          </button>
+                        </div>
+                      </label>
+                    </div>
+                  ) : null}
+                </section>
+
+                <section className="console-panel p-5">
+                  <p className="label">Operator Notes</p>
+                  <div className="mt-3 space-y-2">
+                    {systemNotes.map((note) => (
+                      <div key={note} className="console-subpanel px-3 py-2.5 text-[0.74rem] leading-relaxed text-textMuted">
+                        {note}
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              </div>
+            </section>
           </div>
-
-          <aside className="console-panel flex p-6 sm:p-8">
-            <div className="my-auto">
-              <p className="label">Scenario Brief</p>
-              <h2 className="mt-3 font-display text-3xl text-textMain sm:text-4xl">
-                {selectedScenario?.name ?? 'No scenario selected'}
-              </h2>
-              <p className="mt-5 max-w-2xl text-base leading-relaxed text-textMuted">
-                {selectedScenario?.briefing ?? 'Select a scenario to review the active mission brief.'}
-              </p>
-            </div>
-          </aside>
         </section>
       </main>
     );
   }
 
   return (
-    <main className="mx-auto flex min-h-screen w-full max-w-[1560px] items-start px-4 py-6 sm:px-6 lg:px-8">
-      <section className="w-full space-y-4">
-        <header className="console-topbar px-5 py-5 sm:px-6">
-          <div className="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
-            <div>
-              <p className="console-kicker">Altira Flashpoint // Theater Dossier</p>
-              <h1 className="mt-3 font-display text-4xl text-textMain sm:text-5xl">
-                {selectedScenario?.name ?? 'Theater Dossier'}
-              </h1>
-              <p className="mt-4 max-w-4xl text-sm leading-relaxed text-textMuted">
-                Review the geography, economic stakes, actor map, and baseline pressure before you enter the war room.
-                This page holds the deeper context that no longer belongs on the mission-setup screen.
-              </p>
-            </div>
-            <div className="flex flex-wrap gap-3">
-              <button
-                type="button"
-                className="rounded-lg border border-borderTone px-4 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-textMuted transition hover:border-accent hover:text-textMain"
-                onClick={() => setStep('brief')}
-              >
-                Back to Brief
-              </button>
-              <button
-                type="button"
-                className="rounded-lg border border-accent bg-accent/15 px-5 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-accent transition hover:bg-accent/25 disabled:cursor-not-allowed disabled:opacity-45"
-                onClick={() => void handleStart()}
-                disabled={loading || !codename.trim() || !scenarioId}
-              >
-                {loading ? 'Launching Turn 1...' : 'Launch Turn 1'}
-              </button>
-            </div>
-          </div>
-        </header>
+    <main className="console-shell">
+      <section className="grid min-h-[calc(100vh-1.5rem)] gap-4 xl:grid-cols-[240px_minmax(0,1fr)]">
+        {sidebar}
 
-        <section className="grid gap-4 xl:grid-cols-[1.02fr_0.98fr]">
-          <div className="space-y-4">
-            {selectedScenarioWorld ? (
-              <section className="console-panel p-5">
-                <p className="label">Theater Snapshot</p>
-                <p className="mt-3 font-display text-2xl text-textMain">
-                  {selectedScenarioWorld.region.name} · {selectedScenarioWorld.dateAnchor.month} {selectedScenarioWorld.dateAnchor.year}
+        <section className="min-w-0 space-y-4">
+          <header className="console-topbar px-5 py-5 sm:px-6">
+            <div className="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
+              <div>
+                <p className="console-kicker">Altira Flashpoint // Theater Dossier</p>
+                <h1 className="mt-3 font-display text-3xl uppercase tracking-[0.08em] text-textMain sm:text-4xl">
+                  {selectedScenario?.name ?? 'Theater Dossier'}
+                </h1>
+                <p className="mt-4 max-w-4xl text-[0.78rem] leading-relaxed text-textMuted">
+                  Review geography, actors, legal framing, and baseline pressure before entering the war room. This is
+                  the only pre-launch surface intended for deeper scenario context.
                 </p>
-                <p className="mt-2 text-[0.78rem] text-textMuted">{selectedScenarioWorld.dateAnchor.dayRange}</p>
-                <p className="mt-3 text-sm leading-relaxed text-textMuted">
-                  {selectedScenarioWorld.region.description}
-                </p>
-                <div className="mt-4 grid gap-2 sm:grid-cols-2">
-                  <div className="console-subpanel px-3 py-2">
-                    <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Coordinates</p>
-                    <p className="mt-1 text-[0.8rem] text-textMain">{selectedScenarioWorld.region.coordinates}</p>
-                  </div>
-                  <div className="console-subpanel px-3 py-2">
-                    <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Season</p>
-                    <p className="mt-1 text-[0.8rem] text-textMain">{selectedScenarioWorld.region.climateSeason}</p>
-                  </div>
-                </div>
-              </section>
-            ) : null}
-
-            {selectedScenarioWorld ? (
-              <section className="console-panel p-5">
-                <p className="label">Why It Matters</p>
-                <div className="mt-3 space-y-3">
-                  <div className="console-subpanel px-3 py-3">
-                    <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Strategic Value</p>
-                    <p className="mt-2 text-[0.82rem] leading-relaxed text-textMuted">
-                      {selectedScenarioWorld.economicBackdrop.straitEconomicValue}
-                    </p>
-                  </div>
-                  <div className="console-subpanel px-3 py-3">
-                    <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Global Conditions</p>
-                    <p className="mt-2 text-[0.82rem] leading-relaxed text-textMuted">
-                      {selectedScenarioWorld.economicBackdrop.globalConditions}
-                    </p>
-                  </div>
-                  <div className="console-subpanel px-3 py-3">
-                    <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Vulnerabilities</p>
-                    <p className="mt-2 text-[0.82rem] leading-relaxed text-textMuted">
-                      {selectedScenarioWorld.economicBackdrop.vulnerabilities}
-                    </p>
-                  </div>
-                </div>
-              </section>
-            ) : null}
-
-            {timelinePreview.length > 0 ? (
-              <section className="console-panel p-5">
-                <p className="label">Crisis Trajectory</p>
-                <div className="mt-3 space-y-2">
-                  {timelinePreview.map((event) => (
-                    <div key={`${event.daysBeforeStart}-${event.event}`} className="console-subpanel px-3 py-2.5">
-                      <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">
-                        {event.daysBeforeStart === 0 ? 'Start Day' : `${Math.abs(event.daysBeforeStart)} day${Math.abs(event.daysBeforeStart) === 1 ? '' : 's'} before start`}
-                      </p>
-                      <p className="mt-1 text-[0.8rem] leading-relaxed text-textMain">{event.event}</p>
-                      <p className="mt-1 text-[0.72rem] leading-relaxed text-textMuted">{event.significance}</p>
-                    </div>
-                  ))}
-                </div>
-              </section>
-            ) : null}
-
-            {selectedScenarioWorld ? (
-              <section className="console-panel p-5">
-                <p className="label">Alliance And Legal Frame</p>
-                <div className="mt-3 grid gap-3 sm:grid-cols-2">
-                  <div className="console-subpanel px-3 py-3">
-                    <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Maritime Law</p>
-                    <p className="mt-2 text-[0.78rem] leading-relaxed text-textMuted">
-                      {clipText(selectedScenarioWorld.legalFramework.maritimeLaw, 220)}
-                    </p>
-                  </div>
-                  <div className="console-subpanel px-3 py-3">
-                    <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Treaty Obligations</p>
-                    <p className="mt-2 text-[0.78rem] leading-relaxed text-textMuted">
-                      {clipText(selectedScenarioWorld.legalFramework.treatyObligations, 220)}
-                    </p>
-                  </div>
-                  <div className="console-subpanel px-3 py-3 sm:col-span-2">
-                    <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Sanctions Framework</p>
-                    <p className="mt-2 text-[0.78rem] leading-relaxed text-textMuted">
-                      {clipText(selectedScenarioWorld.legalFramework.sanctionsFramework, 340)}
-                    </p>
-                  </div>
-                </div>
-              </section>
-            ) : null}
-          </div>
-
-          <div className="space-y-4">
-            {turnOneCarryForward.length > 0 ? (
-              <section className="console-panel p-5">
-                <p className="label">Carry Into Turn 1</p>
-                <div className="mt-3 space-y-2">
-                  {turnOneCarryForward.map((item) => (
-                    <div key={item.label} className="console-subpanel px-3 py-2.5">
-                      <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">{item.label}</p>
-                      <p className="mt-1 text-[0.76rem] leading-relaxed text-textMain">{clipText(item.text, 220)}</p>
-                    </div>
-                  ))}
-                </div>
-              </section>
-            ) : null}
-
-            {selectedScenarioWorld ? (
-              <section className="console-panel p-5">
-                <p className="label">Actor Map</p>
-                <div className="mt-3 grid gap-3">
-                  <div className="console-subpanel px-3 py-3">
-                    <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Player Nation</p>
-                    <p className="mt-1 text-sm text-textMain">{selectedScenarioWorld.playerNation.name}</p>
-                    <p className="mt-2 text-[0.78rem] leading-relaxed text-textMuted">
-                      {selectedScenarioWorld.playerNation.domesticContext}
-                    </p>
-                    <p className="mt-2 text-[0.76rem] text-textMuted">
-                      <span className="text-textMain">Posture:</span> {selectedScenarioWorld.playerNation.militaryPosture}
-                    </p>
-                  </div>
-                  <div className="console-subpanel px-3 py-3">
-                    <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Rival State</p>
-                    <p className="mt-1 text-sm text-textMain">{selectedScenarioWorld.rivalState.name}</p>
-                    <p className="mt-2 text-[0.78rem] leading-relaxed text-textMuted">
-                      {selectedScenarioWorld.rivalState.domesticContext}
-                    </p>
-                    <p className="mt-2 text-[0.76rem] text-textMuted">
-                      <span className="text-textMain">Capability:</span> {selectedScenarioWorld.rivalState.militaryCapability}
-                    </p>
-                    <p className="mt-2 text-[0.76rem] text-textMuted">
-                      <span className="text-textMain">Red line:</span> {selectedScenarioWorld.rivalState.knownRedLines}
-                    </p>
-                  </div>
-                </div>
-              </section>
-            ) : null}
-
-            {alliancePreview.length > 0 ? (
-              <section className="console-panel p-5">
-                <p className="label">Alliance Network</p>
-                <div className="mt-3 space-y-2">
-                  {alliancePreview.map((alliance) => (
-                    <div key={alliance.name} className="console-subpanel px-3 py-2.5">
-                      <p className="text-[0.76rem] text-textMain">{alliance.name}</p>
-                      <p className="mt-1 text-[0.72rem] leading-relaxed text-textMuted">{alliance.description}</p>
-                    </div>
-                  ))}
-                </div>
-              </section>
-            ) : null}
-
-            {keyFeaturePreview.length > 0 ? (
-              <section className="console-panel p-5">
-                <p className="label">Strategic Features</p>
-                <div className="mt-3 space-y-2">
-                  {keyFeaturePreview.map((feature) => (
-                    <div key={feature} className="console-subpanel px-3 py-2.5 text-[0.76rem] leading-relaxed text-textMuted">
-                      {feature}
-                    </div>
-                  ))}
-                </div>
-              </section>
-            ) : null}
-
-            {stakeholderPreview.length > 0 ? (
-              <section className="console-panel p-5">
-                <p className="label">Primary Stakeholders</p>
-                <div className="mt-3 space-y-2">
-                  {stakeholderPreview.map((stakeholder) => (
-                    <div key={stakeholder.id} className="console-subpanel px-3 py-2.5">
-                      <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">
-                        {stakeholder.type.replace('_', ' ')}
-                      </p>
-                      <p className="mt-1 text-[0.8rem] text-textMain">{stakeholder.name}</p>
-                      <p className="mt-1 text-[0.72rem] leading-relaxed text-textMuted">
-                        {clipText(stakeholder.disposition, 170)}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </section>
-            ) : null}
-
-            {advisorFirstTakes.length > 0 ? (
-              <section className="console-panel p-5">
-                <p className="label">Senior Staff Assessment</p>
-                <div className="mt-3 space-y-2">
-                  {advisorFirstTakes.map((entry) => (
-                    <div key={entry.advisorId} className="console-subpanel px-3 py-2.5">
-                      <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">
-                        {advisorNameById[entry.advisorId] ?? entry.advisorId.toUpperCase()}
-                      </p>
-                      <p className="mt-1 text-[0.78rem] leading-relaxed text-textMain">{entry.line}</p>
-                    </div>
-                  ))}
-                </div>
-              </section>
-            ) : null}
-
-            {intelligenceGapPreview.length > 0 ? (
-              <section className="console-panel p-5">
-                <p className="label">Known Intelligence Gaps</p>
-                <div className="mt-3 space-y-2">
-                  {intelligenceGapPreview.map((gap) => (
-                    <div key={gap} className="console-subpanel px-3 py-2.5 text-[0.76rem] leading-relaxed text-textMuted">
-                      {gap}
-                    </div>
-                  ))}
-                </div>
-              </section>
-            ) : null}
-
-            {selectedCinematics ? (
-              <section className="console-panel p-5">
+              </div>
+              <div className="flex flex-wrap gap-3">
                 <button
                   type="button"
-                  className="flex w-full items-start justify-between gap-3 text-left"
-                  onClick={() => setShowOpeningSequence((current) => !current)}
+                  className="console-button console-button-secondary"
+                  onClick={() => setStep('console')}
                 >
-                  <div>
-                    <p className="label">Opening Sequence</p>
-                    <p className="mt-2 text-sm text-textMain">{selectedCinematics.openingCinematic.title}</p>
-                    <p className="mt-1 text-[0.72rem] uppercase tracking-[0.12em] text-textMuted">
-                      {selectedCinematics.openingCinematic.subtitle}
+                  Back to Mission Console
+                </button>
+                <button
+                  type="button"
+                  className="console-button console-button-primary"
+                  onClick={() => void handleStart()}
+                  disabled={loading || !codename.trim() || !scenarioId}
+                >
+                  {loading ? 'Launching Turn 1...' : 'Launch Turn 1'}
+                </button>
+              </div>
+            </div>
+          </header>
+
+          <section className="grid gap-4 xl:grid-cols-[1.02fr_0.98fr]">
+            <div className="space-y-4">
+              {selectedScenarioWorld ? (
+                <section className="console-panel p-5">
+                  <p className="label">Theater Snapshot</p>
+                  <p className="mt-3 font-display text-2xl uppercase tracking-[0.06em] text-textMain">
+                    {selectedScenarioWorld.region.name} · {selectedScenarioWorld.dateAnchor.month} {selectedScenarioWorld.dateAnchor.year}
+                  </p>
+                  <p className="mt-2 text-[0.78rem] text-textMuted">{selectedScenarioWorld.dateAnchor.dayRange}</p>
+                  <p className="mt-3 text-sm leading-relaxed text-textMuted">
+                    {selectedScenarioWorld.region.description}
+                  </p>
+                  <div className="mt-4 grid gap-2 sm:grid-cols-2">
+                    <div className="console-subpanel px-3 py-2">
+                      <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Coordinates</p>
+                      <p className="mt-1 text-[0.8rem] text-textMain">{selectedScenarioWorld.region.coordinates}</p>
+                    </div>
+                    <div className="console-subpanel px-3 py-2">
+                      <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Season</p>
+                      <p className="mt-1 text-[0.8rem] text-textMain">{selectedScenarioWorld.region.climateSeason}</p>
+                    </div>
+                  </div>
+                </section>
+              ) : null}
+
+              {selectedScenarioWorld ? (
+                <section className="console-panel p-5">
+                  <p className="label">Why It Matters</p>
+                  <div className="mt-3 space-y-3">
+                    <div className="console-subpanel px-3 py-3">
+                      <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Strategic Value</p>
+                      <p className="mt-2 text-[0.82rem] leading-relaxed text-textMuted">
+                        {selectedScenarioWorld.economicBackdrop.straitEconomicValue}
+                      </p>
+                    </div>
+                    <div className="console-subpanel px-3 py-3">
+                      <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Global Conditions</p>
+                      <p className="mt-2 text-[0.82rem] leading-relaxed text-textMuted">
+                        {selectedScenarioWorld.economicBackdrop.globalConditions}
+                      </p>
+                    </div>
+                    <div className="console-subpanel px-3 py-3">
+                      <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Vulnerabilities</p>
+                      <p className="mt-2 text-[0.82rem] leading-relaxed text-textMuted">
+                        {selectedScenarioWorld.economicBackdrop.vulnerabilities}
+                      </p>
+                    </div>
+                  </div>
+                </section>
+              ) : null}
+
+              {timelinePreview.length > 0 ? (
+                <section className="console-panel p-5">
+                  <p className="label">Crisis Trajectory</p>
+                  <div className="mt-3 space-y-2">
+                    {timelinePreview.map((event) => (
+                      <div key={`${event.daysBeforeStart}-${event.event}`} className="console-subpanel px-3 py-2.5">
+                        <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">
+                          {event.daysBeforeStart === 0
+                            ? 'Start Day'
+                            : `${Math.abs(event.daysBeforeStart)} day${Math.abs(event.daysBeforeStart) === 1 ? '' : 's'} before start`}
+                        </p>
+                        <p className="mt-1 text-[0.8rem] leading-relaxed text-textMain">{event.event}</p>
+                        <p className="mt-1 text-[0.72rem] leading-relaxed text-textMuted">{event.significance}</p>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              ) : null}
+
+              {selectedScenarioWorld ? (
+                <section className="console-panel p-5">
+                  <p className="label">Alliance And Legal Frame</p>
+                  <div className="mt-3 grid gap-3 sm:grid-cols-2">
+                    <div className="console-subpanel px-3 py-3">
+                      <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Maritime Law</p>
+                      <p className="mt-2 text-[0.78rem] leading-relaxed text-textMuted">
+                        {clipText(selectedScenarioWorld.legalFramework.maritimeLaw, 220)}
+                      </p>
+                    </div>
+                    <div className="console-subpanel px-3 py-3">
+                      <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Treaty Obligations</p>
+                      <p className="mt-2 text-[0.78rem] leading-relaxed text-textMuted">
+                        {clipText(selectedScenarioWorld.legalFramework.treatyObligations, 220)}
+                      </p>
+                    </div>
+                    <div className="console-subpanel px-3 py-3 sm:col-span-2">
+                      <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Sanctions Framework</p>
+                      <p className="mt-2 text-[0.78rem] leading-relaxed text-textMuted">
+                        {clipText(selectedScenarioWorld.legalFramework.sanctionsFramework, 340)}
+                      </p>
+                    </div>
+                  </div>
+                </section>
+              ) : null}
+            </div>
+
+            <div className="space-y-4">
+              {turnOneCarryForward.length > 0 ? (
+                <section className="console-panel p-5">
+                  <p className="label">Carry Into Turn 1</p>
+                  <div className="mt-3 space-y-2">
+                    {turnOneCarryForward.map((item) => (
+                      <div key={item.label} className="console-subpanel px-3 py-2.5">
+                        <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">{item.label}</p>
+                        <p className="mt-1 text-[0.76rem] leading-relaxed text-textMain">{clipText(item.text, 220)}</p>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              ) : null}
+
+              {selectedScenarioWorld ? (
+                <section className="console-panel p-5">
+                  <p className="label">Actor Map</p>
+                  <div className="mt-3 grid gap-3">
+                    <div className="console-subpanel px-3 py-3">
+                      <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Player Nation</p>
+                      <p className="mt-1 text-sm text-textMain">{selectedScenarioWorld.playerNation.name}</p>
+                      <p className="mt-2 text-[0.78rem] leading-relaxed text-textMuted">
+                        {selectedScenarioWorld.playerNation.domesticContext}
+                      </p>
+                      <p className="mt-2 text-[0.76rem] text-textMuted">
+                        <span className="text-textMain">Posture:</span> {selectedScenarioWorld.playerNation.militaryPosture}
+                      </p>
+                    </div>
+                    <div className="console-subpanel px-3 py-3">
+                      <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Rival State</p>
+                      <p className="mt-1 text-sm text-textMain">{selectedScenarioWorld.rivalState.name}</p>
+                      <p className="mt-2 text-[0.78rem] leading-relaxed text-textMuted">
+                        {selectedScenarioWorld.rivalState.domesticContext}
+                      </p>
+                      <p className="mt-2 text-[0.76rem] text-textMuted">
+                        <span className="text-textMain">Capability:</span> {selectedScenarioWorld.rivalState.militaryCapability}
+                      </p>
+                      <p className="mt-2 text-[0.76rem] text-textMuted">
+                        <span className="text-textMain">Red line:</span> {selectedScenarioWorld.rivalState.knownRedLines}
+                      </p>
+                    </div>
+                  </div>
+                </section>
+              ) : null}
+
+              {alliancePreview.length > 0 ? (
+                <section className="console-panel p-5">
+                  <p className="label">Alliance Network</p>
+                  <div className="mt-3 space-y-2">
+                    {alliancePreview.map((alliance) => (
+                      <div key={alliance.name} className="console-subpanel px-3 py-2.5">
+                        <p className="text-[0.76rem] text-textMain">{alliance.name}</p>
+                        <p className="mt-1 text-[0.72rem] leading-relaxed text-textMuted">{alliance.description}</p>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              ) : null}
+
+              {keyFeaturePreview.length > 0 ? (
+                <section className="console-panel p-5">
+                  <p className="label">Strategic Features</p>
+                  <div className="mt-3 space-y-2">
+                    {keyFeaturePreview.map((feature) => (
+                      <div key={feature} className="console-subpanel px-3 py-2.5 text-[0.76rem] leading-relaxed text-textMuted">
+                        {feature}
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              ) : null}
+
+              {stakeholderPreview.length > 0 ? (
+                <section className="console-panel p-5">
+                  <p className="label">Primary Stakeholders</p>
+                  <div className="mt-3 space-y-2">
+                    {stakeholderPreview.map((stakeholder) => (
+                      <div key={stakeholder.id} className="console-subpanel px-3 py-2.5">
+                        <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">
+                          {stakeholder.type.replace('_', ' ')}
+                        </p>
+                        <p className="mt-1 text-[0.8rem] text-textMain">{stakeholder.name}</p>
+                        <p className="mt-1 text-[0.72rem] leading-relaxed text-textMuted">
+                          {clipText(stakeholder.disposition, 170)}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              ) : null}
+
+              {advisorFirstTakes.length > 0 ? (
+                <section className="console-panel p-5">
+                  <p className="label">Senior Staff Assessment</p>
+                  <div className="mt-3 space-y-2">
+                    {advisorFirstTakes.map((entry) => (
+                      <div key={entry.advisorId} className="console-subpanel px-3 py-2.5">
+                        <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">
+                          {advisorNameById[entry.advisorId] ?? entry.advisorId.toUpperCase()}
+                        </p>
+                        <p className="mt-1 text-[0.78rem] leading-relaxed text-textMain">{entry.line}</p>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              ) : null}
+
+              {intelligenceGapPreview.length > 0 ? (
+                <section className="console-panel p-5">
+                  <p className="label">Known Intelligence Gaps</p>
+                  <div className="mt-3 space-y-2">
+                    {intelligenceGapPreview.map((gap) => (
+                      <div key={gap} className="console-subpanel px-3 py-2.5 text-[0.76rem] leading-relaxed text-textMuted">
+                        {gap}
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              ) : null}
+
+              {selectedCinematics ? (
+                <section className="console-panel p-5">
+                  <button
+                    type="button"
+                    className="flex w-full items-start justify-between gap-3 text-left"
+                    onClick={() => setShowOpeningSequence((current) => !current)}
+                  >
+                    <div>
+                      <p className="label">Opening Sequence</p>
+                      <p className="mt-2 text-sm text-textMain">{selectedCinematics.openingCinematic.title}</p>
+                      <p className="mt-1 text-[0.72rem] uppercase tracking-[0.12em] text-textMuted">
+                        {selectedCinematics.openingCinematic.subtitle}
+                      </p>
+                    </div>
+                    <span className="text-[0.62rem] uppercase tracking-[0.1em] text-accent">
+                      {showOpeningSequence ? 'Hide' : 'Open'}
+                    </span>
+                  </button>
+                  <div className="mt-3 space-y-2 border-t border-borderTone/70 pt-3 text-[0.78rem] leading-relaxed text-textMuted">
+                    {(showOpeningSequence
+                      ? selectedCinematics.openingCinematic.fragments
+                      : selectedCinematics.openingCinematic.fragments.slice(0, 2)
+                    ).map((fragment) => (
+                      <p key={fragment}>{fragment}</p>
+                    ))}
+                    <p className="border-l-2 border-accent/70 pl-3 text-sm text-textMain">
+                      {selectedCinematics.openingCinematic.closingLine}
                     </p>
                   </div>
-                  <span className="text-[0.62rem] uppercase tracking-[0.1em] text-accent">
-                    {showOpeningSequence ? 'Hide' : 'Open'}
-                  </span>
-                </button>
-                <div className="mt-3 space-y-2 border-t border-borderTone/70 pt-3 text-[0.78rem] leading-relaxed text-textMuted">
-                  {(showOpeningSequence
-                    ? selectedCinematics.openingCinematic.fragments
-                    : selectedCinematics.openingCinematic.fragments.slice(0, 2)
-                  ).map((fragment) => (
-                    <p key={fragment}>{fragment}</p>
-                  ))}
-                  <p className="border-l-2 border-accent/70 pl-3 text-sm text-textMain">
-                    {selectedCinematics.openingCinematic.closingLine}
-                  </p>
-                </div>
-              </section>
-            ) : null}
-          </div>
+                </section>
+              ) : null}
+            </div>
+          </section>
         </section>
       </section>
     </main>
