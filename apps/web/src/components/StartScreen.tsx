@@ -327,11 +327,22 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
                 <p className="mt-2 text-xs leading-relaxed text-textMain">
                   {selectedScenarioWorld.region.name} · {selectedScenarioWorld.dateAnchor.month} {selectedScenarioWorld.dateAnchor.year}
                 </p>
-                <p className="mt-1 text-[0.72rem] leading-relaxed text-textMuted">
-                  {selectedScenarioWorld.region.coordinates}
+                <p className="mt-2 text-[0.72rem] leading-relaxed text-textMuted">
+                  {selectedScenarioWorld.dateAnchor.dayRange}
                 </p>
                 <p className="mt-2 text-[0.72rem] leading-relaxed text-textMuted">
-                  {clipText(selectedScenarioWorld.economicBackdrop.globalConditions)}
+                  {clipText(selectedScenarioWorld.region.description, 320)}
+                </p>
+                <p className="mt-2 text-[0.7rem] leading-relaxed text-textMuted">
+                  {selectedScenarioWorld.region.coordinates}
+                </p>
+              </div>
+            ) : null}
+            {selectedScenarioWorld ? (
+              <div className="mt-4 rounded-md border border-borderTone/70 bg-surface/35 px-3 py-2">
+                <p className="label">Why This Matters</p>
+                <p className="mt-2 text-[0.72rem] leading-relaxed text-textMuted">
+                  {clipText(selectedScenarioWorld.economicBackdrop.straitEconomicValue, 340)}
                 </p>
               </div>
             ) : null}

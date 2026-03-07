@@ -160,6 +160,12 @@ const App = () => {
     }
     return reference.cinematics.find((entry) => entry.scenarioId === episode.scenarioId) ?? null;
   }, [reference, episode?.scenarioId]);
+  const currentScenarioWorld = useMemo(() => {
+    if (!reference || !episode) {
+      return null;
+    }
+    return reference.scenarioWorld.find((entry) => entry.scenarioId === episode.scenarioId) ?? null;
+  }, [reference, episode?.scenarioId]);
   const recentActionNarrative = useMemo<RecentActionNarrativeView | null>(() => {
     if (!reference || !currentScenario || !episode?.recentTurn) {
       return null;
@@ -658,6 +664,7 @@ const App = () => {
             turn={episode.turn}
             maxTurns={episode.maxTurns}
             briefing={episode.briefing}
+            scenarioWorld={currentScenarioWorld}
             imageAsset={episode.imageAsset}
             turnDebrief={episode.turnDebrief}
             recentActionNarrative={recentActionNarrative}

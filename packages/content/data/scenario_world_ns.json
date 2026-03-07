@@ -1,198 +1,161 @@
 {
   "scenarioId": "northern_strait_flashpoint",
   "region": {
-    "name": "The Northern Strait",
-    "description": "The Northern Strait is a 180-kilometer-wide maritime corridor separating the industrial coast of the Kaltor Union to the west from the archipelago nation of Helix to the east. The strait connects the Northern Sea (open ocean) to the enclosed Castan Basin, which serves as the only deep-water transit route into the ports of Vestmark, Corinth, and Soren—critical supply hubs for 14 nations with no alternative access. Approximately 12% of global seaborne trade transits through the strait annually (~2.1 trillion USD in commodities), including 35% of liquefied natural gas flowing to Northern Atlantic markets, 28% of containerized manufacturing goods from Pan-Asian suppliers, and 67% of critical mineral ore shipments. The strait's width and geography force all commercial traffic through a narrow central shipping lane (14 km wide), flanked by contested territorial claims. Adverse weather conditions during winter months (November–March) create seasonal navigation hazards, adding pressure to shipping schedules and increasing reliance on military escort coordination.",
-    "coordinates": "65.2°N to 67.8°N latitude, 18.3°E to 22.1°E longitude",
+    "name": "Taiwan Strait",
+    "description": "The Taiwan Strait separates Taiwan from mainland China's Fujian coast and links the East China Sea to the South China Sea. Traffic moving between Northeast Asia, Southeast Asia, and global markets routinely crosses the strait or its immediate approaches. The corridor also sits beside Taiwan's west-coast ports, dense undersea cable routes, and a fabrication base that anchors a large share of the world's advanced semiconductor output. A coercive inspection regime or quasi-blockade here would not stay local; it would hit shipping schedules, chip supply, insurance markets, and alliance credibility at the same time.",
+    "coordinates": "Approx. 23.5°N to 26.5°N latitude, 119.5°E to 121.5°E longitude",
     "keyFeatures": [
-      "Kaltor Union West Coast Naval Base (Nordmark) — primary adversary naval concentrations",
-      "Helix Eastern Archipelago (Vex, Kross, Midholm islands) — allied island chain",
-      "Castan Basin Central Route (14 km shipping corridor) — primary merchant chokepoint",
-      "Vestmark Deep-Water Port (Helix, east bank) — critical supply hub, 18 million TEU annual capacity",
-      "Corinth Industrial Complex (Castan Basin southern terminus) — energy/refining hub",
-      "North Cape Prominence (Kaltor Union) — military radar and undersea sensor array",
-      "Soren Anchorage (Castan Basin) — secondary container port and offshore platform supply base",
-      "Kaltorfjord Entrance (disputed waters) — underwater geography creates sonar blind spots",
-      "Midholm Strait Passage (between Helix islands) — alternative 2-day detour route, 40% longer"
+      "Kaohsiung, Taichung, and Keelung ports — Taiwan's main commercial gateways",
+      "Fujian coast military complexes near Xiamen, Fuzhou, and Pingtan — primary PLA staging areas",
+      "Median line and central transit corridor — core gray-zone pressure zone",
+      "Penghu archipelago — forward Taiwanese position astride the western approaches",
+      "Bashi Channel south of Taiwan — route linking the strait to the wider Pacific and Philippine Sea",
+      "Undersea cable landing points and west-coast power / fabrication infrastructure — high-value non-kinetic targets"
     ],
-    "climateSeason": "Late autumn, transitioning to winter (October 28 – December 15). Water temperature declining to 4–6°C. Storm frequency increasing (8–10-day intervals). Daylight reduced to 6–8 hours at latitude; darkness creates operational complexity for naval visual surveillance. Ice formation expected by early November in northern approaches. Navigation window tightens significantly by late November."
+    "climateSeason": "Late March into early April. Spring fog, rougher cross-strait winds, and intermittent heavy rain degrade visibility and complicate maritime identification. Conditions are not severe enough to halt operations, but they increase the chance that an unsafe intercept or misread maneuver becomes an incident."
   },
   "dateAnchor": {
-    "year": 2027,
-    "month": "October–November",
-    "dayRange": "The 10-turn window spans 28 October – 15 November 2027 (18 calendar days, representing the acute crisis period before winter navigation window closes and diplomatic summits restart).",
-    "timeContext": "Global economic slowdown: growth revised downward by IMF to 2.1% amid rising energy costs and trade tensions. Banking stress in Southern markets has spooked commodity traders. The Kaltor Union faces internal industrial output decline (down 3.2% YoY) and rising unemployment in coastal regions, creating domestic political pressure on leadership. A contentious election cycle in the region is triggering nationalist rhetoric and saber-rattling. Pan-Atlantic alliance cohesion is fragile due to burden-sharing disputes over military spending."
+    "year": 2026,
+    "month": "March-April",
+    "dayRange": "The 10-turn window spans 24 March – 9 April 2026, covering the acute period between Beijing's new maritime-control announcement and the next major allied decision window.",
+    "timeContext": "Cross-strait military tempo remains elevated after late-2025 blockade-style PLA drills, recurring median-line crossings, and persistent cyber pressure on Taiwanese infrastructure. Global markets are already sensitive to shipping disruption, export-control escalation, and any threat to advanced semiconductor supply."
   },
   "playerNation": {
-    "name": "The Pan-Atlantic Coalition (PAC)",
-    "governmentType": "Democratic federation of 12 allied maritime democracies with NATO-equivalent mutual defense framework (Accord of Common Defense, signed 1998).",
-    "currentLeader": "Secretary-General, PAC Council of Ministers",
-    "domesticContext": "Public opinion on foreign military commitments is split (47% support / 43% oppose / 10% undecided in latest polling). Recent election cycle has elevated fiscal-focused voices questioning overseas military presence. Domestic ports are experiencing labor negotiations; dockers in Vestmark have threatened slowdowns if crisis escalates. Economic anxiety is high; markets fear that a military conflict could trigger recession.",
-    "militaryPosture": "PAC maintains standing task group in Castan Basin: 1 guided-missile destroyer, 1 frigate, 1 attack submarine, and 6 maritime patrol aircraft (3 shore-based). Additional reinforcement capability exists but not pre-deployed (2 carrier strike group elements on 5-day surge notice from home ports 1,200 nm away). Cyber defense posture is elevated; communication networks hardened. Rules of engagement (ROE) permit defensive measures but restrict offensive action without executive approval.",
+    "name": "United States and Indo-Pacific partners",
+    "governmentType": "The player role represents the U.S. National Security Advisor coordinating a coalition built around Washington, Taipei, Tokyo, Manila, Canberra, and supportive European partners.",
+    "currentLeader": "President of the United States",
+    "domesticContext": "Washington is balancing inflation sensitivity, industrial-policy pressure around semiconductor supply, and a domestic debate over how much military risk the U.S. should absorb in Asia. Any visible loss of credibility in the strait would reverberate through alliance politics, but a fast military escalation would face immediate scrutiny at home.",
+    "militaryPosture": "The U.S. Indo-Pacific posture includes forward naval and air assets, ISR coverage, cyber defense coordination, and reinforcement options from Japan, Guam, and the Philippine theater. Japan and the Philippines are directly affected by any change in the strait; both are politically supportive but want disciplined coordination before the first exchange of fire.",
     "alliances": [
       {
-        "name": "Helix (island ally)",
-        "description": "Democratic island nation, 100% economically dependent on strait transit. Military: 8,000 personnel, 4 patrol ships, 12 fighter jets. Political will is strong but military capacity is modest. Shares intelligence with PAC via long-standing bilateral arrangement."
+        "name": "Taiwan",
+        "description": "Self-governing island democracy under direct coercive pressure. It needs maritime access, market confidence, and visible reassurance without being pushed into symbolic moves Beijing can frame as a provocation."
       },
       {
-        "name": "Trade Consortium 7 (neutral commercial bloc)",
-        "description": "Forum of 7 maritime trading nations with interests in Castan Basin access. Politically heterogeneous; consensus-based. Unlikely to take sides militarily but capable of diplomatic isolation or sanctions escalation if consensus achieved."
+        "name": "Japan",
+        "description": "Critical rear-area ally whose southwest islands, sea lanes, and industrial supply chains are exposed to escalation around Taiwan. Tokyo is central to logistics, deterrence credibility, and coalition cohesion."
       },
       {
-        "name": "Pan-Atlantic Regional Development Bank (PARDB)",
-        "description": "Multilateral development institution with Helix, Vestmark Port Authority, and 9 smaller nations as shareholders. Controls $180 billion in regional investment. Can execute sanctions-adjacent measures (loan freezes, project delays) without formal political declaration."
+        "name": "Philippines",
+        "description": "Treaty ally whose northern bases, maritime domain, and political signaling matter for access, surveillance, and wider regional escalation control."
       }
     ]
   },
   "rivalState": {
-    "name": "The Kaltor Union",
-    "governmentType": "Centralized autocracy with quasi-corporate oligarch power structure; decision-making concentrated in executive council dominated by military and industrial interests.",
-    "leaderTitle": "Chancellor of the Union",
-    "domesticContext": "Kaltor economy is contracting; industrial output down 3.2% YoY, unemployment rising in rust-belt coastal regions. Energy exports (primary revenue source) face margin pressure from oversupply and Western demand reduction. Regime legitimacy depends on nationalist narratives of restoring 'historic great power status.' Recent internal tensions between military-industrial faction and oligarchs over resource allocation. Leadership faces unspoken pressure to demonstrate resolve and secure strategic advantage before economic crisis deepens.",
-    "militaryCapability": "Kaltor Union operates the Nordmark Naval Base (primary fleet concentration) with: 2 guided-missile cruisers, 4 guided-missile destroyers, 3 attack submarines, 12 fast-attack patrol craft, and integrated air-defense network (radar, S-400 equivalent SAM batteries). Cyber capability is advanced (known to PAC intelligence as T-1 tier). Amphibious lift capacity for ~3,000 personnel. Intelligence assessment: force posture is defensive-dominant but could transition to offensive signaling rapidly if political decision taken.",
-    "economicLeverage": "Direct: Kaltor controls ~15% of global LNG supply; reduction or blockade would raise global prices 12–18% within 2 weeks. Indirect: Kaltor owns or controls 22% of containerized shipping fleet in Castan Basin (subsidiary companies); logistics leverage over commercial schedules. Financial: Kaltor holds $45 billion in sovereign wealth reserves (sufficient for 6–9 month state-run operations). No significant financial dependencies on PAC; IMF/World Bank lending is blocked by political sanctions; Kaltor relies on internal mobilization.",
-    "economicLeverage": "Kaltor Union controls ~15% of global liquefied natural gas supply. Reduction or blockade would trigger global LNG price rise of 12–18% within 2 weeks, cascading into energy costs for 40+ nations. Subsidiary shipping companies control 22% of containerized vessel capacity in Castan Basin, providing logistics coercion lever. Sovereign wealth reserves total $45 billion, sufficient for 6–9 months of state-run economic autarky. No significant financial dependencies on PAC; existing IMF/World Bank lending frozen by political sanctions. Kaltor strategy emphasizes self-sufficiency and asymmetric economic pressure rather than direct trade.",
-    "knownRedLines": "Intelligence assessment (moderate confidence): Kaltor will avoid direct military escalation to full conventional warfare—estimated cost ($200+ billion, 2-3 year timeline) exceeds risk-management tolerance of regime. However, Kaltor views 'gray zone' coercive actions (cyber probing, proxy mercenary operations, economic blockade, military signaling) as acceptable and controllable. Estimated red line: if PAC commits to permanent forward military surge (carrier strike group permanently stationed in Castan Basin), Kaltor will likely execute retaliatory cyber campaign and potential partial blockade of merchant traffic. Full military blockade is unlikely unless PAC takes overt military action first (e.g., strike on Nordmark)."
+    "name": "People's Republic of China",
+    "governmentType": "Party-led authoritarian state with decision-making concentrated in the top party leadership, the Central Military Commission, and the security apparatus.",
+    "leaderTitle": "General Secretary and Chairman of the Central Military Commission",
+    "domesticContext": "Beijing is balancing slower growth, property-sector strain, local-government debt pressure, and an ideological insistence that outside powers cannot normalize support for Taiwan. Nationalist messaging makes de-escalation politically costly if it looks like retreat under U.S. pressure.",
+    "militaryCapability": "The PLA can combine Eastern Theater Command naval and air forces, Rocket Force signaling, Coast Guard hulls, maritime militia, cyber operations, and information warfare into a layered pressure campaign. The most dangerous feature of the scenario is not an immediate amphibious invasion; it is Beijing's ability to make coercion look administrative, legal, and reversible until the moment it is not.",
+    "economicLeverage": "China can weaponize market fear, shipping uncertainty, trade dependence, manufacturing exposure, rare-earth leverage, and the threat of countersanctions. It also knows that many U.S. partners fear the economic cost of a prolonged Taiwan crisis even if they oppose coercion in principle.",
+    "knownRedLines": "High-confidence red lines include any move toward formal Taiwanese independence, permanent foreign military basing on Taiwan, or direct strikes on mainland territory. A sustained allied military posture east of Taiwan combined with financial sanctions on major Chinese institutions would likely trigger rapid counter-escalation across military, cyber, and economic domains."
   },
   "stakeholders": [
     {
-      "id": "helix_government",
-      "name": "Government of Helix",
+      "id": "taiwan_government",
+      "name": "Government of Taiwan",
       "type": "ally",
-      "description": "Democratic island nation with 2.3 million population; 100% economic reliance on Castan Basin transit (40% of national GDP from port fees and shipping ancillary services). Leadership has strong political will to resist Kaltor coercion but limited independent military capacity (8,000 personnel, mostly naval/coast guard). Internally divided: some factions favor diplomatic de-escalation to preserve trade relationships; others demand PAC hardline support.",
-      "influence": "Can request formal PAC security guarantee or invoke Accord clause triggering military response. Control over Vex and Kross harbors gives port access leverage. Domestic political stability sensitive to disruptions in shipping schedules (unemployment risk if ports idle).",
-      "disposition": "Strongly aligned with PAC; seeks reassurance and forward-deployed security commitment. Currently cooperative on intelligence sharing and port access for allied military vessels."
+      "description": "Taipei needs commerce to continue, markets to stay functional, and foreign support to remain visible without appearing to outsource its survival. Public calm and military readiness have to move together.",
+      "influence": "Controls civil defense, port operations, reserve activation, and public messaging inside Taiwan. Its tone can calm or inflame the situation.",
+      "disposition": "Wants clear reassurance and visible coalition presence, but must avoid actions Beijing can package as a formal break from the status quo."
     },
     {
-      "id": "vestmark_port_authority",
-      "name": "Vestmark Port Authority",
+      "id": "japan_government",
+      "name": "Government of Japan",
+      "type": "ally",
+      "description": "Japan is exposed through southwest island security, shipping lanes, energy imports, and industrial supply chains. It is both a military enabler and a political barometer for the wider coalition.",
+      "influence": "Can provide basing access, logistics, maritime surveillance, and diplomatic weight; also shapes how much broader allied support holds together.",
+      "disposition": "Supportive of deterrence, but highly sensitive to uncontrolled escalation and any strike activity near Okinawa or the Ryukyus."
+    },
+    {
+      "id": "philippines_government",
+      "name": "Government of the Philippines",
+      "type": "ally",
+      "description": "Manila matters because northern Philippine access, airspace, and political signaling affect the coalition's ability to monitor and reinforce the theater. It also has its own China-related maritime friction to manage.",
+      "influence": "Can widen or constrain allied access south of Taiwan through basing, overflight, and public posture choices.",
+      "disposition": "Aligned with the United States but wary of becoming the first retaliatory target if the crisis spills south."
+    },
+    {
+      "id": "shipping_insurance_markets",
+      "name": "Commercial shipping and war-risk insurers",
       "type": "commercial",
-      "description": "Semi-autonomous state-owned enterprise managing Helix's primary deep-water port (18 million TEU annual capacity, $4.2 billion annual revenue). Board includes independent commercial operators and government appointees. Authority prioritizes throughput efficiency and is sensitive to transit delays, fees, or security disruptions. Politically insulated from direct government control but subject to indirect influence.",
-      "influence": "Controls physical port access; can impose fees, extend docking times, or declare force majeure due to security threats. De facto arbiter of which vessels transits (flag restrictions, cargo screening). Decisions on tariff increases or capacity reductions ripple through global shipping costs.",
-      "disposition": "Neutral-commercial; favors stability and predictability. Will cooperate with PAC security measures if framed as temporary and cost-reimbursed. Resists measures that reduce throughput or increase costs (e.g., extended customs screening)."
+      "description": "Shipping lines and insurers will reprice or reroute before diplomats finish their first call. They translate military ambiguity into real costs almost immediately.",
+      "influence": "Can make the strait economically unusable without a formal blockade by withdrawing coverage, raising premiums, or diverting traffic.",
+      "disposition": "Risk-averse and highly responsive to boarding incidents, missile notices, cable cuts, and cyber disruption."
     },
     {
-      "id": "kaltor_industrial_oligarchs",
-      "name": "Kaltor Union Industrial Oligarch Consortium",
-      "type": "rival_aligned",
-      "description": "Network of 5–7 powerful oligarchs who control shipping lines, energy companies, and defense contractors. Collectively influence ~30% of Kaltor's economic output. Leadership prioritizes wealth preservation and market access; internally competitive and not ideologically unified. Some maintain private economic relationships with Pan-Atlantic traders (offshore holdings, family business ties). Known to lobby Chancellor for economic pragmatism over nationalist agitation.",
-      "influence": "Can slow or accelerate Kaltor government's coercive actions by withholding or redirecting resources. Oligarch shipping lines (collectively 22% of Castan Basin capacity) can stage slowdowns or reroute vessels to signal displeasure or compliance. Oligarchs control intelligence networks independent of state security apparatus.",
-      "disposition": "Pragmatic-opportunistic. Prefer status quo that allows trade and wealth accumulation. Resistant to extended economic sanctions or military escalation but will accept limited gray-zone actions if regime stability appears threatened. May leak confidential government plans if oligarch interests diverge from state strategy."
-    },
-    {
-      "id": "trade_consortium_7",
-      "name": "Trade Consortium 7 (TC-7)",
-      "type": "neutral",
-      "description": "Forum of 7 maritime trading nations (moderate-income democracies and city-states) with high economic exposure to Castan Basin trade. Members include Korrin (12% shipping exposure), Estmark (8%), Midholm (5%), and 4 smaller economies. TC-7 operates via consensus; decisions require 6/7 agreement. Internally divided: some members favor PAC alignment; others prefer economic neutrality to preserve Kaltor market access.",
-      "influence": "Collectively control 18% of Castan Basin shipping capacity. Can coordinate sanctions (tariffs, trade restrictions) if consensus achieved. Can offer mediation services and host diplomatic summits. Economic leverage over smaller Kaltor trading partners via tariff reciprocity.",
-      "disposition": "Balancing act: desire PAC security reassurance but fearful of being drawn into conflict. Currently neutral-leaning-collaborative; will support PAC consensus actions but unlikely to initiate military measures. Susceptible to economic incentives (trade agreements, investment guarantees) from either side."
-    },
-    {
-      "id": "international_maritime_authority",
-      "name": "International Maritime Authority (IMA)",
-      "type": "international_org",
-      "description": "UN-affiliated body responsible for maritime law enforcement, shipping safety, and freedom-of-navigation verification. 45-nation membership including both PAC and Kaltor Union. Authority is staffed by career bureaucrats with institutional mandate for neutrality. IMA can dispatch observer missions, issue fact-finding reports, and recommend (but not enforce) sanctions.",
-      "influence": "Legitimacy authority on transit restrictions and maritime law interpretation. IMA fact-finding reports are cited in diplomatic negotiations and can sway neutral opinion. IMA observer presence in Castan Basin provides third-party verification (or refutation) of coercive actions by either side.",
-      "disposition": "Formally neutral; operates under UN Security Council mandate. Responsive to major-power pressure but maintains institutional credibility by avoiding overtly partisan stances. Will issue reports and recommendations; unlikely to take autonomous enforcement actions."
-    },
-    {
-      "id": "pan_atlantic_financial_markets",
-      "name": "Pan-Atlantic Financial Markets",
-      "type": "neutral",
-      "description": "Collective of major trading floors, commodity exchanges, and investment banks in PAC member states. Collectively manage $2.4 trillion in daily trading volume; sensitive to geopolitical risk and supply-chain disruption signals. Not a formal political actor but exercises indirect influence through market pricing and capital allocation decisions.",
-      "influence": "Energy and shipping futures prices respond to military or political signals; market risk-on/risk-off behavior can amplify or dampen crisis perception. Bank credit lines (particularly for shipping) can dry up if geopolitical risk premium rises. Insurance rates for Castan Basin transits directly reflect perceived threat level.",
-      "disposition": "Risk-averse and responsive to information. Markets price in worst-case scenarios quickly; escalatory rhetoric triggers hedging and capital flight. De-escalatory signals can lower premiums and restore confidence. Markets have de facto veto over extreme measures (e.g., if shipping insurance becomes unaffordable, commercial traffic stops regardless of military escort offer)."
-    },
-    {
-      "id": "kaltor_cyber_operations_directorate",
-      "name": "Kaltor Cyber Operations Directorate (KCOD)",
-      "type": "rival_aligned",
-      "description": "Kaltor's primary state-sponsored cyber warfare unit. Estimated 2,000–3,000 personnel across offensive, defensive, and intelligence branches. Known for advanced persistent threat (APT) campaigns against PAC critical infrastructure (energy grids, financial systems, shipping logistics). KCOD operates with dual civilian-military authorization and has independent operational authority for 'gray zone' cyber actions below formal escalation thresholds.",
-      "influence": "Can execute targeted cyber operations against Castan Basin port systems, shipping logistics platforms, PAC military communications, and financial infrastructure. Capability to disrupt vessel scheduling systems, jam GPS/GNSS navigation, and corrupt port operations data. KCOD actions are deniable and difficult to attribute; enable escalation without formal declaration of conflict.",
-      "disposition": "Aggressive; oriented toward coercive pressure and information warfare. KCOD views cyber operations as primary lever for Kaltor's asymmetric advantage. Likely to conduct probing operations if political tension rises and to coordinate with military signaling campaigns."
+      "id": "global_chip_buyers",
+      "name": "Global semiconductor and electronics buyers",
+      "type": "commercial",
+      "description": "Manufacturers and cloud-hardware supply chains are directly exposed to any disruption around Taiwan's fabrication and export system. Their panic buying can create shortages before any factory is physically damaged.",
+      "influence": "Contingency ordering, inventory hoarding, and market signaling amplify global economic stress and political pressure on coalition governments.",
+      "disposition": "They want credible assurance that fabrication, power, ports, and air cargo flows will keep moving."
     }
   ],
   "economicBackdrop": {
-    "globalConditions": "Global growth revised downward to 2.1% by IMF (January 2027 forecast); energy markets volatile due to regional supply uncertainties. Credit conditions are tightening; central banks have maintained high interest rates to combat inflation. Corporate profit margins are compressed in logistics and shipping sectors. Market sentiment is risk-off; investors are reducing exposure to geopolitically sensitive commodities and equities with supply-chain exposure to contested regions. The prospect of Northern Strait disruption adds premium risk and could trigger broader market revaluation.",
-    "straitEconomicValue": "Approximately 2.1 trillion USD in annual seaborne trade transits the Northern Strait (12% of global maritime trade by value). Composition: 35% liquefied natural gas (LNG)—supply to 23 Northern Atlantic nations; 28% containerized goods (machinery, electronics, consumer goods); 18% bulk commodities (ore, grain); 12% petroleum products; 7% specialty chemicals and pharmaceuticals. Disruption or 50% reduction in capacity would raise global energy prices 12–18% within 2 weeks, trigger shipping rate spikes (800–1,200% increases on Castan Basin routes), and cascade into supply-chain delays across automotive, electronics, and consumer goods sectors. Port throughput at Vestmark: 18 million TEU annually (generating $4.2 billion in port revenue for Helix economy). Alternative routes (Midholm Strait detour, Cape North passage) add 2–5 days transit time and increase fuel/insurance costs by 35–50%.",
-    "vulnerabilities": "Energy price inflation remains at elevated levels globally (WTI crude at $68/bbl, above 5-year median). LNG futures markets show tight supply-demand balance; any loss of Kaltor Union exports would spike global prices sharply and expose economies with low energy reserves (Southern alliance members, island nations). Shipping lines operating in Castan Basin face margin compression; fuel surcharges are at historical highs. Port labor negotiations in Vestmark are contentious; additional operational disruptions could trigger work slowdowns. Insurance market for high-risk zones is becoming prohibitively expensive; some specialty cargo (humanitarian aid, medical supplies) may become uninsurable in contested corridors.",
-    "marketSentiment": "Traders are watching Kaltor Union military movements and PAC policy signals closely. VIX (volatility index) has elevated 8–10 points above 20-year median in anticipation of Strait disruption. Energy futures show contango structure (future months trading at premium), signaling expectation of tight supply. Shipping index (Baltic Dry) has spiked 28% in 6 weeks. Investment banks have increased cash buffers; IPO market has stalled. Sentiment is fragile: escalatory military incident or blockade announcement would likely trigger 5–8% equity market correction and multi-month reversal of risk-on positioning. De-escalatory diplomatic signal (summit announcement, mediation agreement) could reverse risk premium and unlock capital markets."
+    "globalConditions": "Global disinflation has stalled, freight markets remain fragile after repeated Red Sea disruptions, and capital is still hypersensitive to geopolitical choke points. Any Taiwan shock would hit an already tense mix of shipping, insurance, energy, and technology markets.",
+    "straitEconomicValue": "The Taiwan Strait matters because it sits beside Taiwan's core export corridors and the world's most important concentration of advanced chip production. A gray-zone inspection regime would not need to stop every ship to do damage; even intermittent delays, boardings, cable cuts, or exclusion zones could disrupt electronics, autos, industrial controls, cloud hardware, and defense supply chains worldwide.",
+    "vulnerabilities": "The most immediate vulnerabilities are commercial shipping confidence, Taiwan's port and power resilience, undersea cables, and allied willingness to absorb sanctions and countersanctions. Markets also fear a split between military reassurance and financial caution among coalition governments.",
+    "marketSentiment": "War-risk premiums, semiconductor equities, Asian FX, and shipping names will respond before official policy does. If Beijing convinces markets that routine transit is no longer routine, the economic damage begins even without a missile launch."
   },
   "crisisTimeline": [
     {
       "daysBeforeStart": -90,
-      "event": "Kaltor Union announces plans for 'integrated military exercises' in northern coastal region. Official messaging emphasizes routine operations; however, satellite imagery shows above-normal equipment movements and activation of reserve mobilization depots.",
-      "significance": "First signal of Kaltor's intention to signal resolve and test PAC reaction tolerance. Exercises are calibrated to be technically defensible while clearly visible."
+      "event": "After late-2025 encirclement drills, PLA air and naval activity around Taiwan settles into a new normal: more median-line crossings, more around-island routing, and more public messaging that blockade-style operations are now a routine option.",
+      "significance": "Beijing is conditioning regional audiences to accept higher operational tempo and lower warning time before a real crisis."
     },
     {
-      "daysBeforeStart": -75,
-      "event": "Kaltor industrial oligarchs execute $2.8 billion portfolio transfer to offshore accounts in neutral jurisdictions. Intelligence suggests oligarchs are hedging against extended sanctions or capital controls; move signals insider concern about escalation trajectory.",
-      "significance": "Indicates that Kaltor elites are preparing contingency positions. Oligarch actions precede formal government decisions and often predict regime risk-taking."
+      "daysBeforeStart": -63,
+      "event": "Taiwanese port, customs, and telecom networks absorb a fresh wave of cyber intrusions. The activity looks more like pre-positioning and mapping than immediate sabotage, but the target set is unmistakably logistical.",
+      "significance": "This suggests a campaign designed to pair maritime coercion with disruption of port throughput, customs clearance, and public communications."
     },
     {
-      "daysBeforeStart": -62,
-      "event": "PAC Defense Council convenes emergency session. Formal statement expresses 'grave concern' over Kaltor military posture and reaffirms commitment to 'freedom of navigation' in Castan Basin. Decision: increase maritime patrol frequency from 4 to 7 transits weekly; no public announcement of force level increase, but Helix and TC-7 are quietly briefed.",
-      "significance": "PAC signals resolve while maintaining strategic ambiguity. Increase in patrol tempo is visible to Kaltor intelligence but stops short of formal military deployment."
+      "daysBeforeStart": -45,
+      "event": "Chinese maritime regulators circulate new language around “traffic safety,” “ship reporting,” and “inspection compliance” for vessels operating in waters west of Taiwan. The measures are framed as administrative, but shipping counsel reads them as the legal shell of a pressure campaign.",
+      "significance": "Beijing is building a bureaucratic justification for coercion that can be presented as regulation rather than blockade."
     },
     {
-      "daysBeforeStart": -51,
-      "event": "Kaltor Union announces tariff increase on foreign-flagged shipping transiting northern straits (effective in 30 days). Justification: 'infrastructure maintenance cost recovery.' Tariff impact: +4.2% on shipping costs in high-risk transit corridors. Simultaneously, Kaltor media begins nationalist campaign highlighting 'Western encroachment on sovereign waters.'",
-      "significance": "Kaltor escalates economic coercion while maintaining legal defensibility. Tariff is modest enough to avoid immediate sanctions response but signals capability for further pressure. Media campaign frames nationalist narrative for domestic audience."
-    },
-    {
-      "daysBeforeStart": -38,
-      "event": "TC-7 convenes emergency economic council. Members express concern over tariff impact; Korrin and Estmark propose joint diplomatic initiative to negotiate tariff reversal. Consensus decision: approach Kaltor informally via back-channel diplomatic channels. Helix government opposes mediation attempt, fearing it legitimizes coercive behavior.",
-      "significance": "TC-7 fragmentation becomes visible. Neutral members prefer economic pragmatism over alliance solidarity; this divergence signals weakness that Kaltor may exploit."
-    },
-    {
-      "daysBeforeStart": -28,
-      "event": "KCOD executes cyber reconnaissance probes against Vestmark Port Authority systems and PAC military communications networks. Probes are detected but attribution is ambiguous; PAC cybersecurity teams assess probes as 'intelligence gathering' rather than offensive preparation. No public statement issued; incident is classified.",
-      "significance": "Kaltor begins asymmetric pressure campaign. Cyber probing is deniable and allows Kaltor to test PAC defensive capabilities without crossing clear escalation thresholds."
+      "daysBeforeStart": -30,
+      "event": "A new round of PLA joint drills includes missile units, Coast Guard escorts, and east-of-Taiwan naval operations. The exercise pattern mirrors blockade rehearsal more than symbolic signaling.",
+      "significance": "The military piece is now integrated with law-enforcement and gray-zone actors, shrinking the space between pressure and actual interdiction."
     },
     {
       "daysBeforeStart": -18,
-      "event": "Kaltor Union Nordmark Naval Base executes 'snap exercise' involving 2 cruisers, 4 destroyers, and 3 submarines in international waters near central shipping corridor. Exercise duration: 6 days. Kaltor announces exercise in advance (technically compliant with international maritime notifications) but maintains strict radio silence and avoids coordination with IMA observers.",
-      "significance": "Kaltor displays military capability and resolve; exercises close proximity to shipping corridor creates perception of threat without formal blockade. Timing suggests Kaltor is testing PAC response under time pressure."
+      "event": "Repair activity around offshore cable infrastructure is harassed by nominally civilian vessels and low-level jamming. The incidents remain deniable, but insurers and telecom operators begin contingency planning.",
+      "significance": "Non-kinetic disruption is entering the crisis picture, raising the risk that a shipping problem quickly becomes a communications and market-confidence problem."
     },
     {
       "daysBeforeStart": -12,
-      "event": "Three merchant vessels (Korrin-flagged, neutral registry) report GPS spoofing incidents and radio jamming while transiting central corridor. No vessels damaged; captains reroute via Midholm detour (adds $45K per vessel in fuel and time costs). IMA receives complaints; investigation initiated (findings expected in 10–12 days).",
-      "significance": "First kinetic-adjacent incident. GPS spoofing is ambiguously deniable (could be malfunction or environmental) but consistent with Kaltor cyber capabilities. Incident raises insurance costs and merchant anxiety; signals Kaltor's willingness to create friction without formal declaration."
+      "event": "Washington, Tokyo, and Manila intensify private consultations on access, ISR, and public messaging. Taipei asks for visible reassurance but also warns that poorly coordinated symbolism could help Beijing frame the crisis as foreign interference.",
+      "significance": "Coalition alignment exists, but it is conditional and politically fragile."
     },
     {
-      "daysBeforeStart": -6,
-      "event": "PAC Secretary-General issues formal diplomatic note expressing concern over GPS jamming incidents and reiterates commitment to 'freedom of navigation.' Language is measured but firm. Simultaneously, PAC Defense Council approves surge deployment authorization (pending Secretary-General orders): 1 additional destroyer and 1 supply ship to Castan Basin (5-day transit).",
-      "significance": "PAC signals determination while maintaining escalation discipline. Authorization for surge suggests serious contingency planning but stops short of immediate deployment. Diplomatic note provides formal record for escalation justification."
+      "daysBeforeStart": -7,
+      "event": "War-risk insurers issue new advisories for the Taiwan Strait and adjacent approaches. Several carriers begin modeling reroutes east of Taiwan and through the Philippine Sea despite the added fuel and scheduling cost.",
+      "significance": "The market is now translating military ambiguity into real economic friction before any formal interdiction has started."
     },
     {
       "daysBeforeStart": -3,
-      "event": "Kaltor Chancellor delivers national address emphasizing 'restoration of sovereign control over territorial waters' and 'resistance to Western hegemony.' Speech includes implicit threats regarding shipping restrictions. Kaltor media reports military exercise as 'resounding success' and suggests exercises may be extended. Intelligence assessment: speech is domestic political theatre and nationalist positioning; however, implicit threat language suggests Kaltor leadership is committed to escalation trajectory.",
-      "significance": "Kaltor locks in political narrative; backing down becomes internally costly for regime. Speech signals that further escalation is not accidental but strategic choice."
-    },
-    {
-      "daysBeforeStart": -1,
-      "event": "IMA preliminary investigation report on GPS jamming incidents is issued. Report concludes that evidence is 'inconclusive' regarding attribution but notes that 'patterns are consistent with deliberate electronic emissions.' Report does not formally accuse Kaltor but language enables both sides to cite report for their preferred narrative. PAC interprets report as support for jamming allegation; Kaltor argues report proves nothing.",
-      "significance": "Information asymmetry and ambiguous intelligence allow both sides to harden opposing narratives. Report fails to provide neutral resolution; instead, it legitimizes escalatory rhetoric for both sides."
+      "event": "Beijing announces a fresh round of live-fire notices and maritime-control drills off Fujian while state media warns that “outside forces” are attempting to hollow out Chinese sovereignty in the strait.",
+      "significance": "The political narrative is being hardened at home so that backing down later looks more costly."
     },
     {
       "daysBeforeStart": 0,
-      "event": "CRISIS START: Kaltor Union announces new port authority order: all foreign-flagged commercial vessels transiting central shipping corridor must register with Kaltor-controlled traffic control authority, proceed at reduced speed (4 knots, vs. 12-knot transit norm), and accept periodic Kaltor military vessel 'inspections' (undefined scope/duration). Order justification: 'Environmental and safety compliance.' Implementation timeline: 48 hours (takes effect 2026-10-30 0600 UTC). Kaltor announces that non-compliance will result in vessel detention and cargo impoundment. Simultaneously, Kaltor media announces that Nordmark Naval Base exercise is being 'extended indefinitely' due to 'Western military threats.'",
-      "significance": "Kaltor crosses into unambiguous economic blockade and maritime coercion. Order is framed as regulatory but functionally restricts shipping throughput by 60–70% (reduced speed limits + inspection delays). Action is calculated to inflict economic pain on PAC-aligned economies without formal military attack. PAC must now decide whether to accept blockade, challenge it diplomatically, or respond militarily. Threshold for player decision-making enters acute phase."
+      "event": "CRISIS START: Chinese maritime authorities, backed by Coast Guard hulls and an extended PLA exercise, announce a 48-hour registration and inspection regime for selected commercial traffic transiting key parts of the Taiwan Strait. The measure is presented as a safety and customs action, but shipping analysts assess it as the beginning of a gray-zone blockade rehearsal with immediate coercive effect.",
+      "significance": "Beijing is trying to establish control without using the word blockade. The coalition now has to decide whether to accept the new normal, contest it diplomatically, or challenge it with visible military and economic moves."
     }
   ],
   "intelligenceGaps": [
-    "What is Kaltor's true military objective? Is the blockade intended as permanent control or a temporary coercive pressure tactic with an off-ramp negotiation demand?",
-    "How unified is Kaltor's leadership coalition? Will oligarchs or military factions break ranks if sanctions bite or if military escalation risks appear high?",
-    "What is the scope and timing of Kaltor cyber capability? Are GPS/communications attacks precursor to broader critical infrastructure targeting, or contained harassment?",
-    "How firm is TC-7 consensus? Will neutral traders break ranks to negotiate unilaterally with Kaltor if PAC-led counter-measures impose economic costs?",
-    "Does Kaltor have covert special operations capability (mercenaries, proxies) positioned in Helix or other allied territories, ready for secondary pressure campaigns?",
-    "What is the actual status of Kaltor's foreign currency reserves and energy export contracts? Is the regime's economic resilience to extended sanctions higher or lower than official estimates?",
-    "Are there internal factions in PAC member-states that favor de-escalation and separate bilateral trade with Kaltor, and how influential are they in their home governments?",
-    "What escalation red lines, if any, does Kaltor actually respect? Is regime willingness to tolerate military risk higher than historical precedent suggests?"
+    "Is Beijing seeking a temporary coercive bargaining chip, a new semi-permanent inspection norm, or a pathway toward a true blockade?",
+    "How much allied economic pain will Tokyo, Manila, Canberra, and European partners tolerate before coalition discipline weakens?",
+    "How far has China already pre-positioned cyber and cable-disruption capabilities against Taiwan's logistics, power, and communications networks?",
+    "Would a Chinese boarding or collision be tightly controlled political theater, or a sign that local commanders are operating under looser escalation guidance?",
+    "How quickly would commercial shipping and insurance markets abandon routine transit if the first inspection or detention goes badly?",
+    "What internal debate is happening in Beijing between pressure advocates, military risk managers, and economic technocrats?"
   ],
   "legalFramework": {
-    "maritimeLaw": "The Northern Strait is classified as international waters (beyond any nation's 12-nautical-mile territorial limit in the central corridor). Under the United Nations Convention on the Law of the Sea (UNCLOS, 1982) — to which both Kaltor Union and PAC members are signatories — all vessels have right of innocent passage through straits used for international navigation. Kaltor's new traffic control authority order and speed restrictions are likely violations of UNCLOS Article 38 (Transit Passage Rights). However, UNCLOS enforcement is weak; disputes are adjudicated by the International Court of Justice (6–18 month timeline), which lacks enforcement authority. Kaltor can argue that traffic controls are 'safety measures,' creating legal ambiguity. PAC can cite UNCLOS violations in diplomatic protests and International Maritime Authority complaints but cannot enforce compliance without military action, which risks escalation.",
-    "treatyObligations": "PAC members are bound by the Accord of Common Defense (1998), which states that an 'armed attack on one member is an attack on all.' Helix, as full PAC member, can invoke this clause if Kaltor takes military action (e.g., fires on PAC vessels). The clause does not cover economic blockades or traffic restrictions; PAC legal advisors debate whether blockade constitutes 'armed attack.' Kaltor Union is not signatory to any formal mutual defense treaty with PAC but is bound by UNCLOS and UN Convention on Freedom of Navigation (1978). Kaltor's claimed 'environmental and safety authority' over traffic is not recognized by existing treaties; Kaltor is effectively claiming expanded jurisdictional rights without legal basis. This creates legal asymmetry: Kaltor actions are technically violations, but enforcement mechanisms are weak.",
-    "sanctionsFramework": "Existing international sanctions architecture against Kaltor Union includes: (1) US/PAC financial sector restrictions (Kaltor banks blocked from US dollar clearing; SWIFT restrictions on targeted entities); (2) Energy sector sectoral sanctions (prohibit investment in new Kaltor oil/gas projects; technology embargoes); (3) Targeted asset freezes on Kaltor oligarchs and military officials. Additional sanctions available if escalation occurs: (4) Kaltor sovereign debt restrictions (block Kaltor government bond trading); (5) Tariff escalation on Kaltor exports (energy, metals); (6) Port access restrictions (deny Kaltor-flagged vessels berthing rights in PAC member ports). Kaltor has been operating under partial sanctions for 8+ years; regime has adapted economic structures to sanctions-resistant autarky. New escalatory sanctions would deepen economic pain but are unlikely to force capitulation within crisis timeline (10–14 days). Trade Consortium 7 is not fully integrated into PAC sanctions; TC-7 members retain individual tariff leverage and could potentially offer sanctions relief to Kaltor as mediation inducement."
+    "maritimeLaw": "The central Taiwan Strait and many of its approaches lie outside any state's recognized territorial sea, even though Beijing increasingly talks as if it can administer the entire corridor. Under UNCLOS, routine international navigation through the strait and adjacent high-seas/EEZ waters should not be subject to unilateral coercive inspection rules imposed for political leverage. China can still wrap pressure in safety and customs language, creating enough ambiguity to slow commercial response even when the legal argument is weak.",
+    "treatyObligations": "There is no formal U.S. mutual-defense treaty with Taiwan, but the Taiwan Relations Act, long-standing U.S. policy commitments, and allied credibility all make the crisis strategically central. Japan and the Philippines become relevant quickly because any east-of-Taiwan or south-of-Taiwan escalation touches treaty geography, access, or operational support. That means a “Taiwan-only” crisis can widen into a broader alliance crisis faster than official statements imply.",
+    "sanctionsFramework": "The United States and partners already have export-control, entity-list, and sanctions tools related to China, but any major crisis would force harder choices: financial sanctions on state-linked institutions, shipping restrictions, insurance measures, export-control expansion, and countersanctions risk. The problem is not a lack of tools; it is that every serious tool carries blowback for allies, markets, and domestic politics."
   }
 }

@@ -1,11 +1,18 @@
 import { useEffect, useMemo, useState } from 'react';
 
-import type { ActionNarrativePhaseContent, ImageAsset, NarrativeBundle, TurnDebrief } from '@wargames/shared-types';
+import type {
+  ActionNarrativePhaseContent,
+  ImageAsset,
+  NarrativeBundle,
+  ScenarioWorldDefinition,
+  TurnDebrief
+} from '@wargames/shared-types';
 
 interface BriefingPanelProps {
   turn: number;
   maxTurns: number;
   briefing: NarrativeBundle;
+  scenarioWorld: ScenarioWorldDefinition | null;
   imageAsset: ImageAsset | null;
   turnDebrief: TurnDebrief | null;
   recentActionNarrative: {
@@ -31,6 +38,7 @@ export const BriefingPanel = ({
   turn,
   maxTurns,
   briefing,
+  scenarioWorld,
   imageAsset,
   turnDebrief,
   recentActionNarrative,
@@ -73,6 +81,9 @@ export const BriefingPanel = ({
     return 'OSINT';
   };
 
+  const clipText = (value: string, limit = 260): string =>
+    value.length > limit ? `${value.slice(0, limit - 1).trimEnd()}…` : value;
+
   return (
     <section className="card flex h-full flex-col p-5 sm:p-6">
       <div className="flex flex-wrap items-start justify-between gap-2">
@@ -86,6 +97,29 @@ export const BriefingPanel = ({
       </div>
 
       <p className="mt-4 border-l-2 border-accent/70 pl-4 text-sm leading-relaxed text-textMain">{briefing.briefingParagraph}</p>
+
+      {turn === 1 && scenarioWorld ? (
+        <section className="mt-5 grid gap-3 lg:grid-cols-2">
+          <article className="rounded-lg border border-borderTone bg-panelRaised/60 p-3">
+            <p className="label">Theater Context</p>
+            <p className="mt-1 text-sm text-textMain">
+              {scenarioWorld.region.name} · {scenarioWorld.dateAnchor.month} {scenarioWorld.dateAnchor.year}
+            </p>
+            <p className="mt-2 text-[0.72rem] leading-relaxed text-textMuted">
+              {scenarioWorld.dateAnchor.dayRange}
+            </p>
+            <p className="mt-2 text-[0.75rem] leading-relaxed text-textMuted">
+              {clipText(scenarioWorld.region.description, 330)}
+            </p>
+          </article>
+          <article className="rounded-lg border border-borderTone bg-panelRaised/60 p-3">
+            <p className="label">Why It Matters</p>
+            <p className="mt-2 text-[0.75rem] leading-relaxed text-textMuted">
+              {clipText(scenarioWorld.economicBackdrop.straitEconomicValue, 360)}
+            </p>
+          </article>
+        </section>
+      ) : null}
 
       {phaseTransition ? (
         <section className="mt-5 rounded-lg border border-accent/40 bg-accent/10 p-3">

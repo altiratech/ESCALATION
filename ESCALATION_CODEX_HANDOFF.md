@@ -1837,3 +1837,89 @@ Thread scope limitation: This thread ran under `Code/active/Wargames` and could 
 - action narratives
 - rival leader / deep debrief / cinematics
 3. Keep deterministic engine and current content architecture intact during conversion.
+
+## 35) 2026-03-06 Taiwan Strait Foundation Conversion
+
+### 35.1 What changed
+
+1. Converted the opening scenario foundation from fictional theater to real-world theater:
+- `packages/content/data/scenario_world_ns.json`
+- Rewritten around the Taiwan Strait with:
+  - real geography
+  - March-April 2026 baseline date
+  - United States / Taiwan / Japan / Philippines / China framing
+  - real strategic and economic significance
+  - real-world legal/treaty context
+  - real-world style crisis timeline and intelligence gaps
+
+2. Re-anchored the public scenario framing:
+- `packages/content/data/scenarios.json`
+- Scenario display name is now `Taiwan Strait Flashpoint`.
+- Main scenario briefing rewritten around Beijing's inspection regime and gray-zone blockade logic.
+- Opening beat (`ns_opening_signal`) updated with:
+  - concrete scene fragments
+  - clearer headlines
+  - PLA-specific memo line
+  - market/semiconductor-aware ticker
+  - more concrete opening advisor lines
+
+3. Rewrote the opening/transition cinematic framing:
+- `packages/content/data/cinematics_ns.json`
+- Opening cinematic now frames the Taiwan Strait directly.
+- Phase transitions now describe the gray-zone blockade dynamic instead of fictional-waterway language.
+- Existing ending text had `Northern Strait` references updated to `Taiwan Strait`; deeper ending-pack thematic conversion is still pending.
+
+4. Re-anchored advisor scenario-specific assessments:
+- `packages/content/data/advisor_dossiers.json`
+- Updated all four advisor `scenarioSpecific.northern_strait_flashpoint` entries to match Taiwan Strait logic and stakes.
+
+5. Rewrote opening intel/news package:
+- `packages/content/data/intel_fragments_ns.json`
+- `packages/content/data/news_wire_ns.json`
+- Opening beat items now reference Beijing, Taiwan, coalition alignment, shipping, insurance, and semiconductor exposure rather than Kaltor / fictional-state framing.
+
+6. Surfaced the new context in the live UI:
+- `apps/web/src/components/StartScreen.tsx`
+  - Theater Snapshot now shows day-range + real theater description
+  - new `Why This Matters` block from economic backdrop
+- `apps/web/src/App.tsx`
+  - now derives current scenario-world pack during episode play
+- `apps/web/src/components/BriefingPanel.tsx`
+  - Turn 1 now includes:
+    - `Theater Context`
+    - `Why It Matters`
+
+7. Updated content tests for the new authored baseline:
+- `tests/engine/cinematics-content.test.ts`
+- `tests/engine/narrative-candidates.test.ts`
+
+### 35.2 Verification status
+
+1. `npm run lint` passed.
+2. `npx vitest run tests/engine/narrative-candidates.test.ts tests/engine/cinematics-content.test.ts` passed.
+3. `npm run build --workspace @wargames/web` passed.
+4. `npm run ci:phase1` passed (13 files / 27 tests).
+5. Existing Monte Carlo concentration warnings remain unchanged and non-blocking.
+
+### 35.3 What is still not converted
+
+1. Later-turn and post-game authored content still carries mixed fictional-theater residue:
+- broader `intel_fragments_ns.json`
+- broader `news_wire_ns.json`
+- `action_narratives_ns.json`
+- `rival_leader_ns.json`
+- `debrief_deep_ns.json`
+
+2. Internal technical IDs still use the legacy scenario slug:
+- `northern_strait_flashpoint`
+- `ns_*`
+- This is intentional for now to avoid unnecessary engine/content plumbing churn during the first conversion pass.
+
+### 35.4 Exact next action for resume
+
+1. Continue the Taiwan Strait conversion into later-turn packs in this order:
+- `action_narratives_ns.json`
+- remaining `intel_fragments_ns.json` + `news_wire_ns.json`
+- `rival_leader_ns.json`
+- `debrief_deep_ns.json`
+2. Keep engine authority and beat graph structure unchanged during the content migration unless Ryan explicitly requests a graph redesign.

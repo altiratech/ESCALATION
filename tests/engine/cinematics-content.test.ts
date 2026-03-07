@@ -12,7 +12,7 @@ describe('cinematics content helpers', () => {
 
     const cinematics = getCinematics(scenario.id);
 
-    expect(cinematics?.openingCinematic.title).toBe('Flashpoint');
+    expect(cinematics?.openingCinematic.title).toBe('Median Line');
     expect(cinematics?.phaseTransitions.opening_to_rising?.fragments.length).toBeGreaterThan(0);
     expect(cinematics?.endings.stabilization?.title).toBe('The Compromise');
   });

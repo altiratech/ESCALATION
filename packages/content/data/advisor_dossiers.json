@@ -30,9 +30,9 @@
     },
     "scenarioSpecific": {
       "northern_strait_flashpoint": {
-        "openingAssessment": "The rival state is probing for weaknesses in allied resolve. Their movements are coordinated and deliberate — not panic, not accident. The window for a visible show of force that deters further escalation is closing rapidly. Within 72 hours, if we have not demonstrated overwhelming local superiority and international commitment, they will escalate to a blockade posture, and we will have lost the initiative.",
-        "redLine": "A de facto blockade of the strait lasting more than 48 hours or a military engagement that results in vessel loss without a prior, public military commitment.",
-        "preferredEndstate": "Rival forces withdraw to pre-crisis positions after facing clear, public demonstration of allied superiority in the strait. U.S. carrier strike group, allied surface combatants, and international observers make deterrence visible and irreversible."
+        "openingAssessment": "Beijing is trying to normalize control without taking the legal or military risk of declaring a blockade. If Coast Guard and militia hulls make inspection authority look routine, reversing it gets harder every day.",
+        "redLine": "A boarding, collision, or east-of-Taiwan military move that threatens reinforcement routes or causes Taiwanese or allied casualties.",
+        "preferredEndstate": "China pauses inspections, allied presence stays visible, and Taiwan's air and maritime access remains open without a first shot being fired."
       }
     }
   },
@@ -67,9 +67,9 @@
     },
     "scenarioSpecific": {
       "northern_strait_flashpoint": {
-        "openingAssessment": "The rival state is testing coalition resilience and exploring space for negotiation. Their moves are concerning but not yet irrevocable. There is a narrow window — perhaps 72–96 hours — where we can open a backchannel, clarify both sides' red lines, and propose a procedural off-ramp. After that window, domestic pressure and military escalation will make de-escalation politically costly for everyone.",
-        "redLine": "A public, irreversible military commitment that forecloses negotiation space — such as a unilateral blockade or an attack on rival forces without prior diplomatic signaling of intent.",
-        "preferredEndstate": "Both sides stand down from operational readiness, accept a joint investigation into the incident, and reestablish communication protocols. The rival state maintains plausible deniability; allied states preserve public unity. No vessel losses, no public ultimatums."
+        "openingAssessment": "This is a legitimacy contest as much as a maritime one. If allies split on legal framing, sanctions timing, or visible military support, Beijing gets the bilateral crisis it wants.",
+        "redLine": "Any coalition move that looks like symbolic escalation without allied buy-in, or any concession that validates Chinese inspection authority as a new normal.",
+        "preferredEndstate": "A unified coalition message, a visible but disciplined reassurance package for Taiwan, and a negotiated pause in inspections that does not legitimize coercive control of the strait."
       }
     }
   },
@@ -104,9 +104,9 @@
     },
     "scenarioSpecific": {
       "northern_strait_flashpoint": {
-        "openingAssessment": "The rival state is creating leverage through uncertainty. Markets are already pricing fear — insurance rates, commodity volatility, currency basis shifts. Shipping costs are moving before any sanctions are imposed, which means the coalition is fragile. We have perhaps 72 hours before secondary defection begins and one ally starts seeking workarounds. Our window is narrow, and it requires both clear signaling and visible coalition discipline.",
-        "redLine": "A unilateral sanctions regime that fragments allied unity or economic measures that impose catastrophic spillover on allied economies (e.g., oil market dislocation, financial system freezes).",
-        "preferredEndstate": "A calibrated, coalition-endorsed sectoral sanctions package targeting the rival state's key economic vulnerabilities, paired with visible military commitment from cross. Joint communication to markets emphasizing reversibility and proportionality. Coalition holds; spillover is contained to acceptable levels."
+        "openingAssessment": "Insurers, chip buyers, and freight desks are moving before governments do. The strait does not have to close fully for the world to feel it; uncertainty alone can shock shipping, advanced manufacturing, and market confidence.",
+        "redLine": "A sanctions or military move that fractures allied economic discipline or triggers uncontrolled stress in shipping, energy, and semiconductor markets.",
+        "preferredEndstate": "Commercial transit resumes under credible reassurance, coalition discipline holds, and market participants believe the crisis has an off-ramp instead of a spiral."
       }
     }
   },
@@ -141,9 +141,9 @@
     },
     "scenarioSpecific": {
       "northern_strait_flashpoint": {
-        "openingAssessment": "The rival state is testing coalition surveillance and response time. They have signaling ambiguity on their side — they can claim their moves are routine, not coordinated. Our collection is improving but still has gaps. The opponent believes we are seeing rehearsed patterns, not true intent. We have 96–120 hours to position assets, develop leverage through supply chain intelligence, and create the impression that we have more insight into their planning than they think we do.",
-        "redLine": "Attribution of a U.S. covert operation that breaks cover and forecloses future deniable leverage, or escalation of covert pressure into territory that requires overt military response.",
-        "preferredEndstate": "Rival state stands down after receiving private (deniable) intelligence signals about coalition asset positioning and supply chain vulnerabilities. U.S. and allies maintain collection access; covert leverage remains hidden, available for future use. No overt action required; no attribution. Opponent believes they miscalculated and retreated."
+        "openingAssessment": "This is choreographed gray-zone pressure: maritime regulators, Coast Guard hulls, militia traffic, cyber preparation, and propaganda are all moving on one clock. The inspection order is testing reaction speed, not just legal arguments.",
+        "redLine": "An attributed covert action, cyber disruption, or deniable maritime incident that forces both sides out of ambiguity and into overt retaliation.",
+        "preferredEndstate": "Beijing backs off after concluding the coalition has more visibility, more staying power, and more options than its planners expected."
       }
     }
   }

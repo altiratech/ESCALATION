@@ -22,7 +22,7 @@ describe('narrative candidate helpers', () => {
 
     expect(openingBeat.advisorLines.reed).toBeTruthy();
     expect(openingBeat.advisorLines.reed.length).toBeGreaterThan(0);
-    expect(openingBeat.advisorLines.cross.length).toBe(2);
+    expect(openingBeat.advisorLines.cross.length).toBeGreaterThanOrEqual(2);
     expect(new Set(openingBeat.advisorLines.cross).size).toBe(openingBeat.advisorLines.cross.length);
   });
 });

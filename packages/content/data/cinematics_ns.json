@@ -1,46 +1,41 @@
 {
   "scenarioId": "northern_strait_flashpoint",
   "openingCinematic": {
-    "title": "Flashpoint",
-    "subtitle": "Where empires intersect",
+    "title": "Median Line",
+    "subtitle": "A blockade without calling it one",
     "fragments": [
-      "Satellite imagery. The Northern Strait at dawn. A ribbon of grey water cutting between two landmasses, thin as a razor blade.",
-      "Container ships move through the frame like blood cells through veins. Hundreds per month. Trillions in commerce.",
-      "The camera descends. Deck-level view of a merchant vessel, its captain on the bridge, checking charts. Radio chatter in the background. Routine. Professional.",
-      "Cut to underground. A war room. Banks of screens. Officers in two different uniforms studying the same waterway from opposite sides. Both waiting. Both certain the other will move first.",
-      "A desk. Papers stamped CLASSIFIED. A decision memo sits unsigned.",
-      "Back to the water. A fishing trawler changes course. Not fishing. Never was.",
-      "A phone rings.",
-      "The game begins."
+      "Dawn over the Taiwan Strait. Commercial lanes between Fujian and Taiwan are crowded, but traffic is slowing.",
+      "On Chinese screens, the operation is labeled safety enforcement. In Taipei, the same map is labeled blockade rehearsal.",
+      "Coast Guard cutters, maritime militia hulls, PLA escorts, and live-fire notices create the kind of ambiguity designed to break markets before it fires a shot.",
+      "Taiwan's ports are still loading. Fabrication lines are still running. Traders in Singapore, Tokyo, New York, and London are already repricing what happens if they stop.",
+      "A secure line opens from Taipei. Another from Tokyo. A third from an American command center that has not yet been ordered forward.",
+      "Your memo is waiting."
     ],
-    "closingLine": "You have 24 hours before this becomes irreversible.",
+    "closingLine": "You have hours to decide whether this is a pressure campaign, a test, or the opening move of a blockade.",
     "musicCue": "tense_low"
   },
   "phaseTransitions": {
     "opening_to_rising": {
       "fragments": [
-        "Hours have passed. The trawler is gone—sunk, or never existed on paper.",
-        "Your advisors are pale. Words like 'provocation' and 'response' have entered the briefing.",
-        "The strait is still open. For now.",
-        "But the ships are choosing different routes."
+        "The median line is still on maps, but not in behavior.",
+        "Inspection notices are multiplying, insurers are repricing, and every “temporary” measure is starting to look durable.",
+        "Taipei wants proof the coalition will contest the new normal. Beijing wants proof it will not."
       ],
       "musicCue": "rising_drone"
     },
     "rising_to_crisis": {
       "fragments": [
-        "The phone doesn't stop ringing.",
-        "A cargo vessel reported damaged. Rival forces claim innocence. Yours don't believe them.",
-        "Markets have noticed. Currency shifts. Energy futures spike.",
-        "The moment you were trained to prevent is arriving faster than you expected."
+        "A shipping delay becomes a market event. A market event becomes an alliance test.",
+        "Boards are being placed, cables are being probed, and no one can tell whether the next incident will be political theater or operational failure.",
+        "The crisis is no longer hypothetical. It is now shaping behavior in real time."
       ],
       "musicCue": "crisis_pulse"
     },
     "crisis_to_climax": {
       "fragments": [
-        "There is no more room for anything except a choice.",
-        "Every option now carries a flag. Military. Economic. Political.",
-        "The rival's ultimatum expires in hours. Yours goes out simultaneously.",
-        "The strait is no longer a waterway. It is a line you will not cross."
+        "There is no remaining room for symbolic moves.",
+        "Every option now touches Taipei, Tokyo, Manila, Beijing, and markets far beyond the strait.",
+        "What began as inspection language is now a direct contest over control, credibility, and escalation."
       ],
       "musicCue": "climax_surge"
     }
@@ -49,7 +44,7 @@
     "frozen_conflict": {
       "title": "The Standoff",
       "fragments": [
-        "Six months later. The Northern Strait is still there. So is the tension.",
+        "Six months later. The Taiwan Strait is still there. So is the tension.",
         "Shipping reroutes around the conflict, adding weeks to journeys, billions to costs. The old routes remember what happened. No one uses them.",
         "Naval vessels from both sides maintain stations. Separate but parallel. They know each other's captain's names now. They nod at sea.",
         "Markets adapted. Energy prices never came down. Supply chains rewired away from the strait. Economies digest the inefficiency.",
@@ -57,7 +52,7 @@
         "The rival leader remains in power. They didn't lose. Neither did you. But nobody won.",
         "In think tanks and war colleges, analysts debate endlessly what could have broken the stalemate. The answer is always the same: nothing that either side was willing to pay."
       ],
-      "epilogueNote": "The Northern Strait remains open to commerce but closed to confidence. Shipping insurance premiums never returned to pre-crisis levels. Both militaries now budget for permanent forward deployment. The status quo is sustainable only as long as both sides are content to bleed money instead of soldiers.",
+      "epilogueNote": "The Taiwan Strait remains open to commerce but closed to confidence. Shipping insurance premiums never returned to pre-crisis levels. Both militaries now budget for permanent forward deployment. The status quo is sustainable only as long as both sides are content to bleed money instead of soldiers.",
       "tone": "somber",
       "musicCue": "tense_low"
     },
@@ -102,10 +97,10 @@
         "Secondary effects cascaded. Manufacturing hubs ran out of components. Hospitals reported shortages. Power generation facilities found themselves unable to fuel turbines.",
         "The rival's economy imploded first. But yours didn't escape the contagion. Investment fled. Currency weakened. Unemployment spiked.",
         "Allied nations turned inward. They blamed you for the crisis. Some negotiated directly with the rival. Others simply shut their borders.",
-        "By month two, the Northern Strait was forgotten. The crisis had become global. Governments fell in three countries. Protests consumed the streets of the capital city.",
+        "By month two, the Taiwan Strait was forgotten. The crisis had become global. Governments fell in three countries. Protests consumed the streets of the capital city.",
         "The rival regime collapsed, but so did yours. Not in a coup. In a slow grinding rotation of political power, each government more desperate than the last."
       ],
-      "epilogueNote": "The economic cascade that started in the Northern Strait became a global recession lasting eighteen months. GDP contracted across seventeen nations. The rival regime fell, but your own government barely survived three no-confidence votes. History records it as a clear strategic defeat despite tactical dominance: the cost of victory exceeded the cost of surrender.",
+      "epilogueNote": "The economic cascade that started in the Taiwan Strait became a global recession lasting eighteen months. GDP contracted across seventeen nations. The rival regime fell, but your own government barely survived three no-confidence votes. History records it as a clear strategic defeat despite tactical dominance: the cost of victory exceeded the cost of surrender.",
       "tone": "devastating",
       "musicCue": "economic_collapse"
     },
@@ -121,9 +116,9 @@
         "By week two, chemical weapons were reported—denied by the rival, confirmed by observers. The war entered a different register of brutality.",
         "By month one, the death count was in the tens of thousands. Civilians evacuated from the strait region. Refugee camps swelled. The hospitals couldn't keep pace.",
         "The war didn't end in victory. It ended in exhaustion. Both sides negotiated a ceasefire in month three, with territory divided roughly along the frontline.",
-        "When it was over, the Northern Strait was a graveyard of vessels. Naval graveyards on both shores. A memorial, hastily built, where a thousand names were already carved."
+        "When it was over, the Taiwan Strait was a graveyard of vessels. Naval graveyards on both shores. A memorial, hastily built, where a thousand names were already carved."
       ],
-      "epilogueNote": "The War for the Northern Strait lasted ninety-two days and killed more than eighty thousand combatants and civilians. The strait itself became an international maritime cemetery, cordoned off for five years before shipping resumed. The rival regime survived but was permanently weakened. Your nation won but was transformed—a generation carried the scars, economic, psychological, and political. Memorials were built, but no one who lived through it ever forgot the cost of allowing the standoff to break.",
+      "epilogueNote": "The War for the Taiwan Strait lasted ninety-two days and killed more than eighty thousand combatants and civilians. The strait itself became an international maritime cemetery, cordoned off for five years before shipping resumed. The rival regime survived but was permanently weakened. Your nation won but was transformed—a generation carried the scars, economic, psychological, and political. Memorials were built, but no one who lived through it ever forgot the cost of allowing the standoff to break.",
       "tone": "devastating",
       "musicCue": "war_aftermath"
     }

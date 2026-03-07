@@ -1,13 +1,24 @@
 [
   {
     "id": "northern_strait_flashpoint",
-    "name": "Northern Strait Flashpoint",
-    "briefing": "A disputed maritime corridor has become the center of coercive signaling, cyber probing, and alliance stress. Your mandate is to prevent strategic breakdown without signaling weakness.",
+    "name": "Taiwan Strait Flashpoint",
+    "briefing": "Beijing has announced a coercive inspection regime around the Taiwan Strait after months of military pressure, cyber probing, and blockade rehearsal. Your mandate is to keep the corridor open, reassure Taipei and regional allies, and prevent gray-zone coercion from hardening into war.",
     "role": "National Security Advisor",
     "adversaryProfileId": "calculated_technocrat",
     "maxTurns": 10,
     "environment": "coastal",
-    "pressureCurve": [1, 1.02, 1.05, 1.08, 1.12, 1.18, 1.24, 1.3, 1.38, 1.45],
+    "pressureCurve": [
+      1,
+      1.02,
+      1.05,
+      1.08,
+      1.12,
+      1.18,
+      1.24,
+      1.3,
+      1.38,
+      1.45
+    ],
     "meterLabels": {
       "economicStability": "Market Stability",
       "energySecurity": "Fuel Security",
@@ -28,7 +39,10 @@
       "globalLegitimacy": 58,
       "rivalDomesticPressure": 49,
       "playerDomesticApproval": 55,
-      "vulnerabilityFlags": ["grid_fragile", "coalition_fragile"]
+      "vulnerabilityFlags": [
+        "grid_fragile",
+        "coalition_fragile"
+      ]
     },
     "initialBeliefs": {
       "bluffProb": 0.44,
@@ -53,26 +67,48 @@
         "id": "ns_opening_signal",
         "phase": "opening",
         "sceneFragments": [
-          "Maritime surveillance confirms repeated challenge maneuvers near the strait's commercial lane.",
-          "Allied ambassadors request calm public posture while privately asking for force reassurances."
+          "Commercial traffic through the Taiwan Strait is slowing after Beijing ordered new registration and inspection procedures near the median line.",
+          "Taipei wants visible support; Tokyo and Manila want disciplined coordination before the first boarding incident turns a gray-zone crisis into a military one."
         ],
         "advisorLines": {
-          "cross": ["Show steel early or the window closes."],
-          "chen": ["Preserve diplomatic oxygen before this hardens."],
-          "okonkwo": ["Markets are pricing fear faster than facts."]
+          "cross": [
+            "If Beijing normalizes inspections in the strait, rolling them back gets harder every day.",
+            "Show visible resolve before coast guard pressure turns into accepted operating procedure."
+          ],
+          "chen": [
+            "Keep Taipei, Tokyo, and Manila aligned before Beijing turns this into a bilateral bargain.",
+            "Legal framing matters. If allies describe this as routine administration, the coalition starts losing before it acts."
+          ],
+          "okonkwo": [
+            "Insurers, chip buyers, and freight desks are already moving before governments have chosen a line.",
+            "The first shock lands in shipping confidence and semiconductor exposure, not in official communiques."
+          ],
+          "reed": [
+            "This looks choreographed: coast guard, militia hulls, cyber preparation, and propaganda are all moving on one clock.",
+            "Assume the inspection order is a test of coalition reaction speed, not an isolated bureaucratic move."
+          ]
         },
         "headlines": [
-          "Regional Navies Enter Heightened Transit Monitoring",
-          "Allied Capitals Request Coordinated Messaging"
+          "Beijing Announces 48-Hour Inspection Regime For Taiwan Strait Transit",
+          "Washington, Tokyo, And Manila Seek Unified Response To Maritime Pressure"
         ],
-        "memoLine": "Intercepted note: coalition envoys expect private assurances within six hours.",
-        "tickerLine": "Risk ticker: shipping insurance spreads +12 bps pre-open.",
-        "imageHints": ["diplomacy", "severity_1", "news_frame"],
+        "memoLine": "Intercepted PLA logistics traffic suggests inspection-support units and electronic-warfare teams were pre-positioned before the announcement.",
+        "tickerLine": "Risk ticker: war-risk premiums jump, Taiwan-linked shipping slows, and semiconductor supply names gap lower before the open.",
+        "imageHints": [
+          "diplomacy",
+          "severity_1",
+          "news_frame"
+        ],
         "branches": [
           {
             "targetBeatId": "ns_strait_pressure",
             "conditions": [
-              { "source": "meter", "key": "escalationIndex", "op": "gte", "value": 58 }
+              {
+                "source": "meter",
+                "key": "escalationIndex",
+                "op": "gte",
+                "value": 58
+              }
             ],
             "minTurn": 2,
             "priority": 3
@@ -80,7 +116,12 @@
           {
             "targetBeatId": "ns_alliance_split",
             "conditions": [
-              { "source": "meter", "key": "allianceTrust", "op": "lte", "value": 50 }
+              {
+                "source": "meter",
+                "key": "allianceTrust",
+                "op": "lte",
+                "value": 50
+              }
             ],
             "minTurn": 2,
             "priority": 2
@@ -106,8 +147,12 @@
           "Publicly both sides deny contact, but naval commanders have reduced radio taunts."
         ],
         "advisorLines": {
-          "chen": ["A quiet off-ramp exists. It will not stay open."],
-          "cross": ["Talk if you must, but move assets first."]
+          "chen": [
+            "A quiet off-ramp exists. It will not stay open."
+          ],
+          "cross": [
+            "Talk if you must, but move assets first."
+          ]
         },
         "headlines": [
           "Quiet Diplomatic Traffic Detected Through Third Parties",
@@ -115,20 +160,39 @@
         ],
         "memoLine": "Leaked cable: neutral interlocutors request confidence-building steps before dawn.",
         "tickerLine": "Market ticker: tanker futures ease 1.2% on de-escalation rumor.",
-        "imageHints": ["diplomacy", "severity_1", "memo"],
+        "imageHints": [
+          "diplomacy",
+          "severity_1",
+          "memo"
+        ],
         "branches": [
           {
             "targetBeatId": "ns_strait_pressure",
             "conditions": [
-              { "source": "meter", "key": "escalationIndex", "op": "gte", "value": 65 }
+              {
+                "source": "meter",
+                "key": "escalationIndex",
+                "op": "gte",
+                "value": 65
+              }
             ],
             "priority": 3
           },
           {
             "targetBeatId": "ns_ceasefire_channel",
             "conditions": [
-              { "source": "meter", "key": "allianceTrust", "op": "gte", "value": 60 },
-              { "source": "meter", "key": "escalationIndex", "op": "lte", "value": 55 }
+              {
+                "source": "meter",
+                "key": "allianceTrust",
+                "op": "gte",
+                "value": 60
+              },
+              {
+                "source": "meter",
+                "key": "escalationIndex",
+                "op": "lte",
+                "value": 55
+              }
             ],
             "minTurn": 4,
             "priority": 2
@@ -154,8 +218,12 @@
           "Commercial operators report unsafe proximity events and rising reroute requests."
         ],
         "advisorLines": {
-          "cross": ["This is rehearsal for a blockade. Treat it that way."],
-          "okonkwo": ["Every hour of uncertainty compounds freight risk."]
+          "cross": [
+            "This is rehearsal for a blockade. Treat it that way."
+          ],
+          "okonkwo": [
+            "Every hour of uncertainty compounds freight risk."
+          ]
         },
         "headlines": [
           "Shipping Convoys Reroute as Strait Harassment Intensifies",
@@ -163,20 +231,39 @@
         ],
         "memoLine": "Operations memo: rules-of-engagement clarification requested by forward commanders.",
         "tickerLine": "Risk ticker: Asia maritime index volatility at 4-week high.",
-        "imageHints": ["military", "severity_2", "satellite"],
+        "imageHints": [
+          "military",
+          "severity_2",
+          "satellite"
+        ],
         "branches": [
           {
             "targetBeatId": "ns_missile_warning",
             "conditions": [
-              { "source": "meter", "key": "escalationIndex", "op": "gte", "value": 72 },
-              { "source": "meter", "key": "militaryReadiness", "op": "gte", "value": 62 }
+              {
+                "source": "meter",
+                "key": "escalationIndex",
+                "op": "gte",
+                "value": 72
+              },
+              {
+                "source": "meter",
+                "key": "militaryReadiness",
+                "op": "gte",
+                "value": 62
+              }
             ],
             "priority": 3
           },
           {
             "targetBeatId": "ns_market_spiral",
             "conditions": [
-              { "source": "meter", "key": "economicStability", "op": "lte", "value": 42 }
+              {
+                "source": "meter",
+                "key": "economicStability",
+                "op": "lte",
+                "value": 42
+              }
             ],
             "priority": 2
           },
@@ -201,8 +288,12 @@
           "Energy importers begin precautionary bids, pushing spot prices above seasonal norms."
         ],
         "advisorLines": {
-          "okonkwo": ["Liquidity remains thin. One bad headline could cascade."],
-          "chen": ["Economic signaling can box everyone into harder lines."]
+          "okonkwo": [
+            "Liquidity remains thin. One bad headline could cascade."
+          ],
+          "chen": [
+            "Economic signaling can box everyone into harder lines."
+          ]
         },
         "headlines": [
           "Commodity Traders Price In Strategic Supply Risk",
@@ -210,19 +301,33 @@
         ],
         "memoLine": "Treasury watchlist: secondary sanctions chatter causing preemptive de-risking.",
         "tickerLine": "Market ticker: sovereign spreads +18 bps across coalition frontier.",
-        "imageHints": ["economy", "severity_2", "ticker"],
+        "imageHints": [
+          "economy",
+          "severity_2",
+          "ticker"
+        ],
         "branches": [
           {
             "targetBeatId": "ns_market_spiral",
             "conditions": [
-              { "source": "meter", "key": "economicStability", "op": "lte", "value": 38 }
+              {
+                "source": "meter",
+                "key": "economicStability",
+                "op": "lte",
+                "value": 38
+              }
             ],
             "priority": 3
           },
           {
             "targetBeatId": "ns_alliance_split",
             "conditions": [
-              { "source": "meter", "key": "allianceTrust", "op": "lte", "value": 44 }
+              {
+                "source": "meter",
+                "key": "allianceTrust",
+                "op": "lte",
+                "value": 44
+              }
             ],
             "priority": 2
           },
@@ -247,8 +352,12 @@
           "Counterintelligence reports bot-driven amplification crossing language blocs."
         ],
         "advisorLines": {
-          "reed": ["Their objective is panic, not persuasion."],
-          "chen": ["Public overreaction could validate their narrative."]
+          "reed": [
+            "Their objective is panic, not persuasion."
+          ],
+          "chen": [
+            "Public overreaction could validate their narrative."
+          ]
         },
         "headlines": [
           "Disinformation Wave Targets Coalition Decision Credibility",
@@ -256,19 +365,33 @@
         ],
         "memoLine": "Intel note: attribution confidence moderate, dissemination velocity extreme.",
         "tickerLine": "Market ticker: sentiment gauges diverge from hard macro data.",
-        "imageHints": ["cyber", "severity_2", "news_frame"],
+        "imageHints": [
+          "cyber",
+          "severity_2",
+          "news_frame"
+        ],
         "branches": [
           {
             "targetBeatId": "ns_urban_unrest",
             "conditions": [
-              { "source": "meter", "key": "domesticCohesion", "op": "lte", "value": 35 }
+              {
+                "source": "meter",
+                "key": "domesticCohesion",
+                "op": "lte",
+                "value": 35
+              }
             ],
             "priority": 3
           },
           {
             "targetBeatId": "ns_crisis_window",
             "conditions": [
-              { "source": "meter", "key": "escalationIndex", "op": "gte", "value": 70 }
+              {
+                "source": "meter",
+                "key": "escalationIndex",
+                "op": "gte",
+                "value": 70
+              }
             ],
             "priority": 2
           },
@@ -293,8 +416,12 @@
           "Private channels reveal concern that Washington is improvising without consensus."
         ],
         "advisorLines": {
-          "chen": ["Lose the coalition and every option gets costlier."],
-          "cross": ["Allies follow credible leadership, not hesitation."]
+          "chen": [
+            "Lose the coalition and every option gets costlier."
+          ],
+          "cross": [
+            "Allies follow credible leadership, not hesitation."
+          ]
         },
         "headlines": [
           "Coalition Messaging Frays as Capitals Issue Conflicting Statements",
@@ -302,20 +429,39 @@
         ],
         "memoLine": "Diplomatic cable: one partner threatens conditional support language.",
         "tickerLine": "Risk ticker: alliance coherence discount widens across defense equities.",
-        "imageHints": ["diplomacy", "severity_3", "street"],
+        "imageHints": [
+          "diplomacy",
+          "severity_3",
+          "street"
+        ],
         "branches": [
           {
             "targetBeatId": "ns_open_war",
             "conditions": [
-              { "source": "meter", "key": "allianceTrust", "op": "lte", "value": 32 },
-              { "source": "meter", "key": "escalationIndex", "op": "gte", "value": 68 }
+              {
+                "source": "meter",
+                "key": "allianceTrust",
+                "op": "lte",
+                "value": 32
+              },
+              {
+                "source": "meter",
+                "key": "escalationIndex",
+                "op": "gte",
+                "value": 68
+              }
             ],
             "priority": 3
           },
           {
             "targetBeatId": "ns_market_spiral",
             "conditions": [
-              { "source": "meter", "key": "economicStability", "op": "lte", "value": 32 }
+              {
+                "source": "meter",
+                "key": "economicStability",
+                "op": "lte",
+                "value": 32
+              }
             ],
             "priority": 2
           },
@@ -340,9 +486,15 @@
           "Command channels warn the decision horizon has narrowed to minutes, not hours."
         ],
         "advisorLines": {
-          "cross": ["Delay cedes initiative."],
-          "okonkwo": ["A misstep now detonates the balance sheet."],
-          "chen": ["Escalation cannot be your only language."]
+          "cross": [
+            "Delay cedes initiative."
+          ],
+          "okonkwo": [
+            "A misstep now detonates the balance sheet."
+          ],
+          "chen": [
+            "Escalation cannot be your only language."
+          ]
         },
         "headlines": [
           "Command Networks Shift to Crisis Communications Protocol",
@@ -350,21 +502,45 @@
         ],
         "memoLine": "Flash memo: unresolved command ambiguity increases collision probability.",
         "tickerLine": "Risk ticker: volatility halt triggered in regional shipping derivatives.",
-        "imageHints": ["military", "severity_4", "news_frame"],
+        "imageHints": [
+          "military",
+          "severity_4",
+          "news_frame"
+        ],
         "branches": [
           {
             "targetBeatId": "ns_carrier_faceoff",
             "conditions": [
-              { "source": "meter", "key": "escalationIndex", "op": "gte", "value": 78 },
-              { "source": "meter", "key": "militaryReadiness", "op": "gte", "value": 65 }
+              {
+                "source": "meter",
+                "key": "escalationIndex",
+                "op": "gte",
+                "value": 78
+              },
+              {
+                "source": "meter",
+                "key": "militaryReadiness",
+                "op": "gte",
+                "value": 65
+              }
             ],
             "priority": 3
           },
           {
             "targetBeatId": "ns_ceasefire_channel",
             "conditions": [
-              { "source": "meter", "key": "allianceTrust", "op": "gte", "value": 52 },
-              { "source": "meter", "key": "escalationIndex", "op": "lte", "value": 60 }
+              {
+                "source": "meter",
+                "key": "allianceTrust",
+                "op": "gte",
+                "value": 52
+              },
+              {
+                "source": "meter",
+                "key": "escalationIndex",
+                "op": "lte",
+                "value": 60
+              }
             ],
             "priority": 2
           },
@@ -398,9 +574,15 @@
           "Regional embassies request immediate confirmation whether a launch warning is imminent or coercive theater."
         ],
         "advisorLines": {
-          "cross": ["Assume readiness, not bluff."],
-          "chen": ["One wrong move here is irreversible."],
-          "reed": ["We can blind targeting windows briefly, not indefinitely."]
+          "cross": [
+            "Assume readiness, not bluff."
+          ],
+          "chen": [
+            "One wrong move here is irreversible."
+          ],
+          "reed": [
+            "We can blind targeting windows briefly, not indefinitely."
+          ]
         },
         "headlines": [
           "Ballistic Preparation Indicators Trigger Regional Alert Protocols",
@@ -408,22 +590,51 @@
         ],
         "memoLine": "Threat memo: warning confidence elevated; intent assessment still contested.",
         "tickerLine": "Risk ticker: emergency fuel contracts spike 9% on launch warning chatter.",
-        "imageHints": ["military", "severity_4", "satellite"],
+        "imageHints": [
+          "military",
+          "severity_4",
+          "satellite"
+        ],
         "branches": [
           {
             "targetBeatId": "ns_open_war",
             "conditions": [
-              { "source": "meter", "key": "escalationIndex", "op": "gte", "value": 85 },
-              { "source": "meter", "key": "militaryReadiness", "op": "gte", "value": 68 },
-              { "source": "meter", "key": "allianceTrust", "op": "lte", "value": 40 }
+              {
+                "source": "meter",
+                "key": "escalationIndex",
+                "op": "gte",
+                "value": 85
+              },
+              {
+                "source": "meter",
+                "key": "militaryReadiness",
+                "op": "gte",
+                "value": 68
+              },
+              {
+                "source": "meter",
+                "key": "allianceTrust",
+                "op": "lte",
+                "value": 40
+              }
             ],
             "priority": 3
           },
           {
             "targetBeatId": "ns_ceasefire_channel",
             "conditions": [
-              { "source": "meter", "key": "allianceTrust", "op": "gte", "value": 50 },
-              { "source": "meter", "key": "escalationIndex", "op": "lte", "value": 68 }
+              {
+                "source": "meter",
+                "key": "allianceTrust",
+                "op": "gte",
+                "value": 50
+              },
+              {
+                "source": "meter",
+                "key": "escalationIndex",
+                "op": "lte",
+                "value": 68
+              }
             ],
             "priority": 2
           },
@@ -458,8 +669,12 @@
           "Attribution remains disputed, but operational tempo is accelerating in the shadows."
         ],
         "advisorLines": {
-          "reed": ["Plausible deniability is thinning by the hour."],
-          "okonkwo": ["Off-ledger disruption is now bleeding into real supply lines."]
+          "reed": [
+            "Plausible deniability is thinning by the hour."
+          ],
+          "okonkwo": [
+            "Off-ledger disruption is now bleeding into real supply lines."
+          ]
         },
         "headlines": [
           "Unclaimed Disruptions Hit Regional Logistics Infrastructure",
@@ -467,26 +682,45 @@
         ],
         "memoLine": "Classified note: converging incidents suggest coordinated campaign architecture.",
         "tickerLine": "Market ticker: insurance underwriters suspend quotes on select routes.",
-        "imageHints": ["cyber", "severity_3", "memo"],
+        "imageHints": [
+          "cyber",
+          "severity_3",
+          "memo"
+        ],
         "branches": [
           {
             "targetBeatId": "ns_regime_shock",
             "conditions": [
-              { "source": "meter", "key": "domesticCohesion", "op": "lte", "value": 28 }
+              {
+                "source": "meter",
+                "key": "domesticCohesion",
+                "op": "lte",
+                "value": 28
+              }
             ],
             "priority": 4
           },
           {
             "targetBeatId": "ns_economic_break",
             "conditions": [
-              { "source": "meter", "key": "economicStability", "op": "lte", "value": 30 }
+              {
+                "source": "meter",
+                "key": "economicStability",
+                "op": "lte",
+                "value": 30
+              }
             ],
             "priority": 3
           },
           {
             "targetBeatId": "ns_carrier_faceoff",
             "conditions": [
-              { "source": "meter", "key": "escalationIndex", "op": "gte", "value": 82 }
+              {
+                "source": "meter",
+                "key": "escalationIndex",
+                "op": "gte",
+                "value": 82
+              }
             ],
             "priority": 2
           },
@@ -511,8 +745,12 @@
           "Emergency services report coordination strain as demonstrations and counter-rallies expand."
         ],
         "advisorLines": {
-          "okonkwo": ["Political instability is now a market variable."],
-          "chen": ["Domestic fracture will bleed into alliance confidence quickly."]
+          "okonkwo": [
+            "Political instability is now a market variable."
+          ],
+          "chen": [
+            "Domestic fracture will bleed into alliance confidence quickly."
+          ]
         },
         "headlines": [
           "Protest Waves Disrupt Key Transport and Administrative Hubs",
@@ -520,20 +758,39 @@
         ],
         "memoLine": "Interior brief: local authorities request surge support and legal guidance.",
         "tickerLine": "Risk ticker: municipal bond liquidity thins as unrest broadens.",
-        "imageHints": ["unrest", "severity_3", "street"],
+        "imageHints": [
+          "unrest",
+          "severity_3",
+          "street"
+        ],
         "branches": [
           {
             "targetBeatId": "ns_regime_shock",
             "conditions": [
-              { "source": "meter", "key": "domesticCohesion", "op": "lte", "value": 22 }
+              {
+                "source": "meter",
+                "key": "domesticCohesion",
+                "op": "lte",
+                "value": 22
+              }
             ],
             "priority": 3
           },
           {
             "targetBeatId": "ns_open_war",
             "conditions": [
-              { "source": "meter", "key": "allianceTrust", "op": "lte", "value": 36 },
-              { "source": "meter", "key": "escalationIndex", "op": "gte", "value": 72 }
+              {
+                "source": "meter",
+                "key": "allianceTrust",
+                "op": "lte",
+                "value": 36
+              },
+              {
+                "source": "meter",
+                "key": "escalationIndex",
+                "op": "gte",
+                "value": 72
+              }
             ],
             "priority": 2
           },
@@ -558,8 +815,12 @@
           "Emergency swap lines are discussed as insurers suspend coverage in contested waters."
         ],
         "advisorLines": {
-          "okonkwo": ["If confidence snaps, policy tools become triage."],
-          "cross": ["Financial pain cannot dictate security posture alone."]
+          "okonkwo": [
+            "If confidence snaps, policy tools become triage."
+          ],
+          "cross": [
+            "Financial pain cannot dictate security posture alone."
+          ]
         },
         "headlines": [
           "Liquidity Stress Spreads Across Trade and Credit Channels",
@@ -567,20 +828,39 @@
         ],
         "memoLine": "Treasury situation report: cross-border payment friction now systemic.",
         "tickerLine": "Market ticker: emergency funding spreads breach intervention band.",
-        "imageHints": ["economy", "severity_4", "ticker"],
+        "imageHints": [
+          "economy",
+          "severity_4",
+          "ticker"
+        ],
         "branches": [
           {
             "targetBeatId": "ns_economic_break",
             "conditions": [
-              { "source": "meter", "key": "economicStability", "op": "lte", "value": 20 }
+              {
+                "source": "meter",
+                "key": "economicStability",
+                "op": "lte",
+                "value": 20
+              }
             ],
             "priority": 4
           },
           {
             "targetBeatId": "ns_open_war",
             "conditions": [
-              { "source": "meter", "key": "escalationIndex", "op": "gte", "value": 80 },
-              { "source": "meter", "key": "militaryReadiness", "op": "gte", "value": 60 }
+              {
+                "source": "meter",
+                "key": "escalationIndex",
+                "op": "gte",
+                "value": 80
+              },
+              {
+                "source": "meter",
+                "key": "militaryReadiness",
+                "op": "gte",
+                "value": 60
+              }
             ],
             "priority": 3
           },
@@ -605,9 +885,15 @@
           "Command staffs on both sides report degraded confidence in adversary restraint."
         ],
         "advisorLines": {
-          "cross": ["One signal now decides whether this breaks."],
-          "chen": ["We are one incident away from strategic lock-in."],
-          "reed": ["Misread intent is now the most dangerous actor."]
+          "cross": [
+            "One signal now decides whether this breaks."
+          ],
+          "chen": [
+            "We are one incident away from strategic lock-in."
+          ],
+          "reed": [
+            "Misread intent is now the most dangerous actor."
+          ]
         },
         "headlines": [
           "Forward Naval Forces Enter Contested Engagement Geometry",
@@ -615,22 +901,51 @@
         ],
         "memoLine": "Joint memo: deconfliction window estimated at under two operational cycles.",
         "tickerLine": "Risk ticker: war risk premium implied at crisis-era extremes.",
-        "imageHints": ["military", "severity_4", "satellite"],
+        "imageHints": [
+          "military",
+          "severity_4",
+          "satellite"
+        ],
         "branches": [
           {
             "targetBeatId": "ns_open_war",
             "conditions": [
-              { "source": "meter", "key": "escalationIndex", "op": "gt", "value": 85 },
-              { "source": "meter", "key": "militaryReadiness", "op": "gt", "value": 60 },
-              { "source": "meter", "key": "allianceTrust", "op": "lt", "value": 35 }
+              {
+                "source": "meter",
+                "key": "escalationIndex",
+                "op": "gt",
+                "value": 85
+              },
+              {
+                "source": "meter",
+                "key": "militaryReadiness",
+                "op": "gt",
+                "value": 60
+              },
+              {
+                "source": "meter",
+                "key": "allianceTrust",
+                "op": "lt",
+                "value": 35
+              }
             ],
             "priority": 3
           },
           {
             "targetBeatId": "ns_ceasefire_channel",
             "conditions": [
-              { "source": "meter", "key": "escalationIndex", "op": "lte", "value": 62 },
-              { "source": "meter", "key": "allianceTrust", "op": "gte", "value": 50 }
+              {
+                "source": "meter",
+                "key": "escalationIndex",
+                "op": "lte",
+                "value": 62
+              },
+              {
+                "source": "meter",
+                "key": "allianceTrust",
+                "op": "gte",
+                "value": 50
+              }
             ],
             "priority": 2
           },
@@ -655,8 +970,12 @@
           "Both sides test whether domestic narratives can absorb a tactical pause."
         ],
         "advisorLines": {
-          "chen": ["This is the off-ramp. It will not survive maximalist language."],
-          "okonkwo": ["Markets will reward credible verification, not vague optimism."]
+          "chen": [
+            "This is the off-ramp. It will not survive maximalist language."
+          ],
+          "okonkwo": [
+            "Markets will reward credible verification, not vague optimism."
+          ]
         },
         "headlines": [
           "Quiet Framework Talks Center on Verification and Force Distance",
@@ -664,21 +983,45 @@
         ],
         "memoLine": "Negotiation note: sequence and verification remain principal sticking points.",
         "tickerLine": "Market ticker: risk premium narrows on ceasefire trial balloon.",
-        "imageHints": ["diplomacy", "severity_2", "memo"],
+        "imageHints": [
+          "diplomacy",
+          "severity_2",
+          "memo"
+        ],
         "branches": [
           {
             "targetBeatId": "ns_stabilization_settlement",
             "conditions": [
-              { "source": "meter", "key": "escalationIndex", "op": "lte", "value": 45 },
-              { "source": "meter", "key": "allianceTrust", "op": "gte", "value": 54 },
-              { "source": "meter", "key": "economicStability", "op": "gte", "value": 52 }
+              {
+                "source": "meter",
+                "key": "escalationIndex",
+                "op": "lte",
+                "value": 45
+              },
+              {
+                "source": "meter",
+                "key": "allianceTrust",
+                "op": "gte",
+                "value": 54
+              },
+              {
+                "source": "meter",
+                "key": "economicStability",
+                "op": "gte",
+                "value": 52
+              }
             ],
             "priority": 3
           },
           {
             "targetBeatId": "ns_carrier_faceoff",
             "conditions": [
-              { "source": "meter", "key": "escalationIndex", "op": "gte", "value": 75 }
+              {
+                "source": "meter",
+                "key": "escalationIndex",
+                "op": "gte",
+                "value": 75
+              }
             ],
             "priority": 2
           },
@@ -709,7 +1052,11 @@
         ],
         "memoLine": "Assessment: conflict deferred, not resolved.",
         "tickerLine": "Market ticker: relief rally fades into risk-sensitive rangebound trading.",
-        "imageHints": ["diplomacy", "severity_2", "news_frame"],
+        "imageHints": [
+          "diplomacy",
+          "severity_2",
+          "news_frame"
+        ],
         "branches": [],
         "terminalOutcome": "frozen_conflict",
         "meterOverrides": null,
@@ -731,7 +1078,11 @@
         ],
         "memoLine": "Final note: stabilization achieved through constrained reciprocity.",
         "tickerLine": "Market ticker: regional risk premium normalizing toward pre-crisis bands.",
-        "imageHints": ["diplomacy", "severity_1", "news_frame"],
+        "imageHints": [
+          "diplomacy",
+          "severity_1",
+          "news_frame"
+        ],
         "branches": [],
         "terminalOutcome": "stabilization",
         "meterOverrides": {
@@ -756,7 +1107,11 @@
         ],
         "memoLine": "Strategic warning: external theater now subordinate to domestic survival.",
         "tickerLine": "Market ticker: domestic risk metrics decouple from external threat indices.",
-        "imageHints": ["unrest", "severity_4", "street"],
+        "imageHints": [
+          "unrest",
+          "severity_4",
+          "street"
+        ],
         "branches": [],
         "terminalOutcome": "regime_instability",
         "meterOverrides": {
@@ -780,7 +1135,11 @@
         ],
         "memoLine": "Assessment: policy capacity consumed by economic triage.",
         "tickerLine": "Market ticker: sovereign stress index enters crisis threshold.",
-        "imageHints": ["economy", "severity_4", "ticker"],
+        "imageHints": [
+          "economy",
+          "severity_4",
+          "ticker"
+        ],
         "branches": [],
         "terminalOutcome": "economic_collapse",
         "meterOverrides": {
@@ -804,7 +1163,11 @@
         ],
         "memoLine": "War cabinet note: immediate objective is conflict boundary management.",
         "tickerLine": "Market ticker: circuit breakers triggered as war-risk repricing accelerates.",
-        "imageHints": ["military", "severity_4", "satellite"],
+        "imageHints": [
+          "military",
+          "severity_4",
+          "satellite"
+        ],
         "branches": [],
         "terminalOutcome": "war",
         "meterOverrides": {
@@ -823,7 +1186,11 @@
         "domain": "unrest",
         "baseChance": 0.09,
         "conditions": [
-          { "meter": "domesticCohesion", "op": "lt", "value": 38 }
+          {
+            "meter": "domesticCohesion",
+            "op": "lt",
+            "value": 38
+          }
         ],
         "meterDeltas": {
           "domesticCohesion": -7,
@@ -842,7 +1209,11 @@
         "domain": "energy",
         "baseChance": 0.07,
         "conditions": [
-          { "meter": "energySecurity", "op": "lt", "value": 40 }
+          {
+            "meter": "energySecurity",
+            "op": "lt",
+            "value": 40
+          }
         ],
         "meterDeltas": {
           "energySecurity": -8,
@@ -861,8 +1232,16 @@
         "domain": "economy",
         "baseChance": 0.08,
         "conditions": [
-          { "meter": "economicStability", "op": "lt", "value": 42 },
-          { "meter": "escalationIndex", "op": "gt", "value": 55 }
+          {
+            "meter": "economicStability",
+            "op": "lt",
+            "value": 42
+          },
+          {
+            "meter": "escalationIndex",
+            "op": "gt",
+            "value": 55
+          }
         ],
         "meterDeltas": {
           "economicStability": -9,
@@ -881,7 +1260,11 @@
         "domain": "diplomacy",
         "baseChance": 0.06,
         "conditions": [
-          { "meter": "allianceTrust", "op": "lt", "value": 44 }
+          {
+            "meter": "allianceTrust",
+            "op": "lt",
+            "value": 44
+          }
         ],
         "meterDeltas": {
           "allianceTrust": -8,
@@ -900,8 +1283,16 @@
         "domain": "military",
         "baseChance": 0.05,
         "conditions": [
-          { "meter": "escalationIndex", "op": "gt", "value": 63 },
-          { "meter": "militaryReadiness", "op": "gt", "value": 58 }
+          {
+            "meter": "escalationIndex",
+            "op": "gt",
+            "value": 63
+          },
+          {
+            "meter": "militaryReadiness",
+            "op": "gt",
+            "value": 58
+          }
         ],
         "meterDeltas": {
           "escalationIndex": 9,
