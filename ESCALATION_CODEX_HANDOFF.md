@@ -2046,8 +2046,14 @@ Thread scope limitation: This thread ran under `Code/active/Wargames` and could 
 
 ### 37.3 Git status
 
-1. Feature commit created:
+1. Feature commit created and pushed:
 - `c46419f` — `Refactor ESCALATION into Atlas-style war room shell`
+
+2. Handoff sync commit created and pushed:
+- `7d58b80` — `Sync ESCALATION war-room shell handoff`
+
+3. Deploy verification:
+- GitHub Actions Deploy run `22791792525` succeeded
 
 ### 37.4 Remaining drift / known follow-up
 
@@ -2064,7 +2070,11 @@ Thread scope limitation: This thread ran under `Code/active/Wargames` and could 
 
 ### 37.5 Exact next action for resume
 
-1. Push `c46419f`, verify the deploy workflow, and review the live site layout on desktop/mobile.
+1. Review the live site layout on desktop/mobile and note any remaining issues in:
+- rail proportions
+- vertical density
+- action-card readability
+- mobile collapse behavior
 2. Then decide whether the next iteration is:
 - a focused shell-polish pass on the live Taiwan Strait scenario
 - or the first role-based overlay / second flagship scenario track
