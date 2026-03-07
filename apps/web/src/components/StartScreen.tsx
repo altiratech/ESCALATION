@@ -51,18 +51,33 @@ const environmentLabel: Record<string, string> = {
   generic: 'Global theater'
 };
 
-const roleLenses = [
+const audienceLenses = [
   {
     label: 'Public Leadership',
-    detail: 'National security, emergency, and continuity leaders testing crisis decisions under pressure.'
+    detail: 'National security, emergency, and continuity leaders.'
   },
   {
     label: 'Corporate Resilience',
-    detail: 'Operational leaders stress-testing supply chains, infrastructure exposure, and response cadence.'
+    detail: 'Operational leaders stress-testing infrastructure and supply exposure.'
   },
   {
     label: 'Financial Risk',
-    detail: 'Investors, compliance teams, and risk operators modeling market spillover and second-order effects.'
+    detail: 'Risk, investment, and compliance operators modeling spillover effects.'
+  }
+];
+
+const launchFlow = [
+  {
+    label: '1. Select the mission',
+    detail: 'Pick the scenario, codename, and pacing model.'
+  },
+  {
+    label: '2. Take only the context you need',
+    detail: 'Use the brief for a fast start or open the dossier for deeper theater detail.'
+  },
+  {
+    label: '3. Resolve Turn 1',
+    detail: 'The war room opens with a live command brief and one decision set.'
   }
 ];
 
@@ -154,6 +169,41 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
     () => (selectedScenarioWorld?.crisisTimeline ?? []).slice(0, 5),
     [selectedScenarioWorld]
   );
+  const crisisStartEvent = useMemo(() => {
+    if (!selectedScenarioWorld) {
+      return null;
+    }
+    return (
+      selectedScenarioWorld.crisisTimeline.find((event) => event.daysBeforeStart === 0) ??
+      selectedScenarioWorld.crisisTimeline[selectedScenarioWorld.crisisTimeline.length - 1] ??
+      null
+    );
+  }, [selectedScenarioWorld]);
+  const turnOneCarryForward = useMemo(() => {
+    const items = [
+      {
+        label: 'Mandate',
+        text: selectedScenario?.briefing ?? ''
+      },
+      {
+        label: 'First watch item',
+        text:
+          startingBeat?.headlines[0] ??
+          crisisStartEvent?.event ??
+          selectedScenarioWorld?.economicBackdrop.marketSentiment ??
+          ''
+      },
+      {
+        label: 'How Turn 1 resolves',
+        text:
+          timerMode === 'off'
+            ? 'This launch opens an untimed decision beat. The turn advances only when you commit one action or explicitly take no action.'
+            : 'This launch opens a live decision beat. The turn advances when you commit one action or let the active window expire.'
+      }
+    ];
+
+    return items.filter((item) => item.text.trim().length > 0);
+  }, [crisisStartEvent?.event, selectedScenario?.briefing, selectedScenarioWorld?.economicBackdrop.marketSentiment, startingBeat?.headlines, timerMode]);
 
   const handleStart = async (): Promise<void> => {
     const payload: {
@@ -182,19 +232,30 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
           <div className="console-panel p-6 sm:p-8">
             <p className="console-kicker">Altira Flashpoint // Scenario Intelligence</p>
             <h1 className="mt-4 max-w-4xl font-display text-4xl leading-none text-textMain sm:text-5xl lg:text-6xl">
-              Interactive crisis simulations for leaders navigating real-world shock scenarios.
+              Decision-grade crisis simulations for leaders navigating real-world shock scenarios.
             </h1>
             <p className="mt-5 max-w-3xl text-sm leading-relaxed text-textMuted sm:text-base">
-              Altira Flashpoint is the scenario-intelligence layer inside Altira: real theaters, fictionalized decision
-              rooms, deterministic
-              causality, and replayable crisis runs built to stress-test how policy, operations, and markets can unravel.
+              Altira Flashpoint models real theaters through deterministic, replayable crisis runs. The product is built
+              to show how policy, operations, and markets can start to unravel under pressure.
             </p>
 
+            <div className="mt-6">
+              <p className="label">Primary users</p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {audienceLenses.map((lens) => (
+                  <div key={lens.label} className="rounded-md border border-borderTone/80 bg-panelRaised/55 px-3 py-2">
+                    <p className="text-[0.62rem] uppercase tracking-[0.12em] text-textMain">{lens.label}</p>
+                    <p className="mt-1 text-[0.68rem] leading-relaxed text-textMuted">{lens.detail}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
             <div className="mt-6 grid gap-3 lg:grid-cols-3">
-              {roleLenses.map((lens) => (
-                <article key={lens.label} className="console-subpanel px-3 py-3">
-                  <p className="label">{lens.label}</p>
-                  <p className="mt-2 text-[0.82rem] leading-relaxed text-textMuted">{lens.detail}</p>
+              {launchFlow.map((stepItem) => (
+                <article key={stepItem.label} className="console-subpanel px-3 py-3">
+                  <p className="label">{stepItem.label}</p>
+                  <p className="mt-2 text-[0.78rem] leading-relaxed text-textMuted">{stepItem.detail}</p>
                 </article>
               ))}
             </div>
@@ -214,7 +275,7 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
                 className="rounded-lg border border-accent bg-accent/15 px-5 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-accent transition hover:bg-accent/25"
                 onClick={() => setStep('brief')}
               >
-                Open Mission Queue
+                Start a Scenario
               </button>
               <button
                 type="button"
@@ -304,6 +365,27 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
               Choose the scenario, your codename, and pacing. Deeper context has been moved out of this screen into the
               dedicated theater dossier so this launch step stays focused.
             </p>
+
+            <div className="mt-5 grid gap-3 sm:grid-cols-3">
+              <div className="console-subpanel px-3 py-3">
+                <p className="label">1. Configure</p>
+                <p className="mt-2 text-[0.76rem] leading-relaxed text-textMuted">
+                  Set codename, scenario, and pacing.
+                </p>
+              </div>
+              <div className="console-subpanel px-3 py-3">
+                <p className="label">2. Optional depth</p>
+                <p className="mt-2 text-[0.76rem] leading-relaxed text-textMuted">
+                  Open the dossier only if you want the longer theater frame before launch.
+                </p>
+              </div>
+              <div className="console-subpanel px-3 py-3">
+                <p className="label">3. Launch Turn 1</p>
+                <p className="mt-2 text-[0.76rem] leading-relaxed text-textMuted">
+                  Entering the war room opens the first live decision set immediately.
+                </p>
+              </div>
+            </div>
 
             <div className="mt-5 grid gap-3 sm:grid-cols-3">
               <div className="console-subpanel px-3 py-2.5">
@@ -425,7 +507,7 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
                 onClick={() => void handleStart()}
                 disabled={loading || !codename.trim() || !scenarioId}
               >
-                {loading ? 'Initializing Theater...' : 'Enter War Room'}
+                {loading ? 'Launching Turn 1...' : 'Launch Turn 1'}
               </button>
             </div>
           </div>
@@ -475,7 +557,7 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
                 onClick={() => void handleStart()}
                 disabled={loading || !codename.trim() || !scenarioId}
               >
-                {loading ? 'Initializing Theater...' : 'Enter War Room'}
+                {loading ? 'Launching Turn 1...' : 'Launch Turn 1'}
               </button>
             </div>
           </div>
@@ -577,6 +659,20 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
           </div>
 
           <div className="space-y-4">
+            {turnOneCarryForward.length > 0 ? (
+              <section className="console-panel p-5">
+                <p className="label">Carry Into Turn 1</p>
+                <div className="mt-3 space-y-2">
+                  {turnOneCarryForward.map((item) => (
+                    <div key={item.label} className="console-subpanel px-3 py-2.5">
+                      <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">{item.label}</p>
+                      <p className="mt-1 text-[0.76rem] leading-relaxed text-textMain">{clipText(item.text, 220)}</p>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            ) : null}
+
             {selectedScenarioWorld ? (
               <section className="console-panel p-5">
                 <p className="label">Actor Map</p>

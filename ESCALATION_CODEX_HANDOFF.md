@@ -2311,3 +2311,47 @@ Current naming rule:
 
 1. Commit and push the verifier fix.
 2. Confirm the next GitHub Actions deploy run passes `verify_deploy`.
+
+## 44. Flashpoint UX Clarity Pass (2026-03-07 ET)
+
+### 44.1 What changed
+
+1. Start screen:
+- simplified the home-page messaging and entry path
+- replaced the heavier role-card treatment with lighter audience framing plus a three-step launch flow
+- made mission setup explicitly step-based
+- renamed the primary launch action around `Turn 1`
+
+2. Theater dossier:
+- added `Carry Into Turn 1` so the player leaves the dossier with a clear mandate, first watch item, and turn-resolution rule
+
+3. War room:
+- added an `Immediate Directive` panel
+- added an explicit `Read -> Decide -> Review` procedure
+- changed action-card copy so it clearly states that selecting a card commits immediately and advances the simulation
+- reframed the lower right telemetry card from generic `Command Posture` into a clearer turn-procedure surface
+
+### 44.2 What passed
+
+1. Validation:
+- `npm run lint`
+- `npm run build --workspace @wargames/web`
+- `npm run ci:phase1`
+
+2. Results:
+- `13/13` test files passed
+- `27/27` tests passed
+- Monte Carlo concentration warnings unchanged and non-blocking
+
+### 44.3 Remaining UX gap
+
+1. The current shell is now clearer, but the live question for the next pass is narrower:
+- do players understand the first-turn decision consequences well enough
+- and is the current Taiwan Strait scenario legible enough across later turns without another shell rewrite
+
+### 44.4 Exact next action for resume
+
+1. Push the UX pass and test the live Turn 1 flow again.
+2. Decide whether the next Flashpoint cycle is:
+- another clarity tuning pass
+- or the next flagship scenario / role-overlay step

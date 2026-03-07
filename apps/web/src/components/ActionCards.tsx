@@ -65,7 +65,7 @@ export const ActionCards = ({ actions, disabled, onSelect }: ActionCardsProps) =
         <div>
           <p className="label">Primary Decision</p>
           <p className="mt-2 text-[0.74rem] leading-relaxed text-textMuted">
-            Choose one response to resolve the turn. Cards are the primary control path; every row shows signal, exposure, and downside before you commit.
+            Choose one response to resolve the current turn. Clicking a card commits immediately and advances the simulation.
           </p>
         </div>
         <p className="text-[0.62rem] uppercase tracking-[0.12em] text-textMuted">{sorted.length} options</p>

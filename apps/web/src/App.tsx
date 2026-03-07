@@ -602,6 +602,27 @@ const App = () => {
     ? clipLine(recentActionNarrative.detail.successOutcome, 140)
     : 'Select one action card to advance the turn. Typed orders remain optional.';
   const theaterTimeContext = currentScenarioWorld?.dateAnchor.timeContext ?? null;
+  const currentDirective = currentScenario?.briefing ?? currentScenarioWorld?.economicBackdrop.straitEconomicValue ?? '';
+  const turnResolutionGuidance =
+    episode.activeCountdown && remainingSeconds !== null
+      ? `Choose one action from the decision rail before ${formatSeconds(remainingSeconds)} elapses.`
+      : showTakeNoAction
+        ? 'Choose one action from the decision rail or use Take No Action to hold position.'
+        : 'Choose one action from the decision rail to resolve the turn.';
+  const turnProcedure = [
+    {
+      label: 'Read',
+      detail: 'Use the situation report and intel feed to understand the current pressure.'
+    },
+    {
+      label: 'Decide',
+      detail: turnResolutionGuidance
+    },
+    {
+      label: 'Review',
+      detail: 'After resolution, check the turn assessment and operational readout for immediate consequences.'
+    }
+  ];
 
   return (
     <main className="mx-auto flex w-full max-w-[1680px] flex-col gap-4 px-3 py-3 pb-8 sm:px-4 lg:px-5">
@@ -696,6 +717,27 @@ const App = () => {
         <div className="rounded-md border border-warning/70 bg-warning/10 px-3 py-2 text-sm text-warning">{error}</div>
       ) : null}
 
+      <section className="console-panel px-3 py-3 sm:px-4">
+        <div className="grid gap-3 xl:grid-cols-[1.02fr_0.98fr]">
+          <div className="min-w-0">
+            <p className="label">Immediate Directive</p>
+            <p className="mt-2 text-sm leading-relaxed text-textMain">{clipLine(currentDirective, 220)}</p>
+            <p className="mt-2 text-[0.72rem] leading-relaxed text-textMuted">
+              {turnResolutionGuidance} Typed orders remain available below the advisor channel, but the primary loop is
+              card-based.
+            </p>
+          </div>
+          <div className="grid gap-2 sm:grid-cols-3">
+            {turnProcedure.map((item) => (
+              <div key={item.label} className="console-subpanel px-3 py-2.5">
+                <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">{item.label}</p>
+                <p className="mt-1 text-[0.72rem] leading-relaxed text-textMain">{item.detail}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="grid min-h-0 gap-4 xl:grid-cols-[0.34fr_0.94fr_0.72fr]">
         <aside className="console-panel order-2 flex min-h-[40rem] flex-col p-3 xl:order-1">
           <div className="flex items-center justify-between">
@@ -771,7 +813,7 @@ const App = () => {
         <IntelPanel ranges={episode.visibleRanges} intelQuality={episode.intelQuality} turn={episode.turn} />
         <section className="console-panel p-3">
           <div className="flex items-center justify-between gap-3">
-            <p className="label">Command Posture</p>
+            <p className="label">Turn Procedure</p>
             <span className="text-[0.62rem] uppercase tracking-[0.12em] text-textMuted">
               {episode.offeredActions.length} options live
             </span>
@@ -782,19 +824,17 @@ const App = () => {
               <p className="mt-1 text-[0.74rem] leading-relaxed text-textMain">{decisionSummary}</p>
             </div>
             <div className="console-subpanel px-2.5 py-2">
-              <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Action Model</p>
+              <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">How To Advance</p>
               <p className="mt-1 text-[0.7rem] leading-relaxed text-textMuted">
-                Primary loop: select one action card. Typed orders stay available for custom phrasing or parser shortcuts.
+                {showTakeNoAction
+                  ? 'Primary loop: select one action card or use Take No Action to hold position. The turn resolves only after one of those choices.'
+                  : 'Primary loop: select one action card. The turn resolves as soon as the action is committed or the active decision window expires.'}
               </p>
             </div>
             <div className="console-subpanel px-2.5 py-2">
-              <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Window Status</p>
+              <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Typed Command Use</p>
               <p className="mt-1 text-[0.74rem] leading-relaxed text-textMain">
-                {episode.activeCountdown && remainingSeconds !== null
-                  ? `${countdownUrgencyLabel} (${formatSeconds(remainingSeconds)} remaining)`
-                  : showTakeNoAction
-                    ? 'Untimed decision beat. Hold explicitly if you want to stand down.'
-                    : 'No timed decision pressure on the current beat.'}
+                Use typed orders only if you want custom phrasing or to let the parser suggest a matching action.
               </p>
             </div>
           </div>
