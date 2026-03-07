@@ -2,177 +2,137 @@
   "scenarioId": "northern_strait_flashpoint",
   "adversaryProfileId": "calculated_technocrat",
   "leader": {
-    "title": "Supreme Security Coordinator",
-    "publicName": "Aleksandr Volkov",
+    "title": "Central Security Commission Vice Chair",
+    "publicName": "Lin Wenqiao",
     "aliases": [
-      "Volkov-1",
-      "The Technician",
-      "COMPASS"
+      "LIN-7",
+      "The Systems Planner",
+      "Jade Compass"
     ],
-    "age": "58-63",
-    "background": "Volkov rose through the technical security apparatus during the 1990s as a signals intelligence analyst, earning credibility for his methodical approach to counterintelligence during the chaotic post-Soviet transition. He spent twelve years in signals and strategic assessment roles, building a reputation for rigorous cost-benefit analysis rather than ideological fervor. In 2008, he was promoted to a senior coordinating role overseeing economic intelligence and strategic vulnerability assessments, where he became known for warning against overconfident military initiatives and pushing for precision operations over wholesale escalation. His career arc reflects a consistent preference for asymmetric leverage—exploiting economic dependencies, information asymmetries, and alliance fault lines rather than direct confrontation. He rose to his current position through quiet coalition-building within the security establishment, positioning himself as the \"adult in the room\" who prevents catastrophic miscalculation. Volkov is neither a hardliner nor a dovish reformer; he is a pragmatist who views strategic conflicts as optimizable problems where the player with better information, tighter logistics, and lower domestic political costs typically prevails.",
+    "age": "59-64",
+    "background": "Lin Wenqiao is a fictional senior Chinese security official written for scenario purposes. In the simulation's public profile, Lin rose through the party-state system by specializing in maritime security, industrial vulnerability analysis, and strategic technology planning. He built influence not as a charismatic nationalist but as a manager of complex campaigns who could align security organs, economic planners, and external messaging around a single objective. In a Taiwan Strait contingency, Lin represents the type of crisis manager who believes pressure works best when it stays just below the threshold that would automatically unify the coalition against Beijing.",
     "psychologicalProfile": {
-      "summary": "A technocratic strategist who treats escalation as a last resort and prefers coercive leverage through economic, informational, and institutional pressure. He is acutely sensitive to economic damage and domestic political exposure, which makes him both predictable in his risk calculations and vulnerable to pressure that raises the cost of his position domestically. Volkov's cold rationality masks a deep aversion to public humiliation or loss of face within his own power structure.",
+      "summary": "Lin is a disciplined coercive strategist. He prefers pressure that accumulates through shipping risk, information control, cyber activity, and alliance doubt rather than immediate war. He is rational about costs, but highly sensitive to any sign that Beijing has lost face or ceded initiative.",
       "strengths": [
-        "Exceptional pattern recognition and scenario modeling—plans contingencies methodically and rarely improvises",
-        "Deep understanding of economic interdependencies and fragility points in global supply chains",
-        "Political acumen within his own regime—maintains elite consensus through selective information management and framing",
-        "Ability to sustain coercive pressure indefinitely without overt escalation—knows how to operate in the gray zone"
+        "Integrates military, economic, and information levers into a single pressure campaign",
+        "Understands how commercial anxiety can become strategic leverage in a Taiwan crisis",
+        "Maintains tight message discipline and rarely improvises in public",
+        "Prefers reversible pressure, which gives him room to probe without fully committing"
       ],
       "vulnerabilities": [
-        "Over-confidence in his ability to model and predict player responses—assumes rational cost-benefit logic similar to his own",
-        "Economic conservatism makes him hesitant to absorb the costs of extended confrontation",
-        "Domestic political constraints he cannot fully control—if forced to appear weak to his own establishment, will overreact",
-        "Limited understanding of emotional or honor-based motivations in international relations—treats all conflicts as resource optimization problems"
+        "Can overestimate how quickly commercial pain will fracture allied resolve",
+        "Relies heavily on filtered reporting from disciplined subordinates and can miss political emotion outside elite circles",
+        "Faces career and political danger if a coercive campaign visibly fails",
+        "May escalate too late or too abruptly if he concludes incremental pressure is losing effect"
       ],
-      "decisionStyle": "Volkov decides through iterative hypothesis testing. He gathers intelligence on player resolve, economic tolerance, and alliance stability, then adjusts pressure calibration in small increments to test response patterns. He avoids binary decisions; instead, he maintains multiple simultaneous pressure vectors (economic, informational, military posturing) and monitors which ones yield maximum leverage for minimum cost. Under acute time pressure, he becomes more rigid and defers to playbook scenarios rather than creative adaptation.",
-      "riskAppetite": "He tolerates sustained but managed risk. He will not accept binary outcomes (win/lose) if a middle path exists that preserves optionality. His core risk tolerance is bounded by economic damage projections and domestic political survivability thresholds. Once either threshold approaches, he shifts rapidly from coercive pressure to face-saving negotiation.",
-      "informationDiet": "Volkov trusts his own signals intelligence apparatus highly and tends to discount public media or allied assessments that contradict his internal analysis. He is attentive to market signals and economic data flows, treating them as more reliable indicators of underlying stability than rhetoric. He listens closely to his economic and trade deputies but maintains final authority over strategic judgment. He is skeptical of intelligence from his military advisors unless it is quantitative (force disposition, logistics) rather than qualitative (enemy morale, resolve)."
+      "decisionStyle": "Lin decides through sequenced pressure tests. He prefers to apply multiple moderate levers at once, monitor the coalition's reaction, then intensify only where he sees hesitation or economic vulnerability. Under time pressure he becomes more centralized and more conservative about steps that could trigger direct U.S.-China combat.",
+      "riskAppetite": "He accepts sustained gray-zone risk and serious economic friction, but he dislikes binary gambles that could produce immediate battlefield humiliation or uncontrollable financial spillover.",
+      "informationDiet": "Lin trusts intelligence reporting, shipping and market indicators, and internal industrial data more than speeches. He pays particular attention to alliance statements, commercial rerouting, semiconductor disruption signals, and whether Taiwan appears politically isolated or reassured."
     },
     "motivations": {
-      "primary": "Volkov wants to demonstrate that coercive pressure can yield strategic concessions without overt military escalation. A successful outcome for him is one where he extracts material advantage (access, sanctions relief, recognition of influence) through sustained gray-zone pressure while the player—facing domestic and alliance costs—eventually negotiates from a weakened position. He is not seeking territorial conquest or regime change; he is seeking to reprove his strategic philosophy that precision coercion works.",
-      "secondary": "He is playing to his domestic audience of elite stakeholders who demanded 'action' but fear economic and military costs. Volkov needs to demonstrate he is advancing state interests while protecting the economic system and avoiding needless military casualties. A secondary win is one where he can claim internal victory (restored influence, negotiated advantage) without the economic hemorrhaging that overt war would impose.",
-      "redLine": "The scenario that would be personally catastrophic for Volkov is a military defeat or forced public retreat that his establishment interprets as weakness or miscalculation. If his strategy fails visibly—if the player's deterrence is credible and his coercive pressure yields no concessions—his elite coalition fragments and he becomes a scapegoat for a failed adventure. He cannot survive being portrayed as the technocrat who miscalculated and wasted resources.",
-      "goldenBridge": "Volkov can accept a negotiated outcome where both sides claim partial victory: he achieves some tangible gain (economic relief, institutional recognition, access to disputed resources) while you achieve diplomatic de-escalation and alliance stability. A face-saving exit for him is one where he can tell his establishment that coercive pressure succeeded in extracting concessions, and that he was strategically wise enough to know when to consolidate gains rather than push further."
+      "primary": "To demonstrate that Beijing can coerce changes in the Taiwan Strait without paying the price of a full regional war.",
+      "secondary": "To prove internally that disciplined pressure, not impulsive nationalism, is the smarter path to strategic gains.",
+      "redLine": "A visible move that appears to formalize Taiwan's political separation under allied military cover or that inflicts humiliating losses on PRC forces.",
+      "goldenBridge": "A pathway where Beijing can claim it forced new caution, consultation, or de-risking behavior from the coalition without having to admit failure."
     },
     "pressurePoints": [
       {
-        "id": "domestic_economic_costs",
-        "name": "Economic Constraint",
-        "description": "Extended coercive confrontation creates domestic economic pain—capital flight, currency pressure, sanctions erosion of revenue streams. Volkov's elite constituency monitors GDP forecasts and fiscal projections obsessively. If projection models show multi-year recession from prolonged pressure, consensus fractures and Volkov loses political cover to continue.",
-        "exploitability": "Extend confrontation in ways that force visible economic costs: targeted financial sanctions on key oligarch portfolios, coordinated SWIFT restrictions on major banks, or asymmetric trade measures that spike commodity or equity volatility. The goal is not to maximize pain but to make pain *visible* and *attributable* to Volkov's strategy. Once his inner circle begins questioning the cost-benefit math, he seeks exit.",
-        "risk": "Pushing too hard on economic pressure can trigger over-corrective military escalation as Volkov's coalition demands he 'show strength' to justify the damage. Economic pain can radicalize his hardliners rather than break his coalition."
+        "id": "export_dependence",
+        "name": "Export and technology exposure",
+        "description": "Lin knows prolonged confrontation risks accelerating coordinated controls on technology, finance, and trade channels that matter to Chinese growth.",
+        "exploitability": "Sustained allied coordination on high-value technologies and finance raises the domestic cost of his strategy.",
+        "risk": "Too much pressure too quickly can make him argue that Beijing has little left to lose."
       },
       {
-        "id": "alliance_fracture_risk",
-        "name": "Allied Cohesion Signal",
-        "description": "Volkov's strategy depends on dividing your coalition or at least fragmenting consensus on response. If your alliance is visibly cohesive—all voices aligned, sanctions uniform, military posture coordinated—his pressure strategy fails because you absorb costs collectively. Cohesion is his nightmare scenario because it collapses his assumption that you can be isolated or out-coerced.",
-        "exploitability": "Demonstrate tight alliance coordination in public. Schedule visible multilateral military exercises, announce coordinated sanctions in joint statements, and ensure allied leaders issue synchronized messaging. Volkov watches for fissures in your coalition messaging; unified messaging tells him coercive pressure will not work.",
-        "risk": "Over-signaling alliance unity can be read as aggressive posturing and provoke him to accelerate pressure to 'test' the coalition before it fully hardens. There is a fine line between signaling cohesion and appearing to threaten."
+        "id": "alliance_denial",
+        "name": "Failed alliance-splitting efforts",
+        "description": "His model assumes coalition hesitation can be widened over time through economic pain and fear of war.",
+        "exploitability": "Visible, repeated alliance cohesion directly undercuts his preferred method of leverage.",
+        "risk": "If unity looks permanent, Lin may favor sharper coercive moves to regain initiative."
       },
       {
-        "id": "military_escalation_exposure",
-        "name": "Military Credibility Threshold",
-        "description": "Volkov prefers coercive pressure to military confrontation because military outcomes are less controllable than economic or informational pressure. However, if his pressure yields no concessions, he faces internal demands to escalate militarily to 'show strength.' Military escalation is a political liability for him because it risks uncontrolled outcomes, casualty exposure, and international isolation.",
-        "exploitability": "Demonstrate that military escalation will be met with swift, decisive response. High-visibility force posturing (carrier strikes, fighter deployments, coordinated ally movements) tells Volkov that any military adventure will be costly and uncontrolled. This pushes him back to coercive pressure, where he has more control.",
-        "risk": "Aggressive military signaling can inadvertently trigger military escalation if Volkov interprets it as preparation for attack and decides to escalate first. He is rational but not immune to preemptive logic."
+        "id": "domestic_face",
+        "name": "Elite perception of resolve",
+        "description": "Lin can tolerate compromise only if it does not look like strategic retreat inside Beijing's internal system.",
+        "exploitability": "Private off-ramps that preserve public face are more likely to move him than public humiliation.",
+        "risk": "Publicly cornering him can empower hardliners and narrow the space for de-escalation."
       },
       {
-        "id": "domestic_legitimacy_crisis",
-        "name": "Regime Stability Pressure",
-        "description": "If coercive pressure drags on without visible progress, Volkov's legitimacy within his establishment erodes. His coalition is held together by the logic that his approach is working. The moment this assumption breaks—when street-level discontent rises, youth unemployment spikes, or allied capitals refuse to negotiate—internal rivals position themselves as alternatives to his failed strategy.",
-        "exploitability": "Avoid negotiating visibly while Volkov is pushing maximum pressure. Every month of stalled confrontation with no diplomatic off-ramp increases internal pressure on him to either escalate or back down. The longer the standoff, the more his domestic critics demand change. Strategic patience becomes your weapon.",
-        "risk": "Excessive patience can allow Volkov time to consolidate support by reframing the conflict as existential rather than coercive, shifting the domestic logic from 'cost-benefit' to 'survival.' Once the narrative becomes 'us or them,' his coalition hardens and he becomes more reckless."
-      },
-      {
-        "id": "intelligence_misalignment",
-        "name": "Intel Overconfidence",
-        "description": "Volkov's decision-making is heavily dependent on his internal assessment of your economic fragility, alliance trust, and domestic support. If these assessments are wrong—if you are more economically resilient, your alliance more cohesive, or your domestic support more stable than his intelligence suggests—his pressure strategy is calibrated for an opponent weaker than you actually are.",
-        "exploitability": "Deliberately plant contradictory intelligence signals. Leak false data about alliance disputes while coordinating actual unity. Demonstrate economic resilience in ways Volkov's economists cannot ignore. The goal is to make Volkov's internal models obsolete, forcing him to re-assess and potentially abandon pressure strategy as futile against an unexpectedly resilient opponent.",
-        "risk": "If Volkov detects that he is being fed false intelligence, he will interpret it as evidence that you are deceptive and untrustworthy, hardening his conviction that coercive pressure is the only language you understand. Deception detected can backfire into escalation."
+        "id": "commercial_feedback",
+        "name": "Commercial blowback",
+        "description": "He relies on coercion remaining politically manageable at home despite market strain and supply-chain disruption.",
+        "exploitability": "Evidence that the crisis is damaging Chinese firms, ports, finance, and employment can force recalibration.",
+        "risk": "If Beijing believes the U.S. is weaponizing global commerce broadly, Lin may support broader retaliation."
       }
     ],
     "intelFragments": {
       "opening": [
-        "SIGINT (HIGH CONFIDENCE): Volkov convened an expanded economic policy committee 72 hours before the strait challenge maneuvers. Attendees included central bank deputy, trade ministry chief, and two key oligarch advisors. Duration: 4 hours. Purpose unknown but timing is unusual.",
-        "HUMINT (MEDIUM CONFIDENCE): A defector source close to Volkov's inner circle reports he privately circulated a memo titled 'Strategic Asymmetries in the Northern Corridor' within the last month. The memo allegedly argues that coercive leverage is more cost-effective than military confrontation. Source reliability is degraded.",
-        "OSINT (HIGH CONFIDENCE): Volkov's media footprint has shifted subtly—fewer public statements about 'strength' and 'resolve,' more about 'pragmatism' and 'protecting the economy.' Suggests internal messaging prioritizes economic stability messaging over nationalist appeals.",
-        "SIGINT (MEDIUM CONFIDENCE): Intercepted discussion between Volkov and the defense ministry suggests disagreement on escalation timelines. Volkov apparently advocated for a 'slow burn' approach while military advisors pushed for faster pressure cycle. Volkov won the debate."
+        "Intercepts suggest Lin initially preferred calibrated maritime pressure over any declared exclusion zone.",
+        "Commercial shipping data appears in his briefing packets alongside PLA readiness metrics."
       ],
       "rising": [
-        "HUMINT (HIGH CONFIDENCE): A trade ministry official close to Volkov's coalition reported that economic impact models are being circulated showing multi-year recession if pressure extends beyond 6-8 months. Volkov cited these models in a recent closed-door meeting as evidence that 'timing is critical.'",
-        "SIGINT (MEDIUM CONFIDENCE): Volkov's encrypted communications with three key oligarchs show increased frequency in the last 48 hours. Content unknown but pattern suggests he is building consensus for a strategic decision.",
-        "ELINT (MEDIUM CONFIDENCE): Electronic intelligence detected a spike in communication between Volkov's office and the foreign ministry. Suggests he may be preparing diplomatic outreach options or at least considering how negotiation would be framed.",
-        "HUMINT (MEDIUM CONFIDENCE): A source within the regime's think tank reported that Volkov commissioned a rapid strategic assessment titled 'Exit Scenarios in Protracted Coercive Standoffs.' The assessment was completed within two weeks, suggesting urgency."
+        "Lin is reportedly arguing that alliance messaging matters more than individual ship movements in the medium term.",
+        "Internal discussions show concern that Taiwan-bound rerouting is happening too quickly for Beijing's comfort."
       ],
       "crisis": [
-        "SIGINT (HIGH CONFIDENCE): Intercepted communication between Volkov and the central bank governor references 'unsustainable capital outflow' and currency depreciation rates that 'exceed acceptable thresholds.' Volkov ordered an assessment of how long fiscal reserves can sustain current pressure before reserves depletion becomes undeniable.",
-        "HUMINT (HIGH CONFIDENCE): Multiple sources report Volkov is in active dialogue with a key oligarch who controls significant media assets. They have had three private meetings in the last week. Topics unknown but timing suggests media messaging strategy is being recalibrated.",
-        "OSINT (HIGH CONFIDENCE): Volkov gave a public speech emphasizing 'protecting economic stability while defending national interests.' The framing—placing economic protection alongside security—is unusual and suggests economic costs are becoming a more prominent concern in his strategic calculus.",
-        "SIGINT (MEDIUM CONFIDENCE): Volkov's communications with allied security services show him asking detailed questions about your alliance cohesion and military posture readiness. He is actively reassessing your credibility and resolve."
+        "His crisis cell is divided between officials demanding sharper action and planners warning that a real blockade would solidify the coalition.",
+        "Lin has requested repeated updates on Japanese and Philippine military posture before approving additional pressure."
       ],
       "climax": [
-        "HUMINT (HIGH CONFIDENCE): A regime insider reported Volkov told key allies that 'tactical consolidation' may be necessary if economic models worsen further. This language is historically associated with pivot-to-negotiation signaling in previous crises.",
-        "SIGINT (HIGH CONFIDENCE): Volkov's secure communications show him expressing frustration that coercive pressure is not yielding 'sufficient concessions relative to cost.' This suggests he is measuring outcomes against preset success thresholds and finding the math unfavorable."
+        "Late-stage reporting suggests Lin wants an off-ramp that can be framed as proof of Beijing's seriousness rather than a retreat.",
+        "He is increasingly focused on avoiding a move that would trigger immediate U.S.-China casualties."
       ]
     },
     "publicStatements": [
       {
-        "context": "Opening press conference on strait security",
-        "quote": "We are not seeking confrontation. We are seeking respect for maritime conventions and recognition of legitimate regional interests. The current security posture is a necessary response to provocative allied activities in our strategic neighborhood.",
-        "analystNote": "Volkov is avoiding nationalist rhetoric and framing this as technical dispute over maritime law rather than existential conflict. This is strategic choice to keep domestic door open to compromise."
+        "context": "Opening pressure campaign",
+        "quote": "External actors should not misread discipline for hesitation. Regional stability depends on respecting China's core interests.",
+        "analystNote": "Signals resolve while preserving ambiguity about the next step."
       },
       {
-        "context": "Response to allied military exercise announcement",
-        "quote": "Large-scale military exercises in contested zones are destabilizing. We hope allied capitals will recognize that provocative posturing benefits no one. We remain committed to dialogue channels and de-escalation pathways.",
-        "analystNote": "Volkov is explicitly calling for de-escalation while also signaling that military exercises are being monitored and calculated into his response strategy. He is keeping exit doors open."
+        "context": "Allied naval coordination",
+        "quote": "Attempts to internationalize the question will only increase the costs of miscalculation for those who encourage adventurism.",
+        "analystNote": "Aimed at deterring allies from locking into visible military support."
       },
       {
-        "context": "Economic ministry briefing on trade and sanctions",
-        "quote": "Some economic pressures are evident, but our economy is diversified and resilient. Short-term disruptions are manageable. We will not be coerced by economic means into strategic concessions.",
-        "analystNote": "This statement is defensive—acknowledging economic pain exists while minimizing it. The 'short-term disruptions' language suggests his internal models show pain is temporary only if pressure ends soon. Volkov is buying political time with this framing."
+        "context": "Commercial disruption criticism",
+        "quote": "Any instability in nearby waters is the product of interference by outside powers, not China's legitimate security measures.",
+        "analystNote": "Tries to shift economic blame onto coalition responses rather than PRC coercion."
       },
       {
-        "context": "Address to security establishment on strategic patience",
-        "quote": "Strategic competition requires patience and resolve. We have the discipline to sustain pressure indefinitely while protecting our economy and avoiding unnecessary risks. This is not about military dominance; it is about strategic positioning.",
-        "analystNote": "Volkov is signaling to his elite that he will not blink, but he is also subtly shifting the definition of success from 'military dominance' to 'strategic positioning'—a lower threshold that opens space for negotiated exit."
-      },
-      {
-        "context": "Indirect statement via state media on alliance divisions",
-        "quote": "Allied capitals have diverging interests and strategic priorities. Some are more risk-tolerant than others. We note these differences with interest.",
-        "analystNote": "Volkov is trying to plant seeds of doubt about coalition cohesion and signal to wavering allies that he is watching for defection. This is classic divide-and-conquer signaling."
-      },
-      {
-        "context": "Private remarks to inner circle leaked by defector on economic constraints",
-        "quote": "We can sustain this posture for perhaps six to eight months before fiscal pressure becomes politically unsustainable. After that, we must either escalate or find face-saving exit. There is no indefinite middle path.",
-        "analystNote": "This leaked statement is the most reliable intelligence on Volkov's actual thinking. He has set a psychological deadline for himself and is thinking in terms of exit strategies, not indefinite pressure. The window for negotiation is narrower than he admits publicly."
-      },
-      {
-        "context": "Statement after allied coordinated sanctions announcement",
-        "quote": "Coordinated economic coercion is a tool of declining powers unable to compete by other means. We will respond proportionally and calmly, adjusting our strategy as circumstances warrant.",
-        "analystNote": "Volkov is controlling his response narrative to avoid triggering domestic hawk escalation demands. The phrase 'adjusting our strategy' signals he is considering options but not committing to escalation. This is a holding statement designed to buy time."
-      },
-      {
-        "context": "Interview with friendly analyst on strategic objectives",
-        "quote": "Our goal is recognition of our legitimate influence in the region and relief from unjust economic restrictions. We are not seeking to overturn the international order. We are seeking a fairer position within it.",
-        "analystNote": "Volkov is articulating his golden bridge: he can claim victory if he achieves some tangible economic relief or institutional recognition. This interview is likely deliberately leaked to test whether your side is open to negotiation on those terms."
+        "context": "Late-crisis messaging",
+        "quote": "China remains open to responsible dialogue, but dialogue cannot be separated from respect for facts on the ground.",
+        "analystNote": "Classic face-saving formula that leaves room for a negotiated pause without renouncing coercion."
       }
     ],
     "innerCircle": [
       {
-        "title": "First Deputy, Economic Policy",
-        "role": "Manages fiscal projections, capital flows, and economic impact modeling. Has final say on what economic pain levels are politically sustainable.",
-        "influence": "Very High—Volkov defers to this person's economic calculations and will shift strategy if economic models deteriorate beyond agreed thresholds.",
-        "disposition": "pragmatist",
-        "knownView": "Advocates for aggressive cost-control and argues that coercive pressure must yield results within 6-8 months before economic damage becomes politically undeniable. Pushes for negotiation off-ramps if pressure does not show early dividends."
+        "title": "Theater Operations Deputy",
+        "role": "Coordinates PLA readiness and maritime signaling options around Taiwan.",
+        "influence": "High during the crisis phase when force posture choices dominate.",
+        "disposition": "More hawkish than Lin.",
+        "knownView": "Believes visible pressure loses value if the U.S. is not made to absorb operational risk."
       },
       {
-        "title": "Defense Minister",
-        "role": "Manages military posture and escalation calibration. Wants to demonstrate force readiness without actual military confrontation.",
-        "influence": "High—Volkov values military counsel on force readiness but maintains final authority on escalation decisions.",
-        "disposition": "hawk",
-        "knownView": "Believes coercive pressure will only succeed if backed by credible military threat. Pushes for more visible military exercises and faster escalation timelines. Is frustrated that Volkov prioritizes economic leverage over military signaling."
+        "title": "Industrial Stability Adviser",
+        "role": "Tracks chip, trade, port, and employment exposure tied to the crisis.",
+        "influence": "High whenever sanctions or market spillovers intensify.",
+        "disposition": "More cautious than Lin.",
+        "knownView": "Warns that a Taiwan shock can quickly become a domestic economic management problem."
       },
       {
-        "title": "Head of Foreign Intelligence",
-        "role": "Provides strategic assessment of your coalition cohesion, resolve, and economic stability. Shapes Volkov's beliefs about whether coercive pressure will work.",
-        "influence": "Very High—Volkov's entire strategy depends on these assessments. If intelligence estimates are wrong, his pressure strategy is miscalibrated.",
-        "disposition": "pragmatist",
-        "knownView": "Believes your coalition is brittle and that sustained pressure will expose internal divisions. However, recent assessments show more cohesion than expected, which has made this person more cautious about escalation timelines."
+        "title": "Party Messaging Director",
+        "role": "Shapes public narrative and elite framing inside Beijing.",
+        "influence": "Constant; strongest when Lin needs public toughness without operational overcommitment.",
+        "disposition": "Loyal to Lin so long as he protects political face.",
+        "knownView": "Argues that any off-ramp must still be sold as evidence that outside powers backed down from something."
       },
       {
-        "title": "Chief Oligarch Advisor",
-        "role": "Represents key economic stakeholders and ensures their interests are protected. Effectively a veto point on any strategy that threatens massive capital losses.",
-        "influence": "Very High—Volkov's coalition requires oligarch support. If oligarchs demand exit, Volkov cannot sustain pressure.",
-        "disposition": "pragmatist",
-        "knownView": "Is watching economic models closely and will demand pivot to negotiation if sustained pressure appears likely to trigger capital flight or asset depreciation. Views this as coercive leverage problem to be solved via diplomacy, not war."
-      },
-      {
-        "title": "Senior Strategic Analyst (Think Tank Director)",
-        "role": "Provides long-term scenario modeling and frames strategic options. Helps Volkov distinguish between short-term tactics and long-term positioning.",
-        "influence": "Medium—Volkov respects this person's analysis but does not defer to them on major decisions.",
-        "disposition": "dove",
-        "knownView": "Has counseled Volkov that indefinite coercive pressure is unsustainable and that exit strategy planning should begin early. Advocates for 'strategic consolidation' (claiming partial victory and negotiating settlement) over escalation."
+        "title": "External Liaison Envoy",
+        "role": "Maintains informal channels with third-country intermediaries and select allied capitals.",
+        "influence": "Moderate, spikes when de-escalation becomes necessary.",
+        "disposition": "Pragmatic.",
+        "knownView": "Believes Beijing should preserve at least one confidential path for crisis management even at peak pressure."
       }
     ]
   }

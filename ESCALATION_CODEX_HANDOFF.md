@@ -1923,3 +1923,86 @@ Thread scope limitation: This thread ran under `Code/active/Wargames` and could 
 - `rival_leader_ns.json`
 - `debrief_deep_ns.json`
 2. Keep engine authority and beat graph structure unchanged during the content migration unless Ryan explicitly requests a graph redesign.
+
+## 36) 2026-03-06 Taiwan Strait Runtime Narrative Completion
+
+### 36.1 What changed
+
+1. Converted the remaining live runtime narrative packs away from fictional-theater residue:
+- `packages/content/data/action_narratives_ns.json`
+- `packages/content/data/rival_leader_ns.json`
+- `packages/content/data/debrief_deep_ns.json`
+- `packages/content/data/intel_fragments_ns.json`
+- `packages/content/data/news_wire_ns.json`
+
+2. Action resolution is now Taiwan Strait-specific end to end:
+- `action_narratives_ns.json`
+- Re-authored all 12 player-action narrative packs across opening/rising/crisis/climax.
+- Removed Kaltor / Volkov / LNG / oligarch / Central Europe framing.
+- Replaced with Taiwan Strait logic:
+  - Beijing / PRC coercive pressure
+  - shipping / insurance / semiconductor / alliance consequences
+  - Singapore backchannel framing
+  - gray-zone maritime / cyber / sanctions / resilience logic
+
+3. Rival reveal now fits the real-world theater rule:
+- `rival_leader_ns.json`
+- Replaced the legacy fictional post-Soviet rival profile with a Taiwan Strait-compatible fictional Chinese crisis manager:
+  - `Lin Wenqiao`
+  - title: `Central Security Commission Vice Chair`
+- Kept fictional individual identity while grounding motivations, pressure points, and inner-circle logic in Beijing / Taiwan Strait coercive strategy.
+
+4. Deep post-game report now matches the Taiwan Strait package:
+- `debrief_deep_ns.json`
+- Rewrote:
+  - strategy arc summaries
+  - rival perspectives
+  - advisor post-mortems
+  - player grade descriptors
+  - lessons learned
+  - historical parallels
+- Post-game analysis now explicitly discusses:
+  - Taiwan Strait deterrence
+  - coalition cohesion
+  - semiconductor / shipping / systemic market spillover
+  - Beijing internal stress and face-saving logic
+
+5. Mid/late-game live feeds were converted too:
+- `intel_fragments_ns.json`
+- `news_wire_ns.json`
+- Removed remaining runtime `Kaltor` / `Northern Strait` / named fictional-minister residue from the live JSON feeds.
+- Cleaned conversion artifacts after the first automated pass so later-turn runtime entries no longer produce obvious nonsense strings like `Chinese Beijing` or `rationing leaderships`.
+
+6. Report-causality test now follows authored fixtures rather than stale literal content:
+- `tests/engine/report-causality.test.ts`
+- The rival-leader assertion now compares against the active `getRivalLeader(...)` fixture instead of the obsolete hard-coded `Aleksandr Volkov` string.
+
+### 36.2 Verification status
+
+1. `npm run lint` passed.
+2. `npx vitest run tests/engine/report-causality.test.ts` passed.
+3. `npm run build --workspace @wargames/web` passed.
+4. `npm run ci:phase1` passed (`13/13` files, `27/27` tests).
+5. Existing Monte Carlo concentration warnings remain unchanged and non-blocking.
+
+### 36.3 Remaining drift / known follow-up
+
+1. Two markdown reference docs under `packages/content/data/` still describe the older Northern Strait prototype and are not runtime data:
+- `NEWS_WIRE_NS_MANIFEST.md`
+- `NEWS_WIRE_QUICK_REFERENCE.md`
+
+2. Internal technical identifiers are intentionally still unchanged:
+- `northern_strait_flashpoint`
+- `ns_*`
+- This remains the accepted choice until/if Ryan explicitly wants a deeper slug / beat-graph refactor.
+
+### 36.4 Exact next action for resume
+
+1. Re-test the live site with the new mid/late-game Taiwan Strait content and collect usability notes on:
+- scenario specificity
+- decision clarity
+- feed readability
+- post-game report credibility
+2. Then choose one of two paths:
+- quality/polish pass on the Taiwan Strait scenario
+- author the second flagship scenario or first role-based overlay

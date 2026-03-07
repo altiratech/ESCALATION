@@ -7,7 +7,7 @@
     "outletType": "wire",
     "region": "international",
     "headline": "China Expands Maritime Pressure Around Taiwan Strait",
-    "lede": "Beijing has paired a new inspection and registration regime with expanded air and maritime activity west of Taiwan, raising fears that a gray-zone pressure campaign is hardening into something closer to a blockade rehearsal.",
+    "lede": "Beijing has paired a new inspection and registration Beijing with expanded air and maritime activity west of Taiwan, raising fears that a gray-zone pressure campaign is hardening into something closer to a blockade rehearsal.",
     "pullQuote": "This is a lawful safety and customs measure, not a blockade,\" a Chinese maritime affairs spokesperson said in a televised briefing.",
     "tone": "neutral",
     "tags": [
@@ -137,8 +137,8 @@
     "outlet": "The Capital Standard",
     "outletType": "broadsheet",
     "region": "domestic",
-    "headline": "State Department Initiates Dialogue with Kaltor over Regional Tensions",
-    "lede": "The State Department confirmed today that diplomatic channels with Kaltor have been reactivated to discuss regional security concerns. The move is meant to prevent escalation while clarifying respective positions on maritime rights and resource access.",
+    "headline": "State Department Initiates Dialogue with China over Regional Tensions",
+    "lede": "The State Department confirmed today that diplomatic channels with China have been reactivated to discuss regional security concerns. The move is meant to prevent escalation while clarifying respective positions on maritime rights and transit access.",
     "pullQuote": "We believe dialogue is essential to prevent miscalculation,\" a State Department spokesperson said at a press briefing.",
     "tone": "dovish",
     "tags": [
@@ -154,8 +154,8 @@
     "outlet": "Global Press Wire",
     "outletType": "wire",
     "region": "international",
-    "headline": "US Envoy Meets Kaltor Officials to De-Escalate Maritime Dispute",
-    "lede": "A high-ranking U.S. envoy traveled to Kaltor today for talks aimed at easing tensions over contested strait shipping lanes. Sources said the meeting covered naval activities, resource claims, and confidence-building measures.",
+    "headline": "U.S. Envoy Meets China Officials to De-Escalate Maritime Dispute",
+    "lede": "A high-ranking U.S. envoy traveled to China today for talks aimed at easing tensions over contested strait shipping lanes. Sources said the meeting covered naval activities, transit rules, and confidence-building measures.",
     "tone": "neutral",
     "tags": [
       "diplomatic"
@@ -170,7 +170,7 @@
     "outletType": "broadsheet",
     "region": "neutral",
     "headline": "Back-Channel Talks Underway as Regional Powers Seek Understanding",
-    "lede": "Diplomatic sources confirm that quiet talks between the U.S., allied powers, and Kaltor have begun in neutral venues. The discussions aim to establish ground rules for strait access and prevent an escalatory spiral.",
+    "lede": "Diplomatic sources confirm that quiet talks between the U.S., allied powers, and China have begun in neutral venues. The discussions aim to establish ground rules for strait access and prevent an escalatory spiral.",
     "tone": "analytical",
     "tags": [
       "diplomatic"
@@ -181,12 +181,12 @@
     "id": "nw_012",
     "beatId": "ns_backchannel_opening",
     "phase": "opening",
-    "outlet": "Kaltor State Broadcasting",
+    "outlet": "State Media Desk",
     "outletType": "state_media",
     "region": "rival",
-    "headline": "Kaltor Ready for Constructive Dialogue on Maritime Issues",
-    "lede": "Kaltor's Foreign Ministry signaled openness to international talks on maritime security, provided that discussions recognize Kaltor's legitimate security interests. The statement frames the dispute as a matter of sovereign resource rights.",
-    "pullQuote": "Kaltor seeks respectful dialogue among equals,\" said Foreign Minister Petrov in a written statement.",
+    "headline": "Beijing Ready for Constructive Dialogue on Maritime Issues",
+    "lede": "China's Foreign Ministry signaled openness to international talks on maritime security, provided that discussions recognize China's legitimate security interests. The statement frames the dispute as a matter of sovereign security and jurisdiction claims.",
+    "pullQuote": "China seeks respectful dialogue among equals,\" said a Chinese foreign ministry spokesperson in a written statement.",
     "tone": "neutral",
     "tags": [
       "diplomatic"
@@ -200,8 +200,8 @@
     "outlet": "The Herald-Tribune",
     "outletType": "broadsheet",
     "region": "allied",
-    "headline": "Allied Coalition Coordinates Response to Kaltor's Military Posture",
-    "lede": "Foreign ministers from allied nations held an emergency coordination meeting today to align positions on Kaltor's military expansion. They pledged to maintain freedom of navigation while exploring de-escalation pathways.",
+    "headline": "Allied Coalition Coordinates Response to China's Military Posture",
+    "lede": "Foreign ministers from allied nations held an emergency coordination meeting today to align positions on China's military expansion. They pledged to maintain freedom of navigation while exploring de-escalation pathways.",
     "tone": "analytical",
     "tags": [
       "diplomatic",
@@ -217,7 +217,7 @@
     "outletType": "wire",
     "region": "regional",
     "headline": "Regional Mediators Offer to Facilitate Strait Negotiations",
-    "lede": "Several neutral nations in the region have offered to host talks on maritime access and resource sharing. The mediation push reflects concern that the current trajectory could spiral into confrontation.",
+    "lede": "Several neutral nations in the region have offered to host talks on maritime access and deconfliction arrangements. The mediation push reflects concern that the current trajectory could spiral into confrontation.",
     "tone": "dovish",
     "tags": [
       "diplomatic"
@@ -262,9 +262,9 @@
     "outlet": "Global Press Wire",
     "outletType": "wire",
     "region": "international",
-    "headline": "Kaltor Tightens Controls on Strait Shipping, Citing Safety Inspection Protocol",
-    "lede": "Kaltor announced mandatory new port clearance procedures for vessels transiting key strait zones, claiming safety and environmental compliance reasons. Shipping firms report significant delays in processing.",
-    "pullQuote": "These procedures are necessary for regional safety,\" a Kaltor Port Authority official stated.",
+    "headline": "China Tightens Controls on Strait Shipping, Citing Safety Inspection Protocol",
+    "lede": "China announced mandatory new port clearance procedures for vessels transiting key strait zones, claiming safety and environmental compliance reasons. Shipping firms report significant delays in processing.",
+    "pullQuote": "These procedures are necessary for regional safety,\" a China Port Authority official stated.",
     "tone": "neutral",
     "tags": [
       "economic",
@@ -279,8 +279,8 @@
     "outlet": "The Capital Standard",
     "outletType": "broadsheet",
     "region": "domestic",
-    "headline": "Administration Protests Kaltor's New Strait Shipping Restrictions",
-    "lede": "The State Department lodged a formal protest against Kaltor's new maritime inspection protocols, characterizing them as a violation of international freedom of navigation principles. U.S. officials argue the rules are designed to block allied shipping.",
+    "headline": "Administration Protests China's New Strait Shipping Restrictions",
+    "lede": "The State Department lodged a formal protest against China's new maritime inspection protocols, characterizing them as a violation of international freedom of navigation principles. U.S. officials argue the rules are designed to block allied shipping.",
     "tone": "hawkish",
     "tags": [
       "diplomatic",
@@ -295,8 +295,8 @@
     "outlet": "The Herald-Tribune",
     "outletType": "broadsheet",
     "region": "allied",
-    "headline": "Allied Shipping Firms Report Kaltor Strait Access Delays",
-    "lede": "Major shipping and energy companies with operations in allied nations report unprecedented delays in obtaining clearance for vessel transits through Kaltor-controlled strait passages. Some firms are rerouting cargoes at significant cost.",
+    "headline": "Allied Shipping Firms Report China Strait Access Delays",
+    "lede": "Major shipping and energy companies with operations in allied nations report unprecedented delays in obtaining clearance for vessel transits through PRC-declared inspection corridors. Some firms are rerouting cargoes at significant cost.",
     "tone": "neutral",
     "tags": [
       "economic",
@@ -311,8 +311,8 @@
     "outlet": "MarketPulse",
     "outletType": "financial",
     "region": "international",
-    "headline": "Shipping Insurance Costs Spike on Kaltor Strait Uncertainty",
-    "lede": "Marine insurance rates for vessels transiting the Northern Strait have nearly doubled in the past 48 hours as underwriters reassess geopolitical risk. Energy prices have edged upward in anticipation of supply disruption.",
+    "headline": "Shipping Insurance Costs Spike on China Strait Uncertainty",
+    "lede": "Marine insurance rates for vessels transiting the Taiwan Strait have nearly doubled in the past 48 hours as underwriters reassess geopolitical risk. Energy prices have edged upward in anticipation of supply disruption.",
     "tone": "alarmist",
     "tags": [
       "economic",
@@ -339,11 +339,11 @@
     "id": "nw_022",
     "beatId": "ns_strait_pressure",
     "phase": "rising",
-    "outlet": "Kaltor State Broadcasting",
+    "outlet": "State Media Desk",
     "outletType": "state_media",
     "region": "rival",
-    "headline": "Kaltor Enforces Legitimate Maritime Inspections on All Foreign Vessels",
-    "lede": "Kaltor's government defended its new maritime protocols as a necessary measure to protect regional stability and environmental standards. Officials dismissed allegations of discrimination as Western propaganda.",
+    "headline": "China Enforces Legitimate Maritime Inspections on All Foreign Vessels",
+    "lede": "China's government defended its new maritime protocols as a necessary measure to protect regional stability and environmental standards. Officials dismissed allegations of discrimination as Western propaganda.",
     "pullQuote": "Every nation has the right to inspect vessels in its waters,\" said Transport Minister Alexei Markov.",
     "tone": "neutral",
     "tags": [
@@ -359,8 +359,8 @@
     "outlet": "Jane's Conflict Monitor",
     "outletType": "defense_trade",
     "region": "international",
-    "headline": "Kaltor Deploys Additional Coast Guard Assets to Strait Checkpoints",
-    "lede": "Satellite imagery and naval tracking show Kaltor has positioned additional coast guard vessels at key strait inspection zones. The deployments suggest intent to enforce the new protocols with enhanced enforcement capacity.",
+    "headline": "China Deploys Additional Coast Guard Assets to Strait Checkpoints",
+    "lede": "Satellite imagery and naval tracking show China has positioned additional coast guard vessels at key strait inspection zones. The deployments suggest intent to enforce the new protocols with enhanced enforcement capacity.",
     "tone": "analytical",
     "tags": [
       "military",
@@ -376,7 +376,7 @@
     "outletType": "broadsheet",
     "region": "neutral",
     "headline": "Strait Access Restrictions Trigger Regional Economic Spillover",
-    "lede": "The new Kaltor shipping restrictions are creating ripple effects across the broader region as firms reassess supply-chain resilience. Some businesses are accelerating plans to diversify away from strait-dependent routes.",
+    "lede": "The new China shipping restrictions are creating ripple effects across the broader region as firms reassess supply-chain resilience. Some businesses are accelerating plans to diversify away from strait-dependent routes.",
     "tone": "analytical",
     "tags": [
       "economic"
@@ -390,8 +390,8 @@
     "outlet": "The Capital Standard",
     "outletType": "broadsheet",
     "region": "domestic",
-    "headline": "Treasury Drafts Retaliatory Trade Measures Against Kaltor",
-    "lede": "The Treasury Department is preparing targeted tariffs and export controls on Kaltor goods in response to the strait shipping restrictions, administration officials confirmed. The measures are expected to be announced within days.",
+    "headline": "Treasury Drafts Retaliatory Trade Measures Against China",
+    "lede": "The Treasury Department is preparing targeted tariffs and export controls on China goods in response to the strait shipping restrictions, administration officials confirmed. The measures are expected to be announced within days.",
     "pullQuote": "We will not tolerate efforts to coerce allied commerce,\" a senior Treasury official said.",
     "tone": "hawkish",
     "tags": [
@@ -407,8 +407,8 @@
     "outlet": "MarketPulse",
     "outletType": "financial",
     "region": "international",
-    "headline": "US Tariff Threats Send Kaltor Equities Lower, Dollar Stronger",
-    "lede": "Kaltor's equity markets fell 2.8% today following reports of impending U.S. trade measures. The U.S. dollar strengthened against the Kaltor currency as investors fled emerging-market exposure.",
+    "headline": "U.S. Tariff Threats Send China Equities Lower, Dollar Stronger",
+    "lede": "China's equity markets fell 2.8% today following reports of impending U.S. trade measures. The U.S. dollar strengthened against the China currency as investors fled emerging-market exposure.",
     "tone": "analytical",
     "tags": [
       "economic"
@@ -419,12 +419,12 @@
     "id": "nw_027",
     "beatId": "ns_trade_friction",
     "phase": "rising",
-    "outlet": "Kaltor State Broadcasting",
+    "outlet": "State Media Desk",
     "outletType": "state_media",
     "region": "rival",
-    "headline": "Kaltor Warns of Trade War Consequences from Western Economic Bullying",
-    "lede": "Kaltor's government issued a sharp rebuke to U.S. trade threat announcements, warning of retaliatory measures against Western goods. Officials characterized the tariffs as colonial-era economic bullying.",
-    "pullQuote": "Kaltor will not be coerced by economic blackmail,\" said Prime Minister Kozlov in a televised address.",
+    "headline": "China Warns of Trade War Consequences from Western Economic Bullying",
+    "lede": "China's government issued a sharp rebuke to U.S. trade threat announcements, warning of retaliatory measures against Western goods. Officials characterized the tariffs as colonial-era economic bullying.",
+    "pullQuote": "China will not be coerced by economic blackmail,\" said a senior Chinese official in a televised address.",
     "tone": "hawkish",
     "tags": [
       "economic",
@@ -439,8 +439,8 @@
     "outlet": "The Herald-Tribune",
     "outletType": "broadsheet",
     "region": "allied",
-    "headline": "Allied Nations Coordinate Reciprocal Trade Actions on Kaltor",
-    "lede": "Foreign trade ministers from allied nations met today to synchronize tariff and export control responses to Kaltor's restrictions. The coordination aims to present a unified economic front.",
+    "headline": "Allied Nations Coordinate Reciprocal Trade Actions on China",
+    "lede": "Foreign trade ministers from allied nations met today to synchronize tariff and export control responses to China's restrictions. The coordination aims to present a unified economic front.",
     "tone": "analytical",
     "tags": [
       "economic",
@@ -455,8 +455,8 @@
     "outlet": "Sovereign Risk Weekly",
     "outletType": "financial",
     "region": "international",
-    "headline": "Trade War Fears Drive Capital Flight from Kaltor",
-    "lede": "Investors are withdrawing from Kaltor assets at an accelerating pace as tariff and trade restrictions loom. Kaltor's currency has fallen 4.2% against the dollar in the past 24 hours alone.",
+    "headline": "Trade War Fears Drive Capital Flight from China",
+    "lede": "Investors are withdrawing from China assets at an accelerating pace as tariff and trade restrictions loom. China's currency has fallen 4.2% against the dollar in the past 24 hours alone.",
     "tone": "alarmist",
     "tags": [
       "economic"
@@ -470,8 +470,8 @@
     "outlet": "Global Press Wire",
     "outletType": "wire",
     "region": "international",
-    "headline": "Kaltor Announces Mirror Tariffs, Escalating Economic Standoff",
-    "lede": "In response to U.S. trade measures, Kaltor imposed matching tariffs on American goods and suspended certain trade privileges for allied nations. The tit-for-tat escalation signals hardening economic positions on both sides.",
+    "headline": "China Announces Mirror Tariffs, Escalating Economic Standoff",
+    "lede": "In response to U.S. trade measures, China imposed matching tariffs on American goods and suspended certain trade privileges for allied nations. The tit-for-tat escalation signals hardening economic positions on both sides.",
     "tone": "alarmist",
     "tags": [
       "economic",
@@ -487,7 +487,7 @@
     "outletType": "social_media",
     "region": "international",
     "headline": "Trade War Timeline: Key Tariff Announcements and Market Moves",
-    "lede": "An aggregated timeline of recent tariff announcements, Kaltor responses, market reactions, and key economic indicators. Useful for tracking the pace of trade friction escalation.",
+    "lede": "An aggregated timeline of recent tariff announcements, China responses, market reactions, and key economic indicators. Useful for tracking the pace of trade friction escalation.",
     "tone": "analytical",
     "tags": [
       "economic"
@@ -501,8 +501,8 @@
     "outlet": "Jane's Conflict Monitor",
     "outletType": "defense_trade",
     "region": "international",
-    "headline": "Defense Industry Braces for Export Controls on Kaltor Dual-Use Technology",
-    "lede": "U.S. and allied export control authorities are preparing additional restrictions on dual-use technologies destined for Kaltor. Industry sources say the move will disrupt multiple supply chains and innovation partnerships.",
+    "headline": "Defense Industry Braces for Export Controls on China Dual-Use Technology",
+    "lede": "U.S. and allied export control authorities are preparing additional restrictions on dual-use technologies destined for China. Industry sources say the move will disrupt multiple supply chains and innovation partnerships.",
     "tone": "analytical",
     "tags": [
       "economic",
@@ -534,8 +534,8 @@
     "outlet": "The Daily Signal",
     "outletType": "tabloid",
     "region": "domestic",
-    "headline": "Leaked Emails Show Beijing May Be Backing Kaltor in Strait Dispute",
-    "lede": "A trove of leaked emails allegedly shows coordination between Kaltor and Chinese officials on maritime strategy. The leak fuels suspicions that China may be supporting Kaltor's assertive posturing.",
+    "headline": "Leaked Emails Show Beijing May Be Backing China in Strait Dispute",
+    "lede": "A trove of leaked emails allegedly shows coordination between China and Chinese officials on maritime strategy. The leak fuels suspicions that China may be supporting China's assertive posturing.",
     "tone": "alarmist",
     "tags": [
       "diplomatic",
@@ -547,11 +547,11 @@
     "id": "nw_035",
     "beatId": "ns_info_war",
     "phase": "rising",
-    "outlet": "Kaltor State Broadcasting",
+    "outlet": "State Media Desk",
     "outletType": "state_media",
     "region": "rival",
-    "headline": "Western Propaganda Machine in Overdrive as Kaltor Stands Firm",
-    "lede": "Kaltor's state media accused Western outlets of waging an information campaign designed to vilify Kaltor's legitimate security measures. Officials characterized the coverage as coordinated anti-Kaltor propaganda.",
+    "headline": "Western Propaganda Machine in Overdrive as China Stands Firm",
+    "lede": "China's state media accused Western outlets of waging an information campaign designed to vilify China's legitimate security measures. Officials characterized the coverage as coordinated anti-China propaganda.",
     "pullQuote": "The West invents lies to justify its hostile posture,\" said Information Minister Dimitrov.",
     "tone": "hawkish",
     "tags": [
@@ -567,8 +567,8 @@
     "outlet": "Global Press Wire",
     "outletType": "wire",
     "region": "international",
-    "headline": "Fact-Checkers Debunk Kaltor Claims about Allied Military Buildup",
-    "lede": "Independent fact-checkers have systematically debunked several claims made by Kaltor state media regarding allied military deployments in the region. The disputed claims are central to Kaltor's narrative justifying its own expansion.",
+    "headline": "Fact-Checkers Debunk China Claims about Allied Military Buildup",
+    "lede": "Independent fact-checkers have systematically debunked several claims made by China state media regarding allied military deployments in the region. The disputed claims are central to China's narrative justifying its own expansion.",
     "tone": "analytical",
     "tags": [
       "cyber"
@@ -583,7 +583,7 @@
     "outletType": "broadsheet",
     "region": "neutral",
     "headline": "Regional Media Caught in Crossfire of Competing Disinformation Campaigns",
-    "lede": "Independent journalists in the region report being targeted with competing disinformation narratives from both Western and Kaltor-aligned sources. The information battlefield is fragmenting regional media consensus.",
+    "lede": "Independent journalists in the region report being targeted with competing disinformation narratives from both Western and China-aligned sources. The information battlefield is fragmenting regional media consensus.",
     "tone": "analytical",
     "tags": [
       "cyber"
@@ -598,7 +598,7 @@
     "outletType": "social_media",
     "region": "international",
     "headline": "Tracking Bot Networks and Fake Accounts Amplifying Strait Conflict Narratives",
-    "lede": "Researchers monitoring social media have identified coordinated bot networks amplifying both pro-Kaltor and pro-Western narratives about the strait dispute. The efforts represent a significant escalation in information operations.",
+    "lede": "Researchers monitoring social media have identified coordinated bot networks amplifying both pro-China and pro-Western narratives about the strait dispute. The efforts represent a significant escalation in information operations.",
     "tone": "analytical",
     "tags": [
       "cyber"
@@ -612,8 +612,8 @@
     "outlet": "The Capital Standard",
     "outletType": "broadsheet",
     "region": "domestic",
-    "headline": "Allied Disagreement Emerges over Military Response to Kaltor",
-    "lede": "Cracks are appearing in allied unity as some coalition members favor a more cautious approach to confronting Kaltor militarily. Internal debates over risk tolerance and strategic objectives are becoming increasingly public.",
+    "headline": "Allied Disagreement Emerges over Military Response to China",
+    "lede": "Cracks are appearing in allied unity as some coalition members favor a more cautious approach to confronting China militarily. Internal debates over risk tolerance and strategic objectives are becoming increasingly public.",
     "pullQuote": "Not all allies see this threat the same way,\" acknowledged a State Department official.",
     "tone": "analytical",
     "tags": [
@@ -629,8 +629,8 @@
     "outlet": "The Herald-Tribune",
     "outletType": "broadsheet",
     "region": "allied",
-    "headline": "Allied Foreign Ministers Debate Kaltor Strategy at Tense Summit",
-    "lede": "A summit of allied foreign ministers devolved into sharp disagreements over how aggressively to counter Kaltor. Some nations called for restraint while others demanded firmer deterrence measures.",
+    "headline": "Allied Foreign Ministers Debate China Strategy at Tense Summit",
+    "lede": "A summit of allied foreign ministers devolved into sharp disagreements over how aggressively to counter China. Some nations called for restraint while others demanded firmer deterrence measures.",
     "tone": "analytical",
     "tags": [
       "alliance",
@@ -646,7 +646,7 @@
     "outletType": "broadsheet",
     "region": "neutral",
     "headline": "Regional Powers Divided on Strait Standoff as Allied Consensus Fractures",
-    "lede": "Allied nations are showing signs of strategic divergence on how to handle the Kaltor crisis. Some nations prioritize economic stability while others emphasize security deterrence.",
+    "lede": "Allied nations are showing signs of strategic divergence on how to handle the China crisis. Some nations prioritize economic stability while others emphasize security deterrence.",
     "tone": "analytical",
     "tags": [
       "alliance"
@@ -661,7 +661,7 @@
     "outletType": "wire",
     "region": "international",
     "headline": "Defense Ministers Express Divergent Views on Escalation Risk",
-    "lede": "At an international defense summit, allied defense ministers expressed notably different risk assessments regarding military confrontation with Kaltor. The disagreement signals weakening consensus on joint response.",
+    "lede": "At an international defense summit, allied defense ministers expressed notably different risk assessments regarding military confrontation with China. The disagreement signals weakening consensus on joint response.",
     "tone": "analytical",
     "tags": [
       "alliance",
@@ -673,12 +673,12 @@
     "id": "nw_043",
     "beatId": "ns_alliance_split",
     "phase": "rising",
-    "outlet": "Kaltor State Broadcasting",
+    "outlet": "State Media Desk",
     "outletType": "state_media",
     "region": "rival",
-    "headline": "Western Alliance Fracturing as Nations Seek Independent Kaltor Accommodation",
-    "lede": "Kaltor state media reported with satisfaction that allied differences over Kaltor policy are becoming unbridgeable. The narrative emphasizes Western disunity and suggests some allies may seek bilateral deals.",
-    "pullQuote": "The Western bloc is breaking apart,\" said Kaltor's lead geopolitical analyst on state television.",
+    "headline": "Western Alliance Fracturing as Nations Seek Independent China Accommodation",
+    "lede": "China state media reported with satisfaction that allied differences over China policy are becoming unbridgeable. The narrative emphasizes Western disunity and suggests some allies may seek bilateral deals.",
+    "pullQuote": "The Western bloc is breaking apart,\" said China's lead geopolitical analyst on state television.",
     "tone": "hawkish",
     "tags": [
       "alliance",
@@ -727,8 +727,8 @@
     "outlet": "The Daily Signal",
     "outletType": "tabloid",
     "region": "domestic",
-    "headline": "Crisis Alert: Pentagon Mobilizes Forces as Kaltor Threat Peaks",
-    "lede": "Pentagon sources report emergency mobilization of rapid-response military units as Kaltor's aggressive posture reaches new heights. The moves signal preparation for potential armed conflict.",
+    "headline": "Crisis Alert: Pentagon Mobilizes Forces as China Threat Peaks",
+    "lede": "Pentagon sources report emergency mobilization of rapid-response military units as China's aggressive posture reaches new heights. The moves signal preparation for potential armed conflict.",
     "tone": "alarmist",
     "tags": [
       "military"
@@ -770,12 +770,12 @@
     "id": "nw_049",
     "beatId": "ns_crisis_window",
     "phase": "crisis",
-    "outlet": "Kaltor State Broadcasting",
+    "outlet": "State Media Desk",
     "outletType": "state_media",
     "region": "rival",
-    "headline": "Kaltor Prepares for All Scenarios as Western Threats Intensify",
-    "lede": "Kaltor's defense establishment declared heightened alert status following reports of allied military mobilization. State officials warned that Kaltor would respond decisively to any military aggression.",
-    "pullQuote": "We are ready to defend our interests by any means necessary,\" Defense Minister Sokolov stated.",
+    "headline": "China Prepares for All Scenarios as Western Threats Intensify",
+    "lede": "China's defense establishment declared heightened alert status following reports of allied military mobilization. State officials warned that China would respond decisively to any military aggression.",
+    "pullQuote": "We are ready to defend our interests by any means necessary,\" a PLA spokesperson stated.",
     "tone": "hawkish",
     "tags": [
       "military"
@@ -819,8 +819,8 @@
     "outlet": "The Capital Standard",
     "outletType": "broadsheet",
     "region": "domestic",
-    "headline": "Defense Officials Warn of Kaltor Missile Deployments in Strait Zone",
-    "lede": "Senior Pentagon officials briefed Congress on intelligence indicating that Kaltor has deployed advanced cruise missiles to forward positions in the strait region. The deployments are characterized as a major escalatory step.",
+    "headline": "Defense Officials Warn of China Missile Deployments in Strait Zone",
+    "lede": "Senior Pentagon officials briefed Congress on intelligence indicating that China has deployed advanced cruise missiles to forward positions in the strait region. The deployments are characterized as a major escalatory step.",
     "pullQuote": "This is a game-changing military development,\" a senior defense official told lawmakers.",
     "tone": "alarmist",
     "tags": [
@@ -835,8 +835,8 @@
     "outlet": "Jane's Conflict Monitor",
     "outletType": "defense_trade",
     "region": "international",
-    "headline": "Kaltor Forward-Deploys Next-Generation Cruise Missiles",
-    "lede": "Intelligence analysis confirms that Kaltor has positioned several battalion-level cruise missile units in forward locations controlling strait chokepoints. The platforms significantly extend Kaltor's strike reach.",
+    "headline": "China Forward-Deploys Next-Generation Cruise Missiles",
+    "lede": "Intelligence analysis confirms that China has positioned several battalion-level cruise missile units in forward locations controlling strait chokepoints. The platforms significantly extend China's strike reach.",
     "tone": "analytical",
     "tags": [
       "military"
@@ -850,8 +850,8 @@
     "outlet": "The Herald-Tribune",
     "outletType": "broadsheet",
     "region": "allied",
-    "headline": "Allied Nations Confirm Kaltor Missile Threat Assessment",
-    "lede": "Allied defense intelligence agencies have corroborated U.S. assessment of Kaltor's advanced missile deployments. The finding has prompted allied military commanders to issue new operational guidance.",
+    "headline": "Allied Nations Confirm China Missile Threat Assessment",
+    "lede": "Allied defense intelligence agencies have corroborated U.S. assessment of China's advanced missile deployments. The finding has prompted allied military commanders to issue new operational guidance.",
     "tone": "analytical",
     "tags": [
       "military",
@@ -863,12 +863,12 @@
     "id": "nw_055",
     "beatId": "ns_missile_warning",
     "phase": "crisis",
-    "outlet": "Kaltor State Broadcasting",
+    "outlet": "State Media Desk",
     "outletType": "state_media",
     "region": "rival",
-    "headline": "Kaltor Brandishes Defensive Deterrent in Face of Western Military Encirclement",
-    "lede": "Kaltor's government acknowledged limited military exercises involving advanced weapons but characterized the activity as routine deterrent posturing. Officials denied that the moves represented a threat to peaceful shipping.",
-    "pullQuote": "Kaltor exercises its sovereign right to defend its territory,\" said Defense Ministry spokesman Volkov.",
+    "headline": "China Brandishes Defensive Deterrent in Face of Western Military Encirclement",
+    "lede": "China's government acknowledged limited military exercises involving advanced weapons but characterized the activity as routine deterrent posturing. Officials denied that the moves represented a threat to peaceful shipping.",
+    "pullQuote": "China exercises its sovereign right to defend its territory,\" said Defense Ministry spokesman Lin.",
     "tone": "neutral",
     "tags": [
       "military",
@@ -884,7 +884,7 @@
     "outletType": "financial",
     "region": "international",
     "headline": "Missile Threat News Triggers Biggest Oil Price Jump in 18 Months",
-    "lede": "Crude oil futures spiked more than 8% on reports of Kaltor's advanced missile deployments. Traders are now pricing in significant risks to strait shipping and oil supply reliability.",
+    "lede": "Crude oil futures spiked more than 8% on reports of China's advanced missile deployments. Traders are now pricing in significant risks to strait shipping and oil supply reliability.",
     "tone": "analytical",
     "tags": [
       "economic",
@@ -900,7 +900,7 @@
     "outletType": "wire",
     "region": "international",
     "headline": "Missile Test Scenario Sparks Worst-Case Planning at Global Intelligence Agencies",
-    "lede": "Western intelligence agencies have elevated threat assessments following Kaltor's missile capability display. Worst-case contingency planning now assumes missile strike scenarios are a realistic possibility.",
+    "lede": "Western intelligence agencies have elevated threat assessments following China's missile capability display. Worst-case contingency planning now assumes missile strike scenarios are a realistic possibility.",
     "tone": "alarmist",
     "tags": [
       "military"
@@ -914,8 +914,8 @@
     "outlet": "The Capital Standard",
     "outletType": "broadsheet",
     "region": "domestic",
-    "headline": "Intelligence Report Details Kaltor Covert Operations in Allied Nations",
-    "lede": "A classified intelligence report obtained by the Senate details extensive Kaltor covert operations including cyber intrusions, sabotage planning, and intelligence gathering in allied territory. The scope suggests preparation for broader conflict.",
+    "headline": "Intelligence Report Details China Covert Operations in Allied Nations",
+    "lede": "A classified intelligence report obtained by the Senate details extensive China covert operations including cyber intrusions, sabotage planning, and intelligence gathering in allied territory. The scope suggests preparation for broader conflict.",
     "pullQuote": "The evidence of covert preparation is unmistakable,\" a Senate Intelligence Committee member said.",
     "tone": "alarmist",
     "tags": [
@@ -931,8 +931,8 @@
     "outlet": "The Daily Signal",
     "outletType": "tabloid",
     "region": "domestic",
-    "headline": "Exclusive: Kaltor Spies Caught Planning Sabotage of Critical Infrastructure",
-    "lede": "Law enforcement sources reveal that Kaltor intelligence agents have been arrested while conducting surveillance and planning sabotage operations against critical infrastructure targets. The operations suggest preparation for imminent hostilities.",
+    "headline": "Exclusive: China Spies Caught Planning Sabotage of Critical Infrastructure",
+    "lede": "Law enforcement sources reveal that China intelligence agents have been arrested while conducting surveillance and planning sabotage operations against critical infrastructure targets. The operations suggest preparation for imminent hostilities.",
     "tone": "alarmist",
     "tags": [
       "cyber",
@@ -947,8 +947,8 @@
     "outlet": "Global Press Wire",
     "outletType": "wire",
     "region": "international",
-    "headline": "Kaltor Espionage Networks Activated across Allied Territories",
-    "lede": "Intelligence agencies across allied nations report unprecedented activation of Kaltor espionage networks. The coordinated activity suggests preparation for major military or economic disruption.",
+    "headline": "China Espionage Networks Activated across Allied Territories",
+    "lede": "Intelligence agencies across allied nations report unprecedented activation of China espionage networks. The coordinated activity suggests preparation for major military or economic disruption.",
     "tone": "analytical",
     "tags": [
       "cyber"
@@ -962,8 +962,8 @@
     "outlet": "Jane's Conflict Monitor",
     "outletType": "defense_trade",
     "region": "international",
-    "headline": "Kaltor Unconventional Warfare Preparations: Cyber, Disinformation, Sabotage",
-    "lede": "Analysis of Kaltor's covert activities reveals a comprehensive unconventional warfare strategy combining cyber attacks, disinformation, and physical sabotage planning. The integrated approach maximizes disruption while maintaining deniability.",
+    "headline": "China Unconventional Warfare Preparations: Cyber, Disinformation, Sabotage",
+    "lede": "Analysis of China's covert activities reveals a comprehensive unconventional warfare strategy combining cyber attacks, disinformation, and physical sabotage planning. The integrated approach maximizes disruption while maintaining deniability.",
     "tone": "analytical",
     "tags": [
       "cyber",
@@ -975,12 +975,12 @@
     "id": "nw_062",
     "beatId": "ns_covert_shadow",
     "phase": "crisis",
-    "outlet": "Kaltor State Broadcasting",
+    "outlet": "State Media Desk",
     "outletType": "state_media",
     "region": "rival",
-    "headline": "Kaltor Denies Allegations of Covert Operations as Western Witch Hunt",
-    "lede": "Kaltor's government dismissed reports of espionage and sabotage planning as fabricated Western allegations designed to justify hostility. Officials characterized the claims as part of an anti-Kaltor information campaign.",
-    "pullQuote": "These accusations are baseless propaganda,\" said Kaltor's Security Council chief.",
+    "headline": "China Denies Allegations of Covert Operations as Western Witch Hunt",
+    "lede": "China's government dismissed reports of espionage and sabotage planning as fabricated Western allegations designed to justify hostility. Officials characterized the claims as part of an anti-China information campaign.",
+    "pullQuote": "These accusations are baseless propaganda,\" said China's Security Council chief.",
     "tone": "neutral",
     "tags": [
       "cyber",
@@ -995,8 +995,8 @@
     "outlet": "@StraitWatch",
     "outletType": "social_media",
     "region": "international",
-    "headline": "Aggregated Timeline of Kaltor Covert Operations Intelligence Releases",
-    "lede": "An OSINT timeline tracking public releases of Kaltor covert operation allegations. Tracks indictments, intelligence leaks, and corroborating evidence from allied agencies.",
+    "headline": "Aggregated Timeline of China Covert Operations Intelligence Releases",
+    "lede": "An OSINT timeline tracking public releases of China covert operation allegations. Tracks indictments, intelligence leaks, and corroborating evidence from allied agencies.",
     "tone": "analytical",
     "tags": [
       "cyber"
@@ -1011,7 +1011,7 @@
     "outletType": "broadsheet",
     "region": "domestic",
     "headline": "Anti-War Protests Erupt in Major Cities as Conflict Risk Grows",
-    "lede": "Large-scale anti-war demonstrations broke out in the nation's major cities today, with organizers warning that military confrontation with Kaltor could trigger wider conflict. Protest organizers called for diplomatic resolution.",
+    "lede": "Large-scale anti-war demonstrations broke out in the nation's major cities today, with organizers warning that military confrontation with China could trigger wider conflict. Protest organizers called for diplomatic resolution.",
     "tone": "neutral",
     "tags": [
       "domestic",
@@ -1054,11 +1054,11 @@
     "id": "nw_067",
     "beatId": "ns_urban_unrest",
     "phase": "crisis",
-    "outlet": "Kaltor State Broadcasting",
+    "outlet": "State Media Desk",
     "outletType": "state_media",
     "region": "rival",
     "headline": "Western Populations Reject Warmongering; Massive Peace Rallies across Allies",
-    "lede": "Kaltor state media reported with satisfaction on large anti-war demonstrations across allied nations, framing them as evidence that Western publics reject military confrontation. The narrative emphasizes declining war support.",
+    "lede": "China state media reported with satisfaction on large anti-war demonstrations across allied nations, framing them as evidence that Western publics reject military confrontation. The narrative emphasizes declining war support.",
     "tone": "hawkish",
     "tags": [
       "domestic"
@@ -1073,7 +1073,7 @@
     "outletType": "broadsheet",
     "region": "neutral",
     "headline": "Public Opinion Fractures as War Scenarios Become Real",
-    "lede": "Polling data shows that public support for military responses to Kaltor has dropped significantly as the conflict scenarios become more concrete. Pressure on political leaders to seek diplomatic solutions is mounting.",
+    "lede": "Polling data shows that public support for military responses to China has dropped significantly as the conflict scenarios become more concrete. Pressure on political leaders to seek diplomatic solutions is mounting.",
     "tone": "analytical",
     "tags": [
       "domestic"
@@ -1161,12 +1161,12 @@
     "id": "nw_074",
     "beatId": "ns_market_spiral",
     "phase": "crisis",
-    "outlet": "Kaltor State Broadcasting",
+    "outlet": "State Media Desk",
     "outletType": "state_media",
     "region": "rival",
-    "headline": "Western Economies Crumbling as Kaltor Stands Strong",
-    "lede": "Kaltor state media reported with apparent satisfaction on collapsing Western financial markets and spiking oil prices. The narrative frames economic distress as the inevitable consequence of Western hostility toward Kaltor.",
-    "pullQuote": "The West has brought this upon itself,\" said Kaltor's Finance Minister.",
+    "headline": "Western Economies Crumbling as China Stands Strong",
+    "lede": "China state media reported with apparent satisfaction on collapsing Western financial markets and spiking oil prices. The narrative frames economic distress as the inevitable consequence of Western hostility toward China.",
+    "pullQuote": "The West has brought this upon itself,\" said China's Finance Minister.",
     "tone": "hawkish",
     "tags": [
       "economic"
@@ -1195,8 +1195,8 @@
     "outlet": "The Capital Standard",
     "outletType": "broadsheet",
     "region": "domestic",
-    "headline": "Carrier Strike Group Confronts Kaltor Naval Blockade in Tense Maritime Standoff",
-    "lede": "A U.S. carrier strike group has positioned itself at the outer edge of Kaltor's claimed exclusion zone in the strait, creating the most tense military confrontation in decades. Both sides have raised alert levels to maximum.",
+    "headline": "Carrier Strike Group Confronts China Naval Blockade in Tense Maritime Standoff",
+    "lede": "A U.S. carrier strike group has positioned itself at the outer edge of China's claimed exclusion zone in the strait, creating the most tense military confrontation in decades. Both sides have raised alert levels to maximum.",
     "pullQuote": "We are watching this situation with extreme concern,\" the Chairman of the Joint Chiefs of Staff said.",
     "tone": "alarmist",
     "tags": [
@@ -1212,7 +1212,7 @@
     "outletType": "defense_trade",
     "region": "international",
     "headline": "Carrier vs. Coastal Defense: Military Standoff in Narrow Waters",
-    "lede": "The positioning of a carrier strike group against Kaltor's coastal defense forces in a confined strait creates complex military calculus. Analysts note that neither side has clear dominance in this specific geography.",
+    "lede": "The positioning of a carrier strike group against China's coastal defense forces in a confined strait creates complex military calculus. Analysts note that neither side has clear dominance in this specific geography.",
     "tone": "analytical",
     "tags": [
       "military"
@@ -1226,8 +1226,8 @@
     "outlet": "Global Press Wire",
     "outletType": "wire",
     "region": "international",
-    "headline": "World Holds Breath as Carrier and Kaltor Forces Face Off at Strait",
-    "lede": "The international community is watching with extreme tension as U.S. and Kaltor military forces are now in direct confrontation. Any miscalculation or hostile act could trigger immediate armed conflict.",
+    "headline": "World Holds Breath as Carrier and China Forces Face Off at Strait",
+    "lede": "The international community is watching with extreme tension as U.S. and China military forces are now in direct confrontation. Any miscalculation or hostile act could trigger immediate armed conflict.",
     "tone": "alarmist",
     "tags": [
       "military"
@@ -1254,12 +1254,12 @@
     "id": "nw_080",
     "beatId": "ns_carrier_faceoff",
     "phase": "climax",
-    "outlet": "Kaltor State Broadcasting",
+    "outlet": "State Media Desk",
     "outletType": "state_media",
     "region": "rival",
-    "headline": "Kaltor Navy Repels Western Invasion Threat as Carrier Stumbles Back",
-    "lede": "Kaltor state media reported that Kaltor naval forces have successfully deterred a Western carrier strike group attempting to penetrate Kaltor's maritime defense zone. The narrative claims Kaltor's coastal forces hold the advantage.",
-    "pullQuote": "The Western carrier is helpless against Kaltor's superior coastal defense,\" claimed a military analyst on state television.",
+    "headline": "China Navy Repels Western Invasion Threat as Carrier Stumbles Back",
+    "lede": "China state media reported that China naval forces have successfully deterred a Western carrier strike group attempting to penetrate China's maritime defense zone. The narrative claims China's coastal forces hold the advantage.",
+    "pullQuote": "The Western carrier is helpless against China's superior coastal defense,\" claimed a military analyst on state television.",
     "tone": "hawkish",
     "tags": [
       "military"
@@ -1290,7 +1290,7 @@
     "outletType": "wire",
     "region": "international",
     "headline": "Diplomatic Sources Confirm Intensive Negotiations to Establish Ceasefire",
-    "lede": "Multiple diplomatic sources confirm that urgent talks between senior U.S. and Kaltor officials are underway at neutral venues. The discussions aim to establish a framework for de-escalation.",
+    "lede": "Multiple diplomatic sources confirm that urgent talks between senior U.S. and Chinese officials are underway at neutral venues. The discussions aim to establish a framework for de-escalation.",
     "tone": "analytical",
     "tags": [
       "diplomatic"
@@ -1304,7 +1304,7 @@
     "outlet": "Pacific Monitor",
     "outletType": "broadsheet",
     "region": "neutral",
-    "headline": "Neutral Mediators Intensify Efforts to Bridge Kaltor-West Divide",
+    "headline": "Neutral Mediators Intensify Efforts to Bridge China-West Divide",
     "lede": "Neutral nations are actively engaged in mediation efforts, shuttling proposals and counterproposals between the sides. Observers say the mediators are pressing for agreement on basic principles to prevent conflict.",
     "tone": "analytical",
     "tags": [
@@ -1332,12 +1332,12 @@
     "id": "nw_085",
     "beatId": "ns_ceasefire_channel",
     "phase": "climax",
-    "outlet": "Kaltor State Broadcasting",
+    "outlet": "State Media Desk",
     "outletType": "state_media",
     "region": "rival",
-    "headline": "Kaltor Open to Peace Talks as West Seeks Face-Saving Negotiations",
-    "lede": "Kaltor state media reported that Kaltor is willing to engage in peace negotiations, while framing Western willingness to talk as evidence of Western weakness and the failure of Western deterrence.",
-    "pullQuote": "Kaltor is prepared for constructive dialogue,\" said Foreign Minister Petrov.",
+    "headline": "Beijing Open to Peace Talks as West Seeks Face-Saving Negotiations",
+    "lede": "China state media reported that China is willing to engage in peace negotiations, while framing Western willingness to talk as evidence of Western weakness and the failure of Western deterrence.",
+    "pullQuote": "China is prepared for constructive dialogue,\" said a Chinese foreign ministry spokesperson.",
     "tone": "neutral",
     "tags": [
       "diplomatic"
@@ -1414,8 +1414,8 @@
     "outlet": "The Capital Standard",
     "outletType": "broadsheet",
     "region": "domestic",
-    "headline": "US and Kaltor Reach Historic Strait Accord Following Intense Negotiations",
-    "lede": "After weeks of intensive negotiations, the U.S. and Kaltor have reached a comprehensive agreement on strait access, resource sharing, and military posturing. The accord aims to establish lasting stability in the region.",
+    "headline": "U.S. and China Reach Historic Strait Accord Following Intense Negotiations",
+    "lede": "After weeks of intensive negotiations, the U.S. and China have reached a comprehensive agreement on strait access, deconfliction arrangements, and military posturing. The accord aims to establish lasting stability in the region.",
     "pullQuote": "We have found a path forward that respects the legitimate interests of all parties,\" President said in an Oval Office address.",
     "tone": "analytical",
     "tags": [
@@ -1431,7 +1431,7 @@
     "outletType": "wire",
     "region": "international",
     "headline": "Historic Strait Accord Ends Crisis; New Framework Established for Regional Stability",
-    "lede": "The U.S. and Kaltor have announced a major accord establishing new frameworks for maritime access, resource management, and joint security arrangements. The agreement represents a breakthrough after the brink-of-war standoff.",
+    "lede": "The U.S. and China have announced a major accord establishing new frameworks for maritime access, resource management, and joint security arrangements. The agreement represents a breakthrough after the brink-of-war standoff.",
     "tone": "analytical",
     "tags": [
       "diplomatic"
@@ -1461,7 +1461,7 @@
     "outletType": "broadsheet",
     "region": "allied",
     "headline": "Allied Coalition Accepts Strait Settlement; Agrees to Phased Demilitarization",
-    "lede": "Allied nations have endorsed the U.S.-Kaltor settlement and agreed to phased reductions in military deployments in the region. The moves are designed to consolidate the de-escalation.",
+    "lede": "Allied nations have endorsed the U.S.-China settlement and agreed to phased reductions in military deployments in the region. The moves are designed to consolidate the de-escalation.",
     "tone": "analytical",
     "tags": [
       "diplomatic",
@@ -1474,12 +1474,12 @@
     "id": "nw_094",
     "beatId": "ns_stabilization_settlement",
     "phase": "resolution",
-    "outlet": "Kaltor State Broadcasting",
+    "outlet": "State Media Desk",
     "outletType": "state_media",
     "region": "rival",
-    "headline": "Kaltor Achieves Victory in Historic Accord; West Recognizes Kaltor Interests",
-    "lede": "Kaltor state media hailed the accord as a major victory for Kaltor's firm negotiating stance. The narrative emphasizes that Kaltor's security interests have been recognized and respected.",
-    "pullQuote": "Kaltor has successfully defended its sovereign rights and interests,\" Prime Minister Kozlov declared.",
+    "headline": "Beijing Claims Victory in Historic Accord; West Recognizes China Interests",
+    "lede": "China state media hailed the accord as a major victory for China's firm negotiating stance. The narrative emphasizes that China's security interests have been recognized and respected.",
+    "pullQuote": "China has successfully defended its sovereign rights and interests,\" a senior Chinese official declared.",
     "tone": "hawkish",
     "tags": [
       "diplomatic"
@@ -1488,14 +1488,14 @@
   },
   {
     "id": "nw_095",
-    "beatId": "ns_regime_shock",
+    "beatId": "ns_leadership_shock",
     "phase": "resolution",
     "outlet": "The Capital Standard",
     "outletType": "broadsheet",
     "region": "domestic",
-    "headline": "Intelligence: Kaltor Domestic Opposition Gains Strength Following Accord",
-    "lede": "Intelligence reports indicate that domestic political opposition within Kaltor is growing, with critics arguing that Kaltor's leadership gave away too much in the settlement. The situation could threaten Kaltor political stability.",
-    "pullQuote": "Hardliners in Kaltor see the accord as a betrayal of national interests,\" an intelligence analyst briefed Congress.",
+    "headline": "Intelligence: Chinese Domestic Opposition Gains Strength Following Accord",
+    "lede": "Intelligence reports indicate that domestic political opposition within China is growing, with critics arguing that China's Beijing gave away too much in the settlement. The situation could threaten China political stability.",
+    "pullQuote": "Hardliners in China see the accord as a betrayal of national interests,\" an intelligence analyst briefed Congress.",
     "tone": "analytical",
     "tags": [
       "diplomatic"
@@ -1504,13 +1504,13 @@
   },
   {
     "id": "nw_096",
-    "beatId": "ns_regime_shock",
+    "beatId": "ns_leadership_shock",
     "phase": "resolution",
     "outlet": "Global Press Wire",
     "outletType": "wire",
     "region": "international",
-    "headline": "Kaltor Internal Tensions Rise as Hardliners Challenge Accord",
-    "lede": "Reports from Kaltor suggest growing internal pressure from hardline factions who view the settlement as insufficiently favorable to Kaltor interests. The domestic political situation is becoming unstable.",
+    "headline": "China Internal Tensions Rise as Hardliners Challenge Accord",
+    "lede": "Reports from China suggest growing internal pressure from hardline factions who view the settlement as insufficiently favorable to China interests. The domestic political situation is becoming unstable.",
     "tone": "analytical",
     "tags": [
       "diplomatic"
@@ -1519,14 +1519,14 @@
   },
   {
     "id": "nw_097",
-    "beatId": "ns_regime_shock",
+    "beatId": "ns_leadership_shock",
     "phase": "resolution",
-    "outlet": "Kaltor State Broadcasting",
+    "outlet": "State Media Desk",
     "outletType": "state_media",
     "region": "rival",
-    "headline": "Kaltor Leadership Reaffirms Commitment to Accord Despite Western Interference Attempts",
-    "lede": "Kaltor's government reaffirmed its commitment to the accord while accusing Western powers of attempting to foment internal opposition. The state narrative frames domestic critics as Western agents.",
-    "pullQuote": "Kaltor will not be divided by Western subversion attempts,\" Interior Minister Sokolov declared.",
+    "headline": "Beijing Reaffirms Commitment to Accord Despite Western Interference Attempts",
+    "lede": "China's government reaffirmed its commitment to the accord while accusing Western powers of attempting to foment internal opposition. The state narrative frames domestic critics as Western agents.",
+    "pullQuote": "China will not be divided by Western subversion attempts,\" a Chinese security spokesperson declared.",
     "tone": "hawkish",
     "tags": [
       "diplomatic"
@@ -1535,13 +1535,13 @@
   },
   {
     "id": "nw_098",
-    "beatId": "ns_regime_shock",
+    "beatId": "ns_leadership_shock",
     "phase": "resolution",
     "outlet": "@StraitWatch",
     "outletType": "social_media",
     "region": "international",
-    "headline": "Tracking Kaltor Domestic Political Developments Post-Accord",
-    "lede": "Monitoring of Kaltor state media, defector accounts, and OSINT sources suggests significant internal political turbulence following the accord. Political factions are jockeying for position.",
+    "headline": "Tracking China Domestic Political Developments Post-Accord",
+    "lede": "Monitoring of China state media, defector accounts, and OSINT sources suggests significant internal political turbulence following the accord. Political factions are jockeying for position.",
     "tone": "analytical",
     "tags": [
       "diplomatic"
@@ -1556,7 +1556,7 @@
     "outletType": "financial",
     "region": "international",
     "headline": "Global Markets Rally on Accord; Risk-Off Assets Decline as Investors Return to Growth",
-    "lede": "Financial markets have rallied sharply following the U.S.-Kaltor accord, with equity indices up more than 5% as investors reassess geopolitical risk. Oil prices have fallen modestly on reduced supply-disruption concerns.",
+    "lede": "Financial markets have rallied sharply following the U.S.-China accord, with equity indices up more than 5% as investors reassess geopolitical risk. Oil prices have fallen modestly on reduced supply-disruption concerns.",
     "tone": "analytical",
     "tags": [
       "economic"
@@ -1613,12 +1613,12 @@
     "id": "nw_103",
     "beatId": "ns_economic_break",
     "phase": "resolution",
-    "outlet": "Kaltor State Broadcasting",
+    "outlet": "State Media Desk",
     "outletType": "state_media",
     "region": "rival",
-    "headline": "Kaltor Economy Benefits from Normalization; Sanctions Relief Planned",
-    "lede": "Kaltor state media reported optimistically on economic recovery prospects following the accord. Officials suggested that some Western economic measures might be reversed as part of the settlement implementation.",
-    "pullQuote": "Economic normalization will bring prosperity to Kaltor,\" Finance Minister said.",
+    "headline": "China Economy Benefits from Normalization; Sanctions Relief Planned",
+    "lede": "China state media reported optimistically on economic recovery prospects following the accord. Officials suggested that some Western economic measures might be reversed as part of the settlement implementation.",
+    "pullQuote": "Economic normalization will bring prosperity to China,\" a Chinese finance official said.",
     "tone": "neutral",
     "tags": [
       "economic"
@@ -1647,8 +1647,8 @@
     "outlet": "Global Press Wire",
     "outletType": "wire",
     "region": "international",
-    "headline": "Full-Scale Conflict Erupts in Northern Strait",
-    "lede": "Armed conflict has erupted in the Northern Strait following the collapse of diplomatic negotiations and military de-escalation arrangements. Both sides are engaged in combat operations.",
+    "headline": "Full-Scale Conflict Erupts in Taiwan Strait",
+    "lede": "Armed conflict has erupted in the Taiwan Strait following the collapse of diplomatic negotiations and military de-escalation arrangements. Both sides are engaged in combat operations.",
     "tone": "alarmist",
     "tags": [
       "military"
@@ -1677,8 +1677,8 @@
     "outlet": "The Capital Standard",
     "outletType": "broadsheet",
     "region": "domestic",
-    "headline": "President Authorizes Full Military Response to Kaltor Aggression",
-    "lede": "The President has authorized a comprehensive military response to what officials are characterizing as Kaltor aggression that initiated the conflict. U.S. forces are mobilizing for major combat operations.",
+    "headline": "President Authorizes Full Military Response to China Aggression",
+    "lede": "The President has authorized a comprehensive military response to what officials are characterizing as China aggression that initiated the conflict. U.S. forces are mobilizing for major combat operations.",
     "pullQuote": "We will defend our interests and those of our allies with full force,\" the President declared.",
     "tone": "hawkish",
     "tags": [
@@ -1707,12 +1707,12 @@
     "id": "nw_109",
     "beatId": "ns_open_war",
     "phase": "climax",
-    "outlet": "Kaltor State Broadcasting",
+    "outlet": "State Media Desk",
     "outletType": "state_media",
     "region": "rival",
-    "headline": "Kaltor Repels Western Aggression; Vows Total Victory",
-    "lede": "Kaltor state media reported that Kaltor forces are successfully repelling Western attacks and have inflicted heavy losses. Officials vowed that Kaltor would achieve total victory against the Western alliance.",
-    "pullQuote": "Kaltor will crush the Western aggressors,\" Defense Minister Sokolov declared.",
+    "headline": "China Repels Western Aggression; Vows Total Victory",
+    "lede": "China state media reported that China forces are successfully repelling Western attacks and have inflicted heavy losses. Officials vowed that China would achieve total victory against the Western alliance.",
+    "pullQuote": "China will crush the Western aggressors,\" a PLA spokesperson declared.",
     "tone": "hawkish",
     "tags": [
       "military"
@@ -1772,8 +1772,8 @@
     "outlet": "The Daily Signal",
     "outletType": "tabloid",
     "region": "domestic",
-    "headline": "War Declared: America Mobilizes for Prolonged Conflict with Kaltor",
-    "lede": "Congress has passed war resolutions authorizing the President to conduct sustained military operations against Kaltor. Mobilization orders for military reserves and national guard units are being activated.",
+    "headline": "War Declared: America Mobilizes for Prolonged Conflict with China",
+    "lede": "Congress has passed war resolutions authorizing the President to conduct sustained military operations against China. Mobilization orders for military reserves and national guard units are being activated.",
     "tone": "alarmist",
     "tags": [
       "military",
@@ -1789,7 +1789,7 @@
     "outletType": "financial",
     "region": "international",
     "headline": "Wartime Financing and Economic Mobilization Plans Announced",
-    "lede": "Governments of belligerent nations are announcing emergency financing and economic mobilization measures to sustain military operations. Wartime taxation and rationing regimes are being implemented.",
+    "lede": "Governments of belligerent nations are announcing emergency financing and economic mobilization measures to sustain military operations. Wartime taxation and rationing measures are being implemented.",
     "tone": "analytical",
     "tags": [
       "economic",
@@ -1821,7 +1821,7 @@
     "outletType": "broadsheet",
     "region": "allied",
     "headline": "Allied Strategy: Coordinated Military Operations in Three Theaters",
-    "lede": "Allied military commands have synchronized operations across three distinct geographic theaters to maximize pressure on Kaltor. The coordinated strategy aims for rapid military dominance.",
+    "lede": "Allied military commands have synchronized operations across three distinct geographic theaters to maximize pressure on China. The coordinated strategy aims for rapid military dominance.",
     "tone": "analytical",
     "tags": [
       "military",
@@ -1837,7 +1837,7 @@
     "outletType": "wire",
     "region": "regional",
     "headline": "Strait Region Becomes Major Theater of Global War",
-    "lede": "The Northern Strait, once a disputed maritime zone, has become the focal point of a major military conflict involving multiple world powers. The strategic stakes could determine the global balance of power.",
+    "lede": "The Taiwan Strait, once a disputed maritime zone, has become the focal point of a major military conflict involving multiple world powers. The strategic stakes could determine the global balance of power.",
     "tone": "alarmist",
     "tags": [
       "military"
@@ -1868,7 +1868,7 @@
     "outletType": "wire",
     "region": "international",
     "headline": "War Expands Beyond Strait as Global Alliance Systems Activate",
-    "lede": "The strait conflict is rapidly expanding as nations activate alliance commitments and begin military operations in support of their partners. The conflict now threatens to become global.",
+    "lede": "The Taiwan Strait conflict is rapidly expanding as nations activate alliance commitments and begin military operations in support of their partners. The conflict now threatens to become global.",
     "tone": "alarmist",
     "tags": [
       "military"

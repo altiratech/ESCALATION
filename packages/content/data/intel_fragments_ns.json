@@ -21,7 +21,7 @@
     "sourceType": "HUMINT",
     "classification": "CONFIDENTIAL",
     "confidence": "moderate",
-    "headline": "Internal Chinese planning treats inspection regime as multi-domain pressure campaign",
+    "headline": "Internal Chinese planning treats inspection Beijing as multi-domain pressure campaign",
     "body": "A source with access to policy coordination channels reports that maritime inspections, cyber pre-positioning, and public messaging were approved as one package. The design appears intended to coerce without triggering the diplomatic costs of a declared blockade.",
     "analystNote": "Language and timing suggest coordinated multi-domain strategy rather than opportunistic escalation.",
     "tags": [
@@ -51,9 +51,9 @@
     "sourceType": "SIGINT",
     "classification": "SECRET",
     "confidence": "high",
-    "headline": "Encrypted diplomatic cable intercept shows regime interest in negotiations",
-    "body": "A backchannel communication from regime foreign ministry to their embassy in neutral territory expresses interest in 'structured dialogue on maritime boundaries.' Tone is formal but non-hostile. Message requests proposal for phased negotiating framework within 14 days.",
-    "analystNote": "Backchannel approach indicates regime wishes to avoid public commitment while exploring options. Likely cover for parallel military positioning.",
+    "headline": "Encrypted diplomatic cable intercept shows Beijing interest in negotiations",
+    "body": "A backchannel communication from the Chinese foreign ministry to interlocutors in Singapore expresses interest in 'structured dialogue on incident prevention and transit safety.' Tone is formal but non-hostile. Message requests proposal for phased negotiating framework within 14 days.",
+    "analystNote": "Backchannel approach indicates Beijing wishes to avoid public commitment while exploring options. Likely cover for parallel military positioning.",
     "tags": [
       "diplomatic",
       "alliance"
@@ -66,8 +66,8 @@
     "sourceType": "HUMINT",
     "classification": "CONFIDENTIAL",
     "confidence": "moderate",
-    "headline": "Regime economic ministry signals trade adjustment tolerance",
-    "body": "An official at the regime's commerce ministry indicated to a Western counterpart that 'managed tariff adjustments' are acceptable as part of broader maritime settlement discussions. The statement was made informally at a multilateral trade conference.",
+    "headline": "Chinese commerce ministry signals trade adjustment tolerance",
+    "body": "An official at the Chinese commerce ministry indicated to a Western counterpart that 'managed tariff adjustments' are acceptable as part of broader maritime settlement discussions. The statement was made informally at a multilateral trade conference.",
     "tags": [
       "economic",
       "diplomatic"
@@ -80,8 +80,8 @@
     "sourceType": "FININT",
     "classification": "SECRET",
     "confidence": "moderate",
-    "headline": "Regime sovereign wealth fund liquidates Western equity holdings",
-    "body": "Large-scale asset sales from regime-controlled sovereign funds have been detected across three major Western exchanges. Liquidations total approximately 1.8 billion USD over the past 60 days. Pattern suggests deliberate derisking rather than tactical portfolio rebalancing.",
+    "headline": "State-linked Chinese sovereign funds liquidate Western equity holdings",
+    "body": "Large-scale asset sales from state-linked Chinese sovereign funds have been detected across three major Western exchanges. Liquidations total approximately 1.8 billion USD over the past 60 days. Pattern suggests deliberate derisking rather than tactical portfolio rebalancing.",
     "analystNote": "Liquidation timeline predates public tension surge, suggesting elite anticipation of conflict scenarios.",
     "tags": [
       "economic",
@@ -95,7 +95,7 @@
     "sourceType": "GEOINT",
     "classification": "SECRET/SCI",
     "confidence": "high",
-    "headline": "Satellite imagery confirms airfield logistics surge in regime territory",
+    "headline": "Satellite imagery confirms airfield logistics surge in Chinese territory",
     "body": "High-resolution imagery from three forward airfields shows 40% increase in fuel depot activity and munitions handling equipment deployment. Supply flows from central region indicate preparation for sustained air operations. Medical unit staging also visible at primary forward base.",
     "tags": [
       "military"
@@ -109,7 +109,7 @@
     "classification": "TOP SECRET/SCI",
     "confidence": "high",
     "headline": "Acoustic signature analysis detects submarine activity in disputed waters",
-    "body": "Underwater acoustic monitoring stations recorded four distinct submarine signatures operating in the disputed maritime zone over 48-hour period. Characteristics consistent with regime's newest attack submarine class. Operational tempo and depth profiles suggest coordinated surveillance rather than routine patrol.",
+    "body": "Underwater acoustic monitoring stations recorded four distinct submarine signatures operating in the disputed maritime zone over 48-hour period. Characteristics consistent with China's newest attack submarine class. Operational tempo and depth profiles suggest coordinated surveillance rather than routine patrol.",
     "tags": [
       "military"
     ]
@@ -121,8 +121,8 @@
     "sourceType": "SIGINT",
     "classification": "SECRET",
     "confidence": "moderate",
-    "headline": "Military communication traffic volume increases 340% in regime command network",
-    "body": "Metadata analysis of regime military communications shows significant uptick in encrypted traffic between the regime's navy headquarters and forward bases. Message frequency and routing patterns are consistent with operational planning and logistics coordination rather than training exercises.",
+    "headline": "Military communication traffic volume increases 340% in PRC command network",
+    "body": "Metadata analysis of PLA military communications shows significant uptick in encrypted traffic between the PLA Navy headquarters and forward bases. Message frequency and routing patterns are consistent with operational planning and logistics coordination rather than training exercises.",
     "analystNote": "Volume spike may indicate scheduled exercise, but timing alignment with political tensions argues for contingency planning.",
     "tags": [
       "military"
@@ -136,8 +136,8 @@
     "classification": "CONFIDENTIAL",
     "confidence": "moderate",
     "headline": "Naval officer reports tension and confusion among junior ranks",
-    "body": "A source with contacts in regime naval command reported that junior officers are discussing accelerated readiness timelines. There is reported uncertainty regarding actual operational intent versus political signaling. One officer reportedly questioned whether 'leadership knows what it wants to achieve.'",
-    "analystNote": "Internal confusion could indicate genuine operational uncertainty within regime military hierarchy.",
+    "body": "A source with contacts in Beijing naval command reported that junior officers are discussing accelerated readiness timelines. There is reported uncertainty regarding actual operational intent versus political signaling. One officer reportedly questioned whether 'Beijing knows what it wants to achieve.'",
+    "analystNote": "Internal confusion could indicate genuine operational uncertainty within PLA hierarchy.",
     "contradicts": "intel_002",
     "tags": [
       "military",
@@ -151,8 +151,8 @@
     "sourceType": "OSINT",
     "classification": "UNCLASSIFIED",
     "confidence": "high",
-    "headline": "Regime media highlights historical maritime jurisdiction claims",
-    "body": "State media has published three major essays citing historical records to support regime's maximum maritime boundary claims. Articles cite 16th-century cartography and early 20th-century treaty interpretations. Domestic academic press amplifies same materials.",
+    "headline": "Chinese state media highlights historical maritime jurisdiction claims",
+    "body": "State media has published three major essays citing historical records to support Beijing's maximum maritime claims. Articles cite 16th-century cartography and early 20th-century treaty interpretations. Domestic academic press amplifies same materials.",
     "tags": [
       "diplomatic",
       "cyber"
@@ -165,9 +165,9 @@
     "sourceType": "FININT",
     "classification": "CONFIDENTIAL",
     "confidence": "high",
-    "headline": "Regime-affiliated trading companies increase port-call delays",
-    "body": "Insurance and shipping database analysis shows systematic delays in regime-affiliated vessel clearances at Western alliance ports over the past 10 days. Average delay increased from 2 hours to 14 hours. Customs documentation backlogs appear deliberate rather than logistical.",
-    "analystNote": "Reciprocal trade friction pattern suggests regime is testing alliance response to selective economic friction.",
+    "headline": "State-linked Chinese trading companies increase port-call delays",
+    "body": "Insurance and shipping database analysis shows systematic delays in state-linked Chinese vessel clearances at Western alliance ports over the past 10 days. Average delay increased from 2 hours to 14 hours. Customs documentation backlogs appear deliberate rather than logistical.",
+    "analystNote": "Reciprocal trade friction pattern suggests Beijing is testing alliance response to selective economic friction.",
     "tags": [
       "economic",
       "alliance"
@@ -180,8 +180,8 @@
     "sourceType": "FININT",
     "classification": "SECRET",
     "confidence": "high",
-    "headline": "Regime central bank subtly restricts foreign exchange availability",
-    "body": "Interbank FX markets show regime currency becoming less liquid in spot trading. The regime's central bank has reduced USD swap window frequency from daily to bi-weekly. Central banks in three neighboring countries report difficulty accessing regime currency liquidity.",
+    "headline": "PBOC subtly restricts foreign exchange availability",
+    "body": "Interbank FX markets show renminbi becoming less liquid in spot trading. The People's Bank of China has reduced USD swap window frequency from daily to bi-weekly. Central banks in three neighboring countries report difficulty accessing renminbi liquidity.",
     "analystNote": "Liquidity restriction pattern is consistent with capital preservation strategy ahead of potential sanctions or conflict escalation.",
     "tags": [
       "economic"
@@ -194,8 +194,8 @@
     "sourceType": "OSINT",
     "classification": "UNCLASSIFIED",
     "confidence": "high",
-    "headline": "Regime proposes 'special maritime tariff zone' in official statement",
-    "body": "An official regime ministry statement has proposed a 'special economic zone' within 50 kilometers of the disputed coastline. The zone would allegedly be governed by regime law and regulations. The proposal directly contradicts existing trade agreements governing the strait.",
+    "headline": "Chinese proposes 'special maritime tariff zone' in official statement",
+    "body": "An official Beijing ministry statement has proposed a 'special economic zone' within 50 kilometers of the disputed coastline. The zone would allegedly be governed by Beijing law and regulations. The proposal directly contradicts existing trade agreements governing the strait.",
     "tags": [
       "economic",
       "diplomatic"
@@ -208,8 +208,8 @@
     "sourceType": "HUMINT",
     "classification": "CONFIDENTIAL",
     "confidence": "moderate",
-    "headline": "Regime commerce minister hints at energy supply adjustments",
-    "body": "A regime commerce official, speaking privately at a regional economic conference, suggested that 'energy partnerships with Western allies may require renegotiation given current geopolitical circumstances.' The comment was made off-the-record and appeared to probe allied receptiveness.",
+    "headline": "Chinese commerce minister hints at energy supply adjustments",
+    "body": "A Beijing commerce official, speaking privately at a regional economic conference, suggested that 'energy partnerships with Western allies may require renegotiation given current geopolitical circumstances.' The comment was made off-the-record and appeared to probe allied receptiveness.",
     "analystNote": "Comment likely signal of potential energy leverage if negotiations proceed.",
     "tags": [
       "economic",
@@ -223,8 +223,8 @@
     "sourceType": "SIGINT",
     "classification": "CONFIDENTIAL",
     "confidence": "high",
-    "headline": "Regime cyber units activate coordinated disinformation campaign",
-    "body": "Analysis of regime-linked social media networks and bot farms shows activation of dormant accounts and acceleration of content distribution. Campaign focuses on delegitimizing alliance naval presence claims in disputed zone. Messaging volume increased 580% over baseline.",
+    "headline": "Chinese cyber units activate coordinated disinformation campaign",
+    "body": "Analysis of state-linked Chinese social media networks and bot farms shows activation of dormant accounts and acceleration of content distribution. Campaign focuses on delegitimizing alliance naval presence claims in disputed zone. Messaging volume increased 580% over baseline.",
     "analystNote": "Activation timeline aligns with military positioning escalation. Likely coordinated information warfare plan.",
     "tags": [
       "cyber",
@@ -238,9 +238,9 @@
     "sourceType": "OSINT",
     "classification": "UNCLASSIFIED",
     "confidence": "high",
-    "headline": "Authentic military incidents deliberately misrepresented in regime media",
-    "body": "A minor naval incident in the disputed zone—a civilian fishing vessel crossing a military exercise boundary—was portrayed in regime state media as an 'invasion attempt by hostile forces.' The distortion is widely identifiable to international observers as factually inaccurate.",
-    "analystNote": "Deliberate mischaracterization suggests regime is preparing domestic and international audiences for escalation narrative.",
+    "headline": "Authentic military incidents deliberately misrepresented in Beijing media",
+    "body": "A minor naval incident in the disputed zone—a civilian fishing vessel crossing a military exercise boundary—was portrayed in Beijing state media as an 'invasion attempt by hostile forces.' The distortion is widely identifiable to international observers as factually inaccurate.",
+    "analystNote": "Deliberate mischaracterization suggests Beijing is preparing domestic and international audiences for escalation narrative.",
     "tags": [
       "cyber",
       "domestic"
@@ -253,8 +253,8 @@
     "sourceType": "HUMINT",
     "classification": "CONFIDENTIAL",
     "confidence": "low",
-    "headline": "Alleged regime cyber unit plans information dominance operation",
-    "body": "A source of uncertain reliability reported that regime intelligence services are planning a 'media surprise' timed to a 'key political window.' Source claims operation targets Western alliance unity messaging but provides no specific details or technical specifics.",
+    "headline": "Alleged Beijing cyber unit plans information dominance operation",
+    "body": "A source of uncertain reliability reported that Beijing intelligence services are planning a 'media surprise' timed to a 'key political window.' Source claims operation targets Western alliance unity messaging but provides no specific details or technical specifics.",
     "analystNote": "Source credibility is unconfirmed; this report should be considered unvalidated intelligence.",
     "tags": [
       "cyber"
@@ -267,9 +267,9 @@
     "sourceType": "OSINT",
     "classification": "UNCLASSIFIED",
     "confidence": "moderate",
-    "headline": "Western media outlets amplify regime government talking points",
-    "body": "Analysis of Western media coverage shows increased frequency of regime government spokespeople being quoted in major news outlets. Talking points now routinely include claims that alliance military presence is 'destabilizing' and 'provocative.' This represents shift from previous balanced coverage.",
-    "analystNote": "Pattern could reflect either regime public relations effectiveness or legitimate debate about alliance posture.",
+    "headline": "Western media outlets amplify Beijing government talking points",
+    "body": "Analysis of Western media coverage shows increased frequency of Beijing government spokespeople being quoted in major news outlets. Talking points now routinely include claims that alliance military presence is 'destabilizing' and 'provocative.' This represents shift from previous balanced coverage.",
+    "analystNote": "Pattern could reflect either Beijing public relations effectiveness or legitimate debate about alliance posture.",
     "tags": [
       "cyber"
     ]
@@ -281,8 +281,8 @@
     "sourceType": "SIGINT",
     "classification": "SECRET",
     "confidence": "moderate",
-    "headline": "Encrypted communications indicate divergence in allied leadership positions",
-    "body": "Intercepted communications between allied capitals show differing assessments of regime escalation intent. One ally assesses risk as 'moderate but manageable' while another argues for 'immediate military posture upgrade.' Disagreements center on interpretation of intelligence and appropriate response scope.",
+    "headline": "Encrypted communications indicate divergence in allied Beijing positions",
+    "body": "Intercepted communications between allied capitals show differing assessments of Beijing escalation intent. One ally assesses risk as 'moderate but manageable' while another argues for 'immediate military posture upgrade.' Disagreements center on interpretation of intelligence and appropriate response scope.",
     "analystNote": "Public unity masks substantive disagreement on tactics and risk tolerance.",
     "tags": [
       "alliance",
@@ -297,8 +297,8 @@
     "classification": "CONFIDENTIAL",
     "confidence": "moderate",
     "headline": "Allied defense minister reportedly questions resolve of alliance coalition",
-    "body": "An official with access to allied defense ministry leadership reported that the primary defense minister expressed private skepticism about sustained allied commitment if conflict appears lengthy or costly. The concern was reportedly raised in restricted discussion with senior staff.",
-    "analystNote": "Private doubt about coalition endurance could influence regime calculation of alliance staying power.",
+    "body": "An official with access to allied defense ministry Beijing reported that the primary defense minister expressed private skepticism about sustained allied commitment if conflict appears lengthy or costly. The concern was reportedly raised in restricted discussion with senior staff.",
+    "analystNote": "Private doubt about coalition endurance could influence Beijing calculation of alliance staying power.",
     "tags": [
       "alliance",
       "leadership"
@@ -313,7 +313,7 @@
     "confidence": "high",
     "headline": "Allied parliament member delivers public speech questioning strait strategy",
     "body": "A prominent member of one allied parliament gave a televised speech questioning whether alliance military commitment to the disputed strait 'serves genuine security interests or reflects outdated geopolitical thinking.' The speech received significant domestic media attention.",
-    "analystNote": "Domestic political opposition to alliance strategy now visible in public forums. May encourage regime to estimate allied political fragility.",
+    "analystNote": "Domestic political opposition to alliance strategy now visible in public forums. May encourage Beijing to estimate allied political fragility.",
     "tags": [
       "alliance",
       "domestic"
@@ -326,9 +326,9 @@
     "sourceType": "FININT",
     "classification": "CONFIDENTIAL",
     "confidence": "high",
-    "headline": "Neutral third country increases economic ties with regime",
-    "body": "A neutral trading nation has publicly announced new trade agreements with the regime, including preferential tariff terms and increased commodity purchases. The timing is notably proximate to strait tensions. Value exceeds previous annual trade volumes by approximately 25%.",
-    "analystNote": "Regime appears to be hedging against alliance pressure through diversified economic partnerships.",
+    "headline": "Neutral third country increases economic ties with leadership",
+    "body": "A neutral trading nation has publicly announced new trade agreements with the Beijing, including preferential tariff terms and increased commodity purchases. The timing is notably proximate to strait tensions. Value exceeds previous annual trade volumes by approximately 25%.",
+    "analystNote": "PRC command appears to be hedging against alliance pressure through diversified economic partnerships.",
     "tags": [
       "economic",
       "alliance"
@@ -341,8 +341,8 @@
     "sourceType": "HUMINT",
     "classification": "CONFIDENTIAL",
     "confidence": "low",
-    "headline": "Unconfirmed report of secret regime negotiations with second allied power",
-    "body": "A source of uncertain reliability claims that the regime has engaged a back-channel to a secondary allied capital with 'confidential proposals' regarding maritime settlement. Source provides no corroborating detail and may reflect wishful thinking.",
+    "headline": "Unconfirmed report of secret Beijing negotiations with second allied power",
+    "body": "A source of uncertain reliability claims that the Beijing has engaged a back-channel to a secondary allied capital with 'confidential proposals' regarding maritime settlement. Source provides no corroborating detail and may reflect wishful thinking.",
     "analystNote": "Unverified; treat as rumor pending additional corroboration.",
     "contradicts": "intel_004",
     "tags": [
@@ -356,8 +356,8 @@
     "sourceType": "SIGINT",
     "classification": "TOP SECRET/SCI",
     "confidence": "high",
-    "headline": "Regime flagship accelerates transit toward contested strait centerline",
-    "body": "Electronic intelligence shows regime's primary aircraft carrier has altered course and increased speed, now moving directly toward the centerline of the disputed maritime zone. Accompanying task force includes two guided-missile destroyers and a supply vessel. Movement trajectory suggests arrival within 36 hours.",
+    "headline": "PRC flagship accelerates transit toward contested strait centerline",
+    "body": "Electronic intelligence shows the PRC's primary aircraft carrier has altered course and increased speed, now moving directly toward the centerline of the disputed maritime zone. Accompanying task force includes two guided-missile destroyers and a supply vessel. Movement trajectory suggests arrival within 36 hours.",
     "analystNote": "This is not a routine transit. Timing and force composition are consistent with demonstration of resolve or preparation for enforced claim.",
     "tags": [
       "military"
@@ -370,7 +370,7 @@
     "sourceType": "GEOINT",
     "classification": "SECRET/SCI",
     "confidence": "high",
-    "headline": "Satellite imagery reveals ammunition resupply operations at regime forward bases",
+    "headline": "Satellite imagery reveals ammunition resupply operations at Beijing forward bases",
     "body": "High-resolution imagery captured sustained ammunition transfer operations at three forward military bases over 72-hour window. Weapons types visible include air-to-surface missiles, anti-ship weapons, and precision munitions. Volume and diversity suggest preparation for multiple engagement scenarios.",
     "tags": [
       "military"
@@ -383,9 +383,9 @@
     "sourceType": "MASINT",
     "classification": "SECRET",
     "confidence": "moderate",
-    "headline": "Acoustic monitoring detects regime missile test-fire in adjacent territorial waters",
-    "body": "Underwater acoustic arrays recorded what analysts assess with moderate confidence to be a test-fire of an anti-ship cruise missile in regime territorial waters. Impact acoustics and reverberation patterns are consistent with live-fire rather than simulation or exercise.",
-    "analystNote": "Live-fire testing at this juncture sends clear message of operational readiness. Suggests regime operators are confident in weapon systems.",
+    "headline": "Acoustic monitoring detects Beijing missile test-fire in adjacent territorial waters",
+    "body": "Underwater acoustic arrays recorded what analysts assess with moderate confidence to be a test-fire of an anti-ship cruise missile in Beijing territorial waters. Impact acoustics and reverberation patterns are consistent with live-fire rather than simulation or exercise.",
+    "analystNote": "Live-fire testing at this juncture sends clear message of operational readiness. Suggests Beijing operators are confident in weapon systems.",
     "tags": [
       "military"
     ]
@@ -398,8 +398,8 @@
     "classification": "CONFIDENTIAL",
     "confidence": "moderate",
     "headline": "Military source reports mobilization orders reaching unit level commands",
-    "body": "A source with visibility into regime military command structure reported that full mobilization orders have been issued to reserve component units and that conscription authority has been activated. Orders reference 'potential extended conflict scenario' and direct immediate activation of logistics reserves.",
-    "analystNote": "Mobilization orders suggest regime leadership anticipates sustained conflict, not brief confrontation.",
+    "body": "A source with visibility into PLA command structure reported that full mobilization orders have been issued to reserve component units and that conscription authority has been activated. Orders reference 'potential extended conflict scenario' and direct immediate activation of logistics reserves.",
+    "analystNote": "Mobilization orders suggest Beijing anticipates sustained conflict, not brief confrontation.",
     "tags": [
       "military",
       "leadership"
@@ -412,9 +412,9 @@
     "sourceType": "FININT",
     "classification": "SECRET",
     "confidence": "high",
-    "headline": "Regime currency depreciates sharply in overnight trading",
-    "body": "Regime currency fell 7.3% in overnight trading against major reserve currencies, the largest single-day decline in 18 months. Central bank intervened with minor support transactions but did not prevent the depreciation. Offshore derivative market pricing shows increased volatility and higher-risk premium.",
-    "analystNote": "Market is pricing in elevated conflict risk. Capital controls are likely under consideration within regime leadership.",
+    "headline": "Renminbi depreciates sharply in overnight trading",
+    "body": "Renminbi fell 7.3% in overnight trading against major reserve currencies, the largest single-day decline in 18 months. Central bank intervened with minor support transactions but did not prevent the depreciation. Offshore derivative market pricing shows increased volatility and higher-risk premium.",
+    "analystNote": "Market is pricing in elevated conflict risk. Capital controls are likely under consideration within Beijing.",
     "tags": [
       "economic"
     ]
@@ -426,8 +426,8 @@
     "sourceType": "SIGINT",
     "classification": "TOP SECRET/SCI",
     "confidence": "high",
-    "headline": "Regime anti-ship missile batteries activate and engage target acquisition",
-    "body": "Electronic intelligence indicates that multiple regime coastal missile battery complexes have powered on targeting radars and are conducting active target acquisition sweeps across the disputed maritime zone. This represents departure from passive monitoring posture and indicates operational readiness for engagement.",
+    "headline": "Chinese anti-ship missile batteries activate and engage target acquisition",
+    "body": "Electronic intelligence indicates that multiple Beijing coastal missile battery complexes have powered on targeting radars and are conducting active target acquisition sweeps across the disputed maritime zone. This represents departure from passive monitoring posture and indicates operational readiness for engagement.",
     "analystNote": "Activation of targeting systems is escalation below active fire but represents clear increase in kinetic posture.",
     "tags": [
       "military"
@@ -440,7 +440,7 @@
     "sourceType": "GEOINT",
     "classification": "SECRET/SCI",
     "confidence": "high",
-    "headline": "Regime mobile launcher platforms detected moving toward seaside positions",
+    "headline": "Chinese mobile launcher platforms detected moving toward seaside positions",
     "body": "Satellite imagery shows movement of three mobile anti-ship cruise missile launcher platforms from inland garrison locations toward concealed firing positions near the coast. Movement patterns suggest deliberate deployment rather than training exercise. Timing aligns with fleet positioning.",
     "tags": [
       "military"
@@ -453,8 +453,8 @@
     "sourceType": "SIGINT",
     "classification": "SECRET",
     "confidence": "moderate",
-    "headline": "Regime command channel traffic shows targeting authority delegation to fleet level",
-    "body": "Communication pattern analysis suggests that authority to engage targets may have been delegated from regime national command authority to fleet-level commanders. Message traffic volume and routing patterns are consistent with operational commanders now holding engagement authority.",
+    "headline": "PRC command channel traffic shows targeting authority delegation to fleet level",
+    "body": "Communication pattern analysis suggests that authority to engage targets may have been delegated from Beijing national command authority to fleet-level commanders. Message traffic volume and routing patterns are consistent with operational commanders now holding engagement authority.",
     "analystNote": "Decentralized targeting authority reduces political decision barriers for escalation and increases risk of uncontrolled escalation.",
     "tags": [
       "military",
@@ -469,7 +469,7 @@
     "classification": "CONFIDENTIAL",
     "confidence": "low",
     "headline": "Alleged source claims missile units received fire-release orders",
-    "body": "A source of unknown reliability claimed that regime missile battery commanders received orders authorizing them to fire on 'hostile forces entering regime territorial waters.' Source provided no supporting documentation and has not been previously vetted.",
+    "body": "A source of unknown reliability claimed that Beijing missile battery commanders received orders authorizing them to fire on 'hostile forces entering Beijing territorial waters.' Source provided no supporting documentation and has not been previously vetted.",
     "analystNote": "Report is unconfirmed and possibly false. Requires corroboration from technical intelligence before acceptance.",
     "tags": [
       "military"
@@ -482,9 +482,9 @@
     "sourceType": "SIGINT",
     "classification": "SECRET",
     "confidence": "high",
-    "headline": "Regime intelligence service activates covert intelligence collection networks",
-    "body": "Communication analysis indicates activation of regime intelligence service sleeper networks in allied territories. Network activation messages use legacy communication protocols not seen in routine operations. Timing suggests focus on allied military movement and civilian morale assessment.",
-    "analystNote": "Intelligence service activation suggests regime is preparing information dominance campaign targeting allied public opinion.",
+    "headline": "Chinese intelligence service activates covert intelligence collection networks",
+    "body": "Communication analysis indicates activation of Beijing intelligence service sleeper networks in allied territories. Network activation messages use legacy communication protocols not seen in routine operations. Timing suggests focus on allied military movement and civilian morale assessment.",
+    "analystNote": "Intelligence service activation suggests Beijing is preparing information dominance campaign targeting allied public opinion.",
     "tags": [
       "cyber",
       "domestic"
@@ -498,7 +498,7 @@
     "classification": "CONFIDENTIAL",
     "confidence": "moderate",
     "headline": "Covert operative reports infiltration of allied defense contractor networks",
-    "body": "A regime defector with knowledge of intelligence operations reported that regime cyber units are actively probing defense contractors supporting allied naval operations. The operative claims goal is to gather targeting intelligence and disrupt supply chain for electronic warfare systems.",
+    "body": "A Beijing defector with knowledge of intelligence operations reported that Beijing cyber units are actively probing defense contractors supporting allied naval operations. The operative claims goal is to gather targeting intelligence and disrupt supply chain for electronic warfare systems.",
     "analystNote": "Cyber espionage targeting defense industrial base would represent significant escalation of covert action scope.",
     "tags": [
       "cyber"
@@ -511,8 +511,8 @@
     "sourceType": "OSINT",
     "classification": "UNCLASSIFIED",
     "confidence": "moderate",
-    "headline": "Regime-linked social media campaign amplifies allied military casualty rumors",
-    "body": "Coordinated social media campaign originating from regime-affiliated accounts has begun spreading unconfirmed reports of allied naval casualties during the crisis period. Reports are false but are being amplified through bot networks and sympathetic accounts. Algorithm analysis suggests coordinated effort rather than organic spread.",
+    "headline": "State-linked Chinese social media campaign amplifies allied military casualty rumors",
+    "body": "Coordinated social media campaign originating from state-linked Chinese accounts has begun spreading unconfirmed reports of allied naval casualties during the crisis period. Reports are false but are being amplified through bot networks and sympathetic accounts. Algorithm analysis suggests coordinated effort rather than organic spread.",
     "analystNote": "Disinformation campaign may be preparation for actual conflict scenario or effort to demoralize allied populations.",
     "tags": [
       "cyber",
@@ -526,8 +526,8 @@
     "sourceType": "SIGINT",
     "classification": "CONFIDENTIAL",
     "confidence": "moderate",
-    "headline": "Regime agents contact opposition figures in allied capitals",
-    "body": "Intelligence indicates regime intelligence services have made contact with opposition political figures in two allied capitals, offering 'cooperation' in exchange for policy shifts. Nature of proposed cooperation remains unclear but likely involves political support for regime position in exchange for undisclosed benefits.",
+    "headline": "Chinese operatives contact opposition figures in allied capitals",
+    "body": "Intelligence indicates Beijing intelligence services have made contact with opposition political figures in two allied capitals, offering 'cooperation' in exchange for policy shifts. Nature of proposed cooperation remains unclear but likely involves political support for Beijing position in exchange for undisclosed benefits.",
     "analystNote": "Infiltration of allied political opposition represents effort to build internal political pressure against current policy.",
     "tags": [
       "cyber",
@@ -543,7 +543,7 @@
     "confidence": "high",
     "headline": "Large antiwar protests erupt in allied capital city",
     "body": "Approximately 50,000 people gathered in the largest allied capital for antiwar demonstration against potential military action in the strait. Protests were largely peaceful but included calls for government policy reversal. Event received significant domestic and international media coverage.",
-    "analystNote": "Domestic political opposition to military commitment is now organized and visible. Regime may interpret as sign of allied resolve weakness.",
+    "analystNote": "Domestic political opposition to military commitment is now organized and visible. Chinese may interpret as sign of allied resolve weakness.",
     "tags": [
       "domestic",
       "alliance"
@@ -556,9 +556,9 @@
     "sourceType": "OSINT",
     "classification": "UNCLASSIFIED",
     "confidence": "high",
-    "headline": "Secondary allied nation sees violent clashes at pro-regime demonstrations",
-    "body": "Demonstrations organized to support regime position occurred in a secondary allied nation, with counter-protests resulting in violent clashes. Police made dozens of arrests. Event highlights internal allied political division on stance toward the dispute.",
-    "analystNote": "Public demonstration of allied internal discord reinforces regime's assessment of potential allied fracture.",
+    "headline": "Secondary allied nation sees violent clashes at pro-Beijing demonstrations",
+    "body": "Demonstrations organized to support Beijing position occurred in a secondary allied nation, with counter-protests resulting in violent clashes. Police made dozens of arrests. Event highlights internal allied political division on stance toward the dispute.",
+    "analystNote": "Public demonstration of allied internal discord reinforces leadership's assessment of potential allied fracture.",
     "tags": [
       "domestic"
     ]
@@ -571,8 +571,8 @@
     "classification": "CONFIDENTIAL",
     "confidence": "moderate",
     "headline": "Opposition political leader calls for immediate negotiated settlement",
-    "body": "A major opposition figure in an allied capital delivered a public speech calling for 'immediate and unconditional negotiations' with the regime and characterizing military posture as 'provocative and counterproductive.' Speech was covered extensively in domestic and international media.",
-    "analystNote": "Public political opposition to government policy may encourage regime to believe political pressure can force allied concessions.",
+    "body": "A major opposition figure in an allied capital delivered a public speech calling for 'immediate and unconditional negotiations' with the Beijing and characterizing military posture as 'provocative and counterproductive.' Speech was covered extensively in domestic and international media.",
+    "analystNote": "Public political opposition to government policy may encourage Beijing to believe political pressure can force allied concessions.",
     "tags": [
       "domestic",
       "alliance"
@@ -658,9 +658,9 @@
     "sourceType": "FININT",
     "classification": "CONFIDENTIAL",
     "confidence": "moderate",
-    "headline": "Bank credit default swap spreads widen across regime-linked financial institutions",
-    "body": "Credit risk spreads for regime-aligned banks and financial entities have widened significantly, reflecting market expectation of potential default or asset freeze scenarios. Contagion to regional banking institutions is being monitored.",
-    "analystNote": "Credit market is pricing in scenario of significant regime financial isolation.",
+    "headline": "Bank credit default swap spreads widen across state-linked Chinese financial institutions",
+    "body": "Credit risk spreads for China-linked banks and financial entities have widened significantly, reflecting market expectation of potential default or asset freeze scenarios. Contagion to regional banking institutions is being monitored.",
+    "analystNote": "Credit market is pricing in scenario of significant Beijing financial isolation.",
     "tags": [
       "economic",
       "leadership"
@@ -673,8 +673,8 @@
     "sourceType": "GEOINT",
     "classification": "TOP SECRET/SCI",
     "confidence": "high",
-    "headline": "Allied carrier strike group positioned opposite regime flagship in disputed waters",
-    "body": "Satellite imagery and electronic intelligence confirm allied carrier strike group has moved to position directly opposite regime flagship across the contested maritime boundary line. Both carrier groups are within missile range. Search and rescue and logistics vessels maintain separated positions.",
+    "headline": "Allied carrier strike group positioned opposite Beijing flagship in disputed waters",
+    "body": "Satellite imagery and electronic intelligence confirm allied carrier strike group has moved to position directly opposite Beijing flagship across the contested maritime boundary line. Both carrier groups are within missile range. Search and rescue and logistics vessels maintain separated positions.",
     "analystNote": "Carrier force positioning represents asymmetric escalation with mutual vulnerability on both sides.",
     "tags": [
       "military",
@@ -689,7 +689,7 @@
     "classification": "SECRET",
     "confidence": "high",
     "headline": "Both carrier groups activate full combat air patrol coverage",
-    "body": "Electronic intelligence indicates both allied and regime carrier groups have launched full complement of combat aircraft into sustained air patrol coverage. Aircraft are armed with air-to-air and air-to-surface munitions. Interception distances are at tactical minimum.",
+    "body": "Electronic intelligence indicates both allied and Beijing carrier groups have launched full complement of combat aircraft into sustained air patrol coverage. Aircraft are armed with air-to-air and air-to-surface munitions. Interception distances are at tactical minimum.",
     "analystNote": "Combat air patrol posture puts both sides at hair-trigger escalation readiness. Accident or miscalculation poses extreme risk.",
     "tags": [
       "military"
@@ -703,7 +703,7 @@
     "classification": "SECRET",
     "confidence": "high",
     "headline": "Electronic warfare systems activated across both carrier task forces",
-    "body": "SIGINT collection detects activation of active electronic warfare and jamming systems by both allied and regime forces. System activation suggests forces are prepared for immediate combat engagement and indicates communication lines are degraded.",
+    "body": "SIGINT collection detects activation of active electronic warfare and jamming systems by both allied and Beijing forces. System activation suggests forces are prepared for immediate combat engagement and indicates communication lines are degraded.",
     "analystNote": "Active EW employment increases risk of unintended escalation and degrades crisis communication options.",
     "tags": [
       "military"
@@ -731,8 +731,8 @@
     "sourceType": "SIGINT",
     "classification": "TOP SECRET/SCI",
     "confidence": "moderate",
-    "headline": "Regime leadership transmits encrypted urgent message to fleet headquarters",
-    "body": "Intercept of regime national command authority communications shows urgent encrypted transmission to fleet command. Message appears to convey decision point but content cannot be determined. Transmission is consistent with authorization order or operational guidance.",
+    "headline": "Beijing transmits encrypted urgent message to fleet headquarters",
+    "body": "Intercept of Beijing national command authority communications shows urgent encrypted transmission to fleet command. Message appears to convey decision point but content cannot be determined. Transmission is consistent with authorization order or operational guidance.",
     "analystNote": "Message timing aligns with peak tension. Content likely involves critical operational decision.",
     "tags": [
       "military",
@@ -746,8 +746,8 @@
     "sourceType": "SIGINT",
     "classification": "TOP SECRET/SCI",
     "confidence": "high",
-    "headline": "Backchannel communication established between allied and regime military commanders",
-    "body": "SIGINT intercepts indicate that allied and regime military commanders have established direct communication link using emergency tactical frequency. Conversation is in progress but specific discussion topics cannot be decrypted. Both sides are maintaining heightened alert posture while communicating.",
+    "headline": "Backchannel communication established between allied and Beijing military commanders",
+    "body": "SIGINT intercepts indicate that allied and Beijing military commanders have established direct communication link using emergency tactical frequency. Conversation is in progress but specific discussion topics cannot be decrypted. Both sides are maintaining heightened alert posture while communicating.",
     "analystNote": "Commander-to-commander dialogue is positive signal but intensity of underlying crisis remains unchanged.",
     "tags": [
       "military",
@@ -761,9 +761,9 @@
     "sourceType": "SIGINT",
     "classification": "SECRET",
     "confidence": "moderate",
-    "headline": "Regime foreign ministry initiates direct call with allied state department",
-    "body": "Communication logs indicate that regime foreign ministry has initiated urgent direct call with allied leadership requesting immediate dialogue. Call duration was 37 minutes. Content cannot be confirmed but both parties requested continuation of dialogue within the hour.",
-    "analystNote": "Initiation of high-level diplomatic engagement during military crisis suggests regime may be seeking off-ramp.",
+    "headline": "Chinese foreign ministry initiates direct call with allied state department",
+    "body": "Communication logs indicate that Chinese foreign ministry has initiated urgent direct call with allied Beijing requesting immediate dialogue. Call duration was 37 minutes. Content cannot be confirmed but both parties requested continuation of dialogue within the hour.",
+    "analystNote": "Initiation of high-level diplomatic engagement during military crisis suggests Beijing may be seeking off-ramp.",
     "tags": [
       "diplomatic",
       "leadership"
@@ -777,7 +777,7 @@
     "classification": "CONFIDENTIAL",
     "confidence": "moderate",
     "headline": "Intermediary nation offers to host emergency negotiations",
-    "body": "A neutral nation has publicly offered to host emergency negotiations between regime and allied leadership. Offer was made through diplomatic channels and media simultaneously. Neutral nation's leadership expressed willingness to remain available around the clock.",
+    "body": "A neutral nation has publicly offered to host emergency negotiations between Beijing and allied Beijing. Offer was made through diplomatic channels and media simultaneously. Neutral nation's Beijing expressed willingness to remain available around the clock.",
     "analystNote": "Third-party mediation offer provides face-saving option for both sides to engage without appearing to capitulate.",
     "tags": [
       "diplomatic",
@@ -791,9 +791,9 @@
     "sourceType": "SIGINT",
     "classification": "CONFIDENTIAL",
     "confidence": "high",
-    "headline": "Regime signals interest in maritime boundary demarcation discussion",
-    "body": "Intercepted regime diplomatic communications indicate interest in discussing 'technical maritime boundary demarcation' within framework of broader settlement. Signal comes through neutral intermediary channels and includes implicit acknowledgment that some regime claims may be subject to negotiation.",
-    "analystNote": "Implicit willingness to modify maximal territorial claims may indicate regime is looking for exit that preserves domestic political narrative.",
+    "headline": "Chinese signals interest in maritime boundary demarcation discussion",
+    "body": "Intercepted Beijing diplomatic communications indicate interest in discussing 'technical maritime boundary demarcation' within framework of broader settlement. Signal comes through neutral intermediary channels and includes implicit acknowledgment that some Beijing claims may be subject to negotiation.",
+    "analystNote": "Implicit willingness to modify maximal territorial claims may indicate Beijing is looking for exit that preserves domestic political narrative.",
     "tags": [
       "diplomatic"
     ]
@@ -806,7 +806,7 @@
     "classification": "SECRET",
     "confidence": "high",
     "headline": "Both carrier groups maintain stand-off positions with reduced combat readiness",
-    "body": "Electronic intelligence shows both allied and regime carrier groups have moved to separated positions with increased standoff distance. Combat air patrol has been reduced from full complement to minimum alert posture. Weapons systems remain armed but are in less-ready configuration.",
+    "body": "Electronic intelligence shows both allied and Beijing carrier groups have moved to separated positions with increased standoff distance. Combat air patrol has been reduced from full complement to minimum alert posture. Weapons systems remain armed but are in less-ready configuration.",
     "analystNote": "Posture change suggests tacit agreement between both forces to accept de-escalation even without formal ceasefire.",
     "tags": [
       "military"
@@ -819,9 +819,9 @@
     "sourceType": "GEOINT",
     "classification": "SECRET/SCI",
     "confidence": "high",
-    "headline": "Regime forces establish defended positions along claimed maritime boundary",
-    "body": "Satellite imagery shows regime has deployed additional coastal defense systems and naval vessels to established positions along regime's claimed maritime boundary. Positioning is fixed and defensive rather than aggressive. Movement patterns suggest permanent deployment rather than temporary positioning.",
-    "analystNote": "Defensive posture positioning may indicate regime intent to establish permanent presence rather than attempt to advance claims.",
+    "headline": "Chinese forces establish defended positions along claimed maritime boundary",
+    "body": "Satellite imagery shows Beijing has deployed additional coastal defense systems and naval vessels to established positions along its claimed maritime boundary. Positioning is fixed and defensive rather than aggressive. Movement patterns suggest permanent deployment rather than temporary positioning.",
+    "analystNote": "Defensive posture positioning may indicate Beijing intent to establish permanent presence rather than attempt to advance claims.",
     "tags": [
       "military"
     ]
@@ -833,8 +833,8 @@
     "sourceType": "SIGINT",
     "classification": "SECRET",
     "confidence": "moderate",
-    "headline": "Allied and regime militaries establish mutual notification protocols",
-    "body": "Intelligence indicates allied and regime military commanders have agreed to advance notification of naval transits and air operations in disputed zone. Protocol includes emergency communication procedures for unintended encounters. Regime has not explicitly accepted allied sovereignty claims.",
+    "headline": "Allied and Beijing militaries establish mutual notification protocols",
+    "body": "Intelligence indicates allied and Beijing military commanders have agreed to advance notification of naval transits and air operations in disputed zone. Protocol includes emergency communication procedures for unintended encounters. Chinese has not explicitly accepted allied sovereignty claims.",
     "analystNote": "Operational protocols suggest acceptance of status quo even without political settlement of sovereignty question.",
     "tags": [
       "military",
@@ -848,9 +848,9 @@
     "sourceType": "FININT",
     "classification": "CONFIDENTIAL",
     "confidence": "high",
-    "headline": "Regime currency stabilizes at new equilibrium level against global currencies",
-    "body": "Regime currency has stabilized at depreciated level approximately 8% below pre-crisis baseline. Central bank is maintaining current reserve positions rather than attempting to drive full recovery. Trading activity has normalized though volatility remains elevated.",
-    "analystNote": "Currency stabilization suggests regime has accepted permanent economic adjustment rather than seeking immediate recovery.",
+    "headline": "Renminbi stabilizes at new equilibrium level against global currencies",
+    "body": "Renminbi has stabilized at depreciated level approximately 8% below pre-crisis baseline. Central bank is maintaining current reserve positions rather than attempting to drive full recovery. Trading activity has normalized though volatility remains elevated.",
+    "analystNote": "Currency stabilization suggests Beijing has accepted permanent economic adjustment rather than seeking immediate recovery.",
     "tags": [
       "economic"
     ]
@@ -863,8 +863,8 @@
     "classification": "UNCLASSIFIED",
     "confidence": "high",
     "headline": "State media narrative shifts to 'successful pressure campaign and strategic gain'",
-    "body": "Regime state media has begun characterizing crisis outcome as successful achievement of pressure objectives and strategic gain for regime position. Narrative avoids acknowledgment of allied military positioning while emphasizing regime's demonstrated resolve and military capability.",
-    "analystNote": "Narrative shift allows regime to portray frozen outcome as victory for domestic consumption.",
+    "body": "Chinese state media has begun characterizing crisis outcome as successful achievement of pressure objectives and strategic gain for Beijing's position. Narrative avoids acknowledgment of allied military positioning while emphasizing China's demonstrated resolve and military capability.",
+    "analystNote": "Narrative shift allows Beijing to portray frozen outcome as victory for domestic consumption.",
     "tags": [
       "cyber",
       "domestic"
@@ -877,9 +877,9 @@
     "sourceType": "SIGINT",
     "classification": "SECRET",
     "confidence": "moderate",
-    "headline": "Regime accepts technical maritime boundary demarcation proposal",
-    "body": "Intercepted regime diplomatic communications indicate acceptance of maritime boundary demarcation proposal that recognizes some disputed areas as regime-controlled and others as disputed with international access rights. Proposal preserves regime's claim to historical precedence while accepting practical limitations.",
-    "analystNote": "Acceptance of demarcation suggests regime is willing to compromise on territorial maximum for assured presence.",
+    "headline": "Beijing accepts technical maritime boundary demarcation proposal",
+    "body": "Intercepted Beijing diplomatic communications indicate acceptance of maritime boundary demarcation proposal that recognizes some disputed areas as Beijing-controlled and others as disputed with international access rights. Proposal preserves Beijing's claim to historical precedence while accepting practical limitations.",
+    "analystNote": "Acceptance of demarcation suggests Beijing is willing to compromise on territorial maximum for assured presence.",
     "tags": [
       "diplomatic"
     ]
@@ -891,7 +891,7 @@
     "sourceType": "SIGINT",
     "classification": "CONFIDENTIAL",
     "confidence": "high",
-    "headline": "Allied and regime negotiators agree to joint maritime commission framework",
+    "headline": "Allied and Beijing negotiators agree to joint maritime commission framework",
     "body": "Intercepted communications from both diplomatic teams indicate agreement on establishment of joint maritime commission to oversee boundary compliance and handle maritime incidents. Commission membership and procedures indicate equal representation and neutral arbitration authority.",
     "analystNote": "Institutional framework suggests commitment to long-term stabilization rather than temporary truce.",
     "tags": [
@@ -906,9 +906,9 @@
     "sourceType": "HUMINT",
     "classification": "CONFIDENTIAL",
     "confidence": "moderate",
-    "headline": "Regime leadership celebrates 'diplomatic victory and averted conflict'",
-    "body": "A source with access to regime leadership indicated that senior officials are portraying negotiated settlement as regime diplomatic victory achieved through strength. Rhetoric emphasizes that regime's military readiness and negotiating skill achieved resolution without being forced to concede core claims.",
-    "analystNote": "Domestic political framing allows regime leadership to maintain credibility with domestic constituencies.",
+    "headline": "Beijing celebrates 'diplomatic victory and averted conflict'",
+    "body": "A source with access to senior Beijing officials indicated that senior officials are portraying negotiated settlement as Beijing diplomatic victory achieved through strength. Rhetoric emphasizes that China's military readiness and negotiating skill achieved resolution without being forced to concede core claims.",
+    "analystNote": "Domestic political framing allows Beijing to maintain credibility with domestic constituencies.",
     "tags": [
       "diplomatic",
       "leadership",
@@ -923,8 +923,8 @@
     "classification": "CONFIDENTIAL",
     "confidence": "high",
     "headline": "Economic sanctions lifted in coordinated action by allied coalition",
-    "body": "Allied nations have announced coordinated lifting of additional economic sanctions against regime in recognition of settlement agreement. Limited baseline sanctions remain in place on unrelated issue areas. Regime has agreed to implement negotiated commitments under international verification.",
-    "analystNote": "Sanctions relief provides economic incentive for regime compliance with settlement terms.",
+    "body": "Allied nations have announced coordinated lifting of additional economic sanctions against Beijing in recognition of settlement agreement. Limited baseline sanctions remain in place on unrelated issue areas. Beijing has agreed to implement negotiated commitments under international verification.",
+    "analystNote": "Sanctions relief provides economic incentive for Beijing compliance with settlement terms.",
     "tags": [
       "economic",
       "alliance"
@@ -937,22 +937,22 @@
     "sourceType": "OSINT",
     "classification": "UNCLASSIFIED",
     "confidence": "high",
-    "headline": "International media characterizes outcome as 'pragmatic compromise and stability framework'",
+    "headline": "International media characterizes outcome as pragmatic compromise and stability framework",
     "body": "Major international news organizations have characterized the maritime settlement as pragmatic compromise that avoids open conflict while preserving legitimate interests of both sides. Editorial commentary generally favors the negotiated approach.",
-    "analystNote": "International media framing provides legitimacy to settlement and may support regime domestic narrative.",
+    "analystNote": "International media framing provides legitimacy to settlement and may support Beijing domestic narrative.",
     "tags": [
       "cyber"
     ]
   },
   {
     "id": "intel_066",
-    "beatId": "ns_regime_shock",
+    "beatId": "ns_leadership_shock",
     "phase": "resolution",
     "sourceType": "SIGINT",
     "classification": "CONFIDENTIAL",
     "confidence": "moderate",
-    "headline": "Regime intelligence leaks reveal internal dissent on settlement decision",
-    "body": "Confidential regime communications show significant internal disagreement within leadership circle on maritime settlement terms. Hardline faction argues settlement represents unacceptable concession while pragmatists defend settlement as strategic necessity given allied military strength.",
+    "headline": "Chinese intelligence leaks reveal internal dissent on settlement decision",
+    "body": "Confidential Beijing communications show significant internal disagreement within Beijing circle on maritime settlement terms. Hardline faction argues settlement represents unacceptable concession while pragmatists defend settlement as strategic necessity given allied military strength.",
     "analystNote": "Internal division may create future instability if hardline faction mobilizes opposition to implementation.",
     "tags": [
       "leadership",
@@ -961,13 +961,13 @@
   },
   {
     "id": "intel_067",
-    "beatId": "ns_regime_shock",
+    "beatId": "ns_leadership_shock",
     "phase": "resolution",
     "sourceType": "HUMINT",
     "classification": "CONFIDENTIAL",
     "confidence": "low",
-    "headline": "Alleged regime military officer plans coup against leadership",
-    "body": "A source of uncertain reliability claims that a senior regime military officer has begun mobilizing support for removal of current regime leadership in response to 'capitulation' on maritime settlement. Source provides no corroborating evidence and may reflect wishful thinking or disinformation.",
+    "headline": "Alleged Chinese military officer plans coup against leadership",
+    "body": "A source of uncertain reliability claims that a senior Chinese military officer has begun mobilizing support for removal of current Beijing leadership in response to 'capitulation' on maritime settlement. Source provides no corroborating evidence and may reflect wishful thinking or disinformation.",
     "analystNote": "Unconfirmed report; requires substantial additional intelligence before acceptance.",
     "contradicts": "intel_061",
     "tags": [
@@ -977,14 +977,14 @@
   },
   {
     "id": "intel_068",
-    "beatId": "ns_regime_shock",
+    "beatId": "ns_leadership_shock",
     "phase": "resolution",
     "sourceType": "OSINT",
     "classification": "UNCLASSIFIED",
     "confidence": "moderate",
-    "headline": "Regime domestic media shows increased nationalistic rhetoric about settlement",
-    "body": "Regime state media has increased frequency of nationalist rhetoric characterizing settlement as temporary measure and maintaining claims to disputed territories. Historical grievance narratives are being actively promoted. Rhetoric appears designed to maintain regime credibility with nationalist constituencies.",
-    "analystNote": "Sustained nationalist messaging may reflect regime's concern about domestic political stability.",
+    "headline": "Chinese domestic media shows increased nationalistic rhetoric about settlement",
+    "body": "Chinese state media has increased frequency of nationalist rhetoric characterizing settlement as temporary measure and maintaining claims to disputed territories. Historical grievance narratives are being actively promoted. Rhetoric appears designed to maintain Beijing credibility with nationalist constituencies.",
+    "analystNote": "Sustained nationalist messaging may reflect Beijing's concern about domestic political stability.",
     "tags": [
       "cyber",
       "domestic"
@@ -992,28 +992,28 @@
   },
   {
     "id": "intel_069",
-    "beatId": "ns_regime_shock",
+    "beatId": "ns_leadership_shock",
     "phase": "resolution",
     "sourceType": "SIGINT",
     "classification": "CONFIDENTIAL",
     "confidence": "moderate",
-    "headline": "Regime leadership purges defense ministry of dissenting officials",
-    "body": "Intercepted regime communications indicate removal of several defense ministry officials associated with hardline opposition to maritime settlement. Removals are being characterized as routine personnel changes. Replacements appear to favor pragmatic accommodation approach.",
-    "analystNote": "Personnel changes suggest regime is consolidating support for settlement implementation.",
+    "headline": "Beijing purges defense ministry of dissenting officials",
+    "body": "Intercepted Beijing communications indicate removal of several defense ministry officials associated with hardline opposition to maritime settlement. Removals are being characterized as routine personnel changes. Replacements appear to favor pragmatic accommodation approach.",
+    "analystNote": "Personnel changes suggest Beijing is consolidating support for settlement implementation.",
     "tags": [
       "leadership"
     ]
   },
   {
     "id": "intel_070",
-    "beatId": "ns_regime_shock",
+    "beatId": "ns_leadership_shock",
     "phase": "resolution",
     "sourceType": "HUMINT",
     "classification": "CONFIDENTIAL",
     "confidence": "moderate",
-    "headline": "Regime creates propaganda narrative about settlement security guarantees",
-    "body": "A propaganda specialist within regime media apparatus reported that regime leadership has directed creation of narrative emphasizing security guarantees embedded in settlement framework as preventing future allied military action. Narrative is being promoted to counter domestic criticism.",
-    "analystNote": "Narrative development suggests regime's priority is domestic political management of settlement outcome.",
+    "headline": "Beijing creates propaganda narrative about settlement security guarantees",
+    "body": "A propaganda specialist within Beijing media apparatus reported that Beijing has directed creation of narrative emphasizing security guarantees embedded in settlement framework as preventing future allied military action. Narrative is being promoted to counter domestic criticism.",
+    "analystNote": "Narrative development suggests Beijing's priority is domestic political management of settlement outcome.",
     "tags": [
       "cyber",
       "domestic",
@@ -1027,8 +1027,8 @@
     "sourceType": "FININT",
     "classification": "SECRET",
     "confidence": "high",
-    "headline": "Regime economy enters contraction as crisis disruption proves structural",
-    "body": "Economic indicators show regime GDP contraction in post-crisis quarter despite official claims of settlement success. Trade flows remain disrupted even after military crisis resolution. Central bank reports capital outflows continue at elevated rate.",
+    "headline": "Chinese economy enters contraction as crisis disruption proves structural",
+    "body": "Economic indicators show Beijing GDP contraction in post-crisis quarter despite official claims of settlement success. Trade flows remain disrupted even after military crisis resolution. Central bank reports capital outflows continue at elevated rate.",
     "analystNote": "Economic disruption appears structural rather than temporary, suggesting enduring consequences of crisis.",
     "tags": [
       "economic"
@@ -1041,9 +1041,9 @@
     "sourceType": "FININT",
     "classification": "CONFIDENTIAL",
     "confidence": "high",
-    "headline": "Foreign direct investment flows into regime territory decline sharply",
-    "body": "International investment databases show 60% decline in announced FDI projects to regime territory compared to pre-crisis period. Multinational corporations cite 'political risk reassessment' and 'uncertain regulatory environment' as rationales for investment pullback.",
-    "analystNote": "Investment decline may impose long-term drag on regime growth and development prospects.",
+    "headline": "Foreign direct investment flows into Chinese territory decline sharply",
+    "body": "International investment databases show 60% decline in announced FDI projects to Chinese territory compared to pre-crisis period. Multinational corporations cite 'political risk reassessment' and 'uncertain regulatory environment' as rationales for investment pullback.",
+    "analystNote": "Investment decline may impose long-term drag on Beijing growth and development prospects.",
     "tags": [
       "economic"
     ]
@@ -1055,9 +1055,9 @@
     "sourceType": "FININT",
     "classification": "CONFIDENTIAL",
     "confidence": "moderate",
-    "headline": "Regime implements capital controls and foreign exchange restrictions",
-    "body": "Regime authorities have introduced restrictions on foreign exchange access and capital outflow controls nominally described as 'temporary stabilization measures.' Controls target individual citizens and smaller businesses while preserving access for regime-connected entities.",
-    "analystNote": "Capital controls suggest regime leadership is attempting to prevent further currency depreciation and capital flight.",
+    "headline": "Chinese authorities implement capital controls and foreign exchange restrictions",
+    "body": "Chinese authorities have introduced restrictions on foreign exchange access and capital outflow controls nominally described as 'temporary stabilization measures.' Controls target individual citizens and smaller businesses while preserving access for state-connected entities.",
+    "analystNote": "Capital controls suggest Beijing is attempting to prevent further currency depreciation and capital flight.",
     "tags": [
       "economic",
       "leadership"
@@ -1070,9 +1070,9 @@
     "sourceType": "FININT",
     "classification": "CONFIDENTIAL",
     "confidence": "high",
-    "headline": "Unemployment in regime territory rises to near-decade highs",
-    "body": "Labor force surveys from regime territory show unemployment increase of 3.2 percentage points compared to pre-crisis levels. Manufacturing and tourism sectors show particular weakness. Youth unemployment has exceeded 25%.",
-    "analystNote": "Unemployment surge may create domestic political pressure on regime leadership regarding economic management.",
+    "headline": "Unemployment in Chinese territory rises to near-decade highs",
+    "body": "Labor force surveys from Chinese territory show unemployment increase of 3.2 percentage points compared to pre-crisis levels. Manufacturing and tourism sectors show particular weakness. Youth unemployment has exceeded 25%.",
+    "analystNote": "Unemployment surge may create domestic political pressure on Beijing regarding economic management.",
     "tags": [
       "economic",
       "domestic"
@@ -1085,9 +1085,9 @@
     "sourceType": "OSINT",
     "classification": "UNCLASSIFIED",
     "confidence": "moderate",
-    "headline": "Regime announces austerity budget and deficit reduction measures",
-    "body": "Regime government has announced fiscal austerity package including reduced social spending, public sector wage controls, and increased taxation. Official justification cites need for long-term fiscal stability. Measures are expected to impose near-term hardship on civilian population.",
-    "analystNote": "Austerity measures may create political friction within regime system.",
+    "headline": "Chinese announces austerity budget and deficit reduction measures",
+    "body": "Chinese government has announced fiscal austerity package including reduced social spending, public sector wage controls, and increased taxation. Official justification cites need for long-term fiscal stability. Measures are expected to impose near-term hardship on civilian population.",
+    "analystNote": "Austerity measures may create political friction within Beijing system.",
     "tags": [
       "economic",
       "domestic"
@@ -1100,9 +1100,9 @@
     "sourceType": "SIGINT",
     "classification": "TOP SECRET/SCI",
     "confidence": "high",
-    "headline": "Regime orders missile strike against allied naval vessels in disputed zone",
-    "body": "Intercepted regime command authority transmission contains explicit order to regime missile units to engage allied naval vessels within disputed maritime zone. Order is authorized at regime's highest command level and includes rules of engagement allowing multiple weapon employment.",
-    "analystNote": "Explicit authorization order represents irreversible escalation from regime's highest authority.",
+    "headline": "Beijing orders missile strike against allied naval vessels in disputed zone",
+    "body": "Intercepted Beijing command authority transmission contains explicit order to Beijing missile units to engage allied naval vessels within disputed maritime zone. Order is authorized at the highest PRC command level and includes rules of engagement allowing multiple weapon employment.",
+    "analystNote": "Explicit authorization order represents irreversible escalation from Beijing's highest authority.",
     "tags": [
       "military",
       "leadership"
@@ -1115,9 +1115,9 @@
     "sourceType": "GEOINT",
     "classification": "TOP SECRET/SCI",
     "confidence": "high",
-    "headline": "Regime anti-ship missiles launched against allied naval target",
-    "body": "Satellite and radar intelligence confirms launch of multiple anti-ship cruise missiles from regime coastal battery against allied destroyer in the disputed zone. Missiles are in-flight with estimated impact in 8 minutes. Allied air defense systems are responding.",
-    "analystNote": "First weapons employment represents crossing of open warfare threshold by regime.",
+    "headline": "Chinese anti-ship missiles launched against allied naval target",
+    "body": "Satellite and radar intelligence confirms launch of multiple anti-ship cruise missiles from Beijing coastal battery against allied destroyer in the disputed zone. Missiles are in-flight with estimated impact in 8 minutes. Allied air defense systems are responding.",
+    "analystNote": "First weapons employment represents crossing of open warfare threshold by Beijing.",
     "tags": [
       "military"
     ]
@@ -1129,8 +1129,8 @@
     "sourceType": "SIGINT",
     "classification": "TOP SECRET/SCI",
     "confidence": "high",
-    "headline": "Allied naval vessel reports direct hit from regime missile",
-    "body": "Allied naval vessel transmission indicates direct hit from regime anti-ship missile. Vessel reports fire in engineering spaces and flooding in forward compartment. Crew is implementing damage control measures. Request for air cover and emergency medical support transmitted.",
+    "headline": "Allied naval vessel reports direct hit from Beijing missile",
+    "body": "Allied naval vessel transmission indicates direct hit from Beijing anti-ship missile. Vessel reports fire in engineering spaces and flooding in forward compartment. Crew is implementing damage control measures. Request for air cover and emergency medical support transmitted.",
     "analystNote": "Allied naval vessel has suffered significant combat damage. Open warfare is now confirmed with friendly casualties.",
     "tags": [
       "military"
@@ -1143,8 +1143,8 @@
     "sourceType": "SIGINT",
     "classification": "TOP SECRET/SCI",
     "confidence": "high",
-    "headline": "Allied aircraft launch retaliatory strike against regime military targets",
-    "body": "Electronic intelligence and radar tracking confirm launch of 24 allied fighter aircraft from allied carrier toward regime coastal targets. Aircraft are configured with air-to-ground ordnance. Strikes are authorized under allied rules of engagement in response to direct attack on allied naval vessel.",
+    "headline": "Allied aircraft launch retaliatory strike against PRC military targets",
+    "body": "Electronic intelligence and radar tracking confirm launch of 24 allied fighter aircraft from allied carrier toward Beijing coastal targets. Aircraft are configured with air-to-ground ordnance. Strikes are authorized under allied rules of engagement in response to direct attack on allied naval vessel.",
     "analystNote": "Escalation is now bilateral with both sides employing offensive air power in strike mode.",
     "tags": [
       "military"
@@ -1157,8 +1157,8 @@
     "sourceType": "GEOINT",
     "classification": "TOP SECRET/SCI",
     "confidence": "high",
-    "headline": "Allied airstrikes result in destruction of regime coastal military installations",
-    "body": "Satellite imagery captured 37 minutes after allied air strikes shows three regime coastal installations have been destroyed including radar facility, ammunition depot, and fuel storage. Fire and smoke plumes are visible from multiple locations. Regime appears to be launching counter-strikes.",
+    "headline": "Allied airstrikes result in destruction of Beijing coastal military installations",
+    "body": "Satellite imagery captured 37 minutes after allied air strikes shows three Beijing coastal installations have been destroyed including radar facility, ammunition depot, and fuel storage. Fire and smoke plumes are visible from multiple locations. PRC command appears to be launching counter-strikes.",
     "analystNote": "Scale of destruction indicates sustained allied air operations and confirms open warfare with mutual kinetic engagement.",
     "tags": [
       "military"
@@ -1171,9 +1171,9 @@
     "sourceType": "SIGINT",
     "classification": "SECRET",
     "confidence": "high",
-    "headline": "Regime initiates counter-attack with fighter bombers against allied task force",
-    "body": "Electronic intelligence confirms launch of 18 regime fighter bombers from two inland air bases toward allied task force. Aircraft are loaded with air-to-surface weapons. Interception by allied fighter aircraft is in progress but regime bombers have penetrated outer air defense zone.",
-    "analystNote": "Regime is employing full operational response with coordinated air and naval strikes.",
+    "headline": "Chinese forces initiate counter-attack with fighter bombers against allied task force",
+    "body": "Electronic intelligence confirms launch of 18 Beijing fighter bombers from two inland air bases toward allied task force. Aircraft are loaded with air-to-surface weapons. Interception by allied fighter aircraft is in progress but Beijing bombers have penetrated outer air defense zone.",
+    "analystNote": "Chinese is employing full operational response with coordinated air and naval strikes.",
     "tags": [
       "military"
     ]
@@ -1185,8 +1185,8 @@
     "sourceType": "SIGINT",
     "classification": "TOP SECRET/SCI",
     "confidence": "moderate",
-    "headline": "Regime missile launch detected from undisclosed location toward allied capital region",
-    "body": "Air defense radar networks detect launch of cruise missile from inland regime territory with trajectory toward allied homeland territory. Impact location cannot yet be determined but missile is in-flight. Air defense systems are being activated and civilian alert procedures initiated.",
+    "headline": "Chinese missile launch detected from undisclosed location toward allied capital region",
+    "body": "Air defense radar networks detect launch of cruise missile from inland Chinese territory with trajectory toward allied homeland territory. Impact location cannot yet be determined but missile is in-flight. Air defense systems are being activated and civilian alert procedures initiated.",
     "analystNote": "Escalation to strikes on homeland territory represents dramatic expansion of conflict scope.",
     "tags": [
       "military"
@@ -1199,9 +1199,9 @@
     "sourceType": "SIGINT",
     "classification": "SECRET",
     "confidence": "high",
-    "headline": "Allied strategic command activates full mobilization and orders retaliation against regime territory",
-    "body": "Allied national command authority has authorized full military mobilization and ordered execution of comprehensive air campaign against regime military targets including inland bases, command centers, and infrastructure. Campaign authorization extends to strategic weapons employment if regime escalates.",
-    "analystNote": "Allied response authorization indicates conflict has escalated to level where regime territorial integrity is at direct risk.",
+    "headline": "Allied strategic command activates full mobilization and orders retaliation against Chinese territory",
+    "body": "Allied national command authority has authorized full military mobilization and ordered execution of comprehensive air campaign against PRC military targets including inland bases, command centers, and infrastructure. Campaign authorization extends to strategic weapons employment if Beijing escalates.",
+    "analystNote": "Allied response authorization indicates conflict has escalated to level where Beijing territorial integrity is at direct risk.",
     "tags": [
       "military",
       "leadership"
@@ -1214,8 +1214,8 @@
     "sourceType": "HUMINT",
     "classification": "CONFIDENTIAL",
     "confidence": "low",
-    "headline": "Alleged regime leadership begins considering nuclear weapons employment",
-    "body": "A source with claimed access to regime inner circle suggested that regime leadership is considering use of tactical nuclear weapons against allied concentrations. Source provides no supporting detail and has not been previously validated.",
+    "headline": "Alleged Beijing leadership begins considering nuclear weapons employment",
+    "body": "A source with claimed access to Beijing inner circle suggested that Beijing is considering use of tactical nuclear weapons against allied concentrations. Source provides no supporting detail and has not been previously validated.",
     "analystNote": "Unconfirmed rumor; if true would represent escalation to weapons of mass destruction threshold.",
     "tags": [
       "military",
@@ -1257,9 +1257,9 @@
     "sourceType": "SIGINT",
     "classification": "CONFIDENTIAL",
     "confidence": "moderate",
-    "headline": "Regime foreign ministry broadcasts surrender demands with threat of weapons escalation",
-    "body": "Intercepted regime leadership broadcast contains demands for allied military withdrawal and regime territorial claims acceptance. Broadcast explicitly threatens escalation to weapons of mass destruction if allied military operations continue.",
-    "analystNote": "Escalation threats combined with territorial demands suggests regime is attempting coercive diplomacy under military pressure.",
+    "headline": "Chinese foreign ministry broadcasts surrender demands with threat of weapons escalation",
+    "body": "Intercepted Beijing broadcast contains demands for allied military withdrawal and Beijing territorial claims acceptance. Broadcast explicitly threatens escalation to weapons of mass destruction if allied military operations continue.",
+    "analystNote": "Escalation threats combined with territorial demands suggests Beijing is attempting coercive diplomacy under military pressure.",
     "tags": [
       "military",
       "diplomatic"
@@ -1272,8 +1272,8 @@
     "sourceType": "SIGINT",
     "classification": "CONFIDENTIAL",
     "confidence": "high",
-    "headline": "Allied leadership rejects regime escalation threats and authorizes continued military operations",
-    "body": "Intercepted allied national leadership communications confirm rejection of regime ultimatum and authorization for continued comprehensive air and naval operations against regime targets. Leadership explicitly accepts escalation risk.",
+    "headline": "Allied Beijing rejects Beijing escalation threats and authorizes continued military operations",
+    "body": "Intercepted allied national Beijing communications confirm rejection of Beijing ultimatum and authorization for continued comprehensive air and naval operations against Beijing targets. Leadership explicitly accepts escalation risk.",
     "analystNote": "Allied rejection of ultimatum indicates commitment to prosecute conflict to achieve military objectives.",
     "tags": [
       "military",
@@ -1287,8 +1287,8 @@
     "sourceType": "GEOINT",
     "classification": "TOP SECRET/SCI",
     "confidence": "high",
-    "headline": "Regime military command and control network degraded by sustained allied strikes",
-    "body": "Satellite and signal intelligence indicate that regime's primary command and control facilities have been damaged or destroyed by sustained allied air campaign. Regime is attempting to shift to alternate command facilities but degradation of command authority is evident.",
+    "headline": "PRC military command and control network degraded by sustained allied strikes",
+    "body": "Satellite and signal intelligence indicate that China's primary command and control facilities have been damaged or destroyed by sustained allied air campaign. Beijing is attempting to shift to alternate command facilities but degradation of command authority is evident.",
     "analystNote": "Loss of command and control represents critical military degradation and may signal approaching military defeat.",
     "tags": [
       "military"
@@ -1301,9 +1301,9 @@
     "sourceType": "HUMINT",
     "classification": "CONFIDENTIAL",
     "confidence": "moderate",
-    "headline": "Regime military units report logistical breakdown and fuel shortages",
-    "body": "A source with visibility into regime military logistics reported that several forward military units are running low on fuel and ammunition due to supply line disruptions from allied air strikes. Operational tempo of regime forces is declining due to logistics constraints.",
-    "analystNote": "Logistics degradation may represent approaching end-state for regime military operations.",
+    "headline": "PRC military units report logistical breakdown and fuel shortages",
+    "body": "A source with visibility into PLA logistics reported that several forward military units are running low on fuel and ammunition due to supply line disruptions from allied air strikes. Operational tempo of Beijing forces is declining due to logistics constraints.",
+    "analystNote": "Logistics degradation may represent approaching end-state for PRC military operations.",
     "tags": [
       "military"
     ]

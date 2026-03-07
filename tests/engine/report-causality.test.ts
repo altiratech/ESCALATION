@@ -52,10 +52,11 @@ describe('post-game causality report', () => {
     }
 
     const outcome = state.outcome ?? evaluateOutcome(state);
+    const rivalLeader = getRivalLeader(scenario.id, adversaryProfile.id);
     const report = buildPostGameReport(state, buildActionMap(actions), {
       scenario,
       adversaryProfile,
-      rivalLeader: getRivalLeader(scenario.id, adversaryProfile.id),
+      rivalLeader,
       deepDebrief: getDebriefDeep(scenario.id),
       causalityNarrative: getCausalityRevealForOutcome(outcome),
       advisorRetrospectives: getAdvisorRetrospectivesForOutcome(outcome)
@@ -66,7 +67,7 @@ describe('post-game causality report', () => {
     expect(report.fullCausality.outcomeNarrative.summary.length).toBeGreaterThan(0);
     expect(report.fullCausality.outcomeNarrative.causalNote.length).toBeGreaterThan(0);
     expect(report.fullCausality.adversaryLogicSummary.length).toBeGreaterThan(20);
-    expect(report.fullCausality.rivalLeaderReveal?.publicName).toBe('Aleksandr Volkov');
+    expect(report.fullCausality.rivalLeaderReveal?.publicName).toBe(rivalLeader?.leader.publicName);
     expect(report.fullCausality.rivalLeaderReveal?.pressurePoints.length).toBeGreaterThan(0);
     expect(report.fullCausality.deepDebrief?.grade.title.length).toBeGreaterThan(0);
     expect(report.fullCausality.deepDebrief?.historicalParallels.length).toBeGreaterThan(0);
