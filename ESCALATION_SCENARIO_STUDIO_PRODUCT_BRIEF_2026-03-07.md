@@ -1,7 +1,13 @@
-# ESCALATION Scenario Studio Product Brief
+# Historical Note: ESCALATION Scenario Studio Product Brief
 
 Date: 2026-03-07  
 Scope: `/Users/ryanjameson/Desktop/Lifehub/Code/active/Wargames`
+
+This memo is now a historical precursor to **Altira Resilience**.
+
+Current boundary:
+- **Altira Flashpoint** remains the standalone scenario-intelligence product in this repo.
+- **Altira Resilience** is the separate enterprise training/readiness product that inherited the Scenario Studio direction.
 
 ## 1. Product Thesis
 

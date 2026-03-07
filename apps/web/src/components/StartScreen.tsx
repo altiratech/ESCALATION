@@ -180,12 +180,13 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
       <main className="mx-auto flex min-h-screen w-full max-w-[1520px] items-center px-4 py-6 sm:px-6 lg:px-8">
         <section className="grid w-full gap-6 xl:grid-cols-[1.1fr_0.9fr]">
           <div className="console-panel p-6 sm:p-8">
-            <p className="console-kicker">ESCALATION // Scenario Intelligence</p>
+            <p className="console-kicker">Altira Flashpoint // Scenario Intelligence</p>
             <h1 className="mt-4 max-w-4xl font-display text-4xl leading-none text-textMain sm:text-5xl lg:text-6xl">
               Interactive crisis simulations for leaders navigating real-world shock scenarios.
             </h1>
             <p className="mt-5 max-w-3xl text-sm leading-relaxed text-textMuted sm:text-base">
-              ESCALATION is the scenario layer inside Altira: real theaters, fictionalized decision rooms, deterministic
+              Altira Flashpoint is the scenario-intelligence layer inside Altira: real theaters, fictionalized decision
+              rooms, deterministic
               causality, and replayable crisis runs built to stress-test how policy, operations, and markets can unravel.
             </p>
 
@@ -287,7 +288,7 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
           <div className="console-panel p-6 sm:p-8">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
-                <p className="console-kicker">ESCALATION // Mission Setup</p>
+                <p className="console-kicker">Altira Flashpoint // Mission Setup</p>
                 <h1 className="mt-3 font-display text-4xl text-textMain sm:text-5xl">Scenario Brief</h1>
               </div>
               <button
@@ -451,7 +452,7 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
         <header className="console-topbar px-5 py-5 sm:px-6">
           <div className="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
             <div>
-              <p className="console-kicker">ESCALATION // Theater Dossier</p>
+              <p className="console-kicker">Altira Flashpoint // Theater Dossier</p>
               <h1 className="mt-3 font-display text-4xl text-textMain sm:text-5xl">
                 {selectedScenario?.name ?? 'Theater Dossier'}
               </h1>

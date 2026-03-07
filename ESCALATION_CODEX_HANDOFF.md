@@ -1,8 +1,12 @@
-# ESCALATION CODEX HANDOFF
+# ALTIRA FLASHPOINT / ESCALATION CODEX HANDOFF
 
 Date: 2026-03-02
 Workspace: `/Users/ryanjameson/Desktop/Lifehub/Code/active/Wargames`
 Thread scope limitation: This thread ran under `Code/active/Wargames` and could not read/write `Lifehub/SYSTEM/*` coordination files.
+
+Current naming rule:
+- public product name: `Altira Flashpoint`
+- legacy internal repo/infrastructure name: `ESCALATION`
 
 ## 1) Implementation Status
 
@@ -2198,3 +2202,45 @@ Thread scope limitation: This thread ran under `Code/active/Wargames` and could 
 1. Choose whether the next product-definition step is:
 - a Scenario Studio v1 admin workflow / functional spec
 - or a broader GTM / packaging memo for Atlas + Signal + ESCALATION together
+
+## 41. Altira Flashpoint Phase 1 Rename (2026-03-07 ET)
+
+### 41.1 What changed
+
+1. Locked a phased rename for the current Wargames product:
+- public-facing name is now `Altira Flashpoint`
+- legacy internal repo/infrastructure identifiers remain `ESCALATION` for now
+
+2. Updated live UI copy:
+- `apps/web/src/components/StartScreen.tsx`
+- `apps/web/src/App.tsx`
+
+3. Updated active product docs:
+- `README.md`
+- `REAL_WORLD_SCENARIO_REALIGNMENT_2026-03-06.md`
+
+4. Updated the historical Scenario Studio memo note so it points to the current sibling product name:
+- `ESCALATION_SCENARIO_STUDIO_PRODUCT_BRIEF_2026-03-07.md`
+- current sibling product reference is now `Altira Resilience`
+
+### 41.2 What did not change
+
+1. This pass does not rename:
+- GitHub repo `altiratech/ESCALATION`
+- existing `ESCALATION_*` env vars
+- repo/workspace names such as `Wargames`
+- domains or package names
+
+2. Historical records may still reference `ESCALATION` where they describe prior commits, earlier decisions, or legacy infrastructure.
+
+### 41.3 Exact next action for resume
+
+1. Run validation:
+- `npm run lint`
+- `npm run build --workspace @wargames/web`
+- `npm run ci:phase1`
+
+2. If validation passes:
+- commit the Phase 1 rename
+- push to `origin/main`
+- verify the deploy

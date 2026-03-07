@@ -608,7 +608,7 @@ const App = () => {
       <header className="console-topbar px-3 py-3 sm:px-4">
         <div className="flex flex-col gap-3 xl:flex-row xl:items-start xl:justify-between">
           <div className="space-y-1">
-            <p className="label">ESCALATION // WAR ROOM</p>
+            <p className="label">Altira Flashpoint // War Room</p>
             <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-textMuted">
               <span className="font-display text-xl text-textMain">{currentScenarioName}</span>
               <span className="text-borderTone">/</span>

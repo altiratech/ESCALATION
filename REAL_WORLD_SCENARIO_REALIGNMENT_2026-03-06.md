@@ -1,11 +1,11 @@
-# ESCALATION Real-World Scenario Realignment
+# Altira Flashpoint Real-World Scenario Realignment
 
 Date: 2026-03-06  
 Scope: `/Users/ryanjameson/Desktop/Lifehub/Code/active/Wargames`
 
 ## Purpose
 
-ESCALATION is being repositioned from a well-authored fictional crisis prototype into a real-world scenario-intelligence product.
+Altira Flashpoint is being repositioned from a well-authored fictional crisis prototype into a real-world scenario-intelligence product.
 
 Locked direction:
 - Real places, geography, alliances, trade routes, infrastructure, and conflict context
@@ -15,7 +15,7 @@ Locked direction:
 
 ## Product Framing
 
-ESCALATION should be framed as interactive scenario intelligence for three user groups:
+Altira Flashpoint should be framed as interactive scenario intelligence for three user groups:
 - Public officials: national security, emergency management, infrastructure, cyber, continuity
 - Corporate executives: CEO/COO/CTO/CISO/general counsel resilience and continuity planning
 - Financial executives: investment, risk, operations, compliance, and market-contingency planning
@@ -27,7 +27,7 @@ Commercial wedge:
 Platform fit:
 - Atlas = current world conditions and operational exposure
 - Signal = entity, sanctions, and compliance exposure
-- ESCALATION = forward scenario layer showing how a crisis could evolve
+- Altira Flashpoint = forward scenario layer showing how a crisis could evolve
 
 ## Content Audit
 
@@ -75,7 +75,7 @@ These files are useful, but they are currently anchored to fictional geography o
 
 - Current Northern Strait scenario naming and fictional country system (`Kaltor`, `Helix`, `Castan Basin`)
   - Useful for internal testing and continuity
-  - Not suitable as the public-facing flagship if ESCALATION is meant to model real-world crisis dynamics
+  - Not suitable as the public-facing flagship if Altira Flashpoint is meant to model real-world crisis dynamics
 
 ## First Flagship Recommendation
 

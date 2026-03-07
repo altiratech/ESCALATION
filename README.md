@@ -1,6 +1,6 @@
-# ESCALATION (WARGAMES) MVP
+# Altira Flashpoint (legacy repo: ESCALATION / WARGAMES)
 
-Cloudflare-native, single-player strategic escalation simulator.
+Cloudflare-native, single-player strategic scenario-intelligence product.
 
 ## Stack
 - Frontend: React + Vite + TypeScript + Tailwind
