@@ -2159,3 +2159,42 @@ Thread scope limitation: This thread ran under `Code/active/Wargames` and could 
 
 2. Deploy verification:
 - GitHub Actions Deploy run `22799795836` succeeded
+
+## 40. Scenario Studio Product Brief (2026-03-07 ET)
+
+### 40.1 What changed
+
+1. Added a dedicated strategy/product artifact:
+- `ESCALATION_SCENARIO_STUDIO_PRODUCT_BRIEF_2026-03-07.md`
+
+2. The brief locks a stronger commercial direction for ESCALATION:
+- internally authored `Scenario Library`
+- enterprise `Scenario Studio` customization layer
+
+3. The brief defines:
+- target buyers and user groups
+- why financial firms are the first wedge
+- core use cases:
+  - business continuity
+  - cyber training
+  - compliance readiness
+  - executive tabletop exercises
+- admin workflow
+- LLM boundaries
+- privacy/audit requirements
+- recommended MVP scope
+
+### 40.2 Important product rule
+
+1. The LLM is explicitly bounded:
+- allowed to extract, personalize, and draft
+- not allowed to become the uncontrolled state/scoring authority
+
+2. MVP should be guided/template-based:
+- no blank-canvas “generate anything” mode in v1
+
+### 40.3 Exact next action for resume
+
+1. Choose whether the next product-definition step is:
+- a Scenario Studio v1 admin workflow / functional spec
+- or a broader GTM / packaging memo for Atlas + Signal + ESCALATION together
