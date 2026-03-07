@@ -2244,3 +2244,34 @@ Current naming rule:
 - commit the Phase 1 rename
 - push to `origin/main`
 - verify the deploy
+
+## 42. Altira Flashpoint Brand-Sweep Follow-Up (2026-03-07 ET)
+
+### 42.1 What changed
+
+1. Completed the remaining low-risk public-brand cleanup after the main rename:
+- `apps/web/index.html`
+- `apps/web/public/assets/images/img_*.svg`
+
+2. Specific fixes:
+- browser tab title changed from `ESCALATION` to `Altira Flashpoint`
+- current lexicon image label changed from `ESCALATION VISUAL LEXICON` to `FLASHPOINT VISUAL LEXICON`
+
+### 42.2 What passed
+
+1. Focused validation:
+- `npm run build --workspace @wargames/web`
+
+### 42.3 What did not change
+
+1. This follow-up still does not rename:
+- GitHub repo `altiratech/ESCALATION`
+- existing `ESCALATION_*` env vars
+- package names or domains
+
+### 42.4 Exact next action for resume
+
+1. Commit and push the asset/title cleanup.
+2. Refresh the live site and confirm:
+- browser tab shows `Altira Flashpoint`
+- any surfaced lexicon imagery no longer shows `ESCALATION`
