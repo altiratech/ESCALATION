@@ -2148,7 +2148,14 @@ Thread scope limitation: This thread ran under `Code/active/Wargames` and could 
 
 ### 39.4 Exact next action for resume
 
-1. Commit/push the new start flow and verify deploy.
-2. Then review the live sequence and choose between:
+1. Review the live sequence and choose between:
 - polishing the new home / dossier flow
 - or expanding toward role overlays and a broader scenario-library surface
+
+### 39.5 Git status
+
+1. Feature commit pushed:
+- `685ef23` — `Split ESCALATION pre-game flow into home and dossier`
+
+2. Deploy verification:
+- GitHub Actions Deploy run `22799795836` succeeded
