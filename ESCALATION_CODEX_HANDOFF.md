@@ -2097,3 +2097,58 @@ Thread scope limitation: This thread ran under `Code/active/Wargames` and could 
 ### 38.3 Exact next action for resume
 
 1. Push the dedupe patch, verify deploy, and continue live-shell polish based on fresh visual review.
+
+## 39. Pre-Game Flow Split (2026-03-07 ET)
+
+### 39.1 What changed
+
+1. Reworked `apps/web/src/components/StartScreen.tsx` into a staged pre-game flow:
+- `ESCALATION Home`
+- `Scenario Brief / Mission Setup`
+- `Theater Dossier`
+- then `War Room`
+
+2. Mission setup is now intentionally lighter:
+- setup controls on the left
+- only the short scenario brief on the right
+
+3. The deeper context from the older start page now lives in the dossier step instead:
+- theater snapshot
+- why-it-matters context
+- crisis timeline
+- actor map / alliances
+- stakeholders
+- advisor opening takes
+- intelligence gaps
+- opening sequence
+
+4. The gameplay engine path is unchanged:
+- `onStart(...)` / `startEpisode` behavior remains the same
+- this is a product-shell / UX flow change only
+
+### 39.2 Verification status
+
+1. `npm run lint` passed.
+2. `npm run build --workspace @wargames/web` passed.
+3. `npm run ci:phase1` passed (`13/13` files, `27/27` tests).
+4. Existing Monte Carlo concentration warnings remain unchanged and non-blocking.
+
+### 39.3 Remaining drift / known follow-up
+
+1. The new home step is a first-pass front door, not yet a full scenario library:
+- still one live scenario
+- no persistent continue-run surface
+- no role-overlay chooser yet
+
+2. The next visual QA pass should focus on:
+- home-screen density
+- button copy
+- mobile spacing
+- how much dossier content still feels redundant versus the first live war-room turn
+
+### 39.4 Exact next action for resume
+
+1. Commit/push the new start flow and verify deploy.
+2. Then review the live sequence and choose between:
+- polishing the new home / dossier flow
+- or expanding toward role overlays and a broader scenario-library surface

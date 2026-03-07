@@ -14,7 +14,10 @@ interface StartScreenProps {
   }) => Promise<void>;
 }
 
+type StartFlowStep = 'home' | 'brief' | 'dossier';
+
 const randomSeed = (): string => Math.random().toString(36).slice(2, 10).toUpperCase();
+
 const timerModes = [
   {
     id: 'standard',
@@ -48,15 +51,49 @@ const environmentLabel: Record<string, string> = {
   generic: 'Global theater'
 };
 
-const clipText = (value: string, limit = 220): string =>
+const roleLenses = [
+  {
+    label: 'Public Leadership',
+    detail: 'National security, emergency, and continuity leaders testing crisis decisions under pressure.'
+  },
+  {
+    label: 'Corporate Resilience',
+    detail: 'Operational leaders stress-testing supply chains, infrastructure exposure, and response cadence.'
+  },
+  {
+    label: 'Financial Risk',
+    detail: 'Investors, compliance teams, and risk operators modeling market spillover and second-order effects.'
+  }
+];
+
+const productHighlights = [
+  {
+    label: 'Scenario Format',
+    value: '10-turn crisis runs'
+  },
+  {
+    label: 'Grounding',
+    value: 'Real-world theaters'
+  },
+  {
+    label: 'Replay',
+    value: 'Deterministic seed path'
+  },
+  {
+    label: 'Review',
+    value: 'Full causality report'
+  }
+];
+
+const clipText = (value: string, limit = 240): string =>
   value.length > limit ? `${value.slice(0, limit - 1).trimEnd()}…` : value;
 
 export const StartScreen = ({ reference, loading, error, onStart }: StartScreenProps) => {
+  const [step, setStep] = useState<StartFlowStep>('home');
   const [codename, setCodename] = useState('SABLE-ONE');
   const [seed, setSeed] = useState('');
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [showOpeningSequence, setShowOpeningSequence] = useState(false);
-  const [expandedSignal, setExpandedSignal] = useState<number | null>(0);
 
   const defaultScenario = reference.scenarios[0]?.id ?? '';
 
@@ -75,37 +112,14 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
     () => reference.scenarioWorld.find((entry) => entry.scenarioId === scenarioId) ?? null,
     [reference.scenarioWorld, scenarioId]
   );
-  const startingBeatId = selectedScenario?.startingBeatId;
+
   const startingBeat = useMemo(() => {
-    if (!selectedScenario || !startingBeatId) {
+    if (!selectedScenario?.startingBeatId) {
       return null;
     }
-    return selectedScenario.beats.find((beat) => beat.id === startingBeatId) ?? null;
-  }, [selectedScenario, startingBeatId]);
-  const openingSignals = useMemo(
-    () => (startingBeat?.headlines ?? []).slice(0, 3),
-    [startingBeat]
-  );
-  const signalDetails = useMemo(
-    () =>
-      openingSignals.map((_, index) => {
-        const details: string[] = [];
-        if (index === 0 && startingBeat?.memoLine) {
-          details.push(startingBeat.memoLine);
-        }
-        if (index === 1 && startingBeat?.tickerLine) {
-          details.push(startingBeat.tickerLine);
-        }
-        if (index === 0 && startingBeat?.sceneFragments[1]) {
-          details.push(startingBeat.sceneFragments[1]);
-        }
-        if (details.length === 0) {
-          details.push('Additional field confirmation is pending from intelligence channels.');
-        }
-        return details;
-      }),
-    [openingSignals, startingBeat?.memoLine, startingBeat?.tickerLine, startingBeat?.sceneFragments]
-  );
+    return selectedScenario.beats.find((beat) => beat.id === selectedScenario.startingBeatId) ?? null;
+  }, [selectedScenario]);
+
   const advisorFirstTakes = useMemo(() => {
     if (!startingBeat) {
       return [];
@@ -119,16 +133,25 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
       .filter((entry) => entry.line.length > 0)
       .slice(0, 4);
   }, [startingBeat]);
+
   const stakeholderPreview = useMemo(
-    () => (selectedScenarioWorld?.stakeholders ?? []).slice(0, 3),
+    () => (selectedScenarioWorld?.stakeholders ?? []).slice(0, 4),
+    [selectedScenarioWorld]
+  );
+  const alliancePreview = useMemo(
+    () => (selectedScenarioWorld?.playerNation.alliances ?? []).slice(0, 3),
     [selectedScenarioWorld]
   );
   const keyFeaturePreview = useMemo(
-    () => (selectedScenarioWorld?.region.keyFeatures ?? []).slice(0, 4),
+    () => (selectedScenarioWorld?.region.keyFeatures ?? []).slice(0, 5),
     [selectedScenarioWorld]
   );
   const intelligenceGapPreview = useMemo(
-    () => (selectedScenarioWorld?.intelligenceGaps ?? []).slice(0, 2),
+    () => (selectedScenarioWorld?.intelligenceGaps ?? []).slice(0, 3),
+    [selectedScenarioWorld]
+  );
+  const timelinePreview = useMemo(
+    () => (selectedScenarioWorld?.crisisTimeline ?? []).slice(0, 5),
     [selectedScenarioWorld]
   );
 
@@ -152,140 +175,515 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
     await onStart(payload);
   };
 
-  return (
-    <main className="mx-auto flex min-h-screen w-full max-w-[1400px] items-center px-4 py-6 sm:px-6 lg:px-8">
-      <section className="card grid w-full grid-cols-1 gap-6 overflow-hidden p-6 lg:grid-cols-[1.2fr_0.8fr] lg:p-8">
-        <div className="space-y-6">
-          <div className="space-y-3">
-            <p className="label">Escalation // Pre-Mission Dossier</p>
-            <h1 className="font-display text-4xl leading-none text-accent sm:text-5xl">
-              {selectedScenario?.name ?? 'Scenario Briefing'}
+  if (step === 'home') {
+    return (
+      <main className="mx-auto flex min-h-screen w-full max-w-[1520px] items-center px-4 py-6 sm:px-6 lg:px-8">
+        <section className="grid w-full gap-6 xl:grid-cols-[1.1fr_0.9fr]">
+          <div className="console-panel p-6 sm:p-8">
+            <p className="console-kicker">ESCALATION // Scenario Intelligence</p>
+            <h1 className="mt-4 max-w-4xl font-display text-4xl leading-none text-textMain sm:text-5xl lg:text-6xl">
+              Interactive crisis simulations for leaders navigating real-world shock scenarios.
             </h1>
-            <p className="max-w-2xl text-sm leading-relaxed text-textMuted">
-              The situation is deteriorating. Your next ten turns will decide whether this crisis stabilizes, hardens into
-              conflict, or breaks containment entirely.
+            <p className="mt-5 max-w-3xl text-sm leading-relaxed text-textMuted sm:text-base">
+              ESCALATION is the scenario layer inside Altira: real theaters, fictionalized decision rooms, deterministic
+              causality, and replayable crisis runs built to stress-test how policy, operations, and markets can unravel.
             </p>
+
+            <div className="mt-6 grid gap-3 lg:grid-cols-3">
+              {roleLenses.map((lens) => (
+                <article key={lens.label} className="console-subpanel px-3 py-3">
+                  <p className="label">{lens.label}</p>
+                  <p className="mt-2 text-[0.82rem] leading-relaxed text-textMuted">{lens.detail}</p>
+                </article>
+              ))}
+            </div>
+
+            <div className="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+              {productHighlights.map((highlight) => (
+                <div key={highlight.label} className="console-metric">
+                  <p className="console-metric-label">{highlight.label}</p>
+                  <p className="console-metric-value">{highlight.value}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-6 flex flex-wrap gap-3">
+              <button
+                type="button"
+                className="rounded-lg border border-accent bg-accent/15 px-5 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-accent transition hover:bg-accent/25"
+                onClick={() => setStep('brief')}
+              >
+                Open Mission Queue
+              </button>
+              <button
+                type="button"
+                className="rounded-lg border border-borderTone px-5 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-textMuted transition hover:border-accent hover:text-textMain"
+                onClick={() => setStep('dossier')}
+              >
+                Review Theater Dossier
+              </button>
+            </div>
           </div>
 
-          <div className="grid gap-3 sm:grid-cols-2">
-            <div className="card bg-panelRaised/70 p-3">
-              <p className="label">Episode Length</p>
-              <p className="mt-2 font-display text-2xl text-textMain">{selectedScenario?.maxTurns ?? 0} turns</p>
+          <aside className="space-y-4">
+            <section className="console-panel p-5">
+              <p className="label">Featured Scenario</p>
+              <h2 className="mt-3 font-display text-3xl text-textMain">
+                {selectedScenario?.name ?? 'No scenario selected'}
+              </h2>
+              <p className="mt-3 text-sm leading-relaxed text-textMuted">
+                {selectedScenario?.briefing ?? 'Select a scenario to review the current featured crisis run.'}
+              </p>
+              {selectedScenarioWorld ? (
+                <div className="mt-4 grid gap-2">
+                  <div className="console-subpanel px-3 py-2">
+                    <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Theater</p>
+                    <p className="mt-1 text-sm text-textMain">
+                      {selectedScenarioWorld.region.name} · {selectedScenarioWorld.dateAnchor.month} {selectedScenarioWorld.dateAnchor.year}
+                    </p>
+                  </div>
+                  <div className="console-subpanel px-3 py-2">
+                    <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Why it matters</p>
+                    <p className="mt-1 text-[0.78rem] leading-relaxed text-textMuted">
+                      {clipText(selectedScenarioWorld.economicBackdrop.straitEconomicValue, 220)}
+                    </p>
+                  </div>
+                </div>
+              ) : null}
+            </section>
+
+            <section className="console-panel p-5">
+              <p className="label">Current Build</p>
+              <div className="mt-3 space-y-2">
+                <div className="console-subpanel px-3 py-2">
+                  <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Live Theater</p>
+                  <p className="mt-1 text-sm text-textMain">Taiwan Strait flagship scenario</p>
+                </div>
+                <div className="console-subpanel px-3 py-2">
+                  <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Role Path</p>
+                  <p className="mt-1 text-[0.78rem] leading-relaxed text-textMuted">
+                    Public-official lens live now. Corporate and financial overlays are the next expansion path.
+                  </p>
+                </div>
+                <div className="console-subpanel px-3 py-2">
+                  <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Run Output</p>
+                  <p className="mt-1 text-[0.78rem] leading-relaxed text-textMuted">
+                    Every episode ends with a full causality review so the player can see what the rival inferred,
+                    what the system hid, and what branches were not taken.
+                  </p>
+                </div>
+              </div>
+            </section>
+          </aside>
+        </section>
+      </main>
+    );
+  }
+
+  if (step === 'brief') {
+    return (
+      <main className="mx-auto flex min-h-screen w-full max-w-[1480px] items-center px-4 py-6 sm:px-6 lg:px-8">
+        <section className="grid w-full gap-6 xl:grid-cols-[1.08fr_0.92fr]">
+          <div className="console-panel p-6 sm:p-8">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <p className="console-kicker">ESCALATION // Mission Setup</p>
+                <h1 className="mt-3 font-display text-4xl text-textMain sm:text-5xl">Scenario Brief</h1>
+              </div>
+              <button
+                type="button"
+                className="rounded-lg border border-borderTone px-3 py-2 text-xs uppercase tracking-[0.12em] text-textMuted transition hover:border-accent hover:text-textMain"
+                onClick={() => setStep('home')}
+              >
+                Back
+              </button>
             </div>
-            <div className="card bg-panelRaised/70 p-3">
-              <p className="label">Pacing</p>
-              <p className="mt-2 font-display text-2xl text-textMain">
-                {timerModes.find((mode) => mode.id === timerMode)?.label ?? 'Real-Time'}
+
+            <p className="mt-4 max-w-3xl text-sm leading-relaxed text-textMuted">
+              Choose the scenario, your codename, and pacing. Deeper context has been moved out of this screen into the
+              dedicated theater dossier so this launch step stays focused.
+            </p>
+
+            <div className="mt-5 grid gap-3 sm:grid-cols-3">
+              <div className="console-subpanel px-3 py-2.5">
+                <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Role</p>
+                <p className="mt-1 text-sm text-textMain">{selectedScenario?.role ?? 'N/A'}</p>
+              </div>
+              <div className="console-subpanel px-3 py-2.5">
+                <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Theater</p>
+                <p className="mt-1 text-sm text-textMain">
+                  {selectedScenario?.environment ? environmentLabel[selectedScenario.environment] ?? 'Global theater' : 'N/A'}
+                </p>
+              </div>
+              <div className="console-subpanel px-3 py-2.5">
+                <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Episode Format</p>
+                <p className="mt-1 text-sm text-textMain">{selectedScenario?.maxTurns ?? 0}-turn crisis run</p>
+              </div>
+            </div>
+
+            <div className="mt-5 grid gap-4">
+              <label className="flex flex-col gap-2 text-sm">
+                <span className="label">Commander Codename</span>
+                <input
+                  className="rounded-lg border border-borderTone bg-panelRaised/80 px-3 py-2.5 text-textMain focus:border-accent focus:outline-none"
+                  value={codename}
+                  onChange={(event) => setCodename(event.target.value)}
+                  maxLength={40}
+                />
+              </label>
+
+              <label className="flex flex-col gap-2 text-sm">
+                <span className="label">Scenario</span>
+                <select
+                  className="rounded-lg border border-borderTone bg-panelRaised/80 px-3 py-2.5 text-textMain focus:border-accent focus:outline-none"
+                  value={scenarioId}
+                  onChange={(event) => setScenarioId(event.target.value)}
+                >
+                  {reference.scenarios.map((scenario) => (
+                    <option key={scenario.id} value={scenario.id}>
+                      {scenario.name}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            </div>
+
+            <div className="mt-5 space-y-2">
+              <p className="label">Pacing Preference</p>
+              <div className="grid gap-2 sm:grid-cols-3">
+                {timerModes.map((mode) => {
+                  const active = timerMode === mode.id;
+                  return (
+                    <button
+                      key={mode.id}
+                      type="button"
+                      className={`rounded-lg border px-3 py-3 text-left transition ${
+                        active
+                          ? 'border-accent bg-accent/15 text-textMain'
+                          : 'border-borderTone bg-panelRaised/80 text-textMuted hover:border-accent/60 hover:text-textMain'
+                      }`}
+                      onClick={() => setTimerMode(mode.id)}
+                    >
+                      <p className="text-xs font-semibold uppercase tracking-[0.12em]">{mode.label}</p>
+                      <p className="mt-1 text-[0.72rem] leading-relaxed">{mode.detail}</p>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div className="mt-5 rounded-lg border border-borderTone/80 bg-panelRaised/45 px-3 py-2">
+              <button
+                type="button"
+                className="text-[0.68rem] uppercase tracking-[0.12em] text-textMuted hover:text-textMain"
+                onClick={() => setShowAdvanced((current) => !current)}
+              >
+                {showAdvanced ? 'Hide advanced options' : 'Show advanced options'}
+              </button>
+              {showAdvanced ? (
+                <div className="mt-2 space-y-2">
+                  <label className="flex flex-col gap-2 text-sm">
+                    <span className="label">Deterministic Seed (optional)</span>
+                    <div className="flex gap-2">
+                      <input
+                        className="w-full rounded-lg border border-borderTone bg-panelRaised/80 px-3 py-2.5 text-textMain focus:border-accent focus:outline-none"
+                        value={seed}
+                        onChange={(event) => setSeed(event.target.value)}
+                        placeholder="Leave blank for auto-seed"
+                      />
+                      <button
+                        type="button"
+                        className="rounded-lg border border-borderTone px-3 py-2 text-xs uppercase tracking-[0.12em] text-textMuted transition hover:border-accent hover:text-textMain"
+                        onClick={() => setSeed(randomSeed())}
+                      >
+                        Generate
+                      </button>
+                    </div>
+                  </label>
+                </div>
+              ) : null}
+            </div>
+
+            {error ? (
+              <p className="mt-5 rounded-lg border border-warning/60 bg-warning/10 px-3 py-2 text-sm text-warning">
+                {error}
+              </p>
+            ) : null}
+
+            <div className="mt-6 flex flex-wrap gap-3">
+              <button
+                type="button"
+                className="rounded-lg border border-borderTone px-4 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-textMuted transition hover:border-accent hover:text-textMain"
+                onClick={() => setStep('dossier')}
+              >
+                Review Theater Dossier
+              </button>
+              <button
+                type="button"
+                className="rounded-lg border border-accent bg-accent/15 px-5 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-accent transition hover:bg-accent/25 disabled:cursor-not-allowed disabled:opacity-45"
+                onClick={() => void handleStart()}
+                disabled={loading || !codename.trim() || !scenarioId}
+              >
+                {loading ? 'Initializing Theater...' : 'Enter War Room'}
+              </button>
+            </div>
+          </div>
+
+          <aside className="console-panel flex p-6 sm:p-8">
+            <div className="my-auto">
+              <p className="label">Scenario Brief</p>
+              <h2 className="mt-3 font-display text-3xl text-textMain sm:text-4xl">
+                {selectedScenario?.name ?? 'No scenario selected'}
+              </h2>
+              <p className="mt-5 max-w-2xl text-base leading-relaxed text-textMuted">
+                {selectedScenario?.briefing ?? 'Select a scenario to review the active mission brief.'}
               </p>
             </div>
-          </div>
+          </aside>
+        </section>
+      </main>
+    );
+  }
 
-          <div className="grid gap-4 sm:grid-cols-1">
-            <label className="flex flex-col gap-2 text-sm">
-              <span className="label">Commander Codename</span>
-              <input
-                className="rounded-lg border border-borderTone bg-panelRaised/80 px-3 py-2.5 text-textMain focus:border-accent focus:outline-none"
-                value={codename}
-                onChange={(event) => setCodename(event.target.value)}
-                maxLength={40}
-              />
-            </label>
-          </div>
-
-          <div className="grid gap-4 sm:grid-cols-1">
-            <label className="flex flex-col gap-2 text-sm">
-              <span className="label">Scenario</span>
-              <select
-                className="rounded-lg border border-borderTone bg-panelRaised/80 px-3 py-2.5 text-textMain focus:border-accent focus:outline-none"
-                value={scenarioId}
-                onChange={(event) => setScenarioId(event.target.value)}
+  return (
+    <main className="mx-auto flex min-h-screen w-full max-w-[1560px] items-start px-4 py-6 sm:px-6 lg:px-8">
+      <section className="w-full space-y-4">
+        <header className="console-topbar px-5 py-5 sm:px-6">
+          <div className="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
+            <div>
+              <p className="console-kicker">ESCALATION // Theater Dossier</p>
+              <h1 className="mt-3 font-display text-4xl text-textMain sm:text-5xl">
+                {selectedScenario?.name ?? 'Theater Dossier'}
+              </h1>
+              <p className="mt-4 max-w-4xl text-sm leading-relaxed text-textMuted">
+                Review the geography, economic stakes, actor map, and baseline pressure before you enter the war room.
+                This page holds the deeper context that no longer belongs on the mission-setup screen.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <button
+                type="button"
+                className="rounded-lg border border-borderTone px-4 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-textMuted transition hover:border-accent hover:text-textMain"
+                onClick={() => setStep('brief')}
               >
-                {reference.scenarios.map((scenario) => (
-                  <option key={scenario.id} value={scenario.id}>
-                    {scenario.name}
-                  </option>
-                ))}
-              </select>
-            </label>
-          </div>
-
-          <div className="space-y-2">
-            <p className="label">Pacing Preference</p>
-            <div className="grid gap-2 sm:grid-cols-3">
-              {timerModes.map((mode) => {
-                const active = timerMode === mode.id;
-                return (
-                  <button
-                    key={mode.id}
-                    type="button"
-                    className={`rounded-lg border px-3 py-3 text-left transition ${
-                      active
-                        ? 'border-accent bg-accent/15 text-textMain'
-                        : 'border-borderTone bg-panelRaised/80 text-textMuted hover:border-accent/60 hover:text-textMain'
-                    }`}
-                    onClick={() => setTimerMode(mode.id)}
-                  >
-                    <p className="text-xs font-semibold uppercase tracking-[0.12em]">{mode.label}</p>
-                    <p className="mt-1 text-[0.72rem] leading-relaxed">{mode.detail}</p>
-                  </button>
-                );
-              })}
+                Back to Brief
+              </button>
+              <button
+                type="button"
+                className="rounded-lg border border-accent bg-accent/15 px-5 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-accent transition hover:bg-accent/25 disabled:cursor-not-allowed disabled:opacity-45"
+                onClick={() => void handleStart()}
+                disabled={loading || !codename.trim() || !scenarioId}
+              >
+                {loading ? 'Initializing Theater...' : 'Enter War Room'}
+              </button>
             </div>
           </div>
+        </header>
 
-          <div className="rounded-lg border border-borderTone/80 bg-panelRaised/45 px-3 py-2">
-            <button
-              type="button"
-              className="text-[0.68rem] uppercase tracking-[0.12em] text-textMuted hover:text-textMain"
-              onClick={() => setShowAdvanced((current) => !current)}
-            >
-              {showAdvanced ? 'Hide advanced options' : 'Show advanced options'}
-            </button>
-            {showAdvanced ? (
-              <div className="mt-2 space-y-2">
-                <label className="flex flex-col gap-2 text-sm">
-                  <span className="label">Deterministic Seed (optional)</span>
-                  <div className="flex gap-2">
-                    <input
-                      className="w-full rounded-lg border border-borderTone bg-panelRaised/80 px-3 py-2.5 text-textMain focus:border-accent focus:outline-none"
-                      value={seed}
-                      onChange={(event) => setSeed(event.target.value)}
-                      placeholder="Leave blank for auto-seed"
-                    />
-                    <button
-                      type="button"
-                      className="rounded-lg border border-borderTone px-3 py-2 text-xs uppercase tracking-[0.12em] text-textMuted transition hover:border-accent hover:text-textMain"
-                      onClick={() => setSeed(randomSeed())}
-                    >
-                      Generate
-                    </button>
+        <section className="grid gap-4 xl:grid-cols-[1.02fr_0.98fr]">
+          <div className="space-y-4">
+            {selectedScenarioWorld ? (
+              <section className="console-panel p-5">
+                <p className="label">Theater Snapshot</p>
+                <p className="mt-3 font-display text-2xl text-textMain">
+                  {selectedScenarioWorld.region.name} · {selectedScenarioWorld.dateAnchor.month} {selectedScenarioWorld.dateAnchor.year}
+                </p>
+                <p className="mt-2 text-[0.78rem] text-textMuted">{selectedScenarioWorld.dateAnchor.dayRange}</p>
+                <p className="mt-3 text-sm leading-relaxed text-textMuted">
+                  {selectedScenarioWorld.region.description}
+                </p>
+                <div className="mt-4 grid gap-2 sm:grid-cols-2">
+                  <div className="console-subpanel px-3 py-2">
+                    <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Coordinates</p>
+                    <p className="mt-1 text-[0.8rem] text-textMain">{selectedScenarioWorld.region.coordinates}</p>
                   </div>
-                </label>
-              </div>
+                  <div className="console-subpanel px-3 py-2">
+                    <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Season</p>
+                    <p className="mt-1 text-[0.8rem] text-textMain">{selectedScenarioWorld.region.climateSeason}</p>
+                  </div>
+                </div>
+              </section>
+            ) : null}
+
+            {selectedScenarioWorld ? (
+              <section className="console-panel p-5">
+                <p className="label">Why It Matters</p>
+                <div className="mt-3 space-y-3">
+                  <div className="console-subpanel px-3 py-3">
+                    <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Strategic Value</p>
+                    <p className="mt-2 text-[0.82rem] leading-relaxed text-textMuted">
+                      {selectedScenarioWorld.economicBackdrop.straitEconomicValue}
+                    </p>
+                  </div>
+                  <div className="console-subpanel px-3 py-3">
+                    <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Global Conditions</p>
+                    <p className="mt-2 text-[0.82rem] leading-relaxed text-textMuted">
+                      {selectedScenarioWorld.economicBackdrop.globalConditions}
+                    </p>
+                  </div>
+                  <div className="console-subpanel px-3 py-3">
+                    <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Vulnerabilities</p>
+                    <p className="mt-2 text-[0.82rem] leading-relaxed text-textMuted">
+                      {selectedScenarioWorld.economicBackdrop.vulnerabilities}
+                    </p>
+                  </div>
+                </div>
+              </section>
+            ) : null}
+
+            {timelinePreview.length > 0 ? (
+              <section className="console-panel p-5">
+                <p className="label">Crisis Trajectory</p>
+                <div className="mt-3 space-y-2">
+                  {timelinePreview.map((event) => (
+                    <div key={`${event.daysBeforeStart}-${event.event}`} className="console-subpanel px-3 py-2.5">
+                      <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">
+                        {event.daysBeforeStart === 0 ? 'Start Day' : `${Math.abs(event.daysBeforeStart)} day${Math.abs(event.daysBeforeStart) === 1 ? '' : 's'} before start`}
+                      </p>
+                      <p className="mt-1 text-[0.8rem] leading-relaxed text-textMain">{event.event}</p>
+                      <p className="mt-1 text-[0.72rem] leading-relaxed text-textMuted">{event.significance}</p>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            ) : null}
+
+            {selectedScenarioWorld ? (
+              <section className="console-panel p-5">
+                <p className="label">Alliance And Legal Frame</p>
+                <div className="mt-3 grid gap-3 sm:grid-cols-2">
+                  <div className="console-subpanel px-3 py-3">
+                    <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Maritime Law</p>
+                    <p className="mt-2 text-[0.78rem] leading-relaxed text-textMuted">
+                      {clipText(selectedScenarioWorld.legalFramework.maritimeLaw, 220)}
+                    </p>
+                  </div>
+                  <div className="console-subpanel px-3 py-3">
+                    <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Treaty Obligations</p>
+                    <p className="mt-2 text-[0.78rem] leading-relaxed text-textMuted">
+                      {clipText(selectedScenarioWorld.legalFramework.treatyObligations, 220)}
+                    </p>
+                  </div>
+                  <div className="console-subpanel px-3 py-3 sm:col-span-2">
+                    <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Sanctions Framework</p>
+                    <p className="mt-2 text-[0.78rem] leading-relaxed text-textMuted">
+                      {clipText(selectedScenarioWorld.legalFramework.sanctionsFramework, 340)}
+                    </p>
+                  </div>
+                </div>
+              </section>
             ) : null}
           </div>
 
-          {error ? <p className="rounded-lg border border-warning/60 bg-warning/10 px-3 py-2 text-sm text-warning">{error}</p> : null}
+          <div className="space-y-4">
+            {selectedScenarioWorld ? (
+              <section className="console-panel p-5">
+                <p className="label">Actor Map</p>
+                <div className="mt-3 grid gap-3">
+                  <div className="console-subpanel px-3 py-3">
+                    <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Player Nation</p>
+                    <p className="mt-1 text-sm text-textMain">{selectedScenarioWorld.playerNation.name}</p>
+                    <p className="mt-2 text-[0.78rem] leading-relaxed text-textMuted">
+                      {selectedScenarioWorld.playerNation.domesticContext}
+                    </p>
+                    <p className="mt-2 text-[0.76rem] text-textMuted">
+                      <span className="text-textMain">Posture:</span> {selectedScenarioWorld.playerNation.militaryPosture}
+                    </p>
+                  </div>
+                  <div className="console-subpanel px-3 py-3">
+                    <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Rival State</p>
+                    <p className="mt-1 text-sm text-textMain">{selectedScenarioWorld.rivalState.name}</p>
+                    <p className="mt-2 text-[0.78rem] leading-relaxed text-textMuted">
+                      {selectedScenarioWorld.rivalState.domesticContext}
+                    </p>
+                    <p className="mt-2 text-[0.76rem] text-textMuted">
+                      <span className="text-textMain">Capability:</span> {selectedScenarioWorld.rivalState.militaryCapability}
+                    </p>
+                    <p className="mt-2 text-[0.76rem] text-textMuted">
+                      <span className="text-textMain">Red line:</span> {selectedScenarioWorld.rivalState.knownRedLines}
+                    </p>
+                  </div>
+                </div>
+              </section>
+            ) : null}
 
-          <button
-            type="button"
-            className="rounded-lg border border-accent bg-accent/15 px-5 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-accent transition hover:bg-accent/25 disabled:cursor-not-allowed disabled:opacity-45"
-            onClick={handleStart}
-            disabled={loading || !codename.trim() || !scenarioId}
-          >
-            {loading ? 'Initializing Theater...' : 'Begin Episode'}
-          </button>
-        </div>
+            {alliancePreview.length > 0 ? (
+              <section className="console-panel p-5">
+                <p className="label">Alliance Network</p>
+                <div className="mt-3 space-y-2">
+                  {alliancePreview.map((alliance) => (
+                    <div key={alliance.name} className="console-subpanel px-3 py-2.5">
+                      <p className="text-[0.76rem] text-textMain">{alliance.name}</p>
+                      <p className="mt-1 text-[0.72rem] leading-relaxed text-textMuted">{alliance.description}</p>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            ) : null}
 
-        <aside className="space-y-4">
-          <article className="card h-full bg-panelRaised/75 p-5">
-            <p className="label">Scenario Brief</p>
-            <h2 className="mt-3 font-display text-2xl text-textMain">{selectedScenario?.name ?? 'No scenario selected'}</h2>
-            <p className="mt-3 text-sm leading-relaxed text-textMuted">
-              {selectedScenario?.briefing ?? 'Select a scenario to review strategic role and escalation context.'}
-            </p>
+            {keyFeaturePreview.length > 0 ? (
+              <section className="console-panel p-5">
+                <p className="label">Strategic Features</p>
+                <div className="mt-3 space-y-2">
+                  {keyFeaturePreview.map((feature) => (
+                    <div key={feature} className="console-subpanel px-3 py-2.5 text-[0.76rem] leading-relaxed text-textMuted">
+                      {feature}
+                    </div>
+                  ))}
+                </div>
+              </section>
+            ) : null}
+
+            {stakeholderPreview.length > 0 ? (
+              <section className="console-panel p-5">
+                <p className="label">Primary Stakeholders</p>
+                <div className="mt-3 space-y-2">
+                  {stakeholderPreview.map((stakeholder) => (
+                    <div key={stakeholder.id} className="console-subpanel px-3 py-2.5">
+                      <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">
+                        {stakeholder.type.replace('_', ' ')}
+                      </p>
+                      <p className="mt-1 text-[0.8rem] text-textMain">{stakeholder.name}</p>
+                      <p className="mt-1 text-[0.72rem] leading-relaxed text-textMuted">
+                        {clipText(stakeholder.disposition, 170)}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            ) : null}
+
+            {advisorFirstTakes.length > 0 ? (
+              <section className="console-panel p-5">
+                <p className="label">Senior Staff Assessment</p>
+                <div className="mt-3 space-y-2">
+                  {advisorFirstTakes.map((entry) => (
+                    <div key={entry.advisorId} className="console-subpanel px-3 py-2.5">
+                      <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">
+                        {advisorNameById[entry.advisorId] ?? entry.advisorId.toUpperCase()}
+                      </p>
+                      <p className="mt-1 text-[0.78rem] leading-relaxed text-textMain">{entry.line}</p>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            ) : null}
+
+            {intelligenceGapPreview.length > 0 ? (
+              <section className="console-panel p-5">
+                <p className="label">Known Intelligence Gaps</p>
+                <div className="mt-3 space-y-2">
+                  {intelligenceGapPreview.map((gap) => (
+                    <div key={gap} className="console-subpanel px-3 py-2.5 text-[0.76rem] leading-relaxed text-textMuted">
+                      {gap}
+                    </div>
+                  ))}
+                </div>
+              </section>
+            ) : null}
+
             {selectedCinematics ? (
-              <div className="mt-4 rounded-md border border-borderTone/70 bg-surface/35 px-3 py-2">
+              <section className="console-panel p-5">
                 <button
                   type="button"
                   className="flex w-full items-start justify-between gap-3 text-left"
@@ -313,139 +711,10 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
                     {selectedCinematics.openingCinematic.closingLine}
                   </p>
                 </div>
-              </div>
+              </section>
             ) : null}
-            <div className="mt-4 rounded-md border border-borderTone/70 bg-surface/35 px-3 py-2">
-              <p className="label">Situation Report</p>
-              <p className="mt-2 text-sm leading-relaxed text-textMain">
-                {startingBeat?.sceneFragments[0] ?? 'Opening intelligence package unavailable.'}
-              </p>
-            </div>
-            {selectedScenarioWorld ? (
-              <div className="mt-4 rounded-md border border-borderTone/70 bg-surface/35 px-3 py-2">
-                <p className="label">Theater Snapshot</p>
-                <p className="mt-2 text-xs leading-relaxed text-textMain">
-                  {selectedScenarioWorld.region.name} · {selectedScenarioWorld.dateAnchor.month} {selectedScenarioWorld.dateAnchor.year}
-                </p>
-                <p className="mt-2 text-[0.72rem] leading-relaxed text-textMuted">
-                  {selectedScenarioWorld.dateAnchor.dayRange}
-                </p>
-                <p className="mt-2 text-[0.72rem] leading-relaxed text-textMuted">
-                  {clipText(selectedScenarioWorld.region.description, 320)}
-                </p>
-                <p className="mt-2 text-[0.7rem] leading-relaxed text-textMuted">
-                  {selectedScenarioWorld.region.coordinates}
-                </p>
-              </div>
-            ) : null}
-            {selectedScenarioWorld ? (
-              <div className="mt-4 rounded-md border border-borderTone/70 bg-surface/35 px-3 py-2">
-                <p className="label">Why This Matters</p>
-                <p className="mt-2 text-[0.72rem] leading-relaxed text-textMuted">
-                  {clipText(selectedScenarioWorld.economicBackdrop.straitEconomicValue, 340)}
-                </p>
-              </div>
-            ) : null}
-            {openingSignals.length > 0 ? (
-              <div className="mt-4">
-                <p className="label">Initial Intelligence</p>
-                <div className="mt-2 space-y-2">
-                  {openingSignals.map((headline, index) => {
-                    const open = expandedSignal === index;
-                    return (
-                      <article key={headline} className="rounded-md border border-borderTone/70 bg-surface/35">
-                        <button
-                          type="button"
-                          className="flex w-full items-start justify-between gap-3 px-2 py-1.5 text-left"
-                          onClick={() => setExpandedSignal(open ? null : index)}
-                        >
-                          <p className="text-xs leading-relaxed text-textMuted">{headline}</p>
-                          <span className="text-[0.62rem] uppercase tracking-[0.1em] text-accent">{open ? 'Hide' : 'Open'}</span>
-                        </button>
-                        {open ? (
-                          <div className="space-y-1 border-t border-borderTone/70 px-2 py-1.5 text-[0.7rem] leading-relaxed text-textMuted">
-                            {signalDetails[index]?.map((detail) => (
-                              <p key={`${headline}:${detail}`}>{detail}</p>
-                            ))}
-                          </div>
-                        ) : null}
-                      </article>
-                    );
-                  })}
-                </div>
-              </div>
-            ) : null}
-            {keyFeaturePreview.length > 0 ? (
-              <div className="mt-4">
-                <p className="label">Strategic Features</p>
-                <div className="mt-2 space-y-1.5">
-                  {keyFeaturePreview.map((feature) => (
-                    <p key={feature} className="rounded-md border border-borderTone/70 bg-surface/35 px-2 py-1.5 text-[0.72rem] leading-relaxed text-textMuted">
-                      {feature}
-                    </p>
-                  ))}
-                </div>
-              </div>
-            ) : null}
-            {advisorFirstTakes.length > 0 ? (
-              <div className="mt-4">
-                <p className="label">Senior Staff Assessment</p>
-                <div className="mt-2 space-y-2">
-                  {advisorFirstTakes.map((entry) => (
-                    <div key={entry.advisorId} className="rounded-md border border-borderTone/70 bg-surface/35 px-2 py-1.5">
-                      <p className="text-[0.62rem] uppercase tracking-[0.12em] text-textMuted">
-                        {advisorNameById[entry.advisorId] ?? entry.advisorId.toUpperCase()}
-                      </p>
-                      <p className="mt-1 text-xs leading-relaxed text-textMain">{entry.line}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ) : null}
-            {stakeholderPreview.length > 0 ? (
-              <div className="mt-4">
-                <p className="label">Primary Stakeholders</p>
-                <div className="mt-2 space-y-2">
-                  {stakeholderPreview.map((stakeholder) => (
-                    <div key={stakeholder.id} className="rounded-md border border-borderTone/70 bg-surface/35 px-2 py-1.5">
-                      <p className="text-[0.62rem] uppercase tracking-[0.12em] text-textMuted">
-                        {stakeholder.type.replace('_', ' ')}
-                      </p>
-                      <p className="mt-1 text-xs text-textMain">{stakeholder.name}</p>
-                      <p className="mt-1 text-[0.72rem] leading-relaxed text-textMuted">
-                        {clipText(stakeholder.disposition, 140)}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ) : null}
-            {intelligenceGapPreview.length > 0 ? (
-              <div className="mt-4">
-                <p className="label">Known Intelligence Gaps</p>
-                <div className="mt-2 space-y-1.5">
-                  {intelligenceGapPreview.map((gap) => (
-                    <p key={gap} className="rounded-md border border-borderTone/70 bg-surface/35 px-2 py-1.5 text-[0.72rem] leading-relaxed text-textMuted">
-                      {gap}
-                    </p>
-                  ))}
-                </div>
-              </div>
-            ) : null}
-            <div className="mt-4 grid gap-2 text-xs text-textMuted">
-              <div className="flex items-center justify-between rounded-md border border-borderTone/70 bg-surface/35 px-2 py-1.5">
-                <span>Role</span>
-                <span className="text-textMain">{selectedScenario?.role ?? 'N/A'}</span>
-              </div>
-              <div className="flex items-center justify-between rounded-md border border-borderTone/70 bg-surface/35 px-2 py-1.5">
-                <span>Theater</span>
-                <span className="text-textMain">
-                  {selectedScenario?.environment ? environmentLabel[selectedScenario.environment] ?? 'Global theater' : 'N/A'}
-                </span>
-              </div>
-            </div>
-          </article>
-        </aside>
+          </div>
+        </section>
       </section>
     </main>
   );
