@@ -2006,3 +2006,65 @@ Thread scope limitation: This thread ran under `Code/active/Wargames` and could 
 2. Then choose one of two paths:
 - quality/polish pass on the Taiwan Strait scenario
 - author the second flagship scenario or first role-based overlay
+
+## 37. Atlas-Style War-Room Shell Refactor (2026-03-06 ET)
+
+### 37.1 What changed
+
+1. Replaced the remaining card-heavy in-game shell with a denser command-console layout:
+- top ambient war-room strip in `apps/web/src/App.tsx`
+- left live intel rail
+- center command brief
+- right rail ordered as:
+  - `ActionCards`
+  - `AdvisorPanel`
+  - `CommandInput`
+- bottom telemetry strip using:
+  - `MeterDashboard`
+  - `IntelPanel`
+  - compact command-posture summary panel
+
+2. Restyled the gameplay components around shared `console-*` primitives in `apps/web/src/index.css`:
+- `ActionCards.tsx`
+- `AdvisorPanel.tsx`
+- `BriefingPanel.tsx`
+- `CommandInput.tsx`
+- `IntelPanel.tsx`
+- `MeterDashboard.tsx`
+
+3. Interaction hierarchy is now clearer:
+- action cards remain the primary way to advance the turn
+- typed commands are still supported but visually demoted to an advanced/optional channel
+- timer / escalation / alliance / market state are visible in the top strip instead of buried in isolated cards
+
+### 37.2 Verification status
+
+1. `npm run lint` passed.
+2. `npm run build --workspace @wargames/web` passed.
+3. `npm run ci:phase1` passed (`13/13` files, `27/27` tests).
+4. Existing Monte Carlo concentration warnings remain unchanged and non-blocking.
+
+### 37.3 Git status
+
+1. Feature commit created:
+- `c46419f` — `Refactor ESCALATION into Atlas-style war room shell`
+
+### 37.4 Remaining drift / known follow-up
+
+1. This refactor improves density and flow, but it does not yet include:
+- role-based overlays
+- a map/theater-specific spatial panel
+- richer hover/drill-down behavior for every briefing and advisor surface
+
+2. The shell is now closer to the intended Altira family visual language, but it still needs live visual QA in the deployed site to tune:
+- spacing
+- rail proportions
+- mobile collapse behavior
+- telemetry density
+
+### 37.5 Exact next action for resume
+
+1. Push `c46419f`, verify the deploy workflow, and review the live site layout on desktop/mobile.
+2. Then decide whether the next iteration is:
+- a focused shell-polish pass on the live Taiwan Strait scenario
+- or the first role-based overlay / second flagship scenario track
