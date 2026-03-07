@@ -2414,3 +2414,48 @@ Current naming rule:
 3. If the shell direction feels right, do one narrower gameplay polish pass next:
 - align residual buttons/cards/tags further with the terminal system
 - then move back to scenario-library / role-overlay expansion
+
+## 46. Flashpoint Mission Console Deploy Verification (2026-03-07 ET)
+
+### 46.1 What changed
+
+1. Committed the redesign as:
+- `3fdaca5` `Redesign Flashpoint mission console shell`
+
+2. Pushed to:
+- `origin/main`
+
+3. Verified GitHub Actions deploy run:
+- `22806581352`
+
+### 46.2 What passed
+
+1. GitHub Actions jobs:
+- `quality_gate`
+- `deploy_web`
+- `deploy_api`
+- `verify_deploy`
+
+2. Status:
+- all jobs green
+- mission-console redesign is now the live Flashpoint baseline
+
+### 46.3 Spec drift remaining
+
+1. Visual polish:
+- the shared shell is now aligned with the Atlas/Signal direction
+- some residual gameplay-level controls/cards still merit one narrower polish pass for full consistency
+
+2. Product scope:
+- second flagship scenario has not started
+- first role overlay has not started
+- broader non-UI spec drift items still remain outside this shell pass
+
+### 46.4 Exact next action for resume
+
+1. Review the live mission console and war-room shell together.
+2. Choose between:
+- one final gameplay-shell consistency pass
+- or moving directly to the next expansion milestone:
+  - second flagship scenario
+  - first role overlay
