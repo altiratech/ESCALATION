@@ -175,6 +175,16 @@ const App = () => {
     }
     return reference.rivalLeaders.find((entry) => entry.scenarioId === episode.scenarioId) ?? null;
   }, [reference, episode?.scenarioId]);
+  const selectedAction = episode?.offeredActions.find((action) => action.id === selectedActionId) ?? null;
+  const selectedActionReads = useMemo(() => {
+    if (!selectedAction || !currentBeat || !reference) {
+      return [];
+    }
+    const activeAdvisorDossiers = Object.keys(currentBeat.advisorLines)
+      .map((advisorId) => reference.advisorDossiers.find((entry) => entry.id === advisorId))
+      .filter((entry): entry is BootstrapPayload['advisorDossiers'][number] => Boolean(entry));
+    return getAdvisorActionReads(selectedAction, activeAdvisorDossiers);
+  }, [currentBeat, reference, selectedAction]);
   const recentActionNarrative = useMemo<RecentActionNarrativeView | null>(() => {
     if (!reference || !currentScenario || !episode?.recentTurn) {
       return null;
@@ -522,16 +532,6 @@ const App = () => {
   )
     ? pickPressureText(reference, episode.currentBeatId, remainingSeconds)
     : null;
-  const selectedAction = episode.offeredActions.find((action) => action.id === selectedActionId) ?? null;
-  const selectedActionReads = useMemo(() => {
-    if (!selectedAction || !currentBeat) {
-      return [];
-    }
-    const activeAdvisorDossiers = Object.keys(currentBeat.advisorLines)
-      .map((advisorId) => reference.advisorDossiers.find((entry) => entry.id === advisorId))
-      .filter((entry): entry is BootstrapPayload['advisorDossiers'][number] => Boolean(entry));
-    return getAdvisorActionReads(selectedAction, activeAdvisorDossiers);
-  }, [currentBeat, reference.advisorDossiers, selectedAction]);
 
   const beatIntelFragments = reference.intelFragments
     .filter((entry) => entry.beatId === episode.currentBeatId && (!currentBeat || entry.phase === currentBeat.phase))

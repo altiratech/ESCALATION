@@ -2589,3 +2589,44 @@ Current naming rule:
 2. If the interaction model feels right, the next product move should be:
 - mandate/tradeoff-oriented post-game scorecarding
 - then authored advisor-to-action recommendation support
+
+## 49. Flashpoint Turn 1 Blank-Page Regression Fix (2026-03-08 ET)
+
+### 49.1 What changed
+
+1. Fixed the Launch Turn 1 blank-page regression in the main web app shell:
+- root cause was a React hook-order violation in `apps/web/src/App.tsx`
+- `selectedActionReads` used `useMemo(...)` after the `if (!episode) return ...` early return
+- this meant the hook was skipped on the pre-episode render and introduced only once the episode existed
+
+2. Corrected the hook placement:
+- moved selected-action derivation and `selectedActionReads` above conditional returns
+- guarded the hook body against null `episode` / `reference` / `currentBeat` data instead of gating the hook call
+
+### 49.2 What passed
+
+1. Validation:
+- `npm run lint`
+- `npm run build --workspace @wargames/web`
+- `npm run ci:phase1`
+
+2. Results:
+- `14/14` test files passed
+- `29/29` tests passed
+- Monte Carlo concentration warnings unchanged and non-blocking
+
+### 49.3 Spec drift remaining
+
+1. Product/reporting:
+- mandate-oriented scorecarding is still the next major gameplay/product refinement
+
+2. Decision intelligence:
+- advisor-to-action linkage is still heuristic UI logic and should eventually be authored in content
+
+### 49.4 Exact next action for resume
+
+1. Hard-refresh the live Flashpoint site and re-test `Launch Turn 1`.
+2. If the blank page is gone, return to gameplay/product polish:
+- decision clarity
+- advisor/action authored linkage
+- mandate/tradeoff scorecarding
