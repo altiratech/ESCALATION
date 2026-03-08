@@ -242,6 +242,22 @@ export interface PersistEpisodeAndBeatProgressResult {
   beatInserted: boolean;
 }
 
+const exactEpisodeStateExistsSql = `EXISTS (
+  SELECT 1
+  FROM episodes
+  WHERE id = ? AND current_turn = ? AND state_json = ?
+)`;
+
+const buildAppliedStateCheck = (
+  rawDb: D1Database,
+  episodeId: string,
+  nextTurn: number,
+  nextStateJson: string
+): D1PreparedStatement =>
+  rawDb
+    .prepare(`SELECT 1 AS applied WHERE ${exactEpisodeStateExistsSql}`)
+    .bind(episodeId, nextTurn, nextStateJson);
+
 export const buildBeatProgressId = (payload: BeatProgressPayload): string =>
   [
     payload.episodeId,
@@ -264,9 +280,8 @@ export const persistResolvedTurnAtomic = async (
   const turnLogId = `${payload.episodeId}:${payload.resolution.turn}`;
   const beatProgressId = buildBeatProgressId(payload.beatProgress);
 
-  await rawDb.prepare('BEGIN IMMEDIATE').run();
-  try {
-    const updateResult = await rawDb.prepare(
+  const [updateResult, turnInsertResult, beatInsertResult, appliedStateResult] = await rawDb.batch([
+    rawDb.prepare(
       `UPDATE episodes
        SET current_turn = ?1,
            status = ?2,
@@ -285,23 +300,15 @@ export const persistResolvedTurnAtomic = async (
       payload.episodeId,
       payload.expectedTurn,
       expectedStateJson
-    ).run();
-
-    if (getChanges(updateResult) === 0) {
-      await rawDb.prepare('ROLLBACK').run();
-      return {
-        updated: false,
-        turnInserted: false,
-        beatInserted: false
-      };
-    }
-
-    const turnInsertResult = await rawDb.prepare(
+    ),
+    rawDb.prepare(
       `INSERT OR IGNORE INTO turn_logs (
         id, episode_id, turn_number, player_action_id, rival_action_id,
         events_json, belief_json, visible_meters_json, true_meters_json,
         briefing_text, headlines_json, image_id, rng_trace_json
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+      )
+      SELECT ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+      WHERE ${exactEpisodeStateExistsSql}`
     ).bind(
       turnLogId,
       payload.episodeId,
@@ -315,15 +322,19 @@ export const persistResolvedTurnAtomic = async (
       payload.resolution.narrative.briefingParagraph,
       toJson(payload.resolution.narrative.headlines),
       payload.resolution.selectedImageId,
-      toJson(payload.resolution.rngTrace)
-    ).run();
-
-    const beatInsertResult = await rawDb.prepare(
+      toJson(payload.resolution.rngTrace),
+      payload.episodeId,
+      payload.nextState.turn,
+      nextStateJson
+    ),
+    rawDb.prepare(
       `INSERT OR IGNORE INTO beat_progress (
         id, episode_id, turn_number, beat_id_before, beat_id_after,
         transition_source, transitioned, timer_mode, timer_seconds,
         timer_seconds_remaining, timer_expired, extend_used, extend_timer_uses_remaining
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+      )
+      SELECT ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+      WHERE ${exactEpisodeStateExistsSql}`
     ).bind(
       beatProgressId,
       payload.beatProgress.episodeId,
@@ -337,23 +348,19 @@ export const persistResolvedTurnAtomic = async (
       payload.beatProgress.timerSecondsRemaining,
       toFlag(payload.beatProgress.timerExpired),
       toFlag(payload.beatProgress.extendUsed),
-      payload.beatProgress.extendTimerUsesRemaining
-    ).run();
+      payload.beatProgress.extendTimerUsesRemaining,
+      payload.episodeId,
+      payload.nextState.turn,
+      nextStateJson
+    ),
+    buildAppliedStateCheck(rawDb, payload.episodeId, payload.nextState.turn, nextStateJson)
+  ]);
 
-    await rawDb.prepare('COMMIT').run();
-    return {
-      updated: true,
-      turnInserted: getChanges(turnInsertResult) > 0,
-      beatInserted: getChanges(beatInsertResult) > 0
-    };
-  } catch (error) {
-    try {
-      await rawDb.prepare('ROLLBACK').run();
-    } catch {
-      // Ignore rollback errors; preserve original failure.
-    }
-    throw error;
-  }
+  return {
+    updated: getChanges(updateResult) > 0 || ((appliedStateResult?.results?.length ?? 0) > 0),
+    turnInserted: getChanges(turnInsertResult) > 0,
+    beatInserted: getChanges(beatInsertResult) > 0
+  };
 };
 
 export const persistEpisodeAndBeatProgressAtomic = async (
@@ -364,9 +371,8 @@ export const persistEpisodeAndBeatProgressAtomic = async (
   const expectedStateJson = payload.expectedStateJson ?? null;
   const beatProgressId = buildBeatProgressId(payload.beatProgress);
 
-  await rawDb.prepare('BEGIN IMMEDIATE').run();
-  try {
-    const updateResult = await rawDb.prepare(
+  const [updateResult, beatInsertResult, appliedStateResult] = await rawDb.batch([
+    rawDb.prepare(
       `UPDATE episodes
        SET current_turn = ?1,
            status = ?2,
@@ -385,22 +391,15 @@ export const persistEpisodeAndBeatProgressAtomic = async (
       payload.episodeId,
       payload.expectedTurn,
       expectedStateJson
-    ).run();
-
-    if (getChanges(updateResult) === 0) {
-      await rawDb.prepare('ROLLBACK').run();
-      return {
-        updated: false,
-        beatInserted: false
-      };
-    }
-
-    const beatInsertResult = await rawDb.prepare(
+    ),
+    rawDb.prepare(
       `INSERT OR IGNORE INTO beat_progress (
         id, episode_id, turn_number, beat_id_before, beat_id_after,
         transition_source, transitioned, timer_mode, timer_seconds,
         timer_seconds_remaining, timer_expired, extend_used, extend_timer_uses_remaining
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+      )
+      SELECT ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+      WHERE ${exactEpisodeStateExistsSql}`
     ).bind(
       beatProgressId,
       payload.beatProgress.episodeId,
@@ -414,22 +413,18 @@ export const persistEpisodeAndBeatProgressAtomic = async (
       payload.beatProgress.timerSecondsRemaining,
       toFlag(payload.beatProgress.timerExpired),
       toFlag(payload.beatProgress.extendUsed),
-      payload.beatProgress.extendTimerUsesRemaining
-    ).run();
+      payload.beatProgress.extendTimerUsesRemaining,
+      payload.episodeId,
+      payload.nextState.turn,
+      nextStateJson
+    ),
+    buildAppliedStateCheck(rawDb, payload.episodeId, payload.nextState.turn, nextStateJson)
+  ]);
 
-    await rawDb.prepare('COMMIT').run();
-    return {
-      updated: true,
-      beatInserted: getChanges(beatInsertResult) > 0
-    };
-  } catch (error) {
-    try {
-      await rawDb.prepare('ROLLBACK').run();
-    } catch {
-      // Ignore rollback errors; preserve original failure.
-    }
-    throw error;
-  }
+  return {
+    updated: getChanges(updateResult) > 0 || ((appliedStateResult?.results?.length ?? 0) > 0),
+    beatInserted: getChanges(beatInsertResult) > 0
+  };
 };
 
 export const insertBeatProgress = async (
