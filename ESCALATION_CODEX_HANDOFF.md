@@ -2459,3 +2459,69 @@ Current naming rule:
 - or moving directly to the next expansion milestone:
   - second flagship scenario
   - first role overlay
+
+## 47. D1 Durable Object Transaction Fix (2026-03-07 ET)
+
+### 47.1 What changed
+
+1. Fixed the live runtime error:
+- `D1_ERROR: To execute a transaction, please use the state.storage.transaction() ... instead of the SQL BEGIN TRANSACTION or SAVEPOINT statements`
+
+2. Root cause:
+- `/apps/api/src/repository.ts` still used raw SQL transaction statements inside Durable Object-backed D1 persistence paths:
+  - `BEGIN IMMEDIATE`
+  - `COMMIT`
+  - `ROLLBACK`
+
+3. Resolution:
+- replaced those raw transaction statements with `D1Database.batch()`-based atomic persistence
+- preserved optimistic state gating and idempotent apply checks for:
+  - resolved turns
+  - countdown extensions / beat-progress persistence
+
+4. Added regression coverage in:
+- `/tests/api/repository-atomic.test.ts`
+- new tests assert that the atomic paths:
+  - use D1 batch semantics
+  - do not emit raw SQL transaction statements
+
+5. Committed and pushed:
+- `ddd96e9` `Fix D1 atomic persistence for Durable Objects`
+
+6. Verified GitHub Actions deploy run:
+- `22812455625`
+
+### 47.2 What passed
+
+1. Validation:
+- `npx vitest run tests/api/repository-atomic.test.ts`
+- `npm run lint`
+- `npm run ci:phase1`
+
+2. Results:
+- `14/14` test files passed
+- `29/29` tests passed
+- Monte Carlo concentration warnings unchanged and non-blocking
+
+3. Deploy:
+- `quality_gate`
+- `deploy_web`
+- `deploy_api`
+- `verify_deploy`
+- all jobs green
+
+### 47.3 Spec drift remaining
+
+1. UI/product:
+- the mission console and war-room shell are materially improved, but further clarity/polish work remains in gameplay-level controls and scenario-library expansion
+
+2. Platform:
+- broader persistence/schema drift from the technical spec still remains outside this targeted runtime fix
+
+### 47.4 Exact next action for resume
+
+1. Hard-refresh the live Flashpoint site and re-test Turn 1 action resolution.
+2. If the D1 error is gone, return focus to product polish and scenario quality.
+3. Next likely product move:
+- narrower gameplay-shell consistency pass
+- or next content-expansion milestone
