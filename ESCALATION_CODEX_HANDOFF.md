@@ -2766,3 +2766,50 @@ Current naming rule:
 2. If the workflow reads clearly, next likely product move:
 - authored advisor-to-action recommendation support
 - or stronger visual cueing/animation on the action-required state
+
+## 52. Flashpoint Custom-Order Integration Follow-Up (2026-03-08 ET)
+
+### 52.1 What changed
+
+1. Removed the remaining split-action ambiguity:
+- `CommandInput` is no longer rendered as a separate lower-page box
+- typed orders now live inside the highlighted `Action Required` band
+
+2. Reframed typed input as clearly secondary:
+- `Advanced Order Entry` -> `Optional Custom Order`
+- copy now explicitly says the main loop is response-based and parser-assisted typed orders are optional
+
+3. Deleted duplicated action affordances:
+- removed the quick-action shortcut chips from `CommandInput`
+- the canonical decision surface is now the main response selector inside the action band
+
+### 52.2 What passed
+
+1. Validation:
+- `npm run lint`
+- `npm run build --workspace @wargames/web`
+- `npm run ci:phase1`
+
+2. Results:
+- `14/14` test files passed
+- `29/29` tests passed
+- Monte Carlo concentration warnings unchanged and non-blocking
+
+### 52.3 Spec drift remaining
+
+1. Decision UX:
+- the action band is cleaner, but may still need stronger visual cueing if live review shows the required action does not dominate enough
+
+2. Decision intelligence:
+- advisor/action linkage remains heuristic UI logic rather than authored beat-level recommendation content
+
+3. Reporting/product:
+- mandate framing is improved, but deeper authored tradeoff scorecards remain the next report refinement
+
+### 52.4 Exact next action for resume
+
+1. Push the validated UI follow-up and verify deploy.
+2. Then review live that:
+- `Optional Custom Order` reads as subordinate to the decision selector
+- no parallel-action ambiguity remains
+- the action band remains the dominant workflow surface

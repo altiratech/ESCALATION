@@ -1,10 +1,9 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import type { ActionDefinition } from '@wargames/shared-types';
 
 interface CommandInputProps {
   turn: number;
-  actions: ActionDefinition[];
   disabled: boolean;
   onSubmitCommand: (commandText: string) => Promise<CommandSubmitResult>;
   onSelectAction: (actionId: string) => Promise<void>;
@@ -22,9 +21,7 @@ export interface CommandSubmitResult {
   suggestions?: ActionDefinition[];
 }
 
-const normalizeText = (value: string): string => value.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
-
-export const CommandInput = ({ turn, actions, disabled, onSubmitCommand, onSelectAction }: CommandInputProps) => {
+export const CommandInput = ({ turn, disabled, onSubmitCommand, onSelectAction }: CommandInputProps) => {
   const [draft, setDraft] = useState('');
   const [sending, setSending] = useState(false);
   const [lines, setLines] = useState<CommandLine[]>([]);
@@ -59,18 +56,6 @@ export const CommandInput = ({ turn, actions, disabled, onSubmitCommand, onSelec
     }
   }, [lines.length, pendingSuggestions.length]);
 
-  const quickActions = useMemo(() => actions.slice(0, 6), [actions]);
-  const suggestedActions = useMemo(() => {
-    const query = normalizeText(draft);
-    if (query.length < 2) {
-      return quickActions.slice(0, 3);
-    }
-
-    return actions
-      .filter((entry) => normalizeText(entry.name).includes(query))
-      .slice(0, 3);
-  }, [actions, draft, quickActions]);
-
   const submit = async (): Promise<void> => {
     const commandText = draft.trim();
     if (!commandText || sending || disabled) {
@@ -96,25 +81,6 @@ export const CommandInput = ({ turn, actions, disabled, onSubmitCommand, onSelec
     }
   };
 
-  const quickSelect = async (action: ActionDefinition): Promise<void> => {
-    if (sending || disabled) {
-      return;
-    }
-
-    appendLine('player', `Select ${action.name}`);
-    setSending(true);
-    setPendingSuggestions([]);
-
-    try {
-      await onSelectAction(action.id);
-      appendLine('system', `Selected: ${action.name}. Review it in the decision rail and commit from the header.`);
-    } catch (error) {
-      appendLine('system', error instanceof Error ? error.message : 'Quick action selection failed.');
-    } finally {
-      setSending(false);
-    }
-  };
-
   const confirmSuggestedAction = async (action: ActionDefinition): Promise<void> => {
     if (sending || disabled) {
       return;
@@ -135,12 +101,12 @@ export const CommandInput = ({ turn, actions, disabled, onSubmitCommand, onSelec
   };
 
   return (
-    <section className="console-panel p-3 sm:p-4">
+    <section className="console-subpanel px-3 py-3 sm:px-4">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div>
-          <p className="label">Advanced Order Entry</p>
+          <p className="label">Optional Custom Order</p>
           <p className="mt-2 text-[0.72rem] leading-relaxed text-textMuted">
-            Optional. Use typed orders only when you want custom phrasing or parser-assisted shortcuts.
+            Secondary input mode. Use this only if you want custom phrasing or parser-assisted interpretation.
           </p>
         </div>
         <button
@@ -165,7 +131,7 @@ export const CommandInput = ({ turn, actions, disabled, onSubmitCommand, onSelec
 
       {!isOpen && pendingSuggestions.length === 0 ? (
         <p className="mt-2 text-[0.66rem] text-textMuted">
-          The main action loop is card-based. Open this panel only if you want to type a custom order.
+          The main action loop is response-based. Open this field only if you want the parser to interpret a custom order.
         </p>
       ) : null}
 
@@ -192,22 +158,6 @@ export const CommandInput = ({ turn, actions, disabled, onSubmitCommand, onSelec
 
       {isOpen ? (
         <>
-      <div className="mt-2 flex flex-wrap gap-1.5">
-        {(suggestedActions.length > 0 ? suggestedActions : quickActions.slice(0, 3)).map((action) => (
-          <button
-            key={action.id}
-            type="button"
-            className="rounded-md border border-borderTone px-2 py-1 text-[0.6rem] uppercase tracking-[0.09em] text-textMuted transition hover:border-accent hover:text-textMain disabled:cursor-not-allowed disabled:opacity-45"
-            onClick={() => {
-              void quickSelect(action);
-            }}
-            disabled={disabled || sending}
-          >
-            {action.name}
-          </button>
-        ))}
-      </div>
-
       <div className="mt-2 flex gap-2">
         <textarea
           value={draft}
@@ -236,7 +186,7 @@ export const CommandInput = ({ turn, actions, disabled, onSubmitCommand, onSelec
       </div>
 
       <p className="mt-2 text-[0.66rem] text-textMuted">
-        Typed commands are interpreted into a suggested action. Review the selected action in the decision rail before committing the turn.
+        Typed orders are interpreted into a suggested response. Review the selected response above before committing the turn.
       </p>
         </>
       ) : null}

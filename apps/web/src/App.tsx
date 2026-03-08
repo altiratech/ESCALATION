@@ -823,9 +823,18 @@ const App = () => {
             selectedAction={selectedAction}
           />
         </div>
+
+        <div className="mt-4 border-t border-accent/25 pt-4">
+          <CommandInput
+            turn={episode.turn}
+            disabled={loading || episode.status !== 'active'}
+            onSubmitCommand={handleCommandSubmit}
+            onSelectAction={handleActionSelect}
+          />
+        </div>
       </section>
 
-      <section className="grid min-h-0 gap-4 xl:grid-cols-[0.34fr_0.94fr_0.52fr]">
+      <section className="grid min-h-0 gap-4 xl:grid-cols-[0.34fr_0.94fr]">
         <aside className="console-panel order-2 flex min-h-[36rem] flex-col p-3 xl:order-1">
           <div className="flex items-center justify-between">
             <p className="label">Intel Feed</p>
@@ -867,16 +876,6 @@ const App = () => {
             turnDebrief={episode.turnDebrief}
             recentActionNarrative={recentActionNarrative}
             phaseTransition={phaseTransition}
-          />
-        </div>
-
-        <div className="order-3 xl:order-3">
-          <CommandInput
-            turn={episode.turn}
-            actions={episode.offeredActions}
-            disabled={loading || episode.status !== 'active'}
-            onSubmitCommand={handleCommandSubmit}
-            onSelectAction={handleActionSelect}
           />
         </div>
       </section>
