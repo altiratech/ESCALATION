@@ -2808,8 +2808,11 @@ Current naming rule:
 
 ### 52.4 Exact next action for resume
 
-1. Push the validated UI follow-up and verify deploy.
-2. Then review live that:
+1. Review live that:
 - `Optional Custom Order` reads as subordinate to the decision selector
 - no parallel-action ambiguity remains
 - the action band remains the dominant workflow surface
+
+2. If the workflow holds up, next likely product move:
+- stronger visual cueing/animation on the action-required state
+- or authored advisor-to-action recommendation support
