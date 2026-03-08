@@ -96,20 +96,20 @@ export const CommandInput = ({ turn, actions, disabled, onSubmitCommand, onSelec
     }
   };
 
-  const quickDispatch = async (action: ActionDefinition): Promise<void> => {
+  const quickSelect = async (action: ActionDefinition): Promise<void> => {
     if (sending || disabled) {
       return;
     }
 
-    appendLine('player', `Execute ${action.name}`);
+    appendLine('player', `Select ${action.name}`);
     setSending(true);
     setPendingSuggestions([]);
 
     try {
       await onSelectAction(action.id);
-      appendLine('system', `Quick action request sent: ${action.name}.`);
+      appendLine('system', `Selected: ${action.name}. Review it in the decision rail and commit from the header.`);
     } catch (error) {
-      appendLine('system', error instanceof Error ? error.message : 'Quick action dispatch failed.');
+      appendLine('system', error instanceof Error ? error.message : 'Quick action selection failed.');
     } finally {
       setSending(false);
     }
@@ -120,15 +120,15 @@ export const CommandInput = ({ turn, actions, disabled, onSubmitCommand, onSelec
       return;
     }
 
-    appendLine('player', `Confirm ${action.name}`);
+    appendLine('player', `Select ${action.name}`);
     setSending(true);
 
     try {
       await onSelectAction(action.id);
       setPendingSuggestions([]);
-      appendLine('system', `Confirmed and dispatched: ${action.name}.`);
+      appendLine('system', `Selected: ${action.name}. Review it in the decision rail and commit from the header.`);
     } catch (error) {
-      appendLine('system', error instanceof Error ? error.message : 'Suggested action dispatch failed.');
+      appendLine('system', error instanceof Error ? error.message : 'Suggested action selection failed.');
     } finally {
       setSending(false);
     }
@@ -183,7 +183,7 @@ export const CommandInput = ({ turn, actions, disabled, onSubmitCommand, onSelec
                 }}
                 disabled={disabled || sending}
               >
-                Confirm {action.name}
+                Select {action.name}
               </button>
             ))}
           </div>
@@ -199,7 +199,7 @@ export const CommandInput = ({ turn, actions, disabled, onSubmitCommand, onSelec
             type="button"
             className="rounded-md border border-borderTone px-2 py-1 text-[0.6rem] uppercase tracking-[0.09em] text-textMuted transition hover:border-accent hover:text-textMain disabled:cursor-not-allowed disabled:opacity-45"
             onClick={() => {
-              void quickDispatch(action);
+              void quickSelect(action);
             }}
             disabled={disabled || sending}
           >
@@ -236,7 +236,7 @@ export const CommandInput = ({ turn, actions, disabled, onSubmitCommand, onSelec
       </div>
 
       <p className="mt-2 text-[0.66rem] text-textMuted">
-        Typed commands are interpreted before execution. If intent is unclear, the system will ask you to confirm one of the suggested actions.
+        Typed commands are interpreted into a suggested action. Review the selected action in the decision rail before committing the turn.
       </p>
         </>
       ) : null}

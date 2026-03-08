@@ -87,7 +87,7 @@ export const ReportView = ({ report, advisorDossiers, cinematics, onRestart }: R
           </p>
           <p className="mt-2 text-sm text-textMuted">{report.alternativeLine.predictedImpact}</p>
 
-          <p className="label mt-4">Adversary Logic Summary</p>
+          <p className="label mt-4">Counterpart Logic Summary</p>
           <p className="mt-2 text-sm text-textMuted">{report.fullCausality.adversaryLogicSummary}</p>
         </article>
 
@@ -135,7 +135,7 @@ export const ReportView = ({ report, advisorDossiers, cinematics, onRestart }: R
           {deepDebrief.rivalPerspective ? (
             <div className="mt-5 grid gap-4 lg:grid-cols-3">
               <article className="rounded-md border border-borderTone/70 bg-panelRaised/40 p-4">
-                <p className="label">Rival Internal View</p>
+                <p className="label">Counterpart Internal View</p>
                 <p className="mt-2 text-sm leading-relaxed text-textMuted">{deepDebrief.rivalPerspective.internalNarrative}</p>
               </article>
               <article className="rounded-md border border-borderTone/70 bg-panelRaised/40 p-4">
@@ -153,7 +153,7 @@ export const ReportView = ({ report, advisorDossiers, cinematics, onRestart }: R
 
       {report.fullCausality.rivalLeaderReveal ? (
         <section className="card p-5">
-          <p className="label">Rival Leader Reveal</p>
+          <p className="label">Counterpart Assessment</p>
           <h2 className="mt-2 font-display text-2xl text-textMain">
             {report.fullCausality.rivalLeaderReveal.publicName}
           </h2>

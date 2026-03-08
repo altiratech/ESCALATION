@@ -46,6 +46,7 @@ export const cinematics = [cinematicsData as CinematicsDefinition];
 export const scenarioWorld = [scenarioWorldData as ScenarioWorldDefinition];
 export const advisorDossiers = advisorDossiersData as AdvisorDossier[];
 export const rivalLeader = rivalLeaderData as RivalLeaderDefinition;
+export const rivalLeaders = [rivalLeader];
 export const debriefDeep = debriefDeepData as DebriefDeepDefinition;
 
 type RawNarrativeCategory = {

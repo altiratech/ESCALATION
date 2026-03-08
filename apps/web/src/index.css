@@ -162,7 +162,12 @@ body::before {
 }
 
 .console-feed-item {
-  @apply border border-borderTone bg-panelRaised px-2.5 py-2;
+  @apply min-w-0 overflow-hidden border border-borderTone bg-panelRaised px-2.5 py-2;
+}
+
+.console-feed-item p {
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .console-input {

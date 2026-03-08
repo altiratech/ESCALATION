@@ -2525,3 +2525,67 @@ Current naming rule:
 3. Next likely product move:
 - narrower gameplay-shell consistency pass
 - or next content-expansion milestone
+
+## 48. Flashpoint Decision Flow And Counterpart Briefing Refactor (2026-03-08 ET)
+
+### 48.1 What changed
+
+1. Reworked the primary decision flow in the web app:
+- action selection is now `select -> inspect -> commit`
+- clicking a decision no longer resolves the turn immediately
+- the explicit commit control now lives in the war-room header
+
+2. Simplified pre-run and briefing framing:
+- removed the user-facing `Commander Codename` field from the mission console
+- removed redundant turn wording from the center briefing header
+
+3. Tightened guidance and action semantics:
+- action rail now presents a compact selector plus expanded detail pane
+- typed command flow now selects actions for review rather than dispatching them immediately
+- advisor reactions are tied to the selected action via a deterministic first-pass advisory read
+
+4. Added staged counterpart intelligence:
+- bootstrap payload now includes rival-leader/reference data
+- dossier and Turn 1 briefing now surface a limited `Known About Counterpart` block
+- post-game language now uses `Counterpart Assessment` instead of `Rival Leader Reveal`
+
+5. Fixed a UI containment issue:
+- left-rail intel feed items now hard-wrap and stay contained within their panel
+
+### 48.2 What passed
+
+1. Validation:
+- `npm run lint`
+- `npm run build --workspace @wargames/web`
+- `npm run ci:phase1`
+
+2. Results:
+- `14/14` test files passed
+- `29/29` tests passed
+- Monte Carlo concentration warnings unchanged and non-blocking
+
+### 48.3 Spec drift remaining
+
+1. Product/reporting:
+- mandate-oriented scorecarding is still only partially expressed through the current report structure
+- the next report pass should move further away from game-score framing and closer to mandate/tradeoff assessment
+
+2. Decision intelligence:
+- advisor-to-action linkage is currently heuristic/deterministic UI logic, not yet authored explicitly in content
+- future content work should replace or augment this with beat-level authored advisor recommendations
+
+3. LLM/UI:
+- no LLM sidecar/explainer surface has been added yet
+- any future LLM layer must remain explanatory and non-authoritative over state
+
+### 48.4 Exact next action for resume
+
+1. Review the live decision flow on desktop/mobile:
+- selection clarity
+- commit button visibility
+- advisor/action linkage legibility
+- counterpart brief usefulness
+
+2. If the interaction model feels right, the next product move should be:
+- mandate/tradeoff-oriented post-game scorecarding
+- then authored advisor-to-action recommendation support

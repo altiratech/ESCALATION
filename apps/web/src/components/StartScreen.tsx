@@ -56,7 +56,7 @@ const clipText = (value: string, limit = 240): string =>
 
 export const StartScreen = ({ reference, loading, error, onStart }: StartScreenProps) => {
   const [step, setStep] = useState<StartFlowStep>('console');
-  const [codename, setCodename] = useState('SABLE-ONE');
+  const [codename] = useState(() => `RUN-${randomSeed()}`);
   const [seed, setSeed] = useState('');
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [showOpeningSequence, setShowOpeningSequence] = useState(false);
@@ -77,6 +77,10 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
   const selectedScenarioWorld = useMemo(
     () => reference.scenarioWorld.find((entry) => entry.scenarioId === scenarioId) ?? null,
     [reference.scenarioWorld, scenarioId]
+  );
+  const selectedRivalLeader = useMemo(
+    () => reference.rivalLeaders.find((entry) => entry.scenarioId === scenarioId) ?? null,
+    [reference.rivalLeaders, scenarioId]
   );
 
   const startingBeat = useMemo(() => {
@@ -313,16 +317,6 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
                 <div className="mt-4 grid gap-4 lg:grid-cols-[1.08fr_0.92fr]">
                   <div className="space-y-4">
                     <label className="block text-sm">
-                      <span className="label">Commander Codename</span>
-                      <input
-                        className="console-input mt-2"
-                        value={codename}
-                        onChange={(event) => setCodename(event.target.value)}
-                        maxLength={40}
-                      />
-                    </label>
-
-                    <label className="block text-sm">
                       <span className="label">Scenario</span>
                       <select
                         className="console-input mt-2"
@@ -398,7 +392,7 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
                     type="button"
                     className="console-button console-button-primary"
                     onClick={() => void handleStart()}
-                    disabled={loading || !codename.trim() || !scenarioId}
+                    disabled={loading || !scenarioId}
                   >
                     {loading ? 'Launching Turn 1...' : 'Launch Turn 1'}
                   </button>
@@ -504,7 +498,7 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
                   type="button"
                   className="console-button console-button-primary"
                   onClick={() => void handleStart()}
-                  disabled={loading || !codename.trim() || !scenarioId}
+                  disabled={loading || !scenarioId}
                 >
                   {loading ? 'Launching Turn 1...' : 'Launch Turn 1'}
                 </button>
@@ -651,6 +645,47 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
                         <span className="text-textMain">Red line:</span> {selectedScenarioWorld.rivalState.knownRedLines}
                       </p>
                     </div>
+                  </div>
+                </section>
+              ) : null}
+
+              {selectedRivalLeader ? (
+                <section className="console-panel p-5">
+                  <p className="label">Known About Counterpart</p>
+                  <div className="mt-3 space-y-3">
+                    <div className="console-subpanel px-3 py-3">
+                      <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Counterpart Lead</p>
+                      <p className="mt-1 text-sm text-textMain">
+                        {selectedRivalLeader.leader.publicName} · {selectedRivalLeader.leader.title}
+                      </p>
+                      <p className="mt-2 text-[0.76rem] leading-relaxed text-textMuted">
+                        {clipText(selectedRivalLeader.leader.psychologicalProfile.summary, 260)}
+                      </p>
+                    </div>
+                    <div className="console-subpanel px-3 py-3">
+                      <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Assessed Objective</p>
+                      <p className="mt-2 text-[0.76rem] leading-relaxed text-textMuted">
+                        {clipText(selectedRivalLeader.leader.motivations.primary, 220)}
+                      </p>
+                    </div>
+                    <div className="console-subpanel px-3 py-3">
+                      <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Known Red Line</p>
+                      <p className="mt-2 text-[0.76rem] leading-relaxed text-textMuted">
+                        {clipText(selectedRivalLeader.leader.motivations.redLine, 240)}
+                      </p>
+                    </div>
+                    {(selectedRivalLeader.leader.intelFragments.opening ?? []).length > 0 ? (
+                      <div className="console-subpanel px-3 py-3">
+                        <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Opening Intelligence</p>
+                        <div className="mt-2 space-y-2">
+                          {(selectedRivalLeader.leader.intelFragments.opening ?? []).slice(0, 2).map((entry) => (
+                            <p key={entry} className="text-[0.76rem] leading-relaxed text-textMuted">
+                              {clipText(entry, 220)}
+                            </p>
+                          ))}
+                        </div>
+                      </div>
+                    ) : null}
                   </div>
                 </section>
               ) : null}

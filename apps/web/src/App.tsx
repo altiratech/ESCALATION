@@ -28,6 +28,7 @@ import { IntelPanel } from './components/IntelPanel';
 import { MeterDashboard } from './components/MeterDashboard';
 import { ReportView } from './components/ReportView';
 import { StartScreen } from './components/StartScreen';
+import { getAdvisorActionReads } from './lib/decisionSupport';
 
 const formatSeconds = (seconds: number): string => {
   const whole = Math.max(0, Math.floor(seconds));
@@ -113,7 +114,7 @@ const App = () => {
   const [episode, setEpisode] = useState<EpisodeView | null>(null);
   const [report, setReport] = useState<PostGameReport | null>(null);
   const [profileId, setProfileId] = useState<string | null>(null);
-  const [codename, setCodename] = useState<string>('');
+  const [selectedActionId, setSelectedActionId] = useState<string | null>(null);
 
   const [loading, setLoading] = useState(false);
   const [bootstrapping, setBootstrapping] = useState(true);
@@ -167,6 +168,12 @@ const App = () => {
       return null;
     }
     return reference.scenarioWorld.find((entry) => entry.scenarioId === episode.scenarioId) ?? null;
+  }, [reference, episode?.scenarioId]);
+  const currentCounterpart = useMemo(() => {
+    if (!reference || !episode) {
+      return null;
+    }
+    return reference.rivalLeaders.find((entry) => entry.scenarioId === episode.scenarioId) ?? null;
   }, [reference, episode?.scenarioId]);
   const recentActionNarrative = useMemo<RecentActionNarrativeView | null>(() => {
     if (!reference || !currentScenario || !episode?.recentTurn) {
@@ -222,6 +229,7 @@ const App = () => {
 
   const applyEpisodeUpdate = useCallback(async (nextEpisode: EpisodeView): Promise<void> => {
     setEpisode(nextEpisode);
+    setSelectedActionId(null);
     if (nextEpisode.status === 'completed') {
       const completedReport = await fetchReport(nextEpisode.episodeId);
       setReport(completedReport);
@@ -240,7 +248,6 @@ const App = () => {
     try {
       const profile = await createProfile(input.codename.trim());
       setProfileId(profile.profileId);
-      setCodename(profile.codename);
 
       const payload: {
         profileId: string;
@@ -268,8 +275,15 @@ const App = () => {
     }
   };
 
-  const handleActionSelect = async (actionId: string): Promise<void> => {
+  const handleActionSelect = useCallback(async (actionId: string): Promise<void> => {
+    setSelectedActionId(actionId);
+  }, []);
+
+  const handleActionCommit = async (): Promise<void> => {
     if (!episode) {
+      return;
+    }
+    if (!selectedActionId) {
       return;
     }
 
@@ -279,7 +293,7 @@ const App = () => {
     try {
       const response = await submitAction(episode.episodeId, {
         expectedTurn: episode.turn,
-        actionId
+        actionId: selectedActionId
       });
 
       await applyEpisodeUpdate(response.episode);
@@ -339,6 +353,15 @@ const App = () => {
   }, [episode?.episodeId, episode?.turn, episode?.currentBeatId]);
 
   useEffect(() => {
+    setSelectedActionId((current) => {
+      if (!episode) {
+        return null;
+      }
+      return episode.offeredActions.some((action) => action.id === current) ? current : null;
+    });
+  }, [episode?.episodeId, episode?.turn, episode?.currentBeatId, episode?.offeredActions]);
+
+  useEffect(() => {
     if (!episode || episode.status !== 'active' || !episode.activeCountdown) {
       setCountdownRemaining(null);
       return;
@@ -365,6 +388,7 @@ const App = () => {
     setReport(null);
     setError(null);
     setCountdownRemaining(null);
+    setSelectedActionId(null);
     timeoutGuardRef.current = null;
   };
 
@@ -383,9 +407,9 @@ const App = () => {
 
     const normalized = normalizeCommand(commandText);
     const holdCommand = ['hold', 'stand by', 'standby', 'no action', 'take no action'].includes(normalized);
-    if (holdCommand) {
-      if (episode.timerMode === 'off' && currentBeat?.decisionWindow) {
-        await handleInaction('explicit');
+      if (holdCommand) {
+        if (episode.timerMode === 'off' && currentBeat?.decisionWindow) {
+          await handleInaction('explicit');
         return {
           message: 'Command accepted: holding position and taking no action for this beat.'
         };
@@ -405,6 +429,7 @@ const App = () => {
 
       if (interpretation.stale) {
         setEpisode(interpretation.episode);
+        setSelectedActionId(null);
         return {
           message: 'Command target was stale. Synced to latest turn state.'
         };
@@ -423,22 +448,9 @@ const App = () => {
           suggestions: suggestionActions
         };
       }
-
-      const actionResponse = await submitAction(episode.episodeId, {
-        expectedTurn: episode.turn,
-        actionId: interpretation.interpretedActionId
-      });
-
-      if (actionResponse.stale) {
-        setEpisode(actionResponse.episode);
-        return {
-          message: `${interpretation.message} State advanced before execution; command was not applied.`
-        };
-      }
-
-      await applyEpisodeUpdate(actionResponse.episode);
+      setSelectedActionId(interpretation.interpretedActionId);
       return {
-        message: interpretation.message,
+        message: `${interpretation.message} Review the selected action and commit when ready.`,
         decision: interpretation.decision
       };
     } catch (submitError) {
@@ -510,6 +522,16 @@ const App = () => {
   )
     ? pickPressureText(reference, episode.currentBeatId, remainingSeconds)
     : null;
+  const selectedAction = episode.offeredActions.find((action) => action.id === selectedActionId) ?? null;
+  const selectedActionReads = useMemo(() => {
+    if (!selectedAction || !currentBeat) {
+      return [];
+    }
+    const activeAdvisorDossiers = Object.keys(currentBeat.advisorLines)
+      .map((advisorId) => reference.advisorDossiers.find((entry) => entry.id === advisorId))
+      .filter((entry): entry is BootstrapPayload['advisorDossiers'][number] => Boolean(entry));
+    return getAdvisorActionReads(selectedAction, activeAdvisorDossiers);
+  }, [currentBeat, reference.advisorDossiers, selectedAction]);
 
   const beatIntelFragments = reference.intelFragments
     .filter((entry) => entry.beatId === episode.currentBeatId && (!currentBeat || entry.phase === currentBeat.phase))
@@ -600,15 +622,17 @@ const App = () => {
         : 'Fragmentary';
   const decisionSummary = recentActionNarrative
     ? clipLine(recentActionNarrative.detail.successOutcome, 140)
-    : 'Select one action card to advance the turn. Typed orders remain optional.';
+    : selectedAction
+      ? `Selected: ${selectedAction.name}. Commit from the header when ready.`
+      : 'Select one decision, inspect the detail pane, then commit from the header.';
   const theaterTimeContext = currentScenarioWorld?.dateAnchor.timeContext ?? null;
   const currentDirective = currentScenario?.briefing ?? currentScenarioWorld?.economicBackdrop.straitEconomicValue ?? '';
   const turnResolutionGuidance =
     episode.activeCountdown && remainingSeconds !== null
-      ? `Choose one action from the decision rail before ${formatSeconds(remainingSeconds)} elapses.`
+      ? `Select one action, inspect the tradeoffs, and commit before ${formatSeconds(remainingSeconds)} elapses.`
       : showTakeNoAction
-        ? 'Choose one action from the decision rail or use Take No Action to hold position.'
-        : 'Choose one action from the decision rail to resolve the turn.';
+        ? 'Select one action and commit it, or use Take No Action to hold position.'
+        : 'Select one action from the decision rail, inspect the detail, and commit to resolve the turn.';
   const turnProcedure = [
     {
       label: 'Read',
@@ -633,7 +657,7 @@ const App = () => {
             <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-textMuted">
               <span className="font-display text-xl text-textMain">{currentScenarioName}</span>
               <span className="text-borderTone">/</span>
-              <span>{codename || profileId?.slice(0, 8) || 'Unknown'}</span>
+              <span>{currentScenario?.role ?? 'Decision Simulation'}</span>
               <span className="text-borderTone">/</span>
               <span>{pacingLabel[episode.timerMode]}</span>
             </div>
@@ -651,6 +675,10 @@ const App = () => {
             <div className="console-chip">
               <strong>Intel</strong>
               <span>{intelStateLabel}</span>
+            </div>
+            <div className="console-chip">
+              <strong>Selected</strong>
+              <span>{selectedAction?.name ?? 'Awaiting decision'}</span>
             </div>
             {showExtendTimer ? (
               <button
@@ -672,6 +700,14 @@ const App = () => {
                 Take No Action
               </button>
             ) : null}
+            <button
+              type="button"
+              className={`console-button ${selectedAction ? 'console-button-primary' : 'console-button-secondary'}`}
+              onClick={() => void handleActionCommit()}
+              disabled={!selectedAction || loading || episode.status !== 'active'}
+            >
+              {selectedAction ? 'Commit Selected Action' : 'Select A Decision'}
+            </button>
           </div>
         </div>
 
@@ -724,7 +760,7 @@ const App = () => {
             <p className="mt-2 text-sm leading-relaxed text-textMain">{clipLine(currentDirective, 220)}</p>
             <p className="mt-2 text-[0.72rem] leading-relaxed text-textMuted">
               {turnResolutionGuidance} Typed orders remain available below the advisor channel, but the primary loop is
-              card-based.
+              now select, inspect, then commit.
             </p>
           </div>
           <div className="grid gap-2 sm:grid-cols-3">
@@ -776,6 +812,7 @@ const App = () => {
             maxTurns={episode.maxTurns}
             briefing={episode.briefing}
             scenarioWorld={currentScenarioWorld}
+            counterpartBrief={currentCounterpart}
             imageAsset={episode.imageAsset}
             turnDebrief={episode.turnDebrief}
             recentActionNarrative={recentActionNarrative}
@@ -787,12 +824,17 @@ const App = () => {
           <ActionCards
             actions={episode.offeredActions}
             disabled={loading || episode.status !== 'active'}
-            onSelect={handleActionSelect}
+            selectedActionId={selectedActionId}
+            selectedActionReads={selectedActionReads}
+            onSelect={(actionId) => {
+              void handleActionSelect(actionId);
+            }}
           />
           <AdvisorPanel
             beat={currentBeat}
             scenarioId={episode.scenarioId}
             advisorDossiers={reference.advisorDossiers}
+            selectedAction={selectedAction}
           />
           <CommandInput
             turn={episode.turn}
@@ -827,8 +869,8 @@ const App = () => {
               <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">How To Advance</p>
               <p className="mt-1 text-[0.7rem] leading-relaxed text-textMuted">
                 {showTakeNoAction
-                  ? 'Primary loop: select one action card or use Take No Action to hold position. The turn resolves only after one of those choices.'
-                  : 'Primary loop: select one action card. The turn resolves as soon as the action is committed or the active decision window expires.'}
+                  ? 'Primary loop: select one action, review its detail, then commit it or use Take No Action to hold position.'
+                  : 'Primary loop: select one action, inspect the detail pane, then commit it from the header before the active window expires.'}
               </p>
             </div>
             <div className="console-subpanel px-2.5 py-2">

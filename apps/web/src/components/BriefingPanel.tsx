@@ -4,6 +4,7 @@ import type {
   ActionNarrativePhaseContent,
   ImageAsset,
   NarrativeBundle,
+  RivalLeaderDefinition,
   ScenarioWorldDefinition,
   TurnDebrief
 } from '@wargames/shared-types';
@@ -13,6 +14,7 @@ interface BriefingPanelProps {
   maxTurns: number;
   briefing: NarrativeBundle;
   scenarioWorld: ScenarioWorldDefinition | null;
+  counterpartBrief: RivalLeaderDefinition | null;
   imageAsset: ImageAsset | null;
   turnDebrief: TurnDebrief | null;
   recentActionNarrative: {
@@ -39,6 +41,7 @@ export const BriefingPanel = ({
   maxTurns,
   briefing,
   scenarioWorld,
+  counterpartBrief,
   imageAsset,
   turnDebrief,
   recentActionNarrative,
@@ -91,7 +94,7 @@ export const BriefingPanel = ({
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <p className="label">Situation Report</p>
-          <h2 className="mt-2 font-display text-[1.55rem] text-textMain">Turn {turn} Command Brief</h2>
+          <h2 className="mt-2 font-display text-[1.55rem] text-textMain">Command Brief</h2>
         </div>
         <div className="console-chip">
           <strong>Window</strong>
@@ -211,6 +214,30 @@ export const BriefingPanel = ({
                   {clipText(scenarioWorld.economicBackdrop.straitEconomicValue, 330)}
                 </p>
               </div>
+            </section>
+          ) : null}
+
+          {turn === 1 && counterpartBrief ? (
+            <section className="console-subpanel px-3 py-3">
+              <p className="label">Known About Counterpart</p>
+              <p className="mt-1 text-sm text-textMain">
+                {counterpartBrief.leader.publicName} · {counterpartBrief.leader.title}
+              </p>
+              <p className="mt-2 text-[0.72rem] leading-relaxed text-textMuted">
+                {clipText(counterpartBrief.leader.psychologicalProfile.summary, 260)}
+              </p>
+              <p className="mt-2 text-[0.7rem] leading-relaxed text-textMuted">
+                <span className="text-textMain">Known red line:</span>{' '}
+                {clipText(counterpartBrief.leader.motivations.redLine, 220)}
+              </p>
+              {(counterpartBrief.leader.intelFragments.opening ?? []).length > 0 ? (
+                <div className="mt-3 border-t border-borderTone/70 pt-3">
+                  <p className="label">Current Intelligence Read</p>
+                  <p className="mt-2 text-[0.7rem] leading-relaxed text-textMuted">
+                    {clipText((counterpartBrief.leader.intelFragments.opening ?? [])[0] ?? '', 240)}
+                  </p>
+                </div>
+              ) : null}
             </section>
           ) : null}
 

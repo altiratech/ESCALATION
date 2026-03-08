@@ -21,6 +21,7 @@ import {
   newsWire,
   scenarioWorld,
   advisorDossiers,
+  rivalLeaders,
   playerActions,
   scenarios
 } from '@wargames/content';
@@ -886,7 +887,8 @@ app.get('/api/reference/bootstrap', (context) => {
     actionNarratives,
     cinematics,
     scenarioWorld,
-    advisorDossiers
+    advisorDossiers,
+    rivalLeaders
   });
 });
 

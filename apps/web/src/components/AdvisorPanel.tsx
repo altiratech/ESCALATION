@@ -1,11 +1,14 @@
 import { useEffect, useMemo, useState } from 'react';
 
-import type { AdvisorDossier, BeatNode } from '@wargames/shared-types';
+import type { ActionDefinition, AdvisorDossier, BeatNode } from '@wargames/shared-types';
+
+import { getAdvisorActionReads } from '../lib/decisionSupport';
 
 interface AdvisorPanelProps {
   beat: BeatNode | null;
   scenarioId: string;
   advisorDossiers: AdvisorDossier[];
+  selectedAction: ActionDefinition | null;
 }
 
 const clipText = (value: string, limit = 220): string =>
@@ -40,7 +43,13 @@ const stanceTone: Record<string, string> = {
   Wildcard: 'text-violet-300'
 };
 
-export const AdvisorPanel = ({ beat, scenarioId, advisorDossiers }: AdvisorPanelProps) => {
+const alignmentTone: Record<'supports' | 'cautions' | 'opposes', string> = {
+  supports: 'border-positive/60 text-positive',
+  cautions: 'border-warning/60 text-warning',
+  opposes: 'border-red-500/60 text-red-300'
+};
+
+export const AdvisorPanel = ({ beat, scenarioId, advisorDossiers, selectedAction }: AdvisorPanelProps) => {
   const [expandedAdvisorId, setExpandedAdvisorId] = useState<string | null | undefined>(undefined);
 
   const advisorEntries = useMemo(() => {
@@ -59,16 +68,28 @@ export const AdvisorPanel = ({ beat, scenarioId, advisorDossiers }: AdvisorPanel
     [advisorDossiers]
   );
 
+  const selectedActionReadsByAdvisorId = useMemo(() => {
+    if (!selectedAction) {
+      return new Map<string, ReturnType<typeof getAdvisorActionReads>[number]>();
+    }
+
+    const activeDossiers = advisorEntries.map((entry) => dossierByAdvisorId.get(entry.advisorId) ?? fallbackProfile(entry.advisorId));
+    return new Map(
+      getAdvisorActionReads(selectedAction, activeDossiers).map((read) => [read.advisorId, read])
+    );
+  }, [advisorEntries, dossierByAdvisorId, selectedAction]);
+
   useEffect(() => {
     setExpandedAdvisorId(undefined);
   }, [beat?.id]);
 
   const defaultExpandedId = advisorEntries[0]?.advisorId ?? null;
-  const activeExpandedId = expandedAdvisorId === undefined
-    ? defaultExpandedId
-    : advisorEntries.some((entry) => entry.advisorId === expandedAdvisorId)
-      ? expandedAdvisorId
-      : null;
+  const activeExpandedId =
+    expandedAdvisorId === undefined
+      ? defaultExpandedId
+      : advisorEntries.some((entry) => entry.advisorId === expandedAdvisorId)
+        ? expandedAdvisorId
+        : null;
 
   return (
     <section className="console-panel h-full p-3 sm:p-4">
@@ -77,7 +98,7 @@ export const AdvisorPanel = ({ beat, scenarioId, advisorDossiers }: AdvisorPanel
           <p className="label">Advisor Channel</p>
           <h2 className="mt-2 font-display text-lg text-textMain">Strategic Inputs</h2>
           <p className="mt-1 text-[0.72rem] leading-relaxed text-textMuted">
-            Open an advisor for their lens, scenario-specific red line, and this turn&apos;s reasoning.
+            Open an advisor for full reasoning. Their current read is tied to the selected action when one is active.
           </p>
         </div>
         <p className="rounded-md border border-borderTone bg-panelRaised/60 px-2 py-1 text-[0.6rem] uppercase tracking-[0.12em] text-textMuted">
@@ -95,6 +116,7 @@ export const AdvisorPanel = ({ beat, scenarioId, advisorDossiers }: AdvisorPanel
             const dossier = dossierByAdvisorId.get(entry.advisorId) ?? fallbackProfile(entry.advisorId);
             const scenarioSpecific = dossier.scenarioSpecific[scenarioId];
             const tone = stanceTone[dossier.stance] ?? 'text-textMain';
+            const actionRead = selectedActionReadsByAdvisorId.get(entry.advisorId) ?? null;
 
             return (
               <article
@@ -110,15 +132,17 @@ export const AdvisorPanel = ({ beat, scenarioId, advisorDossiers }: AdvisorPanel
                   className="w-full text-left"
                   onClick={() => setExpandedAdvisorId(activeExpandedId === entry.advisorId ? null : entry.advisorId)}
                 >
-                  <div className="flex items-center justify-between gap-2">
-                    <div>
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="min-w-0">
                       <p className="text-sm font-semibold text-textMain">{dossier.name}</p>
                       <p className="text-[0.62rem] uppercase tracking-[0.12em] text-textMuted">
                         {dossier.title} · {dossier.organization}
                       </p>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <span className={`rounded-md border border-borderTone/70 px-2 py-0.5 text-[0.62rem] uppercase tracking-[0.12em] ${tone}`}>
+                    <div className="flex shrink-0 items-center gap-2">
+                      <span
+                        className={`rounded-md border border-borderTone/70 px-2 py-0.5 text-[0.62rem] uppercase tracking-[0.12em] ${tone}`}
+                      >
                         {dossier.stance}
                       </span>
                       <span className="text-[0.58rem] uppercase tracking-[0.12em] text-accent">
@@ -126,10 +150,30 @@ export const AdvisorPanel = ({ beat, scenarioId, advisorDossiers }: AdvisorPanel
                       </span>
                     </div>
                   </div>
-                  <p className="mt-2 text-[0.8rem] leading-relaxed text-textMain">{entry.lines[0] ?? 'Awaiting guidance.'}</p>
+                  {actionRead ? (
+                    <div className="mt-2 flex flex-wrap items-center gap-2">
+                      <span
+                        className={`rounded-md border px-1.5 py-0.5 text-[0.54rem] uppercase tracking-[0.12em] ${alignmentTone[actionRead.alignment]}`}
+                      >
+                        {actionRead.alignment}
+                      </span>
+                      <p className="text-[0.7rem] leading-relaxed text-textMuted">
+                        {selectedAction ? `Current read on ${selectedAction.name}` : 'Action read pending.'}
+                      </p>
+                    </div>
+                  ) : (
+                    <p className="mt-2 text-[0.7rem] leading-relaxed text-textMuted">
+                      Select a decision to see how this advisor leans on the live options.
+                    </p>
+                  )}
                 </button>
                 {activeExpandedId === entry.advisorId ? (
                   <div className="mt-3 grid gap-2 border-t border-borderTone/70 pt-3">
+                    {actionRead ? (
+                      <p className="text-[0.7rem] leading-relaxed text-textMuted">
+                        <span className="text-textMain">Current read:</span> {actionRead.rationale}
+                      </p>
+                    ) : null}
                     <p className="text-[0.7rem] leading-relaxed text-textMuted">
                       <span className="text-textMain">Background:</span> {clipText(dossier.shortBio, 180)}
                     </p>
@@ -142,15 +186,16 @@ export const AdvisorPanel = ({ beat, scenarioId, advisorDossiers }: AdvisorPanel
                     {scenarioSpecific ? (
                       <>
                         <p className="text-[0.7rem] leading-relaxed text-textMuted">
-                          <span className="text-textMain">Scenario Assessment:</span> {clipText(scenarioSpecific.openingAssessment, 240)}
+                          <span className="text-textMain">Scenario assessment:</span>{' '}
+                          {clipText(scenarioSpecific.openingAssessment, 240)}
                         </p>
                         <p className="text-[0.7rem] leading-relaxed text-textMuted">
-                          <span className="text-textMain">Red Line:</span> {clipText(scenarioSpecific.redLine, 200)}
+                          <span className="text-textMain">Red line:</span> {clipText(scenarioSpecific.redLine, 200)}
                         </p>
                       </>
                     ) : null}
                     <div className="space-y-1.5">
-                      {entry.lines.slice(1).map((line, index) => (
+                      {entry.lines.map((line, index) => (
                         <p key={`${entry.advisorId}:detail:${index}`} className="text-[0.72rem] leading-relaxed text-textMuted">
                           {line}
                         </p>

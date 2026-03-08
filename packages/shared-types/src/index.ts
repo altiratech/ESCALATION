@@ -869,6 +869,7 @@ export interface BootstrapPayload {
   cinematics: CinematicsDefinition[];
   scenarioWorld: ScenarioWorldDefinition[];
   advisorDossiers: AdvisorDossier[];
+  rivalLeaders: RivalLeaderDefinition[];
 }
 
 export interface StartEpisodeRequest {
