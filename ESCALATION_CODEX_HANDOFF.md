@@ -2630,3 +2630,74 @@ Current naming rule:
 - decision clarity
 - advisor/action authored linkage
 - mandate/tradeoff scorecarding
+
+## 50. Flashpoint Mandate Framing And Decision-Rail Cleanup (2026-03-08 ET)
+
+### 50.1 What changed
+
+1. Added explicit mission-objective framing to the scenario content:
+- `ScenarioDefinition` now carries `missionObjectives[]`
+- Taiwan Strait currently defines:
+  - keep the corridor open
+  - reassure allies
+  - prevent war
+
+2. Reworked the live mandate surface:
+- the war-room top panel now uses `Mission Mandate` framing
+- scenario objectives are shown directly instead of generic tutorial-style `Read / Decide / Review` cards when objective data exists
+
+3. Simplified the decision rail:
+- response selection is now visually quieter and more compact
+- selector buttons focus on response identity/tags rather than repeating long summaries
+- the richer explanation lives in the selected-response pane
+- advisor-position counts are surfaced inside the selected-response detail
+
+4. Simplified advisor defaults:
+- collapsed advisor cards now stay compact
+- they show stance plus current alignment badge when a response is selected
+- full rationale remains behind expand/open, rather than competing with the selector by default
+
+5. Shifted the report toward mandate/tradeoff framing:
+- `PostGameReport` now includes `finalMeters`
+- pivotal and alternative actions now include human-readable action names
+- the report derives mission-objective assessments from scenario objectives + final meter state
+- top-level report copy now uses `Mandate Assessment`, `Mission Objectives`, and `Decision Blind Spots` language instead of leaning as heavily on generic game-score framing
+
+6. Minor cleanup:
+- cleaned up command-hold indentation in `App.tsx`
+- live briefing header now uses lighter `Live Briefing` framing
+
+### 50.2 What passed
+
+1. Validation:
+- `npm run lint`
+- `npm run build --workspace @wargames/web`
+- `npm run ci:phase1`
+
+2. Results:
+- `14/14` test files passed
+- `29/29` tests passed
+- Monte Carlo concentration warnings unchanged and non-blocking
+
+### 50.3 Spec drift remaining
+
+1. Decision intelligence:
+- advisor-to-action linkage is still heuristic UI logic, not yet explicitly authored in content
+
+2. Reporting:
+- mandate assessment is now present, but deeper authored tradeoff scorecarding is still the next logical report refinement
+
+3. Scenario/product:
+- only one scenario currently uses the new mission-objective framing
+- future scenarios need authored objectives from the start
+
+### 50.4 Exact next action for resume
+
+1. Review the live Flashpoint flow after deploy:
+- decision selector clarity
+- advisor/action linkage usefulness
+- report readability under the new mandate framing
+
+2. If the live flow holds up, next likely product move:
+- authored advisor-to-action recommendation support
+- or deeper mandate/tradeoff scorecarding in the report

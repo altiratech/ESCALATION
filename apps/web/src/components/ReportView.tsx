@@ -1,9 +1,17 @@
-import type { AdvisorDossier, CinematicsDefinition, MeterKey, PostGameReport } from '@wargames/shared-types';
+import type {
+  AdvisorDossier,
+  CinematicsDefinition,
+  MeterKey,
+  MissionObjective,
+  PostGameReport,
+  ScenarioDefinition
+} from '@wargames/shared-types';
 
 import { TimelineChart } from './TimelineChart';
 
 interface ReportViewProps {
   report: PostGameReport;
+  scenario: ScenarioDefinition | null;
   advisorDossiers: AdvisorDossier[];
   cinematics: CinematicsDefinition | null;
   onRestart: () => void;
@@ -20,29 +28,160 @@ const meterLabel: Record<MeterKey, string> = {
 
 const signed = (value: number): string => `${value > 0 ? '+' : ''}${value.toFixed(1)}`;
 
-export const ReportView = ({ report, advisorDossiers, cinematics, onRestart }: ReportViewProps) => {
+type ObjectiveStatus = 'held' | 'strained' | 'failed';
+
+interface ObjectiveAssessment {
+  objective: MissionObjective;
+  score: number;
+  status: ObjectiveStatus;
+  summary: string;
+}
+
+const mandateTone: Record<ObjectiveStatus, string> = {
+  held: 'border-positive/60 text-positive',
+  strained: 'border-warning/60 text-warning',
+  failed: 'border-red-500/60 text-red-300'
+};
+
+const objectiveStatusForScore = (score: number): ObjectiveStatus => {
+  if (score >= 68) {
+    return 'held';
+  }
+  if (score >= 46) {
+    return 'strained';
+  }
+  return 'failed';
+};
+
+const computeObjectiveScore = (objective: MissionObjective, report: PostGameReport): number => {
+  const scores = objective.primaryMeters.map((meter) => {
+    const raw = report.finalMeters[meter];
+    return objective.targetDirection === 'low' ? 100 - raw : raw;
+  });
+  const average = scores.reduce((total, value) => total + value, 0) / Math.max(1, scores.length);
+  return Math.round(average);
+};
+
+const summarizeObjective = (objective: MissionObjective, report: PostGameReport, status: ObjectiveStatus): string => {
+  const meterReadout = objective.primaryMeters
+    .map((meter) => `${meterLabel[meter]} ${Math.round(report.finalMeters[meter])}`)
+    .join(' · ');
+
+  if (status === 'held') {
+    return `${objective.description} Final read: ${meterReadout}.`;
+  }
+  if (status === 'strained') {
+    return `${objective.description} This objective held only partially by the close of the episode. Final read: ${meterReadout}.`;
+  }
+  return `${objective.description} The mandate broke down on this line by the end of the episode. Final read: ${meterReadout}.`;
+};
+
+const deriveObjectiveAssessments = (
+  scenario: ScenarioDefinition | null,
+  report: PostGameReport
+): ObjectiveAssessment[] => {
+  if (!scenario?.missionObjectives?.length) {
+    return [];
+  }
+
+  return scenario.missionObjectives.map((objective) => {
+    const score = computeObjectiveScore(objective, report);
+    const status = objectiveStatusForScore(score);
+    return {
+      objective,
+      score,
+      status,
+      summary: summarizeObjective(objective, report, status)
+    };
+  });
+};
+
+const deriveMandateHeadline = (
+  report: PostGameReport,
+  objectives: ObjectiveAssessment[]
+): { title: string; summary: string } => {
+  if (objectives.length === 0) {
+    return {
+      title: report.fullCausality.outcomeNarrative.title,
+      summary: report.fullCausality.outcomeNarrative.summary
+    };
+  }
+
+  const held = objectives.filter((entry) => entry.status === 'held').length;
+  const failed = objectives.filter((entry) => entry.status === 'failed').length;
+  const average = Math.round(objectives.reduce((total, entry) => total + entry.score, 0) / objectives.length);
+
+  if (report.outcome === 'stabilization' && failed === 0 && average >= 68) {
+    return {
+      title: 'Mandate Held Under Pressure',
+      summary: `The run met the core mandate with ${held}/${objectives.length} primary objectives held and no outright failures.`
+    };
+  }
+  if (failed <= 1 && report.outcome !== 'war' && average >= 46) {
+    return {
+      title: 'Mandate Partially Held',
+      summary: `The run preserved parts of the mandate, but at least one objective was strained or broken under accumulated pressure.`
+    };
+  }
+  return {
+    title: 'Mandate Broken',
+    summary: `The run failed to preserve enough of the mission mandate once the crisis moved into its decisive turns.`
+  };
+};
+
+export const ReportView = ({ report, scenario, advisorDossiers, cinematics, onRestart }: ReportViewProps) => {
   const advisorNameById = new Map(advisorDossiers.map((entry) => [entry.id, entry.name]));
   const deepDebrief = report.fullCausality.deepDebrief;
   const endingCinematic = cinematics?.endings[report.outcome] ?? null;
+  const objectiveAssessments = deriveObjectiveAssessments(scenario, report);
+  const mandateHeadline = deriveMandateHeadline(report, objectiveAssessments);
 
   return (
     <main className="mx-auto flex w-full max-w-6xl flex-col gap-4 px-6 py-6">
       <section className="card p-5">
-        <p className="label">Post-Game Intelligence Assessment</p>
+        <p className="label">Mandate Assessment</p>
         <div className="mt-2 flex items-center justify-between gap-4">
-          <h1 className="font-display text-3xl text-accent">{report.fullCausality.outcomeNarrative.title}</h1>
+          <h1 className="font-display text-3xl text-accent">{mandateHeadline.title}</h1>
           <button
             type="button"
             className="rounded-md border border-accent px-4 py-2 text-sm text-accent hover:bg-accent/10"
             onClick={onRestart}
           >
-            New Episode
+            Return To Mission Console
           </button>
         </div>
-        <p className="mt-3 text-sm leading-relaxed text-textMain">{report.fullCausality.outcomeNarrative.summary}</p>
+        <p className="mt-3 text-sm leading-relaxed text-textMain">{mandateHeadline.summary}</p>
+        <p className="mt-2 text-sm leading-relaxed text-textMuted">{report.fullCausality.outcomeNarrative.summary}</p>
         <p className="mt-2 text-sm leading-relaxed text-textMuted">{report.fullCausality.outcomeNarrative.causalNote}</p>
         <p className="mt-3 text-xs text-textMuted">Baseline outcome model: {report.outcomeExplanation}</p>
       </section>
+
+      {objectiveAssessments.length > 0 ? (
+        <section className="card p-5">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <p className="label">Mission Objectives</p>
+              <p className="mt-2 text-sm text-textMuted">
+                Success is measured against the scenario mandate, not a generic win/loss score.
+              </p>
+            </div>
+          </div>
+          <div className="mt-4 grid gap-3 lg:grid-cols-3">
+            {objectiveAssessments.map((entry) => (
+              <article key={entry.objective.id} className="rounded-md border border-borderTone/70 bg-panelRaised/40 p-4">
+                <div className="flex items-start justify-between gap-3">
+                  <p className="text-sm text-textMain">{entry.objective.label}</p>
+                  <span className={`rounded-md border px-2 py-0.5 text-[0.56rem] uppercase tracking-[0.12em] ${mandateTone[entry.status]}`}>
+                    {entry.status}
+                  </span>
+                </div>
+                <p className="mt-2 text-[0.68rem] uppercase tracking-[0.12em] text-textMuted">Mandate score {entry.score}</p>
+                <p className="mt-3 text-sm leading-relaxed text-textMuted">{entry.summary}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       {endingCinematic ? (
         <section className="card p-5">
@@ -77,22 +216,22 @@ export const ReportView = ({ report, advisorDossiers, cinematics, onRestart }: R
         <article className="card p-5">
           <p className="label">Pivotal Decision</p>
           <p className="mt-3 text-sm text-textMain">
-            Turn {report.pivotalDecision.turn}: <span className="font-semibold">{report.pivotalDecision.actionId}</span>
+            Turn {report.pivotalDecision.turn}: <span className="font-semibold">{report.pivotalDecision.actionName}</span>
           </p>
           <p className="mt-2 text-sm text-textMuted">{report.pivotalDecision.reason}</p>
 
           <p className="label mt-4">Alternative Line</p>
           <p className="mt-2 text-sm text-textMain">
-            Suggested action at turn {report.alternativeLine.turn}: <span className="font-semibold">{report.alternativeLine.suggestedActionId}</span>
+            Suggested action at turn {report.alternativeLine.turn}: <span className="font-semibold">{report.alternativeLine.suggestedActionName}</span>
           </p>
           <p className="mt-2 text-sm text-textMuted">{report.alternativeLine.predictedImpact}</p>
 
-          <p className="label mt-4">Counterpart Logic Summary</p>
+          <p className="label mt-4">Observed Counterpart Logic</p>
           <p className="mt-2 text-sm text-textMuted">{report.fullCausality.adversaryLogicSummary}</p>
         </article>
 
         <article className="card p-5">
-          <p className="label">What You Misjudged</p>
+          <p className="label">Decision Blind Spots</p>
           <ul className="mt-3 list-disc space-y-2 pl-4 text-sm text-textMuted">
             {report.misjudgments.map((item) => (
               <li key={item}>{item}</li>
@@ -105,11 +244,11 @@ export const ReportView = ({ report, advisorDossiers, cinematics, onRestart }: R
         <section className="card p-5">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div>
-              <p className="label">Deep Debrief</p>
+              <p className="label">Strategic Debrief</p>
               <h2 className="mt-2 font-display text-2xl text-textMain">{deepDebrief.grade.title}</h2>
             </div>
             <p className="rounded-md border border-borderTone bg-panelRaised/70 px-3 py-1 text-[0.68rem] uppercase tracking-[0.12em] text-textMuted">
-              Report Score {deepDebrief.grade.score}
+              Strategic Read {deepDebrief.grade.score}
             </p>
           </div>
           <p className="mt-3 text-sm leading-relaxed text-textMuted">{deepDebrief.grade.description}</p>

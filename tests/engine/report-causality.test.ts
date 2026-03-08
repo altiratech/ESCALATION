@@ -62,6 +62,9 @@ describe('post-game causality report', () => {
       advisorRetrospectives: getAdvisorRetrospectivesForOutcome(outcome)
     });
 
+    expect(report.finalMeters.escalationIndex).toBe(state.meters.escalationIndex);
+    expect(report.pivotalDecision.actionName.length).toBeGreaterThan(0);
+    expect(report.alternativeLine.suggestedActionName.length).toBeGreaterThan(0);
     expect(report.fullCausality.hiddenDeltas).toHaveLength(6);
     expect(report.fullCausality.outcomeNarrative.title.length).toBeGreaterThan(0);
     expect(report.fullCausality.outcomeNarrative.summary.length).toBeGreaterThan(0);

@@ -175,11 +175,20 @@ export interface BeatNode {
   decisionWindow: BeatDecisionWindow | null;
 }
 
+export interface MissionObjective {
+  id: string;
+  label: string;
+  description: string;
+  primaryMeters: MeterKey[];
+  targetDirection: 'high' | 'low';
+}
+
 export interface ScenarioDefinition {
   id: string;
   name: string;
   briefing: string;
   role: string;
+  missionObjectives: MissionObjective[];
   adversaryProfileId: string;
   maxTurns: number;
   environment: 'generic' | 'coastal' | 'arctic' | 'dense_city' | 'industrial';
@@ -318,9 +327,11 @@ export interface PostGameReport {
   outcome: OutcomeCategory;
   outcomeExplanation: string;
   timeline: ReportTimelinePoint[];
+  finalMeters: MeterState;
   pivotalDecision: {
     turn: number;
     actionId: string;
+    actionName: string;
     reason: string;
   };
   beliefEvolution: Array<{
@@ -333,6 +344,7 @@ export interface PostGameReport {
   alternativeLine: {
     turn: number;
     suggestedActionId: string;
+    suggestedActionName: string;
     predictedImpact: string;
   };
   fullCausality: FullCausalityReport;

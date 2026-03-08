@@ -98,7 +98,7 @@ export const AdvisorPanel = ({ beat, scenarioId, advisorDossiers, selectedAction
           <p className="label">Advisor Channel</p>
           <h2 className="mt-2 font-display text-lg text-textMain">Strategic Inputs</h2>
           <p className="mt-1 text-[0.72rem] leading-relaxed text-textMuted">
-            Open an advisor for full reasoning. Their current read is tied to the selected action when one is active.
+            Open an advisor for full reasoning. The closed view stays compact; the expanded view carries the rationale.
           </p>
         </div>
         <p className="rounded-md border border-borderTone bg-panelRaised/60 px-2 py-1 text-[0.6rem] uppercase tracking-[0.12em] text-textMuted">
@@ -140,6 +140,13 @@ export const AdvisorPanel = ({ beat, scenarioId, advisorDossiers, selectedAction
                       </p>
                     </div>
                     <div className="flex shrink-0 items-center gap-2">
+                      {actionRead ? (
+                        <span
+                          className={`rounded-md border px-1.5 py-0.5 text-[0.54rem] uppercase tracking-[0.12em] ${alignmentTone[actionRead.alignment]}`}
+                        >
+                          {actionRead.alignment}
+                        </span>
+                      ) : null}
                       <span
                         className={`rounded-md border border-borderTone/70 px-2 py-0.5 text-[0.62rem] uppercase tracking-[0.12em] ${tone}`}
                       >
@@ -150,30 +157,24 @@ export const AdvisorPanel = ({ beat, scenarioId, advisorDossiers, selectedAction
                       </span>
                     </div>
                   </div>
-                  {actionRead ? (
-                    <div className="mt-2 flex flex-wrap items-center gap-2">
-                      <span
-                        className={`rounded-md border px-1.5 py-0.5 text-[0.54rem] uppercase tracking-[0.12em] ${alignmentTone[actionRead.alignment]}`}
-                      >
-                        {actionRead.alignment}
-                      </span>
-                      <p className="text-[0.7rem] leading-relaxed text-textMuted">
-                        {selectedAction ? `Current read on ${selectedAction.name}` : 'Action read pending.'}
-                      </p>
-                    </div>
-                  ) : (
-                    <p className="mt-2 text-[0.7rem] leading-relaxed text-textMuted">
-                      Select a decision to see how this advisor leans on the live options.
-                    </p>
-                  )}
                 </button>
                 {activeExpandedId === entry.advisorId ? (
                   <div className="mt-3 grid gap-2 border-t border-borderTone/70 pt-3">
                     {actionRead ? (
-                      <p className="text-[0.7rem] leading-relaxed text-textMuted">
-                        <span className="text-textMain">Current read:</span> {actionRead.rationale}
-                      </p>
-                    ) : null}
+                      <div className="console-subpanel px-3 py-2.5">
+                        <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">
+                          Current read on {selectedAction?.name ?? 'selected response'}
+                        </p>
+                        <p className="mt-1 text-[0.7rem] leading-relaxed text-textMain">{actionRead.rationale}</p>
+                      </div>
+                    ) : (
+                      <div className="console-subpanel px-3 py-2.5">
+                        <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Action guidance</p>
+                        <p className="mt-1 text-[0.7rem] leading-relaxed text-textMain">
+                          Select a response in the decision rail to see how this advisor leans on the available options.
+                        </p>
+                      </div>
+                    )}
                     <p className="text-[0.7rem] leading-relaxed text-textMuted">
                       <span className="text-textMain">Background:</span> {clipText(dossier.shortBio, 180)}
                     </p>

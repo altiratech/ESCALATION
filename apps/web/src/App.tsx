@@ -417,9 +417,9 @@ const App = () => {
 
     const normalized = normalizeCommand(commandText);
     const holdCommand = ['hold', 'stand by', 'standby', 'no action', 'take no action'].includes(normalized);
-      if (holdCommand) {
-        if (episode.timerMode === 'off' && currentBeat?.decisionWindow) {
-          await handleInaction('explicit');
+    if (holdCommand) {
+      if (episode.timerMode === 'off' && currentBeat?.decisionWindow) {
+        await handleInaction('explicit');
         return {
           message: 'Command accepted: holding position and taking no action for this beat.'
         };
@@ -483,7 +483,15 @@ const App = () => {
   }
 
   if (report) {
-    return <ReportView report={report} advisorDossiers={reference.advisorDossiers} cinematics={currentCinematics} onRestart={reset} />;
+    return (
+      <ReportView
+        report={report}
+        scenario={currentScenario}
+        advisorDossiers={reference.advisorDossiers}
+        cinematics={currentCinematics}
+        onRestart={reset}
+      />
+    );
   }
 
   if (!episode) {
@@ -627,6 +635,7 @@ const App = () => {
       : 'Select one decision, inspect the detail pane, then commit from the header.';
   const theaterTimeContext = currentScenarioWorld?.dateAnchor.timeContext ?? null;
   const currentDirective = currentScenario?.briefing ?? currentScenarioWorld?.economicBackdrop.straitEconomicValue ?? '';
+  const missionObjectives = currentScenario?.missionObjectives ?? [];
   const turnResolutionGuidance =
     episode.activeCountdown && remainingSeconds !== null
       ? `Select one action, inspect the tradeoffs, and commit before ${formatSeconds(remainingSeconds)} elapses.`
@@ -756,7 +765,7 @@ const App = () => {
       <section className="console-panel px-3 py-3 sm:px-4">
         <div className="grid gap-3 xl:grid-cols-[1.02fr_0.98fr]">
           <div className="min-w-0">
-            <p className="label">Immediate Directive</p>
+            <p className="label">Mission Mandate</p>
             <p className="mt-2 text-sm leading-relaxed text-textMain">{clipLine(currentDirective, 220)}</p>
             <p className="mt-2 text-[0.72rem] leading-relaxed text-textMuted">
               {turnResolutionGuidance} Typed orders remain available below the advisor channel, but the primary loop is
@@ -764,12 +773,19 @@ const App = () => {
             </p>
           </div>
           <div className="grid gap-2 sm:grid-cols-3">
-            {turnProcedure.map((item) => (
-              <div key={item.label} className="console-subpanel px-3 py-2.5">
-                <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">{item.label}</p>
-                <p className="mt-1 text-[0.72rem] leading-relaxed text-textMain">{item.detail}</p>
-              </div>
-            ))}
+            {missionObjectives.length > 0
+              ? missionObjectives.map((objective) => (
+                  <div key={objective.id} className="console-subpanel px-3 py-2.5">
+                    <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">{objective.label}</p>
+                    <p className="mt-1 text-[0.72rem] leading-relaxed text-textMain">{objective.description}</p>
+                  </div>
+                ))
+              : turnProcedure.map((item) => (
+                  <div key={item.label} className="console-subpanel px-3 py-2.5">
+                    <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">{item.label}</p>
+                    <p className="mt-1 text-[0.72rem] leading-relaxed text-textMain">{item.detail}</p>
+                  </div>
+                ))}
           </div>
         </div>
       </section>
@@ -809,7 +825,6 @@ const App = () => {
         <div className="order-1 min-h-[40rem] xl:order-2">
           <BriefingPanel
             turn={episode.turn}
-            maxTurns={episode.maxTurns}
             briefing={episode.briefing}
             scenarioWorld={currentScenarioWorld}
             counterpartBrief={currentCounterpart}
@@ -855,7 +870,7 @@ const App = () => {
         <IntelPanel ranges={episode.visibleRanges} intelQuality={episode.intelQuality} turn={episode.turn} />
         <section className="console-panel p-3">
           <div className="flex items-center justify-between gap-3">
-            <p className="label">Turn Procedure</p>
+            <p className="label">Decision Status</p>
             <span className="text-[0.62rem] uppercase tracking-[0.12em] text-textMuted">
               {episode.offeredActions.length} options live
             </span>
@@ -866,7 +881,7 @@ const App = () => {
               <p className="mt-1 text-[0.74rem] leading-relaxed text-textMain">{decisionSummary}</p>
             </div>
             <div className="console-subpanel px-2.5 py-2">
-              <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">How To Advance</p>
+              <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Commit Flow</p>
               <p className="mt-1 text-[0.7rem] leading-relaxed text-textMuted">
                 {showTakeNoAction
                   ? 'Primary loop: select one action, review its detail, then commit it or use Take No Action to hold position.'

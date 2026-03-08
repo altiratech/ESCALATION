@@ -11,7 +11,6 @@ import type {
 
 interface BriefingPanelProps {
   turn: number;
-  maxTurns: number;
   briefing: NarrativeBundle;
   scenarioWorld: ScenarioWorldDefinition | null;
   counterpartBrief: RivalLeaderDefinition | null;
@@ -38,7 +37,6 @@ const sourceLabel: Record<TurnDebrief['lines'][number]['tag'], string> = {
 
 export const BriefingPanel = ({
   turn,
-  maxTurns,
   briefing,
   scenarioWorld,
   counterpartBrief,
@@ -93,13 +91,12 @@ export const BriefingPanel = ({
     <section className="console-panel flex h-full flex-col p-4 sm:p-5">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
-          <p className="label">Situation Report</p>
+          <p className="label">Live Briefing</p>
           <h2 className="mt-2 font-display text-[1.55rem] text-textMain">Command Brief</h2>
         </div>
-        <div className="console-chip">
-          <strong>Window</strong>
-          <span>{turn}/{maxTurns}</span>
-        </div>
+        <p className="rounded-md border border-borderTone bg-panelRaised/60 px-2 py-1 text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">
+          Active Window
+        </p>
       </div>
 
       <div className="mt-4 grid min-h-0 gap-4 xl:grid-cols-[1.18fr_0.82fr]">

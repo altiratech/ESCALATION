@@ -81,14 +81,23 @@ export const ActionCards = ({
     () => sorted.find((entry) => entry.id === selectedActionId) ?? null,
     [selectedActionId, sorted]
   );
+  const alignmentSummary = useMemo(() => {
+    return selectedActionReads.reduce(
+      (totals, read) => {
+        totals[read.alignment] += 1;
+        return totals;
+      },
+      { supports: 0, cautions: 0, opposes: 0 }
+    );
+  }, [selectedActionReads]);
 
   return (
     <section className="console-panel p-3 sm:p-4">
       <div className="flex items-start justify-between gap-3">
         <div>
-          <p className="label">Primary Decision</p>
+          <p className="label">Decision Rail</p>
           <p className="mt-2 text-[0.74rem] leading-relaxed text-textMuted">
-            Select one response below, review the full tradeoffs, then commit from the war-room header.
+            Select one response, inspect the detail pane, then commit it from the war-room header.
           </p>
         </div>
         <div className="flex items-center gap-2">
@@ -105,21 +114,25 @@ export const ActionCards = ({
 
       {showHelp ? (
         <div className="mt-3 border border-borderTone/80 bg-panelRaised/55 px-3 py-2 text-[0.68rem] leading-relaxed text-textMuted">
-          Workflow: pick a decision, inspect the detail pane, compare advisor reactions, then use the header commit
-          button to resolve the turn.
+          Workflow: pick a response from the selector, review what it signals and risks, compare advisor positions, then
+          commit it from the header when you are ready to advance.
         </div>
       ) : null}
 
-      <div className="mt-3 grid gap-2">
+      <div className="mt-3">
+        <p className="label">Available Responses</p>
+      </div>
+
+      <div className="mt-2 grid gap-2 sm:grid-cols-2">
         {sorted.map((action) => {
           const active = action.id === selectedActionId;
           return (
             <button
               key={action.id}
               type="button"
-              className={`w-full border px-3 py-2 text-left transition ${
+              className={`w-full border px-3 py-2.5 text-left transition ${
                 active
-                  ? 'border-accent bg-accent/12 text-textMain shadow-[inset_3px_0_0_rgba(255,177,0,1)]'
+                  ? 'border-accent bg-accent/12 text-textMain shadow-[inset_0_-2px_0_rgba(255,177,0,1)]'
                   : 'border-borderTone/80 bg-panelRaised/55 text-textMuted hover:border-accent/70 hover:bg-panelRaised/75 hover:text-textMain'
               } ${disabled ? 'cursor-not-allowed opacity-55' : ''}`}
               disabled={disabled}
@@ -128,17 +141,19 @@ export const ActionCards = ({
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0">
                   <div className="flex flex-wrap items-center gap-2">
-                    <p className="font-display text-[0.96rem] text-inherit">{action.name}</p>
+                    <p className="font-display text-[0.92rem] text-inherit">{action.name}</p>
                     <span
                       className={`rounded-md border px-1.5 py-0.5 text-[0.55rem] uppercase tracking-[0.12em] ${visibilityTone(action.visibility)}`}
                     >
                       {action.visibility}
                     </span>
                   </div>
-                  <p className="mt-1 text-[0.66rem] leading-relaxed text-textMuted">{action.summary}</p>
+                  <p className="mt-1 text-[0.62rem] uppercase tracking-[0.12em] text-textMuted">
+                    {action.tags.slice(0, 2).join(' · ') || 'Response option'}
+                  </p>
                 </div>
                 <span className="shrink-0 text-[0.58rem] uppercase tracking-[0.12em] text-accent/90">
-                  {active ? 'Selected' : 'Inspect'}
+                  {active ? 'Selected' : 'Open'}
                 </span>
               </div>
             </button>
@@ -151,7 +166,7 @@ export const ActionCards = ({
           <div className="space-y-4">
             <div className="flex flex-wrap items-start justify-between gap-3">
               <div>
-                <p className="label">Selected Action</p>
+                <p className="label">Selected Response</p>
                 <h3 className="mt-2 font-display text-xl text-textMain">{selectedAction.name}</h3>
               </div>
               <span
@@ -161,11 +176,14 @@ export const ActionCards = ({
               </span>
             </div>
 
-            <p className="text-[0.8rem] leading-relaxed text-textMain">{selectedAction.summary}</p>
+            <div className="space-y-2">
+              <p className="label">What This Does</p>
+              <p className="text-[0.8rem] leading-relaxed text-textMain">{selectedAction.summary}</p>
+            </div>
 
             <div className="grid gap-2">
               <div className="console-subpanel px-3 py-2.5">
-                <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Signal</p>
+                <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Why Choose It</p>
                 <p className="mt-1 text-[0.72rem] leading-relaxed text-textMain">{postureHint(selectedAction)}</p>
               </div>
               <div className="console-subpanel px-3 py-2.5">
@@ -179,7 +197,20 @@ export const ActionCards = ({
             </div>
 
             <div>
-              <p className="label">Advisory Read</p>
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <p className="label">Advisor Positions</p>
+                <div className="flex flex-wrap gap-1.5 text-[0.56rem] uppercase tracking-[0.12em] text-textMuted">
+                  <span className="rounded-md border border-positive/60 px-1.5 py-0.5 text-positive">
+                    Supports {alignmentSummary.supports}
+                  </span>
+                  <span className="rounded-md border border-warning/60 px-1.5 py-0.5 text-warning">
+                    Cautions {alignmentSummary.cautions}
+                  </span>
+                  <span className="rounded-md border border-red-500/60 px-1.5 py-0.5 text-red-300">
+                    Opposes {alignmentSummary.opposes}
+                  </span>
+                </div>
+              </div>
               <div className="mt-2 space-y-2">
                 {selectedActionReads.map((read) => (
                   <div key={read.advisorId} className="console-subpanel px-3 py-2.5">
@@ -210,9 +241,9 @@ export const ActionCards = ({
           </div>
         ) : (
           <div>
-            <p className="label">Selected Action</p>
+            <p className="label">Selected Response</p>
             <p className="mt-2 text-[0.78rem] leading-relaxed text-textMuted">
-              No decision selected yet. Pick one option above to inspect the tradeoffs before committing the turn.
+              No response selected yet. Choose one option above to inspect the tradeoffs before committing the turn.
             </p>
           </div>
         )}

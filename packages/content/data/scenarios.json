@@ -4,6 +4,37 @@
     "name": "Taiwan Strait Flashpoint",
     "briefing": "Beijing has announced a coercive inspection regime around the Taiwan Strait after months of military pressure, cyber probing, and blockade rehearsal. Your mandate is to keep the corridor open, reassure Taipei and regional allies, and prevent gray-zone coercion from hardening into war.",
     "role": "National Security Advisor",
+    "missionObjectives": [
+      {
+        "id": "keep_corridor_open",
+        "label": "Keep The Corridor Open",
+        "description": "Preserve commercial transit confidence and prevent gray-zone pressure from normalizing a new inspection regime.",
+        "primaryMeters": [
+          "economicStability",
+          "energySecurity"
+        ],
+        "targetDirection": "high"
+      },
+      {
+        "id": "reassure_allies",
+        "label": "Reassure Allies",
+        "description": "Keep Taipei, Tokyo, Manila, and wider partners aligned so Beijing cannot isolate the crisis into bilateral coercion.",
+        "primaryMeters": [
+          "allianceTrust",
+          "domesticCohesion"
+        ],
+        "targetDirection": "high"
+      },
+      {
+        "id": "prevent_war",
+        "label": "Prevent War",
+        "description": "Contest coercion without letting the crisis harden into an exchange neither side can control.",
+        "primaryMeters": [
+          "escalationIndex"
+        ],
+        "targetDirection": "low"
+      }
+    ],
     "adversaryProfileId": "calculated_technocrat",
     "maxTurns": 10,
     "environment": "coastal",

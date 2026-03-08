@@ -665,9 +665,11 @@ export const buildPostGameReport = (
     outcome,
     outcomeExplanation: describeOutcome(outcome),
     timeline,
+    finalMeters: state.meters,
     pivotalDecision: {
       turn: pivotal.turn,
       actionId: pivotal.playerActionId,
+      actionName: pivotalActionName,
       reason: `This turn created the largest stress shift (${Math.abs(stressScore(pivotal.meterAfter) - stressScore(pivotal.meterBefore)).toFixed(1)} points).`
     },
     beliefEvolution: state.history.map((entry) => ({
@@ -680,6 +682,7 @@ export const buildPostGameReport = (
     alternativeLine: {
       turn: pivotal.turn,
       suggestedActionId: alternative.actionId,
+      suggestedActionName: actionMap.get(alternative.actionId)?.name ?? alternative.actionId,
       predictedImpact: alternative.predictedImpact
     },
     fullCausality: {
