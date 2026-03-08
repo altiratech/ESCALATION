@@ -628,11 +628,6 @@ const App = () => {
       : averageIntelConfidence >= 60
         ? 'Working Estimate'
         : 'Fragmentary';
-  const decisionSummary = recentActionNarrative
-    ? clipLine(recentActionNarrative.detail.successOutcome, 140)
-    : selectedAction
-      ? `Selected: ${selectedAction.name}. Commit from the header when ready.`
-      : 'Select one decision, inspect the detail pane, then commit from the header.';
   const theaterTimeContext = currentScenarioWorld?.dateAnchor.timeContext ?? null;
   const currentDirective = currentScenario?.briefing ?? currentScenarioWorld?.economicBackdrop.straitEconomicValue ?? '';
   const missionObjectives = currentScenario?.missionObjectives ?? [];
@@ -709,14 +704,6 @@ const App = () => {
                 Take No Action
               </button>
             ) : null}
-            <button
-              type="button"
-              className={`console-button ${selectedAction ? 'console-button-primary' : 'console-button-secondary'}`}
-              onClick={() => void handleActionCommit()}
-              disabled={!selectedAction || loading || episode.status !== 'active'}
-            >
-              {selectedAction ? 'Commit Selected Action' : 'Select A Decision'}
-            </button>
           </div>
         </div>
 
@@ -790,8 +777,56 @@ const App = () => {
         </div>
       </section>
 
-      <section className="grid min-h-0 gap-4 xl:grid-cols-[0.34fr_0.94fr_0.72fr]">
-        <aside className="console-panel order-2 flex min-h-[40rem] flex-col p-3 xl:order-1">
+      <section className="border border-accent/75 bg-accent/10 px-3 py-3 shadow-hard sm:px-4">
+        <div className="flex flex-col gap-3 xl:flex-row xl:items-start xl:justify-between">
+          <div className="min-w-0">
+            <p className="label text-accent">Action Required</p>
+            <p className="mt-2 text-sm leading-relaxed text-textMain">
+              Review one response, inspect the tradeoffs, compare advisor positions, then commit and advance the turn.
+            </p>
+            <p className="mt-2 text-[0.72rem] leading-relaxed text-textMuted">
+              {showTakeNoAction
+                ? 'Untimed mode is active. You may commit a selected response or explicitly take no action from the header.'
+                : turnResolutionGuidance}
+            </p>
+          </div>
+          <div className="flex shrink-0 flex-wrap items-center gap-2">
+            <div className="console-chip border-accent/50 bg-accent/8">
+              <strong>Decision</strong>
+              <span>{selectedAction?.name ?? 'Choose a response'}</span>
+            </div>
+            <button
+              type="button"
+              className={`console-button ${selectedAction ? 'console-button-primary' : 'console-button-secondary'}`}
+              onClick={() => void handleActionCommit()}
+              disabled={!selectedAction || loading || episode.status !== 'active'}
+            >
+              {selectedAction ? 'Commit & Advance' : 'Select A Response'}
+            </button>
+          </div>
+        </div>
+
+        <div className="mt-4 grid min-h-0 gap-4 xl:grid-cols-[1.06fr_0.72fr]">
+          <ActionCards
+            actions={episode.offeredActions}
+            disabled={loading || episode.status !== 'active'}
+            selectedActionId={selectedActionId}
+            selectedActionReads={selectedActionReads}
+            onSelect={(actionId) => {
+              void handleActionSelect(actionId);
+            }}
+          />
+          <AdvisorPanel
+            beat={currentBeat}
+            scenarioId={episode.scenarioId}
+            advisorDossiers={reference.advisorDossiers}
+            selectedAction={selectedAction}
+          />
+        </div>
+      </section>
+
+      <section className="grid min-h-0 gap-4 xl:grid-cols-[0.34fr_0.94fr_0.52fr]">
+        <aside className="console-panel order-2 flex min-h-[36rem] flex-col p-3 xl:order-1">
           <div className="flex items-center justify-between">
             <p className="label">Intel Feed</p>
             <span className="text-[0.62rem] uppercase tracking-[0.12em] text-textMuted">Live</span>
@@ -835,22 +870,7 @@ const App = () => {
           />
         </div>
 
-        <div className="order-3 space-y-4 xl:order-3">
-          <ActionCards
-            actions={episode.offeredActions}
-            disabled={loading || episode.status !== 'active'}
-            selectedActionId={selectedActionId}
-            selectedActionReads={selectedActionReads}
-            onSelect={(actionId) => {
-              void handleActionSelect(actionId);
-            }}
-          />
-          <AdvisorPanel
-            beat={currentBeat}
-            scenarioId={episode.scenarioId}
-            advisorDossiers={reference.advisorDossiers}
-            selectedAction={selectedAction}
-          />
+        <div className="order-3 xl:order-3">
           <CommandInput
             turn={episode.turn}
             actions={episode.offeredActions}
@@ -861,41 +881,13 @@ const App = () => {
         </div>
       </section>
 
-      <section className="grid gap-4 xl:grid-cols-[1.1fr_0.8fr_0.62fr]">
+      <section className="grid gap-4 xl:grid-cols-[1.1fr_0.9fr]">
         <MeterDashboard
           meters={episode.meters}
           previousMeters={episode.recentTurn?.meterBefore}
           visibleRanges={episode.visibleRanges}
         />
         <IntelPanel ranges={episode.visibleRanges} intelQuality={episode.intelQuality} turn={episode.turn} />
-        <section className="console-panel p-3">
-          <div className="flex items-center justify-between gap-3">
-            <p className="label">Decision Status</p>
-            <span className="text-[0.62rem] uppercase tracking-[0.12em] text-textMuted">
-              {episode.offeredActions.length} options live
-            </span>
-          </div>
-          <div className="mt-3 grid gap-2">
-            <div className="console-subpanel px-2.5 py-2">
-              <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Latest Readout</p>
-              <p className="mt-1 text-[0.74rem] leading-relaxed text-textMain">{decisionSummary}</p>
-            </div>
-            <div className="console-subpanel px-2.5 py-2">
-              <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Commit Flow</p>
-              <p className="mt-1 text-[0.7rem] leading-relaxed text-textMuted">
-                {showTakeNoAction
-                  ? 'Primary loop: select one action, review its detail, then commit it or use Take No Action to hold position.'
-                  : 'Primary loop: select one action, inspect the detail pane, then commit it from the header before the active window expires.'}
-              </p>
-            </div>
-            <div className="console-subpanel px-2.5 py-2">
-              <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Typed Command Use</p>
-              <p className="mt-1 text-[0.74rem] leading-relaxed text-textMain">
-                Use typed orders only if you want custom phrasing or to let the parser suggest a matching action.
-              </p>
-            </div>
-          </div>
-        </section>
       </section>
     </main>
   );

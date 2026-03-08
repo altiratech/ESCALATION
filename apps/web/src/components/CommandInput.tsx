@@ -138,7 +138,7 @@ export const CommandInput = ({ turn, actions, disabled, onSubmitCommand, onSelec
     <section className="console-panel p-3 sm:p-4">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div>
-          <p className="label">Advanced Command Channel</p>
+          <p className="label">Advanced Order Entry</p>
           <p className="mt-2 text-[0.72rem] leading-relaxed text-textMuted">
             Optional. Use typed orders only when you want custom phrasing or parser-assisted shortcuts.
           </p>

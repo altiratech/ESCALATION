@@ -96,9 +96,9 @@ export const AdvisorPanel = ({ beat, scenarioId, advisorDossiers, selectedAction
       <div className="flex items-center justify-between">
         <div>
           <p className="label">Advisor Channel</p>
-          <h2 className="mt-2 font-display text-lg text-textMain">Strategic Inputs</h2>
+          <h2 className="mt-2 font-display text-lg text-textMain">Advisor Positions</h2>
           <p className="mt-1 text-[0.72rem] leading-relaxed text-textMuted">
-            Open an advisor for full reasoning. The closed view stays compact; the expanded view carries the rationale.
+            Closed cards show stance and alignment only. Open one for the full rationale behind the selected response.
           </p>
         </div>
         <p className="rounded-md border border-borderTone bg-panelRaised/60 px-2 py-1 text-[0.6rem] uppercase tracking-[0.12em] text-textMuted">

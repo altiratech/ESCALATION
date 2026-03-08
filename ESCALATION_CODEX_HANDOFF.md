@@ -2703,3 +2703,64 @@ Current naming rule:
 2. If the live flow holds up, next likely product move:
 - authored advisor-to-action recommendation support
 - or deeper mandate/tradeoff scorecarding in the report
+
+## 51. Flashpoint Action-Band Workflow Pass (2026-03-08 ET)
+
+### 51.1 What changed
+
+1. Promoted the required decision flow into a dedicated highlighted `Action Required` band:
+- the primary `Commit & Advance` control now lives with the required action section instead of the war-room top bar
+- the selected response state is shown directly inside that band
+
+2. Moved advisor support closer to the choice:
+- advisor positions now sit adjacent to the response selector/detail pane inside the action band
+- this makes the workflow read as mandate -> choose response -> compare advisor positions -> commit
+
+3. Simplified the lower page structure:
+- the main supporting context grid now focuses on:
+  - intel feed
+  - command brief
+  - advanced order entry
+- the old separate decision-status panel was removed because it duplicated the now-promoted action band
+
+4. Compressed secondary analysis surfaces:
+- advanced typed orders remain available but are explicitly secondary and collapsed by default
+- `Confidence Grid` is now collapsed by default and opens on demand
+
+5. Minor copy polish:
+- `Strategic Inputs` -> `Advisor Positions`
+- `Advanced Command Channel` -> `Advanced Order Entry`
+
+### 51.2 What passed
+
+1. Validation:
+- `npm run lint`
+- `npm run build --workspace @wargames/web`
+- `npm run ci:phase1`
+
+2. Results:
+- `14/14` test files passed
+- `29/29` tests passed
+- Monte Carlo concentration warnings unchanged and non-blocking
+
+### 51.3 Spec drift remaining
+
+1. Decision emphasis:
+- the action band is now structurally primary, but may still need stronger visual emphasis if live review suggests the amber treatment is too subtle
+
+2. Decision intelligence:
+- advisor/action linkage remains heuristic UI logic rather than authored beat-level recommendations
+
+3. Reporting/product:
+- mandate framing is improved, but deeper authored tradeoff scorecards remain the next report refinement
+
+### 51.4 Exact next action for resume
+
+1. Review the live Flashpoint flow after deploy:
+- is the action band visually dominant enough?
+- does the advisor placement feel close enough to the choice?
+- is the collapsed `Confidence Grid` the right default?
+
+2. If the workflow reads clearly, next likely product move:
+- authored advisor-to-action recommendation support
+- or stronger visual cueing/animation on the action-required state
