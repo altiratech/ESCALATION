@@ -2869,3 +2869,66 @@ Current naming rule:
 - the action band clearly dominates the page
 - the muted context panels still preserve enough readability
 - the `Awaiting Response` / `Ready To Commit` states are obvious enough
+
+## 54. Flashpoint Turn-Flow Split (2026-03-09 ET)
+
+### 54.1 What changed
+
+1. Split each turn into two explicit surfaces:
+- `Turn Brief` now appears first on each new turn
+- `Decision` is a separate step for choosing and committing a response
+
+2. Reassigned page responsibilities:
+- `Turn Brief` owns:
+  - mission mandate
+  - intel feed
+  - command brief
+  - meter/confidence panels
+- `Decision` owns:
+  - response selector
+  - advisor channel
+  - optional custom order
+  - commit action
+
+3. Preserved cross-step continuity:
+- users can move from `Turn Brief` to `Decision` and back again
+- the current selected response is preserved when returning to the brief
+
+4. Removed duplicated advisor detail from the decision selector:
+- compact support/caution/opposition summaries now appear in each available-response card
+- the full advisor rationale now lives only in the advisor channel
+
+5. Copy cleanup:
+- `Turn Brief` / `Decision` are now explicit step labels in the live UI
+- parser/custom-order copy now refers to the decision page rather than the old one-page layout
+
+### 54.2 What passed
+
+1. Validation:
+- `npm run lint`
+- `npm run build --workspace @wargames/web`
+- `npm run ci:phase1`
+
+2. Results:
+- `14/14` test files passed
+- `29/29` tests passed
+- Monte Carlo concentration warnings unchanged and non-blocking
+
+### 54.3 Spec drift remaining
+
+1. Decision intelligence:
+- advisor/action linkage is still heuristic UI logic rather than authored beat-level recommendation content
+
+2. Reporting/product:
+- mandate framing is improved, but deeper authored tradeoff scorecards remain the next report refinement
+
+3. Turn flow polish:
+- this split should be reviewed live before deciding whether `Turn Brief` needs even more compression or whether the `Decision` step still needs stronger required-action emphasis
+
+### 54.4 Exact next action for resume
+
+1. Push the validated turn-flow split and verify deploy.
+2. Then review live whether:
+- `Turn Brief -> Decision` reduces clutter enough
+- the `Decision` page now feels focused rather than overloaded
+- the compact advisor counts in response cards are sufficient without reintroducing duplication

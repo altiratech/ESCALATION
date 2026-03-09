@@ -73,6 +73,8 @@ interface IntelFeedEntry {
   detail?: string;
 }
 
+type TurnStage = 'brief' | 'decision';
+
 const clipLine = (value: string, max = 180): string =>
   value.length > max ? `${value.slice(0, max - 1).trimEnd()}…` : value;
 
@@ -115,6 +117,7 @@ const App = () => {
   const [report, setReport] = useState<PostGameReport | null>(null);
   const [profileId, setProfileId] = useState<string | null>(null);
   const [selectedActionId, setSelectedActionId] = useState<string | null>(null);
+  const [turnStage, setTurnStage] = useState<TurnStage>('brief');
 
   const [loading, setLoading] = useState(false);
   const [bootstrapping, setBootstrapping] = useState(true);
@@ -175,16 +178,47 @@ const App = () => {
     }
     return reference.rivalLeaders.find((entry) => entry.scenarioId === episode.scenarioId) ?? null;
   }, [reference, episode?.scenarioId]);
-  const selectedAction = episode?.offeredActions.find((action) => action.id === selectedActionId) ?? null;
-  const selectedActionReads = useMemo(() => {
-    if (!selectedAction || !currentBeat || !reference) {
+  const activeAdvisorDossiers = useMemo(() => {
+    if (!currentBeat || !reference) {
       return [];
     }
-    const activeAdvisorDossiers = Object.keys(currentBeat.advisorLines)
+
+    return Object.keys(currentBeat.advisorLines)
       .map((advisorId) => reference.advisorDossiers.find((entry) => entry.id === advisorId))
       .filter((entry): entry is BootstrapPayload['advisorDossiers'][number] => Boolean(entry));
-    return getAdvisorActionReads(selectedAction, activeAdvisorDossiers);
-  }, [currentBeat, reference, selectedAction]);
+  }, [currentBeat, reference]);
+  const actionAdvisorReadsByActionId = useMemo(() => {
+    const readsByActionId = new Map<string, ReturnType<typeof getAdvisorActionReads>>();
+
+    if (!episode) {
+      return readsByActionId;
+    }
+
+    for (const action of episode.offeredActions) {
+      readsByActionId.set(action.id, getAdvisorActionReads(action, activeAdvisorDossiers));
+    }
+
+    return readsByActionId;
+  }, [activeAdvisorDossiers, episode?.offeredActions]);
+  const selectedAction = episode?.offeredActions.find((action) => action.id === selectedActionId) ?? null;
+  const actionAdvisorSummaries = useMemo(() => {
+    const summaries = new Map<string, { supports: number; cautions: number; opposes: number }>();
+
+    for (const [actionId, reads] of actionAdvisorReadsByActionId.entries()) {
+      summaries.set(
+        actionId,
+        reads.reduce(
+          (totals, read) => {
+            totals[read.alignment] += 1;
+            return totals;
+          },
+          { supports: 0, cautions: 0, opposes: 0 }
+        )
+      );
+    }
+
+    return summaries;
+  }, [actionAdvisorReadsByActionId]);
   const recentActionNarrative = useMemo<RecentActionNarrativeView | null>(() => {
     if (!reference || !currentScenario || !episode?.recentTurn) {
       return null;
@@ -240,6 +274,7 @@ const App = () => {
   const applyEpisodeUpdate = useCallback(async (nextEpisode: EpisodeView): Promise<void> => {
     setEpisode(nextEpisode);
     setSelectedActionId(null);
+    setTurnStage('brief');
     if (nextEpisode.status === 'completed') {
       const completedReport = await fetchReport(nextEpisode.episodeId);
       setReport(completedReport);
@@ -399,6 +434,7 @@ const App = () => {
     setError(null);
     setCountdownRemaining(null);
     setSelectedActionId(null);
+    setTurnStage('brief');
     timeoutGuardRef.current = null;
   };
 
@@ -651,6 +687,12 @@ const App = () => {
       detail: 'After resolution, check the turn assessment and operational readout for immediate consequences.'
     }
   ];
+  const turnStageLabel = turnStage === 'brief' ? 'Turn Brief' : 'Decision';
+  const turnStageActionLabel = turnStage === 'brief'
+    ? selectedAction
+      ? 'Return To Selected Response'
+      : 'Proceed To Decision'
+    : 'Back To Brief';
 
   return (
     <main className="mx-auto flex w-full max-w-[1680px] flex-col gap-4 px-3 py-3 pb-8 sm:px-4 lg:px-5">
@@ -679,6 +721,10 @@ const App = () => {
             <div className="console-chip">
               <strong>Intel</strong>
               <span>{intelStateLabel}</span>
+            </div>
+            <div className="console-chip">
+              <strong>Step</strong>
+              <span>{turnStageLabel}</span>
             </div>
             <div className="console-chip">
               <strong>Selected</strong>
@@ -749,178 +795,233 @@ const App = () => {
         <div className="rounded-md border border-warning/70 bg-warning/10 px-3 py-2 text-sm text-warning">{error}</div>
       ) : null}
 
-      <section
-        className={`action-required-shell px-3 py-3 sm:px-4 ${
-          selectedAction ? 'action-required-shell-ready' : 'action-required-shell-awaiting'
-        }`}
-      >
-        <div className="flex flex-col gap-3 xl:flex-row xl:items-start xl:justify-between">
-          <div className="relative z-[1] min-w-0">
-            <div className="flex flex-wrap items-center gap-2">
-              <p className="label text-accent">Action Required</p>
-              <span
-                className={`action-required-status ${
-                  selectedAction
-                    ? 'border-positive/65 bg-positive/10 text-positive'
-                    : 'border-accent/55 bg-accent/10 text-accent'
+      {turnStage === 'brief' ? (
+        <>
+          <section className="console-panel px-3 py-3 sm:px-4">
+            <div className="flex flex-col gap-3 xl:flex-row xl:items-start xl:justify-between">
+              <div className="min-w-0">
+                <div className="flex flex-wrap items-center gap-2">
+                  <p className="label text-accent">Turn Brief</p>
+                  <span className="action-required-status border-accent/55 bg-accent/10 text-accent">
+                    Review Before Deciding
+                  </span>
+                </div>
+                <p className="mt-2 text-[0.82rem] leading-relaxed text-textMain">{clipLine(currentDirective, 220)}</p>
+                <p className="mt-2 text-[0.72rem] leading-relaxed text-textMuted">
+                  Review the live briefing, intelligence feed, mandate, and confidence surfaces below. When you are ready,
+                  continue to the decision page to consult advisors and choose a response.
+                </p>
+              </div>
+              <button
+                type="button"
+                className="console-button console-button-primary min-w-[12.5rem]"
+                onClick={() => setTurnStage('decision')}
+                disabled={loading || episode.status !== 'active'}
+              >
+                {turnStageActionLabel}
+              </button>
+            </div>
+          </section>
+
+          <section className="console-panel console-panel-muted px-3 py-3 sm:px-4">
+            <div className="grid gap-3 xl:grid-cols-[1.02fr_0.98fr]">
+              <div className="min-w-0">
+                <p className="label">Mission Mandate</p>
+                <p className="mt-2 text-sm leading-relaxed text-textMain">{clipLine(currentDirective, 220)}</p>
+                <p className="mt-2 text-[0.72rem] leading-relaxed text-textMuted">
+                  Strategic success is measured against the mandate below, not simply whether the turn resolves without immediate escalation.
+                </p>
+              </div>
+              <div className="grid gap-2 sm:grid-cols-3">
+                {missionObjectives.length > 0
+                  ? missionObjectives.map((objective) => (
+                      <div key={objective.id} className="console-subpanel px-3 py-2.5">
+                        <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">{objective.label}</p>
+                        <p className="mt-1 text-[0.72rem] leading-relaxed text-textMain">{objective.description}</p>
+                      </div>
+                    ))
+                  : turnProcedure.map((item) => (
+                      <div key={item.label} className="console-subpanel px-3 py-2.5">
+                        <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">{item.label}</p>
+                        <p className="mt-1 text-[0.72rem] leading-relaxed text-textMain">{item.detail}</p>
+                      </div>
+                    ))}
+              </div>
+            </div>
+          </section>
+
+          <section className="grid min-h-0 gap-4 xl:grid-cols-[0.34fr_0.94fr]">
+            <aside className="console-panel console-panel-muted order-2 flex min-h-[36rem] flex-col p-3 xl:order-1">
+              <div className="flex items-center justify-between">
+                <p className="label">Intel Feed</p>
+                <span className="text-[0.62rem] uppercase tracking-[0.12em] text-textMuted">Live</span>
+              </div>
+              <div className="console-scroll mt-3 flex-1 space-y-2 overflow-y-auto pr-1 text-xs leading-relaxed text-textMuted">
+                {intelFeed.length > 0 ? intelFeedVisible.map((item, index) => (
+                  <article key={`${item.id}:${index}`} className="console-feed-item">
+                    <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">{item.channel}</p>
+                    <p className="mt-1 text-[0.72rem] text-textMain">{item.headline}</p>
+                    {item.detail ? (
+                      <p className="mt-1 text-[0.67rem] text-textMuted">{item.detail}</p>
+                    ) : null}
+                  </article>
+                )) : (
+                  <p className="rounded-md border border-borderTone/70 bg-panelRaised/45 px-2 py-1.5">
+                    Intelligence stream is stabilizing.
+                  </p>
+                )}
+              </div>
+              {intelFeed.length > 3 ? (
+                <button
+                  type="button"
+                  className="mt-3 rounded-md border border-borderTone px-2 py-1 text-[0.62rem] uppercase tracking-[0.1em] text-textMuted transition hover:border-accent hover:text-textMain lg:hidden"
+                  onClick={() => setIntelExpandedMobile((current) => !current)}
+                >
+                  {intelExpandedMobile ? 'Show less' : `Show ${Math.max(1, Math.min(intelFeed.length - 6, 6))} more`}
+                </button>
+              ) : null}
+            </aside>
+
+            <div className="order-1 min-h-[40rem] xl:order-2">
+              <BriefingPanel
+                turn={episode.turn}
+                briefing={episode.briefing}
+                scenarioWorld={currentScenarioWorld}
+                counterpartBrief={currentCounterpart}
+                imageAsset={episode.imageAsset}
+                turnDebrief={episode.turnDebrief}
+                recentActionNarrative={recentActionNarrative}
+                phaseTransition={phaseTransition}
+              />
+            </div>
+          </section>
+
+          <section className="grid gap-4 xl:grid-cols-[1.1fr_0.9fr]">
+            <MeterDashboard
+              meters={episode.meters}
+              previousMeters={episode.recentTurn?.meterBefore}
+              visibleRanges={episode.visibleRanges}
+            />
+            <IntelPanel ranges={episode.visibleRanges} intelQuality={episode.intelQuality} turn={episode.turn} />
+          </section>
+
+          <section className="console-panel px-3 py-3 sm:px-4">
+            <div className="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
+              <div>
+                <p className="label">Decision Phase</p>
+                <p className="mt-2 text-[0.76rem] leading-relaxed text-textMuted">
+                  Continue when you are ready to consult the advisors, compare responses, and commit a turn action.
+                </p>
+              </div>
+              <button
+                type="button"
+                className="console-button console-button-primary min-w-[12.5rem]"
+                onClick={() => setTurnStage('decision')}
+                disabled={loading || episode.status !== 'active'}
+              >
+                {turnStageActionLabel}
+              </button>
+            </div>
+          </section>
+        </>
+      ) : (
+        <section
+          className={`action-required-shell px-3 py-3 sm:px-4 ${
+            selectedAction ? 'action-required-shell-ready' : 'action-required-shell-awaiting'
+          }`}
+        >
+          <div className="flex flex-col gap-3 xl:flex-row xl:items-start xl:justify-between">
+            <div className="relative z-[1] min-w-0">
+              <div className="flex flex-wrap items-center gap-2">
+                <p className="label text-accent">Decision Phase</p>
+                <span
+                  className={`action-required-status ${
+                    selectedAction
+                      ? 'border-positive/65 bg-positive/10 text-positive'
+                      : 'border-accent/55 bg-accent/10 text-accent'
+                  }`}
+                >
+                  {selectedAction ? 'Ready To Commit' : 'Awaiting Response'}
+                </span>
+              </div>
+              <p className="mt-2 text-[0.82rem] leading-relaxed text-textMain">{clipLine(currentDirective, 220)}</p>
+              <p className="mt-2 text-sm leading-relaxed text-textMain">
+                Compare the available responses, inspect advisor reasoning, then commit a selected response to advance the turn.
+              </p>
+              <p className="mt-2 text-[0.72rem] leading-relaxed text-textMuted">
+                Need more context first? Return to the Turn Brief to review the full intelligence and mandate surfaces before you commit.
+              </p>
+              <div className="mt-3 grid gap-2 sm:grid-cols-3">
+                <div className="action-required-step">
+                  <p className="text-[0.56rem] uppercase tracking-[0.12em] text-accent">1. Select</p>
+                  <p className="mt-1 text-[0.7rem] leading-relaxed text-textMain">Choose one response from the selector.</p>
+                </div>
+                <div className="action-required-step">
+                  <p className="text-[0.56rem] uppercase tracking-[0.12em] text-accent">2. Consult</p>
+                  <p className="mt-1 text-[0.7rem] leading-relaxed text-textMain">Open advisor cards to review the reasoning behind the selected response.</p>
+                </div>
+                <div className="action-required-step">
+                  <p className="text-[0.56rem] uppercase tracking-[0.12em] text-accent">3. Commit</p>
+                  <p className="mt-1 text-[0.7rem] leading-relaxed text-textMain">Advance the turn only after you are satisfied with the selected response.</p>
+                </div>
+              </div>
+            </div>
+            <div className="relative z-[1] flex shrink-0 flex-wrap items-center gap-2">
+              <button
+                type="button"
+                className="console-button console-button-secondary min-w-[12.5rem]"
+                onClick={() => setTurnStage('brief')}
+                disabled={loading}
+              >
+                Back To Brief
+              </button>
+              <div
+                className={`console-chip ${
+                  selectedAction ? 'border-positive/45 bg-positive/8' : 'border-accent/50 bg-accent/8'
                 }`}
               >
-                {selectedAction ? 'Ready To Commit' : 'Awaiting Response'}
-              </span>
-            </div>
-            <p className="mt-2 text-[0.82rem] leading-relaxed text-textMain">{clipLine(currentDirective, 220)}</p>
-            <p className="mt-2 text-sm leading-relaxed text-textMain">
-              Review one response, inspect the tradeoffs, compare advisor positions, then commit and advance the turn.
-            </p>
-            <p className="mt-2 text-[0.72rem] leading-relaxed text-textMuted">
-              {showTakeNoAction
-                ? 'Untimed mode is active. You may commit a selected response or explicitly take no action from the header.'
-                : turnResolutionGuidance}
-            </p>
-            <div className="mt-3 grid gap-2 sm:grid-cols-3">
-              <div className="action-required-step">
-                <p className="text-[0.56rem] uppercase tracking-[0.12em] text-accent">1. Select</p>
-                <p className="mt-1 text-[0.7rem] leading-relaxed text-textMain">Choose one response from the selector.</p>
+                <strong>Decision</strong>
+                <span>{selectedAction?.name ?? 'Choose a response'}</span>
               </div>
-              <div className="action-required-step">
-                <p className="text-[0.56rem] uppercase tracking-[0.12em] text-accent">2. Review</p>
-                <p className="mt-1 text-[0.7rem] leading-relaxed text-textMain">Inspect the rationale, exposure, and advisor positions.</p>
-              </div>
-              <div className="action-required-step">
-                <p className="text-[0.56rem] uppercase tracking-[0.12em] text-accent">3. Commit</p>
-                <p className="mt-1 text-[0.7rem] leading-relaxed text-textMain">Advance the turn only after you are satisfied with the selected response.</p>
-              </div>
+              <button
+                type="button"
+                className={`console-button ${selectedAction ? 'console-button-primary' : 'console-button-secondary'} min-w-[12.5rem]`}
+                onClick={() => void handleActionCommit()}
+                disabled={!selectedAction || loading || episode.status !== 'active'}
+              >
+                {selectedAction ? 'Commit Selected Response' : 'Select A Response'}
+              </button>
             </div>
           </div>
-          <div className="relative z-[1] flex shrink-0 flex-wrap items-center gap-2">
-            <div
-              className={`console-chip ${
-                selectedAction ? 'border-positive/45 bg-positive/8' : 'border-accent/50 bg-accent/8'
-              }`}
-            >
-              <strong>Decision</strong>
-              <span>{selectedAction?.name ?? 'Choose a response'}</span>
-            </div>
-            <button
-              type="button"
-              className={`console-button ${selectedAction ? 'console-button-primary' : 'console-button-secondary'} min-w-[12.5rem]`}
-              onClick={() => void handleActionCommit()}
-              disabled={!selectedAction || loading || episode.status !== 'active'}
-            >
-              {selectedAction ? 'Commit Selected Response' : 'Select A Response'}
-            </button>
+
+          <div className="relative z-[1] mt-4 grid min-h-0 gap-4 xl:grid-cols-[1.06fr_0.72fr]">
+            <ActionCards
+              actions={episode.offeredActions}
+              disabled={loading || episode.status !== 'active'}
+              selectedActionId={selectedActionId}
+              actionAdvisorSummaries={actionAdvisorSummaries}
+              onSelect={(actionId) => {
+                void handleActionSelect(actionId);
+              }}
+            />
+            <AdvisorPanel
+              beat={currentBeat}
+              scenarioId={episode.scenarioId}
+              advisorDossiers={reference.advisorDossiers}
+              selectedAction={selectedAction}
+            />
           </div>
-        </div>
 
-        <div className="relative z-[1] mt-4 grid min-h-0 gap-4 xl:grid-cols-[1.06fr_0.72fr]">
-          <ActionCards
-            actions={episode.offeredActions}
-            disabled={loading || episode.status !== 'active'}
-            selectedActionId={selectedActionId}
-            selectedActionReads={selectedActionReads}
-            onSelect={(actionId) => {
-              void handleActionSelect(actionId);
-            }}
-          />
-          <AdvisorPanel
-            beat={currentBeat}
-            scenarioId={episode.scenarioId}
-            advisorDossiers={reference.advisorDossiers}
-            selectedAction={selectedAction}
-          />
-        </div>
-
-        <div className="relative z-[1] mt-4 border-t border-accent/25 pt-4">
-          <CommandInput
-            turn={episode.turn}
-            disabled={loading || episode.status !== 'active'}
-            onSubmitCommand={handleCommandSubmit}
-            onSelectAction={handleActionSelect}
-          />
-        </div>
-      </section>
-
-      <section className="console-panel console-panel-muted px-3 py-3 sm:px-4">
-        <div className="grid gap-3 xl:grid-cols-[1.02fr_0.98fr]">
-          <div className="min-w-0">
-            <p className="label">Mission Mandate</p>
-            <p className="mt-2 text-sm leading-relaxed text-textMain">{clipLine(currentDirective, 220)}</p>
-            <p className="mt-2 text-[0.72rem] leading-relaxed text-textMuted">
-              Strategic success is measured against the mandate below, not simply whether the turn resolves without immediate escalation.
-            </p>
+          <div className="relative z-[1] mt-4 border-t border-accent/25 pt-4">
+            <CommandInput
+              turn={episode.turn}
+              disabled={loading || episode.status !== 'active'}
+              onSubmitCommand={handleCommandSubmit}
+              onSelectAction={handleActionSelect}
+            />
           </div>
-          <div className="grid gap-2 sm:grid-cols-3">
-            {missionObjectives.length > 0
-              ? missionObjectives.map((objective) => (
-                  <div key={objective.id} className="console-subpanel px-3 py-2.5">
-                    <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">{objective.label}</p>
-                    <p className="mt-1 text-[0.72rem] leading-relaxed text-textMain">{objective.description}</p>
-                  </div>
-                ))
-              : turnProcedure.map((item) => (
-                  <div key={item.label} className="console-subpanel px-3 py-2.5">
-                    <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">{item.label}</p>
-                    <p className="mt-1 text-[0.72rem] leading-relaxed text-textMain">{item.detail}</p>
-                  </div>
-                ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="grid min-h-0 gap-4 xl:grid-cols-[0.34fr_0.94fr]">
-        <aside className="console-panel console-panel-muted order-2 flex min-h-[36rem] flex-col p-3 xl:order-1">
-          <div className="flex items-center justify-between">
-            <p className="label">Intel Feed</p>
-            <span className="text-[0.62rem] uppercase tracking-[0.12em] text-textMuted">Live</span>
-          </div>
-          <div className="console-scroll mt-3 flex-1 space-y-2 overflow-y-auto pr-1 text-xs leading-relaxed text-textMuted">
-            {intelFeed.length > 0 ? intelFeedVisible.map((item, index) => (
-              <article key={`${item.id}:${index}`} className="console-feed-item">
-                <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">{item.channel}</p>
-                <p className="mt-1 text-[0.72rem] text-textMain">{item.headline}</p>
-                {item.detail ? (
-                  <p className="mt-1 text-[0.67rem] text-textMuted">{item.detail}</p>
-                ) : null}
-              </article>
-            )) : (
-              <p className="rounded-md border border-borderTone/70 bg-panelRaised/45 px-2 py-1.5">
-                Intelligence stream is stabilizing.
-              </p>
-            )}
-          </div>
-          {intelFeed.length > 3 ? (
-            <button
-              type="button"
-              className="mt-3 rounded-md border border-borderTone px-2 py-1 text-[0.62rem] uppercase tracking-[0.1em] text-textMuted transition hover:border-accent hover:text-textMain lg:hidden"
-              onClick={() => setIntelExpandedMobile((current) => !current)}
-            >
-              {intelExpandedMobile ? 'Show less' : `Show ${Math.max(1, Math.min(intelFeed.length - 6, 6))} more`}
-            </button>
-          ) : null}
-        </aside>
-
-        <div className="order-1 min-h-[40rem] xl:order-2">
-          <BriefingPanel
-            turn={episode.turn}
-            briefing={episode.briefing}
-            scenarioWorld={currentScenarioWorld}
-            counterpartBrief={currentCounterpart}
-            imageAsset={episode.imageAsset}
-            turnDebrief={episode.turnDebrief}
-            recentActionNarrative={recentActionNarrative}
-            phaseTransition={phaseTransition}
-          />
-        </div>
-      </section>
-
-      <section className="grid gap-4 xl:grid-cols-[1.1fr_0.9fr]">
-        <MeterDashboard
-          meters={episode.meters}
-          previousMeters={episode.recentTurn?.meterBefore}
-          visibleRanges={episode.visibleRanges}
-        />
-        <IntelPanel ranges={episode.visibleRanges} intelQuality={episode.intelQuality} turn={episode.turn} />
-      </section>
+        </section>
+      )}
     </main>
   );
 };

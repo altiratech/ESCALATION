@@ -2,13 +2,11 @@ import { useMemo, useState } from 'react';
 
 import type { ActionDefinition } from '@wargames/shared-types';
 
-import type { AdvisorActionRead } from '../lib/decisionSupport';
-
 interface ActionCardsProps {
   actions: ActionDefinition[];
   disabled: boolean;
   selectedActionId: string | null;
-  selectedActionReads: AdvisorActionRead[];
+  actionAdvisorSummaries: Map<string, { supports: number; cautions: number; opposes: number }>;
   onSelect: (actionId: string) => void;
 }
 
@@ -58,17 +56,11 @@ const riskHint = (action: ActionDefinition): string => {
   return 'Main downside: coalition friction and message discipline problems.';
 };
 
-const alignmentTone: Record<AdvisorActionRead['alignment'], string> = {
-  supports: 'border-positive/60 text-positive',
-  cautions: 'border-warning/60 text-warning',
-  opposes: 'border-red-500/60 text-red-300'
-};
-
 export const ActionCards = ({
   actions,
   disabled,
   selectedActionId,
-  selectedActionReads,
+  actionAdvisorSummaries,
   onSelect
 }: ActionCardsProps) => {
   const [showHelp, setShowHelp] = useState(false);
@@ -81,15 +73,6 @@ export const ActionCards = ({
     () => sorted.find((entry) => entry.id === selectedActionId) ?? null,
     [selectedActionId, sorted]
   );
-  const alignmentSummary = useMemo(() => {
-    return selectedActionReads.reduce(
-      (totals, read) => {
-        totals[read.alignment] += 1;
-        return totals;
-      },
-      { supports: 0, cautions: 0, opposes: 0 }
-    );
-  }, [selectedActionReads]);
 
   return (
     <section className="console-subpanel h-full px-3 py-3 sm:px-4">
@@ -126,6 +109,7 @@ export const ActionCards = ({
       <div className="mt-2 grid gap-2 sm:grid-cols-2">
         {sorted.map((action) => {
           const active = action.id === selectedActionId;
+          const summary = actionAdvisorSummaries.get(action.id) ?? { supports: 0, cautions: 0, opposes: 0 };
           return (
             <button
               key={action.id}
@@ -151,6 +135,17 @@ export const ActionCards = ({
                   <p className="mt-1 text-[0.62rem] uppercase tracking-[0.12em] text-textMuted">
                     {action.tags.slice(0, 2).join(' · ') || 'Response option'}
                   </p>
+                  <div className="mt-2 flex flex-wrap gap-1.5">
+                    <span className="rounded-md border border-positive/60 px-1.5 py-0.5 text-[0.54rem] uppercase tracking-[0.12em] text-positive">
+                      Supports {summary.supports}
+                    </span>
+                    <span className="rounded-md border border-warning/60 px-1.5 py-0.5 text-[0.54rem] uppercase tracking-[0.12em] text-warning">
+                      Cautions {summary.cautions}
+                    </span>
+                    <span className="rounded-md border border-red-500/60 px-1.5 py-0.5 text-[0.54rem] uppercase tracking-[0.12em] text-red-300">
+                      Opposes {summary.opposes}
+                    </span>
+                  </div>
                 </div>
                 <span className="shrink-0 text-[0.58rem] uppercase tracking-[0.12em] text-accent/90">
                   {active ? 'Selected' : 'Open'}
@@ -193,38 +188,6 @@ export const ActionCards = ({
               <div className="console-subpanel px-3 py-2.5">
                 <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Primary Risk</p>
                 <p className="mt-1 text-[0.72rem] leading-relaxed text-textMain">{riskHint(selectedAction)}</p>
-              </div>
-            </div>
-
-            <div>
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <p className="label">Advisor Positions</p>
-                <div className="flex flex-wrap gap-1.5 text-[0.56rem] uppercase tracking-[0.12em] text-textMuted">
-                  <span className="rounded-md border border-positive/60 px-1.5 py-0.5 text-positive">
-                    Supports {alignmentSummary.supports}
-                  </span>
-                  <span className="rounded-md border border-warning/60 px-1.5 py-0.5 text-warning">
-                    Cautions {alignmentSummary.cautions}
-                  </span>
-                  <span className="rounded-md border border-red-500/60 px-1.5 py-0.5 text-red-300">
-                    Opposes {alignmentSummary.opposes}
-                  </span>
-                </div>
-              </div>
-              <div className="mt-2 space-y-2">
-                {selectedActionReads.map((read) => (
-                  <div key={read.advisorId} className="console-subpanel px-3 py-2.5">
-                    <div className="flex flex-wrap items-center gap-2">
-                      <p className="text-[0.74rem] text-textMain">{read.advisorName}</p>
-                      <span
-                        className={`rounded-md border px-1.5 py-0.5 text-[0.54rem] uppercase tracking-[0.12em] ${alignmentTone[read.alignment]}`}
-                      >
-                        {read.alignment}
-                      </span>
-                    </div>
-                    <p className="mt-1 text-[0.68rem] leading-relaxed text-textMuted">{read.rationale}</p>
-                  </div>
-                ))}
               </div>
             </div>
 

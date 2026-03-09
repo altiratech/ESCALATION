@@ -92,7 +92,7 @@ export const CommandInput = ({ turn, disabled, onSubmitCommand, onSelectAction }
     try {
       await onSelectAction(action.id);
       setPendingSuggestions([]);
-      appendLine('system', `Selected: ${action.name}. Review it in the decision rail and commit from the header.`);
+      appendLine('system', `Selected: ${action.name}. Review it on the decision page and commit it when ready.`);
     } catch (error) {
       appendLine('system', error instanceof Error ? error.message : 'Suggested action selection failed.');
     } finally {
@@ -186,7 +186,7 @@ export const CommandInput = ({ turn, disabled, onSubmitCommand, onSelectAction }
       </div>
 
       <p className="mt-2 text-[0.66rem] text-textMuted">
-        Typed orders are interpreted into a suggested response. Review the selected response above before committing the turn.
+        Typed orders are interpreted into a suggested response. Review the selected response on this page before committing the turn.
       </p>
         </>
       ) : null}
