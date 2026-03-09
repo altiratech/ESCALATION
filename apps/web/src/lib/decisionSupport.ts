@@ -1,6 +1,11 @@
-import type { ActionDefinition, AdvisorDossier } from '@wargames/shared-types';
+import type {
+  ActionDefinition,
+  AdvisorDossier,
+  AdvisorRecommendationAlignment,
+  BeatNode
+} from '@wargames/shared-types';
 
-export type AdvisorAlignment = 'supports' | 'cautions' | 'opposes';
+export type AdvisorAlignment = AdvisorRecommendationAlignment;
 
 export interface AdvisorActionRead {
   advisorId: string;
@@ -182,22 +187,44 @@ const rationaleForAdvisor = (advisorId: string, alignment: AdvisorAlignment): st
   }
 };
 
+const authoredAlignmentForAction = (
+  actionId: string,
+  guidance?: NonNullable<BeatNode['advisorActionGuidance']>[string]
+): AdvisorAlignment | null => {
+  if (!guidance) {
+    return null;
+  }
+  if (guidance.supports.includes(actionId)) {
+    return 'supports';
+  }
+  if (guidance.cautions.includes(actionId)) {
+    return 'cautions';
+  }
+  if (guidance.opposes.includes(actionId)) {
+    return 'opposes';
+  }
+  return null;
+};
+
 export const getAdvisorActionReads = (
   action: ActionDefinition | null,
-  advisorDossiers: AdvisorDossier[]
+  advisorDossiers: AdvisorDossier[],
+  beat?: BeatNode | null
 ): AdvisorActionRead[] => {
   if (!action) {
     return [];
   }
 
   return advisorDossiers.map((dossier) => {
-    const alignment = alignmentFromScore(scoreForAdvisor(action, dossier.id));
+    const authoredGuidance = beat?.advisorActionGuidance?.[dossier.id];
+    const authoredAlignment = authoredAlignmentForAction(action.id, authoredGuidance);
+    const alignment = authoredAlignment ?? alignmentFromScore(scoreForAdvisor(action, dossier.id));
     return {
       advisorId: dossier.id,
       advisorName: dossier.name,
       stance: dossier.stance,
       alignment,
-      rationale: rationaleForAdvisor(dossier.id, alignment)
+      rationale: authoredGuidance?.rationaleByAlignment[alignment] ?? rationaleForAdvisor(dossier.id, alignment)
     };
   });
 };

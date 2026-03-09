@@ -2988,3 +2988,60 @@ Current naming rule:
 2. If this refinement holds up, next likely product move:
 - authored advisor-to-action recommendation support
 - or one last compression pass on `Turn Brief` if it still feels verbose
+
+## 56. Flashpoint Authored Advisor-to-Action Guidance (2026-03-09 ET)
+
+### 56.1 What changed
+
+1. Replaced heuristic-first advisor/action linkage with authored beat content for the live Taiwan Strait scenario:
+- added optional `advisorActionGuidance` to `BeatNode`
+- each active non-terminal beat now classifies the available player responses into `supports`, `cautions`, and `opposes` for the beat’s active advisors
+- each advisor classification also carries authored rationale text keyed by alignment
+
+2. Wired the web decision-support helper to prefer authored beat guidance:
+- `apps/web/src/lib/decisionSupport.ts` now checks the current beat for `advisorActionGuidance`
+- authored guidance is used for both alignment counts and rationale text
+- the old tag/signal scoring path remains as fallback for older or incomplete scenario content
+
+3. Updated live consumers:
+- `App.tsx` now computes card-level advisor summaries from authored beat guidance when present
+- `AdvisorPanel.tsx` now uses the same authored beat guidance for the selected-response rationale
+
+4. Added contract coverage:
+- new test `tests/engine/advisor-action-guidance.test.ts` verifies:
+  - every active advisor on every live non-terminal beat has a full action partition
+  - authored beat guidance overrides heuristic scoring when present
+
+### 56.2 What passed
+
+1. Validation:
+- `npm run lint`
+- `npx vitest run tests/engine/advisor-action-guidance.test.ts`
+- `npm run ci:phase1`
+
+2. Results:
+- `15/15` test files passed
+- `31/31` tests passed
+- Monte Carlo concentration warnings unchanged and non-blocking
+
+### 56.3 Spec drift remaining
+
+1. Content structure:
+- beat-level advisor/action guidance now lives in `scenarios.json`; if this grows further, the next maintainability decision may be whether to split scenario action-guidance content into its own authored pack without changing runtime behavior
+
+2. Reporting/product:
+- deeper authored tradeoff scorecards remain the next major report refinement
+
+3. Advisor nuance:
+- this pass classifies responses cleanly, but further polish could still add more per-action nuance or scenario-branch-specific rationale if live review shows the current authored text is still too coarse
+
+### 56.4 Exact next action for resume
+
+1. Review live whether:
+- advisor support/caution/opposition counts now feel less synthetic in the decision selector
+- expanded advisor rationale now feels grounded in the current beat rather than generic role archetypes
+- the selected-response workflow still feels clean after the authored content swap
+
+2. If the authored guidance lands well, next likely product move:
+- deepen post-game mandate/tradeoff reporting
+- or add richer authored advisor nuance only where live play shows it is still too generic

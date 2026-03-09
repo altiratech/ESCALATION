@@ -75,9 +75,9 @@ export const AdvisorPanel = ({ beat, scenarioId, advisorDossiers, selectedAction
 
     const activeDossiers = advisorEntries.map((entry) => dossierByAdvisorId.get(entry.advisorId) ?? fallbackProfile(entry.advisorId));
     return new Map(
-      getAdvisorActionReads(selectedAction, activeDossiers).map((read) => [read.advisorId, read])
+      getAdvisorActionReads(selectedAction, activeDossiers, beat).map((read) => [read.advisorId, read])
     );
-  }, [advisorEntries, dossierByAdvisorId, selectedAction]);
+  }, [advisorEntries, beat, dossierByAdvisorId, selectedAction]);
 
   useEffect(() => {
     setExpandedAdvisorId(null);

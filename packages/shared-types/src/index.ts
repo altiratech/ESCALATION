@@ -18,6 +18,7 @@ export type OutcomeCategory =
 export type TimerMode = 'standard' | 'relaxed' | 'off';
 export type BeatPhase = 'opening' | 'rising' | 'crisis' | 'climax' | 'resolution';
 export type DebriefTag = 'PlayerAction' | 'SecondaryEffect' | 'SystemEvent';
+export type AdvisorRecommendationAlignment = 'supports' | 'cautions' | 'opposes';
 
 export type Visibility = 'public' | 'secret' | 'semi-public';
 export type ActorType = 'player' | 'rival';
@@ -158,11 +159,19 @@ export interface BeatDecisionWindow {
   inactionNarrative: string;
 }
 
+export interface BeatAdvisorActionGuidance {
+  supports: string[];
+  cautions: string[];
+  opposes: string[];
+  rationaleByAlignment: Record<AdvisorRecommendationAlignment, string>;
+}
+
 export interface BeatNode {
   id: string;
   phase: BeatPhase;
   sceneFragments: string[];
   advisorLines: Record<string, string[]>;
+  advisorActionGuidance?: Record<string, BeatAdvisorActionGuidance>;
   headlines: string[];
   memoLine: string | null;
   tickerLine: string | null;

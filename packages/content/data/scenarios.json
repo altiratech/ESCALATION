@@ -168,7 +168,109 @@
         "meterOverrides": null,
         "advisorUnlock": null,
         "musicCue": "tense_low",
-        "decisionWindow": null
+        "decisionWindow": null,
+        "advisorActionGuidance": {
+          "cross": {
+            "supports": [
+              "military_posture_increase",
+              "public_signaling_speech",
+              "targeted_sanctions"
+            ],
+            "cautions": [
+              "intelligence_surge",
+              "cyber_intrusion",
+              "broad_sanctions"
+            ],
+            "opposes": [
+              "backchannel_diplomacy",
+              "resource_stockpiling",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_decrease",
+              "limited_concession"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Backs visible deterrence that prevents the inspection regime from becoming the new baseline.",
+              "cautions": "Sees some value here, but only if it feeds a stronger show of resolve inside the same opening window.",
+              "opposes": "Rejects moves that look like accommodation or that leave Beijing holding the operational initiative."
+            }
+          },
+          "chen": {
+            "supports": [
+              "backchannel_diplomacy",
+              "limited_concession",
+              "public_signaling_speech",
+              "intelligence_surge"
+            ],
+            "cautions": [
+              "resource_stockpiling",
+              "targeted_sanctions",
+              "military_posture_decrease"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_increase"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Prefers options that keep allies aligned and preserve a legal, diplomatic case against the inspection regime.",
+              "cautions": "Can live with this if it is tightly framed, but worries sloppy execution will split coalition messaging.",
+              "opposes": "Rejects moves that harden positions faster than they build allied leverage or a credible off-ramp."
+            }
+          },
+          "okonkwo": {
+            "supports": [
+              "resource_stockpiling",
+              "intelligence_surge",
+              "targeted_sanctions"
+            ],
+            "cautions": [
+              "backchannel_diplomacy",
+              "limited_concession",
+              "public_signaling_speech",
+              "cyber_intrusion"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_increase",
+              "military_posture_decrease"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Supports options that steady shipping confidence and show markets the coalition is managing the shock.",
+              "cautions": "Sees limited upside here, but wants tighter commercial guardrails before leaning on it.",
+              "opposes": "Rejects moves that amplify freight, chip, or insurance stress before the coalition has absorbed the first hit."
+            }
+          },
+          "reed": {
+            "supports": [
+              "intelligence_surge",
+              "cyber_intrusion",
+              "backchannel_diplomacy"
+            ],
+            "cautions": [
+              "targeted_sanctions",
+              "resource_stockpiling",
+              "covert_sabotage"
+            ],
+            "opposes": [
+              "public_signaling_speech",
+              "broad_sanctions",
+              "cyber_disruption",
+              "military_posture_increase",
+              "military_posture_decrease",
+              "limited_concession"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Supports options that buy attribution, optionality, and time against a choreographed gray-zone test.",
+              "cautions": "Sees some utility here, but worries it either telegraphs too much or burns deniable leverage too early.",
+              "opposes": "Rejects moves that force the crisis into an overt channel before the coalition understands the full playbook."
+            }
+          }
+        }
       },
       {
         "id": "ns_backchannel_opening",
@@ -239,7 +341,109 @@
         "meterOverrides": null,
         "advisorUnlock": null,
         "musicCue": "tense_low",
-        "decisionWindow": null
+        "decisionWindow": null,
+        "advisorActionGuidance": {
+          "chen": {
+            "supports": [
+              "backchannel_diplomacy",
+              "limited_concession",
+              "public_signaling_speech"
+            ],
+            "cautions": [
+              "intelligence_surge",
+              "targeted_sanctions",
+              "resource_stockpiling",
+              "cyber_intrusion"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_increase",
+              "military_posture_decrease"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Backs moves that protect the quiet channel and turn it into a disciplined off-ramp.",
+              "cautions": "Can tolerate this if it stays subordinate to the diplomacy, but not if it crowds out the opening.",
+              "opposes": "Rejects moves that would collapse the channel before terms have even been tested."
+            }
+          },
+          "cross": {
+            "supports": [
+              "military_posture_increase",
+              "public_signaling_speech",
+              "targeted_sanctions"
+            ],
+            "cautions": [
+              "backchannel_diplomacy",
+              "intelligence_surge",
+              "cyber_intrusion"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "resource_stockpiling",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_decrease",
+              "limited_concession"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Backs moves that reinforce deterrence while talks proceed under pressure rather than in a vacuum.",
+              "cautions": "Accepts this only if it complements a stronger posture and does not become the sole line of effort.",
+              "opposes": "Rejects concessions or retrenchment that let Beijing pocket the diplomatic opening without paying a price."
+            }
+          },
+          "okonkwo": {
+            "supports": [
+              "backchannel_diplomacy",
+              "limited_concession",
+              "resource_stockpiling",
+              "intelligence_surge"
+            ],
+            "cautions": [
+              "public_signaling_speech",
+              "targeted_sanctions",
+              "cyber_intrusion"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_increase",
+              "military_posture_decrease"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Prefers responses that keep the backchannel opening from spilling into a broader commercial and market shock.",
+              "cautions": "Can accept this if the coalition can absorb the cost around the backchannel opening.",
+              "opposes": "Rejects moves likely to amplify the backchannel opening into a balance-sheet event."
+            }
+          },
+          "reed": {
+            "supports": [
+              "backchannel_diplomacy",
+              "intelligence_surge",
+              "cyber_intrusion"
+            ],
+            "cautions": [
+              "limited_concession",
+              "targeted_sanctions",
+              "covert_sabotage"
+            ],
+            "opposes": [
+              "public_signaling_speech",
+              "broad_sanctions",
+              "resource_stockpiling",
+              "cyber_disruption",
+              "military_posture_increase",
+              "military_posture_decrease"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Supports options that preserve attribution, ambiguity, and leverage around the backchannel opening.",
+              "cautions": "Sees some utility here, but worries it exposes too much or narrows the shadow play around the backchannel opening.",
+              "opposes": "Rejects moves that force the backchannel opening too quickly into an overt response channel."
+            }
+          }
+        }
       },
       {
         "id": "ns_strait_pressure",
@@ -309,7 +513,109 @@
         "meterOverrides": null,
         "advisorUnlock": "reed",
         "musicCue": "rising_drone",
-        "decisionWindow": null
+        "decisionWindow": null,
+        "advisorActionGuidance": {
+          "cross": {
+            "supports": [
+              "military_posture_increase",
+              "targeted_sanctions",
+              "public_signaling_speech",
+              "cyber_intrusion"
+            ],
+            "cautions": [
+              "intelligence_surge",
+              "broad_sanctions",
+              "cyber_disruption",
+              "covert_sabotage"
+            ],
+            "opposes": [
+              "backchannel_diplomacy",
+              "resource_stockpiling",
+              "military_posture_decrease",
+              "limited_concession"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Supports options that make blockade rehearsal feel costly and unmistakably contested.",
+              "cautions": "Sees value here, but wants to avoid spending scarce leverage on a move that still feels indirect.",
+              "opposes": "Rejects actions that signal drift or deference while Beijing tests how much pressure the corridor can absorb."
+            }
+          },
+          "okonkwo": {
+            "supports": [
+              "intelligence_surge",
+              "resource_stockpiling",
+              "targeted_sanctions"
+            ],
+            "cautions": [
+              "backchannel_diplomacy",
+              "limited_concession",
+              "public_signaling_speech",
+              "cyber_intrusion"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_increase",
+              "military_posture_decrease"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Prefers moves that buy time for shipping, inventories, and insurers before uncertainty compounds.",
+              "cautions": "Can accept this if market containment stays ahead of the headline cycle.",
+              "opposes": "Rejects steps that add commercial shock faster than they generate usable leverage."
+            }
+          },
+          "chen": {
+            "supports": [
+              "backchannel_diplomacy",
+              "limited_concession",
+              "intelligence_surge"
+            ],
+            "cautions": [
+              "public_signaling_speech",
+              "targeted_sanctions",
+              "resource_stockpiling"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_increase",
+              "military_posture_decrease"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Backs moves that stabilize the strait-pressure campaign without closing the diplomatic exit.",
+              "cautions": "Can accept this if it is tightly framed and does not fracture coalition discipline around the strait-pressure campaign.",
+              "opposes": "Rejects steps likely to harden the strait-pressure campaign into strategic lock-in."
+            }
+          },
+          "reed": {
+            "supports": [
+              "intelligence_surge",
+              "cyber_intrusion",
+              "backchannel_diplomacy"
+            ],
+            "cautions": [
+              "targeted_sanctions",
+              "public_signaling_speech",
+              "covert_sabotage"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "resource_stockpiling",
+              "cyber_disruption",
+              "military_posture_increase",
+              "military_posture_decrease",
+              "limited_concession"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Supports options that preserve attribution, ambiguity, and leverage around the strait-pressure campaign.",
+              "cautions": "Sees some utility here, but worries it exposes too much or narrows the shadow play around the strait-pressure campaign.",
+              "opposes": "Rejects moves that force the strait-pressure campaign too quickly into an overt response channel."
+            }
+          }
+        }
       },
       {
         "id": "ns_trade_friction",
@@ -373,7 +679,109 @@
         "meterOverrides": null,
         "advisorUnlock": null,
         "musicCue": "rising_drone",
-        "decisionWindow": null
+        "decisionWindow": null,
+        "advisorActionGuidance": {
+          "okonkwo": {
+            "supports": [
+              "targeted_sanctions",
+              "resource_stockpiling",
+              "backchannel_diplomacy",
+              "intelligence_surge"
+            ],
+            "cautions": [
+              "limited_concession",
+              "public_signaling_speech",
+              "cyber_intrusion"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_increase",
+              "military_posture_decrease"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Backs tools that manage liquidity and supply friction without detonating a broader commercial cascade.",
+              "cautions": "Accepts this only if the coalition can explain the move clearly to markets and industry.",
+              "opposes": "Rejects responses likely to turn thin markets and tight inventories into a self-feeding panic."
+            }
+          },
+          "chen": {
+            "supports": [
+              "backchannel_diplomacy",
+              "limited_concession",
+              "intelligence_surge"
+            ],
+            "cautions": [
+              "targeted_sanctions",
+              "resource_stockpiling",
+              "public_signaling_speech",
+              "military_posture_decrease"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_increase"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Prefers disciplined diplomacy that contains the trade fight before it becomes strategic lock-in.",
+              "cautions": "Can work with this if it is narrowly framed and does not box allies into harder lines.",
+              "opposes": "Rejects moves that make economic pain the new center of gravity and narrow the diplomatic exit."
+            }
+          },
+          "cross": {
+            "supports": [
+              "targeted_sanctions",
+              "public_signaling_speech",
+              "military_posture_increase"
+            ],
+            "cautions": [
+              "intelligence_surge",
+              "cyber_intrusion",
+              "backchannel_diplomacy"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "resource_stockpiling",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_decrease",
+              "limited_concession"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Backs choices that restore visible resolve around the trade-friction phase.",
+              "cautions": "Sees some value here, but only if it still reinforces deterrence around the trade-friction phase.",
+              "opposes": "Rejects moves that yield initiative or blur resolve around the trade-friction phase."
+            }
+          },
+          "reed": {
+            "supports": [
+              "intelligence_surge",
+              "cyber_intrusion",
+              "backchannel_diplomacy"
+            ],
+            "cautions": [
+              "targeted_sanctions",
+              "limited_concession",
+              "covert_sabotage"
+            ],
+            "opposes": [
+              "public_signaling_speech",
+              "broad_sanctions",
+              "resource_stockpiling",
+              "cyber_disruption",
+              "military_posture_increase",
+              "military_posture_decrease"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Supports options that preserve attribution, ambiguity, and leverage around the trade-friction phase.",
+              "cautions": "Sees some utility here, but worries it exposes too much or narrows the shadow play around the trade-friction phase.",
+              "opposes": "Rejects moves that force the trade-friction phase too quickly into an overt response channel."
+            }
+          }
+        }
       },
       {
         "id": "ns_info_war",
@@ -437,7 +845,109 @@
         "meterOverrides": null,
         "advisorUnlock": null,
         "musicCue": "rising_drone",
-        "decisionWindow": null
+        "decisionWindow": null,
+        "advisorActionGuidance": {
+          "reed": {
+            "supports": [
+              "intelligence_surge",
+              "cyber_intrusion",
+              "backchannel_diplomacy"
+            ],
+            "cautions": [
+              "public_signaling_speech",
+              "targeted_sanctions",
+              "limited_concession",
+              "covert_sabotage"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "resource_stockpiling",
+              "cyber_disruption",
+              "military_posture_increase",
+              "military_posture_decrease"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Backs options that expose the campaign, improve attribution, and deny Beijing a panic narrative.",
+              "cautions": "Sees utility here, but worries it still hands the adversary an information advantage if mishandled.",
+              "opposes": "Rejects moves that create spectacle, noise, or escalation cues the propaganda machine can weaponize."
+            }
+          },
+          "chen": {
+            "supports": [
+              "intelligence_surge",
+              "backchannel_diplomacy",
+              "limited_concession"
+            ],
+            "cautions": [
+              "public_signaling_speech",
+              "resource_stockpiling",
+              "targeted_sanctions",
+              "military_posture_decrease"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_increase"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Prefers actions that steady public interpretation and keep allies from validating Beijing’s framing.",
+              "cautions": "Can accept this if the message discipline is tight and coalition fallout stays limited.",
+              "opposes": "Rejects moves that overreact publicly and turn disinformation into a self-fulfilling escalation story."
+            }
+          },
+          "cross": {
+            "supports": [
+              "public_signaling_speech",
+              "military_posture_increase",
+              "targeted_sanctions"
+            ],
+            "cautions": [
+              "intelligence_surge",
+              "cyber_intrusion",
+              "backchannel_diplomacy"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "resource_stockpiling",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_decrease",
+              "limited_concession"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Backs choices that restore visible resolve around the information fight.",
+              "cautions": "Sees some value here, but only if it still reinforces deterrence around the information fight.",
+              "opposes": "Rejects moves that yield initiative or blur resolve around the information fight."
+            }
+          },
+          "okonkwo": {
+            "supports": [
+              "intelligence_surge",
+              "resource_stockpiling",
+              "targeted_sanctions"
+            ],
+            "cautions": [
+              "backchannel_diplomacy",
+              "limited_concession",
+              "public_signaling_speech"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_increase",
+              "military_posture_decrease"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Prefers responses that keep the information fight from spilling into a broader commercial and market shock.",
+              "cautions": "Can accept this if the coalition can absorb the cost around the information fight.",
+              "opposes": "Rejects moves likely to amplify the information fight into a balance-sheet event."
+            }
+          }
+        }
       },
       {
         "id": "ns_alliance_split",
@@ -507,7 +1017,109 @@
         "meterOverrides": null,
         "advisorUnlock": null,
         "musicCue": "rising_drone",
-        "decisionWindow": null
+        "decisionWindow": null,
+        "advisorActionGuidance": {
+          "chen": {
+            "supports": [
+              "backchannel_diplomacy",
+              "limited_concession",
+              "public_signaling_speech"
+            ],
+            "cautions": [
+              "intelligence_surge",
+              "resource_stockpiling",
+              "targeted_sanctions",
+              "military_posture_decrease"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_increase"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Backs choices that visibly hold the coalition together while keeping room for a coordinated off-ramp.",
+              "cautions": "Can tolerate this if it is disciplined enough not to deepen fractures inside the alliance.",
+              "opposes": "Rejects steps likely to force partners into public daylight between credibility and caution."
+            }
+          },
+          "cross": {
+            "supports": [
+              "military_posture_increase",
+              "public_signaling_speech",
+              "targeted_sanctions"
+            ],
+            "cautions": [
+              "intelligence_surge",
+              "cyber_intrusion",
+              "backchannel_diplomacy"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "resource_stockpiling",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_decrease",
+              "limited_concession"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Supports moves that re-establish leadership and make allies feel they are following resolve instead of hesitation.",
+              "cautions": "Sees some value here, but only if it still signals command rather than drift.",
+              "opposes": "Rejects options that read as hesitation, retrenchment, or bargaining from a visibly divided position."
+            }
+          },
+          "okonkwo": {
+            "supports": [
+              "intelligence_surge",
+              "targeted_sanctions",
+              "resource_stockpiling"
+            ],
+            "cautions": [
+              "backchannel_diplomacy",
+              "limited_concession",
+              "public_signaling_speech"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_increase",
+              "military_posture_decrease"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Prefers responses that keep alliance cohesion from spilling into a broader commercial and market shock.",
+              "cautions": "Can accept this if the coalition can absorb the cost around alliance cohesion.",
+              "opposes": "Rejects moves likely to amplify alliance cohesion into a balance-sheet event."
+            }
+          },
+          "reed": {
+            "supports": [
+              "intelligence_surge",
+              "cyber_intrusion",
+              "backchannel_diplomacy"
+            ],
+            "cautions": [
+              "targeted_sanctions",
+              "public_signaling_speech",
+              "covert_sabotage"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "resource_stockpiling",
+              "cyber_disruption",
+              "military_posture_increase",
+              "military_posture_decrease",
+              "limited_concession"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Supports options that preserve attribution, ambiguity, and leverage around alliance cohesion.",
+              "cautions": "Sees some utility here, but worries it exposes too much or narrows the shadow play around alliance cohesion.",
+              "opposes": "Rejects moves that force alliance cohesion too quickly into an overt response channel."
+            }
+          }
+        }
       },
       {
         "id": "ns_crisis_window",
@@ -595,6 +1207,108 @@
             "allianceTrust": -8
           },
           "inactionNarrative": "Situation flash: indecision during the alert window allowed rival task groups to establish uncontested maneuver corridors. Allied capitals demand a clarification of U.S. intent."
+        },
+        "advisorActionGuidance": {
+          "cross": {
+            "supports": [
+              "military_posture_increase",
+              "public_signaling_speech",
+              "targeted_sanctions",
+              "cyber_intrusion"
+            ],
+            "cautions": [
+              "intelligence_surge",
+              "broad_sanctions",
+              "cyber_disruption"
+            ],
+            "opposes": [
+              "backchannel_diplomacy",
+              "resource_stockpiling",
+              "covert_sabotage",
+              "military_posture_decrease",
+              "limited_concession"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Backs choices that seize initiative before the crisis window closes on U.S. and allied terms.",
+              "cautions": "Can live with this if it clearly ladders into stronger resolve instead of delaying a decision.",
+              "opposes": "Rejects measures that communicate restraint first and leave Beijing dictating the tempo."
+            }
+          },
+          "okonkwo": {
+            "supports": [
+              "intelligence_surge",
+              "resource_stockpiling",
+              "targeted_sanctions"
+            ],
+            "cautions": [
+              "backchannel_diplomacy",
+              "limited_concession",
+              "public_signaling_speech",
+              "cyber_intrusion"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_increase",
+              "military_posture_decrease"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Prefers tools that preserve balance-sheet resilience while the crisis is still containable.",
+              "cautions": "Accepts this if spillovers stay bounded and the coalition can still absorb the cost.",
+              "opposes": "Rejects steps likely to turn a tense window into a financial detonation."
+            }
+          },
+          "chen": {
+            "supports": [
+              "backchannel_diplomacy",
+              "limited_concession",
+              "intelligence_surge"
+            ],
+            "cautions": [
+              "public_signaling_speech",
+              "targeted_sanctions",
+              "resource_stockpiling"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_increase",
+              "military_posture_decrease"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Backs moves that keep escalation from becoming the only remaining language in the room.",
+              "cautions": "Can accept this if it still leaves allies a disciplined diplomatic and legal frame.",
+              "opposes": "Rejects options that foreclose the exit and turn crisis management into pure coercive signaling."
+            }
+          },
+          "reed": {
+            "supports": [
+              "intelligence_surge",
+              "cyber_intrusion",
+              "backchannel_diplomacy"
+            ],
+            "cautions": [
+              "targeted_sanctions",
+              "cyber_disruption",
+              "covert_sabotage"
+            ],
+            "opposes": [
+              "public_signaling_speech",
+              "broad_sanctions",
+              "resource_stockpiling",
+              "military_posture_increase",
+              "military_posture_decrease",
+              "limited_concession"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Supports options that preserve attribution, ambiguity, and leverage around the narrowing crisis window.",
+              "cautions": "Sees some utility here, but worries it exposes too much or narrows the shadow play around the narrowing crisis window.",
+              "opposes": "Rejects moves that force the narrowing crisis window too quickly into an overt response channel."
+            }
+          }
         }
       },
       {
@@ -690,6 +1404,108 @@
             "domesticCohesion": -6
           },
           "inactionNarrative": "Flash traffic: no directive was issued inside the missile warning window. Rival command interpreted silence as paralysis and moved to launch-ready posture with public escalation framing."
+        },
+        "advisorActionGuidance": {
+          "cross": {
+            "supports": [
+              "military_posture_increase",
+              "intelligence_surge",
+              "cyber_intrusion"
+            ],
+            "cautions": [
+              "public_signaling_speech",
+              "targeted_sanctions",
+              "cyber_disruption"
+            ],
+            "opposes": [
+              "backchannel_diplomacy",
+              "broad_sanctions",
+              "resource_stockpiling",
+              "covert_sabotage",
+              "military_posture_decrease",
+              "limited_concession"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Backs readiness and detection moves that treat the missile signal as real until proven otherwise.",
+              "cautions": "Sees some value here, but worries it may not change the military balance quickly enough.",
+              "opposes": "Rejects gestures that trade visible readiness for hoped-for restraint under a missile warning."
+            }
+          },
+          "chen": {
+            "supports": [
+              "intelligence_surge",
+              "backchannel_diplomacy"
+            ],
+            "cautions": [
+              "limited_concession",
+              "public_signaling_speech",
+              "targeted_sanctions"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "resource_stockpiling",
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_increase",
+              "military_posture_decrease"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Prefers moves that slow the tempo, improve certainty, and leave room to avoid an irreversible mistake.",
+              "cautions": "Can accept this if it is tightly controlled and does not trigger a point-of-no-return response.",
+              "opposes": "Rejects actions that could turn a warning phase into an irreversible exchange."
+            }
+          },
+          "reed": {
+            "supports": [
+              "intelligence_surge",
+              "cyber_intrusion",
+              "cyber_disruption"
+            ],
+            "cautions": [
+              "covert_sabotage",
+              "backchannel_diplomacy",
+              "targeted_sanctions"
+            ],
+            "opposes": [
+              "public_signaling_speech",
+              "broad_sanctions",
+              "resource_stockpiling",
+              "military_posture_increase",
+              "military_posture_decrease",
+              "limited_concession"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Backs moves that blind targeting or sharpen attribution without making the crisis immediately public.",
+              "cautions": "Sees utility here, but worries exposure or overreach could collapse the remaining gray zone.",
+              "opposes": "Rejects overt responses that compress decision time before the targeting picture is understood."
+            }
+          },
+          "okonkwo": {
+            "supports": [
+              "intelligence_surge",
+              "resource_stockpiling",
+              "targeted_sanctions"
+            ],
+            "cautions": [
+              "backchannel_diplomacy",
+              "limited_concession",
+              "public_signaling_speech"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_increase",
+              "military_posture_decrease"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Prefers responses that keep the missile-warning phase from spilling into a broader commercial and market shock.",
+              "cautions": "Can accept this if the coalition can absorb the cost around the missile-warning phase.",
+              "opposes": "Rejects moves likely to amplify the missile-warning phase into a balance-sheet event."
+            }
+          }
         }
       },
       {
@@ -766,7 +1582,109 @@
         "meterOverrides": null,
         "advisorUnlock": null,
         "musicCue": "crisis_dark",
-        "decisionWindow": null
+        "decisionWindow": null,
+        "advisorActionGuidance": {
+          "reed": {
+            "supports": [
+              "cyber_intrusion",
+              "covert_sabotage",
+              "backchannel_diplomacy"
+            ],
+            "cautions": [
+              "intelligence_surge",
+              "cyber_disruption",
+              "targeted_sanctions"
+            ],
+            "opposes": [
+              "public_signaling_speech",
+              "broad_sanctions",
+              "resource_stockpiling",
+              "military_posture_increase",
+              "military_posture_decrease",
+              "limited_concession"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Supports deniable or quiet options that preserve leverage while the shadow contest is still ambiguous.",
+              "cautions": "Can work with this if it preserves optionality and does not expose the hand too fast.",
+              "opposes": "Rejects overt responses that force the covert contest into a public escalation channel."
+            }
+          },
+          "okonkwo": {
+            "supports": [
+              "intelligence_surge",
+              "resource_stockpiling",
+              "targeted_sanctions"
+            ],
+            "cautions": [
+              "backchannel_diplomacy",
+              "limited_concession",
+              "public_signaling_speech",
+              "cyber_intrusion"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_increase",
+              "military_posture_decrease"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Backs measures that contain the off-ledger disruption before it becomes a real supply-line break.",
+              "cautions": "Sees some upside here, but wants stronger protection against commercial spillover.",
+              "opposes": "Rejects steps that magnify hidden disruption into a visible market and logistics shock."
+            }
+          },
+          "cross": {
+            "supports": [
+              "military_posture_increase",
+              "public_signaling_speech",
+              "targeted_sanctions"
+            ],
+            "cautions": [
+              "intelligence_surge",
+              "cyber_intrusion",
+              "backchannel_diplomacy"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "resource_stockpiling",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_decrease",
+              "limited_concession"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Backs choices that restore visible resolve around the covert contest.",
+              "cautions": "Sees some value here, but only if it still reinforces deterrence around the covert contest.",
+              "opposes": "Rejects moves that yield initiative or blur resolve around the covert contest."
+            }
+          },
+          "chen": {
+            "supports": [
+              "intelligence_surge",
+              "backchannel_diplomacy",
+              "limited_concession"
+            ],
+            "cautions": [
+              "targeted_sanctions",
+              "resource_stockpiling",
+              "public_signaling_speech"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_increase",
+              "military_posture_decrease"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Backs moves that stabilize the covert contest without closing the diplomatic exit.",
+              "cautions": "Can accept this if it is tightly framed and does not fracture coalition discipline around the covert contest.",
+              "opposes": "Rejects steps likely to harden the covert contest into strategic lock-in."
+            }
+          }
+        }
       },
       {
         "id": "ns_urban_unrest",
@@ -836,7 +1754,109 @@
         "meterOverrides": null,
         "advisorUnlock": null,
         "musicCue": "crisis_dark",
-        "decisionWindow": null
+        "decisionWindow": null,
+        "advisorActionGuidance": {
+          "okonkwo": {
+            "supports": [
+              "resource_stockpiling",
+              "limited_concession",
+              "intelligence_surge"
+            ],
+            "cautions": [
+              "backchannel_diplomacy",
+              "targeted_sanctions",
+              "public_signaling_speech",
+              "cyber_intrusion"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_increase",
+              "military_posture_decrease"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Prefers moves that calm domestic and market nerves before political instability compounds alliance costs.",
+              "cautions": "Can accept this if it does not deepen volatility or invite a run on confidence.",
+              "opposes": "Rejects responses that turn unrest into a market or legitimacy spiral of their own."
+            }
+          },
+          "chen": {
+            "supports": [
+              "limited_concession",
+              "backchannel_diplomacy",
+              "public_signaling_speech"
+            ],
+            "cautions": [
+              "intelligence_surge",
+              "resource_stockpiling",
+              "targeted_sanctions",
+              "military_posture_decrease"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_increase"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Backs choices that stabilize the political atmosphere and keep allies from reading domestic fracture as loss of control.",
+              "cautions": "Can work with this if the coalition can still explain the move as disciplined rather than panicked.",
+              "opposes": "Rejects steps likely to amplify domestic fracture and bleed directly into allied confidence."
+            }
+          },
+          "cross": {
+            "supports": [
+              "public_signaling_speech",
+              "targeted_sanctions",
+              "military_posture_increase"
+            ],
+            "cautions": [
+              "intelligence_surge",
+              "resource_stockpiling",
+              "cyber_intrusion"
+            ],
+            "opposes": [
+              "backchannel_diplomacy",
+              "broad_sanctions",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_decrease",
+              "limited_concession"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Backs choices that restore visible resolve around the domestic-instability wave.",
+              "cautions": "Sees some value here, but only if it still reinforces deterrence around the domestic-instability wave.",
+              "opposes": "Rejects moves that yield initiative or blur resolve around the domestic-instability wave."
+            }
+          },
+          "reed": {
+            "supports": [
+              "intelligence_surge",
+              "cyber_intrusion",
+              "backchannel_diplomacy"
+            ],
+            "cautions": [
+              "targeted_sanctions",
+              "limited_concession",
+              "covert_sabotage"
+            ],
+            "opposes": [
+              "public_signaling_speech",
+              "broad_sanctions",
+              "resource_stockpiling",
+              "cyber_disruption",
+              "military_posture_increase",
+              "military_posture_decrease"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Supports options that preserve attribution, ambiguity, and leverage around the domestic-instability wave.",
+              "cautions": "Sees some utility here, but worries it exposes too much or narrows the shadow play around the domestic-instability wave.",
+              "opposes": "Rejects moves that force the domestic-instability wave too quickly into an overt response channel."
+            }
+          }
+        }
       },
       {
         "id": "ns_market_spiral",
@@ -906,7 +1926,109 @@
         "meterOverrides": null,
         "advisorUnlock": null,
         "musicCue": "crisis_dark",
-        "decisionWindow": null
+        "decisionWindow": null,
+        "advisorActionGuidance": {
+          "okonkwo": {
+            "supports": [
+              "resource_stockpiling",
+              "intelligence_surge",
+              "limited_concession"
+            ],
+            "cautions": [
+              "backchannel_diplomacy",
+              "targeted_sanctions",
+              "public_signaling_speech"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_increase",
+              "military_posture_decrease"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Backs options that preserve liquidity, reassure counterparties, and keep policy from devolving into triage.",
+              "cautions": "Can accept this if it comes with clear commercial containment and funding confidence.",
+              "opposes": "Rejects steps that risk snapping market confidence faster than the system can absorb the blow."
+            }
+          },
+          "cross": {
+            "supports": [
+              "military_posture_increase",
+              "targeted_sanctions",
+              "public_signaling_speech"
+            ],
+            "cautions": [
+              "intelligence_surge",
+              "cyber_intrusion",
+              "resource_stockpiling"
+            ],
+            "opposes": [
+              "backchannel_diplomacy",
+              "broad_sanctions",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_decrease",
+              "limited_concession"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Backs resolve-first options and refuses to let financial pain dictate the core security posture.",
+              "cautions": "Sees value here, but only if it does not displace the need to restore deterrent credibility.",
+              "opposes": "Rejects retrenchment or accommodation justified mainly by market pressure."
+            }
+          },
+          "chen": {
+            "supports": [
+              "backchannel_diplomacy",
+              "limited_concession",
+              "intelligence_surge"
+            ],
+            "cautions": [
+              "resource_stockpiling",
+              "public_signaling_speech",
+              "targeted_sanctions"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_increase",
+              "military_posture_decrease"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Backs moves that stabilize the market spiral without closing the diplomatic exit.",
+              "cautions": "Can accept this if it is tightly framed and does not fracture coalition discipline around the market spiral.",
+              "opposes": "Rejects steps likely to harden the market spiral into strategic lock-in."
+            }
+          },
+          "reed": {
+            "supports": [
+              "intelligence_surge",
+              "cyber_intrusion",
+              "backchannel_diplomacy"
+            ],
+            "cautions": [
+              "targeted_sanctions",
+              "covert_sabotage",
+              "limited_concession"
+            ],
+            "opposes": [
+              "public_signaling_speech",
+              "broad_sanctions",
+              "resource_stockpiling",
+              "cyber_disruption",
+              "military_posture_increase",
+              "military_posture_decrease"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Supports options that preserve attribution, ambiguity, and leverage around the market spiral.",
+              "cautions": "Sees some utility here, but worries it exposes too much or narrows the shadow play around the market spiral.",
+              "opposes": "Rejects moves that force the market spiral too quickly into an overt response channel."
+            }
+          }
+        }
       },
       {
         "id": "ns_carrier_faceoff",
@@ -991,7 +2113,109 @@
         "meterOverrides": null,
         "advisorUnlock": null,
         "musicCue": "climax_hard",
-        "decisionWindow": null
+        "decisionWindow": null,
+        "advisorActionGuidance": {
+          "cross": {
+            "supports": [
+              "military_posture_increase",
+              "public_signaling_speech",
+              "cyber_intrusion"
+            ],
+            "cautions": [
+              "targeted_sanctions",
+              "intelligence_surge",
+              "cyber_disruption"
+            ],
+            "opposes": [
+              "backchannel_diplomacy",
+              "broad_sanctions",
+              "resource_stockpiling",
+              "covert_sabotage",
+              "military_posture_decrease",
+              "limited_concession"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Backs choices that make U.S. and allied intent unmistakable before the faceoff breaks on someone else’s terms.",
+              "cautions": "Can live with this if it still contributes to clear resolve in the immediate operating picture.",
+              "opposes": "Rejects actions that read as hesitation or that trade away visible control at the point of maximum danger."
+            }
+          },
+          "chen": {
+            "supports": [
+              "backchannel_diplomacy",
+              "intelligence_surge"
+            ],
+            "cautions": [
+              "limited_concession",
+              "public_signaling_speech",
+              "targeted_sanctions"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "resource_stockpiling",
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_increase",
+              "military_posture_decrease"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Prefers moves that reduce the chance of a fatal misread while the military geometry is at its tightest.",
+              "cautions": "Can accept this if it is carefully bounded and does not lock both sides into public maximalism.",
+              "opposes": "Rejects steps that push the faceoff from brinkmanship into irreversible strategic lock-in."
+            }
+          },
+          "reed": {
+            "supports": [
+              "intelligence_surge",
+              "cyber_intrusion",
+              "cyber_disruption"
+            ],
+            "cautions": [
+              "covert_sabotage",
+              "targeted_sanctions",
+              "backchannel_diplomacy"
+            ],
+            "opposes": [
+              "public_signaling_speech",
+              "broad_sanctions",
+              "resource_stockpiling",
+              "military_posture_increase",
+              "military_posture_decrease",
+              "limited_concession"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Backs options that clarify intent or disrupt targeting without adding more visible military noise.",
+              "cautions": "Sees some value here, but worries exposure or timing errors could worsen the misread risk.",
+              "opposes": "Rejects overt or blunt moves that make intent harder to read at the most dangerous moment."
+            }
+          },
+          "okonkwo": {
+            "supports": [
+              "intelligence_surge",
+              "resource_stockpiling",
+              "targeted_sanctions"
+            ],
+            "cautions": [
+              "backchannel_diplomacy",
+              "limited_concession",
+              "public_signaling_speech"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_increase",
+              "military_posture_decrease"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Prefers responses that keep the carrier faceoff from spilling into a broader commercial and market shock.",
+              "cautions": "Can accept this if the coalition can absorb the cost around the carrier faceoff.",
+              "opposes": "Rejects moves likely to amplify the carrier faceoff into a balance-sheet event."
+            }
+          }
+        }
       },
       {
         "id": "ns_ceasefire_channel",
@@ -1067,7 +2291,109 @@
         "meterOverrides": null,
         "advisorUnlock": null,
         "musicCue": "climax_soft",
-        "decisionWindow": null
+        "decisionWindow": null,
+        "advisorActionGuidance": {
+          "chen": {
+            "supports": [
+              "backchannel_diplomacy",
+              "limited_concession",
+              "public_signaling_speech"
+            ],
+            "cautions": [
+              "intelligence_surge",
+              "targeted_sanctions",
+              "resource_stockpiling",
+              "military_posture_decrease"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_increase"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Backs actions that keep the off-ramp credible and pair restraint with verification instead of wishful thinking.",
+              "cautions": "Can accept this if it reinforces the channel without reopening maximalist public language.",
+              "opposes": "Rejects moves likely to collapse the ceasefire lane before verification and sequencing are locked in."
+            }
+          },
+          "okonkwo": {
+            "supports": [
+              "limited_concession",
+              "backchannel_diplomacy",
+              "resource_stockpiling",
+              "intelligence_surge"
+            ],
+            "cautions": [
+              "public_signaling_speech",
+              "targeted_sanctions",
+              "cyber_intrusion"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_increase",
+              "military_posture_decrease"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Prefers moves that make the verification story believable enough for markets and industry to follow.",
+              "cautions": "Can work with this if the coalition can keep commercial expectations disciplined and reversible.",
+              "opposes": "Rejects responses that would blow up fragile confidence just as a credible verification path appears."
+            }
+          },
+          "cross": {
+            "supports": [
+              "public_signaling_speech",
+              "targeted_sanctions",
+              "military_posture_increase"
+            ],
+            "cautions": [
+              "intelligence_surge",
+              "cyber_intrusion",
+              "backchannel_diplomacy"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "resource_stockpiling",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_decrease",
+              "limited_concession"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Backs choices that restore visible resolve around the ceasefire channel.",
+              "cautions": "Sees some value here, but only if it still reinforces deterrence around the ceasefire channel.",
+              "opposes": "Rejects moves that yield initiative or blur resolve around the ceasefire channel."
+            }
+          },
+          "reed": {
+            "supports": [
+              "intelligence_surge",
+              "cyber_intrusion",
+              "backchannel_diplomacy"
+            ],
+            "cautions": [
+              "targeted_sanctions",
+              "limited_concession",
+              "covert_sabotage"
+            ],
+            "opposes": [
+              "public_signaling_speech",
+              "broad_sanctions",
+              "resource_stockpiling",
+              "cyber_disruption",
+              "military_posture_increase",
+              "military_posture_decrease"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Supports options that preserve attribution, ambiguity, and leverage around the ceasefire channel.",
+              "cautions": "Sees some utility here, but worries it exposes too much or narrows the shadow play around the ceasefire channel.",
+              "opposes": "Rejects moves that force the ceasefire channel too quickly into an overt response channel."
+            }
+          }
+        }
       },
       {
         "id": "ns_frozen_line",

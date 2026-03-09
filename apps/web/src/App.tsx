@@ -195,11 +195,11 @@ const App = () => {
     }
 
     for (const action of episode.offeredActions) {
-      readsByActionId.set(action.id, getAdvisorActionReads(action, activeAdvisorDossiers));
+      readsByActionId.set(action.id, getAdvisorActionReads(action, activeAdvisorDossiers, currentBeat));
     }
 
     return readsByActionId;
-  }, [activeAdvisorDossiers, episode?.offeredActions]);
+  }, [activeAdvisorDossiers, currentBeat, episode?.offeredActions]);
   const selectedAction = episode?.offeredActions.find((action) => action.id === selectedActionId) ?? null;
   const actionAdvisorSummaries = useMemo(() => {
     const summaries = new Map<string, { supports: number; cautions: number; opposes: number }>();
