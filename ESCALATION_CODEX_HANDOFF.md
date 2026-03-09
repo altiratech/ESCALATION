@@ -2927,8 +2927,11 @@ Current naming rule:
 
 ### 54.4 Exact next action for resume
 
-1. Push the validated turn-flow split and verify deploy.
-2. Then review live whether:
+1. Review live whether:
 - `Turn Brief -> Decision` reduces clutter enough
 - the `Decision` page now feels focused rather than overloaded
 - the compact advisor counts in response cards are sufficient without reintroducing duplication
+
+2. If the split holds up, next likely product move:
+- compress `Turn Brief` further if any context still feels verbose
+- or begin authored advisor-to-action recommendation support
