@@ -132,8 +132,74 @@ body::before {
     0 18px 42px rgba(0, 0, 0, 0.28);
 }
 
+.console-panel-muted {
+  background: rgba(12, 16, 20, 0.82);
+  border-color: rgba(41, 51, 61, 0.82);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.015),
+    0 14px 32px rgba(0, 0, 0, 0.2);
+}
+
 .console-subpanel {
   @apply border border-borderTone bg-panelRaised;
+}
+
+.action-required-shell {
+  border: 1px solid rgba(255, 177, 0, 0.72);
+  background:
+    linear-gradient(180deg, rgba(255, 177, 0, 0.14) 0%, rgba(255, 177, 0, 0.05) 100%),
+    linear-gradient(180deg, rgba(11, 14, 17, 0.96) 0%, rgba(8, 10, 12, 0.98) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.03),
+    inset 0 0 0 1px rgba(255, 177, 0, 0.08),
+    0 20px 46px rgba(0, 0, 0, 0.32);
+  position: relative;
+  overflow: hidden;
+}
+
+.action-required-shell::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(255, 177, 0, 0.1), transparent 24%),
+    repeating-linear-gradient(90deg, rgba(255, 177, 0, 0.045) 0 1px, transparent 1px 14px);
+  opacity: 0.7;
+}
+
+.action-required-shell-awaiting {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.03),
+    inset 0 0 0 1px rgba(255, 177, 0, 0.1),
+    0 0 0 1px rgba(255, 177, 0, 0.12),
+    0 20px 46px rgba(0, 0, 0, 0.34);
+}
+
+.action-required-shell-ready {
+  border-color: rgba(126, 211, 33, 0.72);
+  background:
+    linear-gradient(180deg, rgba(126, 211, 33, 0.12) 0%, rgba(126, 211, 33, 0.04) 100%),
+    linear-gradient(180deg, rgba(11, 14, 17, 0.96) 0%, rgba(8, 10, 12, 0.98) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.03),
+    inset 0 0 0 1px rgba(126, 211, 33, 0.09),
+    0 0 0 1px rgba(126, 211, 33, 0.1),
+    0 20px 46px rgba(0, 0, 0, 0.34);
+}
+
+.action-required-shell-ready::before {
+  background:
+    linear-gradient(90deg, rgba(126, 211, 33, 0.085), transparent 24%),
+    repeating-linear-gradient(90deg, rgba(126, 211, 33, 0.04) 0 1px, transparent 1px 14px);
+}
+
+.action-required-status {
+  @apply inline-flex items-center gap-2 border px-2.5 py-1 font-mono text-[0.6rem] uppercase tracking-[0.14em];
+}
+
+.action-required-step {
+  @apply border border-borderTone/75 bg-panelRaised/55 px-3 py-2;
 }
 
 .console-kicker {

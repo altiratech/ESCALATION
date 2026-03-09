@@ -88,7 +88,7 @@ export const BriefingPanel = ({
   const theaterHighlights = scenarioWorld?.region.keyFeatures.slice(0, 3) ?? [];
 
   return (
-    <section className="console-panel flex h-full flex-col p-4 sm:p-5">
+    <section className="console-panel console-panel-muted flex h-full flex-col p-4 sm:p-5">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <p className="label">Live Briefing</p>

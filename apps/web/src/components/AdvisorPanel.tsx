@@ -92,13 +92,13 @@ export const AdvisorPanel = ({ beat, scenarioId, advisorDossiers, selectedAction
         : null;
 
   return (
-    <section className="console-panel h-full p-3 sm:p-4">
+    <section className="console-subpanel h-full px-3 py-3 sm:px-4">
       <div className="flex items-center justify-between">
         <div>
           <p className="label">Advisor Channel</p>
-          <h2 className="mt-2 font-display text-lg text-textMain">Advisor Positions</h2>
+          <h2 className="mt-2 font-display text-lg text-textMain">Advisor Positions On The Selected Response</h2>
           <p className="mt-1 text-[0.72rem] leading-relaxed text-textMuted">
-            Closed cards show stance and alignment only. Open one for the full rationale behind the selected response.
+            Closed cards show stance and alignment only. Open one to inspect the full rationale behind the currently selected response.
           </p>
         </div>
         <p className="rounded-md border border-borderTone bg-panelRaised/60 px-2 py-1 text-[0.6rem] uppercase tracking-[0.12em] text-textMuted">
@@ -171,7 +171,7 @@ export const AdvisorPanel = ({ beat, scenarioId, advisorDossiers, selectedAction
                       <div className="console-subpanel px-3 py-2.5">
                         <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Action guidance</p>
                         <p className="mt-1 text-[0.7rem] leading-relaxed text-textMain">
-                          Select a response in the decision rail to see how this advisor leans on the available options.
+                          Select a response in the selector to see how this advisor leans on the available options.
                         </p>
                       </div>
                     )}

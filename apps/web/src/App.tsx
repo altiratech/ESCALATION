@@ -749,14 +749,104 @@ const App = () => {
         <div className="rounded-md border border-warning/70 bg-warning/10 px-3 py-2 text-sm text-warning">{error}</div>
       ) : null}
 
-      <section className="console-panel px-3 py-3 sm:px-4">
+      <section
+        className={`action-required-shell px-3 py-3 sm:px-4 ${
+          selectedAction ? 'action-required-shell-ready' : 'action-required-shell-awaiting'
+        }`}
+      >
+        <div className="flex flex-col gap-3 xl:flex-row xl:items-start xl:justify-between">
+          <div className="relative z-[1] min-w-0">
+            <div className="flex flex-wrap items-center gap-2">
+              <p className="label text-accent">Action Required</p>
+              <span
+                className={`action-required-status ${
+                  selectedAction
+                    ? 'border-positive/65 bg-positive/10 text-positive'
+                    : 'border-accent/55 bg-accent/10 text-accent'
+                }`}
+              >
+                {selectedAction ? 'Ready To Commit' : 'Awaiting Response'}
+              </span>
+            </div>
+            <p className="mt-2 text-[0.82rem] leading-relaxed text-textMain">{clipLine(currentDirective, 220)}</p>
+            <p className="mt-2 text-sm leading-relaxed text-textMain">
+              Review one response, inspect the tradeoffs, compare advisor positions, then commit and advance the turn.
+            </p>
+            <p className="mt-2 text-[0.72rem] leading-relaxed text-textMuted">
+              {showTakeNoAction
+                ? 'Untimed mode is active. You may commit a selected response or explicitly take no action from the header.'
+                : turnResolutionGuidance}
+            </p>
+            <div className="mt-3 grid gap-2 sm:grid-cols-3">
+              <div className="action-required-step">
+                <p className="text-[0.56rem] uppercase tracking-[0.12em] text-accent">1. Select</p>
+                <p className="mt-1 text-[0.7rem] leading-relaxed text-textMain">Choose one response from the selector.</p>
+              </div>
+              <div className="action-required-step">
+                <p className="text-[0.56rem] uppercase tracking-[0.12em] text-accent">2. Review</p>
+                <p className="mt-1 text-[0.7rem] leading-relaxed text-textMain">Inspect the rationale, exposure, and advisor positions.</p>
+              </div>
+              <div className="action-required-step">
+                <p className="text-[0.56rem] uppercase tracking-[0.12em] text-accent">3. Commit</p>
+                <p className="mt-1 text-[0.7rem] leading-relaxed text-textMain">Advance the turn only after you are satisfied with the selected response.</p>
+              </div>
+            </div>
+          </div>
+          <div className="relative z-[1] flex shrink-0 flex-wrap items-center gap-2">
+            <div
+              className={`console-chip ${
+                selectedAction ? 'border-positive/45 bg-positive/8' : 'border-accent/50 bg-accent/8'
+              }`}
+            >
+              <strong>Decision</strong>
+              <span>{selectedAction?.name ?? 'Choose a response'}</span>
+            </div>
+            <button
+              type="button"
+              className={`console-button ${selectedAction ? 'console-button-primary' : 'console-button-secondary'} min-w-[12.5rem]`}
+              onClick={() => void handleActionCommit()}
+              disabled={!selectedAction || loading || episode.status !== 'active'}
+            >
+              {selectedAction ? 'Commit Selected Response' : 'Select A Response'}
+            </button>
+          </div>
+        </div>
+
+        <div className="relative z-[1] mt-4 grid min-h-0 gap-4 xl:grid-cols-[1.06fr_0.72fr]">
+          <ActionCards
+            actions={episode.offeredActions}
+            disabled={loading || episode.status !== 'active'}
+            selectedActionId={selectedActionId}
+            selectedActionReads={selectedActionReads}
+            onSelect={(actionId) => {
+              void handleActionSelect(actionId);
+            }}
+          />
+          <AdvisorPanel
+            beat={currentBeat}
+            scenarioId={episode.scenarioId}
+            advisorDossiers={reference.advisorDossiers}
+            selectedAction={selectedAction}
+          />
+        </div>
+
+        <div className="relative z-[1] mt-4 border-t border-accent/25 pt-4">
+          <CommandInput
+            turn={episode.turn}
+            disabled={loading || episode.status !== 'active'}
+            onSubmitCommand={handleCommandSubmit}
+            onSelectAction={handleActionSelect}
+          />
+        </div>
+      </section>
+
+      <section className="console-panel console-panel-muted px-3 py-3 sm:px-4">
         <div className="grid gap-3 xl:grid-cols-[1.02fr_0.98fr]">
           <div className="min-w-0">
             <p className="label">Mission Mandate</p>
             <p className="mt-2 text-sm leading-relaxed text-textMain">{clipLine(currentDirective, 220)}</p>
             <p className="mt-2 text-[0.72rem] leading-relaxed text-textMuted">
-              {turnResolutionGuidance} Typed orders remain available below the advisor channel, but the primary loop is
-              now select, inspect, then commit.
+              Strategic success is measured against the mandate below, not simply whether the turn resolves without immediate escalation.
             </p>
           </div>
           <div className="grid gap-2 sm:grid-cols-3">
@@ -777,65 +867,8 @@ const App = () => {
         </div>
       </section>
 
-      <section className="border border-accent/75 bg-accent/10 px-3 py-3 shadow-hard sm:px-4">
-        <div className="flex flex-col gap-3 xl:flex-row xl:items-start xl:justify-between">
-          <div className="min-w-0">
-            <p className="label text-accent">Action Required</p>
-            <p className="mt-2 text-sm leading-relaxed text-textMain">
-              Review one response, inspect the tradeoffs, compare advisor positions, then commit and advance the turn.
-            </p>
-            <p className="mt-2 text-[0.72rem] leading-relaxed text-textMuted">
-              {showTakeNoAction
-                ? 'Untimed mode is active. You may commit a selected response or explicitly take no action from the header.'
-                : turnResolutionGuidance}
-            </p>
-          </div>
-          <div className="flex shrink-0 flex-wrap items-center gap-2">
-            <div className="console-chip border-accent/50 bg-accent/8">
-              <strong>Decision</strong>
-              <span>{selectedAction?.name ?? 'Choose a response'}</span>
-            </div>
-            <button
-              type="button"
-              className={`console-button ${selectedAction ? 'console-button-primary' : 'console-button-secondary'}`}
-              onClick={() => void handleActionCommit()}
-              disabled={!selectedAction || loading || episode.status !== 'active'}
-            >
-              {selectedAction ? 'Commit & Advance' : 'Select A Response'}
-            </button>
-          </div>
-        </div>
-
-        <div className="mt-4 grid min-h-0 gap-4 xl:grid-cols-[1.06fr_0.72fr]">
-          <ActionCards
-            actions={episode.offeredActions}
-            disabled={loading || episode.status !== 'active'}
-            selectedActionId={selectedActionId}
-            selectedActionReads={selectedActionReads}
-            onSelect={(actionId) => {
-              void handleActionSelect(actionId);
-            }}
-          />
-          <AdvisorPanel
-            beat={currentBeat}
-            scenarioId={episode.scenarioId}
-            advisorDossiers={reference.advisorDossiers}
-            selectedAction={selectedAction}
-          />
-        </div>
-
-        <div className="mt-4 border-t border-accent/25 pt-4">
-          <CommandInput
-            turn={episode.turn}
-            disabled={loading || episode.status !== 'active'}
-            onSubmitCommand={handleCommandSubmit}
-            onSelectAction={handleActionSelect}
-          />
-        </div>
-      </section>
-
       <section className="grid min-h-0 gap-4 xl:grid-cols-[0.34fr_0.94fr]">
-        <aside className="console-panel order-2 flex min-h-[36rem] flex-col p-3 xl:order-1">
+        <aside className="console-panel console-panel-muted order-2 flex min-h-[36rem] flex-col p-3 xl:order-1">
           <div className="flex items-center justify-between">
             <p className="label">Intel Feed</p>
             <span className="text-[0.62rem] uppercase tracking-[0.12em] text-textMuted">Live</span>

@@ -92,12 +92,12 @@ export const ActionCards = ({
   }, [selectedActionReads]);
 
   return (
-    <section className="console-panel p-3 sm:p-4">
+    <section className="console-subpanel h-full px-3 py-3 sm:px-4">
       <div className="flex items-start justify-between gap-3">
         <div>
-          <p className="label">Decision Rail</p>
+          <p className="label">Decision Selector</p>
           <p className="mt-2 text-[0.74rem] leading-relaxed text-textMuted">
-            Select one response, inspect the detail pane, then commit it from the war-room header.
+            Step 1: choose one response. Step 2: inspect the detail pane. Step 3: commit it from the action bar.
           </p>
         </div>
         <div className="flex items-center gap-2">
@@ -115,7 +115,7 @@ export const ActionCards = ({
       {showHelp ? (
         <div className="mt-3 border border-borderTone/80 bg-panelRaised/55 px-3 py-2 text-[0.68rem] leading-relaxed text-textMuted">
           Workflow: pick a response from the selector, review what it signals and risks, compare advisor positions, then
-          commit it from the header when you are ready to advance.
+          commit it from the action bar when you are ready to advance.
         </div>
       ) : null}
 
@@ -243,7 +243,7 @@ export const ActionCards = ({
           <div>
             <p className="label">Selected Response</p>
             <p className="mt-2 text-[0.78rem] leading-relaxed text-textMuted">
-              No response selected yet. Choose one option above to inspect the tradeoffs before committing the turn.
+              No response selected yet. Choose one option above to load the full tradeoffs, advisor positions, and commit path.
             </p>
           </div>
         )}

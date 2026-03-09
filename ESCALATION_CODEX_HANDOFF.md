@@ -2816,3 +2816,56 @@ Current naming rule:
 2. If the workflow holds up, next likely product move:
 - stronger visual cueing/animation on the action-required state
 - or authored advisor-to-action recommendation support
+
+## 53. Flashpoint Action-First Hierarchy Pass (2026-03-08 ET)
+
+### 53.1 What changed
+
+1. Promoted the required decision above the broader mandate panel:
+- `Action Required` now appears before `Mission Mandate`
+- the active decision surface is intentionally the first major workflow section after the top status strip
+
+2. Strengthened required-action emphasis:
+- added explicit `Awaiting Response` / `Ready To Commit` state treatment
+- added `Select / Review / Commit` workflow steps inside the action band
+- tightened button copy to `Commit Selected Response`
+
+3. Reduced competition from surrounding panels:
+- `Mission Mandate` is now visually quieter and positioned below the active decision workflow
+- `Command Brief` and the left intel rail now use a muted panel treatment so they support rather than compete with the action surface
+- nested decision/advisor surfaces inside the action band were flattened from heavy panels to subpanels
+
+4. Minor copy consistency:
+- `Decision Rail` -> `Decision Selector`
+- help copy now refers to the `action bar` instead of the old `header` language
+
+### 53.2 What passed
+
+1. Validation:
+- `npm run lint`
+- `npm run build --workspace @wargames/web`
+- `npm run ci:phase1`
+
+2. Results:
+- `14/14` test files passed
+- `29/29` tests passed
+- Monte Carlo concentration warnings unchanged and non-blocking
+
+### 53.3 Spec drift remaining
+
+1. Decision intelligence:
+- advisor/action linkage remains heuristic UI logic rather than authored beat-level recommendation content
+
+2. Reporting/product:
+- mandate framing is improved, but deeper authored tradeoff scorecards remain the next report refinement
+
+3. Decision emphasis:
+- this pass should be reviewed live before adding more motion/animation; if the action surface still does not dominate enough, the next change should be stronger cueing rather than more complexity
+
+### 53.4 Exact next action for resume
+
+1. Push the validated hierarchy pass and verify deploy.
+2. Then review live whether:
+- the action band clearly dominates the page
+- the muted context panels still preserve enough readability
+- the `Awaiting Response` / `Ready To Commit` states are obvious enough
