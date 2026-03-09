@@ -798,7 +798,7 @@ const App = () => {
       {turnStage === 'brief' ? (
         <>
           <section className="console-panel px-3 py-3 sm:px-4">
-            <div className="flex flex-col gap-3 xl:flex-row xl:items-start xl:justify-between">
+            <div className="flex flex-col gap-3">
               <div className="min-w-0">
                 <div className="flex flex-wrap items-center gap-2">
                   <p className="label text-accent">Turn Brief</p>
@@ -812,14 +812,6 @@ const App = () => {
                   continue to the decision page to consult advisors and choose a response.
                 </p>
               </div>
-              <button
-                type="button"
-                className="console-button console-button-primary min-w-[12.5rem]"
-                onClick={() => setTurnStage('decision')}
-                disabled={loading || episode.status !== 'active'}
-              >
-                {turnStageActionLabel}
-              </button>
             </div>
           </section>
 
@@ -915,7 +907,7 @@ const App = () => {
               </div>
               <button
                 type="button"
-                className="console-button console-button-primary min-w-[12.5rem]"
+                className="console-button console-button-info min-w-[12.5rem]"
                 onClick={() => setTurnStage('decision')}
                 disabled={loading || episode.status !== 'active'}
               >

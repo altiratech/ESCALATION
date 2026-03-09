@@ -50,7 +50,7 @@ const alignmentTone: Record<'supports' | 'cautions' | 'opposes', string> = {
 };
 
 export const AdvisorPanel = ({ beat, scenarioId, advisorDossiers, selectedAction }: AdvisorPanelProps) => {
-  const [expandedAdvisorId, setExpandedAdvisorId] = useState<string | null | undefined>(undefined);
+  const [expandedAdvisorId, setExpandedAdvisorId] = useState<string | null>(null);
 
   const advisorEntries = useMemo(() => {
     if (!beat) {
@@ -80,16 +80,11 @@ export const AdvisorPanel = ({ beat, scenarioId, advisorDossiers, selectedAction
   }, [advisorEntries, dossierByAdvisorId, selectedAction]);
 
   useEffect(() => {
-    setExpandedAdvisorId(undefined);
+    setExpandedAdvisorId(null);
   }, [beat?.id]);
-
-  const defaultExpandedId = advisorEntries[0]?.advisorId ?? null;
-  const activeExpandedId =
-    expandedAdvisorId === undefined
-      ? defaultExpandedId
-      : advisorEntries.some((entry) => entry.advisorId === expandedAdvisorId)
-        ? expandedAdvisorId
-        : null;
+  const activeExpandedId = advisorEntries.some((entry) => entry.advisorId === expandedAdvisorId)
+    ? expandedAdvisorId
+    : null;
 
   return (
     <section className="console-subpanel h-full px-3 py-3 sm:px-4">

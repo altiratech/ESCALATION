@@ -2935,3 +2935,53 @@ Current naming rule:
 2. If the split holds up, next likely product move:
 - compress `Turn Brief` further if any context still feels verbose
 - or begin authored advisor-to-action recommendation support
+
+## 55. Flashpoint Turn-Flow Refinement: Single Proceed CTA + Collapsed Advisors (2026-03-09 ET)
+
+### 55.1 What changed
+
+1. Simplified `Turn Brief` progression:
+- removed the duplicate top-of-page `Proceed to Decision` button
+- the stage-transition CTA now appears only once in the lower transition panel
+
+2. Distinguished navigation from commitment:
+- `Proceed to Decision` now uses a blue info-style button
+- `Commit Selected Response` remains the amber commitment action
+
+3. Reduced visual weight on the decision page:
+- the `Decision` shell now keeps the yellow/accent border but no longer uses a tinted amber interior background
+
+4. Reduced advisor clutter:
+- advisor cards now default to collapsed
+- no advisor opens until the player explicitly selects one
+
+### 55.2 What passed
+
+1. Validation:
+- `npm run lint`
+- `npm run build --workspace @wargames/web`
+- `npm run ci:phase1`
+
+2. Results:
+- `14/14` test files passed
+- `29/29` tests passed
+- Monte Carlo concentration warnings unchanged and non-blocking
+
+### 55.3 Spec drift remaining
+
+1. Decision intelligence:
+- advisor/action linkage is still heuristic UI logic rather than authored beat-level recommendation content
+
+2. Turn flow polish:
+- this refinement should be reviewed live to confirm the lighter decision shell still reads as the required action surface
+
+3. Reporting/product:
+- deeper authored tradeoff scorecards remain the next major report refinement
+
+### 55.4 Exact next action for resume
+
+1. Push the validated refinement and verify deploy.
+2. Then review live whether:
+- the single blue `Proceed to Decision` CTA is clearer than the old duplicated flow
+- the lighter decision shell still emphasizes required action enough
+- collapsed advisors improve focus without making guidance feel hidden
