@@ -2980,8 +2980,11 @@ Current naming rule:
 
 ### 55.4 Exact next action for resume
 
-1. Push the validated refinement and verify deploy.
-2. Then review live whether:
+1. Review live whether:
 - the single blue `Proceed to Decision` CTA is clearer than the old duplicated flow
 - the lighter decision shell still emphasizes required action enough
 - collapsed advisors improve focus without making guidance feel hidden
+
+2. If this refinement holds up, next likely product move:
+- authored advisor-to-action recommendation support
+- or one last compression pass on `Turn Brief` if it still feels verbose
