@@ -46,7 +46,7 @@ export const MeterDashboard = ({ meters, previousMeters, visibleRanges }: MeterD
   return (
     <section className="console-panel p-3">
       <div className="flex items-center justify-between gap-3">
-        <p className="label">System Telemetry</p>
+        <p className="label">Operational Indicators</p>
         <span className="text-[0.62rem] uppercase tracking-[0.12em] text-textMuted">Live</span>
       </div>
       <div className="mt-3 grid gap-2 sm:grid-cols-2 xl:grid-cols-3">

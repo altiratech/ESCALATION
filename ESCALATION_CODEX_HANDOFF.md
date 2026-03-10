@@ -3045,3 +3045,70 @@ Current naming rule:
 2. If the authored guidance lands well, next likely product move:
 - deepen post-game mandate/tradeoff reporting
 - or add richer authored advisor nuance only where live play shows it is still too generic
+
+## 57. Flashpoint Operational-Indicators Cleanup + Tradeoff Scorecards (2026-03-09 ET)
+
+### 57.1 What changed
+
+1. Simplified `Turn Brief`:
+- removed the separate `Confidence Grid` panel from the live turn flow
+- kept one live meter surface only
+- renamed `System Telemetry` to `Operational Indicators`
+
+2. Deleted dead UI code:
+- `apps/web/src/components/IntelPanel.tsx` is now removed from the repo because it was no longer part of the active turn flow
+
+3. Deepened post-game evaluation:
+- added `tradeoffScorecards` to the shared report contract
+- report builder now computes explicit post-game scorecards for:
+  - `Economic Containment`
+  - `Coalition Cohesion`
+  - `Deterrence Credibility`
+  - `Escalation Discipline`
+  - `Information Posture`
+- each scorecard now includes:
+  - score
+  - status
+  - summary
+  - primary tradeoff note
+
+4. Updated report UI:
+- `Mission Objectives` is now labeled `Mandate Scorecards`
+- new `Tradeoff Scorecards` section now renders ahead of the deeper causality/debrief layers
+
+5. Added regression coverage:
+- `tests/engine/report-causality.test.ts` now asserts that tradeoff scorecards are present and populated
+
+### 57.2 What passed
+
+1. Validation:
+- `npm run lint`
+- `npx vitest run tests/engine/report-causality.test.ts`
+- `npm run ci:phase1`
+
+2. Results:
+- `15/15` test files passed
+- `31/31` tests passed
+- Monte Carlo concentration warnings unchanged and non-blocking
+
+### 57.3 Spec drift remaining
+
+1. Tradeoff commentary:
+- the new scorecards are formula-derived and useful, but not yet authored with scenario-specific commentary
+
+2. Content/report depth:
+- if live review says the scorecards still feel generic, the next refinement should be authored tradeoff narrative rather than more live dashboard panels
+
+3. Scenario scope:
+- the active flagship remains one Taiwan Strait scenario; the next major expansion choice is still whether to deepen authored commentary or add broader scenario/role coverage
+
+### 57.4 Exact next action for resume
+
+1. Review live whether:
+- `Turn Brief` now feels cleaner without the duplicate confidence surface
+- `Operational Indicators` is the right label for the surviving meter panel
+- the new post-game tradeoff scorecards read as useful decision analysis rather than generic scoring
+
+2. If the scorecards land well, next likely product move:
+- authored tradeoff commentary / richer post-game analysis
+- or broader scenario expansion / second flagship scenario

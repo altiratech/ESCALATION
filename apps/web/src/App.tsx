@@ -24,7 +24,6 @@ import { ActionCards } from './components/ActionCards';
 import { AdvisorPanel } from './components/AdvisorPanel';
 import { BriefingPanel } from './components/BriefingPanel';
 import { CommandInput, type CommandSubmitResult } from './components/CommandInput';
-import { IntelPanel } from './components/IntelPanel';
 import { MeterDashboard } from './components/MeterDashboard';
 import { ReportView } from './components/ReportView';
 import { StartScreen } from './components/StartScreen';
@@ -673,7 +672,7 @@ const App = () => {
       : showTakeNoAction
         ? 'Select one action and commit it, or use Take No Action to hold position.'
         : 'Select one action from the decision rail, inspect the detail, and commit to resolve the turn.';
-  const turnProcedure = [
+  const turnProcedure: Array<{ label: string; detail: string }> = [
     {
       label: 'Read',
       detail: 'Use the situation report and intel feed to understand the current pressure.'
@@ -808,7 +807,7 @@ const App = () => {
                 </div>
                 <p className="mt-2 text-[0.82rem] leading-relaxed text-textMain">{clipLine(currentDirective, 220)}</p>
                 <p className="mt-2 text-[0.72rem] leading-relaxed text-textMuted">
-                  Review the live briefing, intelligence feed, mandate, and confidence surfaces below. When you are ready,
+                  Review the live briefing, intelligence feed, mandate, and operational indicators below. When you are ready,
                   continue to the decision page to consult advisors and choose a response.
                 </p>
               </div>
@@ -888,13 +887,12 @@ const App = () => {
             </div>
           </section>
 
-          <section className="grid gap-4 xl:grid-cols-[1.1fr_0.9fr]">
+          <section>
             <MeterDashboard
               meters={episode.meters}
               previousMeters={episode.recentTurn?.meterBefore}
               visibleRanges={episode.visibleRanges}
             />
-            <IntelPanel ranges={episode.visibleRanges} intelQuality={episode.intelQuality} turn={episode.turn} />
           </section>
 
           <section className="console-panel px-3 py-3 sm:px-4">

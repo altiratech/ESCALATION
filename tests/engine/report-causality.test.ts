@@ -75,6 +75,9 @@ describe('post-game causality report', () => {
     expect(report.fullCausality.deepDebrief?.grade.title.length).toBeGreaterThan(0);
     expect(report.fullCausality.deepDebrief?.historicalParallels.length).toBeGreaterThan(0);
     expect(report.fullCausality.deepDebrief?.lessonsLearned.length).toBeGreaterThan(0);
+    expect(report.fullCausality.tradeoffScorecards).toHaveLength(5);
+    expect(report.fullCausality.tradeoffScorecards[0]?.label.length).toBeGreaterThan(0);
+    expect(report.fullCausality.tradeoffScorecards[0]?.tradeoff.length).toBeGreaterThan(0);
     expect(report.fullCausality.advisorRetrospectives.length).toBeGreaterThan(0);
     expect(Array.isArray(report.fullCausality.unseenSystemEvents)).toBe(true);
     expect(Array.isArray(report.fullCausality.branchesNotTaken)).toBe(true);

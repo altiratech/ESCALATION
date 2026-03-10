@@ -13,6 +13,8 @@ import type {
   AdversaryProfile,
   RivalLeaderDefinition,
   ScenarioDefinition,
+  TradeoffScorecard,
+  TradeoffScorecardStatus,
   TurnHistoryEntry
 } from '@wargames/shared-types';
 
@@ -600,6 +602,140 @@ const buildDeepDebrief = (
   };
 };
 
+const tradeoffStatusForScore = (score: number): TradeoffScorecardStatus => {
+  if (score >= 70) {
+    return 'strong';
+  }
+  if (score >= 55) {
+    return 'mixed';
+  }
+  if (score >= 40) {
+    return 'strained';
+  }
+  return 'broken';
+};
+
+const averageIntelQuality = (state: GameState): number => {
+  const values = Object.values(state.intelQuality.byMeter);
+  return values.reduce((total, value) => total + value, 0) / Math.max(1, values.length);
+};
+
+const buildTradeoffScorecards = (state: GameState): TradeoffScorecard[] => {
+  const economicContainment = Math.round((state.meters.economicStability * 0.65) + (state.meters.energySecurity * 0.35));
+  const coalitionCohesion = Math.round((state.meters.allianceTrust * 0.7) + (state.meters.domesticCohesion * 0.3));
+  const deterrenceCredibility = Math.round((state.meters.militaryReadiness * 0.65) + (state.meters.allianceTrust * 0.35));
+  const escalationDiscipline = Math.round(100 - state.meters.escalationIndex);
+  const informationPosture = Math.round((averageIntelQuality(state) * 0.6) + ((100 - state.meters.escalationIndex) * 0.4));
+
+  return [
+    {
+      id: 'economic_containment',
+      label: 'Economic Containment',
+      score: economicContainment,
+      status: tradeoffStatusForScore(economicContainment),
+      primaryMeters: ['economicStability', 'energySecurity'],
+      summary:
+        economicContainment >= 70
+          ? 'Commercial continuity held together and the corridor shock stayed more containable than the broader crisis picture.'
+          : economicContainment >= 55
+            ? 'Markets and supply lines remained functional, but the run absorbed visible stress to keep commerce moving.'
+            : economicContainment >= 40
+              ? 'Commercial resilience deteriorated and the corridor increasingly behaved like a crisis multiplier.'
+              : 'Economic stability broke down and commercial containment was no longer a credible line of effort.',
+      tradeoff:
+        state.meters.escalationIndex >= 65
+          ? 'The price was rising confrontation pressure around the strait.'
+          : state.meters.allianceTrust < 50
+            ? 'The price was coalition strain while trying to hold the economic line.'
+            : 'The main cost was slower political and military flexibility while absorbing market pressure.'
+    },
+    {
+      id: 'coalition_cohesion',
+      label: 'Coalition Cohesion',
+      score: coalitionCohesion,
+      status: tradeoffStatusForScore(coalitionCohesion),
+      primaryMeters: ['allianceTrust', 'domesticCohesion'],
+      summary:
+        coalitionCohesion >= 70
+          ? 'Allied and domestic alignment remained durable enough to sustain coordinated action.'
+          : coalitionCohesion >= 55
+            ? 'The coalition held, but with visible strain that narrowed room for further mistakes.'
+            : coalitionCohesion >= 40
+              ? 'Alignment frayed and each additional move carried higher diplomatic and political cost.'
+              : 'Coalition discipline broke down and the crisis response lost a stable political center.',
+      tradeoff:
+        state.meters.militaryReadiness >= 65
+          ? 'The price was maintaining hard-power credibility while keeping partners together.'
+          : state.meters.economicStability < 50
+            ? 'The price was accepting real commercial pain to preserve coalition discipline.'
+            : 'The main cost was a narrower margin for escalation or public signaling errors.'
+    },
+    {
+      id: 'deterrence_credibility',
+      label: 'Deterrence Credibility',
+      score: deterrenceCredibility,
+      status: tradeoffStatusForScore(deterrenceCredibility),
+      primaryMeters: ['militaryReadiness', 'allianceTrust'],
+      summary:
+        deterrenceCredibility >= 70
+          ? 'The run preserved a credible readiness and alliance posture that could still impose cost on the next move.'
+          : deterrenceCredibility >= 55
+            ? 'Credibility held unevenly: enough to contest pressure, but not enough to end the crisis cleanly.'
+            : deterrenceCredibility >= 40
+              ? 'Deterrence signaling weakened and the run increasingly reacted to pressure rather than shaping it.'
+              : 'The run no longer projected a credible deterrent line by the closing turns.',
+      tradeoff:
+        state.meters.escalationIndex >= 65
+          ? 'The price was heightened escalation pressure around every visible show of resolve.'
+          : state.meters.economicStability < 50
+            ? 'The price was commercial and market strain tied to sustaining readiness.'
+            : 'The main cost was consuming diplomatic flexibility to preserve a harder posture.'
+    },
+    {
+      id: 'escalation_discipline',
+      label: 'Escalation Discipline',
+      score: escalationDiscipline,
+      status: tradeoffStatusForScore(escalationDiscipline),
+      primaryMeters: ['escalationIndex'],
+      summary:
+        escalationDiscipline >= 70
+          ? 'Escalation remained bounded and the run preserved room to manage the crisis on later turns.'
+          : escalationDiscipline >= 55
+            ? 'Escalation stayed partially controlled, but only with a shrinking safety margin.'
+            : escalationDiscipline >= 40
+              ? 'Escalation management became fragile and the run lived turn to turn near a harder break.'
+              : 'Escalation discipline broke down and the crisis was no longer being managed on acceptable terms.',
+      tradeoff:
+        state.meters.militaryReadiness < 55
+          ? 'The price was reduced visible readiness while trying to keep the ceiling intact.'
+          : state.meters.allianceTrust < 50
+            ? 'The price was allied strain from repeated efforts to hold the line below open conflict.'
+            : 'The main cost was sacrificing some deterrent sharpness to keep escalation contained.'
+    },
+    {
+      id: 'information_posture',
+      label: 'Information Posture',
+      score: informationPosture,
+      status: tradeoffStatusForScore(informationPosture),
+      primaryMeters: ['escalationIndex', 'militaryReadiness'],
+      summary:
+        informationPosture >= 70
+          ? 'The run kept a usable intelligence picture and preserved enough optionality to make informed choices late.'
+          : informationPosture >= 55
+            ? 'Decision quality remained workable, but uncertainty and tempo started to erode option quality.'
+            : informationPosture >= 40
+              ? 'The information picture was thin and the run increasingly made choices under compressed uncertainty.'
+              : 'The run lost decision quality and operated under weak information with little remaining optionality.',
+      tradeoff:
+        averageIntelQuality(state) >= 70
+          ? 'The price was dedicating attention and assets to situational awareness instead of other visible lines of effort.'
+          : state.meters.escalationIndex >= 65
+            ? 'The price was that crisis tempo outpaced the intelligence picture.'
+            : 'The main cost was slower decision certainty and weaker attribution under pressure.'
+    }
+  ];
+};
+
 export interface BuildPostGameReportOptions {
   scenario?: ScenarioDefinition;
   adversaryProfile?: AdversaryProfile;
@@ -695,6 +831,7 @@ export const buildPostGameReport = (
       adversaryLogicSummary: buildAdversaryLogicSummary(state, actionMap, options.adversaryProfile),
       rivalLeaderReveal: buildRivalLeaderReveal(options.rivalLeader ?? undefined),
       deepDebrief: buildDeepDebrief(state, outcome, options.deepDebrief ?? null),
+      tradeoffScorecards: buildTradeoffScorecards(state),
       unseenSystemEvents,
       branchesNotTaken,
       advisorRetrospectives

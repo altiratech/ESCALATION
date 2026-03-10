@@ -4,7 +4,8 @@ import type {
   MeterKey,
   MissionObjective,
   PostGameReport,
-  ScenarioDefinition
+  ScenarioDefinition,
+  TradeoffScorecardStatus
 } from '@wargames/shared-types';
 
 import { TimelineChart } from './TimelineChart';
@@ -41,6 +42,13 @@ const mandateTone: Record<ObjectiveStatus, string> = {
   held: 'border-positive/60 text-positive',
   strained: 'border-warning/60 text-warning',
   failed: 'border-red-500/60 text-red-300'
+};
+
+const tradeoffTone: Record<TradeoffScorecardStatus, string> = {
+  strong: 'border-positive/60 text-positive',
+  mixed: 'border-accent/60 text-accent',
+  strained: 'border-warning/60 text-warning',
+  broken: 'border-red-500/60 text-red-300'
 };
 
 const objectiveStatusForScore = (score: number): ObjectiveStatus => {
@@ -160,7 +168,7 @@ export const ReportView = ({ report, scenario, advisorDossiers, cinematics, onRe
         <section className="card p-5">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
-              <p className="label">Mission Objectives</p>
+              <p className="label">Mandate Scorecards</p>
               <p className="mt-2 text-sm text-textMuted">
                 Success is measured against the scenario mandate, not a generic win/loss score.
               </p>
@@ -177,6 +185,39 @@ export const ReportView = ({ report, scenario, advisorDossiers, cinematics, onRe
                 </div>
                 <p className="mt-2 text-[0.68rem] uppercase tracking-[0.12em] text-textMuted">Mandate score {entry.score}</p>
                 <p className="mt-3 text-sm leading-relaxed text-textMuted">{entry.summary}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {report.fullCausality.tradeoffScorecards.length > 0 ? (
+        <section className="card p-5">
+          <div>
+            <p className="label">Tradeoff Scorecards</p>
+            <p className="mt-2 text-sm text-textMuted">
+              These cards show what the run preserved, where it paid a price, and which strategic line broke first.
+            </p>
+          </div>
+          <div className="mt-4 grid gap-3 lg:grid-cols-2 xl:grid-cols-3">
+            {report.fullCausality.tradeoffScorecards.map((entry) => (
+              <article key={entry.id} className="rounded-md border border-borderTone/70 bg-panelRaised/40 p-4">
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <p className="text-sm text-textMain">{entry.label}</p>
+                    <p className="mt-2 text-[0.68rem] uppercase tracking-[0.12em] text-textMuted">
+                      Score {entry.score}
+                    </p>
+                  </div>
+                  <span className={`rounded-md border px-2 py-0.5 text-[0.56rem] uppercase tracking-[0.12em] ${tradeoffTone[entry.status]}`}>
+                    {entry.status}
+                  </span>
+                </div>
+                <p className="mt-3 text-sm leading-relaxed text-textMuted">{entry.summary}</p>
+                <div className="mt-3 rounded-md border border-borderTone/70 bg-surface/30 p-3">
+                  <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Primary tradeoff</p>
+                  <p className="mt-1 text-sm leading-relaxed text-textMain">{entry.tradeoff}</p>
+                </div>
               </article>
             ))}
           </div>

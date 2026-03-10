@@ -478,12 +478,25 @@ export interface DebriefDeepReport {
   advisorReflections: DebriefDeepAdvisorReflection[];
 }
 
+export type TradeoffScorecardStatus = 'strong' | 'mixed' | 'strained' | 'broken';
+
+export interface TradeoffScorecard {
+  id: string;
+  label: string;
+  score: number;
+  status: TradeoffScorecardStatus;
+  primaryMeters: MeterKey[];
+  summary: string;
+  tradeoff: string;
+}
+
 export interface FullCausalityReport {
   outcomeNarrative: OutcomeNarrativeReveal;
   hiddenDeltas: HiddenMeterDelta[];
   adversaryLogicSummary: string;
   rivalLeaderReveal: RivalLeaderReveal | null;
   deepDebrief: DebriefDeepReport | null;
+  tradeoffScorecards: TradeoffScorecard[];
   unseenSystemEvents: UnseenSystemEvent[];
   branchesNotTaken: BranchNotTakenSummary[];
   advisorRetrospectives: AdvisorRetrospectiveLine[];
