@@ -155,7 +155,7 @@ export const ReportView = ({ report, scenario, advisorDossiers, cinematics, onRe
             className="rounded-md border border-accent px-4 py-2 text-sm text-accent hover:bg-accent/10"
             onClick={onRestart}
           >
-            Return To Mission Console
+            Return To Scenario Setup
           </button>
         </div>
         <p className="mt-3 text-sm leading-relaxed text-textMain">{mandateHeadline.summary}</p>
@@ -247,23 +247,23 @@ export const ReportView = ({ report, scenario, advisorDossiers, cinematics, onRe
       ) : null}
 
       <section className="card p-5">
-        <p className="label">Timeline</p>
+        <p className="label">Scenario Timeline</p>
         <div className="mt-3">
           <TimelineChart data={report.timeline} />
         </div>
       </section>
 
       <section className="grid gap-4 lg:grid-cols-2">
-        <article className="card p-5">
-          <p className="label">Pivotal Decision</p>
-          <p className="mt-3 text-sm text-textMain">
-            Turn {report.pivotalDecision.turn}: <span className="font-semibold">{report.pivotalDecision.actionName}</span>
-          </p>
+          <article className="card p-5">
+            <p className="label">Pivotal Decision</p>
+            <p className="mt-3 text-sm text-textMain">
+            Decision window {report.pivotalDecision.turn}: <span className="font-semibold">{report.pivotalDecision.actionName}</span>
+            </p>
           <p className="mt-2 text-sm text-textMuted">{report.pivotalDecision.reason}</p>
 
           <p className="label mt-4">Alternative Line</p>
           <p className="mt-2 text-sm text-textMain">
-            Suggested action at turn {report.alternativeLine.turn}: <span className="font-semibold">{report.alternativeLine.suggestedActionName}</span>
+            Suggested action in decision window {report.alternativeLine.turn}: <span className="font-semibold">{report.alternativeLine.suggestedActionName}</span>
           </p>
           <p className="mt-2 text-sm text-textMuted">{report.alternativeLine.predictedImpact}</p>
 
@@ -441,7 +441,7 @@ export const ReportView = ({ report, scenario, advisorDossiers, cinematics, onRe
       ) : null}
 
       <section className="card p-5">
-        <p className="label">Hidden Deltas (Revealed)</p>
+        <p className="label">Hidden Effects (Revealed)</p>
         <div className="mt-3 overflow-x-auto">
           <table className="min-w-full border-collapse text-sm">
             <thead>
@@ -475,7 +475,7 @@ export const ReportView = ({ report, scenario, advisorDossiers, cinematics, onRe
             <ul className="mt-3 space-y-2 text-sm text-textMuted">
               {report.fullCausality.unseenSystemEvents.map((event, index) => (
                 <li key={`${event.turn}:${event.eventId}:${index}`}>
-                  Turn {event.turn}: {event.label} (visibility {event.visibility.toFixed(2)})
+                  Decision window {event.turn}: {event.label} (visibility {event.visibility.toFixed(2)})
                 </li>
               ))}
             </ul>
@@ -508,12 +508,12 @@ export const ReportView = ({ report, scenario, advisorDossiers, cinematics, onRe
             {report.fullCausality.branchesNotTaken.map((entry) => (
               <article key={`${entry.turn}:${entry.beatId}`} className="rounded-md border border-borderTone/70 bg-panelRaised/40 p-3">
                 <p className="text-sm text-textMain">
-                  Turn {entry.turn} | Beat {entry.beatId} | Selected {entry.selectedActionId} {'->'} {entry.selectedBeatId}
+                  Decision window {entry.turn} | Chosen response {entry.selectedActionId}
                 </p>
                 <ul className="mt-2 list-disc space-y-1 pl-4 text-xs text-textMuted">
                   {entry.alternatives.map((alt) => (
                     <li key={`${entry.turn}:${entry.beatId}:${alt.targetBeatId}`}>
-                      {alt.targetBeatId}: {alt.reason}
+                      {alt.reason}
                     </li>
                   ))}
                 </ul>
@@ -526,15 +526,15 @@ export const ReportView = ({ report, scenario, advisorDossiers, cinematics, onRe
       </section>
 
       <section className="card p-5">
-        <p className="label">Rival Belief Evolution</p>
+        <p className="label">Counterpart Assessment Path</p>
         <div className="mt-3 overflow-x-auto">
           <table className="min-w-full border-collapse text-sm">
             <thead>
               <tr className="text-left text-textMuted">
-                <th className="border-b border-borderTone py-2 pr-4">Turn</th>
-                <th className="border-b border-borderTone py-2 pr-4">P(bluff)</th>
-                <th className="border-b border-borderTone py-2 pr-4">P(high threshold)</th>
-                <th className="border-b border-borderTone py-2">Humiliation</th>
+                <th className="border-b border-borderTone py-2 pr-4">Window</th>
+                <th className="border-b border-borderTone py-2 pr-4">Perceived bluff risk</th>
+                <th className="border-b border-borderTone py-2 pr-4">Perceived escalation threshold</th>
+                <th className="border-b border-borderTone py-2">Humiliation pressure</th>
               </tr>
             </thead>
             <tbody>

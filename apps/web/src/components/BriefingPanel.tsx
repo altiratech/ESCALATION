@@ -74,12 +74,12 @@ export const BriefingPanel = ({
 
   const signalSource = (index: number): string => {
     if (index === 0) {
-      return 'SIGINT';
+      return 'Government Signal';
     }
     if (index === 1) {
-      return 'MARKET';
+      return 'Market';
     }
-    return 'OSINT';
+    return 'Open Reporting';
   };
 
   const clipText = (value: string, limit = 260): string =>
@@ -91,11 +91,11 @@ export const BriefingPanel = ({
     <section className="console-panel console-panel-muted flex h-full flex-col p-4 sm:p-5">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
-          <p className="label">Live Briefing</p>
-          <h2 className="mt-2 font-display text-[1.55rem] text-textMain">Command Brief</h2>
+          <p className="label">Situation Summary</p>
+          <h2 className="mt-2 font-display text-[1.55rem] text-textMain">Current Situation</h2>
         </div>
         <p className="rounded-md border border-borderTone bg-panelRaised/60 px-2 py-1 text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">
-          Active Window
+          Live Window
         </p>
       </div>
 
@@ -115,8 +115,8 @@ export const BriefingPanel = ({
                 className="flex w-full items-center justify-between gap-3 text-left"
                 onClick={() => setShowPhaseTransition((current) => !current)}
               >
-                <div>
-                  <p className="label">Phase Shift</p>
+                  <div>
+                    <p className="label">Situation Change</p>
                   <p className="mt-1 text-sm text-textMain">
                     {phaseTransition.fromLabel} {'->'} {phaseTransition.toLabel}
                   </p>
@@ -137,7 +137,7 @@ export const BriefingPanel = ({
 
           <section className="console-subpanel px-3 py-3">
             <div className="flex items-center justify-between gap-3">
-              <p className="label">Incoming Signals</p>
+              <p className="label">Key Developments</p>
               <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Click to expand</p>
             </div>
             <div className="mt-3 space-y-2">
@@ -173,7 +173,7 @@ export const BriefingPanel = ({
 
           {turnDebrief && turnDebrief.lines.length > 0 ? (
             <section className="console-subpanel px-3 py-3">
-              <p className="label">Turn Assessment</p>
+              <p className="label">Immediate Outcome</p>
               <div className="mt-2 space-y-2 text-[0.76rem] leading-relaxed text-textMuted">
                 {turnDebrief.lines.map((entry, index) => (
                   <p key={`${entry.tag}-${index}`}>
@@ -188,7 +188,7 @@ export const BriefingPanel = ({
         <div className="space-y-4">
           {turn === 1 && scenarioWorld ? (
             <section className="console-subpanel px-3 py-3">
-              <p className="label">Theater Context</p>
+              <p className="label">Scenario Context</p>
               <p className="mt-1 text-sm text-textMain">
                 {scenarioWorld.region.name} · {scenarioWorld.dateAnchor.month} {scenarioWorld.dateAnchor.year}
               </p>
@@ -216,7 +216,7 @@ export const BriefingPanel = ({
 
           {turn === 1 && counterpartBrief ? (
             <section className="console-subpanel px-3 py-3">
-              <p className="label">Known About Counterpart</p>
+              <p className="label">What We Know</p>
               <p className="mt-1 text-sm text-textMain">
                 {counterpartBrief.leader.publicName} · {counterpartBrief.leader.title}
               </p>
@@ -229,7 +229,7 @@ export const BriefingPanel = ({
               </p>
               {(counterpartBrief.leader.intelFragments.opening ?? []).length > 0 ? (
                 <div className="mt-3 border-t border-borderTone/70 pt-3">
-                  <p className="label">Current Intelligence Read</p>
+                  <p className="label">Current Intelligence View</p>
                   <p className="mt-2 text-[0.7rem] leading-relaxed text-textMuted">
                     {clipText((counterpartBrief.leader.intelFragments.opening ?? [])[0] ?? '', 240)}
                   </p>
@@ -248,7 +248,7 @@ export const BriefingPanel = ({
               />
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-surface/80 to-transparent" />
               <div className="absolute left-3 top-3 rounded-md border border-warning/60 bg-surface/85 px-2 py-1 text-[0.6rem] uppercase tracking-[0.14em] text-warning">
-                Theater Visual
+                Context Visual
               </div>
               {briefing.memoLine ? (
                 <div className="absolute bottom-2 left-2 right-2 rounded-md border border-borderTone bg-surface/80 px-2 py-1 text-[0.62rem] text-textMuted">
@@ -266,7 +266,7 @@ export const BriefingPanel = ({
                 onClick={() => setShowOperationalReadout((current) => !current)}
               >
                 <div>
-                  <p className="label">Operational Readout</p>
+                  <p className="label">What Happened</p>
                   <p className="mt-1 text-sm text-textMain">
                     {recentActionNarrative.actionName} · {recentActionNarrative.phaseLabel}
                   </p>

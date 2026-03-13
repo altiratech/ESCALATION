@@ -63,6 +63,7 @@ export const TimelineChart = ({ data }: TimelineChartProps) => {
           );
         })}
       </svg>
+      <p className="mt-2 text-[0.66rem] uppercase tracking-[0.12em] text-textMuted">Decision windows</p>
       <div className="mt-2 flex flex-wrap gap-4 text-xs text-textMuted">
         <span className="flex items-center gap-1"><span className="inline-block h-2 w-2 rounded-full bg-warning" /> Escalation Index</span>
         <span className="flex items-center gap-1"><span className="inline-block h-2 w-2 rounded-full bg-positive" /> Alliance Trust</span>

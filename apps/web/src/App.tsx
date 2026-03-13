@@ -440,7 +440,7 @@ const App = () => {
   const handleCommandSubmit = useCallback(async (commandText: string): Promise<CommandSubmitResult> => {
     if (!episode) {
       return {
-        message: 'No active episode detected. Begin an episode to issue commands.'
+        message: 'No active scenario detected. Begin a scenario before entering a custom response.'
       };
     }
 
@@ -456,11 +456,11 @@ const App = () => {
       if (episode.timerMode === 'off' && currentBeat?.decisionWindow) {
         await handleInaction('explicit');
         return {
-          message: 'Command accepted: holding position and taking no action for this beat.'
+          message: 'Instruction accepted: holding position and taking no action during this decision window.'
         };
       }
       return {
-        message: 'Hold command recognized, but explicit no-action is only available on untimed decision beats.'
+        message: 'Hold instruction recognized, but explicit no-action is only available on untimed decision windows.'
       };
     }
 
@@ -476,7 +476,7 @@ const App = () => {
         setEpisode(interpretation.episode);
         setSelectedActionId(null);
         return {
-          message: 'Command target was stale. Synced to latest turn state.'
+          message: 'Command target was stale. Synced to the latest decision window.'
         };
       }
 
@@ -668,14 +668,14 @@ const App = () => {
   const missionObjectives = currentScenario?.missionObjectives ?? [];
   const turnResolutionGuidance =
     episode.activeCountdown && remainingSeconds !== null
-      ? `Select one action, inspect the tradeoffs, and commit before ${formatSeconds(remainingSeconds)} elapses.`
+      ? `Select one response, inspect the tradeoffs, and confirm it before ${formatSeconds(remainingSeconds)} elapses.`
       : showTakeNoAction
-        ? 'Select one action and commit it, or use Take No Action to hold position.'
-        : 'Select one action from the decision rail, inspect the detail, and commit to resolve the turn.';
+        ? 'Select one response and confirm it, or use Take No Action to hold position.'
+        : 'Select one response, inspect the detail, and confirm it to advance the scenario.';
   const turnProcedure: Array<{ label: string; detail: string }> = [
     {
-      label: 'Read',
-      detail: 'Use the situation report and intel feed to understand the current pressure.'
+      label: 'Assess',
+      detail: 'Use the situation summary and key developments to understand the current pressure.'
     },
     {
       label: 'Decide',
@@ -683,22 +683,22 @@ const App = () => {
     },
     {
       label: 'Review',
-      detail: 'After resolution, check the turn assessment and operational readout for immediate consequences.'
+      detail: 'After resolution, review the immediate outcome and what happened for the first consequences.'
     }
   ];
-  const turnStageLabel = turnStage === 'brief' ? 'Turn Brief' : 'Decision';
+  const turnStageLabel = turnStage === 'brief' ? 'Situation Summary' : 'Decision';
   const turnStageActionLabel = turnStage === 'brief'
     ? selectedAction
       ? 'Return To Selected Response'
       : 'Proceed To Decision'
-    : 'Back To Brief';
+    : 'Back To Summary';
 
   return (
     <main className="mx-auto flex w-full max-w-[1680px] flex-col gap-4 px-3 py-3 pb-8 sm:px-4 lg:px-5">
       <header className="console-topbar px-3 py-3 sm:px-4">
         <div className="flex flex-col gap-3 xl:flex-row xl:items-start xl:justify-between">
           <div className="space-y-1">
-            <p className="label">Altira Flashpoint // War Room</p>
+            <p className="label">Altira Flashpoint // Live Scenario</p>
             <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-textMuted">
               <span className="font-display text-xl text-textMain">{currentScenarioName}</span>
               <span className="text-borderTone">/</span>
@@ -752,11 +752,11 @@ const App = () => {
           </div>
         </div>
 
-        <div className="mt-3 grid gap-2 sm:grid-cols-2 xl:grid-cols-5">
-          <div className="console-metric">
-            <p className="console-metric-label">Turn</p>
-            <p className="console-metric-value">{episode.turn}/{episode.maxTurns}</p>
-          </div>
+          <div className="mt-3 grid gap-2 sm:grid-cols-2 xl:grid-cols-5">
+            <div className="console-metric">
+              <p className="console-metric-label">Window</p>
+              <p className="console-metric-value">{episode.turn}/{episode.maxTurns}</p>
+            </div>
           <div className="console-metric">
             <p className="console-metric-label">Escalation</p>
             <p className="console-metric-value">{escalationStateLabel}</p>
@@ -769,11 +769,11 @@ const App = () => {
             <p className="console-metric-label">Market Stress</p>
             <p className="console-metric-value">{marketStressLabel}</p>
           </div>
-          <div className="console-metric">
-            <p className="console-metric-label">Decision Window</p>
-            <p className="console-metric-value">
-              {episode.activeCountdown && remainingSeconds !== null ? countdownUrgencyLabel : episode.timerMode === 'off' ? 'Player Held' : 'Closed'}
-            </p>
+            <div className="console-metric">
+              <p className="console-metric-label">Response Window</p>
+              <p className="console-metric-value">
+                {episode.activeCountdown && remainingSeconds !== null ? countdownUrgencyLabel : episode.timerMode === 'off' ? 'Player Held' : 'Closed'}
+              </p>
           </div>
         </div>
 
@@ -800,14 +800,14 @@ const App = () => {
             <div className="flex flex-col gap-3">
               <div className="min-w-0">
                 <div className="flex flex-wrap items-center gap-2">
-                  <p className="label text-accent">Turn Brief</p>
+                  <p className="label text-accent">Situation Summary</p>
                   <span className="action-required-status border-accent/55 bg-accent/10 text-accent">
                     Review Before Deciding
                   </span>
                 </div>
                 <p className="mt-2 text-[0.82rem] leading-relaxed text-textMain">{clipLine(currentDirective, 220)}</p>
                 <p className="mt-2 text-[0.72rem] leading-relaxed text-textMuted">
-                  Review the live briefing, intelligence feed, mandate, and operational indicators below. When you are ready,
+                  Review the current situation, key developments, mandate, and operational indicators below. When you are ready,
                   continue to the decision page to consult advisors and choose a response.
                 </p>
               </div>
@@ -820,7 +820,7 @@ const App = () => {
                 <p className="label">Mission Mandate</p>
                 <p className="mt-2 text-sm leading-relaxed text-textMain">{clipLine(currentDirective, 220)}</p>
                 <p className="mt-2 text-[0.72rem] leading-relaxed text-textMuted">
-                  Strategic success is measured against the mandate below, not simply whether the turn resolves without immediate escalation.
+                  Strategic success is measured against the mandate below, not simply whether the current window closes without immediate escalation.
                 </p>
               </div>
               <div className="grid gap-2 sm:grid-cols-3">
@@ -900,7 +900,7 @@ const App = () => {
               <div>
                 <p className="label">Decision Phase</p>
                 <p className="mt-2 text-[0.76rem] leading-relaxed text-textMuted">
-                  Continue when you are ready to consult the advisors, compare responses, and commit a turn action.
+                  Continue when you are ready to consult the advisors, compare responses, and confirm the next move.
                 </p>
               </div>
               <button
@@ -936,15 +936,15 @@ const App = () => {
               </div>
               <p className="mt-2 text-[0.82rem] leading-relaxed text-textMain">{clipLine(currentDirective, 220)}</p>
               <p className="mt-2 text-sm leading-relaxed text-textMain">
-                Compare the available responses, inspect advisor reasoning, then commit a selected response to advance the turn.
+                Compare the available responses, inspect advisor reasoning, then confirm a selected response to advance the scenario.
               </p>
               <p className="mt-2 text-[0.72rem] leading-relaxed text-textMuted">
-                Need more context first? Return to the Turn Brief to review the full intelligence and mandate surfaces before you commit.
+                Need more context first? Return to the Situation Summary to review the full intelligence and mandate surfaces before you confirm.
               </p>
               <div className="mt-3 grid gap-2 sm:grid-cols-3">
                 <div className="action-required-step">
                   <p className="text-[0.56rem] uppercase tracking-[0.12em] text-accent">1. Select</p>
-                  <p className="mt-1 text-[0.7rem] leading-relaxed text-textMain">Choose one response from the selector.</p>
+                  <p className="mt-1 text-[0.7rem] leading-relaxed text-textMain">Choose one response from the available list.</p>
                 </div>
                 <div className="action-required-step">
                   <p className="text-[0.56rem] uppercase tracking-[0.12em] text-accent">2. Consult</p>
@@ -952,7 +952,7 @@ const App = () => {
                 </div>
                 <div className="action-required-step">
                   <p className="text-[0.56rem] uppercase tracking-[0.12em] text-accent">3. Commit</p>
-                  <p className="mt-1 text-[0.7rem] leading-relaxed text-textMain">Advance the turn only after you are satisfied with the selected response.</p>
+                  <p className="mt-1 text-[0.7rem] leading-relaxed text-textMain">Advance the scenario only after you are satisfied with the selected response.</p>
                 </div>
               </div>
             </div>
@@ -963,7 +963,7 @@ const App = () => {
                 onClick={() => setTurnStage('brief')}
                 disabled={loading}
               >
-                Back To Brief
+                Back To Summary
               </button>
               <div
                 className={`console-chip ${

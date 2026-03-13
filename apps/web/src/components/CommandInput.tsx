@@ -47,7 +47,7 @@ export const CommandInput = ({ turn, disabled, onSubmitCommand, onSelectAction }
     }
     lastTurnRef.current = turn;
     setPendingSuggestions([]);
-    appendLine('system', `Turn ${turn}: command channel ready.`);
+    appendLine('system', `Decision window ${turn}: custom response channel ready.`);
   }, [turn]);
 
   useEffect(() => {
@@ -104,9 +104,9 @@ export const CommandInput = ({ turn, disabled, onSubmitCommand, onSelectAction }
     <section className="console-subpanel px-3 py-3 sm:px-4">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div>
-          <p className="label">Optional Custom Order</p>
+          <p className="label">Custom Response (Advanced)</p>
           <p className="mt-2 text-[0.72rem] leading-relaxed text-textMuted">
-            Secondary input mode. Use this only if you want custom phrasing or parser-assisted interpretation.
+            Optional advanced input. Use this only if you want custom phrasing or help matching your intent to an available response.
           </p>
         </div>
         <button
@@ -131,13 +131,13 @@ export const CommandInput = ({ turn, disabled, onSubmitCommand, onSelectAction }
 
       {!isOpen && pendingSuggestions.length === 0 ? (
         <p className="mt-2 text-[0.66rem] text-textMuted">
-          The main action loop is response-based. Open this field only if you want the parser to interpret a custom order.
+          The main workflow is response-based. Open this field only if you want help translating a custom instruction into a suggested response.
         </p>
       ) : null}
 
       {isOpen && pendingSuggestions.length > 0 ? (
         <div className="mt-2 rounded-md border border-accent/40 bg-accent/10 p-2">
-          <p className="text-[0.62rem] uppercase tracking-[0.1em] text-accent">Clarify Command</p>
+          <p className="text-[0.62rem] uppercase tracking-[0.1em] text-accent">Review Suggested Match</p>
           <div className="mt-1.5 flex flex-wrap gap-1.5">
             {pendingSuggestions.map((action) => (
               <button
@@ -168,7 +168,7 @@ export const CommandInput = ({ turn, disabled, onSubmitCommand, onSelectAction }
               void submit();
             }
           }}
-          placeholder="Optional: type a custom order (e.g., action Public Warning)"
+          placeholder="Optional: describe the response you want to make"
           rows={2}
           className="w-full rounded-md border border-borderTone bg-panelRaised/75 px-3 py-2 text-sm text-textMain focus:border-accent focus:outline-none"
           disabled={disabled || sending}
@@ -186,7 +186,7 @@ export const CommandInput = ({ turn, disabled, onSubmitCommand, onSelectAction }
       </div>
 
       <p className="mt-2 text-[0.66rem] text-textMuted">
-        Typed orders are interpreted into a suggested response. Review the selected response on this page before committing the turn.
+        Typed instructions are translated into a suggested response. Review the selected response on this page before committing the decision window.
       </p>
         </>
       ) : null}

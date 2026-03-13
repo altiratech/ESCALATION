@@ -3177,3 +3177,82 @@ Current naming rule:
 2. If the scorecards now land well, next likely product move:
 - deepen authored branch-not-taken / hidden-driver commentary
 - or move to second-scenario / role-overlay expansion instead of more report churn
+
+## 59. Flashpoint Finance-User Legibility Pass (2026-03-13 ET)
+
+### 59.1 What changed
+
+1. Reframed the live product away from game-native `turn` language:
+- user-facing simulation steps are now presented as `decision windows`
+- the deterministic turn-based engine remains unchanged internally
+
+2. Updated setup / navigation language in the live UI:
+- `Mission Console` -> `Scenario Setup`
+- `Theater Dossier` -> `Scenario Background`
+- `Launch Turn 1` -> `Begin Scenario`
+- setup notes now describe `first decision window` / `live scenario` instead of `Turn 1` / `war room`
+
+3. Updated briefing / decision terminology:
+- `War Room` -> `Live Scenario`
+- `Turn Brief` -> `Situation Summary`
+- `Command Brief` -> `Current Situation`
+- `Incoming Signals` -> `Key Developments`
+- `Turn Assessment` -> `Immediate Outcome`
+- `Known About Counterpart` -> `What We Know`
+- `Operational Readout` -> `What Happened`
+- decision-stage copy now says `advance the scenario` / `decision window` instead of `advance the turn`
+
+4. Updated advisor and custom-input framing:
+- `Advisor Channel` -> `Advisor Views`
+- `Live Counsel` -> `Advisor Read`
+- `Optional Custom Order` -> `Custom Response (Advanced)`
+- custom-input helper text now explains that typed instructions help match user intent to an available response rather than exposing parser/system internals
+
+5. Updated post-game wording:
+- `Timeline` -> `Scenario Timeline`
+- `Hidden Deltas (Revealed)` -> `Hidden Effects (Revealed)`
+- `Rival Belief Evolution` -> `Counterpart Assessment Path`
+- report references now say `decision window` instead of `turn`
+- branch-not-taken cards no longer surface raw selected/target beat flow in the top line
+
+### 59.2 Files changed
+
+1. Live web app:
+- `apps/web/src/App.tsx`
+- `apps/web/src/components/StartScreen.tsx`
+- `apps/web/src/components/BriefingPanel.tsx`
+- `apps/web/src/components/ActionCards.tsx`
+- `apps/web/src/components/AdvisorPanel.tsx`
+- `apps/web/src/components/CommandInput.tsx`
+- `apps/web/src/components/ReportView.tsx`
+- `apps/web/src/components/TimelineChart.tsx`
+
+### 59.3 What passed
+
+1. Validation:
+- `npm run lint`
+- `npm run build --workspace @wargames/web`
+- `npm run ci:phase1`
+
+2. Results:
+- `15/15` test files passed
+- `31/31` tests passed
+- Monte Carlo concentration warnings unchanged and non-blocking
+- note: local web build completed successfully but remained slow (`~1m 15s`)
+
+### 59.4 Product implication
+
+1. Flashpoint now presents itself more clearly as a professional decision-simulation product for non-wargaming users, especially finance users.
+2. This is a product-language shift, not a gameplay-engine shift.
+3. If confusion remains after live retesting, the next likely issue is content density and summary structure rather than the core terminology itself.
+
+### 59.5 Exact next action for resume
+
+1. Re-test the live flow with non-wargaming users and watch for:
+- whether `Situation Summary` is immediately legible
+- whether `Decision Window` feels more natural than `Turn`
+- whether response descriptions still need stronger business-consequence framing
+
+2. If confusion remains, next likely UX pass:
+- add a plain-language executive summary block (`What changed`, `Why it matters`, `Decision required now`)
+- simplify default advisor expansion further if persona depth still feels heavy

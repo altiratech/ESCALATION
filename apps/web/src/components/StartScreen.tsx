@@ -44,11 +44,11 @@ const advisorNameById: Record<string, string> = {
 };
 
 const environmentLabel: Record<string, string> = {
-  coastal: 'Maritime theater',
-  arctic: 'Arctic theater',
-  dense_city: 'Urban theater',
-  industrial: 'Industrial theater',
-  generic: 'Global theater'
+  coastal: 'Maritime region',
+  arctic: 'Arctic region',
+  dense_city: 'Urban region',
+  industrial: 'Industrial region',
+  generic: 'Global setting'
 };
 
 const clipText = (value: string, limit = 240): string =>
@@ -150,11 +150,11 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
           ''
       },
       {
-        label: 'How Turn 1 resolves',
+        label: 'How the opening decision window resolves',
         text:
           timerMode === 'off'
-            ? 'Untimed. Turn 1 resolves only when you commit one action or explicitly take no action.'
-            : 'Live. Turn 1 resolves when you commit one action or let the active decision window expire.'
+            ? 'Untimed. The opening window resolves only when you commit one response or explicitly hold position.'
+            : 'Live. The opening window resolves when you commit one response or let the active decision window expire.'
       }
     ];
 
@@ -178,14 +178,14 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
         value: selectedScenario?.role ?? 'N/A'
       },
       {
-        label: 'Theater',
+        label: 'Region',
         value: selectedScenario?.environment
           ? environmentLabel[selectedScenario.environment] ?? 'Global theater'
           : 'N/A'
       },
       {
-        label: 'Episode Format',
-        value: `${selectedScenario?.maxTurns ?? 0}-turn crisis run`
+        label: 'Decision Windows',
+        value: `${selectedScenario?.maxTurns ?? 0} staged decision windows`
       }
     ],
     [selectedScenario]
@@ -193,9 +193,9 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
 
   const systemNotes = useMemo(
     () => [
-      'Turn 1 opens immediately after launch.',
-      'Scenario exposition has been moved to the theater dossier.',
-      'The primary gameplay loop remains card-based in the war room.'
+      'The first decision window opens immediately after launch.',
+      'Deeper context is available in Scenario Background before launch.',
+      'The main response workflow uses guided response selection in the live scenario.'
     ],
     []
   );
@@ -238,7 +238,7 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
           className={`console-nav-item ${step === 'console' ? 'console-nav-item-active' : ''}`}
           onClick={() => setStep('console')}
         >
-          <span>Mission Console</span>
+          <span>Scenario Setup</span>
           <span className="text-[0.58rem] text-textMuted">INIT</span>
         </button>
         <button
@@ -246,13 +246,13 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
           className={`console-nav-item ${step === 'dossier' ? 'console-nav-item-active' : ''}`}
           onClick={() => setStep('dossier')}
         >
-          <span>Theater Dossier</span>
+          <span>Scenario Background</span>
           <span className="text-[0.58rem] text-textMuted">CTX</span>
         </button>
       </div>
 
       <div className="console-sidebar-section">
-        <p className="console-sidebar-label">Active Theater</p>
+        <p className="console-sidebar-label">Active Scenario</p>
         <div className="console-nav-meta">
           <p className="text-[0.74rem] uppercase tracking-[0.08em] text-textMain">
             {selectedScenario?.name ?? 'No scenario selected'}
@@ -272,7 +272,7 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
           </div>
           <div className="console-nav-meta">
             <p className="text-[0.58rem] uppercase tracking-[0.14em] text-textMuted">Launch Path</p>
-            <p className="mt-1 text-[0.72rem] uppercase tracking-[0.08em] text-textMain">Turn 1 direct entry</p>
+            <p className="mt-1 text-[0.72rem] uppercase tracking-[0.08em] text-textMain">Direct decision entry</p>
           </div>
         </div>
       </div>
@@ -289,9 +289,9 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
             <header className="console-topbar px-4 py-4 sm:px-5">
               <div className="flex flex-col gap-3 xl:flex-row xl:items-start xl:justify-between">
                 <div>
-                  <p className="console-kicker">Altira Flashpoint // Mission Console</p>
+                  <p className="console-kicker">Altira Flashpoint // Scenario Setup</p>
                   <h1 className="mt-2 font-display text-3xl uppercase tracking-[0.08em] text-textMain sm:text-4xl">
-                    Initialize Scenario Run
+                    Configure Scenario Run
                   </h1>
                 </div>
                 <div className="flex flex-wrap gap-2">
@@ -306,8 +306,8 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
                 </div>
               </div>
               <p className="mt-3 max-w-4xl text-[0.76rem] leading-relaxed text-textMuted">
-                Configure the run, then launch directly into Turn 1. This screen stays procedural; scenario context and
-                narrative framing live in the theater dossier.
+                Configure the scenario, then move directly into the first decision window. This screen stays procedural;
+                background context and narrative framing live in Scenario Background.
               </p>
             </header>
 
@@ -334,17 +334,17 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
 
                   <div className="space-y-3">
                     <div className="console-subpanel px-3 py-3">
-                      <p className="label">Launch Protocol</p>
+                      <p className="label">Launch Guidance</p>
                       <p className="mt-2 text-[0.76rem] leading-relaxed text-textMuted">
-                        Use the mission console to initialize the run. Open the dossier only when you need deeper
+                        Use Scenario Setup to initialize the run. Open Scenario Background only when you need deeper
                         geographic, legal, and actor context before launch.
                       </p>
                     </div>
                     <div className="console-subpanel px-3 py-3">
-                      <p className="label">Turn Entry</p>
+                      <p className="label">Live Entry</p>
                       <p className="mt-2 text-[0.76rem] leading-relaxed text-textMuted">
-                        Launching enters the war room immediately and opens the first live decision set. There is no
-                        intermediate preview screen.
+                        Launching enters the live scenario immediately and opens the first decision window. There is no
+                        extra preview screen after launch.
                       </p>
                     </div>
                   </div>
@@ -386,7 +386,7 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
                     className="console-button console-button-secondary"
                     onClick={() => setStep('dossier')}
                   >
-                    Open Theater Dossier
+                    Open Scenario Background
                   </button>
                   <button
                     type="button"
@@ -394,7 +394,7 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
                     onClick={() => void handleStart()}
                     disabled={loading || !scenarioId}
                   >
-                    {loading ? 'Launching Turn 1...' : 'Launch Turn 1'}
+                    {loading ? 'Beginning Scenario...' : 'Begin Scenario'}
                   </button>
                 </div>
               </section>
@@ -477,12 +477,12 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
           <header className="console-topbar px-5 py-5 sm:px-6">
             <div className="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
               <div>
-                <p className="console-kicker">Altira Flashpoint // Theater Dossier</p>
+                <p className="console-kicker">Altira Flashpoint // Scenario Background</p>
                 <h1 className="mt-3 font-display text-3xl uppercase tracking-[0.08em] text-textMain sm:text-4xl">
-                  {selectedScenario?.name ?? 'Theater Dossier'}
+                  {selectedScenario?.name ?? 'Scenario Background'}
                 </h1>
                 <p className="mt-4 max-w-4xl text-[0.78rem] leading-relaxed text-textMuted">
-                  Review geography, actors, legal framing, and baseline pressure before entering the war room. This is
+                  Review geography, actors, legal framing, and baseline pressure before entering the live scenario. This is
                   the only pre-launch surface intended for deeper scenario context.
                 </p>
               </div>
@@ -492,7 +492,7 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
                   className="console-button console-button-secondary"
                   onClick={() => setStep('console')}
                 >
-                  Back to Mission Console
+                  Back to Scenario Setup
                 </button>
                 <button
                   type="button"
@@ -500,7 +500,7 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
                   onClick={() => void handleStart()}
                   disabled={loading || !scenarioId}
                 >
-                  {loading ? 'Launching Turn 1...' : 'Launch Turn 1'}
+                  {loading ? 'Beginning Scenario...' : 'Begin Scenario'}
                 </button>
               </div>
             </div>
@@ -510,7 +510,7 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
             <div className="space-y-4">
               {selectedScenarioWorld ? (
                 <section className="console-panel p-5">
-                  <p className="label">Theater Snapshot</p>
+                  <p className="label">Scenario Snapshot</p>
                   <p className="mt-3 font-display text-2xl uppercase tracking-[0.06em] text-textMain">
                     {selectedScenarioWorld.region.name} · {selectedScenarioWorld.dateAnchor.month} {selectedScenarioWorld.dateAnchor.year}
                   </p>
@@ -606,7 +606,7 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
             <div className="space-y-4">
               {turnOneCarryForward.length > 0 ? (
                 <section className="console-panel p-5">
-                  <p className="label">Carry Into Turn 1</p>
+                  <p className="label">Carry Into The Opening Window</p>
                   <div className="mt-3 space-y-2">
                     {turnOneCarryForward.map((item) => (
                       <div key={item.label} className="console-subpanel px-3 py-2.5">
@@ -651,7 +651,7 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
 
               {selectedRivalLeader ? (
                 <section className="console-panel p-5">
-                  <p className="label">Known About Counterpart</p>
+                  <p className="label">What We Know</p>
                   <div className="mt-3 space-y-3">
                     <div className="console-subpanel px-3 py-3">
                       <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Counterpart Lead</p>

@@ -78,9 +78,9 @@ export const ActionCards = ({
     <section className="console-subpanel h-full px-3 py-3 sm:px-4">
       <div className="flex items-start justify-between gap-3">
         <div>
-          <p className="label">Decision Selector</p>
+          <p className="label">Response Options</p>
           <p className="mt-2 text-[0.74rem] leading-relaxed text-textMuted">
-            Step 1: choose one response. Step 2: inspect the detail pane. Step 3: commit it from the action bar.
+            Review the available responses, inspect the selected option below, then confirm it from the decision bar.
           </p>
         </div>
         <div className="flex items-center gap-2">
@@ -97,8 +97,8 @@ export const ActionCards = ({
 
       {showHelp ? (
         <div className="mt-3 border border-borderTone/80 bg-panelRaised/55 px-3 py-2 text-[0.68rem] leading-relaxed text-textMuted">
-          Workflow: pick a response from the selector, review what it signals and risks, compare advisor positions, then
-          commit it from the action bar when you are ready to advance.
+          Workflow: choose a response, review what it signals and risks, compare advisor views, then confirm it when you
+          are ready to move the scenario forward.
         </div>
       ) : null}
 
@@ -158,12 +158,12 @@ export const ActionCards = ({
 
       <div className="mt-4 border border-borderTone bg-panelRaised/40 p-3">
         {selectedAction ? (
-          <div className="space-y-4">
-            <div className="flex flex-wrap items-start justify-between gap-3">
-              <div>
-                <p className="label">Selected Response</p>
-                <h3 className="mt-2 font-display text-xl text-textMain">{selectedAction.name}</h3>
-              </div>
+            <div className="space-y-4">
+              <div className="flex flex-wrap items-start justify-between gap-3">
+                <div>
+                  <p className="label">Selected Response</p>
+                  <h3 className="mt-2 font-display text-xl text-textMain">{selectedAction.name}</h3>
+                </div>
               <span
                 className={`rounded-md border px-2 py-1 text-[0.58rem] uppercase tracking-[0.12em] ${visibilityTone(selectedAction.visibility)}`}
               >
@@ -176,16 +176,16 @@ export const ActionCards = ({
               <p className="text-[0.8rem] leading-relaxed text-textMain">{selectedAction.summary}</p>
             </div>
 
-            <div className="grid gap-2">
-              <div className="console-subpanel px-3 py-2.5">
-                <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Why Choose It</p>
-                <p className="mt-1 text-[0.72rem] leading-relaxed text-textMain">{postureHint(selectedAction)}</p>
-              </div>
-              <div className="console-subpanel px-3 py-2.5">
-                <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Exposure</p>
-                <p className="mt-1 text-[0.72rem] leading-relaxed text-textMain">{visibilityHint(selectedAction.visibility)}</p>
-              </div>
-              <div className="console-subpanel px-3 py-2.5">
+              <div className="grid gap-2">
+                <div className="console-subpanel px-3 py-2.5">
+                  <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">What This Signals</p>
+                  <p className="mt-1 text-[0.72rem] leading-relaxed text-textMain">{postureHint(selectedAction)}</p>
+                </div>
+                <div className="console-subpanel px-3 py-2.5">
+                  <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Who Will Notice</p>
+                  <p className="mt-1 text-[0.72rem] leading-relaxed text-textMain">{visibilityHint(selectedAction.visibility)}</p>
+                </div>
+                <div className="console-subpanel px-3 py-2.5">
                 <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Primary Risk</p>
                 <p className="mt-1 text-[0.72rem] leading-relaxed text-textMain">{riskHint(selectedAction)}</p>
               </div>
@@ -206,7 +206,7 @@ export const ActionCards = ({
           <div>
             <p className="label">Selected Response</p>
             <p className="mt-2 text-[0.78rem] leading-relaxed text-textMuted">
-              No response selected yet. Choose one option above to load the full tradeoffs, advisor positions, and commit path.
+              No response selected yet. Choose one option above to load the full tradeoffs, advisor views, and confirmation path.
             </p>
           </div>
         )}

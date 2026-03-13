@@ -90,14 +90,14 @@ export const AdvisorPanel = ({ beat, scenarioId, advisorDossiers, selectedAction
     <section className="console-subpanel h-full px-3 py-3 sm:px-4">
       <div className="flex items-center justify-between">
         <div>
-          <p className="label">Advisor Channel</p>
+          <p className="label">Advisor Views</p>
           <h2 className="mt-2 font-display text-lg text-textMain">Advisor Guidance</h2>
           <p className="mt-1 text-[0.72rem] leading-relaxed text-textMuted">
-            Open an advisor to inspect the full rationale behind the currently selected response.
+            Open an advisor to inspect their recommendation, reasoning, and main concern around the selected response.
           </p>
         </div>
         <p className="rounded-md border border-borderTone bg-panelRaised/60 px-2 py-1 text-[0.6rem] uppercase tracking-[0.12em] text-textMuted">
-          Live Counsel
+          Advisor Read
         </p>
       </div>
 
@@ -158,15 +158,15 @@ export const AdvisorPanel = ({ beat, scenarioId, advisorDossiers, selectedAction
                     {actionRead ? (
                       <div className="console-subpanel px-3 py-2.5">
                         <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">
-                          Current read on {selectedAction?.name ?? 'selected response'}
+                          Recommendation on {selectedAction?.name ?? 'selected response'}
                         </p>
                         <p className="mt-1 text-[0.7rem] leading-relaxed text-textMain">{actionRead.rationale}</p>
                       </div>
                     ) : (
                       <div className="console-subpanel px-3 py-2.5">
-                        <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Action guidance</p>
+                        <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Recommendation</p>
                         <p className="mt-1 text-[0.7rem] leading-relaxed text-textMain">
-                          Select a response in the selector to see how this advisor leans on the available options.
+                          Select a response to see how this advisor evaluates the available options.
                         </p>
                       </div>
                     )}
@@ -174,19 +174,19 @@ export const AdvisorPanel = ({ beat, scenarioId, advisorDossiers, selectedAction
                       <span className="text-textMain">Background:</span> {clipText(dossier.shortBio, 180)}
                     </p>
                     <p className="text-[0.7rem] leading-relaxed text-textMuted">
-                      <span className="text-textMain">Lens:</span> {clipText(dossier.perspective, 220)}
+                      <span className="text-textMain">View:</span> {clipText(dossier.perspective, 220)}
                     </p>
                     <p className="text-[0.7rem] leading-relaxed text-textMuted">
-                      <span className="text-textMain">Decision frame:</span> {clipText(dossier.decisionFramework, 240)}
+                      <span className="text-textMain">Decision logic:</span> {clipText(dossier.decisionFramework, 240)}
                     </p>
                     {scenarioSpecific ? (
                       <>
                         <p className="text-[0.7rem] leading-relaxed text-textMuted">
-                          <span className="text-textMain">Scenario assessment:</span>{' '}
+                          <span className="text-textMain">Current assessment:</span>{' '}
                           {clipText(scenarioSpecific.openingAssessment, 240)}
                         </p>
                         <p className="text-[0.7rem] leading-relaxed text-textMuted">
-                          <span className="text-textMain">Red line:</span> {clipText(scenarioSpecific.redLine, 200)}
+                          <span className="text-textMain">Known red line:</span> {clipText(scenarioSpecific.redLine, 200)}
                         </p>
                       </>
                     ) : null}
