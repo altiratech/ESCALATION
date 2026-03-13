@@ -327,6 +327,118 @@
       "description": "The episode moved beyond deliberate statecraft into cascading consequences you could no longer reliably shape."
     }
   },
+  "tradeoffCommentary": {
+    "economic_containment": {
+      "stabilization": {
+        "summary": "Commercial continuity held because the coalition signaled enough resilience to keep insurers, shippers, and chip buyers from treating the Strait as a permanently broken lane.",
+        "tradeoff": "The cost was carrying visible readiness and market-support measures at the same time, which narrowed room for cheap or purely symbolic signaling."
+      },
+      "frozen_conflict": {
+        "summary": "Economic damage stayed bounded, but only by normalizing a more expensive operating environment around Taiwan-bound shipping and production planning.",
+        "tradeoff": "The cost was accepting a durable risk premium in the Strait rather than restoring the lower-friction status quo."
+      },
+      "regime_instability": {
+        "summary": "Commercial pressure landed inside Beijing's system hard enough to complicate elite consensus without fully collapsing regional trade flows.",
+        "tradeoff": "The cost was living close to the line where useful economic pressure could have turned into a broader commercial panic."
+      },
+      "economic_collapse": {
+        "summary": "Commercial containment failed once private actors stopped treating the disruption as temporary and began repricing shipping, trade finance, and chip supply on crisis terms.",
+        "tradeoff": "The cost of trying to preserve strategic leverage was a region-wide economic shock that governments could no longer insulate cleanly."
+      },
+      "war": {
+        "summary": "Economic management ceased to be a stabilizing line of effort once combat logic replaced deterrence logic around Taiwan.",
+        "tradeoff": "The cost was that every attempt to preserve commercial continuity was subordinated to force protection, sanctions risk, and wartime repricing."
+      }
+    },
+    "coalition_cohesion": {
+      "stabilization": {
+        "summary": "Coalition discipline held because Taipei, Washington, Tokyo, and Manila kept the same story about access, restraint, and acceptable risk.",
+        "tradeoff": "The cost was slower, more negotiated decision-making while allied alignment was maintained turn by turn."
+      },
+      "frozen_conflict": {
+        "summary": "The coalition stayed together, but under a standing burden that made every additional surge in the Strait more politically expensive.",
+        "tradeoff": "The cost was preserving unity through endurance rather than through a cleaner strategic resolution."
+      },
+      "regime_instability": {
+        "summary": "Coalition cohesion remained valuable precisely because signs of strain inside Beijing only mattered if allies did not fracture first.",
+        "tradeoff": "The cost was resisting the temptation to overplay apparent PRC weakness in ways that could have split partners on acceptable risk."
+      },
+      "economic_collapse": {
+        "summary": "Coalition discipline weakened as different governments absorbed very different levels of shipping, market, and industrial pain.",
+        "tradeoff": "The cost was that burden-sharing became a strategic problem in its own right rather than a background diplomatic chore."
+      },
+      "war": {
+        "summary": "Coalition politics shifted from deterrence management to wartime credibility, where solidarity became harder to sustain and more costly to test.",
+        "tradeoff": "The cost was that every military move now also risked becoming a referendum on alliance resolve under fire."
+      }
+    },
+    "deterrence_credibility": {
+      "stabilization": {
+        "summary": "Deterrence credibility held because visible readiness, allied messaging, and economic resilience all pointed in the same direction instead of competing for attention.",
+        "tradeoff": "The cost was carrying enough hard-power posture to be believed without drifting into a self-defeating show of force."
+      },
+      "frozen_conflict": {
+        "summary": "The run preserved enough credibility to block a clean PRC gain, but not enough to convince Beijing that continued pressure had become unproductive.",
+        "tradeoff": "The cost was sustaining an expensive deterrent line that prevented defeat without delivering closure."
+      },
+      "regime_instability": {
+        "summary": "Deterrence worked partly because Beijing's leadership had to reckon with rising internal doubts about the return on continued pressure.",
+        "tradeoff": "The cost was operating near the danger that visible elite strain could trigger an irrational demonstration move rather than restraint."
+      },
+      "economic_collapse": {
+        "summary": "Military credibility remained important, but it was no longer sufficient once the economic system started absorbing Taiwan contingency costs as a persistent reality.",
+        "tradeoff": "The cost was that each additional show of resolve had to be justified against markets already behaving as though deterrence had partially failed."
+      },
+      "war": {
+        "summary": "Deterrence credibility collapsed into combat credibility once the crisis crossed from signaling into open conflict.",
+        "tradeoff": "The cost was that earlier posture choices were now judged not by whether they deterred, but by whether they left forces and allies prepared for war."
+      }
+    },
+    "escalation_discipline": {
+      "stabilization": {
+        "summary": "Escalation discipline held because the coalition raised costs on Beijing without forcing either side into a public corner it could not back away from.",
+        "tradeoff": "The cost was sacrificing some rhetorical sharpness and tactical freedom to preserve reversibility."
+      },
+      "frozen_conflict": {
+        "summary": "Escalation stayed bounded, but only barely; each turn preserved room to maneuver while leaving the underlying pressure campaign alive.",
+        "tradeoff": "The cost was a brittle equilibrium in which caution prevented war without resolving the contest."
+      },
+      "regime_instability": {
+        "summary": "Escalation discipline became harder once internal strain in Beijing made intent less predictable and public signaling more combustible.",
+        "tradeoff": "The cost was needing even tighter threshold management exactly when the adversary became less internally coherent."
+      },
+      "economic_collapse": {
+        "summary": "Escalation discipline weakened because commercial breakdown accelerated political tempo and made delay itself feel strategically costly.",
+        "tradeoff": "The cost was that crisis management had to compete with panicked market expectations and allied burden-sharing fights."
+      },
+      "war": {
+        "summary": "Escalation discipline failed once one side concluded that further restraint was more dangerous than accepting combat risk.",
+        "tradeoff": "The cost was losing the ability to treat signaling, access pressure, and military posture as separable instruments."
+      }
+    },
+    "information_posture": {
+      "stabilization": {
+        "summary": "The coalition kept a usable picture because military, diplomatic, and commercial indicators were fused early enough to keep ambiguity manageable.",
+        "tradeoff": "The cost was devoting attention and assets to situational awareness that could not be spent on more visible deterrent theater."
+      },
+      "frozen_conflict": {
+        "summary": "The information picture remained serviceable, but not decisive; you understood the pressure campaign better than you controlled it.",
+        "tradeoff": "The cost was that incomplete clarity forced repeated conservative choices that preserved safety more than momentum."
+      },
+      "regime_instability": {
+        "summary": "Information posture mattered most when fragments of elite stress appeared inside Beijing and the real challenge became judging whether they implied leverage or volatility.",
+        "tradeoff": "The cost was resisting seductive but partial reads of internal PRC instability that could have produced overconfidence."
+      },
+      "economic_collapse": {
+        "summary": "The information picture thinned once private-sector repricing outpaced government interpretation and the crisis acquired its own commercial momentum.",
+        "tradeoff": "The cost was that decisions increasingly had to be made under fast-moving uncertainty about downstream economic damage."
+      },
+      "war": {
+        "summary": "Information posture narrowed from strategic interpretation to immediate warning and force-protection once the Taiwan crisis crossed into combat.",
+        "tradeoff": "The cost was that ambiguity which had been manageable in the gray zone became lethal at wartime tempo."
+      }
+    }
+  },
   "lessonsLearned": [
     {
       "id": "ll_reversibility",

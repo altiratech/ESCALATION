@@ -448,6 +448,11 @@ export interface DebriefDeepGradeDescriptor {
   description: string;
 }
 
+export interface DebriefDeepTradeoffCommentary {
+  summary: string;
+  tradeoff: string;
+}
+
 export interface DebriefDeepDefinition {
   scenarioId: string;
   strategyArcSummaries: Partial<Record<OutcomeCategory, DebriefDeepStrategyArc>>;
@@ -455,6 +460,7 @@ export interface DebriefDeepDefinition {
   advisorPostMortems: Record<string, Partial<Record<OutcomeCategory, DebriefDeepAdvisorPostMortem>>>;
   rivalPerspective: Partial<Record<OutcomeCategory, DebriefDeepRivalPerspective>>;
   playerGradeDescriptors: Record<PlayerGradeKey, DebriefDeepGradeDescriptor>;
+  tradeoffCommentary?: Record<string, Partial<Record<OutcomeCategory, DebriefDeepTradeoffCommentary>>>;
   lessonsLearned: DebriefDeepLesson[];
 }
 

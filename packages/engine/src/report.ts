@@ -620,14 +620,18 @@ const averageIntelQuality = (state: GameState): number => {
   return values.reduce((total, value) => total + value, 0) / Math.max(1, values.length);
 };
 
-const buildTradeoffScorecards = (state: GameState): TradeoffScorecard[] => {
+const buildTradeoffScorecards = (
+  state: GameState,
+  outcome: OutcomeCategory,
+  deepDebrief?: DebriefDeepDefinition | null
+): TradeoffScorecard[] => {
   const economicContainment = Math.round((state.meters.economicStability * 0.65) + (state.meters.energySecurity * 0.35));
   const coalitionCohesion = Math.round((state.meters.allianceTrust * 0.7) + (state.meters.domesticCohesion * 0.3));
   const deterrenceCredibility = Math.round((state.meters.militaryReadiness * 0.65) + (state.meters.allianceTrust * 0.35));
   const escalationDiscipline = Math.round(100 - state.meters.escalationIndex);
   const informationPosture = Math.round((averageIntelQuality(state) * 0.6) + ((100 - state.meters.escalationIndex) * 0.4));
 
-  return [
+  const scorecards: TradeoffScorecard[] = [
     {
       id: 'economic_containment',
       label: 'Economic Containment',
@@ -734,6 +738,18 @@ const buildTradeoffScorecards = (state: GameState): TradeoffScorecard[] => {
             : 'The main cost was slower decision certainty and weaker attribution under pressure.'
     }
   ];
+
+  return scorecards.map((scorecard) => {
+    const authored = deepDebrief?.tradeoffCommentary?.[scorecard.id]?.[outcome];
+    if (!authored) {
+      return scorecard;
+    }
+    return {
+      ...scorecard,
+      summary: authored.summary,
+      tradeoff: authored.tradeoff
+    };
+  });
 };
 
 export interface BuildPostGameReportOptions {
@@ -831,7 +847,7 @@ export const buildPostGameReport = (
       adversaryLogicSummary: buildAdversaryLogicSummary(state, actionMap, options.adversaryProfile),
       rivalLeaderReveal: buildRivalLeaderReveal(options.rivalLeader ?? undefined),
       deepDebrief: buildDeepDebrief(state, outcome, options.deepDebrief ?? null),
-      tradeoffScorecards: buildTradeoffScorecards(state),
+      tradeoffScorecards: buildTradeoffScorecards(state, outcome, options.deepDebrief ?? null),
       unseenSystemEvents,
       branchesNotTaken,
       advisorRetrospectives

@@ -53,11 +53,12 @@ describe('post-game causality report', () => {
 
     const outcome = state.outcome ?? evaluateOutcome(state);
     const rivalLeader = getRivalLeader(scenario.id, adversaryProfile.id);
+    const deepDebrief = getDebriefDeep(scenario.id);
     const report = buildPostGameReport(state, buildActionMap(actions), {
       scenario,
       adversaryProfile,
       rivalLeader,
-      deepDebrief: getDebriefDeep(scenario.id),
+      deepDebrief,
       causalityNarrative: getCausalityRevealForOutcome(outcome),
       advisorRetrospectives: getAdvisorRetrospectivesForOutcome(outcome)
     });
@@ -78,6 +79,12 @@ describe('post-game causality report', () => {
     expect(report.fullCausality.tradeoffScorecards).toHaveLength(5);
     expect(report.fullCausality.tradeoffScorecards[0]?.label.length).toBeGreaterThan(0);
     expect(report.fullCausality.tradeoffScorecards[0]?.tradeoff.length).toBeGreaterThan(0);
+    expect(report.fullCausality.tradeoffScorecards[0]?.summary).toBe(
+      deepDebrief?.tradeoffCommentary?.economic_containment?.[outcome]?.summary
+    );
+    expect(report.fullCausality.tradeoffScorecards[0]?.tradeoff).toBe(
+      deepDebrief?.tradeoffCommentary?.economic_containment?.[outcome]?.tradeoff
+    );
     expect(report.fullCausality.advisorRetrospectives.length).toBeGreaterThan(0);
     expect(Array.isArray(report.fullCausality.unseenSystemEvents)).toBe(true);
     expect(Array.isArray(report.fullCausality.branchesNotTaken)).toBe(true);
