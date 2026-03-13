@@ -3314,3 +3314,53 @@ Current naming rule:
 2. If friction remains, next likely UX pass:
 - compress default advisor content further
 - add even more explicit market/alliance consequence framing to each response where the current text is still too abstract
+
+## 61. Flashpoint Advisor-Density Compression Pass (2026-03-13 ET)
+
+### 61.1 What changed
+
+1. Reduced default advisor density in the live scenario by restructuring the expanded advisor state in `apps/web/src/components/AdvisorPanel.tsx`.
+2. The primary expanded view now leads with:
+   - recommendation on the selected response
+   - `Main concern`
+   - `Current read`
+   - one concise `Decision note`
+3. Moved dossier-style material behind a secondary `More Context` toggle:
+   - `Background`
+   - `View`
+   - `Decision logic`
+   - fuller scenario assessment
+   - extra authored advisor lines
+
+### 61.2 Files changed
+
+1. Live web app:
+- `apps/web/src/components/AdvisorPanel.tsx`
+
+### 61.3 What passed
+
+1. Validation:
+- `npm run lint`
+- `npm run build --workspace @wargames/web`
+- `npm run ci:phase1`
+
+2. Results:
+- `15/15` test files passed
+- `31/31` tests passed
+- Monte Carlo concentration warnings unchanged and non-blocking
+
+### 61.4 Product implication
+
+1. Flashpoint advisors should now feel more like fast decision support and less like a dense character dossier.
+2. This pass is specifically aimed at smart non-wargaming users, especially finance users, who were still finding the live decision surface too heavy after the terminology and executive-summary changes.
+
+### 61.5 Exact next action for resume
+
+1. Re-test the live app with non-wargaming users and watch for:
+- whether the compressed advisor view is now concise enough by default
+- whether `More Context` still gives enough depth for users who want it
+- whether the next friction point becomes response-detail consequence clarity rather than advisor density
+
+2. Important local-worktree note:
+- An unrelated local diff still exists in `apps/web/src/App.tsx` that was not authored or shipped in this pass.
+- Per user instruction, this advisor-density pass should be committed and deployed without touching that unrelated `App.tsx` change.

@@ -51,6 +51,7 @@ const alignmentTone: Record<'supports' | 'cautions' | 'opposes', string> = {
 
 export const AdvisorPanel = ({ beat, scenarioId, advisorDossiers, selectedAction }: AdvisorPanelProps) => {
   const [expandedAdvisorId, setExpandedAdvisorId] = useState<string | null>(null);
+  const [detailsAdvisorId, setDetailsAdvisorId] = useState<string | null>(null);
 
   const advisorEntries = useMemo(() => {
     if (!beat) {
@@ -81,10 +82,12 @@ export const AdvisorPanel = ({ beat, scenarioId, advisorDossiers, selectedAction
 
   useEffect(() => {
     setExpandedAdvisorId(null);
+    setDetailsAdvisorId(null);
   }, [beat?.id]);
   const activeExpandedId = advisorEntries.some((entry) => entry.advisorId === expandedAdvisorId)
     ? expandedAdvisorId
     : null;
+  const activeDetailsId = activeExpandedId === detailsAdvisorId ? detailsAdvisorId : null;
 
   return (
     <section className="console-subpanel h-full px-3 py-3 sm:px-4">
@@ -112,6 +115,9 @@ export const AdvisorPanel = ({ beat, scenarioId, advisorDossiers, selectedAction
             const scenarioSpecific = dossier.scenarioSpecific[scenarioId];
             const tone = stanceTone[dossier.stance] ?? 'text-textMain';
             const actionRead = selectedActionReadsByAdvisorId.get(entry.advisorId) ?? null;
+            const mainConcern = scenarioSpecific?.redLine ?? dossier.blindSpots;
+            const shortAssessment = scenarioSpecific?.openingAssessment ?? entry.lines[0] ?? dossier.perspective;
+            const decisionNote = entry.lines[0] ?? scenarioSpecific?.openingAssessment ?? dossier.decisionFramework;
 
             return (
               <article
@@ -170,33 +176,71 @@ export const AdvisorPanel = ({ beat, scenarioId, advisorDossiers, selectedAction
                         </p>
                       </div>
                     )}
-                    <p className="text-[0.7rem] leading-relaxed text-textMuted">
-                      <span className="text-textMain">Background:</span> {clipText(dossier.shortBio, 180)}
-                    </p>
-                    <p className="text-[0.7rem] leading-relaxed text-textMuted">
-                      <span className="text-textMain">View:</span> {clipText(dossier.perspective, 220)}
-                    </p>
-                    <p className="text-[0.7rem] leading-relaxed text-textMuted">
-                      <span className="text-textMain">Decision logic:</span> {clipText(dossier.decisionFramework, 240)}
-                    </p>
-                    {scenarioSpecific ? (
-                      <>
-                        <p className="text-[0.7rem] leading-relaxed text-textMuted">
-                          <span className="text-textMain">Current assessment:</span>{' '}
-                          {clipText(scenarioSpecific.openingAssessment, 240)}
+                    <div className="grid gap-2 sm:grid-cols-2">
+                      <div className="console-subpanel px-3 py-2.5">
+                        <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Main concern</p>
+                        <p className="mt-1 text-[0.7rem] leading-relaxed text-textMain">{clipText(mainConcern, 160)}</p>
+                      </div>
+                      <div className="console-subpanel px-3 py-2.5">
+                        <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Current read</p>
+                        <p className="mt-1 text-[0.7rem] leading-relaxed text-textMain">
+                          {clipText(shortAssessment, 180)}
                         </p>
-                        <p className="text-[0.7rem] leading-relaxed text-textMuted">
-                          <span className="text-textMain">Known red line:</span> {clipText(scenarioSpecific.redLine, 200)}
-                        </p>
-                      </>
-                    ) : null}
-                    <div className="space-y-1.5">
-                      {entry.lines.map((line, index) => (
-                        <p key={`${entry.advisorId}:detail:${index}`} className="text-[0.72rem] leading-relaxed text-textMuted">
-                          {line}
-                        </p>
-                      ))}
+                      </div>
                     </div>
+                    <p className="text-[0.72rem] leading-relaxed text-textMuted">
+                      <span className="text-textMain">Decision note:</span> {clipText(decisionNote, 220)}
+                    </p>
+                    <div className="flex items-center justify-between gap-3">
+                      <p className="text-[0.62rem] uppercase tracking-[0.12em] text-textMuted">
+                        More profile context is optional.
+                      </p>
+                      <button
+                        type="button"
+                        className="rounded-md border border-borderTone/70 px-2 py-1 text-[0.58rem] uppercase tracking-[0.12em] text-textMuted transition hover:border-accent/60 hover:text-accent"
+                        onClick={() =>
+                          setDetailsAdvisorId(activeDetailsId === entry.advisorId ? null : entry.advisorId)
+                        }
+                      >
+                        {activeDetailsId === entry.advisorId ? 'Hide Context' : 'More Context'}
+                      </button>
+                    </div>
+                    {activeDetailsId === entry.advisorId ? (
+                      <div className="grid gap-2 border-t border-borderTone/70 pt-3">
+                        <p className="text-[0.7rem] leading-relaxed text-textMuted">
+                          <span className="text-textMain">Background:</span> {clipText(dossier.shortBio, 180)}
+                        </p>
+                        <p className="text-[0.7rem] leading-relaxed text-textMuted">
+                          <span className="text-textMain">View:</span> {clipText(dossier.perspective, 220)}
+                        </p>
+                        <p className="text-[0.7rem] leading-relaxed text-textMuted">
+                          <span className="text-textMain">Decision logic:</span> {clipText(dossier.decisionFramework, 240)}
+                        </p>
+                        {scenarioSpecific ? (
+                          <>
+                            <p className="text-[0.7rem] leading-relaxed text-textMuted">
+                              <span className="text-textMain">Scenario assessment:</span>{' '}
+                              {clipText(scenarioSpecific.openingAssessment, 240)}
+                            </p>
+                            <p className="text-[0.7rem] leading-relaxed text-textMuted">
+                              <span className="text-textMain">Known red line:</span> {clipText(scenarioSpecific.redLine, 200)}
+                            </p>
+                          </>
+                        ) : null}
+                        {entry.lines.length > 1 ? (
+                          <div className="space-y-1.5">
+                            {entry.lines.slice(1).map((line, index) => (
+                              <p
+                                key={`${entry.advisorId}:detail:${index + 1}`}
+                                className="text-[0.72rem] leading-relaxed text-textMuted"
+                              >
+                                {line}
+                              </p>
+                            ))}
+                          </div>
+                        ) : null}
+                      </div>
+                    ) : null}
                   </div>
                 ) : null}
               </article>
