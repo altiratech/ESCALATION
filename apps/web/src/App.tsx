@@ -672,6 +672,35 @@ const App = () => {
       : showTakeNoAction
         ? 'Select one response and confirm it, or use Take No Action to hold position.'
         : 'Select one response, inspect the detail, and confirm it to advance the scenario.';
+  const executiveSummary = useMemo(
+    () => [
+      {
+        label: 'What changed',
+        detail:
+          episode.briefing.headlines[0] ??
+          episode.briefing.briefingParagraph ??
+          'New pressure is entering the scenario, but the full change summary is still loading.'
+      },
+      {
+        label: 'Why it matters',
+        detail:
+          currentScenarioWorld?.economicBackdrop.straitEconomicValue ??
+          currentDirective ??
+          'This development matters because it can alter strategic leverage, alliance behavior, and market confidence.'
+      },
+      {
+        label: 'Decision required now',
+        detail: turnResolutionGuidance
+      }
+    ],
+    [
+      currentDirective,
+      currentScenarioWorld?.economicBackdrop.straitEconomicValue,
+      episode.briefing.briefingParagraph,
+      episode.briefing.headlines,
+      turnResolutionGuidance
+    ]
+  );
   const turnProcedure: Array<{ label: string; detail: string }> = [
     {
       label: 'Assess',
@@ -811,6 +840,25 @@ const App = () => {
                   continue to the decision page to consult advisors and choose a response.
                 </p>
               </div>
+            </div>
+          </section>
+
+          <section className="console-panel console-panel-muted px-3 py-3 sm:px-4">
+            <div className="flex items-center justify-between gap-3">
+              <div>
+                <p className="label">Executive Summary</p>
+                <p className="mt-2 text-[0.72rem] leading-relaxed text-textMuted">
+                  Start here if you want the fast read before moving into the detailed briefing.
+                </p>
+              </div>
+            </div>
+            <div className="mt-3 grid gap-3 lg:grid-cols-3">
+              {executiveSummary.map((entry) => (
+                <article key={entry.label} className="console-subpanel px-3 py-3">
+                  <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">{entry.label}</p>
+                  <p className="mt-2 text-[0.78rem] leading-relaxed text-textMain">{clipLine(entry.detail, 220)}</p>
+                </article>
+              ))}
             </div>
           </section>
 

@@ -23,22 +23,22 @@ const visibilityTone = (visibility: ActionDefinition['visibility']): string => {
 const postureHint = (action: ActionDefinition): string => {
   const netEscalation = action.signal.escalatory - action.signal.deescalatory;
   if (netEscalation >= 0.5) {
-    return 'Signals a visibly harder posture and compresses the response window.';
+    return 'Likely to be read as a firmer public stance that narrows room for ambiguity.';
   }
   if (netEscalation <= -0.5) {
-    return 'Signals restraint and may reopen diplomatic space if the coalition stays aligned.';
+    return 'Likely to be read as measured restraint that can reopen negotiating space if allies stay aligned.';
   }
-  return 'Carries a mixed signal profile and keeps multiple interpretations in play.';
+  return 'Likely to be read as a mixed signal that preserves flexibility but leaves more room for misinterpretation.';
 };
 
 const visibilityHint = (visibility: ActionDefinition['visibility']): string => {
   if (visibility === 'public') {
-    return 'Immediately visible to allies, adversaries, markets, and press channels.';
+    return 'Allies, markets, the counterpart, and media channels will notice this almost immediately.';
   }
   if (visibility === 'semi-public') {
-    return 'Likely to circulate through diplomatic and coalition channels within hours.';
+    return 'Likely to circulate through diplomatic and coalition channels within hours, then leak outward.';
   }
-  return 'Initially deniable, but exposure risk grows if execution degrades or follow-on effects surface.';
+  return 'Initially limited to closed channels, but exposure risk rises quickly if execution slips or follow-on effects appear.';
 };
 
 const riskHint = (action: ActionDefinition): string => {
@@ -48,12 +48,29 @@ const riskHint = (action: ActionDefinition): string => {
     action.signal.allianceStressSignal
   );
   if (dominant === action.signal.humiliationRisk) {
-    return 'Main downside: counterpart humiliation and retaliatory pressure.';
+    return 'Main downside: the counterpart may read this as humiliation and answer with retaliatory pressure.';
   }
   if (dominant === action.signal.economicStressSignal) {
-    return 'Main downside: market stress, shipping disruption, or commercial spillover.';
+    return 'Main downside: markets, shipping, and commercial confidence could absorb the shock quickly.';
   }
-  return 'Main downside: coalition friction and message discipline problems.';
+  return 'Main downside: allies may split on the message, weakening collective leverage.';
+};
+
+const firstImpactHint = (action: ActionDefinition): string => {
+  if (action.signal.economicStressSignal >= 0.55) {
+    return 'Near-term business effect: shipping, insurance, and market-risk pricing are the first areas likely to move.';
+  }
+  if (action.signal.allianceStressSignal >= 0.55) {
+    return 'Near-term business effect: allied coordination could slow, creating uncertainty for markets and commercial actors.';
+  }
+  const netEscalation = action.signal.escalatory - action.signal.deescalatory;
+  if (netEscalation >= 0.5) {
+    return 'Near-term business effect: counterpart military and diplomatic channels are likely to harden before markets can fully digest the move.';
+  }
+  if (netEscalation <= -0.5) {
+    return 'Near-term business effect: this can buy time and steady sentiment, but only if it does not look like retreat.';
+  }
+  return 'Near-term business effect: most stakeholders will wait for follow-through before moving decisively.';
 };
 
 export const ActionCards = ({
@@ -80,7 +97,7 @@ export const ActionCards = ({
         <div>
           <p className="label">Response Options</p>
           <p className="mt-2 text-[0.74rem] leading-relaxed text-textMuted">
-            Review the available responses, inspect the selected option below, then confirm it from the decision bar.
+            Review the available responses, inspect the selected option below, then confirm it when you are ready.
           </p>
         </div>
         <div className="flex items-center gap-2">
@@ -172,23 +189,27 @@ export const ActionCards = ({
             </div>
 
             <div className="space-y-2">
-              <p className="label">What This Does</p>
+              <p className="label">Decision Summary</p>
               <p className="text-[0.8rem] leading-relaxed text-textMain">{selectedAction.summary}</p>
             </div>
 
-              <div className="grid gap-2">
+              <div className="grid gap-2 lg:grid-cols-2">
                 <div className="console-subpanel px-3 py-2.5">
-                  <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">What This Signals</p>
+                  <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Likely Interpretation</p>
                   <p className="mt-1 text-[0.72rem] leading-relaxed text-textMain">{postureHint(selectedAction)}</p>
                 </div>
                 <div className="console-subpanel px-3 py-2.5">
-                  <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Who Will Notice</p>
+                  <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Immediate Audience</p>
                   <p className="mt-1 text-[0.72rem] leading-relaxed text-textMain">{visibilityHint(selectedAction.visibility)}</p>
                 </div>
                 <div className="console-subpanel px-3 py-2.5">
-                <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Primary Risk</p>
-                <p className="mt-1 text-[0.72rem] leading-relaxed text-textMain">{riskHint(selectedAction)}</p>
-              </div>
+                  <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Near-Term Effect</p>
+                  <p className="mt-1 text-[0.72rem] leading-relaxed text-textMain">{firstImpactHint(selectedAction)}</p>
+                </div>
+                <div className="console-subpanel px-3 py-2.5">
+                  <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Main Downside</p>
+                  <p className="mt-1 text-[0.72rem] leading-relaxed text-textMain">{riskHint(selectedAction)}</p>
+                </div>
             </div>
 
             <div className="flex flex-wrap gap-1.5">
@@ -206,7 +227,7 @@ export const ActionCards = ({
           <div>
             <p className="label">Selected Response</p>
             <p className="mt-2 text-[0.78rem] leading-relaxed text-textMuted">
-              No response selected yet. Choose one option above to load the full tradeoffs, advisor views, and confirmation path.
+              No response selected yet. Choose one option above to load the full implications, advisor views, and confirmation path.
             </p>
           </div>
         )}

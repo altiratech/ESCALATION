@@ -3256,3 +3256,61 @@ Current naming rule:
 2. If confusion remains, next likely UX pass:
 - add a plain-language executive summary block (`What changed`, `Why it matters`, `Decision required now`)
 - simplify default advisor expansion further if persona depth still feels heavy
+
+## 60. Flashpoint Executive Summary + Business-Consequence Copy Pass (2026-03-13 ET)
+
+### 60.1 What changed
+
+1. Added a plain-language executive-summary layer on `Situation Summary`:
+- `What changed`
+- `Why it matters`
+- `Decision required now`
+
+2. The new summary sits above the deeper briefing surfaces and is intended to give finance-oriented or non-wargaming users a fast first read before they drop into full context.
+
+3. Tightened response-detail framing in the decision page:
+- `What This Does` -> `Decision Summary`
+- `What This Signals` -> `Likely Interpretation`
+- `Who Will Notice` -> `Immediate Audience`
+- added `Near-Term Effect`
+- `Primary Risk` -> `Main Downside`
+
+4. Rewrote the underlying response-detail copy to emphasize:
+- likely interpretation by counterpart/allies
+- who notices first
+- near-term business / market / alliance effect
+- the main downside if the response misfires
+
+### 60.2 Files changed
+
+1. Live web app:
+- `apps/web/src/App.tsx`
+- `apps/web/src/components/ActionCards.tsx`
+
+### 60.3 What passed
+
+1. Validation:
+- `npm run lint`
+- `npm run build --workspace @wargames/web`
+- `npm run ci:phase1`
+
+2. Results:
+- `15/15` test files passed
+- `31/31` tests passed
+- Monte Carlo concentration warnings unchanged and non-blocking
+
+### 60.4 Product implication
+
+1. Flashpoint should now be easier to parse in the first 10 seconds for smart finance users who are new to scenario tools.
+2. The decision page now speaks more directly to business and strategic consequences rather than only sim-style signal language.
+
+### 60.5 Exact next action for resume
+
+1. Re-test the live app with non-wargaming users and watch for:
+- whether `Executive Summary` removes the initial orientation problem
+- whether response descriptions now feel concrete enough for finance users
+- whether advisor persona depth is still heavier than necessary
+
+2. If friction remains, next likely UX pass:
+- compress default advisor content further
+- add even more explicit market/alliance consequence framing to each response where the current text is still too abstract
