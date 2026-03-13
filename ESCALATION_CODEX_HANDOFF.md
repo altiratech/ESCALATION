@@ -3448,3 +3448,38 @@ Current naming rule:
 
 1. Push/deploy this `App.tsx` fix, then continue live testing of the decision experience.
 2. Treat any future `App.tsx` local diffs with extra care because hook-order regressions can pass build/tests while still breaking the screen at runtime.
+
+## 64. Flashpoint Summary-Page CTA Repositioning (2026-03-13 ET)
+
+### 64.1 What changed
+
+1. Moved the `Proceed To Decision` CTA into the same top-right control position used by the decision-page commit action.
+2. Removed the old bottom-of-page `Decision Phase` CTA box from `Situation Summary`.
+3. Kept the CTA styling in the existing blue `console-button-info` pattern so it still reads as a navigation step rather than a commit action.
+
+### 64.2 Files changed
+
+1. Live web app:
+- `apps/web/src/App.tsx`
+
+### 64.3 What passed
+
+1. Validation:
+- `npm run lint`
+- `npm run build --workspace @wargames/web`
+- `npm run ci:phase1`
+
+2. Results:
+- `15/15` test files passed
+- `31/31` tests passed
+- Monte Carlo concentration warnings unchanged and non-blocking
+
+### 64.4 Product implication
+
+1. The summary-to-decision transition now follows the same visual rhythm as the final commit action, which should make the flow easier to understand.
+2. The summary page should feel lighter because it no longer repeats the decision CTA in a separate bottom section.
+
+### 64.5 Exact next action for resume
+
+1. Re-check the live `Situation Summary` page to confirm the single top-right CTA is clear enough in practice.
+2. If users still hesitate there, the next likely fix is stronger visual emphasis around the CTA rather than another layout split.

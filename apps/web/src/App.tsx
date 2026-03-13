@@ -817,7 +817,7 @@ const App = () => {
       {turnStage === 'brief' ? (
         <>
           <section className="console-panel px-3 py-3 sm:px-4">
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-3 xl:flex-row xl:items-start xl:justify-between">
               <div className="min-w-0">
                 <div className="flex flex-wrap items-center gap-2">
                   <p className="label text-accent">Situation Summary</p>
@@ -830,6 +830,16 @@ const App = () => {
                   Review the current situation, key developments, mandate, and operational indicators below. When you are ready,
                   continue to the decision page to consult advisors and choose a response.
                 </p>
+              </div>
+              <div className="flex shrink-0 items-start">
+                <button
+                  type="button"
+                  className="console-button console-button-info min-w-[12.5rem]"
+                  onClick={() => setTurnStage('decision')}
+                  disabled={loading || episode.status !== 'active'}
+                >
+                  {turnStageActionLabel}
+                </button>
               </div>
             </div>
           </section>
@@ -932,25 +942,6 @@ const App = () => {
               previousMeters={episode.recentTurn?.meterBefore}
               visibleRanges={episode.visibleRanges}
             />
-          </section>
-
-          <section className="console-panel px-3 py-3 sm:px-4">
-            <div className="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
-              <div>
-                <p className="label">Decision Phase</p>
-                <p className="mt-2 text-[0.76rem] leading-relaxed text-textMuted">
-                  Continue when you are ready to consult the advisors, compare responses, and confirm the next move.
-                </p>
-              </div>
-              <button
-                type="button"
-                className="console-button console-button-info min-w-[12.5rem]"
-                onClick={() => setTurnStage('decision')}
-                disabled={loading || episode.status !== 'active'}
-              >
-                {turnStageActionLabel}
-              </button>
-            </div>
           </section>
         </>
       ) : (
