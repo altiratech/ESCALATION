@@ -672,35 +672,26 @@ const App = () => {
       : showTakeNoAction
         ? 'Select one response and confirm it, or use Take No Action to hold position.'
         : 'Select one response, inspect the detail, and confirm it to advance the scenario.';
-  const executiveSummary = useMemo(
-    () => [
-      {
-        label: 'What changed',
-        detail:
-          episode.briefing.headlines[0] ??
-          episode.briefing.briefingParagraph ??
-          'New pressure is entering the scenario, but the full change summary is still loading.'
-      },
-      {
-        label: 'Why it matters',
-        detail:
-          currentScenarioWorld?.economicBackdrop.straitEconomicValue ??
-          currentDirective ??
-          'This development matters because it can alter strategic leverage, alliance behavior, and market confidence.'
-      },
-      {
-        label: 'Decision required now',
-        detail: turnResolutionGuidance
-      }
-    ],
-    [
-      currentDirective,
-      currentScenarioWorld?.economicBackdrop.straitEconomicValue,
-      episode.briefing.briefingParagraph,
-      episode.briefing.headlines,
-      turnResolutionGuidance
-    ]
-  );
+  const executiveSummary = [
+    {
+      label: 'What changed',
+      detail:
+        episode.briefing.headlines[0] ??
+        episode.briefing.briefingParagraph ??
+        'New pressure is entering the scenario, but the full change summary is still loading.'
+    },
+    {
+      label: 'Why it matters',
+      detail:
+        currentScenarioWorld?.economicBackdrop.straitEconomicValue ??
+        currentDirective ??
+        'This development matters because it can alter strategic leverage, alliance behavior, and market confidence.'
+    },
+    {
+      label: 'Decision required now',
+      detail: turnResolutionGuidance
+    }
+  ];
   const turnProcedure: Array<{ label: string; detail: string }> = [
     {
       label: 'Assess',

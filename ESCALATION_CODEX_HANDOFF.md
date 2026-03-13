@@ -3413,3 +3413,38 @@ Current naming rule:
 
 2. Important local-worktree note:
 - The unrelated local diff in `apps/web/src/App.tsx` still exists and remains intentionally uncommitted in this pass.
+
+## 63. Flashpoint Live-Screen Loading Fix From Local `App.tsx` Diff (2026-03-13 ET)
+
+### 63.1 What changed
+
+1. Investigated the lingering local diff in `apps/web/src/App.tsx` and confirmed it was a real runtime fix, not accidental churn.
+2. The file still had an `executiveSummary` `useMemo` hook declared below the `if (!episode) return ...` branch.
+3. Kept the local fix that converts `executiveSummary` from `useMemo(...)` to a plain derived array so the component no longer changes hook count when moving from setup into the live scenario.
+
+### 63.2 Files changed
+
+1. Live web app:
+- `apps/web/src/App.tsx`
+
+### 63.3 What passed
+
+1. Validation:
+- `npm run lint`
+- `npm run build --workspace @wargames/web`
+- `npm run ci:phase1`
+
+2. Results:
+- `15/15` test files passed
+- `31/31` tests passed
+- Monte Carlo concentration warnings unchanged and non-blocking
+
+### 63.4 Product implication
+
+1. This resolves a real screen-loading risk in the live scenario flow rather than changing product behavior.
+2. Future work in `App.tsx` should not add new hooks below the early-return gates for `report` / `!episode`.
+
+### 63.5 Exact next action for resume
+
+1. Push/deploy this `App.tsx` fix, then continue live testing of the decision experience.
+2. Treat any future `App.tsx` local diffs with extra care because hook-order regressions can pass build/tests while still breaking the screen at runtime.
