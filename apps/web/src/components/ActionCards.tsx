@@ -23,22 +23,22 @@ const visibilityTone = (visibility: ActionDefinition['visibility']): string => {
 const postureHint = (action: ActionDefinition): string => {
   const netEscalation = action.signal.escalatory - action.signal.deescalatory;
   if (netEscalation >= 0.5) {
-    return 'Likely to be read as a firmer public stance that narrows room for ambiguity.';
+    return 'Beijing is likely to read this as a firmer show of resolve; allies and markets will judge whether it looks disciplined or impulsive.';
   }
   if (netEscalation <= -0.5) {
-    return 'Likely to be read as measured restraint that can reopen negotiating space if allies stay aligned.';
+    return 'Beijing is likely to read this as controlled restraint; allies will test whether it preserves leverage or signals retreat.';
   }
-  return 'Likely to be read as a mixed signal that preserves flexibility but leaves more room for misinterpretation.';
+  return 'Beijing is likely to read this as a mixed signal that preserves room to maneuver but may delay allied and market conviction.';
 };
 
 const visibilityHint = (visibility: ActionDefinition['visibility']): string => {
   if (visibility === 'public') {
-    return 'Allies, markets, the counterpart, and media channels will notice this almost immediately.';
+    return 'Governments, the counterpart, media channels, insurers, and market participants can react within minutes.';
   }
   if (visibility === 'semi-public') {
-    return 'Likely to circulate through diplomatic and coalition channels within hours, then leak outward.';
+    return 'Allied governments, counterpart officials, and industry channels are likely to react first; broader market awareness can follow on leaks.';
   }
-  return 'Initially limited to closed channels, but exposure risk rises quickly if execution slips or follow-on effects appear.';
+  return 'Initial reaction should stay inside closed channels, but execution problems can still push the move into public view.';
 };
 
 const riskHint = (action: ActionDefinition): string => {
@@ -48,29 +48,29 @@ const riskHint = (action: ActionDefinition): string => {
     action.signal.allianceStressSignal
   );
   if (dominant === action.signal.humiliationRisk) {
-    return 'Main downside: the counterpart may read this as humiliation and answer with retaliatory pressure.';
+    return 'Principal risk: Beijing may answer with a sharper move rather than appear to yield under pressure.';
   }
   if (dominant === action.signal.economicStressSignal) {
-    return 'Main downside: markets, shipping, and commercial confidence could absorb the shock quickly.';
+    return 'Principal risk: shipping, inventory, insurance, and market confidence could deteriorate faster than the coalition can stabilize them.';
   }
-  return 'Main downside: allies may split on the message, weakening collective leverage.';
+  return 'Principal risk: allies may interpret the move differently, weakening joint leverage and broader market confidence.';
 };
 
 const firstImpactHint = (action: ActionDefinition): string => {
   if (action.signal.economicStressSignal >= 0.55) {
-    return 'Near-term business effect: shipping, insurance, and market-risk pricing are the first areas likely to move.';
+    return 'Likely first impact: shipping rates, insurance pricing, semiconductor-sensitive names, and broad risk sentiment are the first places to move.';
   }
   if (action.signal.allianceStressSignal >= 0.55) {
-    return 'Near-term business effect: allied coordination could slow, creating uncertainty for markets and commercial actors.';
+    return 'Likely first impact: allied messaging and coalition discipline may wobble, which quickly feeds uncertainty into commercial planning and markets.';
   }
   const netEscalation = action.signal.escalatory - action.signal.deescalatory;
   if (netEscalation >= 0.5) {
-    return 'Near-term business effect: counterpart military and diplomatic channels are likely to harden before markets can fully digest the move.';
+    return 'Likely first impact: counterpart military and diplomatic channels harden first; market repricing usually follows once follow-through becomes visible.';
   }
   if (netEscalation <= -0.5) {
-    return 'Near-term business effect: this can buy time and steady sentiment, but only if it does not look like retreat.';
+    return 'Likely first impact: sentiment and freight expectations may stabilize briefly, provided the move is not read as concession.';
   }
-  return 'Near-term business effect: most stakeholders will wait for follow-through before moving decisively.';
+  return 'Likely first impact: most stakeholders will wait for follow-through before repricing risk or changing posture.';
 };
 
 export const ActionCards = ({
@@ -97,7 +97,7 @@ export const ActionCards = ({
         <div>
           <p className="label">Response Options</p>
           <p className="mt-2 text-[0.74rem] leading-relaxed text-textMuted">
-            Review the available responses, inspect the selected option below, then confirm it when you are ready.
+            Choose a response, review its likely strategic and market effects below, then confirm it when you are ready.
           </p>
         </div>
         <div className="flex items-center gap-2">
@@ -114,8 +114,8 @@ export const ActionCards = ({
 
       {showHelp ? (
         <div className="mt-3 border border-borderTone/80 bg-panelRaised/55 px-3 py-2 text-[0.68rem] leading-relaxed text-textMuted">
-          Workflow: choose a response, review what it signals and risks, compare advisor views, then confirm it when you
-          are ready to move the scenario forward.
+          Workflow: choose a response, review how it is likely to be read, compare advisor views, and then confirm it
+          when you are ready to move the scenario forward.
         </div>
       ) : null}
 
@@ -189,25 +189,25 @@ export const ActionCards = ({
             </div>
 
             <div className="space-y-2">
-              <p className="label">Decision Summary</p>
+              <p className="label">What This Does</p>
               <p className="text-[0.8rem] leading-relaxed text-textMain">{selectedAction.summary}</p>
             </div>
 
               <div className="grid gap-2 lg:grid-cols-2">
                 <div className="console-subpanel px-3 py-2.5">
-                  <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Likely Interpretation</p>
+                  <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">How It Will Be Read</p>
                   <p className="mt-1 text-[0.72rem] leading-relaxed text-textMain">{postureHint(selectedAction)}</p>
                 </div>
                 <div className="console-subpanel px-3 py-2.5">
-                  <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Immediate Audience</p>
+                  <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Who Reacts First</p>
                   <p className="mt-1 text-[0.72rem] leading-relaxed text-textMain">{visibilityHint(selectedAction.visibility)}</p>
                 </div>
                 <div className="console-subpanel px-3 py-2.5">
-                  <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Near-Term Effect</p>
+                  <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Likely First Impact</p>
                   <p className="mt-1 text-[0.72rem] leading-relaxed text-textMain">{firstImpactHint(selectedAction)}</p>
                 </div>
                 <div className="console-subpanel px-3 py-2.5">
-                  <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Main Downside</p>
+                  <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Principal Risk</p>
                   <p className="mt-1 text-[0.72rem] leading-relaxed text-textMain">{riskHint(selectedAction)}</p>
                 </div>
             </div>
@@ -227,7 +227,7 @@ export const ActionCards = ({
           <div>
             <p className="label">Selected Response</p>
             <p className="mt-2 text-[0.78rem] leading-relaxed text-textMuted">
-              No response selected yet. Choose one option above to load the full implications, advisor views, and confirmation path.
+              No response selected yet. Choose one option above to load the likely consequences, advisor views, and confirmation path.
             </p>
           </div>
         )}

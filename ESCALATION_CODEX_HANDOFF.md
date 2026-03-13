@@ -3364,3 +3364,52 @@ Current naming rule:
 2. Important local-worktree note:
 - An unrelated local diff still exists in `apps/web/src/App.tsx` that was not authored or shipped in this pass.
 - Per user instruction, this advisor-density pass should be committed and deployed without touching that unrelated `App.tsx` change.
+
+## 62. Flashpoint Consequence-Language Tightening Pass (2026-03-13 ET)
+
+### 62.1 What changed
+
+1. Tightened the selected-response pane in `apps/web/src/components/ActionCards.tsx` so it reads more like professional decision support for finance-oriented users.
+2. Renamed the response-detail headings:
+   - `Decision Summary` -> `What This Does`
+   - `Likely Interpretation` -> `How It Will Be Read`
+   - `Immediate Audience` -> `Who Reacts First`
+   - `Near-Term Effect` -> `Likely First Impact`
+   - `Main Downside` -> `Principal Risk`
+3. Rewrote the descriptive copy beneath those headings to reference:
+   - likely Beijing reaction
+   - allied reaction
+   - shipping and insurance response
+   - market and commercial repricing
+
+### 62.2 Files changed
+
+1. Live web app:
+- `apps/web/src/components/ActionCards.tsx`
+
+### 62.3 What passed
+
+1. Validation:
+- `npm run lint`
+- `npm run build --workspace @wargames/web`
+- `npm run ci:phase1`
+
+2. Results:
+- `15/15` test files passed
+- `31/31` tests passed
+- Monte Carlo concentration warnings unchanged and non-blocking
+
+### 62.4 Product implication
+
+1. Flashpoint response evaluation should now feel more like business and strategic decision support and less like simulation-mechanic explanation.
+2. This pass specifically targets smart finance users who understand the stakes but need clearer consequence framing before committing a response.
+
+### 62.5 Exact next action for resume
+
+1. Re-test the live decision flow with non-wargaming users and watch for:
+- whether the selected-response detail now feels concrete enough
+- whether confusion has shifted from wording to scenario depth or action quality
+- whether the next pass should focus on even more explicit sector/market exposure language
+
+2. Important local-worktree note:
+- The unrelated local diff in `apps/web/src/App.tsx` still exists and remains intentionally uncommitted in this pass.
