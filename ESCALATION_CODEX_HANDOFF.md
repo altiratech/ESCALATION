@@ -3112,3 +3112,68 @@ Current naming rule:
 2. If the scorecards land well, next likely product move:
 - authored tradeoff commentary / richer post-game analysis
 - or broader scenario expansion / second flagship scenario
+
+## 58. Flashpoint Authored Tradeoff Commentary (2026-03-13 ET)
+
+### 58.1 What changed
+
+1. Extended the deep-debrief content contract:
+- `packages/shared-types/src/index.ts`
+- added `DebriefDeepTradeoffCommentary`
+- added optional `tradeoffCommentary` to `DebriefDeepDefinition`
+
+2. Authored outcome-specific scorecard commentary:
+- `packages/content/data/debrief_deep_ns.json`
+- added authored `summary` + `tradeoff` text for the five live scorecards across:
+  - `stabilization`
+  - `frozen_conflict`
+  - `regime_instability`
+  - `economic_collapse`
+  - `war`
+
+3. Updated report generation:
+- `packages/engine/src/report.ts`
+- `buildTradeoffScorecards(...)` now accepts:
+  - `outcome`
+  - `deepDebrief`
+- report now prefers authored commentary when present
+- previous formula-derived text remains the fallback path
+
+4. Tightened regression coverage:
+- `tests/engine/report-causality.test.ts`
+- report test now asserts that the generated `economic_containment` scorecard uses the authored summary/tradeoff for the built outcome
+
+### 58.2 What passed
+
+1. Validation:
+- `npx vitest run tests/engine/report-causality.test.ts`
+- `npm run typecheck --workspace @wargames/web`
+- `npm run ci:phase1`
+
+2. Results:
+- focused report regression passed
+- `15/15` test files passed
+- `31/31` tests passed
+- Monte Carlo concentration warnings unchanged and non-blocking
+
+### 58.3 Spec drift remaining
+
+1. Scorecard depth:
+- scorecards now have authored commentary, but they still do not yet include per-score dynamic commentary variants or branch-specific authored deltas
+
+2. Scenario scope:
+- authored tradeoff commentary is only present for the Taiwan Strait flagship pack
+- future scenarios will need the same deep-debrief treatment to keep report quality consistent
+
+3. Broader post-game polish:
+- mandate/tradeoff framing is now stronger, but there is still room to deepen authored commentary around branch-not-taken and hidden-driver synthesis
+
+### 58.4 Exact next action for resume
+
+1. Review live whether:
+- the post-game `Tradeoff Scorecards` now read as scenario-specific and useful rather than formulaic
+- the new commentary feels properly tied to Taiwan Strait stakes
+
+2. If the scorecards now land well, next likely product move:
+- deepen authored branch-not-taken / hidden-driver commentary
+- or move to second-scenario / role-overlay expansion instead of more report churn
