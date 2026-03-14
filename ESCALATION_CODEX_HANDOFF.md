@@ -3622,3 +3622,31 @@ remain always visible.
 ### 66.6.4 Exact next action for resume
 
 1. Review the live semantic coloring and decide whether the section needs a tiny legend or if the current convention is self-explanatory.
+
+## 66.7 2026-03-13 Indicator-footer cleanup
+
+### 66.7.1 What changed
+
+1. Removed the per-card `Intel` range / confidence footer from `Operational Indicators`.
+2. Stripped the now-unused `visibleRanges` prop from the live web indicator components:
+- `apps/web/src/App.tsx`
+- `apps/web/src/components/BriefingPanel.tsx`
+- `apps/web/src/components/MeterDashboard.tsx`
+
+### 66.7.2 What passed
+
+1. Validation:
+- `npm run build --workspace @wargames/web`
+- `npm run lint`
+
+### 66.7.3 Product implication
+
+1. The indicator cards now stay focused on the information that matters most:
+- current level
+- latest move
+- trend over time
+2. This removes one more piece of low-level simulation UI that was adding clutter without helping user comprehension.
+
+### 66.7.4 Exact next action for resume
+
+1. Review the live indicator cards and confirm that removing the footer improved readability without creating any missing-context feeling.

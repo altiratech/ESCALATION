@@ -1,9 +1,8 @@
-import type { EpisodeMeterHistoryPoint, MeterKey, MeterRange, MeterState } from '@wargames/shared-types';
+import type { EpisodeMeterHistoryPoint, MeterKey, MeterState } from '@wargames/shared-types';
 
 interface MeterDashboardProps {
   meters: MeterState;
   previousMeters?: MeterState | undefined;
-  visibleRanges: Record<MeterKey, MeterRange>;
   meterHistory: EpisodeMeterHistoryPoint[];
   embedded?: boolean;
 }
@@ -105,7 +104,7 @@ const Sparkline = ({ values, color }: { values: number[]; color: string }) => {
   );
 };
 
-export const MeterDashboard = ({ meters, previousMeters, visibleRanges, meterHistory, embedded = false }: MeterDashboardProps) => {
+export const MeterDashboard = ({ meters, previousMeters, meterHistory, embedded = false }: MeterDashboardProps) => {
   const rootClassName = embedded ? '' : 'console-panel p-3';
 
   return (
@@ -120,7 +119,6 @@ export const MeterDashboard = ({ meters, previousMeters, visibleRanges, meterHis
           const value = meters[key];
           const previous = previousMeters?.[key] ?? value;
           const delta = value - previous;
-          const range = visibleRanges[key];
           const historyValues = meterHistory.map((entry) => entry.meters[key]);
           const color = semanticTrendColor(key, delta);
           const deltaToneClass = semanticTrendTextClass(key, delta);
@@ -139,11 +137,6 @@ export const MeterDashboard = ({ meters, previousMeters, visibleRanges, meterHis
 
               <div className="mt-2 rounded-sm border border-borderTone/60 bg-surface/45 px-1 py-1">
                 <Sparkline values={historyValues} color={color} />
-              </div>
-
-              <div className="mt-1.5 flex items-center justify-between gap-2 text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">
-                <span>Intel: {range.low}-{range.high}</span>
-                <span>Conf. {range.confidence}</span>
               </div>
             </div>
           );

@@ -3,8 +3,6 @@ import { useEffect, useMemo, useState } from 'react';
 import type {
   ActionNarrativePhaseContent,
   EpisodeMeterHistoryPoint,
-  MeterKey,
-  MeterRange,
   MeterState,
   MissionObjective,
   NarrativeBundle,
@@ -43,7 +41,6 @@ interface BriefingPanelProps {
   } | null;
   meters: MeterState;
   previousMeters?: MeterState | undefined;
-  visibleRanges: Record<MeterKey, MeterRange>;
   meterHistory: EpisodeMeterHistoryPoint[];
 }
 
@@ -73,7 +70,6 @@ export const BriefingPanel = ({
   phaseTransition,
   meters,
   previousMeters,
-  visibleRanges,
   meterHistory
 }: BriefingPanelProps) => {
   const [expandedHeadline, setExpandedHeadline] = useState<number | null>(null);
@@ -361,7 +357,6 @@ export const BriefingPanel = ({
       <MeterDashboard
         meters={meters}
         previousMeters={previousMeters}
-        visibleRanges={visibleRanges}
         meterHistory={meterHistory}
         embedded
       />

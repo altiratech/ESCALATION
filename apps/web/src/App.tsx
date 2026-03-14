@@ -844,7 +844,6 @@ const App = () => {
             phaseTransition={phaseTransition}
             meters={episode.meters}
             previousMeters={episode.recentTurn?.meterBefore}
-            visibleRanges={episode.visibleRanges}
             meterHistory={episode.meterHistory}
           />
         </>
