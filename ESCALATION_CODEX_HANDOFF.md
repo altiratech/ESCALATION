@@ -3650,3 +3650,48 @@ remain always visible.
 ### 66.7.4 Exact next action for resume
 
 1. Review the live indicator cards and confirm that removing the footer improved readability without creating any missing-context feeling.
+
+## 66.8 2026-03-13 Finance-legibility pass 2
+
+### 66.8.1 What changed
+
+1. `BriefingPanel` now defaults `Key Developments` to the two most decision-relevant developments and pushes the rest behind explicit expansion.
+2. Supporting signals were reframed as `Watch Items` and capped by default so the briefing does not dump the full feed at once.
+3. `Context` was compressed into plain-language, decision-oriented sections:
+- `Decision Priorities`
+- `Where Pressure Is Building`
+- `Why Finance Should Care`
+- `What We Know`
+- `What We Still Don't Know`
+4. `ActionCards` now add a one-line concrete description of what each move actually does before the deeper strategic/commercial explanation.
+5. Response-detail language was tightened to:
+- `Immediate Move`
+- `Counterpart Read`
+- `First External Reaction`
+- `Market / Commercial Effect`
+- `If This Backfires`
+6. The live header now says `Signal Quality` and `Current View` instead of the older internal-sounding labels.
+
+### 66.8.2 What passed
+
+1. Validation:
+- `npm run build --workspace @wargames/web`
+- `npm run lint`
+- `npm run ci:phase1`
+
+2. Results:
+- `15/15` test files passed
+- `31/31` tests passed
+- Monte Carlo concentration warnings unchanged and non-blocking
+
+### 66.8.3 Product implication
+
+1. The live scenario should now read less like a dense sim dashboard and more like a prioritized decision brief for finance-oriented users.
+2. If confusion still persists after this pass, the next likely issue is not shell structure but the specificity and realism of the available actions/content.
+
+### 66.8.4 Exact next action for resume
+
+1. Get another finance-user read on the live flow and determine whether the remaining confusion is about:
+- decision specificity
+- scenario realism
+- or residual context density

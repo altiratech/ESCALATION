@@ -23,12 +23,12 @@ const visibilityTone = (visibility: ActionDefinition['visibility']): string => {
 const postureHint = (action: ActionDefinition): string => {
   const netEscalation = action.signal.escalatory - action.signal.deescalatory;
   if (netEscalation >= 0.5) {
-    return 'Beijing is likely to read this as a firmer show of resolve; allies and markets will judge whether it looks disciplined or impulsive.';
+    return 'Beijing is likely to read this as a firmer show of resolve. Allies and markets will quickly judge whether it looks controlled or reckless.';
   }
   if (netEscalation <= -0.5) {
-    return 'Beijing is likely to read this as controlled restraint; allies will test whether it preserves leverage or signals retreat.';
+    return 'Beijing is likely to read this as controlled restraint. Allies will test whether it preserves leverage or looks like a step back.';
   }
-  return 'Beijing is likely to read this as a mixed signal that preserves room to maneuver but may delay allied and market conviction.';
+  return 'Beijing is likely to read this as a mixed signal. It preserves room to maneuver, but it may delay allied commitment and market stabilization.';
 };
 
 const visibilityHint = (visibility: ActionDefinition['visibility']): string => {
@@ -36,9 +36,9 @@ const visibilityHint = (visibility: ActionDefinition['visibility']): string => {
     return 'Governments, the counterpart, media channels, insurers, and market participants can react within minutes.';
   }
   if (visibility === 'semi-public') {
-    return 'Allied governments, counterpart officials, and industry channels are likely to react first; broader market awareness can follow on leaks.';
+    return 'Allied governments, counterpart officials, and industry channels are likely to react first. Broader market awareness can follow quickly on leaks.';
   }
-  return 'Initial reaction should stay inside closed channels, but execution problems can still push the move into public view.';
+  return 'Initial reaction should stay inside closed channels, but execution problems or leaks can still push the move into public view.';
 };
 
 const riskHint = (action: ActionDefinition): string => {
@@ -71,6 +71,28 @@ const firstImpactHint = (action: ActionDefinition): string => {
     return 'Likely first impact: sentiment and freight expectations may stabilize briefly, provided the move is not read as concession.';
   }
   return 'Likely first impact: most stakeholders will wait for follow-through before repricing risk or changing posture.';
+};
+
+const actionOneLiner = (action: ActionDefinition): string => {
+  const loweredTags = action.tags.map((tag) => tag.toLowerCase());
+
+  if (loweredTags.includes('diplomacy') && action.visibility === 'secret') {
+    return 'Use private channels to test an off-ramp without changing the public posture yet.';
+  }
+  if (loweredTags.includes('diplomacy') && action.visibility !== 'secret') {
+    return 'Put terms on the table publicly and test whether the counterpart wants a visible offramp.';
+  }
+  if (loweredTags.includes('military')) {
+    return 'Change visible military posture to raise the cost of another coercive move.';
+  }
+  if (loweredTags.includes('intel')) {
+    return 'Strengthen surveillance, attribution, and defensive readiness before making a larger move.';
+  }
+  if (loweredTags.includes('economic')) {
+    return 'Use commercial and financial pressure to impose cost beyond the military channel.';
+  }
+
+  return action.summary;
 };
 
 export const ActionCards = ({
@@ -152,6 +174,9 @@ export const ActionCards = ({
                   <p className="mt-1 text-[0.62rem] uppercase tracking-[0.12em] text-textMuted">
                     {action.tags.slice(0, 2).join(' · ') || 'Response option'}
                   </p>
+                  <p className="mt-2 text-[0.69rem] leading-relaxed text-textMain/90">
+                    {actionOneLiner(action)}
+                  </p>
                   <div className="mt-2 flex flex-wrap gap-1.5">
                     <span className="rounded-md border border-positive/60 px-1.5 py-0.5 text-[0.54rem] uppercase tracking-[0.12em] text-positive">
                       Supports {summary.supports}
@@ -189,25 +214,26 @@ export const ActionCards = ({
             </div>
 
             <div className="space-y-2">
-              <p className="label">What This Does</p>
-              <p className="text-[0.8rem] leading-relaxed text-textMain">{selectedAction.summary}</p>
+              <p className="label">Immediate Move</p>
+              <p className="text-[0.8rem] leading-relaxed text-textMain">{actionOneLiner(selectedAction)}</p>
+              <p className="text-[0.72rem] leading-relaxed text-textMuted">{selectedAction.summary}</p>
             </div>
 
               <div className="grid gap-2 lg:grid-cols-2">
                 <div className="console-subpanel px-3 py-2.5">
-                  <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">How It Will Be Read</p>
+                  <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Counterpart Read</p>
                   <p className="mt-1 text-[0.72rem] leading-relaxed text-textMain">{postureHint(selectedAction)}</p>
                 </div>
                 <div className="console-subpanel px-3 py-2.5">
-                  <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Who Reacts First</p>
+                  <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">First External Reaction</p>
                   <p className="mt-1 text-[0.72rem] leading-relaxed text-textMain">{visibilityHint(selectedAction.visibility)}</p>
                 </div>
                 <div className="console-subpanel px-3 py-2.5">
-                  <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Likely First Impact</p>
+                  <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Market / Commercial Effect</p>
                   <p className="mt-1 text-[0.72rem] leading-relaxed text-textMain">{firstImpactHint(selectedAction)}</p>
                 </div>
                 <div className="console-subpanel px-3 py-2.5">
-                  <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Principal Risk</p>
+                  <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">If This Backfires</p>
                   <p className="mt-1 text-[0.72rem] leading-relaxed text-textMain">{riskHint(selectedAction)}</p>
                 </div>
             </div>

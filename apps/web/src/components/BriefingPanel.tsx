@@ -75,6 +75,8 @@ export const BriefingPanel = ({
   const [expandedHeadline, setExpandedHeadline] = useState<number | null>(null);
   const [showOperationalReadout, setShowOperationalReadout] = useState(false);
   const [showPhaseTransition, setShowPhaseTransition] = useState(Boolean(phaseTransition));
+  const [showAllDevelopments, setShowAllDevelopments] = useState(false);
+  const [showAllSignals, setShowAllSignals] = useState(false);
   const [activeSection, setActiveSection] = useState<BriefingSectionId>('developments');
 
   useEffect(() => {
@@ -82,6 +84,8 @@ export const BriefingPanel = ({
     setExpandedHeadline(null);
     setShowOperationalReadout(false);
     setShowPhaseTransition(Boolean(phaseTransition));
+    setShowAllDevelopments(false);
+    setShowAllSignals(false);
   }, [turn, phaseTransition?.key]);
 
   const signalDetails = useMemo(() => {
@@ -116,8 +120,38 @@ export const BriefingPanel = ({
   const clipText = (value: string, limit = 260): string =>
     value.length > limit ? `${value.slice(0, limit - 1).trimEnd()}…` : value;
 
-  const theaterHighlights = scenarioWorld?.region.keyFeatures.slice(0, 4) ?? [];
+  const theaterHighlights = scenarioWorld?.region.keyFeatures.slice(0, 3) ?? [];
   const intelligenceGapPreview = turn === 1 ? scenarioWorld?.intelligenceGaps.slice(0, 3) ?? [] : [];
+  const primaryHeadlines = briefing.headlines.slice(0, 2);
+  const secondaryHeadlines = briefing.headlines.slice(2);
+  const visibleSupportingSignals = showAllSignals ? supportingSignals : supportingSignals.slice(0, 2);
+  const hiddenSignalCount = Math.max(0, supportingSignals.length - visibleSupportingSignals.length);
+
+  const renderHeadlineItem = (headline: string, index: number, sourceIndex: number) => {
+    const open = expandedHeadline === sourceIndex;
+    return (
+      <article key={headline} className="rounded-md border border-borderTone/70 bg-panelRaised/45">
+        <button
+          type="button"
+          className="flex w-full items-start justify-between gap-3 px-3 py-2 text-left transition hover:bg-panelRaised/70"
+          onClick={() => setExpandedHeadline(open ? null : sourceIndex)}
+        >
+          <div>
+            <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">{signalSource(sourceIndex)}</p>
+            <p className="mt-1 text-[0.78rem] leading-relaxed text-textMain">{headline}</p>
+          </div>
+          <span className="mt-1 text-[0.58rem] uppercase tracking-[0.12em] text-accent">{open ? 'Hide' : 'Open'}</span>
+        </button>
+        {open ? (
+          <div className="space-y-1 border-t border-borderTone/70 px-3 py-2 text-[0.7rem] leading-relaxed text-textMuted">
+            {(signalDetails[sourceIndex] ?? []).map((detail) => (
+              <p key={`${headline}:${detail}`}>{detail}</p>
+            ))}
+          </div>
+        ) : null}
+      </article>
+    );
+  };
 
   const renderDevelopments = () => (
     <div className="space-y-4">
@@ -150,53 +184,72 @@ export const BriefingPanel = ({
 
       <section className="space-y-2">
         <div className="flex items-center justify-between gap-3">
-          <p className="label">Primary Developments</p>
-          <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Click to expand</p>
+          <div>
+            <p className="label">Start Here</p>
+            <p className="mt-1 text-[0.68rem] leading-relaxed text-textMuted">
+              Read the two developments most likely to change the next response.
+            </p>
+          </div>
+          <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Open for detail</p>
         </div>
-        {briefing.headlines.map((headline, index) => {
-          const open = expandedHeadline === index;
-          return (
-            <article key={headline} className="rounded-md border border-borderTone/70 bg-panelRaised/45">
+        {primaryHeadlines.map((headline, index) => renderHeadlineItem(headline, index, index))}
+        {secondaryHeadlines.length > 0 ? (
+          <div className="rounded-md border border-borderTone/70 bg-panelRaised/30 px-3 py-2.5">
+            <div className="flex items-center justify-between gap-3">
+              <div>
+                <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Additional developments</p>
+                <p className="mt-1 text-[0.7rem] text-textMuted">
+                  Open these only if you want the fuller market and diplomacy picture before deciding.
+                </p>
+              </div>
               <button
                 type="button"
-                className="flex w-full items-start justify-between gap-3 px-3 py-2 text-left transition hover:bg-panelRaised/70"
-                onClick={() => setExpandedHeadline(open ? null : index)}
+                className="text-[0.58rem] uppercase tracking-[0.12em] text-accent"
+                onClick={() => setShowAllDevelopments((current) => !current)}
               >
-                <div>
-                  <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">{signalSource(index)}</p>
-                  <p className="mt-1 text-[0.78rem] leading-relaxed text-textMain">{headline}</p>
-                </div>
-                <span className="mt-1 text-[0.58rem] uppercase tracking-[0.12em] text-accent">
-                  {open ? 'Hide' : 'Open'}
-                </span>
+                {showAllDevelopments ? 'Hide' : `Open ${secondaryHeadlines.length}`}
               </button>
-              {open ? (
-                <div className="space-y-1 border-t border-borderTone/70 px-3 py-2 text-[0.7rem] leading-relaxed text-textMuted">
-                  {(signalDetails[index] ?? []).map((detail) => (
-                    <p key={`${headline}:${detail}`}>{detail}</p>
-                  ))}
-                </div>
-              ) : null}
-            </article>
-          );
-        })}
+            </div>
+            {showAllDevelopments ? (
+              <div className="mt-3 space-y-2">
+                {secondaryHeadlines.map((headline, index) => renderHeadlineItem(headline, index + 2, index + 2))}
+              </div>
+            ) : null}
+          </div>
+        ) : null}
       </section>
 
       {supportingSignals.length > 0 ? (
         <section>
           <div className="flex items-center justify-between gap-3">
-            <p className="label">Live Feed</p>
-            <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Supporting signals</p>
+            <div>
+              <p className="label">Watch Items</p>
+              <p className="mt-1 text-[0.68rem] leading-relaxed text-textMuted">
+                Secondary signals that can change how markets, allies, and operators read the situation.
+              </p>
+            </div>
+            <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Support only</p>
           </div>
           <div className="mt-3 grid gap-2 xl:grid-cols-2">
-            {supportingSignals.map((item) => (
-              <article key={item.id} className="console-feed-item min-h-[5.5rem]">
+            {visibleSupportingSignals.map((item) => (
+              <article key={item.id} className="console-feed-item min-h-[4.5rem]">
                 <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">{item.channel}</p>
                 <p className="mt-1 text-[0.72rem] text-textMain">{item.headline}</p>
                 {item.detail ? <p className="mt-1 text-[0.67rem] text-textMuted">{item.detail}</p> : null}
               </article>
             ))}
           </div>
+          {hiddenSignalCount > 0 ? (
+            <div className="mt-3 flex justify-start">
+              <button
+                type="button"
+                className="text-[0.58rem] uppercase tracking-[0.12em] text-accent"
+                onClick={() => setShowAllSignals((current) => !current)}
+              >
+                {showAllSignals ? 'Show fewer watch items' : `Show ${hiddenSignalCount} more watch items`}
+              </button>
+            </div>
+          ) : null}
         </section>
       ) : null}
 
@@ -260,11 +313,11 @@ export const BriefingPanel = ({
   const renderContext = () => (
     <div className="space-y-4">
       {missionObjectives.length > 0 ? (
-        <section>
-          <p className="label">Mission Mandate</p>
-          <div className="mt-3 grid gap-2 xl:grid-cols-3">
+        <section className="console-subpanel px-3 py-3">
+          <p className="label">Decision Priorities</p>
+          <div className="mt-3 space-y-2">
             {missionObjectives.map((objective) => (
-              <div key={objective.id} className="console-subpanel px-3 py-2.5">
+              <div key={objective.id} className="border-l-2 border-accent/55 pl-3">
                 <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">{objective.label}</p>
                 <p className="mt-1 text-[0.72rem] leading-relaxed text-textMain">{objective.description}</p>
               </div>
@@ -276,13 +329,13 @@ export const BriefingPanel = ({
       {scenarioWorld ? (
         <section className="grid gap-3 xl:grid-cols-[1.02fr_0.98fr]">
           <div className="console-subpanel px-3 py-3">
-            <p className="label">Scenario Context</p>
+            <p className="label">Where Pressure Is Building</p>
             <p className="mt-1 text-sm text-textMain">
               {scenarioWorld.region.name} · {scenarioWorld.dateAnchor.month} {scenarioWorld.dateAnchor.year}
             </p>
             <p className="mt-2 text-[0.7rem] text-textMuted">{scenarioWorld.dateAnchor.dayRange}</p>
             <p className="mt-2 text-[0.72rem] leading-relaxed text-textMuted">
-              {clipText(scenarioWorld.region.description, 320)}
+              {clipText(scenarioWorld.region.description, 260)}
             </p>
             {theaterHighlights.length > 0 ? (
               <div className="mt-3 flex flex-wrap gap-1.5">
@@ -299,54 +352,56 @@ export const BriefingPanel = ({
           </div>
 
           <div className="console-subpanel px-3 py-3">
-            <p className="label">Why It Matters</p>
+            <p className="label">Why Finance Should Care</p>
             <p className="mt-2 text-[0.72rem] leading-relaxed text-textMuted">
-              {clipText(scenarioWorld.economicBackdrop.straitEconomicValue, 330)}
+              {clipText(scenarioWorld.economicBackdrop.straitEconomicValue, 250)}
             </p>
             <div className="mt-3 border-t border-borderTone/70 pt-3">
-              <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Market backdrop</p>
+              <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Likely market read</p>
               <p className="mt-2 text-[0.72rem] leading-relaxed text-textMuted">
-                {clipText(scenarioWorld.economicBackdrop.marketSentiment, 260)}
+                {clipText(scenarioWorld.economicBackdrop.marketSentiment, 220)}
               </p>
             </div>
           </div>
         </section>
       ) : null}
 
-      {counterpartBrief ? (
-        <section className="console-subpanel px-3 py-3">
-          <p className="label">What We Know</p>
-          <p className="mt-1 text-sm text-textMain">
-            {counterpartBrief.leader.publicName} · {counterpartBrief.leader.title}
-          </p>
-          <p className="mt-2 text-[0.72rem] leading-relaxed text-textMuted">
-            {clipText(counterpartBrief.leader.psychologicalProfile.summary, 260)}
-          </p>
-          <p className="mt-2 text-[0.7rem] leading-relaxed text-textMuted">
-            <span className="text-textMain">Known red line:</span>{' '}
-            {clipText(counterpartBrief.leader.motivations.redLine, 220)}
-          </p>
-          {(counterpartBrief.leader.intelFragments.opening ?? []).length > 0 ? (
-            <div className="mt-3 border-t border-borderTone/70 pt-3">
-              <p className="label">Current intelligence view</p>
-              <p className="mt-2 text-[0.7rem] leading-relaxed text-textMuted">
-                {clipText((counterpartBrief.leader.intelFragments.opening ?? [])[0] ?? '', 240)}
+      {counterpartBrief || intelligenceGapPreview.length > 0 ? (
+        <section className="grid gap-3 xl:grid-cols-[1fr_0.92fr]">
+          {counterpartBrief ? (
+            <div className="console-subpanel px-3 py-3">
+              <p className="label">What We Know</p>
+              <p className="mt-1 text-sm text-textMain">
+                {counterpartBrief.leader.publicName} · {counterpartBrief.leader.title}
               </p>
+              <p className="mt-2 text-[0.72rem] leading-relaxed text-textMuted">
+                {clipText(counterpartBrief.leader.psychologicalProfile.summary, 220)}
+              </p>
+              <p className="mt-2 text-[0.7rem] leading-relaxed text-textMuted">
+                <span className="text-textMain">Known red line:</span>{' '}
+                {clipText(counterpartBrief.leader.motivations.redLine, 180)}
+              </p>
+              {(counterpartBrief.leader.intelFragments.opening ?? []).length > 0 ? (
+                <p className="mt-2 text-[0.7rem] leading-relaxed text-textMuted">
+                  <span className="text-textMain">Current read:</span>{' '}
+                  {clipText((counterpartBrief.leader.intelFragments.opening ?? [])[0] ?? '', 170)}
+                </p>
+              ) : null}
             </div>
           ) : null}
-        </section>
-      ) : null}
 
-      {intelligenceGapPreview.length > 0 ? (
-        <section className="console-subpanel px-3 py-3">
-          <p className="label">Open Questions</p>
-          <div className="mt-2 space-y-2">
-            {intelligenceGapPreview.map((entry) => (
-              <p key={entry} className="text-[0.72rem] leading-relaxed text-textMuted">
-                {clipText(entry, 240)}
-              </p>
-            ))}
-          </div>
+          {intelligenceGapPreview.length > 0 ? (
+            <div className="console-subpanel px-3 py-3">
+              <p className="label">What We Still Don't Know</p>
+              <div className="mt-2 space-y-2">
+                {intelligenceGapPreview.map((entry) => (
+                  <p key={entry} className="border-l border-borderTone/80 pl-3 text-[0.72rem] leading-relaxed text-textMuted">
+                    {clipText(entry, 200)}
+                  </p>
+                ))}
+              </div>
+            </div>
+          ) : null}
         </section>
       ) : null}
     </div>

@@ -707,11 +707,11 @@ const App = () => {
               </span>
             </div>
             <div className="console-chip">
-              <strong>Intel</strong>
+              <strong>Signal Quality</strong>
               <span>{intelStateLabel}</span>
             </div>
             <div className="console-chip">
-              <strong>Step</strong>
+              <strong>Current View</strong>
               <span>{turnStageLabel}</span>
             </div>
             <div className="console-chip">
