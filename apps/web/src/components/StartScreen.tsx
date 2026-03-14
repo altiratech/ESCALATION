@@ -135,6 +135,38 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
     );
   }, [selectedScenarioWorld]);
 
+  const selectedDossierVisual = useMemo(() => {
+    if (!selectedScenario || reference.images.length === 0) {
+      return null;
+    }
+
+    const hintSet = new Set(startingBeat?.imageHints ?? []);
+    const scored = reference.images
+      .filter((asset) => asset.environment === selectedScenario.environment || asset.environment === 'generic')
+      .map((asset) => {
+        let score = 0;
+        if (hintSet.has(asset.domain)) {
+          score += 4;
+        }
+        if (hintSet.has(`severity_${asset.severity}`)) {
+          score += 2;
+        }
+        if (hintSet.has(asset.perspective)) {
+          score += 4;
+        }
+        if (asset.perspective === 'news_frame') {
+          score += 1;
+        }
+        if (asset.domain === 'diplomacy' || asset.domain === 'military') {
+          score += 1;
+        }
+        return { asset, score };
+      })
+      .sort((left, right) => right.score - left.score || left.asset.id.localeCompare(right.asset.id));
+
+    return scored[0]?.asset ?? null;
+  }, [reference.images, selectedScenario, startingBeat]);
+
   const turnOneCarryForward = useMemo(() => {
     const items = [
       {
@@ -604,6 +636,28 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
             </div>
 
             <div className="space-y-4">
+              {selectedDossierVisual ? (
+                <section className="console-panel p-5">
+                  <p className="label">Scenario Visual</p>
+                  <figure className="mt-3 overflow-hidden border border-borderTone bg-panelRaised">
+                    <img
+                      src={selectedDossierVisual.path}
+                      alt={selectedDossierVisual.tags.join(', ')}
+                      className="h-52 w-full object-cover"
+                      loading="lazy"
+                    />
+                    <figcaption className="border-t border-borderTone px-3 py-2 text-[0.72rem] leading-relaxed text-textMuted">
+                      {clipText(
+                        selectedScenarioWorld?.economicBackdrop.marketSentiment ??
+                          selectedScenarioWorld?.region.description ??
+                          'Scenario visual reference.',
+                        220
+                      )}
+                    </figcaption>
+                  </figure>
+                </section>
+              ) : null}
+
               {turnOneCarryForward.length > 0 ? (
                 <section className="console-panel p-5">
                   <p className="label">Carry Into The Opening Window</p>

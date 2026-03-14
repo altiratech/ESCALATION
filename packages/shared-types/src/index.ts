@@ -702,6 +702,12 @@ export interface ScenarioWorldTimelineEvent {
   significance: string;
 }
 
+export interface ScenarioGraphicAsset {
+  path: string;
+  alt: string;
+  caption: string;
+}
+
 export interface ScenarioWorldDefinition {
   scenarioId: string;
   region: {
@@ -748,6 +754,7 @@ export interface ScenarioWorldDefinition {
     treatyObligations: string;
     sanctionsFramework: string;
   };
+  theaterDiagram?: ScenarioGraphicAsset;
 }
 
 export interface AdvisorScenarioSpecific {
@@ -902,6 +909,7 @@ export interface BootstrapPayload {
   scenarios: ScenarioDefinition[];
   adversaryProfiles: AdversaryProfile[];
   actions: ActionDefinition[];
+  images: ImageAsset[];
   narrativeCandidates: NarrativeCandidatesPack;
   intelFragments: IntelFragment[];
   newsWire: NewsWireArticle[];

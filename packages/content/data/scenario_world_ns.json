@@ -157,5 +157,10 @@
     "maritimeLaw": "The central Taiwan Strait and many of its approaches lie outside any state's recognized territorial sea, even though Beijing increasingly talks as if it can administer the entire corridor. Under UNCLOS, routine international navigation through the strait and adjacent high-seas/EEZ waters should not be subject to unilateral coercive inspection rules imposed for political leverage. China can still wrap pressure in safety and customs language, creating enough ambiguity to slow commercial response even when the legal argument is weak.",
     "treatyObligations": "There is no formal U.S. mutual-defense treaty with Taiwan, but the Taiwan Relations Act, long-standing U.S. policy commitments, and allied credibility all make the crisis strategically central. Japan and the Philippines become relevant quickly because any east-of-Taiwan or south-of-Taiwan escalation touches treaty geography, access, or operational support. That means a “Taiwan-only” crisis can widen into a broader alliance crisis faster than official statements imply.",
     "sanctionsFramework": "The United States and partners already have export-control, entity-list, and sanctions tools related to China, but any major crisis would force harder choices: financial sanctions on state-linked institutions, shipping restrictions, insurance measures, export-control expansion, and countersanctions risk. The problem is not a lack of tools; it is that every serious tool carries blowback for allies, markets, and domestic politics."
+  },
+  "theaterDiagram": {
+    "path": "/assets/images/taiwan-strait-theater-diagram.svg",
+    "alt": "Diagram of the Taiwan Strait showing Taiwan, the Fujian coast, key ports, the central transit corridor, and Beijing's inspection pressure zone.",
+    "caption": "Most commercial traffic uses the central Taiwan Strait corridor between Taiwan's west-coast ports and the wider East and South China Sea trade system. Beijing's inspection regime pressures that lane without declaring a formal blockade."
   }
 }

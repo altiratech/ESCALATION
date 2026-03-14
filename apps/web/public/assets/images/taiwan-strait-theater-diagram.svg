@@ -1,0 +1,50 @@
+<svg width="1200" height="720" viewBox="0 0 1200 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="720" fill="#0A0E12"/>
+  <rect x="24" y="24" width="1152" height="672" rx="20" fill="#0D1318" stroke="#24303B" stroke-width="2"/>
+
+  <rect x="110" y="120" width="320" height="470" rx="24" fill="#141C23" stroke="#33414D" stroke-width="2"/>
+  <path d="M303 149L256 177L234 215L248 257L220 302L224 354L194 414L218 468L214 534L247 564L312 555L341 509L356 451L380 411L362 364L377 316L360 264L334 218L342 177L303 149Z" fill="#304152" stroke="#7FC9F5" stroke-width="4"/>
+  <text x="158" y="98" fill="#D8E6EF" font-family="'IBM Plex Sans Condensed', sans-serif" font-size="28" letter-spacing="2">TAIWAN</text>
+
+  <rect x="768" y="92" width="308" height="560" rx="24" fill="#151D22" stroke="#33414D" stroke-width="2"/>
+  <path d="M1046 126L1008 181L973 206L968 246L916 286L912 332L865 377L861 432L814 484L814 618L1076 618L1076 126H1046Z" fill="#28343E" stroke="#F1B300" stroke-width="4"/>
+  <text x="820" y="74" fill="#D8E6EF" font-family="'IBM Plex Sans Condensed', sans-serif" font-size="24" letter-spacing="2">FUJIAN COAST</text>
+
+  <path d="M508 138C620 134 688 164 722 226C753 282 751 343 724 401C689 472 620 518 514 525" stroke="#61C8FF" stroke-width="10" stroke-dasharray="14 16"/>
+  <text x="492" y="108" fill="#8FD4FF" font-family="'IBM Plex Mono', monospace" font-size="18" letter-spacing="1.8">CENTRAL TRANSIT CORRIDOR</text>
+
+  <path d="M702 190C767 204 824 233 886 286C936 329 961 365 978 417" stroke="#F1B300" stroke-width="8" stroke-dasharray="10 14"/>
+  <path d="M688 228C747 244 804 272 859 321C914 370 943 408 961 456" stroke="#F1B300" stroke-width="3"/>
+  <text x="744" y="172" fill="#F6C95C" font-family="'IBM Plex Mono', monospace" font-size="17" letter-spacing="1.4">INSPECTION / PRESSURE ZONE</text>
+
+  <path d="M438 253H667" stroke="#C9F0FF" stroke-width="3"/>
+  <path d="M649 241L667 253L649 265" stroke="#C9F0FF" stroke-width="3"/>
+  <text x="447" y="235" fill="#D9EEF8" font-family="'IBM Plex Mono', monospace" font-size="15" letter-spacing="1.2">NORTHEAST ASIA SHIPPING</text>
+
+  <path d="M435 460H662" stroke="#C9F0FF" stroke-width="3"/>
+  <path d="M644 448L662 460L644 472" stroke="#C9F0FF" stroke-width="3"/>
+  <text x="446" y="442" fill="#D9EEF8" font-family="'IBM Plex Mono', monospace" font-size="15" letter-spacing="1.2">SOUTHBOUND COMMERCIAL FLOW</text>
+
+  <circle cx="340" cy="458" r="9" fill="#61C8FF"/>
+  <text x="118" y="465" fill="#D8E6EF" font-family="'IBM Plex Sans Condensed', sans-serif" font-size="20" letter-spacing="1.2">Kaohsiung</text>
+  <circle cx="292" cy="340" r="9" fill="#61C8FF"/>
+  <text x="118" y="347" fill="#D8E6EF" font-family="'IBM Plex Sans Condensed', sans-serif" font-size="20" letter-spacing="1.2">Taichung</text>
+  <circle cx="302" cy="229" r="9" fill="#61C8FF"/>
+  <text x="118" y="236" fill="#D8E6EF" font-family="'IBM Plex Sans Condensed', sans-serif" font-size="20" letter-spacing="1.2">Keelung</text>
+
+  <circle cx="893" cy="482" r="9" fill="#F1B300"/>
+  <text x="914" y="490" fill="#E7D3A2" font-family="'IBM Plex Sans Condensed', sans-serif" font-size="20" letter-spacing="1.2">Xiamen / Zhangzhou</text>
+  <circle cx="938" cy="310" r="9" fill="#F1B300"/>
+  <text x="958" y="318" fill="#E7D3A2" font-family="'IBM Plex Sans Condensed', sans-serif" font-size="20" letter-spacing="1.2">Fuzhou</text>
+  <circle cx="900" cy="382" r="9" fill="#F1B300"/>
+  <text x="922" y="390" fill="#E7D3A2" font-family="'IBM Plex Sans Condensed', sans-serif" font-size="20" letter-spacing="1.2">Pingtan</text>
+
+  <path d="M472 238L472 503" stroke="#6B7D8C" stroke-width="2" stroke-dasharray="8 10"/>
+  <text x="438" y="539" fill="#95A9B9" font-family="'IBM Plex Mono', monospace" font-size="14" letter-spacing="1.1">MEDIAN LINE</text>
+
+  <circle cx="420" cy="355" r="18" fill="#10161B" stroke="#7FC9F5" stroke-width="3"/>
+  <text x="388" y="361" fill="#8FD4FF" font-family="'IBM Plex Mono', monospace" font-size="12">PENGHU</text>
+
+  <rect x="64" y="628" width="1072" height="44" rx="8" fill="#0E1419" stroke="#24303B"/>
+  <text x="88" y="656" fill="#DCE9F3" font-family="'IBM Plex Sans Condensed', sans-serif" font-size="22" letter-spacing="1.4">Gray-zone control here can delay, inspect, and intimidate shipping before Beijing ever declares a formal blockade.</text>
+</svg>

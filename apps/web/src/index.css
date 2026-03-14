@@ -230,6 +230,18 @@ body::before {
   word-break: break-word;
 }
 
+.briefing-tab {
+  @apply inline-flex items-center justify-center border border-borderTone bg-panelRaised px-3 py-2 font-mono text-[0.62rem] uppercase tracking-[0.12em] text-textMuted transition;
+}
+
+.briefing-tab:hover {
+  @apply border-accent/70 text-textMain;
+}
+
+.briefing-tab-active {
+  @apply border-accent bg-accent/10 text-accent;
+}
+
 .console-input {
   @apply w-full border border-borderTone bg-panelRaised px-3 py-2.5 text-[0.84rem] text-textMain outline-none transition;
 }

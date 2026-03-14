@@ -24,7 +24,6 @@ import { ActionCards } from './components/ActionCards';
 import { AdvisorPanel } from './components/AdvisorPanel';
 import { BriefingPanel } from './components/BriefingPanel';
 import { CommandInput, type CommandSubmitResult } from './components/CommandInput';
-import { MeterDashboard } from './components/MeterDashboard';
 import { ReportView } from './components/ReportView';
 import { StartScreen } from './components/StartScreen';
 import { getAdvisorActionReads } from './lib/decisionSupport';
@@ -122,7 +121,6 @@ const App = () => {
   const [bootstrapping, setBootstrapping] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [countdownRemaining, setCountdownRemaining] = useState<number | null>(null);
-  const [intelExpandedMobile, setIntelExpandedMobile] = useState(false);
   const timeoutGuardRef = useRef<string | null>(null);
 
   useEffect(() => {
@@ -586,30 +584,9 @@ const App = () => {
   const selectedIntelFragments = pickDeterministicWindow(beatIntelFragments, 2, episode.turn - 1);
   const selectedNewsArticles = pickDeterministicWindow(beatNewsArticles, 2, episode.turn + 1);
 
-  const intelFeed: IntelFeedEntry[] = [
-    ...episode.briefing.headlines.map((headline, index) => ({
-      id: `brief:${index}`,
-      channel: index === 0 ? 'Briefing' : 'Update',
-      headline
-    }))
-  ];
-  if (episode.briefing.memoLine) {
-    intelFeed.push({
-      id: 'memo',
-      channel: 'Memo',
-      headline: episode.briefing.memoLine
-    });
-  }
-  if (episode.briefing.tickerLine) {
-    intelFeed.push({
-      id: 'ticker',
-      channel: 'Market',
-      headline: episode.briefing.tickerLine
-    });
-  }
-
+  const supportingSignals: IntelFeedEntry[] = [];
   for (const fragment of selectedIntelFragments) {
-    intelFeed.push({
+    supportingSignals.push({
       id: fragment.id,
       channel: `${fragment.sourceType} · ${fragment.confidence.toUpperCase()}`,
       headline: fragment.headline,
@@ -618,7 +595,7 @@ const App = () => {
   }
 
   for (const article of selectedNewsArticles) {
-    intelFeed.push({
+    supportingSignals.push({
       id: article.id,
       channel: `${article.outlet} · ${article.tone.toUpperCase()}`,
       headline: article.headline,
@@ -627,13 +604,19 @@ const App = () => {
   }
 
   if (pressureText) {
-    intelFeed.push({
+    supportingSignals.push({
       id: 'timer-pressure',
       channel: 'Timer',
       headline: pressureText
     });
   }
-  const intelFeedVisible = intelExpandedMobile ? intelFeed : intelFeed.slice(0, 6);
+  if (supportingSignals.length === 0 && episode.briefing.tickerLine) {
+    supportingSignals.push({
+      id: 'ticker',
+      channel: 'Market',
+      headline: episode.briefing.tickerLine
+    });
+  }
   const rangeValues = Object.values(episode.visibleRanges);
   const averageIntelConfidence = Math.round(
     rangeValues.reduce((total, range) => total + range.confidence, 0) / Math.max(1, rangeValues.length)
@@ -690,20 +673,6 @@ const App = () => {
     {
       label: 'Decision required now',
       detail: turnResolutionGuidance
-    }
-  ];
-  const turnProcedure: Array<{ label: string; detail: string }> = [
-    {
-      label: 'Assess',
-      detail: 'Use the situation summary and key developments to understand the current pressure.'
-    },
-    {
-      label: 'Decide',
-      detail: turnResolutionGuidance
-    },
-    {
-      label: 'Review',
-      detail: 'After resolution, review the immediate outcome and what happened for the first consequences.'
     }
   ];
   const turnStageLabel = turnStage === 'brief' ? 'Situation Summary' : 'Decision';
@@ -863,86 +832,20 @@ const App = () => {
             </div>
           </section>
 
-          <section className="console-panel console-panel-muted px-3 py-3 sm:px-4">
-            <div className="grid gap-3 xl:grid-cols-[1.02fr_0.98fr]">
-              <div className="min-w-0">
-                <p className="label">Mission Mandate</p>
-                <p className="mt-2 text-sm leading-relaxed text-textMain">{clipLine(currentDirective, 220)}</p>
-                <p className="mt-2 text-[0.72rem] leading-relaxed text-textMuted">
-                  Strategic success is measured against the mandate below, not simply whether the current window closes without immediate escalation.
-                </p>
-              </div>
-              <div className="grid gap-2 sm:grid-cols-3">
-                {missionObjectives.length > 0
-                  ? missionObjectives.map((objective) => (
-                      <div key={objective.id} className="console-subpanel px-3 py-2.5">
-                        <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">{objective.label}</p>
-                        <p className="mt-1 text-[0.72rem] leading-relaxed text-textMain">{objective.description}</p>
-                      </div>
-                    ))
-                  : turnProcedure.map((item) => (
-                      <div key={item.label} className="console-subpanel px-3 py-2.5">
-                        <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">{item.label}</p>
-                        <p className="mt-1 text-[0.72rem] leading-relaxed text-textMain">{item.detail}</p>
-                      </div>
-                    ))}
-              </div>
-            </div>
-          </section>
-
-          <section className="grid min-h-0 gap-4 xl:grid-cols-[0.34fr_0.94fr]">
-            <aside className="console-panel console-panel-muted order-2 flex min-h-[36rem] flex-col p-3 xl:order-1">
-              <div className="flex items-center justify-between">
-                <p className="label">Intel Feed</p>
-                <span className="text-[0.62rem] uppercase tracking-[0.12em] text-textMuted">Live</span>
-              </div>
-              <div className="console-scroll mt-3 flex-1 space-y-2 overflow-y-auto pr-1 text-xs leading-relaxed text-textMuted">
-                {intelFeed.length > 0 ? intelFeedVisible.map((item, index) => (
-                  <article key={`${item.id}:${index}`} className="console-feed-item">
-                    <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">{item.channel}</p>
-                    <p className="mt-1 text-[0.72rem] text-textMain">{item.headline}</p>
-                    {item.detail ? (
-                      <p className="mt-1 text-[0.67rem] text-textMuted">{item.detail}</p>
-                    ) : null}
-                  </article>
-                )) : (
-                  <p className="rounded-md border border-borderTone/70 bg-panelRaised/45 px-2 py-1.5">
-                    Intelligence stream is stabilizing.
-                  </p>
-                )}
-              </div>
-              {intelFeed.length > 3 ? (
-                <button
-                  type="button"
-                  className="mt-3 rounded-md border border-borderTone px-2 py-1 text-[0.62rem] uppercase tracking-[0.1em] text-textMuted transition hover:border-accent hover:text-textMain lg:hidden"
-                  onClick={() => setIntelExpandedMobile((current) => !current)}
-                >
-                  {intelExpandedMobile ? 'Show less' : `Show ${Math.max(1, Math.min(intelFeed.length - 6, 6))} more`}
-                </button>
-              ) : null}
-            </aside>
-
-            <div className="order-1 min-h-[40rem] xl:order-2">
-              <BriefingPanel
-                turn={episode.turn}
-                briefing={episode.briefing}
-                scenarioWorld={currentScenarioWorld}
-                counterpartBrief={currentCounterpart}
-                imageAsset={episode.imageAsset}
-                turnDebrief={episode.turnDebrief}
-                recentActionNarrative={recentActionNarrative}
-                phaseTransition={phaseTransition}
-              />
-            </div>
-          </section>
-
-          <section>
-            <MeterDashboard
-              meters={episode.meters}
-              previousMeters={episode.recentTurn?.meterBefore}
-              visibleRanges={episode.visibleRanges}
-            />
-          </section>
+          <BriefingPanel
+            turn={episode.turn}
+            briefing={episode.briefing}
+            scenarioWorld={currentScenarioWorld}
+            counterpartBrief={currentCounterpart}
+            missionObjectives={missionObjectives}
+            supportingSignals={supportingSignals}
+            turnDebrief={episode.turnDebrief}
+            recentActionNarrative={recentActionNarrative}
+            phaseTransition={phaseTransition}
+            meters={episode.meters}
+            previousMeters={episode.recentTurn?.meterBefore}
+            visibleRanges={episode.visibleRanges}
+          />
         </>
       ) : (
         <section

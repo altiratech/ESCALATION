@@ -3483,3 +3483,66 @@ Current naming rule:
 
 1. Re-check the live `Situation Summary` page to confirm the single top-right CTA is clear enough in practice.
 2. If users still hesitate there, the next likely fix is stronger visual emphasis around the CTA rather than another layout split.
+
+## 65. Flashpoint Declutter + Low-Risk Visual Layer (2026-03-13 ET)
+
+### 65.1 What changed
+
+1. Refactored the live `Situation Summary` around a much lighter hierarchy:
+- only the top summary/CTA bar
+- `Executive Summary`
+- `Current Situation`
+remain always visible.
+2. Moved the rest of the briefing content into one controlled secondary surface inside `BriefingPanel` with exactly three sections:
+- `Key Developments`
+- `Context`
+- `Operational Indicators`
+3. Removed the separate live intel rail and the separate standalone indicators block from the summary page.
+4. Added a scenario-authored static `Theater Diagram` for the Taiwan Strait live summary as a plain SVG asset.
+5. Added dossier-side atmospheric imagery by exposing the existing image pack through bootstrap and selecting a deterministic setup visual for `Scenario Background`.
+6. Kept the implementation intentionally low-risk:
+- no runtime image generation
+- no map library
+- no chart library
+- no external visual service
+
+### 65.2 Files changed
+
+1. Live web app:
+- `apps/web/src/App.tsx`
+- `apps/web/src/components/BriefingPanel.tsx`
+- `apps/web/src/components/MeterDashboard.tsx`
+- `apps/web/src/components/StartScreen.tsx`
+- `apps/web/src/index.css`
+- `apps/web/public/assets/images/taiwan-strait-theater-diagram.svg`
+
+2. Shared/content/API:
+- `packages/shared-types/src/index.ts`
+- `packages/content/data/scenario_world_ns.json`
+- `apps/api/src/index.ts`
+
+### 65.3 What passed
+
+1. Validation:
+- `npm run lint`
+- `npm run build --workspace @wargames/web`
+- `npm run ci:phase1`
+
+2. Results:
+- `15/15` test files passed
+- `31/31` tests passed
+- Monte Carlo concentration warnings unchanged and non-blocking
+
+### 65.4 Product implication
+
+1. The live summary should now feel significantly less crowded for non-wargaming users because supporting material is no longer all open at once.
+2. The Taiwan Strait route/chokepoint diagram gives the player one fast visual answer to “where is the pressure actually happening?” without adding fragile graphics infrastructure.
+3. Future work should preserve this hierarchy and resist adding new always-open panels to the summary page.
+
+### 65.5 Exact next action for resume
+
+1. Review the live summary page on desktop/mobile and confirm:
+- the `Key Developments` / `Context` / `Operational Indicators` split feels clear
+- the new `Theater Diagram` is useful and legible
+- the dossier visual feels like the right home for the atmospheric image
+2. If users still feel crowding after this pass, the next likely fix is tighter copy and fewer items inside each secondary section, not another new surface.

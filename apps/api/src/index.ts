@@ -881,6 +881,7 @@ app.get('/api/reference/bootstrap', (context) => {
     scenarios,
     adversaryProfiles,
     actions: playerActions,
+    images,
     narrativeCandidates,
     intelFragments,
     newsWire,
