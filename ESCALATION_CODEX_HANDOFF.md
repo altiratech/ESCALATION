@@ -3590,3 +3590,35 @@ remain always visible.
 
 1. Review the live graph treatment and confirm the lines are legible enough on desktop and mobile.
 2. If users want more from this section after that, the next likely improvement is better labeling/annotation of inflection points, not a heavier charting system.
+
+## 66.6 2026-03-13 Semantic indicator-color refinement
+
+### 66.6.1 What changed
+
+1. Refined `Operational Indicators` in `apps/web/src/components/MeterDashboard.tsx` so the trend line and delta arrow color now reflect whether the most recent move is good or bad for the player.
+2. Movement semantics are now:
+- green for beneficial change
+- red for harmful change
+- muted neutral for near-flat change
+3. `Escalation Index` is intentionally inverted relative to the other indicators, so a downward move is favorable and an upward move is unfavorable.
+
+### 66.6.2 What passed
+
+1. Validation:
+- `npm run build --workspace @wargames/web`
+- `npm run lint`
+- `npm run ci:phase1`
+
+2. Results:
+- `15/15` test files passed
+- `31/31` tests passed
+- Monte Carlo concentration warnings unchanged and non-blocking
+
+### 66.6.3 Product implication
+
+1. The indicator section now communicates both direction and desirability more clearly for finance-oriented users.
+2. This avoids the previous mismatch where a line could stay in a "good" color while the latest move was actually worsening the situation.
+
+### 66.6.4 Exact next action for resume
+
+1. Review the live semantic coloring and decide whether the section needs a tiny legend or if the current convention is self-explanatory.

@@ -17,24 +17,28 @@ const meterLabels: Record<MeterKey, string> = {
   escalationIndex: 'Escalation Index'
 };
 
-const lineColor = (key: MeterKey, value: number): string => {
+const isPositiveDirection = (key: MeterKey, delta: number): boolean => {
+  if (Math.abs(delta) < 1) {
+    return false;
+  }
   if (key === 'escalationIndex') {
-    if (value > 75) {
-      return '#ff8a5c';
-    }
-    if (value > 55) {
-      return '#f1b300';
-    }
-    return '#72d48f';
+    return delta < 0;
   }
+  return delta > 0;
+};
 
-  if (value >= 65) {
-    return '#72d48f';
+const semanticTrendColor = (key: MeterKey, delta: number): string => {
+  if (Math.abs(delta) < 1) {
+    return '#8fa3b3';
   }
-  if (value >= 40) {
-    return '#61c8ff';
+  return isPositiveDirection(key, delta) ? '#72d48f' : '#ff8a5c';
+};
+
+const semanticTrendTextClass = (key: MeterKey, delta: number): string => {
+  if (Math.abs(delta) < 1) {
+    return 'text-textMuted';
   }
-  return '#ff8a5c';
+  return isPositiveDirection(key, delta) ? 'text-positive' : 'text-red-400';
 };
 
 const trendArrow = (delta: number): string => {
@@ -118,7 +122,8 @@ export const MeterDashboard = ({ meters, previousMeters, visibleRanges, meterHis
           const delta = value - previous;
           const range = visibleRanges[key];
           const historyValues = meterHistory.map((entry) => entry.meters[key]);
-          const color = lineColor(key, value);
+          const color = semanticTrendColor(key, delta);
+          const deltaToneClass = semanticTrendTextClass(key, delta);
 
           return (
             <div key={key} className={`console-subpanel ${embedded ? 'px-2.5 py-2' : 'px-2.5 py-2.5'}`}>
@@ -126,7 +131,7 @@ export const MeterDashboard = ({ meters, previousMeters, visibleRanges, meterHis
                 <span className="text-[0.68rem] uppercase tracking-[0.12em] text-textMuted">{meterLabels[key]}</span>
                 <span className="font-display text-[0.95rem] text-textMain">
                   {Math.round(value)}
-                  <span className="ml-1.5 text-[0.58rem] text-textMuted">
+                  <span className={`ml-1.5 text-[0.58rem] ${deltaToneClass}`}>
                     {trendArrow(delta)} {Math.abs(Math.round(delta))}
                   </span>
                 </span>
