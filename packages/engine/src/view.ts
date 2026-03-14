@@ -21,6 +21,23 @@ export const toEpisodeView = (
 
   const recentTurn = state.history[state.history.length - 1] ?? null;
   const selectedImageId = recentTurn?.selectedImageId ?? null;
+  const meterHistory = state.history.length > 0
+    ? [
+        {
+          window: 0,
+          meters: state.history[0]!.meterBefore
+        },
+        ...state.history.map((entry) => ({
+          window: entry.turn,
+          meters: entry.meterAfter
+        }))
+      ]
+    : [
+        {
+          window: 0,
+          meters: state.meters
+        }
+      ];
   const activeCountdown = state.activeCountdown
     ? (() => {
         const referenceNow = nowMs ?? (state.activeCountdown.expiresAt - state.activeCountdown.secondsRemaining * 1000);
@@ -47,6 +64,7 @@ export const toEpisodeView = (
     turnDebrief: state.turnDebrief,
     visibleRanges,
     intelQuality: state.intelQuality,
+    meterHistory,
     briefing: recentTurn?.narrative ?? state.openingBriefing,
     imageAsset: selectedImageId ? imageMap.get(selectedImageId) ?? null : null,
     offeredActions: state.offeredActionIds.map((id) => actionMap.get(id)).filter((entry): entry is ActionDefinition => Boolean(entry)),

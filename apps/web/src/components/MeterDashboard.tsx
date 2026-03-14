@@ -1,9 +1,10 @@
-import type { MeterKey, MeterRange, MeterState } from '@wargames/shared-types';
+import type { EpisodeMeterHistoryPoint, MeterKey, MeterRange, MeterState } from '@wargames/shared-types';
 
 interface MeterDashboardProps {
   meters: MeterState;
   previousMeters?: MeterState | undefined;
   visibleRanges: Record<MeterKey, MeterRange>;
+  meterHistory: EpisodeMeterHistoryPoint[];
   embedded?: boolean;
 }
 
@@ -16,24 +17,24 @@ const meterLabels: Record<MeterKey, string> = {
   escalationIndex: 'Escalation Index'
 };
 
-const barColor = (key: MeterKey, value: number): string => {
+const lineColor = (key: MeterKey, value: number): string => {
   if (key === 'escalationIndex') {
     if (value > 75) {
-      return 'bg-warning';
+      return '#ff8a5c';
     }
     if (value > 55) {
-      return 'bg-accent';
+      return '#f1b300';
     }
-    return 'bg-positive';
+    return '#72d48f';
   }
 
   if (value >= 65) {
-    return 'bg-positive';
+    return '#72d48f';
   }
   if (value >= 40) {
-    return 'bg-accent';
+    return '#61c8ff';
   }
-  return 'bg-warning';
+  return '#ff8a5c';
 };
 
 const trendArrow = (delta: number): string => {
@@ -64,14 +65,50 @@ const interpretIndicatorState = (meters: MeterState): string => {
   return `${escalation} ${alliance} ${markets}`;
 };
 
-export const MeterDashboard = ({ meters, previousMeters, visibleRanges, embedded = false }: MeterDashboardProps) => {
+const buildSparklinePoints = (values: number[], width: number, height: number, padding = 6): string => {
+  if (values.length === 0) {
+    return '';
+  }
+
+  return values
+    .map((value, index) => {
+      const x = padding + (index / Math.max(1, values.length - 1)) * (width - padding * 2);
+      const y = padding + ((100 - value) / 100) * (height - padding * 2);
+      return `${x.toFixed(2)},${y.toFixed(2)}`;
+    })
+    .join(' ');
+};
+
+const Sparkline = ({ values, color }: { values: number[]; color: string }) => {
+  const width = 220;
+  const height = 72;
+  const padding = 6;
+  const points = buildSparklinePoints(values, width, height);
+  const finalValue = values[values.length - 1] ?? 0;
+  const finalIndex = Math.max(0, values.length - 1);
+  const finalX = padding + (finalIndex / Math.max(1, values.length - 1)) * (width - padding * 2);
+  const finalY = padding + ((100 - finalValue) / 100) * (height - padding * 2);
+
+  return (
+    <svg viewBox={`0 0 ${width} ${height}`} className="h-[4.5rem] w-full">
+      {[20, 50, 80].map((tick) => {
+        const y = 6 + ((100 - tick) / 100) * (height - 12);
+        return <line key={tick} x1="6" x2={width - 6} y1={y} y2={y} stroke="rgba(64, 78, 90, 0.6)" strokeWidth="1" />;
+      })}
+      <polyline points={points} fill="none" stroke={color} strokeWidth="2.5" strokeLinejoin="round" strokeLinecap="round" />
+      <circle cx={finalX} cy={finalY} r="3.5" fill={color} />
+    </svg>
+  );
+};
+
+export const MeterDashboard = ({ meters, previousMeters, visibleRanges, meterHistory, embedded = false }: MeterDashboardProps) => {
   const rootClassName = embedded ? '' : 'console-panel p-3';
 
   return (
     <section className={rootClassName}>
       <div className="flex items-center justify-between gap-3">
         <p className="label">Operational Indicators</p>
-        <span className="text-[0.62rem] uppercase tracking-[0.12em] text-textMuted">Live</span>
+        <span className="text-[0.62rem] uppercase tracking-[0.12em] text-textMuted">Window trend</span>
       </div>
       <p className="mt-2 text-[0.72rem] leading-relaxed text-textMuted">{interpretIndicatorState(meters)}</p>
       <div className="mt-3 grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
@@ -80,6 +117,8 @@ export const MeterDashboard = ({ meters, previousMeters, visibleRanges, embedded
           const previous = previousMeters?.[key] ?? value;
           const delta = value - previous;
           const range = visibleRanges[key];
+          const historyValues = meterHistory.map((entry) => entry.meters[key]);
+          const color = lineColor(key, value);
 
           return (
             <div key={key} className={`console-subpanel ${embedded ? 'px-2.5 py-2' : 'px-2.5 py-2.5'}`}>
@@ -93,16 +132,14 @@ export const MeterDashboard = ({ meters, previousMeters, visibleRanges, embedded
                 </span>
               </div>
 
-              <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-surface">
-                <div
-                  className={`h-full ${barColor(key, value)}`}
-                  style={{ width: `${value}%` }}
-                />
+              <div className="mt-2 rounded-sm border border-borderTone/60 bg-surface/45 px-1 py-1">
+                <Sparkline values={historyValues} color={color} />
               </div>
 
-              <p className="mt-1.5 text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">
-                Intel: {range.low}-{range.high} (conf. {range.confidence})
-              </p>
+              <div className="mt-1.5 flex items-center justify-between gap-2 text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">
+                <span>Intel: {range.low}-{range.high}</span>
+                <span>Conf. {range.confidence}</span>
+              </div>
             </div>
           );
         })}

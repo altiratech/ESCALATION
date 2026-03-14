@@ -3546,3 +3546,47 @@ remain always visible.
 - the new `Theater Diagram` is useful and legible
 - the dossier visual feels like the right home for the atmospheric image
 2. If users still feel crowding after this pass, the next likely fix is tighter copy and fewer items inside each secondary section, not another new surface.
+
+## 66. Flashpoint Operational Indicators Trend Graphs (2026-03-13 ET)
+
+### 66.1 What changed
+
+1. Replaced the bar-style `Operational Indicators` cards with compact line-graph cards in the live briefing surface.
+2. Added real meter-history support to `EpisodeView` so the web app can render trends from actual simulation history rather than synthetic values.
+3. Kept the implementation deliberately lightweight:
+- inline SVG sparklines only
+- no chart library
+- current value and last-window delta still shown on each card
+
+### 66.2 Files changed
+
+1. Live web app:
+- `apps/web/src/App.tsx`
+- `apps/web/src/components/BriefingPanel.tsx`
+- `apps/web/src/components/MeterDashboard.tsx`
+
+2. Shared/engine:
+- `packages/shared-types/src/index.ts`
+- `packages/engine/src/view.ts`
+
+### 66.3 What passed
+
+1. Validation:
+- `npm run lint`
+- `npm run build --workspace @wargames/web`
+- `npm run ci:phase1`
+
+2. Results:
+- `15/15` test files passed
+- `31/31` tests passed
+- Monte Carlo concentration warnings unchanged and non-blocking
+
+### 66.4 Product implication
+
+1. `Operational Indicators` now show trajectory, not just current level, which should make the page more useful for finance-oriented users reading pressure over time.
+2. This keeps the visual layer simple and durable while still making the indicator section feel materially richer.
+
+### 66.5 Exact next action for resume
+
+1. Review the live graph treatment and confirm the lines are legible enough on desktop and mobile.
+2. If users want more from this section after that, the next likely improvement is better labeling/annotation of inflection points, not a heavier charting system.

@@ -866,6 +866,11 @@ export interface CompressedStateSummary {
   adversaryPosture: string;
 }
 
+export interface EpisodeMeterHistoryPoint {
+  window: number;
+  meters: MeterState;
+}
+
 export interface InterpretedAction {
   actionId: string;
   confidence: number;
@@ -898,6 +903,7 @@ export interface EpisodeView {
   turnDebrief: TurnDebrief | null;
   visibleRanges: Record<MeterKey, MeterRange>;
   intelQuality: IntelQualityState;
+  meterHistory: EpisodeMeterHistoryPoint[];
   briefing: NarrativeBundle;
   imageAsset: ImageAsset | null;
   offeredActions: ActionDefinition[];
