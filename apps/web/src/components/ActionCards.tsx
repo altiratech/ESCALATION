@@ -1,19 +1,41 @@
 import { useMemo, useState, type ReactNode } from 'react';
 
-import type { ActionDefinition } from '@wargames/shared-types';
+import type { ActionDefinition, ActionNarrativePhaseContent, ActionVariantDefinition } from '@wargames/shared-types';
 
 interface ActionCardsProps {
   actions: ActionDefinition[];
   disabled: boolean;
   selectedActionId: string | null;
+  selectedVariantId?: string | null;
   selectedVariantLabel?: string | null;
   selectedCustomLabel?: string | null;
   selectedInterpretationRationale?: string | null;
   selectedNarrativeEmphasis?: string | null;
+  selectedActionNarrativePreview?: ActionNarrativePhaseContent | null;
   actionAdvisorSummaries: Map<string, { supports: number; cautions: number; opposes: number }>;
   customResponseSlot?: ReactNode;
   onSelect: (actionId: string) => void;
 }
+
+const getDefaultVariant = (action: ActionDefinition): ActionVariantDefinition | null => {
+  if (!action.variants || action.variants.length === 0) {
+    return null;
+  }
+
+  return (
+    action.variants.find((variant) => variant.id === action.defaultVariantId || variant.isDefault) ??
+    action.variants[0] ??
+    null
+  );
+};
+
+const getSelectedVariant = (action: ActionDefinition, selectedVariantId?: string | null): ActionVariantDefinition | null => {
+  if (!selectedVariantId) {
+    return getDefaultVariant(action);
+  }
+
+  return action.variants?.find((variant) => variant.id === selectedVariantId) ?? getDefaultVariant(action);
+};
 
 const visibilityTone = (visibility: ActionDefinition['visibility']): string => {
   if (visibility === 'public') {
@@ -100,14 +122,144 @@ const actionOneLiner = (action: ActionDefinition): string => {
   return action.summary;
 };
 
+const hiddenDownsideMeta = (category?: string | null): { label: string; detail: string } | null => {
+  if (!category) {
+    return null;
+  }
+
+  const map: Record<string, { label: string; detail: string }> = {
+    attribution: {
+      label: 'Attribution risk',
+      detail: 'The move can be traced back quickly enough to erase deniability and invite direct counterpressure.'
+    },
+    collection_overreach: {
+      label: 'Collection overreach',
+      detail: 'The push for clarity can expose methods or create a noisy intelligence picture that is harder to trust.'
+    },
+    counterintrusion: {
+      label: 'Counterintrusion',
+      detail: 'A stronger defensive or cyber move can trigger a reciprocal probe against allied or commercial systems.'
+    },
+    exposure: {
+      label: 'Exposure risk',
+      detail: 'A move meant to stay contained can leak, forcing public explanation before the coalition is ready.'
+    },
+    false_relief: {
+      label: 'False relief',
+      detail: 'A calmer signal can disguise a harder follow-on move and pull operators into lowering their guard too early.'
+    },
+    financial_spillover: {
+      label: 'Financial spillover',
+      detail: 'What begins as a strategic move can quickly widen into margin stress, funding pressure, and broader market instability.'
+    },
+    force_burn: {
+      label: 'Force burn',
+      detail: 'Visible readiness can consume limited capacity faster than planners can replenish it.'
+    },
+    humiliation: {
+      label: 'Humiliation risk',
+      detail: 'If the counterpart reads the move as public humiliation, the next step can become more retaliatory and less reversible.'
+    },
+    market_panic: {
+      label: 'Market panic',
+      detail: 'Markets may treat the move as the start of a worse branch and reprice faster than governments can steady expectations.'
+    },
+    miscalculation: {
+      label: 'Miscalculation',
+      detail: 'The move can be read as preparation for something larger, increasing the odds of an unnecessary collision.'
+    },
+    misread_weakness: {
+      label: 'Misread weakness',
+      detail: 'A cautious move can be interpreted as hesitation, encouraging a harder test instead of restraint.'
+    },
+    normalized_coercion: {
+      label: 'Normalized coercion',
+      detail: 'If pressure is left partially unanswered, it can harden into a new operating baseline around the corridor.'
+    },
+    panic_buying: {
+      label: 'Panic buying',
+      detail: 'Commercial actors may rush to secure inventory and routing, worsening shortages and price shock.'
+    },
+    panic_signal: {
+      label: 'Panic signal',
+      detail: 'The move itself may communicate alarm, convincing allies and markets that the worst case is closer than they thought.'
+    },
+    public_commitment: {
+      label: 'Public commitment trap',
+      detail: 'Once the line is public, backing away becomes reputationally harder even if conditions change.'
+    },
+    reciprocal_cyber: {
+      label: 'Reciprocal cyber',
+      detail: 'The move can invite a symmetric digital response against logistics, communications, or commercial infrastructure.'
+    },
+    retaliatory_cyber: {
+      label: 'Retaliatory cyber',
+      detail: 'Counterpressure may surface first in cyber channels instead of the visible military lane.'
+    },
+    retaliatory_pressure: {
+      label: 'Retaliatory pressure',
+      detail: 'A firmer move can trigger an immediate answer intended to prove the counterpart still controls the pace.'
+    },
+    slow_rollout: {
+      label: 'Slow rollout',
+      detail: 'The move may be too gradual to shape expectations before the next shock arrives.'
+    },
+    strategic_retreat: {
+      label: 'Strategic retreat signal',
+      detail: 'The move can be read as preparing to step back rather than preparing to hold the line.'
+    },
+    systemic_spillover: {
+      label: 'Systemic spillover',
+      detail: 'The damage can escape the immediate theater and begin stressing the wider financial and operating system.'
+    },
+    underreaction: {
+      label: 'Underreaction',
+      detail: 'A moderate signal can buy time but also leave the other side believing the pressure remains cheap.'
+    },
+    visible_blink: {
+      label: 'Visible blink',
+      detail: 'If the move looks like a concession, allies and markets may start planning around a weaker coalition line.'
+    }
+  };
+
+  return map[category] ?? {
+    label: 'Hidden downside',
+    detail: 'This move carries a delayed risk that may not be obvious until the next decision window.'
+  };
+};
+
+const firstShockLine = (action: ActionDefinition): string => {
+  const loweredTags = action.tags.map((tag) => tag.toLowerCase());
+
+  if (loweredTags.includes('economic')) {
+    return 'First shock will likely show up in funding, freight, insurance, and inventory planning.';
+  }
+  if (loweredTags.includes('intel')) {
+    return 'First effect lands in the picture itself: attribution, confidence, and warning time.';
+  }
+  if (loweredTags.includes('military')) {
+    return 'First effect lands in operational tempo and how seriously the counterpart takes the coalition posture.';
+  }
+  if (loweredTags.includes('diplomacy')) {
+    return 'First effect lands in signaling and whether allies see room for a controlled offramp.';
+  }
+  if (loweredTags.includes('messaging')) {
+    return 'First effect lands in public interpretation, coalition messaging, and market sentiment.';
+  }
+
+  return 'First effect lands in how the counterpart, allies, and commercial operators interpret the next move.';
+};
+
 export const ActionCards = ({
   actions,
   disabled,
   selectedActionId,
+  selectedVariantId,
   selectedVariantLabel,
   selectedCustomLabel,
   selectedInterpretationRationale,
   selectedNarrativeEmphasis,
+  selectedActionNarrativePreview,
   actionAdvisorSummaries,
   customResponseSlot,
   onSelect
@@ -121,6 +273,10 @@ export const ActionCards = ({
   const selectedAction = useMemo(
     () => sorted.find((entry) => entry.id === selectedActionId) ?? null,
     [selectedActionId, sorted]
+  );
+  const selectedVariant = useMemo(
+    () => (selectedAction ? getSelectedVariant(selectedAction, selectedVariantId) : null),
+    [selectedAction, selectedVariantId]
   );
 
   return (
@@ -159,6 +315,8 @@ export const ActionCards = ({
         {sorted.map((action) => {
           const active = action.id === selectedActionId;
           const summary = actionAdvisorSummaries.get(action.id) ?? { supports: 0, cautions: 0, opposes: 0 };
+          const defaultVariant = getDefaultVariant(action);
+          const downside = hiddenDownsideMeta(defaultVariant?.hiddenDownsideCategory);
           return (
             <button
               key={action.id}
@@ -185,7 +343,10 @@ export const ActionCards = ({
                     {action.tags.slice(0, 2).join(' · ') || 'Response option'}
                   </p>
                   <p className="mt-2 text-[0.69rem] leading-relaxed text-textMain/90">
-                    {actionOneLiner(action)}
+                    {defaultVariant?.summary ?? actionOneLiner(action)}
+                  </p>
+                  <p className="mt-1 text-[0.65rem] leading-relaxed text-textMuted">
+                    {downside ? `${downside.label}: ${downside.detail}` : firstShockLine(action)}
                   </p>
                   <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1">
                     <span className="px-0.5 py-0.5 text-[0.54rem] uppercase tracking-[0.12em] text-positive">
@@ -233,8 +394,12 @@ export const ActionCards = ({
 
             <div className="space-y-2">
               <p className="label">Immediate Move</p>
-              <p className="text-[0.8rem] leading-relaxed text-textMain">{actionOneLiner(selectedAction)}</p>
-              <p className="text-[0.72rem] leading-relaxed text-textMuted">{selectedAction.summary}</p>
+              <p className="text-[0.8rem] leading-relaxed text-textMain">
+                {selectedVariant?.summary ?? actionOneLiner(selectedAction)}
+              </p>
+              <p className="text-[0.72rem] leading-relaxed text-textMuted">
+                {selectedAction.summary}
+              </p>
             </div>
 
             {selectedInterpretationRationale || selectedNarrativeEmphasis ? (
@@ -257,21 +422,43 @@ export const ActionCards = ({
               <div className="grid gap-2 lg:grid-cols-2">
                 <div className="console-subpanel px-3 py-2.5">
                   <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Counterpart Read</p>
-                  <p className="mt-1 text-[0.72rem] leading-relaxed text-textMain">{postureHint(selectedAction)}</p>
+                  <p className="mt-1 text-[0.72rem] leading-relaxed text-textMain">
+                    {selectedActionNarrativePreview?.rivalReaction ?? postureHint(selectedAction)}
+                  </p>
                 </div>
                 <div className="console-subpanel px-3 py-2.5">
-                  <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">First External Reaction</p>
-                  <p className="mt-1 text-[0.72rem] leading-relaxed text-textMain">{visibilityHint(selectedAction.visibility)}</p>
+                  <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Alliance / Market Read</p>
+                  <p className="mt-1 text-[0.72rem] leading-relaxed text-textMain">
+                    {selectedActionNarrativePreview?.allianceReaction ?? visibilityHint(selectedAction.visibility)}
+                  </p>
                 </div>
                 <div className="console-subpanel px-3 py-2.5">
-                  <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Market / Commercial Effect</p>
-                  <p className="mt-1 text-[0.72rem] leading-relaxed text-textMain">{firstImpactHint(selectedAction)}</p>
+                  <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">If This Lands</p>
+                  <p className="mt-1 text-[0.72rem] leading-relaxed text-textMain">
+                    {selectedActionNarrativePreview?.successOutcome ?? firstImpactHint(selectedAction)}
+                  </p>
                 </div>
                 <div className="console-subpanel px-3 py-2.5">
-                  <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">If This Backfires</p>
-                  <p className="mt-1 text-[0.72rem] leading-relaxed text-textMain">{riskHint(selectedAction)}</p>
+                  <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Delayed Risk</p>
+                  <p className="mt-1 text-[0.72rem] leading-relaxed text-textMain">
+                    {selectedActionNarrativePreview?.complicationOutcome ??
+                      hiddenDownsideMeta(selectedVariant?.hiddenDownsideCategory)?.detail ??
+                      riskHint(selectedAction)}
+                  </p>
                 </div>
-            </div>
+              </div>
+
+              {selectedVariant?.hiddenDownsideCategory ? (
+                <div className="rounded-md border border-borderTone/80 bg-panelRaised/35 px-3 py-2.5">
+                  <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Hidden Downside</p>
+                  <p className="mt-1 text-[0.72rem] leading-relaxed text-textMain">
+                    {hiddenDownsideMeta(selectedVariant.hiddenDownsideCategory)?.label ?? 'Delayed downside'}{' '}
+                    <span className="text-textMuted">
+                      {hiddenDownsideMeta(selectedVariant.hiddenDownsideCategory)?.detail}
+                    </span>
+                  </p>
+                </div>
+              ) : null}
 
             <div className="flex flex-wrap gap-1.5">
               {selectedAction.tags.map((tag) => (

@@ -4,6 +4,7 @@ import type {
   ActionNarrativePhaseContent,
   BeatTruthModel,
   EpisodeMeterHistoryPoint,
+  MeterKey,
   MeterState,
   NarrativeBundle,
   ScenarioContextSection,
@@ -33,6 +34,12 @@ interface BriefingPanelProps {
     phaseLabel: string;
     detail: ActionNarrativePhaseContent;
   } | null;
+  recentResolvedAction: {
+    label: string;
+    summary: string | null;
+    hiddenDownsideCategory: string | null;
+    narrativeEmphasis: string | null;
+  } | null;
   phaseTransition: {
     key: string;
     fromLabel: string;
@@ -40,6 +47,7 @@ interface BriefingPanelProps {
     fragments: string[];
   } | null;
   meters: MeterState;
+  meterLabels: Record<MeterKey, string>;
   previousMeters?: MeterState | undefined;
   meterHistory: EpisodeMeterHistoryPoint[];
 }
@@ -61,6 +69,73 @@ const sectionLabels: Record<BriefingSectionId, string> = {
 const normalizeTickerLine = (value: string): string =>
   value.replace(/^(risk|market)\s+ticker:\s*/i, '').trim();
 
+const hiddenDownsideLabel = (category?: string | null): string => {
+  if (!category) {
+    return 'Delayed downside';
+  }
+
+  const labels: Record<string, string> = {
+    attribution: 'Attribution risk',
+    collection_overreach: 'Collection overreach',
+    counterintrusion: 'Counterintrusion',
+    exposure: 'Exposure risk',
+    false_relief: 'False relief',
+    financial_spillover: 'Financial spillover',
+    force_burn: 'Force burn',
+    humiliation: 'Humiliation risk',
+    market_panic: 'Market panic',
+    miscalculation: 'Miscalculation',
+    misread_weakness: 'Misread weakness',
+    normalized_coercion: 'Normalized coercion',
+    panic_buying: 'Panic buying',
+    panic_signal: 'Panic signal',
+    public_commitment: 'Public commitment trap',
+    reciprocal_cyber: 'Reciprocal cyber',
+    retaliatory_cyber: 'Retaliatory cyber',
+    retaliatory_pressure: 'Retaliatory pressure',
+    slow_rollout: 'Slow rollout',
+    strategic_retreat: 'Strategic retreat signal',
+    systemic_spillover: 'Systemic spillover',
+    underreaction: 'Underreaction',
+    visible_blink: 'Visible blink'
+  };
+
+  return labels[category] ?? 'Delayed downside';
+};
+
+const describeMeterShift = (key: MeterKey, label: string, delta: number): string => {
+  const amount = Math.abs(delta);
+  if (key === 'economicStability') {
+    return delta < 0
+      ? `${label} weakened by ${amount} points, which means commercial conditions felt more fragile immediately.`
+      : `${label} improved by ${amount} points, which means commercial conditions absorbed the move better than expected.`;
+  }
+  if (key === 'energySecurity') {
+    return delta < 0
+      ? `${label} fell by ${amount} points, suggesting logistics and supply channels took new strain.`
+      : `${label} improved by ${amount} points, suggesting logistics pressure eased enough to steady planning.`;
+  }
+  if (key === 'domesticCohesion') {
+    return delta < 0
+      ? `${label} fell by ${amount} points, meaning the political system absorbed the move less comfortably than hoped.`
+      : `${label} improved by ${amount} points, meaning the domestic read held together better than expected.`;
+  }
+  if (key === 'militaryReadiness') {
+    return delta < 0
+      ? `${label} slipped by ${amount} points, reducing immediate operating slack.`
+      : `${label} rose by ${amount} points, increasing visible operating posture and readiness.`;
+  }
+  if (key === 'allianceTrust') {
+    return delta < 0
+      ? `${label} fell by ${amount} points, which means coalition discipline took a visible hit.`
+      : `${label} improved by ${amount} points, which means allied alignment strengthened around the move.`;
+  }
+
+  return delta > 0
+    ? `${label} rose by ${amount} points, making the next window more dangerous and compressed.`
+    : `${label} fell by ${amount} points, reopening some room before the next hard choice.`;
+};
+
 export const BriefingPanel = ({
   turn,
   briefing,
@@ -70,8 +145,10 @@ export const BriefingPanel = ({
   supportingSignals,
   turnDebrief,
   recentActionNarrative,
+  recentResolvedAction,
   phaseTransition,
   meters,
+  meterLabels,
   previousMeters,
   meterHistory
 }: BriefingPanelProps) => {
@@ -150,6 +227,45 @@ export const BriefingPanel = ({
           accent: 'text-warning'
         }
       ] as const).filter((section) => section.items.length > 0)
+    : [];
+  const recentMeterShifts = useMemo(() => {
+    if (!previousMeters) {
+      return [];
+    }
+
+    return (Object.keys(meters) as MeterKey[])
+      .map((key) => ({
+        key,
+        label: meterLabels[key],
+        delta: meters[key] - previousMeters[key]
+      }))
+      .filter((entry) => entry.delta !== 0)
+      .sort((left, right) => Math.abs(right.delta) - Math.abs(left.delta))
+      .slice(0, 2);
+  }, [meterLabels, meters, previousMeters]);
+  const immediateOutcomeCards = recentActionNarrative
+    ? [
+        {
+          id: 'main_shift',
+          label: 'Main Shift',
+          body:
+            recentMeterShifts[0]
+              ? describeMeterShift(recentMeterShifts[0].key, recentMeterShifts[0].label, recentMeterShifts[0].delta)
+              : 'The move changed the pressure picture, but not through one overwhelming visible shift.'
+        },
+        {
+          id: 'best_case',
+          label: 'If This Holds',
+          body: recentActionNarrative.detail.successOutcome
+        },
+        {
+          id: 'new_risk',
+          label: recentResolvedAction?.hiddenDownsideCategory
+            ? hiddenDownsideLabel(recentResolvedAction.hiddenDownsideCategory)
+            : 'New Risk',
+          body: recentActionNarrative.detail.complicationOutcome
+        }
+      ]
     : [];
 
   const renderHeadlineItem = (headline: string, index: number, sourceIndex: number) => {
@@ -303,6 +419,22 @@ export const BriefingPanel = ({
       {turnDebrief && turnDebrief.lines.length > 0 ? (
         <section className="console-subpanel px-3 py-3">
           <p className="label">Immediate Outcome</p>
+          {recentResolvedAction ? (
+            <p className="mt-2 text-[0.68rem] leading-relaxed text-textMuted">
+              Last move: <span className="text-textMain">{recentResolvedAction.label}</span>
+              {recentResolvedAction.summary ? ` // ${recentResolvedAction.summary}` : ''}
+            </p>
+          ) : null}
+          {immediateOutcomeCards.length > 0 ? (
+            <div className="mt-3 grid gap-2 xl:grid-cols-3">
+              {immediateOutcomeCards.map((card) => (
+                <article key={card.id} className="rounded-md border border-borderTone/70 bg-panelRaised/35 px-3 py-2.5">
+                  <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">{card.label}</p>
+                  <p className="mt-1 text-[0.72rem] leading-relaxed text-textMain">{card.body}</p>
+                </article>
+              ))}
+            </div>
+          ) : null}
           <div className="mt-2 space-y-2 text-[0.76rem] leading-relaxed text-textMuted">
             {turnDebrief.lines.map((entry, index) => (
               <p key={`${entry.tag}-${index}`}>

@@ -200,12 +200,35 @@ const actionNarrativePhaseOrder = (phase: BeatPhase | null | undefined): BeatPha
   );
 };
 
+const resolveActionNarrativeDetail = (
+  narratives: BootstrapPayload['actionNarratives'],
+  actionId: string,
+  phase: BeatPhase | null | undefined
+): ActionNarrativePhaseContent | null => {
+  const actionNarrative = narratives.find((entry) => entry.actionId === actionId);
+  if (!actionNarrative) {
+    return null;
+  }
+
+  return actionNarrativePhaseOrder(phase).reduce<ActionNarrativePhaseContent | null>(
+    (selected, currentPhase) => selected ?? actionNarrative.phases[currentPhase] ?? null,
+    null
+  );
+};
+
 const formatPhaseLabel = (phase: BeatPhase): string => phase.charAt(0).toUpperCase() + phase.slice(1);
 
 interface RecentActionNarrativeView {
   actionName: string;
   phaseLabel: string;
   detail: ActionNarrativePhaseContent;
+}
+
+interface ResolvedActionOutcomeContext {
+  label: string;
+  summary: string | null;
+  hiddenDownsideCategory: string | null;
+  narrativeEmphasis: string | null;
 }
 
 interface SelectedResponseSelection {
@@ -362,17 +385,13 @@ const App = () => {
     }
 
     const action = reference.actions.find((entry) => entry.id === episode.recentTurn?.playerActionId);
-    const actionNarrative = reference.actionNarratives.find((entry) => entry.actionId === episode.recentTurn?.playerActionId);
     const beatBefore = currentScenario.beats.find((beat) => beat.id === episode.recentTurn?.beatIdBefore);
 
-    if (!action || !actionNarrative) {
+    if (!action) {
       return null;
     }
 
-    const detail = actionNarrativePhaseOrder(beatBefore?.phase).reduce<ActionNarrativePhaseContent | null>(
-      (selected, phase) => selected ?? actionNarrative.phases[phase] ?? null,
-      null
-    );
+    const detail = resolveActionNarrativeDetail(reference.actionNarratives, action.id, beatBefore?.phase);
 
     if (!detail) {
       return null;
@@ -387,6 +406,37 @@ const App = () => {
       detail
     };
   }, [currentScenario, episode?.recentTurn, reference]);
+  const selectedActionNarrativePreview = useMemo<ActionNarrativePhaseContent | null>(() => {
+    if (!reference || !selectedAction) {
+      return null;
+    }
+
+    return resolveActionNarrativeDetail(reference.actionNarratives, selectedAction.id, currentBeat?.phase);
+  }, [currentBeat?.phase, reference, selectedAction]);
+  const recentResolvedAction = useMemo<ResolvedActionOutcomeContext | null>(() => {
+    if (!reference || !episode?.recentTurn) {
+      return null;
+    }
+
+    const action = reference.actions.find((entry) => entry.id === episode.recentTurn?.playerActionId);
+    if (!action) {
+      return null;
+    }
+
+    const variant = episode.recentTurn.playerActionVariantId
+      ? action.variants?.find((entry) => entry.id === episode.recentTurn?.playerActionVariantId) ?? null
+      : getDefaultVariant(action);
+
+    return {
+      label:
+        episode.recentTurn.playerActionCustomLabel ??
+        episode.recentTurn.playerActionVariantLabel ??
+        action.name,
+      summary: variant?.summary ?? action.summary,
+      hiddenDownsideCategory: variant?.hiddenDownsideCategory ?? null,
+      narrativeEmphasis: variant?.narrativeEmphasis ?? null
+    };
+  }, [episode?.recentTurn, reference]);
   const phaseTransition = useMemo(() => {
     if (!currentScenario || !currentBeat || !currentCinematics || !episode?.recentTurn) {
       return null;
@@ -1083,8 +1133,10 @@ const App = () => {
             supportingSignals={supportingSignals}
             turnDebrief={episode.turnDebrief}
             recentActionNarrative={recentActionNarrative}
+            recentResolvedAction={recentResolvedAction}
             phaseTransition={phaseTransition}
             meters={episode.meters}
+            meterLabels={episode.meterLabels}
             previousMeters={episode.recentTurn?.meterBefore}
             meterHistory={episode.meterHistory}
           />
@@ -1164,10 +1216,12 @@ const App = () => {
               actions={episode.offeredActions}
               disabled={loading || episode.status !== 'active'}
               selectedActionId={selectedResponse?.actionId ?? null}
+              selectedVariantId={selectedResponse?.variantId ?? null}
               selectedVariantLabel={selectedResponse?.variantLabel ?? null}
               selectedCustomLabel={selectedResponse?.customLabel ?? null}
               selectedInterpretationRationale={selectedResponse?.interpretationRationale ?? null}
               selectedNarrativeEmphasis={selectedResponse?.narrativeEmphasis ?? selectedVariant?.narrativeEmphasis ?? null}
+              selectedActionNarrativePreview={selectedActionNarrativePreview}
               actionAdvisorSummaries={actionAdvisorSummaries}
               customResponseSlot={
                 <CommandInput
