@@ -1,139 +1,280 @@
-{
-  "scenarioId": "northern_strait_flashpoint",
-  "adversaryProfileId": "calculated_technocrat",
-  "leader": {
-    "title": "Central Security Commission Vice Chair",
-    "publicName": "Lin Wenqiao",
-    "aliases": [
-      "LIN-7",
-      "The Systems Planner",
-      "Jade Compass"
-    ],
-    "age": "59-64",
-    "background": "Lin Wenqiao is a fictional senior Chinese security official written for scenario purposes. In the simulation's public profile, Lin rose through the party-state system by specializing in maritime security, industrial vulnerability analysis, and strategic technology planning. He built influence not as a charismatic nationalist but as a manager of complex campaigns who could align security organs, economic planners, and external messaging around a single objective. In a Taiwan Strait contingency, Lin represents the type of crisis manager who believes pressure works best when it stays just below the threshold that would automatically unify the coalition against Beijing.",
-    "psychologicalProfile": {
-      "summary": "Lin is a disciplined coercive strategist. He prefers pressure that accumulates through shipping risk, information control, cyber activity, and alliance doubt rather than immediate war. He is rational about costs, but highly sensitive to any sign that Beijing has lost face or ceded initiative.",
-      "strengths": [
-        "Integrates military, economic, and information levers into a single pressure campaign",
-        "Understands how commercial anxiety can become strategic leverage in a Taiwan crisis",
-        "Maintains tight message discipline and rarely improvises in public",
-        "Prefers reversible pressure, which gives him room to probe without fully committing"
+[
+  {
+    "scenarioId": "northern_strait_flashpoint",
+    "adversaryProfileId": "calculated_technocrat",
+    "leader": {
+      "title": "Central Security Commission Vice Chair",
+      "publicName": "Lin Wenqiao",
+      "aliases": [
+        "LIN-7",
+        "The Systems Planner",
+        "Jade Compass"
       ],
-      "vulnerabilities": [
-        "Can overestimate how quickly commercial pain will fracture allied resolve",
-        "Relies heavily on filtered reporting from disciplined subordinates and can miss political emotion outside elite circles",
-        "Faces career and political danger if a coercive campaign visibly fails",
-        "May escalate too late or too abruptly if he concludes incremental pressure is losing effect"
-      ],
-      "decisionStyle": "Lin decides through sequenced pressure tests. He prefers to apply multiple moderate levers at once, monitor the coalition's reaction, then intensify only where he sees hesitation or economic vulnerability. Under time pressure he becomes more centralized and more conservative about steps that could trigger direct U.S.-China combat.",
-      "riskAppetite": "He accepts sustained gray-zone risk and serious economic friction, but he dislikes binary gambles that could produce immediate battlefield humiliation or uncontrollable financial spillover.",
-      "informationDiet": "Lin trusts intelligence reporting, shipping and market indicators, and internal industrial data more than speeches. He pays particular attention to alliance statements, commercial rerouting, semiconductor disruption signals, and whether Taiwan appears politically isolated or reassured."
-    },
-    "motivations": {
-      "primary": "To demonstrate that Beijing can coerce changes in the Taiwan Strait without paying the price of a full regional war.",
-      "secondary": "To prove internally that disciplined pressure, not impulsive nationalism, is the smarter path to strategic gains.",
-      "redLine": "A visible move that appears to formalize Taiwan's political separation under allied military cover or that inflicts humiliating losses on PRC forces.",
-      "goldenBridge": "A pathway where Beijing can claim it forced new caution, consultation, or de-risking behavior from the coalition without having to admit failure."
-    },
-    "pressurePoints": [
-      {
-        "id": "export_dependence",
-        "name": "Export and technology exposure",
-        "description": "Lin knows prolonged confrontation risks accelerating coordinated controls on technology, finance, and trade channels that matter to Chinese growth.",
-        "exploitability": "Sustained allied coordination on high-value technologies and finance raises the domestic cost of his strategy.",
-        "risk": "Too much pressure too quickly can make him argue that Beijing has little left to lose."
+      "age": "59-64",
+      "background": "Lin Wenqiao is a fictional senior Chinese security official written for scenario purposes. In the simulation's public profile, Lin rose through the party-state system by specializing in maritime security, industrial vulnerability analysis, and strategic technology planning. He built influence not as a charismatic nationalist but as a manager of complex campaigns who could align security organs, economic planners, and external messaging around a single objective. In a Taiwan Strait contingency, Lin represents the type of crisis manager who believes pressure works best when it stays just below the threshold that would automatically unify the coalition against Beijing.",
+      "psychologicalProfile": {
+        "summary": "Lin is a disciplined coercive strategist. He prefers pressure that accumulates through shipping risk, information control, cyber activity, and alliance doubt rather than immediate war. He is rational about costs, but highly sensitive to any sign that Beijing has lost face or ceded initiative.",
+        "strengths": [
+          "Integrates military, economic, and information levers into a single pressure campaign",
+          "Understands how commercial anxiety can become strategic leverage in a Taiwan crisis",
+          "Maintains tight message discipline and rarely improvises in public",
+          "Prefers reversible pressure, which gives him room to probe without fully committing"
+        ],
+        "vulnerabilities": [
+          "Can overestimate how quickly commercial pain will fracture allied resolve",
+          "Relies heavily on filtered reporting from disciplined subordinates and can miss political emotion outside elite circles",
+          "Faces career and political danger if a coercive campaign visibly fails",
+          "May escalate too late or too abruptly if he concludes incremental pressure is losing effect"
+        ],
+        "decisionStyle": "Lin decides through sequenced pressure tests. He prefers to apply multiple moderate levers at once, monitor the coalition's reaction, then intensify only where he sees hesitation or economic vulnerability. Under time pressure he becomes more centralized and more conservative about steps that could trigger direct U.S.-China combat.",
+        "riskAppetite": "He accepts sustained gray-zone risk and serious economic friction, but he dislikes binary gambles that could produce immediate battlefield humiliation or uncontrollable financial spillover.",
+        "informationDiet": "Lin trusts intelligence reporting, shipping and market indicators, and internal industrial data more than speeches. He pays particular attention to alliance statements, commercial rerouting, semiconductor disruption signals, and whether Taiwan appears politically isolated or reassured."
       },
-      {
-        "id": "alliance_denial",
-        "name": "Failed alliance-splitting efforts",
-        "description": "His model assumes coalition hesitation can be widened over time through economic pain and fear of war.",
-        "exploitability": "Visible, repeated alliance cohesion directly undercuts his preferred method of leverage.",
-        "risk": "If unity looks permanent, Lin may favor sharper coercive moves to regain initiative."
+      "motivations": {
+        "primary": "To demonstrate that Beijing can coerce changes in the Taiwan Strait without paying the price of a full regional war.",
+        "secondary": "To prove internally that disciplined pressure, not impulsive nationalism, is the smarter path to strategic gains.",
+        "redLine": "A visible move that appears to formalize Taiwan's political separation under allied military cover or that inflicts humiliating losses on PRC forces.",
+        "goldenBridge": "A pathway where Beijing can claim it forced new caution, consultation, or de-risking behavior from the coalition without having to admit failure."
       },
-      {
-        "id": "domestic_face",
-        "name": "Elite perception of resolve",
-        "description": "Lin can tolerate compromise only if it does not look like strategic retreat inside Beijing's internal system.",
-        "exploitability": "Private off-ramps that preserve public face are more likely to move him than public humiliation.",
-        "risk": "Publicly cornering him can empower hardliners and narrow the space for de-escalation."
+      "pressurePoints": [
+        {
+          "id": "export_dependence",
+          "name": "Export and technology exposure",
+          "description": "Lin knows prolonged confrontation risks accelerating coordinated controls on technology, finance, and trade channels that matter to Chinese growth.",
+          "exploitability": "Sustained allied coordination on high-value technologies and finance raises the domestic cost of his strategy.",
+          "risk": "Too much pressure too quickly can make him argue that Beijing has little left to lose."
+        },
+        {
+          "id": "alliance_denial",
+          "name": "Failed alliance-splitting efforts",
+          "description": "His model assumes coalition hesitation can be widened over time through economic pain and fear of war.",
+          "exploitability": "Visible, repeated alliance cohesion directly undercuts his preferred method of leverage.",
+          "risk": "If unity looks permanent, Lin may favor sharper coercive moves to regain initiative."
+        },
+        {
+          "id": "domestic_face",
+          "name": "Elite perception of resolve",
+          "description": "Lin can tolerate compromise only if it does not look like strategic retreat inside Beijing's internal system.",
+          "exploitability": "Private off-ramps that preserve public face are more likely to move him than public humiliation.",
+          "risk": "Publicly cornering him can empower hardliners and narrow the space for de-escalation."
+        },
+        {
+          "id": "commercial_feedback",
+          "name": "Commercial blowback",
+          "description": "He relies on coercion remaining politically manageable at home despite market strain and supply-chain disruption.",
+          "exploitability": "Evidence that the crisis is damaging Chinese firms, ports, finance, and employment can force recalibration.",
+          "risk": "If Beijing believes the U.S. is weaponizing global commerce broadly, Lin may support broader retaliation."
+        }
+      ],
+      "intelFragments": {
+        "opening": [
+          "Intercepts suggest Lin initially preferred calibrated maritime pressure over any declared exclusion zone.",
+          "Commercial shipping data appears in his briefing packets alongside PLA readiness metrics."
+        ],
+        "rising": [
+          "Lin is reportedly arguing that alliance messaging matters more than individual ship movements in the medium term.",
+          "Internal discussions show concern that Taiwan-bound rerouting is happening too quickly for Beijing's comfort."
+        ],
+        "crisis": [
+          "His crisis cell is divided between officials demanding sharper action and planners warning that a real blockade would solidify the coalition.",
+          "Lin has requested repeated updates on Japanese and Philippine military posture before approving additional pressure."
+        ],
+        "climax": [
+          "Late-stage reporting suggests Lin wants an off-ramp that can be framed as proof of Beijing's seriousness rather than a retreat.",
+          "He is increasingly focused on avoiding a move that would trigger immediate U.S.-China casualties."
+        ]
       },
-      {
-        "id": "commercial_feedback",
-        "name": "Commercial blowback",
-        "description": "He relies on coercion remaining politically manageable at home despite market strain and supply-chain disruption.",
-        "exploitability": "Evidence that the crisis is damaging Chinese firms, ports, finance, and employment can force recalibration.",
-        "risk": "If Beijing believes the U.S. is weaponizing global commerce broadly, Lin may support broader retaliation."
-      }
-    ],
-    "intelFragments": {
-      "opening": [
-        "Intercepts suggest Lin initially preferred calibrated maritime pressure over any declared exclusion zone.",
-        "Commercial shipping data appears in his briefing packets alongside PLA readiness metrics."
+      "publicStatements": [
+        {
+          "context": "Opening pressure campaign",
+          "quote": "External actors should not misread discipline for hesitation. Regional stability depends on respecting China's core interests.",
+          "analystNote": "Signals resolve while preserving ambiguity about the next step."
+        },
+        {
+          "context": "Allied naval coordination",
+          "quote": "Attempts to internationalize the question will only increase the costs of miscalculation for those who encourage adventurism.",
+          "analystNote": "Aimed at deterring allies from locking into visible military support."
+        },
+        {
+          "context": "Commercial disruption criticism",
+          "quote": "Any instability in nearby waters is the product of interference by outside powers, not China's legitimate security measures.",
+          "analystNote": "Tries to shift economic blame onto coalition responses rather than PRC coercion."
+        },
+        {
+          "context": "Late-crisis messaging",
+          "quote": "China remains open to responsible dialogue, but dialogue cannot be separated from respect for facts on the ground.",
+          "analystNote": "Classic face-saving formula that leaves room for a negotiated pause without renouncing coercion."
+        }
       ],
-      "rising": [
-        "Lin is reportedly arguing that alliance messaging matters more than individual ship movements in the medium term.",
-        "Internal discussions show concern that Taiwan-bound rerouting is happening too quickly for Beijing's comfort."
-      ],
-      "crisis": [
-        "His crisis cell is divided between officials demanding sharper action and planners warning that a real blockade would solidify the coalition.",
-        "Lin has requested repeated updates on Japanese and Philippine military posture before approving additional pressure."
-      ],
-      "climax": [
-        "Late-stage reporting suggests Lin wants an off-ramp that can be framed as proof of Beijing's seriousness rather than a retreat.",
-        "He is increasingly focused on avoiding a move that would trigger immediate U.S.-China casualties."
+      "innerCircle": [
+        {
+          "title": "Theater Operations Deputy",
+          "role": "Coordinates PLA readiness and maritime signaling options around Taiwan.",
+          "influence": "High during the crisis phase when force posture choices dominate.",
+          "disposition": "More hawkish than Lin.",
+          "knownView": "Believes visible pressure loses value if the U.S. is not made to absorb operational risk."
+        },
+        {
+          "title": "Industrial Stability Adviser",
+          "role": "Tracks chip, trade, port, and employment exposure tied to the crisis.",
+          "influence": "High whenever sanctions or market spillovers intensify.",
+          "disposition": "More cautious than Lin.",
+          "knownView": "Warns that a Taiwan shock can quickly become a domestic economic management problem."
+        },
+        {
+          "title": "Party Messaging Director",
+          "role": "Shapes public narrative and elite framing inside Beijing.",
+          "influence": "Constant; strongest when Lin needs public toughness without operational overcommitment.",
+          "disposition": "Loyal to Lin so long as he protects political face.",
+          "knownView": "Argues that any off-ramp must still be sold as evidence that outside powers backed down from something."
+        },
+        {
+          "title": "External Liaison Envoy",
+          "role": "Maintains informal channels with third-country intermediaries and select allied capitals.",
+          "influence": "Moderate, spikes when de-escalation becomes necessary.",
+          "disposition": "Pragmatic.",
+          "knownView": "Believes Beijing should preserve at least one confidential path for crisis management even at peak pressure."
+        }
       ]
-    },
-    "publicStatements": [
-      {
-        "context": "Opening pressure campaign",
-        "quote": "External actors should not misread discipline for hesitation. Regional stability depends on respecting China's core interests.",
-        "analystNote": "Signals resolve while preserving ambiguity about the next step."
+    }
+  },
+  {
+    "scenarioId": "northern_strait_black_swan",
+    "adversaryProfileId": "calculated_technocrat",
+    "leader": {
+      "title": "Central Security Commission Vice Chair",
+      "publicName": "Lin Wenqiao",
+      "aliases": [
+        "LIN-7",
+        "The Systems Planner",
+        "Jade Compass"
+      ],
+      "age": "59-64",
+      "background": "Lin Wenqiao is a fictional senior Chinese security official written for scenario purposes. In the simulation's public profile, Lin rose through the party-state system by specializing in maritime security, industrial vulnerability analysis, and strategic technology planning. He built influence not as a charismatic nationalist but as a manager of complex campaigns who could align security organs, economic planners, and external messaging around a single objective. In a Taiwan Strait contingency, Lin represents the type of crisis manager who believes pressure works best when it stays just below the threshold that would automatically unify the coalition against Beijing.",
+      "psychologicalProfile": {
+        "summary": "Lin is a disciplined coercive strategist. He prefers pressure that accumulates through shipping risk, information control, cyber activity, and alliance doubt rather than immediate war. He is rational about costs, but highly sensitive to any sign that Beijing has lost face or ceded initiative.",
+        "strengths": [
+          "Integrates military, economic, and information levers into a single pressure campaign",
+          "Understands how commercial anxiety can become strategic leverage in a Taiwan crisis",
+          "Maintains tight message discipline and rarely improvises in public",
+          "Prefers reversible pressure, which gives him room to probe without fully committing"
+        ],
+        "vulnerabilities": [
+          "Can overestimate how quickly commercial pain will fracture allied resolve",
+          "Relies heavily on filtered reporting from disciplined subordinates and can miss political emotion outside elite circles",
+          "Faces career and political danger if a coercive campaign visibly fails",
+          "May escalate too late or too abruptly if he concludes incremental pressure is losing effect"
+        ],
+        "decisionStyle": "Lin decides through sequenced pressure tests. He prefers to apply multiple moderate levers at once, monitor the coalition's reaction, then intensify only where he sees hesitation or economic vulnerability. Under time pressure he becomes more centralized and more conservative about steps that could trigger direct U.S.-China combat.",
+        "riskAppetite": "He accepts sustained gray-zone risk and serious economic friction, but he dislikes binary gambles that could produce immediate battlefield humiliation or uncontrollable financial spillover.",
+        "informationDiet": "Lin trusts intelligence reporting, shipping and market indicators, and internal industrial data more than speeches. He pays particular attention to alliance statements, commercial rerouting, semiconductor disruption signals, and whether Taiwan appears politically isolated or reassured."
       },
-      {
-        "context": "Allied naval coordination",
-        "quote": "Attempts to internationalize the question will only increase the costs of miscalculation for those who encourage adventurism.",
-        "analystNote": "Aimed at deterring allies from locking into visible military support."
+      "motivations": {
+        "primary": "To demonstrate that Beijing can coerce changes in the Taiwan Strait without paying the price of a full regional war.",
+        "secondary": "To prove internally that disciplined pressure, not impulsive nationalism, is the smarter path to strategic gains.",
+        "redLine": "A visible move that appears to formalize Taiwan's political separation under allied military cover or that inflicts humiliating losses on PRC forces.",
+        "goldenBridge": "A pathway where Beijing can claim it forced new caution, consultation, or de-risking behavior from the coalition without having to admit failure."
       },
-      {
-        "context": "Commercial disruption criticism",
-        "quote": "Any instability in nearby waters is the product of interference by outside powers, not China's legitimate security measures.",
-        "analystNote": "Tries to shift economic blame onto coalition responses rather than PRC coercion."
+      "pressurePoints": [
+        {
+          "id": "export_dependence",
+          "name": "Export and technology exposure",
+          "description": "Lin knows prolonged confrontation risks accelerating coordinated controls on technology, finance, and trade channels that matter to Chinese growth.",
+          "exploitability": "Sustained allied coordination on high-value technologies and finance raises the domestic cost of his strategy.",
+          "risk": "Too much pressure too quickly can make him argue that Beijing has little left to lose."
+        },
+        {
+          "id": "alliance_denial",
+          "name": "Failed alliance-splitting efforts",
+          "description": "His model assumes coalition hesitation can be widened over time through economic pain and fear of war.",
+          "exploitability": "Visible, repeated alliance cohesion directly undercuts his preferred method of leverage.",
+          "risk": "If unity looks permanent, Lin may favor sharper coercive moves to regain initiative."
+        },
+        {
+          "id": "domestic_face",
+          "name": "Elite perception of resolve",
+          "description": "Lin can tolerate compromise only if it does not look like strategic retreat inside Beijing's internal system.",
+          "exploitability": "Private off-ramps that preserve public face are more likely to move him than public humiliation.",
+          "risk": "Publicly cornering him can empower hardliners and narrow the space for de-escalation."
+        },
+        {
+          "id": "commercial_feedback",
+          "name": "Commercial blowback",
+          "description": "He relies on coercion remaining politically manageable at home despite market strain and supply-chain disruption.",
+          "exploitability": "Evidence that the crisis is damaging Chinese firms, ports, finance, and employment can force recalibration.",
+          "risk": "If Beijing believes the U.S. is weaponizing global commerce broadly, Lin may support broader retaliation."
+        }
+      ],
+      "intelFragments": {
+        "opening": [
+          "Intercepts suggest Lin initially preferred calibrated maritime pressure over any declared exclusion zone.",
+          "Commercial shipping data appears in his briefing packets alongside PLA readiness metrics."
+        ],
+        "rising": [
+          "Lin is reportedly arguing that alliance messaging matters more than individual ship movements in the medium term.",
+          "Internal discussions show concern that Taiwan-bound rerouting is happening too quickly for Beijing's comfort."
+        ],
+        "crisis": [
+          "His crisis cell is divided between officials demanding sharper action and planners warning that a real blockade would solidify the coalition.",
+          "Lin has requested repeated updates on Japanese and Philippine military posture before approving additional pressure."
+        ],
+        "climax": [
+          "Late-stage reporting suggests Lin wants an off-ramp that can be framed as proof of Beijing's seriousness rather than a retreat.",
+          "He is increasingly focused on avoiding a move that would trigger immediate U.S.-China casualties."
+        ]
       },
-      {
-        "context": "Late-crisis messaging",
-        "quote": "China remains open to responsible dialogue, but dialogue cannot be separated from respect for facts on the ground.",
-        "analystNote": "Classic face-saving formula that leaves room for a negotiated pause without renouncing coercion."
-      }
-    ],
-    "innerCircle": [
-      {
-        "title": "Theater Operations Deputy",
-        "role": "Coordinates PLA readiness and maritime signaling options around Taiwan.",
-        "influence": "High during the crisis phase when force posture choices dominate.",
-        "disposition": "More hawkish than Lin.",
-        "knownView": "Believes visible pressure loses value if the U.S. is not made to absorb operational risk."
-      },
-      {
-        "title": "Industrial Stability Adviser",
-        "role": "Tracks chip, trade, port, and employment exposure tied to the crisis.",
-        "influence": "High whenever sanctions or market spillovers intensify.",
-        "disposition": "More cautious than Lin.",
-        "knownView": "Warns that a Taiwan shock can quickly become a domestic economic management problem."
-      },
-      {
-        "title": "Party Messaging Director",
-        "role": "Shapes public narrative and elite framing inside Beijing.",
-        "influence": "Constant; strongest when Lin needs public toughness without operational overcommitment.",
-        "disposition": "Loyal to Lin so long as he protects political face.",
-        "knownView": "Argues that any off-ramp must still be sold as evidence that outside powers backed down from something."
-      },
-      {
-        "title": "External Liaison Envoy",
-        "role": "Maintains informal channels with third-country intermediaries and select allied capitals.",
-        "influence": "Moderate, spikes when de-escalation becomes necessary.",
-        "disposition": "Pragmatic.",
-        "knownView": "Believes Beijing should preserve at least one confidential path for crisis management even at peak pressure."
-      }
-    ]
+      "publicStatements": [
+        {
+          "context": "Opening pressure campaign",
+          "quote": "External actors should not misread discipline for hesitation. Regional stability depends on respecting China's core interests.",
+          "analystNote": "Signals resolve while preserving ambiguity about the next step."
+        },
+        {
+          "context": "Allied naval coordination",
+          "quote": "Attempts to internationalize the question will only increase the costs of miscalculation for those who encourage adventurism.",
+          "analystNote": "Aimed at deterring allies from locking into visible military support."
+        },
+        {
+          "context": "Commercial disruption criticism",
+          "quote": "Any instability in nearby waters is the product of interference by outside powers, not China's legitimate security measures.",
+          "analystNote": "Tries to shift economic blame onto coalition responses rather than PRC coercion."
+        },
+        {
+          "context": "Late-crisis messaging",
+          "quote": "China remains open to responsible dialogue, but dialogue cannot be separated from respect for facts on the ground.",
+          "analystNote": "Classic face-saving formula that leaves room for a negotiated pause without renouncing coercion."
+        }
+      ],
+      "innerCircle": [
+        {
+          "title": "Theater Operations Deputy",
+          "role": "Coordinates PLA readiness and maritime signaling options around Taiwan.",
+          "influence": "High during the crisis phase when force posture choices dominate.",
+          "disposition": "More hawkish than Lin.",
+          "knownView": "Believes visible pressure loses value if the U.S. is not made to absorb operational risk."
+        },
+        {
+          "title": "Industrial Stability Adviser",
+          "role": "Tracks chip, trade, port, and employment exposure tied to the crisis.",
+          "influence": "High whenever sanctions or market spillovers intensify.",
+          "disposition": "More cautious than Lin.",
+          "knownView": "Warns that a Taiwan shock can quickly become a domestic economic management problem."
+        },
+        {
+          "title": "Party Messaging Director",
+          "role": "Shapes public narrative and elite framing inside Beijing.",
+          "influence": "Constant; strongest when Lin needs public toughness without operational overcommitment.",
+          "disposition": "Loyal to Lin so long as he protects political face.",
+          "knownView": "Argues that any off-ramp must still be sold as evidence that outside powers backed down from something."
+        },
+        {
+          "title": "External Liaison Envoy",
+          "role": "Maintains informal channels with third-country intermediaries and select allied capitals.",
+          "influence": "Moderate, spikes when de-escalation becomes necessary.",
+          "disposition": "Pragmatic.",
+          "knownView": "Believes Beijing should preserve at least one confidential path for crisis management even at peak pressure."
+        }
+      ]
+    }
   }
-}
+]

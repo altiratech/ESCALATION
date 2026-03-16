@@ -6,6 +6,10 @@ interface ActionCardsProps {
   actions: ActionDefinition[];
   disabled: boolean;
   selectedActionId: string | null;
+  selectedVariantLabel?: string | null;
+  selectedCustomLabel?: string | null;
+  selectedInterpretationRationale?: string | null;
+  selectedNarrativeEmphasis?: string | null;
   actionAdvisorSummaries: Map<string, { supports: number; cautions: number; opposes: number }>;
   customResponseSlot?: ReactNode;
   onSelect: (actionId: string) => void;
@@ -100,6 +104,10 @@ export const ActionCards = ({
   actions,
   disabled,
   selectedActionId,
+  selectedVariantLabel,
+  selectedCustomLabel,
+  selectedInterpretationRationale,
+  selectedNarrativeEmphasis,
   actionAdvisorSummaries,
   customResponseSlot,
   onSelect
@@ -208,7 +216,15 @@ export const ActionCards = ({
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
                   <p className="label">Selected Response</p>
-                  <h3 className="mt-2 font-display text-xl text-textMain">{selectedAction.name}</h3>
+                  {selectedCustomLabel ? (
+                    <p className="mt-2 text-[0.58rem] uppercase tracking-[0.12em] text-accent">Custom framing</p>
+                  ) : null}
+                  <h3 className="mt-2 font-display text-xl text-textMain">{selectedCustomLabel ?? selectedAction.name}</h3>
+                  {selectedVariantLabel ? (
+                    <p className="mt-1 text-[0.68rem] uppercase tracking-[0.12em] text-textMuted">
+                      Response envelope: {selectedAction.name} · {selectedVariantLabel}
+                    </p>
+                  ) : null}
                 </div>
               <span className={`px-2 py-1 text-[0.58rem] uppercase tracking-[0.12em] ${visibilityTone(selectedAction.visibility)}`}>
                 {selectedAction.visibility}
@@ -220,6 +236,23 @@ export const ActionCards = ({
               <p className="text-[0.8rem] leading-relaxed text-textMain">{actionOneLiner(selectedAction)}</p>
               <p className="text-[0.72rem] leading-relaxed text-textMuted">{selectedAction.summary}</p>
             </div>
+
+            {selectedInterpretationRationale || selectedNarrativeEmphasis ? (
+              <div className="grid gap-2 lg:grid-cols-2">
+                {selectedInterpretationRationale ? (
+                  <div className="console-subpanel px-3 py-2.5">
+                    <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Custom Interpretation</p>
+                    <p className="mt-1 text-[0.72rem] leading-relaxed text-textMain">{selectedInterpretationRationale}</p>
+                  </div>
+                ) : null}
+                {selectedNarrativeEmphasis ? (
+                  <div className="console-subpanel px-3 py-2.5">
+                    <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Likely Emphasis</p>
+                    <p className="mt-1 text-[0.72rem] leading-relaxed text-textMain">{selectedNarrativeEmphasis}</p>
+                  </div>
+                ) : null}
+              </div>
+            ) : null}
 
               <div className="grid gap-2 lg:grid-cols-2">
                 <div className="console-subpanel px-3 py-2.5">

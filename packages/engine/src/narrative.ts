@@ -1,5 +1,6 @@
 import type {
   ActionDefinition,
+  ActionVariantDefinition,
   BeatNode,
   GameState,
   MeterKey,
@@ -161,7 +162,11 @@ export const buildNarrativeBundle = (
   meterAfter: MeterState,
   narrativeTokens: string[],
   rivalProfile: AdversaryProfile,
-  activeBeat?: BeatNode
+  activeBeat?: BeatNode,
+  options?: {
+    playerVariant?: ActionVariantDefinition | null;
+    playerCustomLabel?: string | null;
+  }
 ): NarrativeBundle => {
   const shifts = describeMeterShift(meterBefore, meterAfter);
   const dominantDomain = getDominantDomain({
@@ -183,7 +188,11 @@ export const buildNarrativeBundle = (
   const shiftSentence = shifts.length > 0 ? `Key shifts this turn: ${shifts.join('; ')}.` : 'No single metric moved decisively, but pressure remains cumulative.';
 
   const beatFragment = activeBeat?.sceneFragments[0] ?? '';
-  const briefingParagraph = `Turn ${turn}: You authorized ${playerAction.name.toLowerCase()} while the rival answered with ${rivalAction.name.toLowerCase()}. ${tempoPhrase} ${shiftSentence} ${beatFragment} Rival posture reflects ${rivalProfile.name.toLowerCase()} behavior under stress.`
+  const playerActionLabel = options?.playerCustomLabel?.trim() || options?.playerVariant?.label || playerAction.name;
+  const variantEmphasis = options?.playerVariant?.narrativeEmphasis
+    ? ` ${options.playerVariant.narrativeEmphasis}`
+    : '';
+  const refinedBriefingParagraph = `Window ${turn}: You authorized ${playerActionLabel.toLowerCase()} while the rival answered with ${rivalAction.name.toLowerCase()}. ${tempoPhrase} ${shiftSentence} ${beatFragment}${variantEmphasis} Rival posture reflects ${rivalProfile.name.toLowerCase()} behavior under stress.`
     .replace(/\s+/g, ' ')
     .trim();
 
@@ -211,7 +220,7 @@ export const buildNarrativeBundle = (
   ).slice(0, 2);
 
   return {
-    briefingParagraph,
+    briefingParagraph: refinedBriefingParagraph,
     headlines,
     memoLine: activeBeat?.memoLine ?? domainMemoLine(dominantDomain),
     tickerLine: activeBeat?.tickerLine ?? domainTickerLine(state)

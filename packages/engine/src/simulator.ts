@@ -1,6 +1,7 @@
 import type {
   ActionDefinition,
   ActiveCountdown,
+  ActionVariantDefinition,
   BeatNode,
   DebriefVariantCandidate,
   GameState,
@@ -16,7 +17,7 @@ import { selectPlayerActionOptions } from './actionSelection';
 import { applyBeatEntryEffects, buildBeatMap, getBeat, traverseBeatGraph } from './beatTraversal';
 import { updateBeliefs } from './beliefs';
 import { buildTurnDebrief } from './debrief';
-import { applyActionToState, applyDueDelayedEffects } from './effects';
+import { applyActionToState, applyDueDelayedEffects, getActionVariant } from './effects';
 import { triggerEvents } from './events';
 import { chooseImageAsset } from './images';
 import { degradeIntelQuality, projectVisibleRanges } from './intel';
@@ -80,6 +81,23 @@ export const initializeGameState = (
   const extendTimerUsesRemaining = timerMode === 'off' ? 0 : Math.max(2, timedBeatCount);
 
   const openingCountdown = buildCountdownForBeat(openingBeat, timerMode, options.nowMs);
+  const defaultLatentState: GameState['latent'] = {
+    globalLegitimacy: 50,
+    rivalDomesticPressure: 50,
+    playerDomesticApproval: 50,
+    usSurgeSlack: 62,
+    munitionsDepth: 58,
+    politicalBuffer: 54,
+    taiwanResilience: 68,
+    shippingStress: 36,
+    cyberPrepositioning: 48,
+    deceptionEffectiveness: 52,
+    vulnerabilityFlags: []
+  };
+  const initialLatent = {
+    ...defaultLatentState,
+    ...deepClone(context.scenario.initialLatent)
+  };
 
   const baseState: GameState = {
     id: episodeId,
@@ -88,7 +106,7 @@ export const initializeGameState = (
     maxTurns: context.scenario.maxTurns,
     status: 'active',
     meters: deepClone(context.scenario.initialMeters),
-    latent: deepClone(context.scenario.initialLatent),
+    latent: initialLatent,
     beliefs: deepClone(context.scenario.initialBeliefs),
     intelQuality: {
       byMeter: deepClone(context.scenario.initialIntelQuality),
@@ -204,6 +222,13 @@ const buildInactionNarrative = (targetBeat: BeatNode, inactionNarrative: string)
 export interface ResolveInactionOptions {
   source: 'timeout' | 'explicit';
   now?: number;
+}
+
+export interface ResolveTurnOptions {
+  nowMs?: number;
+  playerVariantId?: string | null;
+  playerActionCustomLabel?: string | null;
+  playerActionInterpretationRationale?: string | null;
 }
 
 export const extendActiveCountdown = (
@@ -340,7 +365,9 @@ export const resolveInactionTurn = (
   state.recentImageIds = selectedImage ? [...state.recentImageIds, selectedImage.id].slice(-6) : state.recentImageIds;
 
   const reachedTurnLimit = state.turn >= state.maxTurns;
-  const catastrophic = isCatastrophicTermination(state);
+  const catastrophic = context.scenario.autoTerminateCatastrophicOutcomes !== false
+    ? isCatastrophicTermination(state)
+    : false;
   const ended = reachedTurnLimit || catastrophic || targetBeat.terminalOutcome !== null;
 
   if (ended) {
@@ -386,7 +413,7 @@ export const resolveTurn = (
   currentState: GameState,
   playerActionId: string,
   context: EngineContext,
-  nowMs?: number
+  nowOrOptions?: number | ResolveTurnOptions
 ): { nextState: GameState; resolution: TurnResolution } => {
   if (currentState.status !== 'active') {
     throw new Error('Episode is already complete.');
@@ -403,6 +430,9 @@ export const resolveTurn = (
     throw new Error('Selected action is not available this turn.');
   }
 
+  const options: ResolveTurnOptions = typeof nowOrOptions === 'number' ? { nowMs: nowOrOptions } : nowOrOptions ?? {};
+  const playerVariant = getActionVariant(playerAction, options.playerVariantId);
+
   const state = deepClone(currentState);
   const rng = new SeededRng(state.rngState);
   const pressureMultiplier = pressureForTurn(context.scenario, state.turn);
@@ -411,7 +441,7 @@ export const resolveTurn = (
   const previousCountdown = state.activeCountdown ? deepClone(state.activeCountdown) : null;
   state.activeCountdown = null;
 
-  const playerResult = applyActionToState(state, playerAction, 'player', rng, pressureMultiplier);
+  const playerResult = applyActionToState(state, playerAction, 'player', rng, pressureMultiplier, playerVariant?.id);
   const delayedDescriptions = applyDueDelayedEffects(state, rng, pressureMultiplier);
   const preRivalEvents = triggerEvents(state, context.scenario.eventTable, rng, pressureMultiplier);
 
@@ -423,7 +453,7 @@ export const resolveTurn = (
 
   const postRivalEvents = triggerEvents(state, context.scenario.eventTable, rng, pressureMultiplier);
 
-  const traversal = traverseBeatGraph(state, context.scenario, playerAction, nowMs);
+  const traversal = traverseBeatGraph(state, context.scenario, playerAction, options.nowMs);
   const beatMap = buildBeatMap(context.scenario);
   const postTraversalBeat = getBeat(beatMap, state.currentBeatId);
 
@@ -464,7 +494,11 @@ export const resolveTurn = (
     state.meters,
     allNarrativeTokens,
     context.adversaryProfile,
-    postTraversalBeat
+    postTraversalBeat,
+    {
+      playerVariant,
+      playerCustomLabel: options.playerActionCustomLabel ?? null
+    }
   );
 
   const turnDebriefPayload = {
@@ -491,6 +525,9 @@ export const resolveTurn = (
     beatIdAfter: traversal.beatIdAfter,
     offeredActionIds: [...state.offeredActionIds],
     playerActionId,
+    playerActionVariantId: playerVariant?.id ?? null,
+    playerActionVariantLabel: playerVariant?.label ?? null,
+    playerActionCustomLabel: options.playerActionCustomLabel ?? null,
     rivalActionId: rivalAction.id,
     meterBefore,
     meterAfter: deepClone(state.meters),
@@ -512,7 +549,9 @@ export const resolveTurn = (
   state.recentImageIds = selectedImage ? [...state.recentImageIds, selectedImage.id].slice(-6) : state.recentImageIds;
 
   const reachedTurnLimit = state.turn >= state.maxTurns;
-  const catastrophic = isCatastrophicTermination(state);
+  const catastrophic = context.scenario.autoTerminateCatastrophicOutcomes !== false
+    ? isCatastrophicTermination(state)
+    : false;
   const ended = reachedTurnLimit || catastrophic || traversal.terminalOutcome !== null;
 
   if (ended) {
@@ -526,13 +565,13 @@ export const resolveTurn = (
       // traverseBeatGraph applies beat-entry effects (including countdown init) on transition.
       // Keep a defensive fallback for malformed legacy state.
       if (!state.activeCountdown && postTraversalBeat.decisionWindow && state.timerMode !== 'off') {
-        state.activeCountdown = buildCountdownForBeat(postTraversalBeat, state.timerMode, nowMs ?? 0);
+        state.activeCountdown = buildCountdownForBeat(postTraversalBeat, state.timerMode, options.nowMs ?? 0);
       }
     } else if (previousCountdown && previousCountdown.beatId === state.currentBeatId && state.timerMode !== 'off') {
       // Preserve remaining time pressure on same-beat turns.
       state.activeCountdown = previousCountdown;
     } else {
-      state.activeCountdown = buildCountdownForBeat(postTraversalBeat, state.timerMode, nowMs ?? 0);
+      state.activeCountdown = buildCountdownForBeat(postTraversalBeat, state.timerMode, options.nowMs ?? 0);
     }
     state.offeredActionIds = selectPlayerActionOptions(state, context.scenario, actionMap, rng);
   }
@@ -544,6 +583,9 @@ export const resolveTurn = (
     beatIdBefore: historyEntry.beatIdBefore,
     beatIdAfter: historyEntry.beatIdAfter,
     playerActionId,
+    playerActionVariantId: historyEntry.playerActionVariantId ?? null,
+    playerActionVariantLabel: historyEntry.playerActionVariantLabel ?? null,
+    playerActionCustomLabel: historyEntry.playerActionCustomLabel ?? null,
     rivalActionId: rivalAction.id,
     triggeredEvents: historyEntry.triggeredEvents,
     selectedImageId: historyEntry.selectedImageId,

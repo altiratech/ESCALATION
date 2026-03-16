@@ -1,5 +1,6 @@
 import {
   METER_KEYS,
+  type LatentDelta,
   type LatentState,
   type MeterKey,
   type MeterState
@@ -46,7 +47,7 @@ export const applyMeterDeltas = (
 
 export const applyLatentDeltas = (
   target: LatentState,
-  deltas: Partial<Omit<LatentState, 'vulnerabilityFlags'>> | undefined,
+  deltas: LatentDelta | undefined,
   multiplier = 1
 ): LatentState => {
   if (!deltas) {
@@ -57,7 +58,14 @@ export const applyLatentDeltas = (
     ...target,
     globalLegitimacy: clamp(target.globalLegitimacy + (deltas.globalLegitimacy ?? 0) * multiplier),
     rivalDomesticPressure: clamp(target.rivalDomesticPressure + (deltas.rivalDomesticPressure ?? 0) * multiplier),
-    playerDomesticApproval: clamp(target.playerDomesticApproval + (deltas.playerDomesticApproval ?? 0) * multiplier)
+    playerDomesticApproval: clamp(target.playerDomesticApproval + (deltas.playerDomesticApproval ?? 0) * multiplier),
+    usSurgeSlack: clamp(target.usSurgeSlack + (deltas.usSurgeSlack ?? 0) * multiplier),
+    munitionsDepth: clamp(target.munitionsDepth + (deltas.munitionsDepth ?? 0) * multiplier),
+    politicalBuffer: clamp(target.politicalBuffer + (deltas.politicalBuffer ?? 0) * multiplier),
+    taiwanResilience: clamp(target.taiwanResilience + (deltas.taiwanResilience ?? 0) * multiplier),
+    shippingStress: clamp(target.shippingStress + (deltas.shippingStress ?? 0) * multiplier),
+    cyberPrepositioning: clamp(target.cyberPrepositioning + (deltas.cyberPrepositioning ?? 0) * multiplier),
+    deceptionEffectiveness: clamp(target.deceptionEffectiveness + (deltas.deceptionEffectiveness ?? 0) * multiplier)
   };
 };
 

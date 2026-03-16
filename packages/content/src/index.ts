@@ -36,18 +36,28 @@ import type {
   ScenarioWorldDefinition
 } from '@wargames/shared-types';
 
+const normalizeScenarioPack = <T extends { scenarioId: string }>(raw: T | T[]): T[] =>
+  Array.isArray(raw) ? raw : [raw];
+
 export const actions = actionsData as ActionDefinition[];
 export const adversaryProfiles = adversaryProfilesData as AdversaryProfile[];
 export const images = imagesData as ImageAsset[];
 export const intelFragments = intelFragmentsData as IntelFragment[];
 export const newsWire = newsWireData as NewsWireArticle[];
 export const actionNarratives = (actionNarrativesData as { actions: ActionNarrativeDefinition[] }).actions;
-export const cinematics = [cinematicsData as CinematicsDefinition];
-export const scenarioWorld = [scenarioWorldData as ScenarioWorldDefinition];
+export const cinematics = normalizeScenarioPack(cinematicsData as CinematicsDefinition | CinematicsDefinition[]);
+export const scenarioWorld = normalizeScenarioPack(
+  scenarioWorldData as ScenarioWorldDefinition | ScenarioWorldDefinition[]
+);
 export const advisorDossiers = advisorDossiersData as AdvisorDossier[];
-export const rivalLeader = rivalLeaderData as RivalLeaderDefinition;
-export const rivalLeaders = [rivalLeader];
-export const debriefDeep = debriefDeepData as DebriefDeepDefinition;
+export const rivalLeaders = normalizeScenarioPack(
+  rivalLeaderData as RivalLeaderDefinition | RivalLeaderDefinition[]
+);
+export const rivalLeader = rivalLeaders[0] ?? null;
+export const debriefDeepPacks = normalizeScenarioPack(
+  debriefDeepData as DebriefDeepDefinition | DebriefDeepDefinition[]
+);
+export const debriefDeep = debriefDeepPacks[0] ?? null;
 
 type RawNarrativeCategory = {
   category?: string;
@@ -162,20 +172,21 @@ export const getScenarioAdversaryProfile = (scenarioId: string): AdversaryProfil
 };
 
 export const getRivalLeader = (scenarioId: string, adversaryProfileId?: string): RivalLeaderDefinition | null => {
-  if (rivalLeader.scenarioId !== scenarioId) {
-    return null;
-  }
-  if (adversaryProfileId && rivalLeader.adversaryProfileId !== adversaryProfileId) {
-    return null;
-  }
-  return rivalLeader;
+  return (
+    rivalLeaders.find((entry) => {
+      if (entry.scenarioId !== scenarioId) {
+        return false;
+      }
+      if (adversaryProfileId && entry.adversaryProfileId !== adversaryProfileId) {
+        return false;
+      }
+      return true;
+    }) ?? null
+  );
 };
 
 export const getDebriefDeep = (scenarioId: string): DebriefDeepDefinition | null => {
-  if (debriefDeep.scenarioId !== scenarioId) {
-    return null;
-  }
-  return debriefDeep;
+  return debriefDeepPacks.find((entry) => entry.scenarioId === scenarioId) ?? null;
 };
 
 export const getCinematics = (scenarioId: string): CinematicsDefinition | null => {

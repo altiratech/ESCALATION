@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 
 import type {
   ActionNarrativePhaseContent,
+  BeatTruthModel,
   EpisodeMeterHistoryPoint,
   MeterState,
   NarrativeBundle,
@@ -23,6 +24,7 @@ interface BriefingPanelProps {
   turn: number;
   briefing: NarrativeBundle;
   scenarioWorld: ScenarioWorldDefinition | null;
+  truthModel: BeatTruthModel | null;
   windowContextSections: ScenarioContextSection[];
   supportingSignals: BriefingSignalItem[];
   turnDebrief: TurnDebrief | null;
@@ -63,6 +65,7 @@ export const BriefingPanel = ({
   turn,
   briefing,
   scenarioWorld,
+  truthModel,
   windowContextSections,
   supportingSignals,
   turnDebrief,
@@ -126,6 +129,28 @@ export const BriefingPanel = ({
   const secondaryHeadlines = briefing.headlines.slice(2);
   const visibleSupportingSignals = showAllSignals ? supportingSignals : supportingSignals.slice(0, 2);
   const hiddenSignalCount = Math.max(0, supportingSignals.length - visibleSupportingSignals.length);
+  const truthSections = truthModel
+    ? ([
+        {
+          id: 'verified',
+          title: 'Verified Facts',
+          items: truthModel.verifiedFacts,
+          accent: 'text-positive'
+        },
+        {
+          id: 'theories',
+          title: 'Working Theories',
+          items: truthModel.workingTheories,
+          accent: 'text-accent'
+        },
+        {
+          id: 'unknowns',
+          title: 'Unknowns',
+          items: truthModel.unknowns,
+          accent: 'text-warning'
+        }
+      ] as const).filter((section) => section.items.length > 0)
+    : [];
 
   const renderHeadlineItem = (headline: string, index: number, sourceIndex: number) => {
     const open = expandedHeadline === sourceIndex;
@@ -187,36 +212,58 @@ export const BriefingPanel = ({
           <div>
             <p className="label">Start Here</p>
             <p className="mt-1 text-[0.68rem] leading-relaxed text-textMuted">
-              Read the two developments most likely to change the next response.
+              Read the signal picture first: what is confirmed, what analysts think may be happening, and what is still unknown.
             </p>
           </div>
-          <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Open for detail</p>
+          <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">
+            {truthSections.length > 0 ? 'Live read' : 'Open for detail'}
+          </p>
         </div>
-        {primaryHeadlines.map((headline, index) => renderHeadlineItem(headline, index, index))}
-        {secondaryHeadlines.length > 0 ? (
-          <div className="rounded-md border border-borderTone/70 bg-panelRaised/30 px-3 py-2.5">
-            <div className="flex items-center justify-between gap-3">
-              <div>
-                <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Additional developments</p>
-                <p className="mt-1 text-[0.7rem] text-textMuted">
-                  Open these only if you want the fuller market and diplomacy picture before deciding.
-                </p>
-              </div>
-              <button
-                type="button"
-                className="text-[0.58rem] uppercase tracking-[0.12em] text-accent"
-                onClick={() => setShowAllDevelopments((current) => !current)}
-              >
-                {showAllDevelopments ? 'Hide' : `Open ${secondaryHeadlines.length}`}
-              </button>
-            </div>
-            {showAllDevelopments ? (
-              <div className="mt-3 space-y-2">
-                {secondaryHeadlines.map((headline, index) => renderHeadlineItem(headline, index + 2, index + 2))}
+        {truthSections.length > 0 ? (
+          <div className="grid gap-3 xl:grid-cols-3">
+            {truthSections.map((section) => (
+              <article key={section.id} className="console-subpanel px-3 py-3">
+                <p className={`text-[0.58rem] uppercase tracking-[0.12em] ${section.accent}`}>{section.title}</p>
+                <div className="mt-2 space-y-2">
+                  {section.items.map((item) => (
+                    <div key={item.id} className="rounded-md border border-borderTone/70 bg-panelRaised/35 px-3 py-2.5">
+                      <p className="text-[0.64rem] uppercase tracking-[0.1em] text-textMain">{item.title}</p>
+                      <p className="mt-1 text-[0.7rem] leading-relaxed text-textMuted">{item.body}</p>
+                    </div>
+                  ))}
+                </div>
+              </article>
+            ))}
+          </div>
+        ) : (
+          <>
+            {primaryHeadlines.map((headline, index) => renderHeadlineItem(headline, index, index))}
+            {secondaryHeadlines.length > 0 ? (
+              <div className="rounded-md border border-borderTone/70 bg-panelRaised/30 px-3 py-2.5">
+                <div className="flex items-center justify-between gap-3">
+                  <div>
+                    <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Additional developments</p>
+                    <p className="mt-1 text-[0.7rem] text-textMuted">
+                      Open these only if you want the fuller market and diplomacy picture before deciding.
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    className="text-[0.58rem] uppercase tracking-[0.12em] text-accent"
+                    onClick={() => setShowAllDevelopments((current) => !current)}
+                  >
+                    {showAllDevelopments ? 'Hide' : `Open ${secondaryHeadlines.length}`}
+                  </button>
+                </div>
+                {showAllDevelopments ? (
+                  <div className="mt-3 space-y-2">
+                    {secondaryHeadlines.map((headline, index) => renderHeadlineItem(headline, index + 2, index + 2))}
+                  </div>
+                ) : null}
               </div>
             ) : null}
-          </div>
-        ) : null}
+          </>
+        )}
       </section>
 
       {supportingSignals.length > 0 ? (

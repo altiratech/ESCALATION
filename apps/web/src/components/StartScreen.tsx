@@ -47,14 +47,18 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
   const [seed, setSeed] = useState('');
   const [showAdvanced, setShowAdvanced] = useState(false);
 
-  const defaultScenario = reference.scenarios[0]?.id ?? '';
+  const playableScenarios = useMemo(
+    () => reference.scenarios.filter((entry) => !entry.isLegacy),
+    [reference.scenarios]
+  );
+  const defaultScenario = playableScenarios[0]?.id ?? reference.scenarios[0]?.id ?? '';
 
   const [scenarioId, setScenarioId] = useState(defaultScenario);
   const [timerMode, setTimerMode] = useState<'standard' | 'relaxed' | 'off'>('standard');
 
   const selectedScenario = useMemo(
-    () => reference.scenarios.find((entry) => entry.id === scenarioId),
-    [reference.scenarios, scenarioId]
+    () => playableScenarios.find((entry) => entry.id === scenarioId) ?? reference.scenarios.find((entry) => entry.id === scenarioId),
+    [playableScenarios, reference.scenarios, scenarioId]
   );
   const selectedScenarioWorld = useMemo(
     () => reference.scenarioWorld.find((entry) => entry.scenarioId === scenarioId) ?? null,
@@ -204,7 +208,7 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
                       value={scenarioId}
                       onChange={(event) => setScenarioId(event.target.value)}
                     >
-                      {reference.scenarios.map((scenario) => (
+                      {playableScenarios.map((scenario) => (
                         <option key={scenario.id} value={scenario.id}>
                           {scenario.name}
                         </option>

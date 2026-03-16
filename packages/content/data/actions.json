@@ -5,7 +5,10 @@
     "name": "Backchannel Diplomacy",
     "summary": "Quietly probe off-ramp terms through trusted intermediaries.",
     "visibility": "secret",
-    "tags": ["diplomacy", "deescalation"],
+    "tags": [
+      "diplomacy",
+      "deescalation"
+    ],
     "immediateMeterDeltas": {
       "escalationIndex": -5,
       "allianceTrust": 2,
@@ -49,7 +52,86 @@
       "economicStressSignal": 0,
       "allianceStressSignal": -0.2,
       "humiliationRisk": 0.1
-    }
+    },
+    "defaultVariantId": "quiet_probe",
+    "variants": [
+      {
+        "id": "quiet_probe",
+        "label": "Quiet Probe",
+        "summary": "Use deniable intermediaries to test whether the anomaly can be ring-fenced before it hardens into formal coercion.",
+        "interpretationHints": [
+          "quiet",
+          "private",
+          "discreet",
+          "backchannel",
+          "third party",
+          "probe",
+          "deniable"
+        ],
+        "immediateMeterDeltas": {
+          "escalationIndex": -1,
+          "allianceTrust": 1
+        },
+        "immediateLatentDeltas": {
+          "politicalBuffer": 2,
+          "shippingStress": -2,
+          "deceptionEffectiveness": 1
+        },
+        "delayedEffects": [
+          {
+            "delayTurns": 1,
+            "chance": 0.78,
+            "meterDeltas": {
+              "escalationIndex": -1
+            },
+            "latentDeltas": {
+              "shippingStress": -2
+            },
+            "description": "Quiet channel slows the rush into formal coercion."
+          }
+        ],
+        "narrativeEmphasis": " It buys a sliver of time, but it also increases the risk that a false signal will be mistaken for a real off-ramp.",
+        "advisorFraming": "Framed as time-buying and ambiguity-preserving.",
+        "hiddenDownsideCategory": "false_relief",
+        "isDefault": true
+      },
+      {
+        "id": "firm_channel",
+        "label": "Firm Channel",
+        "summary": "Use private channels, but attach clear conditions and consequences so the message lands harder.",
+        "interpretationHints": [
+          "firm",
+          "hard message",
+          "ultimatum",
+          "demand",
+          "conditions"
+        ],
+        "immediateMeterDeltas": {
+          "escalationIndex": 1,
+          "allianceTrust": 1
+        },
+        "immediateLatentDeltas": {
+          "rivalDomesticPressure": 2,
+          "politicalBuffer": -1
+        },
+        "delayedEffects": [
+          {
+            "delayTurns": 1,
+            "chance": 0.62,
+            "meterDeltas": {
+              "allianceTrust": 1
+            },
+            "latentDeltas": {
+              "shippingStress": -1
+            },
+            "description": "Private conditions create a clearer, but riskier, diplomatic line."
+          }
+        ],
+        "narrativeEmphasis": " The signal is clearer and riskier; if Beijing rejects it, the next step becomes harder to keep reversible.",
+        "advisorFraming": "Framed as private diplomacy with sharper edges.",
+        "hiddenDownsideCategory": "humiliation"
+      }
+    ]
   },
   {
     "id": "public_signaling_speech",
@@ -57,7 +139,10 @@
     "name": "Public Strategic Address",
     "summary": "Address the nation and allies with calibrated deterrence language.",
     "visibility": "public",
-    "tags": ["messaging", "deterrence"],
+    "tags": [
+      "messaging",
+      "deterrence"
+    ],
     "immediateMeterDeltas": {
       "domesticCohesion": 4,
       "allianceTrust": 2,
@@ -90,7 +175,80 @@
       "economicStressSignal": 0,
       "allianceStressSignal": 0.1,
       "humiliationRisk": 0.35
-    }
+    },
+    "defaultVariantId": "calibrated_address",
+    "variants": [
+      {
+        "id": "calibrated_address",
+        "label": "Calibrated Address",
+        "summary": "Set a public line without declaring a final red line or forcing immediate military follow-through.",
+        "interpretationHints": [
+          "calibrated",
+          "measured",
+          "address",
+          "statement",
+          "speech",
+          "reassure"
+        ],
+        "immediateMeterDeltas": {
+          "allianceTrust": 1,
+          "domesticCohesion": 1
+        },
+        "immediateLatentDeltas": {
+          "politicalBuffer": 2,
+          "shippingStress": -1
+        },
+        "delayedEffects": [
+          {
+            "delayTurns": 1,
+            "chance": 0.66,
+            "meterDeltas": {
+              "allianceTrust": 1
+            },
+            "description": "A disciplined public line steadies allied messaging."
+          }
+        ],
+        "narrativeEmphasis": " It aims to calm allies and markets without yet turning the crisis into a public test of absolute resolve.",
+        "advisorFraming": "Framed as message discipline first, escalation second.",
+        "hiddenDownsideCategory": "underreaction",
+        "isDefault": true
+      },
+      {
+        "id": "hard_red_line",
+        "label": "Hard Red Line",
+        "summary": "Go public with explicit warning language intended to force Beijing to choose whether to back down or challenge the line.",
+        "interpretationHints": [
+          "hard",
+          "red line",
+          "ultimatum",
+          "public warning",
+          "declare",
+          "draw line"
+        ],
+        "immediateMeterDeltas": {
+          "escalationIndex": 2,
+          "allianceTrust": 1,
+          "domesticCohesion": 1
+        },
+        "immediateLatentDeltas": {
+          "shippingStress": 2,
+          "deceptionEffectiveness": -2
+        },
+        "delayedEffects": [
+          {
+            "delayTurns": 1,
+            "chance": 0.58,
+            "meterDeltas": {
+              "escalationIndex": 1
+            },
+            "description": "A hard public line narrows room for quiet retreat."
+          }
+        ],
+        "narrativeEmphasis": " It sharpens the stakes immediately and dares the counterpart to either absorb the line or push against it.",
+        "advisorFraming": "Framed as overt deterrence with reputational commitment.",
+        "hiddenDownsideCategory": "public_commitment"
+      }
+    ]
   },
   {
     "id": "targeted_sanctions",
@@ -98,7 +256,10 @@
     "name": "Targeted Sanctions",
     "summary": "Sanction rival-linked strategic entities and individuals.",
     "visibility": "public",
-    "tags": ["economic", "pressure"],
+    "tags": [
+      "economic",
+      "pressure"
+    ],
     "immediateMeterDeltas": {
       "allianceTrust": 3,
       "escalationIndex": 2,
@@ -141,7 +302,82 @@
       "economicStressSignal": 0.5,
       "allianceStressSignal": -0.1,
       "humiliationRisk": 0.4
-    }
+    },
+    "defaultVariantId": "signaling_tranche",
+    "variants": [
+      {
+        "id": "signaling_tranche",
+        "label": "Signaling Tranche",
+        "summary": "Open with a limited, targeted package that signals cost without detonating the full financial channel.",
+        "interpretationHints": [
+          "targeted",
+          "limited sanctions",
+          "signaling tranche",
+          "small package"
+        ],
+        "immediateMeterDeltas": {
+          "economicStability": -1,
+          "allianceTrust": 1
+        },
+        "immediateLatentDeltas": {
+          "rivalDomesticPressure": 2,
+          "shippingStress": 2
+        },
+        "delayedEffects": [
+          {
+            "delayTurns": 1,
+            "chance": 0.74,
+            "meterDeltas": {
+              "allianceTrust": 1
+            },
+            "latentDeltas": {
+              "rivalDomesticPressure": 2
+            },
+            "description": "Targeted compliance pressure begins to accumulate."
+          }
+        ],
+        "narrativeEmphasis": " It tells markets and allies that costs are coming, but tries to keep the first package survivable.",
+        "advisorFraming": "Framed as controlled cost imposition.",
+        "hiddenDownsideCategory": "financial_spillover",
+        "isDefault": true
+      },
+      {
+        "id": "enforcement_wave",
+        "label": "Enforcement Wave",
+        "summary": "Lean harder into enforcement so Beijing feels immediate commercial and reputational pain.",
+        "interpretationHints": [
+          "enforce",
+          "strong sanctions",
+          "hard sanctions",
+          "aggressive sanctions"
+        ],
+        "immediateMeterDeltas": {
+          "escalationIndex": 1,
+          "economicStability": -1
+        },
+        "immediateLatentDeltas": {
+          "rivalDomesticPressure": 4,
+          "shippingStress": 4,
+          "politicalBuffer": -1
+        },
+        "delayedEffects": [
+          {
+            "delayTurns": 1,
+            "chance": 0.68,
+            "meterDeltas": {
+              "economicStability": -1
+            },
+            "latentDeltas": {
+              "shippingStress": 2
+            },
+            "description": "A stronger enforcement wave widens compliance and market stress."
+          }
+        ],
+        "narrativeEmphasis": " It imposes real pain faster, but it also increases the odds that shipping, financing, and political blowback outrun the coalition’s control.",
+        "advisorFraming": "Framed as sharper pressure with faster spillover risk.",
+        "hiddenDownsideCategory": "retaliatory_pressure"
+      }
+    ]
   },
   {
     "id": "broad_sanctions",
@@ -149,7 +385,11 @@
     "name": "Broad Sanctions",
     "summary": "Impose cross-sector restrictions with coalition backing.",
     "visibility": "public",
-    "tags": ["economic", "pressure", "high_cost"],
+    "tags": [
+      "economic",
+      "pressure",
+      "high_cost"
+    ],
     "immediateMeterDeltas": {
       "allianceTrust": 4,
       "escalationIndex": 4,
@@ -191,7 +431,84 @@
       "economicStressSignal": 0.85,
       "allianceStressSignal": 0.15,
       "humiliationRisk": 0.52
-    }
+    },
+    "defaultVariantId": "prepared_package",
+    "variants": [
+      {
+        "id": "prepared_package",
+        "label": "Prepared Package",
+        "summary": "Signal that a full-sector package is ready while phasing implementation to avoid immediate market rupture.",
+        "interpretationHints": [
+          "prepare sanctions",
+          "ready package",
+          "phase in",
+          "prepared package"
+        ],
+        "immediateMeterDeltas": {
+          "allianceTrust": 1,
+          "economicStability": -1
+        },
+        "immediateLatentDeltas": {
+          "rivalDomesticPressure": 5,
+          "shippingStress": 5,
+          "politicalBuffer": -2
+        },
+        "delayedEffects": [
+          {
+            "delayTurns": 1,
+            "chance": 0.82,
+            "meterDeltas": {
+              "economicStability": -2
+            },
+            "latentDeltas": {
+              "shippingStress": 3
+            },
+            "description": "Markets begin pricing the larger sanctions package before all measures are live."
+          }
+        ],
+        "narrativeEmphasis": " It points the crisis toward the financial channel quickly without pulling every lever at once.",
+        "advisorFraming": "Framed as pre-positioned macro pressure.",
+        "hiddenDownsideCategory": "market_panic",
+        "isDefault": true
+      },
+      {
+        "id": "maximal_package",
+        "label": "Maximal Package",
+        "summary": "Push a broad coalition package immediately and accept the near-term commercial shock as the price of coercive clarity.",
+        "interpretationHints": [
+          "maximal",
+          "all in",
+          "full package",
+          "broad sanctions now"
+        ],
+        "immediateMeterDeltas": {
+          "escalationIndex": 2,
+          "economicStability": -2
+        },
+        "immediateLatentDeltas": {
+          "rivalDomesticPressure": 7,
+          "shippingStress": 8,
+          "politicalBuffer": -3
+        },
+        "delayedEffects": [
+          {
+            "delayTurns": 1,
+            "chance": 0.88,
+            "meterDeltas": {
+              "economicStability": -3,
+              "allianceTrust": 1
+            },
+            "latentDeltas": {
+              "shippingStress": 4
+            },
+            "description": "The maximal sanctions package triggers broader financial and shipping repricing."
+          }
+        ],
+        "narrativeEmphasis": " It makes the line unmistakable, but it also risks turning the financial system into a second battlefield.",
+        "advisorFraming": "Framed as systemic cost imposition with little commercial cushioning.",
+        "hiddenDownsideCategory": "systemic_spillover"
+      }
+    ]
   },
   {
     "id": "resource_stockpiling",
@@ -199,7 +516,10 @@
     "name": "Resource Stockpiling",
     "summary": "Expand strategic fuel and commodity reserves ahead of shocks.",
     "visibility": "semi-public",
-    "tags": ["energy", "resilience"],
+    "tags": [
+      "energy",
+      "resilience"
+    ],
     "immediateMeterDeltas": {
       "energySecurity": 5,
       "economicStability": -2,
@@ -238,7 +558,84 @@
       "economicStressSignal": 0.35,
       "allianceStressSignal": 0,
       "humiliationRisk": 0.08
-    }
+    },
+    "defaultVariantId": "preposition_reserves",
+    "variants": [
+      {
+        "id": "preposition_reserves",
+        "label": "Preposition Reserves",
+        "summary": "Quietly build strategic buffers while trying not to scream panic to the market.",
+        "interpretationHints": [
+          "stockpile",
+          "reserves",
+          "buffer",
+          "preposition",
+          "quietly build"
+        ],
+        "immediateMeterDeltas": {
+          "energySecurity": 1,
+          "economicStability": -1
+        },
+        "immediateLatentDeltas": {
+          "politicalBuffer": 3,
+          "shippingStress": 1,
+          "taiwanResilience": 1
+        },
+        "delayedEffects": [
+          {
+            "delayTurns": 1,
+            "chance": 0.8,
+            "meterDeltas": {
+              "energySecurity": 1
+            },
+            "latentDeltas": {
+              "politicalBuffer": 2
+            },
+            "description": "Reserve buffers improve the coalition’s political and logistical endurance."
+          }
+        ],
+        "narrativeEmphasis": " It is a resilience move designed to keep later shocks from breaking the coalition’s political tolerance.",
+        "advisorFraming": "Framed as quiet buffer-building.",
+        "hiddenDownsideCategory": "panic_signal",
+        "isDefault": true
+      },
+      {
+        "id": "emergency_buffer",
+        "label": "Emergency Buffer",
+        "summary": "Move visibly and fast to build reserves before the corridor deteriorates further.",
+        "interpretationHints": [
+          "emergency",
+          "build buffer now",
+          "fast stockpile",
+          "urgent reserves"
+        ],
+        "immediateMeterDeltas": {
+          "energySecurity": 2,
+          "economicStability": -2
+        },
+        "immediateLatentDeltas": {
+          "politicalBuffer": 2,
+          "shippingStress": 3,
+          "taiwanResilience": 2
+        },
+        "delayedEffects": [
+          {
+            "delayTurns": 1,
+            "chance": 0.72,
+            "meterDeltas": {
+              "energySecurity": 1
+            },
+            "latentDeltas": {
+              "shippingStress": 1
+            },
+            "description": "Emergency reserve activity supports endurance but advertises stress to the market."
+          }
+        ],
+        "narrativeEmphasis": " It hardens the coalition’s buffer, but the urgency itself can read like confirmation that worse disruption is expected.",
+        "advisorFraming": "Framed as visible resilience at the cost of signaling stress.",
+        "hiddenDownsideCategory": "panic_buying"
+      }
+    ]
   },
   {
     "id": "cyber_intrusion",
@@ -246,7 +643,10 @@
     "name": "Cyber Intrusion",
     "summary": "Penetrate rival systems for intelligence without disruption.",
     "visibility": "secret",
-    "tags": ["cyber", "intel"],
+    "tags": [
+      "cyber",
+      "intel"
+    ],
     "immediateMeterDeltas": {
       "escalationIndex": 2,
       "militaryReadiness": 1,
@@ -286,7 +686,83 @@
       "economicStressSignal": 0,
       "allianceStressSignal": 0,
       "humiliationRisk": 0.3
-    }
+    },
+    "defaultVariantId": "forensic_pull",
+    "variants": [
+      {
+        "id": "forensic_pull",
+        "label": "Forensic Pull",
+        "summary": "Use cyber access to improve attribution and map the architecture behind the anomaly without disrupting it.",
+        "interpretationHints": [
+          "cyber intel",
+          "forensic",
+          "intrusion",
+          "map network",
+          "attribute"
+        ],
+        "immediateMeterDeltas": {
+          "escalationIndex": -1,
+          "militaryReadiness": 1
+        },
+        "immediateLatentDeltas": {
+          "deceptionEffectiveness": -6,
+          "cyberPrepositioning": -2
+        },
+        "delayedEffects": [
+          {
+            "delayTurns": 1,
+            "chance": 0.82,
+            "meterDeltas": {
+              "escalationIndex": -1
+            },
+            "latentDeltas": {
+              "deceptionEffectiveness": -3
+            },
+            "description": "Forensic cyber access improves attribution and reduces the rival’s information edge."
+          }
+        ],
+        "narrativeEmphasis": " It is designed to steal clarity back from the fog rather than add another visible shock.",
+        "advisorFraming": "Framed as hidden collection and attribution.",
+        "hiddenDownsideCategory": "exposure",
+        "isDefault": true
+      },
+      {
+        "id": "deep_mapping",
+        "label": "Deep Mapping",
+        "summary": "Push deeper into networks to expose the full coercive architecture before it fires again.",
+        "interpretationHints": [
+          "deep",
+          "aggressive intrusion",
+          "full mapping",
+          "go deeper"
+        ],
+        "immediateMeterDeltas": {
+          "escalationIndex": 1,
+          "militaryReadiness": 1
+        },
+        "immediateLatentDeltas": {
+          "deceptionEffectiveness": -8,
+          "cyberPrepositioning": -4,
+          "taiwanResilience": 1
+        },
+        "delayedEffects": [
+          {
+            "delayTurns": 1,
+            "chance": 0.68,
+            "meterDeltas": {
+              "militaryReadiness": 1
+            },
+            "latentDeltas": {
+              "deceptionEffectiveness": -2
+            },
+            "description": "Deeper cyber mapping exposes more of the adversary’s setup but carries higher discovery risk."
+          }
+        ],
+        "narrativeEmphasis": " It reaches for deeper clarity faster, but the discovery risk rises with it.",
+        "advisorFraming": "Framed as aggressive but still deniable collection.",
+        "hiddenDownsideCategory": "counterintrusion"
+      }
+    ]
   },
   {
     "id": "cyber_disruption",
@@ -294,7 +770,10 @@
     "name": "Cyber Disruption",
     "summary": "Disrupt rival logistics and command connectivity.",
     "visibility": "secret",
-    "tags": ["cyber", "offensive"],
+    "tags": [
+      "cyber",
+      "offensive"
+    ],
     "immediateMeterDeltas": {
       "escalationIndex": 5,
       "militaryReadiness": 2,
@@ -324,7 +803,82 @@
       "economicStressSignal": 0.2,
       "allianceStressSignal": 0.12,
       "humiliationRisk": 0.44
-    }
+    },
+    "defaultVariantId": "reversible_nuisance",
+    "variants": [
+      {
+        "id": "reversible_nuisance",
+        "label": "Reversible Nuisance",
+        "summary": "Cause reversible disruption in the coercive architecture without making the strike path the main story.",
+        "interpretationHints": [
+          "reversible",
+          "light disruption",
+          "nuisance",
+          "temporary cyber"
+        ],
+        "immediateMeterDeltas": {
+          "escalationIndex": 1,
+          "militaryReadiness": 1
+        },
+        "immediateLatentDeltas": {
+          "cyberPrepositioning": -5,
+          "shippingStress": 2
+        },
+        "delayedEffects": [
+          {
+            "delayTurns": 1,
+            "chance": 0.7,
+            "meterDeltas": {
+              "escalationIndex": -1
+            },
+            "latentDeltas": {
+              "deceptionEffectiveness": -2
+            },
+            "description": "Reversible cyber friction disrupts the coercive setup without fully detonating the response loop."
+          }
+        ],
+        "narrativeEmphasis": " It creates pain and delay, but keeps a thin layer of reversibility in the response.",
+        "advisorFraming": "Framed as limited cyber friction rather than full retaliation.",
+        "hiddenDownsideCategory": "reciprocal_cyber",
+        "isDefault": true
+      },
+      {
+        "id": "hard_disruption",
+        "label": "Hard Disruption",
+        "summary": "Hit the logistics and command layer hard enough to interrupt the next move immediately.",
+        "interpretationHints": [
+          "hard cyber",
+          "full disruption",
+          "disable systems",
+          "aggressive cyber"
+        ],
+        "immediateMeterDeltas": {
+          "escalationIndex": 3,
+          "militaryReadiness": 1
+        },
+        "immediateLatentDeltas": {
+          "cyberPrepositioning": -7,
+          "shippingStress": 4,
+          "politicalBuffer": -1
+        },
+        "delayedEffects": [
+          {
+            "delayTurns": 1,
+            "chance": 0.62,
+            "meterDeltas": {
+              "escalationIndex": 1
+            },
+            "latentDeltas": {
+              "shippingStress": 2
+            },
+            "description": "A harder cyber hit interrupts the next move but makes retaliation and spillover more likely."
+          }
+        ],
+        "narrativeEmphasis": " It can break the immediate tempo, but the response will be read as a much clearer crossing into offensive action.",
+        "advisorFraming": "Framed as offensive cyber escalation.",
+        "hiddenDownsideCategory": "retaliatory_cyber"
+      }
+    ]
   },
   {
     "id": "covert_sabotage",
@@ -332,7 +886,10 @@
     "name": "Covert Sabotage",
     "summary": "Support deniable disruption of rival logistics nodes.",
     "visibility": "secret",
-    "tags": ["covert", "offensive"],
+    "tags": [
+      "covert",
+      "offensive"
+    ],
     "immediateMeterDeltas": {
       "escalationIndex": 6,
       "allianceTrust": -1,
@@ -366,7 +923,83 @@
       "economicStressSignal": 0,
       "allianceStressSignal": 0.3,
       "humiliationRisk": 0.6
-    }
+    },
+    "defaultVariantId": "deniable_cutout",
+    "variants": [
+      {
+        "id": "deniable_cutout",
+        "label": "Deniable Cutout",
+        "summary": "Use cutouts and deniable disruption to slow the coercive architecture without owning it publicly.",
+        "interpretationHints": [
+          "deniable",
+          "covert",
+          "quiet sabotage",
+          "cutout"
+        ],
+        "immediateMeterDeltas": {
+          "escalationIndex": 1,
+          "militaryReadiness": 1
+        },
+        "immediateLatentDeltas": {
+          "rivalDomesticPressure": 3,
+          "globalLegitimacy": -1,
+          "deceptionEffectiveness": -2
+        },
+        "delayedEffects": [
+          {
+            "delayTurns": 1,
+            "chance": 0.58,
+            "meterDeltas": {
+              "escalationIndex": -1
+            },
+            "latentDeltas": {
+              "rivalDomesticPressure": 2
+            },
+            "description": "Covert disruption introduces friction while preserving a degree of deniability."
+          }
+        ],
+        "narrativeEmphasis": " It adds hidden friction, but if it leaks, the crisis can become harder to narrate and harder to control.",
+        "advisorFraming": "Framed as deniable leverage.",
+        "hiddenDownsideCategory": "exposure",
+        "isDefault": true
+      },
+      {
+        "id": "high_tempo_cutout",
+        "label": "High-Tempo Cutout",
+        "summary": "Accelerate covert disruption so the next coercive step arrives late or broken.",
+        "interpretationHints": [
+          "high tempo",
+          "more aggressive covert",
+          "faster sabotage",
+          "hit harder covertly"
+        ],
+        "immediateMeterDeltas": {
+          "escalationIndex": 2,
+          "militaryReadiness": 1
+        },
+        "immediateLatentDeltas": {
+          "rivalDomesticPressure": 5,
+          "globalLegitimacy": -2,
+          "deceptionEffectiveness": -3
+        },
+        "delayedEffects": [
+          {
+            "delayTurns": 1,
+            "chance": 0.54,
+            "meterDeltas": {
+              "escalationIndex": 1
+            },
+            "latentDeltas": {
+              "politicalBuffer": -1
+            },
+            "description": "Higher-tempo covert pressure creates more friction but also more exposure and political blowback risk."
+          }
+        ],
+        "narrativeEmphasis": " It reaches for sharper hidden leverage at the cost of a much rougher political landing if attribution catches up.",
+        "advisorFraming": "Framed as sharper deniable disruption.",
+        "hiddenDownsideCategory": "attribution"
+      }
+    ]
   },
   {
     "id": "military_posture_increase",
@@ -374,7 +1007,10 @@
     "name": "Military Posture Increase",
     "summary": "Forward deploy high-readiness forces and publicize readiness.",
     "visibility": "public",
-    "tags": ["military", "deterrence"],
+    "tags": [
+      "military",
+      "deterrence"
+    ],
     "immediateMeterDeltas": {
       "militaryReadiness": 6,
       "escalationIndex": 5,
@@ -414,7 +1050,88 @@
       "economicStressSignal": 0.22,
       "allianceStressSignal": 0.08,
       "humiliationRisk": 0.48
-    }
+    },
+    "defaultVariantId": "shadow_surge",
+    "variants": [
+      {
+        "id": "shadow_surge",
+        "label": "Shadow Surge",
+        "summary": "Move more capability into place than you advertise so deterrence improves before the headlines do.",
+        "interpretationHints": [
+          "shadow",
+          "quiet surge",
+          "move assets",
+          "low visibility military"
+        ],
+        "immediateMeterDeltas": {
+          "militaryReadiness": 2,
+          "escalationIndex": 1
+        },
+        "immediateLatentDeltas": {
+          "usSurgeSlack": -2,
+          "munitionsDepth": -2,
+          "taiwanResilience": 2,
+          "shippingStress": 2
+        },
+        "delayedEffects": [
+          {
+            "delayTurns": 1,
+            "chance": 0.72,
+            "meterDeltas": {
+              "militaryReadiness": 1
+            },
+            "latentDeltas": {
+              "usSurgeSlack": -2
+            },
+            "description": "Additional forces arrive, but the cost to future surge slack becomes harder to hide."
+          }
+        ],
+        "narrativeEmphasis": " It improves deterrence while trying not to trigger the loudest possible reaction immediately.",
+        "advisorFraming": "Framed as real posture without maximal publicity.",
+        "hiddenDownsideCategory": "force_burn",
+        "isDefault": true
+      },
+      {
+        "id": "broadcast_deterrence",
+        "label": "Broadcast Deterrence",
+        "summary": "Make the posture shift visible enough that everyone understands the coalition is willing to take risk.",
+        "interpretationHints": [
+          "visible",
+          "broadcast",
+          "public deployment",
+          "carrier",
+          "show force"
+        ],
+        "immediateMeterDeltas": {
+          "militaryReadiness": 2,
+          "escalationIndex": 3,
+          "allianceTrust": 1
+        },
+        "immediateLatentDeltas": {
+          "usSurgeSlack": -3,
+          "munitionsDepth": -2,
+          "taiwanResilience": 2,
+          "shippingStress": 4,
+          "politicalBuffer": -1
+        },
+        "delayedEffects": [
+          {
+            "delayTurns": 1,
+            "chance": 0.68,
+            "meterDeltas": {
+              "escalationIndex": 1
+            },
+            "latentDeltas": {
+              "shippingStress": 2
+            },
+            "description": "A visible deterrent signal clarifies resolve but also raises the chance of sharper repricing and confrontation."
+          }
+        ],
+        "narrativeEmphasis": " It turns deterrence into public theater, which can restore clarity or force the other side to answer in kind.",
+        "advisorFraming": "Framed as visible deterrence with reputational commitment.",
+        "hiddenDownsideCategory": "miscalculation"
+      }
+    ]
   },
   {
     "id": "military_posture_decrease",
@@ -422,7 +1139,10 @@
     "name": "Military Posture Decrease",
     "summary": "Pull back visible deployments to signal de-escalatory intent.",
     "visibility": "public",
-    "tags": ["military", "deescalation"],
+    "tags": [
+      "military",
+      "deescalation"
+    ],
     "immediateMeterDeltas": {
       "militaryReadiness": -5,
       "escalationIndex": -6,
@@ -455,7 +1175,85 @@
       "economicStressSignal": -0.12,
       "allianceStressSignal": 0.42,
       "humiliationRisk": 0.25
-    }
+    },
+    "defaultVariantId": "quiet_reposition",
+    "variants": [
+      {
+        "id": "quiet_reposition",
+        "label": "Quiet Reposition",
+        "summary": "Reduce the most visible edge of the posture while keeping enough hidden capability to avoid looking absent.",
+        "interpretationHints": [
+          "quiet pullback",
+          "reposition",
+          "lower profile",
+          "decrease posture"
+        ],
+        "immediateMeterDeltas": {
+          "escalationIndex": -2,
+          "militaryReadiness": -1
+        },
+        "immediateLatentDeltas": {
+          "usSurgeSlack": 2,
+          "politicalBuffer": 2,
+          "taiwanResilience": -1
+        },
+        "delayedEffects": [
+          {
+            "delayTurns": 1,
+            "chance": 0.66,
+            "meterDeltas": {
+              "economicStability": 1
+            },
+            "latentDeltas": {
+              "politicalBuffer": 1
+            },
+            "description": "A quieter posture eases some immediate stress, though it may also invite testing."
+          }
+        ],
+        "narrativeEmphasis": " It preserves future slack and lowers the immediate heat, but only if the counterpart does not treat it as an invitation.",
+        "advisorFraming": "Framed as reversible de-intensification.",
+        "hiddenDownsideCategory": "misread_weakness",
+        "isDefault": true
+      },
+      {
+        "id": "public_decompression",
+        "label": "Public Decompression",
+        "summary": "Announce a visible pullback to advertise restraint and invite a reciprocal step.",
+        "interpretationHints": [
+          "public pullback",
+          "announce deescalation",
+          "decompress publicly",
+          "show restraint"
+        ],
+        "immediateMeterDeltas": {
+          "escalationIndex": -3,
+          "militaryReadiness": -1,
+          "allianceTrust": -1
+        },
+        "immediateLatentDeltas": {
+          "usSurgeSlack": 3,
+          "politicalBuffer": 2,
+          "deceptionEffectiveness": 2,
+          "taiwanResilience": -2
+        },
+        "delayedEffects": [
+          {
+            "delayTurns": 1,
+            "chance": 0.58,
+            "meterDeltas": {
+              "allianceTrust": -1
+            },
+            "latentDeltas": {
+              "deceptionEffectiveness": 2
+            },
+            "description": "The visible decompression lowers heat but increases the risk the other side treats the pause as room to press."
+          }
+        ],
+        "narrativeEmphasis": " It maximizes restraint as a signal, but that signal can land as relief or weakness depending on what the other side wanted all along.",
+        "advisorFraming": "Framed as overt de-escalation.",
+        "hiddenDownsideCategory": "strategic_retreat"
+      }
+    ]
   },
   {
     "id": "intelligence_surge",
@@ -463,7 +1261,10 @@
     "name": "Intelligence Surge",
     "summary": "Reallocate assets to improve detection and attribution confidence.",
     "visibility": "secret",
-    "tags": ["intel", "defensive"],
+    "tags": [
+      "intel",
+      "defensive"
+    ],
     "immediateMeterDeltas": {
       "militaryReadiness": 2,
       "economicStability": -1,
@@ -499,7 +1300,84 @@
       "economicStressSignal": 0.05,
       "allianceStressSignal": -0.08,
       "humiliationRisk": 0.04
-    }
+    },
+    "defaultVariantId": "fusion_cell",
+    "variants": [
+      {
+        "id": "fusion_cell",
+        "label": "Fusion Cell",
+        "summary": "Surge allied collection and fusion to cut through the anomaly before the next move lands.",
+        "interpretationHints": [
+          "fusion",
+          "surge intel",
+          "attribution cell",
+          "more surveillance",
+          "collect more"
+        ],
+        "immediateMeterDeltas": {
+          "militaryReadiness": 1,
+          "escalationIndex": -1
+        },
+        "immediateLatentDeltas": {
+          "deceptionEffectiveness": -7,
+          "cyberPrepositioning": -3,
+          "taiwanResilience": 1
+        },
+        "delayedEffects": [
+          {
+            "delayTurns": 1,
+            "chance": 0.88,
+            "meterDeltas": {
+              "escalationIndex": -1
+            },
+            "latentDeltas": {
+              "deceptionEffectiveness": -3
+            },
+            "description": "The surge in collection improves attribution and reduces surprise in the next window."
+          }
+        ],
+        "narrativeEmphasis": " It is a clarity move first and a signaling move second, meant to stop the crisis from being decided by the dirtiest picture.",
+        "advisorFraming": "Framed as clarity and warning-time recovery.",
+        "hiddenDownsideCategory": "collection_overreach",
+        "isDefault": true
+      },
+      {
+        "id": "allied_attribution_cell",
+        "label": "Allied Attribution Cell",
+        "summary": "Build a visibly allied attribution effort so any later accusation or reassurance rests on a broader base.",
+        "interpretationHints": [
+          "allied",
+          "joint intel",
+          "joint attribution",
+          "share intelligence"
+        ],
+        "immediateMeterDeltas": {
+          "allianceTrust": 1,
+          "escalationIndex": -1
+        },
+        "immediateLatentDeltas": {
+          "deceptionEffectiveness": -5,
+          "shippingStress": -1,
+          "taiwanResilience": 1
+        },
+        "delayedEffects": [
+          {
+            "delayTurns": 1,
+            "chance": 0.78,
+            "meterDeltas": {
+              "allianceTrust": 1
+            },
+            "latentDeltas": {
+              "deceptionEffectiveness": -2
+            },
+            "description": "Shared attribution improves coalition discipline in the next response window."
+          }
+        ],
+        "narrativeEmphasis": " It turns intelligence into coalition glue, which can be slower than a unilateral move but more stabilizing if the branch worsens.",
+        "advisorFraming": "Framed as alliance-backed clarity.",
+        "hiddenDownsideCategory": "slow_rollout"
+      }
+    ]
   },
   {
     "id": "limited_concession",
@@ -507,7 +1385,10 @@
     "name": "Offer Limited Concession",
     "summary": "Offer narrow compromise with strict verification terms.",
     "visibility": "public",
-    "tags": ["diplomacy", "deescalation"],
+    "tags": [
+      "diplomacy",
+      "deescalation"
+    ],
     "immediateMeterDeltas": {
       "escalationIndex": -7,
       "allianceTrust": 1,
@@ -551,16 +1432,95 @@
       "economicStressSignal": -0.15,
       "allianceStressSignal": 0.21,
       "humiliationRisk": 0.18
-    }
+    },
+    "defaultVariantId": "technical_pause",
+    "variants": [
+      {
+        "id": "technical_pause",
+        "label": "Technical Pause",
+        "summary": "Offer a narrow, reversible procedural concession that tests whether Beijing wants a quieter branch or just a better story.",
+        "interpretationHints": [
+          "technical pause",
+          "limited concession",
+          "small concession",
+          "procedural step"
+        ],
+        "immediateMeterDeltas": {
+          "escalationIndex": -2,
+          "economicStability": 1
+        },
+        "immediateLatentDeltas": {
+          "shippingStress": -3,
+          "politicalBuffer": 1,
+          "rivalDomesticPressure": -1
+        },
+        "delayedEffects": [
+          {
+            "delayTurns": 1,
+            "chance": 0.7,
+            "meterDeltas": {
+              "economicStability": 1
+            },
+            "latentDeltas": {
+              "shippingStress": -1
+            },
+            "description": "A narrow concession gives markets and carriers a brief reason to pause the worst repricing."
+          }
+        ],
+        "narrativeEmphasis": " It is an offer of process, not surrender, but it can still be read as the first sign that pressure works.",
+        "advisorFraming": "Framed as reversible technical relief.",
+        "hiddenDownsideCategory": "normalized_coercion",
+        "isDefault": true
+      },
+      {
+        "id": "public_offramp",
+        "label": "Public Offramp",
+        "summary": "Offer a visible path to de-escalation and dare Beijing to reject it in front of the coalition and the market.",
+        "interpretationHints": [
+          "public offramp",
+          "visible concession",
+          "public compromise",
+          "visible pause"
+        ],
+        "immediateMeterDeltas": {
+          "escalationIndex": -1,
+          "allianceTrust": 1,
+          "economicStability": 1
+        },
+        "immediateLatentDeltas": {
+          "shippingStress": -2,
+          "politicalBuffer": 1,
+          "taiwanResilience": -1
+        },
+        "delayedEffects": [
+          {
+            "delayTurns": 1,
+            "chance": 0.62,
+            "meterDeltas": {
+              "allianceTrust": 1
+            },
+            "latentDeltas": {
+              "shippingStress": -1
+            },
+            "description": "A visible offramp can stabilize allies and markets if the counterpart does not reject it outright."
+          }
+        ],
+        "narrativeEmphasis": " It aims to flip the burden of escalation onto Beijing, but if Beijing shrugs it off, the coalition may look like it blinked first.",
+        "advisorFraming": "Framed as public diplomatic challenge.",
+        "hiddenDownsideCategory": "visible_blink"
+      }
+    ]
   },
-
   {
     "id": "rival_public_threat",
     "actor": "rival",
     "name": "Rival Public Threat",
     "summary": "Issue explicit warning with deadline language.",
     "visibility": "public",
-    "tags": ["messaging", "deterrence"],
+    "tags": [
+      "messaging",
+      "deterrence"
+    ],
     "immediateMeterDeltas": {
       "escalationIndex": 4,
       "domesticCohesion": -1,
@@ -587,7 +1547,10 @@
     "name": "Rival Covert Probe",
     "summary": "Deniable cyber and HUMINT probing against critical systems.",
     "visibility": "secret",
-    "tags": ["covert", "cyber"],
+    "tags": [
+      "covert",
+      "cyber"
+    ],
     "immediateMeterDeltas": {
       "escalationIndex": 2,
       "energySecurity": -2,
@@ -621,7 +1584,10 @@
     "name": "Rival Sanction Retaliation",
     "summary": "Counter-sanctions on strategic imports and finance channels.",
     "visibility": "public",
-    "tags": ["economic", "retaliation"],
+    "tags": [
+      "economic",
+      "retaliation"
+    ],
     "immediateMeterDeltas": {
       "economicStability": -4,
       "energySecurity": -3,
@@ -655,7 +1621,10 @@
     "name": "Rival Military Drill",
     "summary": "Large-scale readiness drill near contested corridor.",
     "visibility": "public",
-    "tags": ["military", "posture"],
+    "tags": [
+      "military",
+      "posture"
+    ],
     "immediateMeterDeltas": {
       "escalationIndex": 6,
       "militaryReadiness": -2,
@@ -689,7 +1658,10 @@
     "name": "Rival De-Escalation Signal",
     "summary": "Signal willingness for managed pause and verification.",
     "visibility": "public",
-    "tags": ["diplomacy", "deescalation"],
+    "tags": [
+      "diplomacy",
+      "deescalation"
+    ],
     "immediateMeterDeltas": {
       "escalationIndex": -5,
       "allianceTrust": 1,
@@ -723,7 +1695,10 @@
     "name": "Rival Energy Coercion",
     "summary": "Constrict energy flows to pressure domestic resilience.",
     "visibility": "public",
-    "tags": ["energy", "coercion"],
+    "tags": [
+      "energy",
+      "coercion"
+    ],
     "immediateMeterDeltas": {
       "energySecurity": -6,
       "economicStability": -2,
@@ -757,7 +1732,10 @@
     "name": "Rival Disinformation Campaign",
     "summary": "Amplify narratives to fracture domestic trust and alliance cohesion.",
     "visibility": "secret",
-    "tags": ["information", "covert"],
+    "tags": [
+      "information",
+      "covert"
+    ],
     "immediateMeterDeltas": {
       "domesticCohesion": -5,
       "allianceTrust": -2,
@@ -793,7 +1771,10 @@
     "name": "Rival Proxy Incident",
     "summary": "A deniable proxy engages in limited kinetic provocation.",
     "visibility": "semi-public",
-    "tags": ["proxy", "military"],
+    "tags": [
+      "proxy",
+      "military"
+    ],
     "immediateMeterDeltas": {
       "escalationIndex": 7,
       "militaryReadiness": -1,
@@ -817,7 +1798,10 @@
     "name": "Rival Backchannel Reply",
     "summary": "Respond through private channels with conditional terms.",
     "visibility": "secret",
-    "tags": ["diplomacy", "covert"],
+    "tags": [
+      "diplomacy",
+      "covert"
+    ],
     "immediateMeterDeltas": {
       "escalationIndex": -3,
       "allianceTrust": 1

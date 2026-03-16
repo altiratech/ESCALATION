@@ -326,7 +326,10 @@ app.get('/api/episodes/:episodeId', async (context) => {
 
 const actionSchema = z.object({
   expectedTurn: z.number().int().min(1),
-  actionId: z.string().min(1)
+  actionId: z.string().min(1),
+  variantId: z.string().min(1).nullable().optional(),
+  customLabel: z.string().min(1).max(120).nullable().optional(),
+  interpretationRationale: z.string().min(1).max(500).nullable().optional()
 });
 
 const inactionSchema = z.object({
@@ -347,14 +350,17 @@ const buildInterpretationMessage = (input: {
   decision: 'execute' | 'review' | 'reject';
   confidencePercent: number;
   interpretedActionName: string | null;
-  suggestions: Array<{ actionName: string }>;
+  variantLabel: string | null;
+  suggestions: Array<{ actionName: string; variantLabel?: string | null }>;
   roleLabel: string;
 }): string => {
-  const { decision, confidencePercent, interpretedActionName, suggestions, roleLabel } = input;
-  const listedSuggestions = suggestions.map((entry) => entry.actionName).join(', ');
+  const { decision, confidencePercent, interpretedActionName, variantLabel, suggestions, roleLabel } = input;
+  const listedSuggestions = suggestions
+    .map((entry) => entry.variantLabel ? `${entry.actionName} · ${entry.variantLabel}` : entry.actionName)
+    .join(', ');
 
   if (decision === 'execute' && interpretedActionName) {
-    return `Command mapped to "${interpretedActionName}" (${confidencePercent}% confidence).`;
+    return `Custom response maps to "${interpretedActionName}"${variantLabel ? ` using "${variantLabel}"` : ''} (${confidencePercent}% confidence).`;
   }
 
   if (decision === 'review') {
@@ -404,6 +410,11 @@ app.post('/api/episodes/:episodeId/interpret', async (context) => {
       decision: 'reject',
       interpretedActionId: null,
       interpretedActionName: null,
+      variantId: null,
+      variantLabel: null,
+      customLabel: null,
+      interpretationRationale: null,
+      narrativeEmphasis: null,
       message: 'Episode is already complete.',
       suggestions: [],
       episode: {
@@ -425,6 +436,11 @@ app.post('/api/episodes/:episodeId/interpret', async (context) => {
       decision: 'review',
       interpretedActionId: null,
       interpretedActionName: null,
+      variantId: null,
+      variantLabel: null,
+      customLabel: null,
+      interpretationRationale: null,
+      narrativeEmphasis: null,
       message: 'Command state is stale. Syncing latest turn context.',
       suggestions: [],
       episode: {
@@ -434,12 +450,17 @@ app.post('/api/episodes/:episodeId/interpret', async (context) => {
     });
   }
 
+  const scenario = getScenario(state.scenarioId);
   const offeredActions = state.offeredActionIds
     .map((actionId) => actionMap.get(actionId))
     .filter((action): action is ActionDefinition => Boolean(action));
-  const interpretation = interpretCommandText(payload.commandText, offeredActions);
+  const currentBeat = scenario.beats.find((beat) => beat.id === state.currentBeatId) ?? null;
+  const interpretation = interpretCommandText(payload.commandText, offeredActions, {
+    scenario,
+    state,
+    currentTruthModel: currentBeat?.truthModel ?? null
+  });
   const currentView = toEpisodeView(state, actionMap, imageMap, requestTimestamp);
-  const scenario = getScenario(state.scenarioId);
   const roleLabel = scenario.role || 'Command';
 
   const confidencePercent = Math.round(interpretation.confidence * 100);
@@ -447,6 +468,7 @@ app.post('/api/episodes/:episodeId/interpret', async (context) => {
     decision: interpretation.decision,
     confidencePercent,
     interpretedActionName: interpretation.interpretedActionName,
+    variantLabel: interpretation.variantLabel,
     suggestions: interpretation.suggestions,
     roleLabel
   });
@@ -457,6 +479,11 @@ app.post('/api/episodes/:episodeId/interpret', async (context) => {
     decision: interpretation.decision,
     interpretedActionId: interpretation.interpretedActionId,
     interpretedActionName: interpretation.interpretedActionName,
+    variantId: interpretation.variantId,
+    variantLabel: interpretation.variantLabel,
+    customLabel: interpretation.customLabel,
+    interpretationRationale: interpretation.interpretationRationale,
+    narrativeEmphasis: interpretation.narrativeEmphasis,
     message,
     suggestions: interpretation.suggestions,
     episode: {
@@ -516,6 +543,26 @@ app.post('/api/episodes/:episodeId/actions', async (context) => {
 
   const scenario = getScenario(state.scenarioId);
   const adversaryProfile = getScenarioAdversaryProfile(scenario.id);
+  const offeredActions = state.offeredActionIds
+    .map((actionId) => actionMap.get(actionId))
+    .filter((action): action is ActionDefinition => Boolean(action));
+  const selectedAction = offeredActions.find((entry) => entry.id === payload.actionId) ?? null;
+
+  if (!selectedAction) {
+    return context.json({
+      message: 'Selected response is not available in the current decision window.'
+    }, 400);
+  }
+
+  if (payload.variantId) {
+    const validVariant = selectedAction.variants?.some((variant) => variant.id === payload.variantId);
+    if (!validVariant) {
+      return context.json({
+        message: 'Selected response variant is not available for the current response.'
+      }, 400);
+    }
+  }
+
   const engineContext = {
     scenario,
     adversaryProfile,
@@ -630,7 +677,12 @@ app.post('/api/episodes/:episodeId/actions', async (context) => {
   const preActionTimer = countdownTelemetry(state.activeCountdown, requestTimestamp);
   let result;
   try {
-    result = resolveTurn(state, payload.actionId, engineContext, requestTimestamp);
+    result = resolveTurn(state, payload.actionId, engineContext, {
+      nowMs: requestTimestamp,
+      playerVariantId: payload.variantId ?? null,
+      playerActionCustomLabel: payload.customLabel ?? null,
+      playerActionInterpretationRationale: payload.interpretationRationale ?? null
+    });
   } catch (error) {
     return context.json({
       message: error instanceof Error ? error.message : 'Failed to resolve action.'

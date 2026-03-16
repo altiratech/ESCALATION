@@ -1,7 +1,7 @@
 [
   {
     "id": "northern_strait_flashpoint",
-    "name": "Taiwan Strait Flashpoint",
+    "name": "Taiwan Strait Flashpoint (Legacy)",
     "briefing": "Beijing has announced a coercive inspection regime around the Taiwan Strait after months of military pressure, cyber probing, and blockade rehearsal. Your mandate is to keep the corridor open, reassure Taipei and regional allies, and prevent gray-zone coercion from hardening into war.",
     "role": "National Security Advisor",
     "missionObjectives": [
@@ -2934,6 +2934,2956 @@
       "rival_disinfo_campaign",
       "rival_proxy_incident",
       "rival_backchannel_reply"
-    ]
+    ],
+    "isLegacy": true,
+    "worldModelId": "taiwan_2026_legacy",
+    "roleTrackId": "nsa_track"
+  },
+  {
+    "id": "northern_strait_black_swan",
+    "name": "Taiwan Strait Flashpoint",
+    "briefing": "An abnormal signal appears south of Taiwan: spoofed tracks, missing transponders, and a drone pattern no one can explain cleanly. You are the U.S. National Security Advisor, and the first danger is not obvious war but a sequence of misreads, partial truths, and narrowing decisions that could still end in blockade, strikes, or worse.",
+    "role": "National Security Advisor",
+    "missionObjectives": [
+      {
+        "id": "keep_corridor_open",
+        "label": "Keep the corridor open",
+        "description": "Prevent Beijing from turning ambiguous control measures into a durable new operating baseline in the strait.",
+        "primaryMeters": [
+          "economicStability",
+          "allianceTrust"
+        ],
+        "targetDirection": "high"
+      },
+      {
+        "id": "avoid_open_war",
+        "label": "Avoid open war",
+        "description": "Preserve deterrence and credibility without stumbling into a direct military exchange you can no longer shape.",
+        "primaryMeters": [
+          "escalationIndex",
+          "militaryReadiness"
+        ],
+        "targetDirection": "low"
+      },
+      {
+        "id": "preserve_coalition",
+        "label": "Preserve coalition discipline",
+        "description": "Keep Washington, Taipei, Tokyo, Manila, and other partners close enough that Beijing cannot exploit split messaging.",
+        "primaryMeters": [
+          "allianceTrust",
+          "domesticCohesion"
+        ],
+        "targetDirection": "high"
+      },
+      {
+        "id": "protect_slack",
+        "label": "Protect strategic slack",
+        "description": "Do not burn force, munitions, political tolerance, and Taiwan resilience faster than the crisis requires.",
+        "primaryMeters": [
+          "militaryReadiness",
+          "economicStability"
+        ],
+        "targetDirection": "high"
+      }
+    ],
+    "adversaryProfileId": "calculated_technocrat",
+    "maxTurns": 8,
+    "environment": "coastal",
+    "pressureCurve": [
+      1,
+      1.03,
+      1.06,
+      1.1,
+      1.16,
+      1.22,
+      1.28,
+      1.35
+    ],
+    "meterLabels": {
+      "economicStability": "Market Stability",
+      "energySecurity": "Fuel Security",
+      "domesticCohesion": "Homefront Cohesion",
+      "militaryReadiness": "Force Readiness",
+      "allianceTrust": "Alliance Trust",
+      "escalationIndex": "Escalation Index"
+    },
+    "initialMeters": {
+      "economicStability": 68,
+      "energySecurity": 61,
+      "domesticCohesion": 64,
+      "militaryReadiness": 57,
+      "allianceTrust": 63,
+      "escalationIndex": 38
+    },
+    "initialLatent": {
+      "globalLegitimacy": 56,
+      "rivalDomesticPressure": 42,
+      "playerDomesticApproval": 54,
+      "usSurgeSlack": 58,
+      "munitionsDepth": 55,
+      "politicalBuffer": 50,
+      "taiwanResilience": 68,
+      "shippingStress": 36,
+      "cyberPrepositioning": 52,
+      "deceptionEffectiveness": 61,
+      "vulnerabilityFlags": [
+        "corridor_fragility",
+        "semiconductor_dependence",
+        "warning_time_compression"
+      ]
+    },
+    "initialBeliefs": {
+      "bluffProb": 0.46,
+      "thresholdHighProb": 0.52,
+      "economicallyWeakProb": 0.34,
+      "allianceFragileProb": 0.39,
+      "escalationVelocity": 0.42,
+      "deescalateUnderPressure": 0.28,
+      "humiliation": 0.31
+    },
+    "initialIntelQuality": {
+      "economicStability": 62,
+      "energySecurity": 58,
+      "domesticCohesion": 61,
+      "militaryReadiness": 57,
+      "allianceTrust": 59,
+      "escalationIndex": 54
+    },
+    "startingBeatId": "ns_abnormal_signal",
+    "beats": [
+      {
+        "id": "ns_abnormal_signal",
+        "phase": "opening",
+        "sceneFragments": [
+          "An abnormal pattern appears near Dongsha and the southern air approaches: civilian transponders blink out, a drone cluster shadows merchant traffic for minutes, and separate allied feeds disagree on whether the formation was probing, spoofing, or staging something larger."
+        ],
+        "advisorLines": {
+          "cross": [
+            "We may be looking at a rehearsal for something larger. If we show uncertainty publicly, Beijing learns our warning-time tolerance.",
+            "I want more ISR in the southern approaches before we decide whether this is theater or setup."
+          ],
+          "chen": [
+            "The first mistake would be to convert anomaly into accusation before we know what we are seeing.",
+            "If this is a test, disciplined ambiguity on our side may buy more leverage than a loud first move."
+          ],
+          "okonkwo": [
+            "Shipping desks and insurers will move before any ministry statement. That is where the damage starts.",
+            "If we underplay this and markets see otherwise, we lose both credibility and economic room."
+          ],
+          "reed": [
+            "The pattern feels staged. Somebody wants the picture to be noisy enough that we answer the wrong problem.",
+            "I would assume this is not one move but the first visible layer of several."
+          ]
+        },
+        "advisorActionGuidance": {
+          "cross": {
+            "supports": [
+              "intelligence_surge",
+              "military_posture_increase",
+              "public_signaling_speech"
+            ],
+            "cautions": [
+              "backchannel_diplomacy",
+              "targeted_sanctions",
+              "resource_stockpiling"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_decrease",
+              "limited_concession"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Wants to seize the initiative before the anomaly matures into a new normal. Prefers moves that show control, sharpen warning time, or visibly stiffen deterrence.",
+              "cautions": "Sees some value here, but worries the move either buys time without enough leverage or consumes scarce capacity too early.",
+              "opposes": "Rejects options that look like concession, diffuse the signal, or reveal uncertainty before the operational picture is clearer."
+            }
+          },
+          "chen": {
+            "supports": [
+              "backchannel_diplomacy",
+              "intelligence_surge",
+              "limited_concession"
+            ],
+            "cautions": [
+              "public_signaling_speech",
+              "resource_stockpiling",
+              "targeted_sanctions"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_increase",
+              "military_posture_decrease"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Prefers options that preserve coalition discipline and clarify intent without forcing the anomaly into an overt confrontation.",
+              "cautions": "Accepts these as potentially useful, but only if they stay reversible and are tightly framed for allied audiences.",
+              "opposes": "Rejects actions that risk converting incomplete information into a public showdown before allied alignment is secure."
+            }
+          },
+          "okonkwo": {
+            "supports": [
+              "resource_stockpiling",
+              "intelligence_surge",
+              "backchannel_diplomacy"
+            ],
+            "cautions": [
+              "targeted_sanctions",
+              "public_signaling_speech",
+              "limited_concession"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_increase",
+              "military_posture_decrease"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Favors responses that buy resilience, improve clarity, or reduce the chance that markets price a wider shock immediately.",
+              "cautions": "Sees some leverage, but worries about freight, insurance, and semiconductor repricing if the move is read as escalation.",
+              "opposes": "Rejects steps that would amplify market stress before the threat picture is clearer or before the alliance agrees on the line."
+            }
+          },
+          "reed": {
+            "supports": [
+              "backchannel_diplomacy",
+              "cyber_intrusion",
+              "intelligence_surge",
+              "covert_sabotage"
+            ],
+            "cautions": [
+              "cyber_disruption",
+              "military_posture_increase",
+              "targeted_sanctions"
+            ],
+            "opposes": [
+              "public_signaling_speech",
+              "broad_sanctions",
+              "resource_stockpiling",
+              "military_posture_decrease",
+              "limited_concession"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Prefers optionality, collection, and deniable leverage while the anomaly is still more suggestive than explicit.",
+              "cautions": "Can work, but only if paired with a clear sense of what hidden architecture is already in motion.",
+              "opposes": "Rejects loud overt moves that surrender deniability, simplify the other side’s story, or close off covert options too early."
+            }
+          }
+        },
+        "truthModel": {
+          "verifiedFacts": [
+            {
+              "id": "dongsha_anomaly",
+              "title": "Dongsha anomaly recorded",
+              "body": "Taiwanese coastal radar, a Japanese patrol aircraft, and a civilian ferry feed all captured an abnormal air-maritime pattern south of Taiwan."
+            },
+            {
+              "id": "transponder_gap",
+              "title": "Commercial transponders blinked out",
+              "body": "Two civilian tracks disappeared from the common picture for several minutes before reappearing on normal routing."
+            }
+          ],
+          "workingTheories": [
+            {
+              "id": "coercive_probe",
+              "title": "Possible coercive rehearsal",
+              "body": "The anomaly may be a first test of how quickly the coalition notices, attributes, and speaks when the signal is still ambiguous."
+            },
+            {
+              "id": "diversion_setup",
+              "title": "Possible diversion for other preparation",
+              "body": "The southern disturbance could be meant to pull attention away from cyber or maritime prep farther north in the strait."
+            }
+          ],
+          "unknowns": [
+            {
+              "id": "operator_identity",
+              "title": "Who is controlling the anomaly",
+              "body": "It is still unclear whether this was directed centrally, run through deniable auxiliaries, or improvised by local operators."
+            },
+            {
+              "id": "follow_on_move",
+              "title": "What follows next",
+              "body": "There is no confirmed link yet between the anomaly and any formal maritime-control measure or military deadline."
+            }
+          ]
+        },
+        "windowContext": {
+          "sections": [
+            {
+              "id": "pressure_meaning",
+              "title": "What this means now",
+              "body": "The first danger is not open war. It is that an ambiguous anomaly teaches Beijing how much warning time and coalition coherence exist before a more consequential move."
+            },
+            {
+              "id": "decision_question",
+              "title": "What you are deciding",
+              "body": "The opening response is about whether to buy clarity, show resolve, or preserve flexibility while the signal is still incomplete."
+            },
+            {
+              "id": "closure_risk",
+              "title": "What closes if you overreact",
+              "body": "A loud first move can simplify the story for Beijing and make every later de-escalatory step look like retreat."
+            }
+          ]
+        },
+        "headlines": [
+          "Unidentified Air-Maritime Anomaly Detected South Of Taiwan",
+          "Conflicting Allied Feeds Raise Fear Of A Staged Probe"
+        ],
+        "memoLine": "Situation note: the anomaly is real; intent is not yet attributable with confidence.",
+        "tickerLine": "Risk ticker: insurers widen watchlists but stop short of corridor withdrawal.",
+        "imageHints": [
+          "taiwan",
+          "maritime",
+          "shipping"
+        ],
+        "branches": [
+          {
+            "targetBeatId": "ns_deceptive_picture",
+            "conditions": [],
+            "minTurn": null,
+            "maxTurn": null,
+            "requiresActionTag": null,
+            "priority": 1
+          }
+        ],
+        "terminalOutcome": null,
+        "meterOverrides": null,
+        "advisorUnlock": null,
+        "musicCue": null,
+        "decisionWindow": null
+      },
+      {
+        "id": "ns_deceptive_picture",
+        "phase": "opening",
+        "sceneFragments": [
+          "The radar picture degrades instead of clarifying. Spoofed transponders, AIS gaps, and selective jamming make routine shipping look abnormal and abnormal routing look routine."
+        ],
+        "advisorLines": {
+          "cross": [
+            "The radar picture may be lying, but the operational intent is getting less deniable.",
+            "I care less about the narrative and more about who is shaping the geometry in the strait."
+          ],
+          "chen": [
+            "We still have space to frame this as unsafe behavior rather than an irreversible rupture.",
+            "The next move should preserve coalition alignment even if the data stays messy."
+          ],
+          "okonkwo": [
+            "Every additional hour of ambiguity is another hour for freight, semis, and insurers to price a wider shock.",
+            "We need a response that does not create a self-inflicted panic premium."
+          ],
+          "reed": [
+            "Spoofing and sensor clutter tell me somebody wants to compress our warning time.",
+            "If we answer too visibly, we may be stepping into the script rather than breaking it."
+          ]
+        },
+        "advisorActionGuidance": {
+          "cross": {
+            "supports": [
+              "intelligence_surge",
+              "military_posture_increase",
+              "targeted_sanctions"
+            ],
+            "cautions": [
+              "public_signaling_speech",
+              "backchannel_diplomacy",
+              "resource_stockpiling"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_decrease",
+              "limited_concession"
+            ],
+            "rationaleByAlignment": {
+              "supports": "When the picture is being manipulated, she prefers clarity, forward posture, and costs that make further deception harder to sustain.",
+              "cautions": "Useful if disciplined, but not enough alone to break the deceptive rhythm.",
+              "opposes": "Rejects moves that signal softness, dissipate leverage, or let a fabricated picture harden while the coalition debates."
+            }
+          },
+          "chen": {
+            "supports": [
+              "intelligence_surge",
+              "backchannel_diplomacy",
+              "public_signaling_speech"
+            ],
+            "cautions": [
+              "targeted_sanctions",
+              "resource_stockpiling",
+              "limited_concession"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_increase",
+              "military_posture_decrease"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Wants better attribution and careful signaling that steadies allies without rewarding the deception campaign.",
+              "cautions": "Potentially useful, but the framing has to keep coalition discipline intact.",
+              "opposes": "Rejects actions that react to the manipulated picture so dramatically that they become part of it."
+            }
+          },
+          "okonkwo": {
+            "supports": [
+              "intelligence_surge",
+              "resource_stockpiling",
+              "backchannel_diplomacy"
+            ],
+            "cautions": [
+              "targeted_sanctions",
+              "public_signaling_speech",
+              "limited_concession"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_increase",
+              "military_posture_decrease"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Prioritizes clarity and buffers because markets punish uncertainty faster than they punish bad news.",
+              "cautions": "Sees some merit, but worries about pulling forward commercial panic or coalition cost.",
+              "opposes": "Rejects moves most likely to turn a confusing picture into an immediate freight, insurance, or semiconductor shock."
+            }
+          },
+          "reed": {
+            "supports": [
+              "cyber_intrusion",
+              "intelligence_surge",
+              "backchannel_diplomacy",
+              "covert_sabotage"
+            ],
+            "cautions": [
+              "cyber_disruption",
+              "military_posture_increase",
+              "targeted_sanctions"
+            ],
+            "opposes": [
+              "public_signaling_speech",
+              "broad_sanctions",
+              "resource_stockpiling",
+              "military_posture_decrease",
+              "limited_concession"
+            ],
+            "rationaleByAlignment": {
+              "supports": "When the radar picture may be lying, he wants collection, deniable leverage, and quiet tests of the counterpart’s real intent.",
+              "cautions": "May be necessary, but he worries overt moves reveal too much about what we know or do not know.",
+              "opposes": "Rejects clean, loud answers to a deliberately dirty signal environment."
+            }
+          }
+        },
+        "truthModel": {
+          "verifiedFacts": [
+            {
+              "id": "spoofed_tracks",
+              "title": "Spoofed identities confirmed",
+              "body": "At least three vessel identities and one aviation transponder stream were altered or replayed during the anomaly window."
+            },
+            {
+              "id": "warning_time_compression",
+              "title": "Warning time is shrinking",
+              "body": "Regional operators are now working with contradictory pictures on what should be a familiar traffic pattern."
+            }
+          ],
+          "workingTheories": [
+            {
+              "id": "picture_manipulation",
+              "title": "The picture may be the weapon",
+              "body": "The immediate objective may be to normalize uncertainty itself so later coercive moves arrive inside a degraded information environment."
+            },
+            {
+              "id": "testing_rules",
+              "title": "Coalition response rules may be under test",
+              "body": "The anomaly may be measuring whether Washington, Taipei, Tokyo, and Manila default toward silence, public accusation, or visible deterrence."
+            }
+          ],
+          "unknowns": [
+            {
+              "id": "legal_cover",
+              "title": "Whether legal scaffolding is already prepared",
+              "body": "No formal maritime-control language has been announced yet, but regulatory messaging could surface quickly if this is a setup."
+            },
+            {
+              "id": "cyber_depth",
+              "title": "How deep cyber access already runs",
+              "body": "There is still no high-confidence read on whether port, customs, or telecom systems were touched in parallel."
+            }
+          ]
+        },
+        "windowContext": {
+          "sections": [
+            {
+              "id": "signal_meaning",
+              "title": "What this means now",
+              "body": "The deception layer matters because every later move becomes easier to disguise as confusion or routine traffic management."
+            },
+            {
+              "id": "market_read",
+              "title": "How finance reads it",
+              "body": "Markets can live with bad news faster than they can live with unreadable risk. Ambiguity itself is now a commercial threat."
+            },
+            {
+              "id": "branch_hint",
+              "title": "What branch is opening",
+              "body": "If the picture keeps degrading, the next step may arrive as “administrative safety” rather than overt military pressure."
+            }
+          ]
+        },
+        "headlines": [
+          "Spoofed Transponders And Sensor Clutter Distort Strait Picture",
+          "Operators Warn That The Radar Picture May Be Lying"
+        ],
+        "memoLine": "Analyst note: the signal environment is now part of the contest, not just a backdrop to it.",
+        "tickerLine": "Risk ticker: Taiwan-linked shipping names gap lower on unreadable-route risk.",
+        "imageHints": [
+          "taiwan",
+          "maritime",
+          "shipping"
+        ],
+        "branches": [
+          {
+            "targetBeatId": "ns_bandwidth_stockpiles",
+            "conditions": [],
+            "minTurn": null,
+            "maxTurn": null,
+            "requiresActionTag": null,
+            "priority": 1
+          }
+        ],
+        "terminalOutcome": null,
+        "meterOverrides": null,
+        "advisorUnlock": null,
+        "musicCue": null,
+        "decisionWindow": null
+      },
+      {
+        "id": "ns_bandwidth_stockpiles",
+        "phase": "rising",
+        "sceneFragments": [
+          "The crisis widens beyond the strait itself. U.S. force availability is tighter than public rhetoric suggests, munitions depth is no longer an abstract planning issue, and oil and inflation sensitivity are back in the political conversation."
+        ],
+        "advisorLines": {
+          "cross": [
+            "The uncomfortable truth is that force availability matters now, not after we finish the talking points.",
+            "Any promise we make in theater has to survive a second crisis elsewhere."
+          ],
+          "chen": [
+            "Bandwidth stress is exactly when coalitions splinter into public resolve and private hesitation.",
+            "We should assume Beijing is watching for a mismatch between what we say and what we can sustain."
+          ],
+          "okonkwo": [
+            "If oil, shipping, and semis all wobble together, domestic patience drops fast.",
+            "Political buffer is now part of the deterrence equation whether we like it or not."
+          ],
+          "reed": [
+            "This is where hidden prep starts to matter more than public messaging.",
+            "If cyber access and deception are already in place, the next visible move can arrive with very little warning."
+          ]
+        },
+        "advisorActionGuidance": {
+          "cross": {
+            "supports": [
+              "military_posture_increase",
+              "intelligence_surge",
+              "public_signaling_speech"
+            ],
+            "cautions": [
+              "targeted_sanctions",
+              "backchannel_diplomacy",
+              "resource_stockpiling"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_decrease",
+              "limited_concession"
+            ],
+            "rationaleByAlignment": {
+              "supports": "With bandwidth and stockpiles under pressure, she backs moves that still show credible presence and readiness.",
+              "cautions": "Useful if they support a stronger line, but insufficient if they become substitutes for it.",
+              "opposes": "Rejects options that spend scarce strategic room without changing the operational balance."
+            }
+          },
+          "chen": {
+            "supports": [
+              "backchannel_diplomacy",
+              "intelligence_surge",
+              "limited_concession"
+            ],
+            "cautions": [
+              "public_signaling_speech",
+              "resource_stockpiling",
+              "targeted_sanctions"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_increase",
+              "military_posture_decrease"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Under stretched conditions he prefers moves that conserve capacity, keep allies aligned, and preserve an off-ramp.",
+              "cautions": "Can help, but only if they do not quietly commit the coalition to a line it cannot sustain.",
+              "opposes": "Rejects actions that outrun available bandwidth and make later backing down politically or militarily impossible."
+            }
+          },
+          "okonkwo": {
+            "supports": [
+              "resource_stockpiling",
+              "backchannel_diplomacy",
+              "intelligence_surge"
+            ],
+            "cautions": [
+              "targeted_sanctions",
+              "limited_concession",
+              "public_signaling_speech"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_increase",
+              "military_posture_decrease"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Favors buffering moves that protect shipping, energy, and political tolerance while the coalition is stretched thin.",
+              "cautions": "May work, but only if the move does not turn a strategic stress problem into a full market event.",
+              "opposes": "Rejects responses likely to collide with inflation, liquidity, or supply-chain nerves at the worst possible moment."
+            }
+          },
+          "reed": {
+            "supports": [
+              "cyber_intrusion",
+              "intelligence_surge",
+              "backchannel_diplomacy",
+              "cyber_disruption"
+            ],
+            "cautions": [
+              "covert_sabotage",
+              "public_signaling_speech",
+              "targeted_sanctions"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "resource_stockpiling",
+              "military_posture_increase",
+              "military_posture_decrease",
+              "limited_concession"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Wants to spend scarce capacity on hidden visibility and narrow leverage rather than broad overt commitments.",
+              "cautions": "Potentially useful, but may reveal priorities or consume optionality we need later.",
+              "opposes": "Rejects moves that are expensive, public, and difficult to unwind when the crisis may still be in setup phase."
+            }
+          }
+        },
+        "truthModel": {
+          "verifiedFacts": [
+            {
+              "id": "force_extension",
+              "title": "U.S. force extension is real",
+              "body": "Carrier and ISR flexibility in the Indo-Pacific is tighter because other theaters are still drawing attention and inventory."
+            },
+            {
+              "id": "munitions_strain",
+              "title": "Munitions depth is under review",
+              "body": "Planners are now stress-testing burn rates and replenishment timelines against a longer Taiwan contingency."
+            }
+          ],
+          "workingTheories": [
+            {
+              "id": "political_buffer",
+              "title": "Domestic political buffer may be thinner than assumed",
+              "body": "Energy sensitivity and inflation politics could narrow tolerance for a long visible buildup even if support for Taiwan remains strong."
+            },
+            {
+              "id": "beijing_reads_slack",
+              "title": "Beijing may be testing for resource slack as much as intent",
+              "body": "The operational and commercial pressure so far may be measuring how much real capacity sits behind allied language."
+            }
+          ],
+          "unknowns": [
+            {
+              "id": "how_long_can_hold",
+              "title": "How long the coalition can sustain the line",
+              "body": "There is still no high-confidence answer on how many concurrent shocks the coalition can absorb before cohesion bends."
+            },
+            {
+              "id": "hidden_stockpile_cost",
+              "title": "What hidden inventories are already spoken for",
+              "body": "Some of the most important constraints remain classified and unavailable in the live picture."
+            }
+          ]
+        },
+        "windowContext": {
+          "sections": [
+            {
+              "id": "signal_meaning",
+              "title": "What this means now",
+              "body": "This window is about capacity, not just signaling. A move that looks tough but spends scarce readiness too fast can open the worst branch later."
+            },
+            {
+              "id": "why_finance_cares",
+              "title": "Why finance should care",
+              "body": "If shipping fear, oil sensitivity, and semiconductor risk move together, political space shrinks alongside military slack."
+            },
+            {
+              "id": "branch_hint",
+              "title": "What branch is opening",
+              "body": "A stretched coalition is easier to push with “reversible” coercion than with overt force."
+            }
+          ]
+        },
+        "headlines": [
+          "Force Availability And Munitions Depth Enter The Taiwan Calculation",
+          "Energy And Political Buffer Stress Start Shaping The Next Move"
+        ],
+        "memoLine": "Readout: the question is no longer just what to signal, but what the coalition can truly sustain.",
+        "tickerLine": "Risk ticker: oil, freight, and chip names now trade as one Taiwan stress basket.",
+        "imageHints": [
+          "taiwan",
+          "maritime",
+          "shipping"
+        ],
+        "branches": [
+          {
+            "targetBeatId": "ns_reversible_coercion",
+            "conditions": [],
+            "minTurn": null,
+            "maxTurn": null,
+            "requiresActionTag": null,
+            "priority": 1
+          }
+        ],
+        "terminalOutcome": null,
+        "meterOverrides": null,
+        "advisorUnlock": null,
+        "musicCue": null,
+        "decisionWindow": null
+      },
+      {
+        "id": "ns_reversible_coercion",
+        "phase": "rising",
+        "sceneFragments": [
+          "Beijing formalizes a “maritime safety and customs compliance” regime on selected traffic near the central corridor. It is not called a blockade. It does not have to be. The point is to make permission feel routine before force becomes necessary."
+        ],
+        "advisorLines": {
+          "cross": [
+            "Administrative language is how hard coercion sneaks past the threshold question.",
+            "If boarding or routing control becomes routine, we are already losing the corridor."
+          ],
+          "chen": [
+            "We need to contest the norm without making the first irreversible move ourselves.",
+            "The legal wrapper matters because allies need a disciplined reason to stay with us."
+          ],
+          "okonkwo": [
+            "The market will not wait for us to decide whether to call this a blockade.",
+            "If routine transit no longer looks routine, insurers will do the escalatory work for Beijing."
+          ],
+          "reed": [
+            "This is the kind of move that looks reversible right up until the moment it hardens.",
+            "I would treat every new reporting rule as cover for something more operational underneath."
+          ]
+        },
+        "advisorActionGuidance": {
+          "cross": {
+            "supports": [
+              "military_posture_increase",
+              "targeted_sanctions",
+              "public_signaling_speech"
+            ],
+            "cautions": [
+              "intelligence_surge",
+              "backchannel_diplomacy",
+              "resource_stockpiling"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_decrease",
+              "limited_concession"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Treats administrative coercion as the prelude to something harder and wants to challenge it before it normalizes.",
+              "cautions": "Helpful as support, but not enough if the coalition never visibly contests the new line.",
+              "opposes": "Rejects moves that accept the administrative frame or reduce visible leverage just as the corridor is being redefined."
+            }
+          },
+          "chen": {
+            "supports": [
+              "backchannel_diplomacy",
+              "public_signaling_speech",
+              "intelligence_surge"
+            ],
+            "cautions": [
+              "limited_concession",
+              "targeted_sanctions",
+              "resource_stockpiling"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_increase",
+              "military_posture_decrease"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Wants to contest the legitimacy of the coercion while keeping allied discipline and an exit ramp intact.",
+              "cautions": "Can fit, but only if the move does not validate Beijing’s administrative framing or split partners.",
+              "opposes": "Rejects steps most likely to turn a coercive test into a direct military showdown too early."
+            }
+          },
+          "okonkwo": {
+            "supports": [
+              "resource_stockpiling",
+              "backchannel_diplomacy",
+              "targeted_sanctions"
+            ],
+            "cautions": [
+              "public_signaling_speech",
+              "intelligence_surge",
+              "limited_concession"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_increase",
+              "military_posture_decrease"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Favors protecting the corridor’s commercial function or raising cost in ways the alliance can sustain.",
+              "cautions": "Sees some leverage, but worries about commercial spillover and insurer behavior if execution is messy.",
+              "opposes": "Rejects responses that make the corridor economically unusable before they make it strategically safer."
+            }
+          },
+          "reed": {
+            "supports": [
+              "backchannel_diplomacy",
+              "cyber_intrusion",
+              "covert_sabotage",
+              "intelligence_surge"
+            ],
+            "cautions": [
+              "cyber_disruption",
+              "targeted_sanctions",
+              "military_posture_increase"
+            ],
+            "opposes": [
+              "public_signaling_speech",
+              "broad_sanctions",
+              "resource_stockpiling",
+              "military_posture_decrease",
+              "limited_concession"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Prefers to puncture the coercive setup or exploit it quietly rather than answering only at the overt level.",
+              "cautions": "May have value, but could close off the hidden routes we still need.",
+              "opposes": "Rejects moves that shove the crisis into a fully declared channel before we understand the hidden architecture behind the coercion."
+            }
+          }
+        },
+        "truthModel": {
+          "verifiedFacts": [
+            {
+              "id": "inspection_regime",
+              "title": "Administrative inspection regime announced",
+              "body": "Chinese maritime authorities now require registration, selective routing, and possible inspection for traffic in key approaches."
+            },
+            {
+              "id": "coast_guard_backing",
+              "title": "Coast Guard and militia backing is visible",
+              "body": "The bureaucratic measure is paired with hulls and escort patterns strong enough to make it coercive in practice."
+            }
+          ],
+          "workingTheories": [
+            {
+              "id": "gray_zone_blockade",
+              "title": "This may be blockade behavior by administrative means",
+              "body": "The move appears designed to impose control without crossing the political threshold that would immediately unify the coalition."
+            },
+            {
+              "id": "market_normalization_test",
+              "title": "Beijing may be testing whether markets normalize the new baseline",
+              "body": "If commercial actors absorb the regime as routine friction, the corridor can be lost without a shot."
+            }
+          ],
+          "unknowns": [
+            {
+              "id": "boardings_rule_set",
+              "title": "Whether boardings are authorized",
+              "body": "It is still unclear whether live detention and boarding rules are in place or only implied."
+            },
+            {
+              "id": "cyber_pairing",
+              "title": "Whether cyber disruption is paired to the maritime move",
+              "body": "There is no confirmed link yet between the new regime and prior port, customs, or telecom intrusions."
+            }
+          ]
+        },
+        "windowContext": {
+          "sections": [
+            {
+              "id": "signal_meaning",
+              "title": "What this means now",
+              "body": "The crisis has moved from anomaly to coercive structure. The choice now is whether to contest the new baseline, buy time, or try to puncture it from inside."
+            },
+            {
+              "id": "what_closes",
+              "title": "What closes from here",
+              "body": "Every response from this point onward carries a clearer tradeoff between reversibility and deterrent credibility."
+            },
+            {
+              "id": "branch_hint",
+              "title": "What branch is opening",
+              "body": "If this regime survives unchallenged, the first irreversible incident becomes much more likely."
+            }
+          ]
+        },
+        "headlines": [
+          "Beijing Launches “Safety And Customs” Control Regime In The Strait",
+          "Administrative Coercion Begins To Reshape The Commercial Corridor"
+        ],
+        "memoLine": "Legal shell in place. Practical coercion now outruns the language used to describe it.",
+        "tickerLine": "Risk ticker: insurers treat the corridor as politically controlled even without a declared blockade.",
+        "imageHints": [
+          "taiwan",
+          "maritime",
+          "shipping"
+        ],
+        "branches": [
+          {
+            "targetBeatId": "ns_false_relief_or_trap",
+            "conditions": [
+              {
+                "source": "meter",
+                "key": "escalationIndex",
+                "op": "lte",
+                "value": 56
+              },
+              {
+                "source": "latent",
+                "key": "politicalBuffer",
+                "op": "gte",
+                "value": 45
+              }
+            ],
+            "minTurn": null,
+            "maxTurn": null,
+            "requiresActionTag": "diplomacy",
+            "priority": 4
+          },
+          {
+            "targetBeatId": "ns_false_relief_or_trap",
+            "conditions": [
+              {
+                "source": "meter",
+                "key": "escalationIndex",
+                "op": "lte",
+                "value": 54
+              },
+              {
+                "source": "latent",
+                "key": "deceptionEffectiveness",
+                "op": "lt",
+                "value": 58
+              }
+            ],
+            "minTurn": null,
+            "maxTurn": null,
+            "requiresActionTag": "intel",
+            "priority": 3
+          },
+          {
+            "targetBeatId": "ns_first_irreversible_incident",
+            "conditions": [],
+            "minTurn": null,
+            "maxTurn": null,
+            "requiresActionTag": null,
+            "priority": 1
+          }
+        ],
+        "terminalOutcome": null,
+        "meterOverrides": null,
+        "advisorUnlock": null,
+        "musicCue": null,
+        "decisionWindow": null
+      },
+      {
+        "id": "ns_first_irreversible_incident",
+        "phase": "crisis",
+        "sceneFragments": [
+          "A Chinese Coast Guard escort brushes a Taiwanese-chartered freighter during a forced compliance maneuver, while an unrelated logistics-network outage delays vessel clearance and fuels immediate rumors of broader cyber compromise."
+        ],
+        "advisorLines": {
+          "cross": [
+            "Once we have a scrape, boarding, or outage, the crisis stops being abstract.",
+            "From here on, every signal is judged against the fear that control is slipping."
+          ],
+          "chen": [
+            "We need to decide whether this is the last reversible moment or the first step into a harder branch.",
+            "A panicked show of force could make the incident the justification for the next escalation."
+          ],
+          "okonkwo": [
+            "This is where the commercial system can jump from repricing to partial withdrawal.",
+            "If we lose the confidence layer, it will be very hard to rebuild under fire."
+          ],
+          "reed": [
+            "Incidents are useful precisely because nobody is ever fully sure whether they were ordered.",
+            "If this was engineered, the next offer of calm may be part of the same plan."
+          ]
+        },
+        "advisorActionGuidance": {
+          "cross": {
+            "supports": [
+              "military_posture_increase",
+              "public_signaling_speech",
+              "targeted_sanctions"
+            ],
+            "cautions": [
+              "intelligence_surge",
+              "backchannel_diplomacy",
+              "resource_stockpiling"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_decrease",
+              "limited_concession"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Once an irreversible incident hits, she wants visible control, clear resolve, and cost imposition that re-establishes deterrence.",
+              "cautions": "Useful if they support the line, but too passive if they become the line.",
+              "opposes": "Rejects moves that look like retreat or proceduralism after blood, collision, or outage has already changed the stakes."
+            }
+          },
+          "chen": {
+            "supports": [
+              "backchannel_diplomacy",
+              "intelligence_surge",
+              "limited_concession"
+            ],
+            "cautions": [
+              "public_signaling_speech",
+              "targeted_sanctions",
+              "resource_stockpiling"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_increase",
+              "military_posture_decrease"
+            ],
+            "rationaleByAlignment": {
+              "supports": "The priority is preventing the incident from cascading into a locked war branch while preserving coalition legitimacy.",
+              "cautions": "Can support stability, but only if they remain coupled to verification and control.",
+              "opposes": "Rejects steps likely to turn an incident into the political justification for a wider military exchange."
+            }
+          },
+          "okonkwo": {
+            "supports": [
+              "resource_stockpiling",
+              "backchannel_diplomacy",
+              "intelligence_surge"
+            ],
+            "cautions": [
+              "targeted_sanctions",
+              "limited_concession",
+              "public_signaling_speech"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_increase",
+              "military_posture_decrease"
+            ],
+            "rationaleByAlignment": {
+              "supports": "After an incident, she prioritizes stabilizing the commercial system and protecting scarce political tolerance.",
+              "cautions": "May help, but the execution risk is high once markets believe the corridor is no longer safe.",
+              "opposes": "Rejects moves most likely to turn a security incident into a systemic market and supply shock."
+            }
+          },
+          "reed": {
+            "supports": [
+              "cyber_intrusion",
+              "backchannel_diplomacy",
+              "covert_sabotage",
+              "cyber_disruption"
+            ],
+            "cautions": [
+              "intelligence_surge",
+              "targeted_sanctions",
+              "military_posture_increase"
+            ],
+            "opposes": [
+              "public_signaling_speech",
+              "broad_sanctions",
+              "resource_stockpiling",
+              "military_posture_decrease",
+              "limited_concession"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Incidents are often part of a bigger setup. He wants leverage that tests whether this was opportunistic or pre-scripted.",
+              "cautions": "Potentially useful, but may expose capabilities or move too visibly for the still-unclear underlying plan.",
+              "opposes": "Rejects options that simplify the crisis into only an overt channel just when hidden activity matters most."
+            }
+          }
+        },
+        "truthModel": {
+          "verifiedFacts": [
+            {
+              "id": "collision_event",
+              "title": "A physical incident has occurred",
+              "body": "There was a real scrape during a compliance maneuver, and commercial video is already circulating."
+            },
+            {
+              "id": "logistics_outage",
+              "title": "A logistics outage hit in parallel",
+              "body": "Port and routing systems also degraded around the same time, compounding uncertainty over whether this was coincidence or sequencing."
+            }
+          ],
+          "workingTheories": [
+            {
+              "id": "engineered_incident",
+              "title": "The incident may have been engineered to harden the regime",
+              "body": "A controlled scrape or outage creates fear without immediately committing either side to open war."
+            },
+            {
+              "id": "trap_to_force_signal",
+              "title": "The event may be designed to force a hasty allied signal",
+              "body": "Whoever set the pace may now want Washington to choose between visible force and visible hesitation under pressure."
+            }
+          ],
+          "unknowns": [
+            {
+              "id": "chain_of_command",
+              "title": "Whether local commanders had discretion",
+              "body": "It is still unclear whether the dangerous maneuver was centrally ordered, tacitly permitted, or locally improvised."
+            },
+            {
+              "id": "cyber_link",
+              "title": "Whether the outage and scrape were linked",
+              "body": "No high-confidence attribution yet ties the logistics disruption to the maritime incident."
+            }
+          ]
+        },
+        "windowContext": {
+          "sections": [
+            {
+              "id": "signal_meaning",
+              "title": "What this means now",
+              "body": "The crisis now has bloodless but irreversible texture. Commercial actors, allies, and military planners will read every next move through the lens of control or loss of control."
+            },
+            {
+              "id": "why_now",
+              "title": "Why time is worsening",
+              "body": "Once an incident exists, every actor can argue they are merely responding to the last move rather than choosing the next one."
+            },
+            {
+              "id": "branch_hint",
+              "title": "What branch is opening",
+              "body": "The next step could still be a trap disguised as relief, or it could become the first move toward blockade or strikes."
+            }
+          ]
+        },
+        "headlines": [
+          "Forced Compliance Maneuver Triggers First Physical Incident In The Strait",
+          "Parallel Logistics Outage Deepens Fear Of A Staged Escalation"
+        ],
+        "memoLine": "The crisis now has an incident everyone can see and a hidden layer nobody can fully explain.",
+        "tickerLine": "Risk ticker: war-risk premiums jump as carriers model corridor withdrawal under incident risk.",
+        "imageHints": [
+          "taiwan",
+          "maritime",
+          "shipping"
+        ],
+        "branches": [
+          {
+            "targetBeatId": "ns_false_relief_or_trap",
+            "conditions": [
+              {
+                "source": "meter",
+                "key": "escalationIndex",
+                "op": "lte",
+                "value": 70
+              },
+              {
+                "source": "latent",
+                "key": "deceptionEffectiveness",
+                "op": "lt",
+                "value": 60
+              }
+            ],
+            "minTurn": null,
+            "maxTurn": null,
+            "requiresActionTag": "diplomacy",
+            "priority": 3
+          },
+          {
+            "targetBeatId": "ns_false_relief_or_trap",
+            "conditions": [
+              {
+                "source": "meter",
+                "key": "escalationIndex",
+                "op": "lte",
+                "value": 68
+              }
+            ],
+            "minTurn": null,
+            "maxTurn": null,
+            "requiresActionTag": "intel",
+            "priority": 2
+          },
+          {
+            "targetBeatId": "ns_tail_risk_visibility",
+            "conditions": [],
+            "minTurn": null,
+            "maxTurn": null,
+            "requiresActionTag": null,
+            "priority": 1
+          }
+        ],
+        "terminalOutcome": null,
+        "meterOverrides": null,
+        "advisorUnlock": null,
+        "musicCue": null,
+        "decisionWindow": {
+          "seconds": 95,
+          "inactionBeatId": "ns_tail_risk_visibility",
+          "inactionDeltas": {
+            "escalationIndex": 10,
+            "allianceTrust": -6,
+            "economicStability": -5
+          },
+          "inactionNarrative": "No clear directive followed the first irreversible incident. Markets and operators assumed control was slipping."
+        }
+      },
+      {
+        "id": "ns_false_relief_or_trap",
+        "phase": "crisis",
+        "sceneFragments": [
+          "The surface picture calms. Third parties hint at “technical stabilization,” some inspections are quietly deferred, and a few carriers pause reroutes. But the coercive architecture remains in place, and key intrusions, hull patterns, and warning gaps do not fully disappear."
+        ],
+        "advisorLines": {
+          "cross": [
+            "A quieting surface picture does not mean the coercive architecture is gone.",
+            "If we treat a pause as victory, we may wake up to a harder problem in the next window."
+          ],
+          "chen": [
+            "This is the most dangerous kind of relief: just plausible enough that everybody wants it to be real.",
+            "We need to test whether the off-ramp has verification, not just atmosphere."
+          ],
+          "okonkwo": [
+            "Markets will welcome any hint of calm, but they will punish us if the calm proves fake.",
+            "There is value in relief only if it changes behavior, not headlines."
+          ],
+          "reed": [
+            "False relief is a classic setup for the next move.",
+            "If their cyber and maritime prep stayed in place during the pause, assume the pause is tactical."
+          ]
+        },
+        "advisorActionGuidance": {
+          "cross": {
+            "supports": [
+              "intelligence_surge",
+              "military_posture_increase",
+              "targeted_sanctions"
+            ],
+            "cautions": [
+              "backchannel_diplomacy",
+              "public_signaling_speech",
+              "resource_stockpiling"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_decrease",
+              "limited_concession"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Treats relief as provisional and backs moves that verify whether the quiet is real or just a pause before a harder push.",
+              "cautions": "Can be useful if disciplined, but she does not want the coalition lulled into assuming the danger has passed.",
+              "opposes": "Rejects steps that treat a pause as settlement or soften the line before the underlying pressure changes."
+            }
+          },
+          "chen": {
+            "supports": [
+              "backchannel_diplomacy",
+              "limited_concession",
+              "intelligence_surge"
+            ],
+            "cautions": [
+              "public_signaling_speech",
+              "resource_stockpiling",
+              "targeted_sanctions"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_increase",
+              "military_posture_decrease"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Prefers testing the apparent off-ramp in ways that preserve verification and allied coherence.",
+              "cautions": "May be necessary, but only if the coalition resists declaring success too early.",
+              "opposes": "Rejects moves that shatter a fragile opening or create a self-fulfilling return to escalation."
+            }
+          },
+          "okonkwo": {
+            "supports": [
+              "resource_stockpiling",
+              "backchannel_diplomacy",
+              "limited_concession"
+            ],
+            "cautions": [
+              "intelligence_surge",
+              "targeted_sanctions",
+              "public_signaling_speech"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_increase",
+              "military_posture_decrease"
+            ],
+            "rationaleByAlignment": {
+              "supports": "If relief is real, these are the moves most likely to preserve it commercially and politically.",
+              "cautions": "Could help, but only if the pause survives insurer and shipping scrutiny.",
+              "opposes": "Rejects options likely to destroy relief before markets are willing to believe it exists."
+            }
+          },
+          "reed": {
+            "supports": [
+              "intelligence_surge",
+              "cyber_intrusion",
+              "backchannel_diplomacy",
+              "covert_sabotage"
+            ],
+            "cautions": [
+              "cyber_disruption",
+              "limited_concession",
+              "public_signaling_speech"
+            ],
+            "opposes": [
+              "targeted_sanctions",
+              "broad_sanctions",
+              "resource_stockpiling",
+              "military_posture_increase",
+              "military_posture_decrease"
+            ],
+            "rationaleByAlignment": {
+              "supports": "If the relief is a trap, he wants to test it quietly before the coalition commits its whole posture to the calmer story.",
+              "cautions": "Might work, but the move could also tell the other side exactly what we are uncertain about.",
+              "opposes": "Rejects overt, high-commitment actions that assume the lull is genuine before the hidden layers are checked."
+            }
+          }
+        },
+        "truthModel": {
+          "verifiedFacts": [
+            {
+              "id": "temporary_pause",
+              "title": "Some pressure visibly eased",
+              "body": "Inspection tempo and public rhetoric both softened for several hours."
+            },
+            {
+              "id": "architecture_remains",
+              "title": "The architecture of control remains",
+              "body": "Hull placement, routing authority, and cyber concern did not disappear with the calmer tone."
+            }
+          ],
+          "workingTheories": [
+            {
+              "id": "false_relief",
+              "title": "This may be a false relief setup",
+              "body": "A tactical pause can calm markets and allies just long enough to make the next move more effective."
+            },
+            {
+              "id": "real_test",
+              "title": "It may also be a real test of whether disciplined restraint is possible",
+              "body": "The counterpart could be probing whether the coalition can take a limited procedural win without overclaiming it."
+            }
+          ],
+          "unknowns": [
+            {
+              "id": "verification_gap",
+              "title": "Whether the pause is verifiable",
+              "body": "There is still no durable mechanism proving the regime will not harden again without notice."
+            },
+            {
+              "id": "hidden_layers",
+              "title": "What hidden layers stayed live during the calm",
+              "body": "No one can yet say whether cyber access, shipping intimidation, and militia positioning were reduced or simply hidden."
+            }
+          ]
+        },
+        "windowContext": {
+          "sections": [
+            {
+              "id": "signal_meaning",
+              "title": "What this means now",
+              "body": "Relief only matters if it changes the structure of the crisis. So far, the structure still looks intact."
+            },
+            {
+              "id": "why_now",
+              "title": "Why time is worsening",
+              "body": "The coalition is most vulnerable when it wants calm badly enough to stop asking what produced it."
+            },
+            {
+              "id": "branch_hint",
+              "title": "What branch is opening",
+              "body": "If the pause is false, the next visible move could arrive after political and commercial defenses have softened."
+            }
+          ]
+        },
+        "headlines": [
+          "Surface Calm Returns, But Core Coercive Architecture Stays In Place",
+          "Markets Welcome A Pause That No One Can Yet Verify"
+        ],
+        "memoLine": "Do not confuse quieter atmospherics with a safer branch.",
+        "tickerLine": "Risk ticker: premiums ease, but corridor confidence does not fully return.",
+        "imageHints": [
+          "taiwan",
+          "maritime",
+          "shipping"
+        ],
+        "branches": [
+          {
+            "targetBeatId": "ns_tail_risk_visibility",
+            "conditions": [],
+            "minTurn": null,
+            "maxTurn": null,
+            "requiresActionTag": null,
+            "priority": 1
+          }
+        ],
+        "terminalOutcome": null,
+        "meterOverrides": null,
+        "advisorUnlock": null,
+        "musicCue": null,
+        "decisionWindow": {
+          "seconds": 80,
+          "inactionBeatId": "ns_tail_risk_visibility",
+          "inactionDeltas": {
+            "escalationIndex": 7,
+            "allianceTrust": -4,
+            "economicStability": -4
+          },
+          "inactionNarrative": "The coalition treated the pause as self-sustaining. The underlying pressure resumed on more favorable terms for Beijing."
+        }
+      },
+      {
+        "id": "ns_tail_risk_visibility",
+        "phase": "climax",
+        "sceneFragments": [
+          "The tail risks are no longer abstract. A quarantine-by-regulation, a limited strike on enabling assets, or a wider spillover path is now visible enough that markets, allies, and commanders are planning against them rather than merely discussing them."
+        ],
+        "advisorLines": {
+          "cross": [
+            "Now the ugly branches are visible. The next move decides whether deterrence holds or we move into open force.",
+            "A weak signal here invites the other side to normalize the new line."
+          ],
+          "chen": [
+            "We are down to options that each close something valuable.",
+            "The right move is the one that preserves the most future control, not the one that sounds toughest."
+          ],
+          "okonkwo": [
+            "This is where financial-system spillover and alliance fatigue can outrun military plans.",
+            "Even a “managed” branch can be economically brutal if the corridor stays compromised."
+          ],
+          "reed": [
+            "At this point I care about hidden branch activation more than public commentary.",
+            "Whatever we choose now will tell us whether the earlier anomalies were probing, cover, or a live opening sequence."
+          ]
+        },
+        "advisorActionGuidance": {
+          "cross": {
+            "supports": [
+              "military_posture_increase",
+              "targeted_sanctions",
+              "public_signaling_speech"
+            ],
+            "cautions": [
+              "intelligence_surge",
+              "resource_stockpiling",
+              "backchannel_diplomacy"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_decrease",
+              "limited_concession"
+            ],
+            "rationaleByAlignment": {
+              "supports": "With blockade and strike pathways visible, she backs moves that most clearly restore deterrence and define the line.",
+              "cautions": "May support the line, but risk being too indirect for the danger level now on the table.",
+              "opposes": "Rejects responses that reduce readiness or rely on reassurance after the worst branches are already live."
+            }
+          },
+          "chen": {
+            "supports": [
+              "backchannel_diplomacy",
+              "limited_concession",
+              "intelligence_surge"
+            ],
+            "cautions": [
+              "public_signaling_speech",
+              "targeted_sanctions",
+              "resource_stockpiling"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_increase",
+              "military_posture_decrease"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Even late, he still prioritizes avoiding the branch that turns a coercive crisis into direct war.",
+              "cautions": "Can fit, but only if they preserve control rather than merely sounding firm.",
+              "opposes": "Rejects moves likely to eliminate the last remaining off-ramp or trigger retaliation the coalition cannot shape."
+            }
+          },
+          "okonkwo": {
+            "supports": [
+              "resource_stockpiling",
+              "backchannel_diplomacy",
+              "targeted_sanctions"
+            ],
+            "cautions": [
+              "limited_concession",
+              "intelligence_surge",
+              "public_signaling_speech"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_increase",
+              "military_posture_decrease"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Favors moves that either shore up system resilience or impose costs without detonating the full financial spillover path.",
+              "cautions": "May help, but the timing is now dangerous enough that execution error matters more than usual.",
+              "opposes": "Rejects responses most likely to turn a regional crisis into a broad market, shipping, or liquidity shock."
+            }
+          },
+          "reed": {
+            "supports": [
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "intelligence_surge"
+            ],
+            "cautions": [
+              "backchannel_diplomacy",
+              "targeted_sanctions",
+              "military_posture_increase"
+            ],
+            "opposes": [
+              "public_signaling_speech",
+              "broad_sanctions",
+              "resource_stockpiling",
+              "military_posture_decrease",
+              "limited_concession"
+            ],
+            "rationaleByAlignment": {
+              "supports": "At tail-risk stage he wants to stress the hidden architecture directly and force ambiguity back onto the counterpart.",
+              "cautions": "Can be useful, but may commit us to overt pathways if they are too visible or too slow.",
+              "opposes": "Rejects moves that give the other side a clean public frame or collapse the remaining covert optionality."
+            }
+          }
+        },
+        "truthModel": {
+          "verifiedFacts": [
+            {
+              "id": "blockade_path_visible",
+              "title": "Blockade and quarantine paths are now visible",
+              "body": "Commercial and official planning now treats sustained corridor denial as a real branch rather than a hypothetical."
+            },
+            {
+              "id": "strike_path_visible",
+              "title": "Limited strike pathways are being modeled",
+              "body": "Commanders are actively gaming whether the next move targets infrastructure, escorts, or enabling assets short of invasion."
+            }
+          ],
+          "workingTheories": [
+            {
+              "id": "tail_risk_choice",
+              "title": "The next move may decide which tail risk becomes real",
+              "body": "Signals that once bought time may now only choose among bad branches rather than prevent them."
+            },
+            {
+              "id": "hidden_cost_realization",
+              "title": "Earlier choices are starting to reveal their hidden costs",
+              "body": "Slack, munitions, political buffer, and corridor confidence are no longer background variables. They are shaping reachable outcomes."
+            }
+          ],
+          "unknowns": [
+            {
+              "id": "nuclear_threshold",
+              "title": "How far the other side wants to go",
+              "body": "Extreme-catastrophe pathways remain possible but are still implied more than explicit in the live picture."
+            },
+            {
+              "id": "partner_stomach",
+              "title": "How much more allied capitals will absorb",
+              "body": "There is still no reliable answer on whether every key capital will stay aligned if open force begins."
+            }
+          ]
+        },
+        "windowContext": {
+          "sections": [
+            {
+              "id": "signal_meaning",
+              "title": "What this means now",
+              "body": "This is the moment when earlier ambiguity cashes out into explicit tail risk. The crisis now feels like a set of narrowing branches, not a fluid warning."
+            },
+            {
+              "id": "why_now",
+              "title": "Why the next move matters",
+              "body": "Whatever you do here will shape not just the immediate signal, but which aftermath becomes plausible enough to lock in."
+            },
+            {
+              "id": "branch_hint",
+              "title": "What branch is opening",
+              "body": "A final response window is coming. It may still preserve relief, but it can just as easily formalize blockade, strike, or worse."
+            }
+          ]
+        },
+        "headlines": [
+          "Blockade, Quarantine, And Limited-Strike Paths Move Into Plain View",
+          "Earlier Choices Begin To Reveal Their Hidden Costs"
+        ],
+        "memoLine": "Tail risk is no longer theoretical. The next move will weight the ending, not just the mood.",
+        "tickerLine": "Risk ticker: pricing now reflects corridor denial and strike probability rather than generic geopolitical fear.",
+        "imageHints": [
+          "taiwan",
+          "maritime",
+          "shipping"
+        ],
+        "branches": [
+          {
+            "targetBeatId": "ns_final_resolution_window",
+            "conditions": [],
+            "minTurn": null,
+            "maxTurn": null,
+            "requiresActionTag": null,
+            "priority": 1
+          }
+        ],
+        "terminalOutcome": null,
+        "meterOverrides": null,
+        "advisorUnlock": null,
+        "musicCue": null,
+        "decisionWindow": {
+          "seconds": 72,
+          "inactionBeatId": "ns_blockade_lock",
+          "inactionDeltas": {
+            "escalationIndex": 14,
+            "allianceTrust": -8,
+            "economicStability": -8,
+            "militaryReadiness": -4
+          },
+          "inactionNarrative": "The absence of a clear directive let the coercive architecture harden into a de facto blockade posture."
+        }
+      },
+      {
+        "id": "ns_final_resolution_window",
+        "phase": "climax",
+        "sceneFragments": [
+          "The crisis is about to crystallize. The corridor can still be partially reopened, strategically lost, or tipped into open force. There is still uncertainty, but there is very little slack."
+        ],
+        "advisorLines": {
+          "cross": [
+            "This is the last window before the scenario crystallizes.",
+            "We either preserve the corridor with a credible line, or we absorb the fact that someone else now defines the operating space."
+          ],
+          "chen": [
+            "The best final move is the one that avoids the worst branch without pretending the risk disappeared.",
+            "Stability here may still look ugly, but ugly stability beats cinematic collapse."
+          ],
+          "okonkwo": [
+            "From a market standpoint, clarity now matters almost as much as outcome.",
+            "A frozen but legible situation can be digested. An ambiguous one keeps panic alive."
+          ],
+          "reed": [
+            "By now the hidden architecture is mostly built.",
+            "The final move is about whether we expose it cleanly, absorb it, or stumble into it."
+          ]
+        },
+        "advisorActionGuidance": {
+          "cross": {
+            "supports": [
+              "military_posture_increase",
+              "targeted_sanctions",
+              "public_signaling_speech"
+            ],
+            "cautions": [
+              "intelligence_surge",
+              "resource_stockpiling",
+              "backchannel_diplomacy"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_decrease",
+              "limited_concession"
+            ],
+            "rationaleByAlignment": {
+              "supports": "In the final window she wants the clearest possible line: contest the corridor, show readiness, and make the next rival move more expensive.",
+              "cautions": "May help, but only if they reinforce a credible line rather than substitute for one.",
+              "opposes": "Rejects any final move that reads as retreat, drift, or acceptance of the coercive baseline."
+            }
+          },
+          "chen": {
+            "supports": [
+              "backchannel_diplomacy",
+              "limited_concession",
+              "intelligence_surge"
+            ],
+            "cautions": [
+              "public_signaling_speech",
+              "resource_stockpiling",
+              "targeted_sanctions"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_increase",
+              "military_posture_decrease"
+            ],
+            "rationaleByAlignment": {
+              "supports": "The final move should avoid the worst branch while preserving enough legitimacy to manage the aftermath.",
+              "cautions": "Useful if tightly framed, but he worries about cosmetic strength that leaves the coalition owning the next escalation.",
+              "opposes": "Rejects final moves that corner both sides into a branch nobody can control once it starts."
+            }
+          },
+          "okonkwo": {
+            "supports": [
+              "resource_stockpiling",
+              "targeted_sanctions",
+              "backchannel_diplomacy"
+            ],
+            "cautions": [
+              "limited_concession",
+              "intelligence_surge",
+              "public_signaling_speech"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_increase",
+              "military_posture_decrease"
+            ],
+            "rationaleByAlignment": {
+              "supports": "In the final window she wants either durable buffers or costs that are economically survivable for the coalition.",
+              "cautions": "Could work, but only if execution and messaging keep the system from breaking faster than policy can react.",
+              "opposes": "Rejects last-window choices most likely to ignite shipping, insurance, financing, and semiconductor contagion together."
+            }
+          },
+          "reed": {
+            "supports": [
+              "cyber_intrusion",
+              "covert_sabotage",
+              "cyber_disruption",
+              "intelligence_surge"
+            ],
+            "cautions": [
+              "backchannel_diplomacy",
+              "military_posture_increase",
+              "targeted_sanctions"
+            ],
+            "opposes": [
+              "public_signaling_speech",
+              "broad_sanctions",
+              "resource_stockpiling",
+              "military_posture_decrease",
+              "limited_concession"
+            ],
+            "rationaleByAlignment": {
+              "supports": "At the end, he prefers moves that still create asymmetry and hidden pressure rather than only public posture.",
+              "cautions": "Potentially useful, but time is short and hidden options may not mature fast enough.",
+              "opposes": "Rejects moves that surrender hidden leverage just when the final architecture of the crisis is about to reveal itself."
+            }
+          }
+        },
+        "truthModel": {
+          "verifiedFacts": [
+            {
+              "id": "ending_window",
+              "title": "An ending branch is about to lock",
+              "body": "Military, financial, and diplomatic systems are all moving from contingency mode toward committed positioning."
+            },
+            {
+              "id": "corridor_decision",
+              "title": "The corridor question is now explicit",
+              "body": "The next move will materially affect whether commercial actors treat the strait as open, coercively managed, or effectively denied."
+            }
+          ],
+          "workingTheories": [
+            {
+              "id": "managed_outcome_possible",
+              "title": "A managed but ugly outcome is still possible",
+              "body": "The coalition may still preserve a legible line without triggering the worst branch if the final move is disciplined."
+            },
+            {
+              "id": "catastrophic_tail",
+              "title": "Catastrophic outcomes are now reachable",
+              "body": "Open force, severe systemic spillover, and worse are no longer only retrospective fears. They are active planning paths."
+            }
+          ],
+          "unknowns": [
+            {
+              "id": "which_red_line",
+              "title": "Which red line matters most right now",
+              "body": "It is still not fully clear whether the next trigger is commercial, military, cyber, or political."
+            },
+            {
+              "id": "how_partnered",
+              "title": "How much real coalition depth remains",
+              "body": "The visible line may still be broader than the coalition’s real willingness to absorb the next shock."
+            }
+          ]
+        },
+        "windowContext": {
+          "sections": [
+            {
+              "id": "signal_meaning",
+              "title": "What this means now",
+              "body": "The final move will define whether the scenario resolves as relief, managed freeze, blockade, or war pathway."
+            },
+            {
+              "id": "why_now",
+              "title": "Why the choice is hard",
+              "body": "Every option now trades one form of control for another: military leverage, alliance cohesion, market stability, or reversibility."
+            },
+            {
+              "id": "branch_hint",
+              "title": "What branch is opening",
+              "body": "The ending is not prewritten, but the range is now narrow enough that your earlier choices and hidden state will decide a lot."
+            }
+          ]
+        },
+        "headlines": [
+          "Final Response Window Opens As Corridor Status Hangs In The Balance",
+          "Relief, Strategic Loss, Or Open Force Are Now All Reachable Endings"
+        ],
+        "memoLine": "This is the last window before the scenario chooses its own shape.",
+        "tickerLine": "Risk ticker: the corridor is now priced as an outcome question, not a temporary shock.",
+        "imageHints": [
+          "taiwan",
+          "maritime",
+          "shipping"
+        ],
+        "branches": [
+          {
+            "targetBeatId": "ns_invasion_tail",
+            "conditions": [
+              {
+                "source": "meter",
+                "key": "escalationIndex",
+                "op": "gte",
+                "value": 84
+              },
+              {
+                "source": "latent",
+                "key": "taiwanResilience",
+                "op": "lte",
+                "value": 72
+              },
+              {
+                "source": "latent",
+                "key": "usSurgeSlack",
+                "op": "lte",
+                "value": 54
+              },
+              {
+                "source": "latent",
+                "key": "munitionsDepth",
+                "op": "lte",
+                "value": 51
+              }
+            ],
+            "minTurn": null,
+            "maxTurn": null,
+            "requiresActionTag": null,
+            "priority": 7
+          },
+          {
+            "targetBeatId": "ns_limited_strike_exchange",
+            "conditions": [
+              {
+                "source": "meter",
+                "key": "escalationIndex",
+                "op": "gte",
+                "value": 80
+              },
+              {
+                "source": "latent",
+                "key": "munitionsDepth",
+                "op": "lte",
+                "value": 48
+              }
+            ],
+            "minTurn": null,
+            "maxTurn": null,
+            "requiresActionTag": null,
+            "priority": 5
+          },
+          {
+            "targetBeatId": "ns_blockade_lock",
+            "conditions": [
+              {
+                "source": "latent",
+                "key": "shippingStress",
+                "op": "gte",
+                "value": 48
+              }
+            ],
+            "minTurn": null,
+            "maxTurn": null,
+            "requiresActionTag": null,
+            "priority": 6
+          },
+          {
+            "targetBeatId": "ns_managed_relief",
+            "conditions": [
+              {
+                "source": "meter",
+                "key": "escalationIndex",
+                "op": "lte",
+                "value": 48
+              },
+              {
+                "source": "meter",
+                "key": "allianceTrust",
+                "op": "gte",
+                "value": 58
+              },
+              {
+                "source": "latent",
+                "key": "politicalBuffer",
+                "op": "gte",
+                "value": 45
+              }
+            ],
+            "minTurn": null,
+            "maxTurn": null,
+            "requiresActionTag": null,
+            "priority": 3
+          },
+          {
+            "targetBeatId": "ns_managed_freeze",
+            "conditions": [],
+            "minTurn": null,
+            "maxTurn": null,
+            "requiresActionTag": null,
+            "priority": 1
+          }
+        ],
+        "terminalOutcome": null,
+        "meterOverrides": null,
+        "advisorUnlock": null,
+        "musicCue": null,
+        "decisionWindow": {
+          "seconds": 60,
+          "inactionBeatId": "ns_limited_strike_exchange",
+          "inactionDeltas": {
+            "escalationIndex": 16,
+            "allianceTrust": -10,
+            "economicStability": -10,
+            "domesticCohesion": -6
+          },
+          "inactionNarrative": "The final window closed without a directive. The vacuum forced the crisis into the most punitive live branch."
+        }
+      },
+      {
+        "id": "ns_managed_relief",
+        "phase": "resolution",
+        "sceneFragments": [
+          "A narrow but real offramp holds. The corridor does not fully return to normal, but the coalition preserves the principle that Beijing cannot administratively redefine routine transit without facing coordinated resistance."
+        ],
+        "advisorLines": {
+          "cross": [
+            "This is the last window before the scenario crystallizes.",
+            "We either preserve the corridor with a credible line, or we absorb the fact that someone else now defines the operating space."
+          ],
+          "chen": [
+            "The best final move is the one that avoids the worst branch without pretending the risk disappeared.",
+            "Stability here may still look ugly, but ugly stability beats cinematic collapse."
+          ],
+          "okonkwo": [
+            "From a market standpoint, clarity now matters almost as much as outcome.",
+            "A frozen but legible situation can be digested. An ambiguous one keeps panic alive."
+          ],
+          "reed": [
+            "By now the hidden architecture is mostly built.",
+            "The final move is about whether we expose it cleanly, absorb it, or stumble into it."
+          ]
+        },
+        "advisorActionGuidance": {
+          "cross": {
+            "supports": [
+              "military_posture_increase",
+              "targeted_sanctions",
+              "public_signaling_speech"
+            ],
+            "cautions": [
+              "intelligence_surge",
+              "resource_stockpiling",
+              "backchannel_diplomacy"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_decrease",
+              "limited_concession"
+            ],
+            "rationaleByAlignment": {
+              "supports": "In the final window she wants the clearest possible line: contest the corridor, show readiness, and make the next rival move more expensive.",
+              "cautions": "May help, but only if they reinforce a credible line rather than substitute for one.",
+              "opposes": "Rejects any final move that reads as retreat, drift, or acceptance of the coercive baseline."
+            }
+          },
+          "chen": {
+            "supports": [
+              "backchannel_diplomacy",
+              "limited_concession",
+              "intelligence_surge"
+            ],
+            "cautions": [
+              "public_signaling_speech",
+              "resource_stockpiling",
+              "targeted_sanctions"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_increase",
+              "military_posture_decrease"
+            ],
+            "rationaleByAlignment": {
+              "supports": "The final move should avoid the worst branch while preserving enough legitimacy to manage the aftermath.",
+              "cautions": "Useful if tightly framed, but he worries about cosmetic strength that leaves the coalition owning the next escalation.",
+              "opposes": "Rejects final moves that corner both sides into a branch nobody can control once it starts."
+            }
+          },
+          "okonkwo": {
+            "supports": [
+              "resource_stockpiling",
+              "targeted_sanctions",
+              "backchannel_diplomacy"
+            ],
+            "cautions": [
+              "limited_concession",
+              "intelligence_surge",
+              "public_signaling_speech"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_increase",
+              "military_posture_decrease"
+            ],
+            "rationaleByAlignment": {
+              "supports": "In the final window she wants either durable buffers or costs that are economically survivable for the coalition.",
+              "cautions": "Could work, but only if execution and messaging keep the system from breaking faster than policy can react.",
+              "opposes": "Rejects last-window choices most likely to ignite shipping, insurance, financing, and semiconductor contagion together."
+            }
+          },
+          "reed": {
+            "supports": [
+              "cyber_intrusion",
+              "covert_sabotage",
+              "cyber_disruption",
+              "intelligence_surge"
+            ],
+            "cautions": [
+              "backchannel_diplomacy",
+              "military_posture_increase",
+              "targeted_sanctions"
+            ],
+            "opposes": [
+              "public_signaling_speech",
+              "broad_sanctions",
+              "resource_stockpiling",
+              "military_posture_decrease",
+              "limited_concession"
+            ],
+            "rationaleByAlignment": {
+              "supports": "At the end, he prefers moves that still create asymmetry and hidden pressure rather than only public posture.",
+              "cautions": "Potentially useful, but time is short and hidden options may not mature fast enough.",
+              "opposes": "Rejects moves that surrender hidden leverage just when the final architecture of the crisis is about to reveal itself."
+            }
+          }
+        },
+        "truthModel": {
+          "verifiedFacts": [],
+          "workingTheories": [],
+          "unknowns": []
+        },
+        "windowContext": {
+          "sections": [
+            {
+              "id": "resolution",
+              "title": "Resolution",
+              "body": "A disciplined final move preserved room, credibility, and a partial reopening of the corridor."
+            }
+          ]
+        },
+        "headlines": [
+          "A Narrow Offramp Holds And The Corridor Partially Reopens"
+        ],
+        "memoLine": null,
+        "tickerLine": null,
+        "imageHints": [
+          "taiwan",
+          "maritime",
+          "shipping"
+        ],
+        "branches": [],
+        "terminalOutcome": "stabilization",
+        "meterOverrides": null,
+        "advisorUnlock": null,
+        "musicCue": null,
+        "decisionWindow": null
+      },
+      {
+        "id": "ns_managed_freeze",
+        "phase": "resolution",
+        "sceneFragments": [
+          "Open war is avoided, but the strait does not return to the prior baseline. Transit continues under a colder, more coercive equilibrium with persistent risk premium and strategic loss."
+        ],
+        "advisorLines": {
+          "cross": [
+            "This is the last window before the scenario crystallizes.",
+            "We either preserve the corridor with a credible line, or we absorb the fact that someone else now defines the operating space."
+          ],
+          "chen": [
+            "The best final move is the one that avoids the worst branch without pretending the risk disappeared.",
+            "Stability here may still look ugly, but ugly stability beats cinematic collapse."
+          ],
+          "okonkwo": [
+            "From a market standpoint, clarity now matters almost as much as outcome.",
+            "A frozen but legible situation can be digested. An ambiguous one keeps panic alive."
+          ],
+          "reed": [
+            "By now the hidden architecture is mostly built.",
+            "The final move is about whether we expose it cleanly, absorb it, or stumble into it."
+          ]
+        },
+        "advisorActionGuidance": {
+          "cross": {
+            "supports": [
+              "military_posture_increase",
+              "targeted_sanctions",
+              "public_signaling_speech"
+            ],
+            "cautions": [
+              "intelligence_surge",
+              "resource_stockpiling",
+              "backchannel_diplomacy"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_decrease",
+              "limited_concession"
+            ],
+            "rationaleByAlignment": {
+              "supports": "In the final window she wants the clearest possible line: contest the corridor, show readiness, and make the next rival move more expensive.",
+              "cautions": "May help, but only if they reinforce a credible line rather than substitute for one.",
+              "opposes": "Rejects any final move that reads as retreat, drift, or acceptance of the coercive baseline."
+            }
+          },
+          "chen": {
+            "supports": [
+              "backchannel_diplomacy",
+              "limited_concession",
+              "intelligence_surge"
+            ],
+            "cautions": [
+              "public_signaling_speech",
+              "resource_stockpiling",
+              "targeted_sanctions"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_increase",
+              "military_posture_decrease"
+            ],
+            "rationaleByAlignment": {
+              "supports": "The final move should avoid the worst branch while preserving enough legitimacy to manage the aftermath.",
+              "cautions": "Useful if tightly framed, but he worries about cosmetic strength that leaves the coalition owning the next escalation.",
+              "opposes": "Rejects final moves that corner both sides into a branch nobody can control once it starts."
+            }
+          },
+          "okonkwo": {
+            "supports": [
+              "resource_stockpiling",
+              "targeted_sanctions",
+              "backchannel_diplomacy"
+            ],
+            "cautions": [
+              "limited_concession",
+              "intelligence_surge",
+              "public_signaling_speech"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_increase",
+              "military_posture_decrease"
+            ],
+            "rationaleByAlignment": {
+              "supports": "In the final window she wants either durable buffers or costs that are economically survivable for the coalition.",
+              "cautions": "Could work, but only if execution and messaging keep the system from breaking faster than policy can react.",
+              "opposes": "Rejects last-window choices most likely to ignite shipping, insurance, financing, and semiconductor contagion together."
+            }
+          },
+          "reed": {
+            "supports": [
+              "cyber_intrusion",
+              "covert_sabotage",
+              "cyber_disruption",
+              "intelligence_surge"
+            ],
+            "cautions": [
+              "backchannel_diplomacy",
+              "military_posture_increase",
+              "targeted_sanctions"
+            ],
+            "opposes": [
+              "public_signaling_speech",
+              "broad_sanctions",
+              "resource_stockpiling",
+              "military_posture_decrease",
+              "limited_concession"
+            ],
+            "rationaleByAlignment": {
+              "supports": "At the end, he prefers moves that still create asymmetry and hidden pressure rather than only public posture.",
+              "cautions": "Potentially useful, but time is short and hidden options may not mature fast enough.",
+              "opposes": "Rejects moves that surrender hidden leverage just when the final architecture of the crisis is about to reveal itself."
+            }
+          }
+        },
+        "truthModel": {
+          "verifiedFacts": [],
+          "workingTheories": [],
+          "unknowns": []
+        },
+        "windowContext": {
+          "sections": [
+            {
+              "id": "resolution",
+              "title": "Resolution",
+              "body": "The crisis freezes in place. It is survivable, but strategically costly and commercially corrosive."
+            }
+          ]
+        },
+        "headlines": [
+          "Crisis Freezes Into A Coercive New Equilibrium"
+        ],
+        "memoLine": null,
+        "tickerLine": null,
+        "imageHints": [
+          "taiwan",
+          "maritime",
+          "shipping"
+        ],
+        "branches": [],
+        "terminalOutcome": "frozen_conflict",
+        "meterOverrides": null,
+        "advisorUnlock": null,
+        "musicCue": null,
+        "decisionWindow": null
+      },
+      {
+        "id": "ns_blockade_lock",
+        "phase": "climax",
+        "sceneFragments": [
+          "The coercive architecture hardens into a practical blockade or quarantine. Insurers, carriers, and manufacturers start behaving as if the corridor has already been lost."
+        ],
+        "advisorLines": {
+          "cross": [
+            "Now the ugly branches are visible. The next move decides whether deterrence holds or we move into open force.",
+            "A weak signal here invites the other side to normalize the new line."
+          ],
+          "chen": [
+            "We are down to options that each close something valuable.",
+            "The right move is the one that preserves the most future control, not the one that sounds toughest."
+          ],
+          "okonkwo": [
+            "This is where financial-system spillover and alliance fatigue can outrun military plans.",
+            "Even a “managed” branch can be economically brutal if the corridor stays compromised."
+          ],
+          "reed": [
+            "At this point I care about hidden branch activation more than public commentary.",
+            "Whatever we choose now will tell us whether the earlier anomalies were probing, cover, or a live opening sequence."
+          ]
+        },
+        "advisorActionGuidance": {
+          "cross": {
+            "supports": [
+              "military_posture_increase",
+              "targeted_sanctions",
+              "public_signaling_speech"
+            ],
+            "cautions": [
+              "intelligence_surge",
+              "resource_stockpiling",
+              "backchannel_diplomacy"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_decrease",
+              "limited_concession"
+            ],
+            "rationaleByAlignment": {
+              "supports": "With blockade and strike pathways visible, she backs moves that most clearly restore deterrence and define the line.",
+              "cautions": "May support the line, but risk being too indirect for the danger level now on the table.",
+              "opposes": "Rejects responses that reduce readiness or rely on reassurance after the worst branches are already live."
+            }
+          },
+          "chen": {
+            "supports": [
+              "backchannel_diplomacy",
+              "limited_concession",
+              "intelligence_surge"
+            ],
+            "cautions": [
+              "public_signaling_speech",
+              "targeted_sanctions",
+              "resource_stockpiling"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_increase",
+              "military_posture_decrease"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Even late, he still prioritizes avoiding the branch that turns a coercive crisis into direct war.",
+              "cautions": "Can fit, but only if they preserve control rather than merely sounding firm.",
+              "opposes": "Rejects moves likely to eliminate the last remaining off-ramp or trigger retaliation the coalition cannot shape."
+            }
+          },
+          "okonkwo": {
+            "supports": [
+              "resource_stockpiling",
+              "backchannel_diplomacy",
+              "targeted_sanctions"
+            ],
+            "cautions": [
+              "limited_concession",
+              "intelligence_surge",
+              "public_signaling_speech"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_increase",
+              "military_posture_decrease"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Favors moves that either shore up system resilience or impose costs without detonating the full financial spillover path.",
+              "cautions": "May help, but the timing is now dangerous enough that execution error matters more than usual.",
+              "opposes": "Rejects responses most likely to turn a regional crisis into a broad market, shipping, or liquidity shock."
+            }
+          },
+          "reed": {
+            "supports": [
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "intelligence_surge"
+            ],
+            "cautions": [
+              "backchannel_diplomacy",
+              "targeted_sanctions",
+              "military_posture_increase"
+            ],
+            "opposes": [
+              "public_signaling_speech",
+              "broad_sanctions",
+              "resource_stockpiling",
+              "military_posture_decrease",
+              "limited_concession"
+            ],
+            "rationaleByAlignment": {
+              "supports": "At tail-risk stage he wants to stress the hidden architecture directly and force ambiguity back onto the counterpart.",
+              "cautions": "Can be useful, but may commit us to overt pathways if they are too visible or too slow.",
+              "opposes": "Rejects moves that give the other side a clean public frame or collapse the remaining covert optionality."
+            }
+          }
+        },
+        "truthModel": {
+          "verifiedFacts": [],
+          "workingTheories": [],
+          "unknowns": []
+        },
+        "windowContext": {
+          "sections": [
+            {
+              "id": "resolution",
+              "title": "Resolution",
+              "body": "Beijing does not need a declared blockade if the commercial system has already abandoned routine transit."
+            }
+          ]
+        },
+        "headlines": [
+          "De Facto Blockade Lock Takes Hold Around The Corridor"
+        ],
+        "memoLine": null,
+        "tickerLine": null,
+        "imageHints": [
+          "taiwan",
+          "maritime",
+          "shipping"
+        ],
+        "branches": [],
+        "terminalOutcome": "frozen_conflict",
+        "meterOverrides": null,
+        "advisorUnlock": null,
+        "musicCue": null,
+        "decisionWindow": null
+      },
+      {
+        "id": "ns_limited_strike_exchange",
+        "phase": "climax",
+        "sceneFragments": [
+          "A limited strike pathway opens. Nobody calls it the start of a wider war, but direct force has now replaced deniable pressure as the live grammar of the crisis."
+        ],
+        "advisorLines": {
+          "cross": [
+            "Now the ugly branches are visible. The next move decides whether deterrence holds or we move into open force.",
+            "A weak signal here invites the other side to normalize the new line."
+          ],
+          "chen": [
+            "We are down to options that each close something valuable.",
+            "The right move is the one that preserves the most future control, not the one that sounds toughest."
+          ],
+          "okonkwo": [
+            "This is where financial-system spillover and alliance fatigue can outrun military plans.",
+            "Even a “managed” branch can be economically brutal if the corridor stays compromised."
+          ],
+          "reed": [
+            "At this point I care about hidden branch activation more than public commentary.",
+            "Whatever we choose now will tell us whether the earlier anomalies were probing, cover, or a live opening sequence."
+          ]
+        },
+        "advisorActionGuidance": {
+          "cross": {
+            "supports": [
+              "military_posture_increase",
+              "targeted_sanctions",
+              "public_signaling_speech"
+            ],
+            "cautions": [
+              "intelligence_surge",
+              "resource_stockpiling",
+              "backchannel_diplomacy"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_decrease",
+              "limited_concession"
+            ],
+            "rationaleByAlignment": {
+              "supports": "With blockade and strike pathways visible, she backs moves that most clearly restore deterrence and define the line.",
+              "cautions": "May support the line, but risk being too indirect for the danger level now on the table.",
+              "opposes": "Rejects responses that reduce readiness or rely on reassurance after the worst branches are already live."
+            }
+          },
+          "chen": {
+            "supports": [
+              "backchannel_diplomacy",
+              "limited_concession",
+              "intelligence_surge"
+            ],
+            "cautions": [
+              "public_signaling_speech",
+              "targeted_sanctions",
+              "resource_stockpiling"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_increase",
+              "military_posture_decrease"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Even late, he still prioritizes avoiding the branch that turns a coercive crisis into direct war.",
+              "cautions": "Can fit, but only if they preserve control rather than merely sounding firm.",
+              "opposes": "Rejects moves likely to eliminate the last remaining off-ramp or trigger retaliation the coalition cannot shape."
+            }
+          },
+          "okonkwo": {
+            "supports": [
+              "resource_stockpiling",
+              "backchannel_diplomacy",
+              "targeted_sanctions"
+            ],
+            "cautions": [
+              "limited_concession",
+              "intelligence_surge",
+              "public_signaling_speech"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_increase",
+              "military_posture_decrease"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Favors moves that either shore up system resilience or impose costs without detonating the full financial spillover path.",
+              "cautions": "May help, but the timing is now dangerous enough that execution error matters more than usual.",
+              "opposes": "Rejects responses most likely to turn a regional crisis into a broad market, shipping, or liquidity shock."
+            }
+          },
+          "reed": {
+            "supports": [
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "intelligence_surge"
+            ],
+            "cautions": [
+              "backchannel_diplomacy",
+              "targeted_sanctions",
+              "military_posture_increase"
+            ],
+            "opposes": [
+              "public_signaling_speech",
+              "broad_sanctions",
+              "resource_stockpiling",
+              "military_posture_decrease",
+              "limited_concession"
+            ],
+            "rationaleByAlignment": {
+              "supports": "At tail-risk stage he wants to stress the hidden architecture directly and force ambiguity back onto the counterpart.",
+              "cautions": "Can be useful, but may commit us to overt pathways if they are too visible or too slow.",
+              "opposes": "Rejects moves that give the other side a clean public frame or collapse the remaining covert optionality."
+            }
+          }
+        },
+        "truthModel": {
+          "verifiedFacts": [],
+          "workingTheories": [],
+          "unknowns": []
+        },
+        "windowContext": {
+          "sections": [
+            {
+              "id": "resolution",
+              "title": "Resolution",
+              "body": "The crisis crossed into direct force. Control now depends on preventing a short war from becoming a longer one."
+            }
+          ]
+        },
+        "headlines": [
+          "Limited Strike Exchange Breaks The Gray-Zone Frame"
+        ],
+        "memoLine": null,
+        "tickerLine": null,
+        "imageHints": [
+          "taiwan",
+          "maritime",
+          "shipping"
+        ],
+        "branches": [],
+        "terminalOutcome": "war",
+        "meterOverrides": null,
+        "advisorUnlock": null,
+        "musicCue": null,
+        "decisionWindow": null
+      },
+      {
+        "id": "ns_invasion_tail",
+        "phase": "climax",
+        "sceneFragments": [
+          "The tail risk that haunted every prior window becomes plausible enough to act on: a wider move against Taiwan that is no longer about signaling, but about changing the map before the coalition can reassemble."
+        ],
+        "advisorLines": {
+          "cross": [
+            "Now the ugly branches are visible. The next move decides whether deterrence holds or we move into open force.",
+            "A weak signal here invites the other side to normalize the new line."
+          ],
+          "chen": [
+            "We are down to options that each close something valuable.",
+            "The right move is the one that preserves the most future control, not the one that sounds toughest."
+          ],
+          "okonkwo": [
+            "This is where financial-system spillover and alliance fatigue can outrun military plans.",
+            "Even a “managed” branch can be economically brutal if the corridor stays compromised."
+          ],
+          "reed": [
+            "At this point I care about hidden branch activation more than public commentary.",
+            "Whatever we choose now will tell us whether the earlier anomalies were probing, cover, or a live opening sequence."
+          ]
+        },
+        "advisorActionGuidance": {
+          "cross": {
+            "supports": [
+              "military_posture_increase",
+              "targeted_sanctions",
+              "public_signaling_speech"
+            ],
+            "cautions": [
+              "intelligence_surge",
+              "resource_stockpiling",
+              "backchannel_diplomacy"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_decrease",
+              "limited_concession"
+            ],
+            "rationaleByAlignment": {
+              "supports": "With blockade and strike pathways visible, she backs moves that most clearly restore deterrence and define the line.",
+              "cautions": "May support the line, but risk being too indirect for the danger level now on the table.",
+              "opposes": "Rejects responses that reduce readiness or rely on reassurance after the worst branches are already live."
+            }
+          },
+          "chen": {
+            "supports": [
+              "backchannel_diplomacy",
+              "limited_concession",
+              "intelligence_surge"
+            ],
+            "cautions": [
+              "public_signaling_speech",
+              "targeted_sanctions",
+              "resource_stockpiling"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_increase",
+              "military_posture_decrease"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Even late, he still prioritizes avoiding the branch that turns a coercive crisis into direct war.",
+              "cautions": "Can fit, but only if they preserve control rather than merely sounding firm.",
+              "opposes": "Rejects moves likely to eliminate the last remaining off-ramp or trigger retaliation the coalition cannot shape."
+            }
+          },
+          "okonkwo": {
+            "supports": [
+              "resource_stockpiling",
+              "backchannel_diplomacy",
+              "targeted_sanctions"
+            ],
+            "cautions": [
+              "limited_concession",
+              "intelligence_surge",
+              "public_signaling_speech"
+            ],
+            "opposes": [
+              "broad_sanctions",
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "military_posture_increase",
+              "military_posture_decrease"
+            ],
+            "rationaleByAlignment": {
+              "supports": "Favors moves that either shore up system resilience or impose costs without detonating the full financial spillover path.",
+              "cautions": "May help, but the timing is now dangerous enough that execution error matters more than usual.",
+              "opposes": "Rejects responses most likely to turn a regional crisis into a broad market, shipping, or liquidity shock."
+            }
+          },
+          "reed": {
+            "supports": [
+              "cyber_intrusion",
+              "cyber_disruption",
+              "covert_sabotage",
+              "intelligence_surge"
+            ],
+            "cautions": [
+              "backchannel_diplomacy",
+              "targeted_sanctions",
+              "military_posture_increase"
+            ],
+            "opposes": [
+              "public_signaling_speech",
+              "broad_sanctions",
+              "resource_stockpiling",
+              "military_posture_decrease",
+              "limited_concession"
+            ],
+            "rationaleByAlignment": {
+              "supports": "At tail-risk stage he wants to stress the hidden architecture directly and force ambiguity back onto the counterpart.",
+              "cautions": "Can be useful, but may commit us to overt pathways if they are too visible or too slow.",
+              "opposes": "Rejects moves that give the other side a clean public frame or collapse the remaining covert optionality."
+            }
+          }
+        },
+        "truthModel": {
+          "verifiedFacts": [],
+          "workingTheories": [],
+          "unknowns": []
+        },
+        "windowContext": {
+          "sections": [
+            {
+              "id": "resolution",
+              "title": "Resolution",
+              "body": "Earlier choices, degraded resilience, and narrowing slack made the worst branch reachable."
+            }
+          ]
+        },
+        "headlines": [
+          "Invasion Tail Path Opens As Slack And Resilience Collapse"
+        ],
+        "memoLine": null,
+        "tickerLine": null,
+        "imageHints": [
+          "taiwan",
+          "maritime",
+          "shipping"
+        ],
+        "branches": [],
+        "terminalOutcome": "war",
+        "meterOverrides": null,
+        "advisorUnlock": null,
+        "musicCue": null,
+        "decisionWindow": null
+      }
+    ],
+    "eventTable": [
+      {
+        "id": "protests_erupt",
+        "label": "Protests Erupt",
+        "domain": "unrest",
+        "baseChance": 0.09,
+        "conditions": [
+          {
+            "meter": "domesticCohesion",
+            "op": "lt",
+            "value": 38
+          }
+        ],
+        "meterDeltas": {
+          "domesticCohesion": -7,
+          "economicStability": -4,
+          "escalationIndex": 3
+        },
+        "latentDeltas": {
+          "playerDomesticApproval": -6
+        },
+        "publicVisibility": 0.86,
+        "narrativeToken": "street_unrest"
+      },
+      {
+        "id": "blackout",
+        "label": "Regional Blackout",
+        "domain": "energy",
+        "baseChance": 0.07,
+        "conditions": [
+          {
+            "meter": "energySecurity",
+            "op": "lt",
+            "value": 40
+          }
+        ],
+        "meterDeltas": {
+          "energySecurity": -8,
+          "domesticCohesion": -3,
+          "escalationIndex": 4
+        },
+        "latentDeltas": {
+          "playerDomesticApproval": -4
+        },
+        "publicVisibility": 0.78,
+        "narrativeToken": "power_grid_failure"
+      },
+      {
+        "id": "market_panic",
+        "label": "Market Panic",
+        "domain": "economy",
+        "baseChance": 0.08,
+        "conditions": [
+          {
+            "meter": "economicStability",
+            "op": "lt",
+            "value": 42
+          },
+          {
+            "meter": "escalationIndex",
+            "op": "gt",
+            "value": 55
+          }
+        ],
+        "meterDeltas": {
+          "economicStability": -9,
+          "allianceTrust": -2,
+          "escalationIndex": 2
+        },
+        "latentDeltas": {
+          "globalLegitimacy": -3
+        },
+        "publicVisibility": 0.74,
+        "narrativeToken": "markets_selloff"
+      },
+      {
+        "id": "ally_distances_publicly",
+        "label": "Ally Distances Publicly",
+        "domain": "diplomacy",
+        "baseChance": 0.06,
+        "conditions": [
+          {
+            "meter": "allianceTrust",
+            "op": "lt",
+            "value": 44
+          }
+        ],
+        "meterDeltas": {
+          "allianceTrust": -8,
+          "militaryReadiness": -3,
+          "escalationIndex": 3
+        },
+        "latentDeltas": {
+          "globalLegitimacy": -4
+        },
+        "publicVisibility": 0.91,
+        "narrativeToken": "ally_rebukes_policy"
+      },
+      {
+        "id": "rogue_actor_incident",
+        "label": "Rogue Actor Incident",
+        "domain": "military",
+        "baseChance": 0.05,
+        "conditions": [
+          {
+            "meter": "escalationIndex",
+            "op": "gt",
+            "value": 63
+          },
+          {
+            "meter": "militaryReadiness",
+            "op": "gt",
+            "value": 58
+          }
+        ],
+        "meterDeltas": {
+          "escalationIndex": 9,
+          "allianceTrust": -3,
+          "domesticCohesion": -2
+        },
+        "latentDeltas": {
+          "rivalDomesticPressure": 5
+        },
+        "publicVisibility": 0.93,
+        "narrativeToken": "unauthorized_clash"
+      }
+    ],
+    "availablePlayerActionIds": [
+      "backchannel_diplomacy",
+      "public_signaling_speech",
+      "targeted_sanctions",
+      "broad_sanctions",
+      "resource_stockpiling",
+      "cyber_intrusion",
+      "cyber_disruption",
+      "covert_sabotage",
+      "military_posture_increase",
+      "military_posture_decrease",
+      "intelligence_surge",
+      "limited_concession"
+    ],
+    "availableRivalActionIds": [
+      "rival_public_threat",
+      "rival_covert_probe",
+      "rival_sanction_retaliation",
+      "rival_military_drill",
+      "rival_deescalation_signal",
+      "rival_energy_coercion",
+      "rival_disinfo_campaign",
+      "rival_proxy_incident",
+      "rival_backchannel_reply"
+    ],
+    "worldModelId": "taiwan_2026_black_swan",
+    "roleTrackId": "nsa_track",
+    "isLegacy": false,
+    "autoTerminateCatastrophicOutcomes": false
   }
 ]

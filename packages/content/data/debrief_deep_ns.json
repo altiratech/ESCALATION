@@ -1,583 +1,1168 @@
-{
-  "scenarioId": "northern_strait_flashpoint",
-  "strategyArcSummaries": {
-    "frozen_conflict": {
-      "headline": "Taiwan Strait crisis hardened into an expensive long-term standoff",
-      "narrative": "The episode ended in a durable but unsatisfying equilibrium. Beijing failed to turn gray-zone pressure into a decisive political gain, but the coalition also failed to restore a clearly lower-risk status quo. Traffic resumed unevenly, military presence stayed elevated, and every capital involved now has to budget for a longer confrontation in the Strait. This is deterrence working in the narrow sense and strategy failing in the broader one: war was avoided, yet the conditions for repeated crises remain in place.",
-      "keyTurningPoint": "The crisis stabilized when both sides concluded that the next rung up the ladder would create real casualties and lock the region into a Taiwan contingency neither was ready to fully own.",
-      "whatIfNote": "A cleaner coalition signal earlier in the episode might have convinced Beijing that coercive pressure would not fracture allied support. A weaker signal would likely have normalized stronger PRC pressure around Taiwan-bound commerce."
+[
+  {
+    "scenarioId": "northern_strait_flashpoint",
+    "strategyArcSummaries": {
+      "frozen_conflict": {
+        "headline": "Taiwan Strait crisis hardened into an expensive long-term standoff",
+        "narrative": "The episode ended in a durable but unsatisfying equilibrium. Beijing failed to turn gray-zone pressure into a decisive political gain, but the coalition also failed to restore a clearly lower-risk status quo. Traffic resumed unevenly, military presence stayed elevated, and every capital involved now has to budget for a longer confrontation in the Strait. This is deterrence working in the narrow sense and strategy failing in the broader one: war was avoided, yet the conditions for repeated crises remain in place.",
+        "keyTurningPoint": "The crisis stabilized when both sides concluded that the next rung up the ladder would create real casualties and lock the region into a Taiwan contingency neither was ready to fully own.",
+        "whatIfNote": "A cleaner coalition signal earlier in the episode might have convinced Beijing that coercive pressure would not fracture allied support. A weaker signal would likely have normalized stronger PRC pressure around Taiwan-bound commerce."
+      },
+      "stabilization": {
+        "headline": "Coercive pressure was reversed before it could become the new normal",
+        "narrative": "You produced a credible combination of allied unity, operational discipline, and economic signaling that convinced Beijing the campaign was no longer yielding favorable returns. The crisis did not end with trust restored, but it did end with the coalition preserving open sea lanes and preventing coercive tactics from hardening into accepted practice. Stabilization here means something concrete: the temperature fell while the coalition kept enough leverage to avoid rewarding pressure.",
+        "keyTurningPoint": "Beijing's internal assessment shifted once the coalition proved it could keep commercial resilience, military posture, and diplomatic discipline aligned rather than trading one off against another.",
+        "whatIfNote": "If allied messaging had drifted or if market fear had been left unanswered, Beijing could have concluded that a little more pressure would force a concession sequence."
+      },
+      "regime_instability": {
+        "headline": "Pressure in the Strait fed internal stress inside Beijing's own crisis machinery",
+        "narrative": "Your approach did not topple a government, but it did produce visible elite strain inside Beijing. Economic costs rose faster than expected, alliance-splitting efforts underperformed, and senior officials began arguing openly about whether the Taiwan pressure campaign had overshot. That kind of instability is strategically meaningful: it narrows Beijing's confidence and forces leaders to spend political capital on internal control rather than external coercion.",
+        "keyTurningPoint": "The decisive shift came when external pressure and internal commercial pain started to reinforce one another instead of remaining compartmentalized inside separate bureaucracies.",
+        "whatIfNote": "Handled poorly, visible internal strain could have pushed Beijing toward a reckless demonstration move. Handled carefully, it creates leverage for a pause that PRC leaders can still describe as tactical rather than humiliating."
+      },
+      "economic_collapse": {
+        "headline": "The Taiwan contingency escaped the maritime lane and became a systemic economic shock",
+        "narrative": "The crisis moved beyond signaling and into a broader breakdown of trade, finance, logistics, and confidence. Once the Strait was treated as a sustained disruption rather than a temporary scare, the cost structure changed everywhere: insurers repriced, shippers rerouted, fabs and suppliers went defensive, and allied governments had to decide how much pain they could absorb to preserve strategic credibility. This outcome is not only expensive; it is strategically corrosive because it turns every subsequent decision into a fight over burden-sharing.",
+        "keyTurningPoint": "The inflection point arrived when public and private actors stopped behaving as though the disruption was reversible on ordinary political timelines.",
+        "whatIfNote": "A narrower response might have preserved more commercial normality but risked teaching Beijing that economic intimidation works. A broader resilience push earlier might have reduced panic, even if it could not eliminate the shock."
+      },
+      "war": {
+        "headline": "Gray-zone coercion tipped into a real U.S.-China military conflict over Taiwan",
+        "narrative": "The crisis left the realm of controlled signaling and entered active combat. At that point many of the careful distinctions that governed the earlier turns stopped mattering: markets, allies, and adversaries all began recalculating around wartime rather than deterrence logic. Whatever political objective either side thought it was pursuing became subordinate to force protection, retaliation, and alliance credibility. Once casualties entered the equation, every choice became harder to reverse and much more expensive to contain.",
+        "keyTurningPoint": "The decisive break came when one side concluded that continued restraint would be more dangerous politically or operationally than accepting combat risk.",
+        "whatIfNote": "Several earlier branches might still have preserved deterrence without war, but only if both capitals believed the other still valued reversibility. Once that belief collapsed, the ladder became very short."
+      }
     },
-    "stabilization": {
-      "headline": "Coercive pressure was reversed before it could become the new normal",
-      "narrative": "You produced a credible combination of allied unity, operational discipline, and economic signaling that convinced Beijing the campaign was no longer yielding favorable returns. The crisis did not end with trust restored, but it did end with the coalition preserving open sea lanes and preventing coercive tactics from hardening into accepted practice. Stabilization here means something concrete: the temperature fell while the coalition kept enough leverage to avoid rewarding pressure.",
-      "keyTurningPoint": "Beijing's internal assessment shifted once the coalition proved it could keep commercial resilience, military posture, and diplomatic discipline aligned rather than trading one off against another.",
-      "whatIfNote": "If allied messaging had drifted or if market fear had been left unanswered, Beijing could have concluded that a little more pressure would force a concession sequence."
+    "historicalParallels": [
+      {
+        "id": "tp_berlin_blockade",
+        "title": "Berlin Blockade",
+        "period": "1948-1949",
+        "summary": "A pressure campaign against access routes can fail when the targeted coalition finds a disciplined, visible, and politically sustainable way to keep traffic moving.",
+        "lessonForPlayer": "The Taiwan Strait is not Berlin, but the logic is familiar: once an opponent tries to use access pressure to test political will, the durability of the response matters more than the rhetoric surrounding it.",
+        "relevantOutcomes": [
+          "frozen_conflict",
+          "stabilization",
+          "economic_collapse"
+        ],
+        "tags": [
+          "access",
+          "deterrence",
+          "logistics"
+        ]
+      },
+      {
+        "id": "tp_cuban_missile_crisis",
+        "title": "Cuban Missile Crisis",
+        "period": "1962",
+        "summary": "Great-power crises often turn on whether leaders preserve a private path to de-escalation while maintaining public resolve.",
+        "lessonForPlayer": "The key Taiwan Strait lesson is that visible firmness and confidential bargaining are not contradictions. In high-risk confrontations, they are often the same strategy executed through different channels.",
+        "relevantOutcomes": [
+          "stabilization",
+          "frozen_conflict",
+          "war"
+        ],
+        "tags": [
+          "backchannel",
+          "nuclear-shadow",
+          "signaling"
+        ]
+      },
+      {
+        "id": "tp_cod_wars",
+        "title": "Cod Wars",
+        "period": "1958-1976",
+        "summary": "Persistent maritime confrontations can reward the side that is politically patient and able to make routine friction strategically meaningful.",
+        "lessonForPlayer": "Taiwan Strait coercion may appear incremental, but repeated maritime pressure can slowly rewrite expectations unless it is met with equally patient resistance.",
+        "relevantOutcomes": [
+          "frozen_conflict",
+          "stabilization"
+        ],
+        "tags": [
+          "maritime",
+          "gray-zone",
+          "persistence"
+        ]
+      },
+      {
+        "id": "tp_suez",
+        "title": "Suez Crisis",
+        "period": "1956",
+        "summary": "Even capable military actors can fail when coalition politics and broader economic pressures work against them.",
+        "lessonForPlayer": "In a Taiwan contingency, alliance management is not secondary to military planning. If your coalition fractures, tactical capability may no longer be enough to sustain strategy.",
+        "relevantOutcomes": [
+          "frozen_conflict",
+          "economic_collapse",
+          "war"
+        ],
+        "tags": [
+          "alliance",
+          "coalition",
+          "legitimacy"
+        ]
+      },
+      {
+        "id": "tp_1973_oil",
+        "title": "1973 Oil Shock",
+        "period": "1973-1974",
+        "summary": "Strategic crises can become economic turning points when markets conclude that disruption will outlast the immediate political trigger.",
+        "lessonForPlayer": "Taiwan Strait instability can spill far beyond the region once shipping, insurance, and industrial confidence all begin repricing at the same time.",
+        "relevantOutcomes": [
+          "economic_collapse",
+          "frozen_conflict"
+        ],
+        "tags": [
+          "markets",
+          "energy",
+          "systemic-risk"
+        ]
+      },
+      {
+        "id": "tp_kargil",
+        "title": "Kargil Conflict",
+        "period": "1999",
+        "summary": "Limited military confrontations can remain bounded, but only when leaders deliberately avoid crossing thresholds that would compel full-scale war.",
+        "lessonForPlayer": "Around Taiwan, the challenge is not merely showing strength. It is showing enough strength to deter without accidentally creating a political or military logic that demands escalation.",
+        "relevantOutcomes": [
+          "stabilization",
+          "war",
+          "frozen_conflict"
+        ],
+        "tags": [
+          "escalation-control",
+          "limited-war",
+          "thresholds"
+        ]
+      },
+      {
+        "id": "tp_yom_kippur",
+        "title": "Yom Kippur War",
+        "period": "1973",
+        "summary": "Operational success can still leave the underlying strategic dispute unresolved, producing a brittle peace instead of a durable settlement.",
+        "lessonForPlayer": "Even a successful defense of the Taiwan Strait does not by itself solve the political contest. Military stabilization and strategic resolution are different achievements.",
+        "relevantOutcomes": [
+          "stabilization",
+          "frozen_conflict",
+          "war"
+        ],
+        "tags": [
+          "military",
+          "postwar",
+          "strategy"
+        ]
+      },
+      {
+        "id": "tp_south_china_sea",
+        "title": "South China Sea Gray-Zone Campaigns",
+        "period": "2010s-2020s",
+        "summary": "Persistent pressure below the threshold of war can accumulate real strategic gains when not met with organized resistance.",
+        "lessonForPlayer": "The Taiwan Strait scenario inherits the same lesson: if gray-zone tactics appear low-cost and politically effective, they will be repeated until someone changes the incentive structure.",
+        "relevantOutcomes": [
+          "frozen_conflict",
+          "stabilization",
+          "regime_instability"
+        ],
+        "tags": [
+          "gray-zone",
+          "maritime",
+          "precedent"
+        ]
+      }
+    ],
+    "advisorPostMortems": {
+      "cross": {
+        "frozen_conflict": {
+          "assessment": "We prevented Beijing from turning pressure into a clean strategic gain, but we are now paying for permanent readiness in the Strait. That is a holding action, not resolution.",
+          "selfCritique": "I leaned hard on visible force and did not always separate deterrent value from alliance anxiety.",
+          "recommendation": "Next time pair every military surge with a parallel explanation of end state, duration, and off-ramp so allies know what the force is buying."
+        },
+        "stabilization": {
+          "assessment": "This was the right kind of firmness: enough credible force to block coercion, not so much that we trapped ourselves into combat.",
+          "selfCritique": "I would have preferred earlier posture moves, but the eventual timing worked because the coalition was ready to sustain them.",
+          "recommendation": "Lock posture decisions to explicit coalition milestones rather than domestic political tempo."
+        },
+        "regime_instability": {
+          "assessment": "Beijing discovered that sustained pressure can come back as internal strain when it does not break the coalition. That is leverage, but it is also a danger signal.",
+          "selfCritique": "I underestimated how political stress inside Beijing could make late-stage decisions less predictable, not more.",
+          "recommendation": "When internal strain appears, increase force protection and clarity together; instability can precede rash moves."
+        },
+        "economic_collapse": {
+          "assessment": "Once the crisis became systemic economic shock, military credibility alone could not stabilize the board. Every deployment decision started carrying global commercial consequences.",
+          "selfCritique": "I focused on deterrence in theater and underweighted how quickly market panic could shape alliance appetite for risk.",
+          "recommendation": "Run military and market resilience planning as one campaign, not two parallel tracks."
+        },
+        "war": {
+          "assessment": "By the end we were managing combat, not deterrence. At that point tactical competence mattered, but the strategic failure had already happened upstream.",
+          "selfCritique": "I did not do enough early work to define which thresholds were truly unacceptable and which ones still allowed maneuver.",
+          "recommendation": "Codify escalation thresholds before the crisis peaks; ambiguity that feels useful early can be lethal late."
+        }
+      },
+      "chen": {
+        "frozen_conflict": {
+          "assessment": "A frozen Taiwan Strait is better than war, but it still means coercion has become institutionalized. The diplomatic burden simply shifts from crisis response to long-term containment.",
+          "selfCritique": "I should have pushed earlier for a steadier private channel instead of waiting for public conditions to improve.",
+          "recommendation": "Keep confidential dialogue alive even when public messaging is confrontational; the alternative is governing by brinkmanship alone."
+        },
+        "stabilization": {
+          "assessment": "Stabilization worked because diplomacy was backed by credible leverage, not because rhetoric softened. That is the central lesson.",
+          "selfCritique": "I occasionally worried too much about optics and not enough about building a durable negotiating mechanism.",
+          "recommendation": "Institutionalize crisis-management channels before the next round of pressure begins."
+        },
+        "regime_instability": {
+          "assessment": "Internal strain in Beijing created opportunity, but it also made private assurances more valuable because leaders needed a face-saving way to step back.",
+          "selfCritique": "I may have treated internal division as self-solving leverage when it actually increased the need for careful signaling.",
+          "recommendation": "When the other side is under internal stress, offer exits that preserve face without surrendering principle."
+        },
+        "economic_collapse": {
+          "assessment": "Once markets and supply chains started governing the pace of the crisis, diplomacy became harder because every government had different pain thresholds.",
+          "selfCritique": "I did not build a sufficiently explicit allied diplomatic framework for sharing economic burden and messaging discipline.",
+          "recommendation": "Prepare coalition burden-sharing language early; economic crises punish vague diplomatic architecture."
+        },
+        "war": {
+          "assessment": "War was the collapse of the political space we were trying to protect. By then every message was either deterrent theater or wartime signaling.",
+          "selfCritique": "I did not secure enough trusted backchannel redundancy before the crisis reached peak intensity.",
+          "recommendation": "Never rely on a single communication pathway in a major-power crisis."
+        }
+      },
+      "okonkwo": {
+        "frozen_conflict": {
+          "assessment": "The expensive version of deterrence is still expensive. A long Taiwan Strait standoff is a recurring budget line, supply-chain tax, and risk premium all at once.",
+          "selfCritique": "I framed costs in annual terms when I should have framed them as a structural repricing of the region.",
+          "recommendation": "Translate strategy into multi-year economic burden, not just near-term shock, if you want policymakers to feel the full tradeoff."
+        },
+        "stabilization": {
+          "assessment": "Stabilization succeeded because the coalition convinced markets the Strait would not remain in permanent emergency mode. Expectations mattered almost as much as policy.",
+          "selfCritique": "I could have moved sooner to show resilience measures rather than letting markets discover them piecemeal.",
+          "recommendation": "Make resilience visible early enough to shape expectations before panic gets embedded in pricing."
+        },
+        "regime_instability": {
+          "assessment": "Economic friction landing inside Beijing helped because it challenged the assumption that the PRC could externalize all costs. That pressure changed elite calculations.",
+          "selfCritique": "I did not always distinguish between pain that creates leverage and pain that simply raises the chance of irrational retaliation.",
+          "recommendation": "Target pressure at decision-makers and vulnerable sectors, not at symbolic pain for its own sake."
+        },
+        "economic_collapse": {
+          "assessment": "Once the crisis turned systemic, every actor started optimizing for self-protection rather than coalition coherence. That is what economic collapse does to strategy.",
+          "selfCritique": "I underestimated second-order effects through insurance, trade finance, and continuity planning.",
+          "recommendation": "Treat shipping, semiconductors, and financial plumbing as part of national security planning from the first turn."
+        },
+        "war": {
+          "assessment": "In war, economic models stop being warning tools and start becoming damage-accounting tools. The strategic failure happened before the spreadsheets caught up.",
+          "selfCritique": "I did not make the cost of a Taiwan war vivid enough soon enough.",
+          "recommendation": "Put concrete wartime economic numbers in front of decision-makers before they feel politically boxed in."
+        }
+      },
+      "reed": {
+        "frozen_conflict": {
+          "assessment": "The intelligence picture was good enough to avoid surprises, but not good enough to produce resolution. We understood the pressure campaign; we did not end it.",
+          "selfCritique": "I discounted how much Beijing cared about alliance optics relative to tactical outcomes in the Strait itself.",
+          "recommendation": "Track coalition perception as aggressively as force movement; the adversary certainly does."
+        },
+        "stabilization": {
+          "assessment": "We won because we maintained a clearer read on intent than Beijing had on ours. That informational advantage widened the coalition's room to maneuver.",
+          "selfCritique": "I could have fused commercial, cyber, and military indicators faster instead of treating them as adjacent lanes.",
+          "recommendation": "In a Taiwan contingency, intelligence has to be commercial and political as much as military."
+        },
+        "regime_instability": {
+          "assessment": "Once internal stress surfaced inside Beijing, the hardest problem became interpreting whether pressure would produce caution or overcorrection. Intelligence discipline mattered more than volume.",
+          "selfCritique": "I was too tempted by signs of elite disagreement and not skeptical enough about how partial those windows really were.",
+          "recommendation": "Never confuse partial visibility into internal debate with true predictability."
+        },
+        "economic_collapse": {
+          "assessment": "The warning signs were present, but once the private sector believed the disruption would endure, the crisis acquired its own momentum. Intelligence can describe that shift; it cannot cancel it.",
+          "selfCritique": "I should have elevated market and logistics indicators sooner as strategic signals, not merely supporting evidence.",
+          "recommendation": "Promote commercial telemetry into the main crisis dashboard before the market narrative runs ahead of policy."
+        },
+        "war": {
+          "assessment": "We entered the phase where every ambiguity carried lethal consequences. The intelligence mission narrowed from understanding pressure to protecting forces and warning on imminent attack.",
+          "selfCritique": "I did not insist early enough that some indicators were signs of threshold change rather than continued gray-zone maneuver.",
+          "recommendation": "Define and rehearse threshold indicators before the crisis, because by the time they appear it is too late to invent doctrine."
+        }
+      }
     },
-    "regime_instability": {
-      "headline": "Pressure in the Strait fed internal stress inside Beijing's own crisis machinery",
-      "narrative": "Your approach did not topple a government, but it did produce visible elite strain inside Beijing. Economic costs rose faster than expected, alliance-splitting efforts underperformed, and senior officials began arguing openly about whether the Taiwan pressure campaign had overshot. That kind of instability is strategically meaningful: it narrows Beijing's confidence and forces leaders to spend political capital on internal control rather than external coercion.",
-      "keyTurningPoint": "The decisive shift came when external pressure and internal commercial pain started to reinforce one another instead of remaining compartmentalized inside separate bureaucracies.",
-      "whatIfNote": "Handled poorly, visible internal strain could have pushed Beijing toward a reckless demonstration move. Handled carefully, it creates leverage for a pause that PRC leaders can still describe as tactical rather than humiliating."
+    "rivalPerspective": {
+      "frozen_conflict": {
+        "internalNarrative": "Inside Beijing, the crisis is judged as an incomplete success. Pressure around Taiwan proved that the coalition can be forced to pay, but it did not produce a durable political concession. Lin's camp argues that maintaining pressure without war preserved leverage; hardliners argue that the U.S. should have been challenged more sharply before the coalition hardened.",
+        "regimeAssessment": "The system will likely treat this as evidence that gray-zone coercion still works, but only up to a point. The main internal debate is whether the next round should be broader and faster or narrower and more patient.",
+        "publicNarrative": "The public line is that Beijing defended its interests, exposed outside interference, and proved that the Taiwan question cannot be compartmentalized away from regional order."
+      },
+      "stabilization": {
+        "internalNarrative": "Lin's internal assessment is that the campaign lost efficiency once allied discipline held and commercial costs kept compounding. Beijing did not suffer a dramatic defeat, but it did fail to convert pressure into a politically useful change in the operating environment.",
+        "regimeAssessment": "The leadership lesson is uncomfortable: coercion that once looked gradual and manageable can solidify coalition resolve if overused in the wrong context.",
+        "publicNarrative": "Beijing frames the outcome as a temporary pause and insists that external actors merely recognized the need for restraint. The official story avoids any admission that coalition pressure mattered."
+      },
+      "regime_instability": {
+        "internalNarrative": "The crisis began feeding back into elite politics. Commercial actors, planners, and security officials stopped agreeing on whether the campaign remained worth its cost. Lin's authority narrowed as different bureaucracies started protecting themselves from the consequences of a prolonged Taiwan confrontation.",
+        "regimeAssessment": "This is the outcome Beijing fears in slow motion: not immediate collapse, but a visible mismatch between strategic ambition and cost tolerance.",
+        "publicNarrative": "Public messaging would emphasize unity and determination while suppressing any suggestion of elite disagreement. The louder the confidence, the more seriously outside analysts should take signs of internal strain."
+      },
+      "economic_collapse": {
+        "internalNarrative": "Beijing would see this as a warning that strategic pressure around Taiwan can trigger economic dynamics too broad to choreograph. Even officials who support coercion would question whether the system is absorbing costs in the right places and on acceptable timelines.",
+        "regimeAssessment": "The main internal question becomes whether to double down in hopes of forcing a political break, or to seek a pause before the economic damage reshapes domestic priorities.",
+        "publicNarrative": "State messaging would shift blame outward, arguing that outside powers chose economic warfare over regional stability and forced unnecessary hardship onto global markets."
+      },
+      "war": {
+        "internalNarrative": "Once combat begins, internal distinctions between calibrated pressure and broader confrontation collapse. Lin's model of controlled coercion is effectively over, replaced by wartime survival logic.",
+        "regimeAssessment": "The leadership would judge the prewar phase harshly if it concluded that incremental pressure failed to deliver leverage yet still marched the system into conflict on unfavorable timing.",
+        "publicNarrative": "Public narrative would center on inevitability, external provocation, and national resolve, because admitting miscalculation during active conflict is politically impossible."
+      }
     },
-    "economic_collapse": {
-      "headline": "The Taiwan contingency escaped the maritime lane and became a systemic economic shock",
-      "narrative": "The crisis moved beyond signaling and into a broader breakdown of trade, finance, logistics, and confidence. Once the Strait was treated as a sustained disruption rather than a temporary scare, the cost structure changed everywhere: insurers repriced, shippers rerouted, fabs and suppliers went defensive, and allied governments had to decide how much pain they could absorb to preserve strategic credibility. This outcome is not only expensive; it is strategically corrosive because it turns every subsequent decision into a fight over burden-sharing.",
-      "keyTurningPoint": "The inflection point arrived when public and private actors stopped behaving as though the disruption was reversible on ordinary political timelines.",
-      "whatIfNote": "A narrower response might have preserved more commercial normality but risked teaching Beijing that economic intimidation works. A broader resilience push earlier might have reduced panic, even if it could not eliminate the shock."
+    "playerGradeDescriptors": {
+      "masterful": {
+        "title": "Strategically Disciplined",
+        "description": "You aligned military posture, alliance management, intelligence, and economic signaling without losing control of the escalation ladder."
+      },
+      "competent": {
+        "title": "Operationally Effective",
+        "description": "You protected core interests and avoided the worst branches, though some leverage or resilience was left on the table."
+      },
+      "mixed": {
+        "title": "Uneven Under Pressure",
+        "description": "Your decisions produced moments of real strength, but inconsistency in signaling or coalition management diluted the overall effect."
+      },
+      "poor": {
+        "title": "Reactive and Costly",
+        "description": "You preserved some room to maneuver, but too often allowed Beijing or the market environment to set the terms of the crisis."
+      },
+      "catastrophic": {
+        "title": "Loss of Escalation Control",
+        "description": "The episode moved beyond deliberate statecraft into cascading consequences you could no longer reliably shape."
+      }
     },
-    "war": {
-      "headline": "Gray-zone coercion tipped into a real U.S.-China military conflict over Taiwan",
-      "narrative": "The crisis left the realm of controlled signaling and entered active combat. At that point many of the careful distinctions that governed the earlier turns stopped mattering: markets, allies, and adversaries all began recalculating around wartime rather than deterrence logic. Whatever political objective either side thought it was pursuing became subordinate to force protection, retaliation, and alliance credibility. Once casualties entered the equation, every choice became harder to reverse and much more expensive to contain.",
-      "keyTurningPoint": "The decisive break came when one side concluded that continued restraint would be more dangerous politically or operationally than accepting combat risk.",
-      "whatIfNote": "Several earlier branches might still have preserved deterrence without war, but only if both capitals believed the other still valued reversibility. Once that belief collapsed, the ladder became very short."
-    }
+    "tradeoffCommentary": {
+      "economic_containment": {
+        "stabilization": {
+          "summary": "Commercial continuity held because the coalition signaled enough resilience to keep insurers, shippers, and chip buyers from treating the Strait as a permanently broken lane.",
+          "tradeoff": "The cost was carrying visible readiness and market-support measures at the same time, which narrowed room for cheap or purely symbolic signaling."
+        },
+        "frozen_conflict": {
+          "summary": "Economic damage stayed bounded, but only by normalizing a more expensive operating environment around Taiwan-bound shipping and production planning.",
+          "tradeoff": "The cost was accepting a durable risk premium in the Strait rather than restoring the lower-friction status quo."
+        },
+        "regime_instability": {
+          "summary": "Commercial pressure landed inside Beijing's system hard enough to complicate elite consensus without fully collapsing regional trade flows.",
+          "tradeoff": "The cost was living close to the line where useful economic pressure could have turned into a broader commercial panic."
+        },
+        "economic_collapse": {
+          "summary": "Commercial containment failed once private actors stopped treating the disruption as temporary and began repricing shipping, trade finance, and chip supply on crisis terms.",
+          "tradeoff": "The cost of trying to preserve strategic leverage was a region-wide economic shock that governments could no longer insulate cleanly."
+        },
+        "war": {
+          "summary": "Economic management ceased to be a stabilizing line of effort once combat logic replaced deterrence logic around Taiwan.",
+          "tradeoff": "The cost was that every attempt to preserve commercial continuity was subordinated to force protection, sanctions risk, and wartime repricing."
+        }
+      },
+      "coalition_cohesion": {
+        "stabilization": {
+          "summary": "Coalition discipline held because Taipei, Washington, Tokyo, and Manila kept the same story about access, restraint, and acceptable risk.",
+          "tradeoff": "The cost was slower, more negotiated decision-making while allied alignment was maintained turn by turn."
+        },
+        "frozen_conflict": {
+          "summary": "The coalition stayed together, but under a standing burden that made every additional surge in the Strait more politically expensive.",
+          "tradeoff": "The cost was preserving unity through endurance rather than through a cleaner strategic resolution."
+        },
+        "regime_instability": {
+          "summary": "Coalition cohesion remained valuable precisely because signs of strain inside Beijing only mattered if allies did not fracture first.",
+          "tradeoff": "The cost was resisting the temptation to overplay apparent PRC weakness in ways that could have split partners on acceptable risk."
+        },
+        "economic_collapse": {
+          "summary": "Coalition discipline weakened as different governments absorbed very different levels of shipping, market, and industrial pain.",
+          "tradeoff": "The cost was that burden-sharing became a strategic problem in its own right rather than a background diplomatic chore."
+        },
+        "war": {
+          "summary": "Coalition politics shifted from deterrence management to wartime credibility, where solidarity became harder to sustain and more costly to test.",
+          "tradeoff": "The cost was that every military move now also risked becoming a referendum on alliance resolve under fire."
+        }
+      },
+      "deterrence_credibility": {
+        "stabilization": {
+          "summary": "Deterrence credibility held because visible readiness, allied messaging, and economic resilience all pointed in the same direction instead of competing for attention.",
+          "tradeoff": "The cost was carrying enough hard-power posture to be believed without drifting into a self-defeating show of force."
+        },
+        "frozen_conflict": {
+          "summary": "The run preserved enough credibility to block a clean PRC gain, but not enough to convince Beijing that continued pressure had become unproductive.",
+          "tradeoff": "The cost was sustaining an expensive deterrent line that prevented defeat without delivering closure."
+        },
+        "regime_instability": {
+          "summary": "Deterrence worked partly because Beijing's leadership had to reckon with rising internal doubts about the return on continued pressure.",
+          "tradeoff": "The cost was operating near the danger that visible elite strain could trigger an irrational demonstration move rather than restraint."
+        },
+        "economic_collapse": {
+          "summary": "Military credibility remained important, but it was no longer sufficient once the economic system started absorbing Taiwan contingency costs as a persistent reality.",
+          "tradeoff": "The cost was that each additional show of resolve had to be justified against markets already behaving as though deterrence had partially failed."
+        },
+        "war": {
+          "summary": "Deterrence credibility collapsed into combat credibility once the crisis crossed from signaling into open conflict.",
+          "tradeoff": "The cost was that earlier posture choices were now judged not by whether they deterred, but by whether they left forces and allies prepared for war."
+        }
+      },
+      "escalation_discipline": {
+        "stabilization": {
+          "summary": "Escalation discipline held because the coalition raised costs on Beijing without forcing either side into a public corner it could not back away from.",
+          "tradeoff": "The cost was sacrificing some rhetorical sharpness and tactical freedom to preserve reversibility."
+        },
+        "frozen_conflict": {
+          "summary": "Escalation stayed bounded, but only barely; each turn preserved room to maneuver while leaving the underlying pressure campaign alive.",
+          "tradeoff": "The cost was a brittle equilibrium in which caution prevented war without resolving the contest."
+        },
+        "regime_instability": {
+          "summary": "Escalation discipline became harder once internal strain in Beijing made intent less predictable and public signaling more combustible.",
+          "tradeoff": "The cost was needing even tighter threshold management exactly when the adversary became less internally coherent."
+        },
+        "economic_collapse": {
+          "summary": "Escalation discipline weakened because commercial breakdown accelerated political tempo and made delay itself feel strategically costly.",
+          "tradeoff": "The cost was that crisis management had to compete with panicked market expectations and allied burden-sharing fights."
+        },
+        "war": {
+          "summary": "Escalation discipline failed once one side concluded that further restraint was more dangerous than accepting combat risk.",
+          "tradeoff": "The cost was losing the ability to treat signaling, access pressure, and military posture as separable instruments."
+        }
+      },
+      "information_posture": {
+        "stabilization": {
+          "summary": "The coalition kept a usable picture because military, diplomatic, and commercial indicators were fused early enough to keep ambiguity manageable.",
+          "tradeoff": "The cost was devoting attention and assets to situational awareness that could not be spent on more visible deterrent theater."
+        },
+        "frozen_conflict": {
+          "summary": "The information picture remained serviceable, but not decisive; you understood the pressure campaign better than you controlled it.",
+          "tradeoff": "The cost was that incomplete clarity forced repeated conservative choices that preserved safety more than momentum."
+        },
+        "regime_instability": {
+          "summary": "Information posture mattered most when fragments of elite stress appeared inside Beijing and the real challenge became judging whether they implied leverage or volatility.",
+          "tradeoff": "The cost was resisting seductive but partial reads of internal PRC instability that could have produced overconfidence."
+        },
+        "economic_collapse": {
+          "summary": "The information picture thinned once private-sector repricing outpaced government interpretation and the crisis acquired its own commercial momentum.",
+          "tradeoff": "The cost was that decisions increasingly had to be made under fast-moving uncertainty about downstream economic damage."
+        },
+        "war": {
+          "summary": "Information posture narrowed from strategic interpretation to immediate warning and force-protection once the Taiwan crisis crossed into combat.",
+          "tradeoff": "The cost was that ambiguity which had been manageable in the gray zone became lethal at wartime tempo."
+        }
+      }
+    },
+    "lessonsLearned": [
+      {
+        "id": "ll_reversibility",
+        "title": "Guard reversibility early",
+        "insight": "The most valuable early moves in a Taiwan Strait crisis are the ones that raise cost and clarity without making both sides prisoners of their own public commitments.",
+        "relevantOutcomes": [
+          "stabilization",
+          "frozen_conflict",
+          "war"
+        ],
+        "tags": [
+          "escalation",
+          "reversibility"
+        ]
+      },
+      {
+        "id": "ll_alliance",
+        "title": "Alliance optics are operational facts",
+        "insight": "Beijing is not just measuring ships and aircraft. It is constantly scoring whether allies appear coherent, reluctant, or divided.",
+        "relevantOutcomes": [
+          "stabilization",
+          "frozen_conflict",
+          "regime_instability"
+        ],
+        "tags": [
+          "alliance",
+          "signaling"
+        ]
+      },
+      {
+        "id": "ll_markets",
+        "title": "Markets can accelerate the crisis",
+        "insight": "Once insurers, shippers, and semiconductor buyers stop assuming a quick reset, their behavior creates its own strategic pressure on governments.",
+        "relevantOutcomes": [
+          "economic_collapse",
+          "frozen_conflict",
+          "stabilization"
+        ],
+        "tags": [
+          "markets",
+          "supply-chain"
+        ]
+      },
+      {
+        "id": "ll_taiwan",
+        "title": "Taiwan is not a narrow military problem",
+        "insight": "The theater sits at the intersection of alliance credibility, semiconductor supply chains, maritime law, cyber risk, and domestic politics in multiple capitals.",
+        "relevantOutcomes": [
+          "stabilization",
+          "economic_collapse",
+          "war"
+        ],
+        "tags": [
+          "theater",
+          "integration"
+        ]
+      },
+      {
+        "id": "ll_backchannels",
+        "title": "Private communication is deterrence infrastructure",
+        "insight": "Backchannels do not weaken deterrence when paired with resolve; they reduce the odds that both sides misread silence as commitment to further escalation.",
+        "relevantOutcomes": [
+          "stabilization",
+          "frozen_conflict",
+          "war"
+        ],
+        "tags": [
+          "diplomacy",
+          "communications"
+        ]
+      },
+      {
+        "id": "ll_grayzone",
+        "title": "Gray-zone pressure compounds unless priced",
+        "insight": "Incremental coercion feels tolerable turn by turn, which is precisely why it can become the new baseline if the coalition never changes its cost structure.",
+        "relevantOutcomes": [
+          "frozen_conflict",
+          "stabilization"
+        ],
+        "tags": [
+          "gray-zone",
+          "deterrence"
+        ]
+      },
+      {
+        "id": "ll_resilience",
+        "title": "Resilience is strategy, not housekeeping",
+        "insight": "Fuel, continuity planning, port redundancy, and semiconductor buffers are not merely support functions. They shape whether time favors you or Beijing.",
+        "relevantOutcomes": [
+          "economic_collapse",
+          "stabilization",
+          "frozen_conflict"
+        ],
+        "tags": [
+          "resilience",
+          "continuity"
+        ]
+      },
+      {
+        "id": "ll_face",
+        "title": "Face matters because domestic politics matter",
+        "insight": "Leaders under pressure may accept quiet compromises they would reject publicly. Designing exits that preserve core interests without demanding public humiliation is often the difference between pause and rupture.",
+        "relevantOutcomes": [
+          "stabilization",
+          "regime_instability",
+          "war"
+        ],
+        "tags": [
+          "face",
+          "domestic-politics"
+        ]
+      },
+      {
+        "id": "ll_thresholds",
+        "title": "Thresholds must be defined before they are tested",
+        "insight": "In fast-moving crises, teams rarely invent good threshold doctrine on the fly. They fall back on habits, slogans, and incomplete assumptions.",
+        "relevantOutcomes": [
+          "war",
+          "stabilization",
+          "frozen_conflict"
+        ],
+        "tags": [
+          "thresholds",
+          "planning"
+        ]
+      },
+      {
+        "id": "ll_speed",
+        "title": "Speed favors the side with an integrated picture",
+        "insight": "The advantage does not always go to the side willing to move first. It often goes to the side that can fuse military, political, commercial, and cyber signals before acting.",
+        "relevantOutcomes": [
+          "stabilization",
+          "regime_instability",
+          "economic_collapse"
+        ],
+        "tags": [
+          "intelligence",
+          "decision-making"
+        ]
+      }
+    ]
   },
-  "historicalParallels": [
-    {
-      "id": "tp_berlin_blockade",
-      "title": "Berlin Blockade",
-      "period": "1948-1949",
-      "summary": "A pressure campaign against access routes can fail when the targeted coalition finds a disciplined, visible, and politically sustainable way to keep traffic moving.",
-      "lessonForPlayer": "The Taiwan Strait is not Berlin, but the logic is familiar: once an opponent tries to use access pressure to test political will, the durability of the response matters more than the rhetoric surrounding it.",
-      "relevantOutcomes": [
-        "frozen_conflict",
-        "stabilization",
-        "economic_collapse"
-      ],
-      "tags": [
-        "access",
-        "deterrence",
-        "logistics"
-      ]
-    },
-    {
-      "id": "tp_cuban_missile_crisis",
-      "title": "Cuban Missile Crisis",
-      "period": "1962",
-      "summary": "Great-power crises often turn on whether leaders preserve a private path to de-escalation while maintaining public resolve.",
-      "lessonForPlayer": "The key Taiwan Strait lesson is that visible firmness and confidential bargaining are not contradictions. In high-risk confrontations, they are often the same strategy executed through different channels.",
-      "relevantOutcomes": [
-        "stabilization",
-        "frozen_conflict",
-        "war"
-      ],
-      "tags": [
-        "backchannel",
-        "nuclear-shadow",
-        "signaling"
-      ]
-    },
-    {
-      "id": "tp_cod_wars",
-      "title": "Cod Wars",
-      "period": "1958-1976",
-      "summary": "Persistent maritime confrontations can reward the side that is politically patient and able to make routine friction strategically meaningful.",
-      "lessonForPlayer": "Taiwan Strait coercion may appear incremental, but repeated maritime pressure can slowly rewrite expectations unless it is met with equally patient resistance.",
-      "relevantOutcomes": [
-        "frozen_conflict",
-        "stabilization"
-      ],
-      "tags": [
-        "maritime",
-        "gray-zone",
-        "persistence"
-      ]
-    },
-    {
-      "id": "tp_suez",
-      "title": "Suez Crisis",
-      "period": "1956",
-      "summary": "Even capable military actors can fail when coalition politics and broader economic pressures work against them.",
-      "lessonForPlayer": "In a Taiwan contingency, alliance management is not secondary to military planning. If your coalition fractures, tactical capability may no longer be enough to sustain strategy.",
-      "relevantOutcomes": [
-        "frozen_conflict",
-        "economic_collapse",
-        "war"
-      ],
-      "tags": [
-        "alliance",
-        "coalition",
-        "legitimacy"
-      ]
-    },
-    {
-      "id": "tp_1973_oil",
-      "title": "1973 Oil Shock",
-      "period": "1973-1974",
-      "summary": "Strategic crises can become economic turning points when markets conclude that disruption will outlast the immediate political trigger.",
-      "lessonForPlayer": "Taiwan Strait instability can spill far beyond the region once shipping, insurance, and industrial confidence all begin repricing at the same time.",
-      "relevantOutcomes": [
-        "economic_collapse",
-        "frozen_conflict"
-      ],
-      "tags": [
-        "markets",
-        "energy",
-        "systemic-risk"
-      ]
-    },
-    {
-      "id": "tp_kargil",
-      "title": "Kargil Conflict",
-      "period": "1999",
-      "summary": "Limited military confrontations can remain bounded, but only when leaders deliberately avoid crossing thresholds that would compel full-scale war.",
-      "lessonForPlayer": "Around Taiwan, the challenge is not merely showing strength. It is showing enough strength to deter without accidentally creating a political or military logic that demands escalation.",
-      "relevantOutcomes": [
-        "stabilization",
-        "war",
-        "frozen_conflict"
-      ],
-      "tags": [
-        "escalation-control",
-        "limited-war",
-        "thresholds"
-      ]
-    },
-    {
-      "id": "tp_yom_kippur",
-      "title": "Yom Kippur War",
-      "period": "1973",
-      "summary": "Operational success can still leave the underlying strategic dispute unresolved, producing a brittle peace instead of a durable settlement.",
-      "lessonForPlayer": "Even a successful defense of the Taiwan Strait does not by itself solve the political contest. Military stabilization and strategic resolution are different achievements.",
-      "relevantOutcomes": [
-        "stabilization",
-        "frozen_conflict",
-        "war"
-      ],
-      "tags": [
-        "military",
-        "postwar",
-        "strategy"
-      ]
-    },
-    {
-      "id": "tp_south_china_sea",
-      "title": "South China Sea Gray-Zone Campaigns",
-      "period": "2010s-2020s",
-      "summary": "Persistent pressure below the threshold of war can accumulate real strategic gains when not met with organized resistance.",
-      "lessonForPlayer": "The Taiwan Strait scenario inherits the same lesson: if gray-zone tactics appear low-cost and politically effective, they will be repeated until someone changes the incentive structure.",
-      "relevantOutcomes": [
-        "frozen_conflict",
-        "stabilization",
-        "regime_instability"
-      ],
-      "tags": [
-        "gray-zone",
-        "maritime",
-        "precedent"
-      ]
-    }
-  ],
-  "advisorPostMortems": {
-    "cross": {
+  {
+    "scenarioId": "northern_strait_black_swan",
+    "strategyArcSummaries": {
       "frozen_conflict": {
-        "assessment": "We prevented Beijing from turning pressure into a clean strategic gain, but we are now paying for permanent readiness in the Strait. That is a holding action, not resolution.",
-        "selfCritique": "I leaned hard on visible force and did not always separate deterrent value from alliance anxiety.",
-        "recommendation": "Next time pair every military surge with a parallel explanation of end state, duration, and off-ramp so allies know what the force is buying."
+        "headline": "Taiwan Strait crisis hardened into an expensive long-term standoff",
+        "narrative": "The episode ended in a durable but unsatisfying equilibrium. Beijing failed to turn gray-zone pressure into a decisive political gain, but the coalition also failed to restore a clearly lower-risk status quo. Traffic resumed unevenly, military presence stayed elevated, and every capital involved now has to budget for a longer confrontation in the Strait. This is deterrence working in the narrow sense and strategy failing in the broader one: war was avoided, yet the conditions for repeated crises remain in place.",
+        "keyTurningPoint": "The crisis stabilized when both sides concluded that the next rung up the ladder would create real casualties and lock the region into a Taiwan contingency neither was ready to fully own.",
+        "whatIfNote": "A cleaner coalition signal earlier in the episode might have convinced Beijing that coercive pressure would not fracture allied support. A weaker signal would likely have normalized stronger PRC pressure around Taiwan-bound commerce."
       },
       "stabilization": {
-        "assessment": "This was the right kind of firmness: enough credible force to block coercion, not so much that we trapped ourselves into combat.",
-        "selfCritique": "I would have preferred earlier posture moves, but the eventual timing worked because the coalition was ready to sustain them.",
-        "recommendation": "Lock posture decisions to explicit coalition milestones rather than domestic political tempo."
+        "headline": "Coercive pressure was reversed before it could become the new normal",
+        "narrative": "You produced a credible combination of allied unity, operational discipline, and economic signaling that convinced Beijing the campaign was no longer yielding favorable returns. The crisis did not end with trust restored, but it did end with the coalition preserving open sea lanes and preventing coercive tactics from hardening into accepted practice. Stabilization here means something concrete: the temperature fell while the coalition kept enough leverage to avoid rewarding pressure.",
+        "keyTurningPoint": "Beijing's internal assessment shifted once the coalition proved it could keep commercial resilience, military posture, and diplomatic discipline aligned rather than trading one off against another.",
+        "whatIfNote": "If allied messaging had drifted or if market fear had been left unanswered, Beijing could have concluded that a little more pressure would force a concession sequence."
       },
       "regime_instability": {
-        "assessment": "Beijing discovered that sustained pressure can come back as internal strain when it does not break the coalition. That is leverage, but it is also a danger signal.",
-        "selfCritique": "I underestimated how political stress inside Beijing could make late-stage decisions less predictable, not more.",
-        "recommendation": "When internal strain appears, increase force protection and clarity together; instability can precede rash moves."
+        "headline": "Pressure in the Strait fed internal stress inside Beijing's own crisis machinery",
+        "narrative": "Your approach did not topple a government, but it did produce visible elite strain inside Beijing. Economic costs rose faster than expected, alliance-splitting efforts underperformed, and senior officials began arguing openly about whether the Taiwan pressure campaign had overshot. That kind of instability is strategically meaningful: it narrows Beijing's confidence and forces leaders to spend political capital on internal control rather than external coercion.",
+        "keyTurningPoint": "The decisive shift came when external pressure and internal commercial pain started to reinforce one another instead of remaining compartmentalized inside separate bureaucracies.",
+        "whatIfNote": "Handled poorly, visible internal strain could have pushed Beijing toward a reckless demonstration move. Handled carefully, it creates leverage for a pause that PRC leaders can still describe as tactical rather than humiliating."
       },
       "economic_collapse": {
-        "assessment": "Once the crisis became systemic economic shock, military credibility alone could not stabilize the board. Every deployment decision started carrying global commercial consequences.",
-        "selfCritique": "I focused on deterrence in theater and underweighted how quickly market panic could shape alliance appetite for risk.",
-        "recommendation": "Run military and market resilience planning as one campaign, not two parallel tracks."
+        "headline": "The Taiwan contingency escaped the maritime lane and became a systemic economic shock",
+        "narrative": "The crisis moved beyond signaling and into a broader breakdown of trade, finance, logistics, and confidence. Once the Strait was treated as a sustained disruption rather than a temporary scare, the cost structure changed everywhere: insurers repriced, shippers rerouted, fabs and suppliers went defensive, and allied governments had to decide how much pain they could absorb to preserve strategic credibility. This outcome is not only expensive; it is strategically corrosive because it turns every subsequent decision into a fight over burden-sharing.",
+        "keyTurningPoint": "The inflection point arrived when public and private actors stopped behaving as though the disruption was reversible on ordinary political timelines.",
+        "whatIfNote": "A narrower response might have preserved more commercial normality but risked teaching Beijing that economic intimidation works. A broader resilience push earlier might have reduced panic, even if it could not eliminate the shock."
       },
       "war": {
-        "assessment": "By the end we were managing combat, not deterrence. At that point tactical competence mattered, but the strategic failure had already happened upstream.",
-        "selfCritique": "I did not do enough early work to define which thresholds were truly unacceptable and which ones still allowed maneuver.",
-        "recommendation": "Codify escalation thresholds before the crisis peaks; ambiguity that feels useful early can be lethal late."
+        "headline": "Gray-zone coercion tipped into a real U.S.-China military conflict over Taiwan",
+        "narrative": "The crisis left the realm of controlled signaling and entered active combat. At that point many of the careful distinctions that governed the earlier turns stopped mattering: markets, allies, and adversaries all began recalculating around wartime rather than deterrence logic. Whatever political objective either side thought it was pursuing became subordinate to force protection, retaliation, and alliance credibility. Once casualties entered the equation, every choice became harder to reverse and much more expensive to contain.",
+        "keyTurningPoint": "The decisive break came when one side concluded that continued restraint would be more dangerous politically or operationally than accepting combat risk.",
+        "whatIfNote": "Several earlier branches might still have preserved deterrence without war, but only if both capitals believed the other still valued reversibility. Once that belief collapsed, the ladder became very short."
       }
     },
-    "chen": {
+    "historicalParallels": [
+      {
+        "id": "tp_berlin_blockade",
+        "title": "Berlin Blockade",
+        "period": "1948-1949",
+        "summary": "A pressure campaign against access routes can fail when the targeted coalition finds a disciplined, visible, and politically sustainable way to keep traffic moving.",
+        "lessonForPlayer": "The Taiwan Strait is not Berlin, but the logic is familiar: once an opponent tries to use access pressure to test political will, the durability of the response matters more than the rhetoric surrounding it.",
+        "relevantOutcomes": [
+          "frozen_conflict",
+          "stabilization",
+          "economic_collapse"
+        ],
+        "tags": [
+          "access",
+          "deterrence",
+          "logistics"
+        ]
+      },
+      {
+        "id": "tp_cuban_missile_crisis",
+        "title": "Cuban Missile Crisis",
+        "period": "1962",
+        "summary": "Great-power crises often turn on whether leaders preserve a private path to de-escalation while maintaining public resolve.",
+        "lessonForPlayer": "The key Taiwan Strait lesson is that visible firmness and confidential bargaining are not contradictions. In high-risk confrontations, they are often the same strategy executed through different channels.",
+        "relevantOutcomes": [
+          "stabilization",
+          "frozen_conflict",
+          "war"
+        ],
+        "tags": [
+          "backchannel",
+          "nuclear-shadow",
+          "signaling"
+        ]
+      },
+      {
+        "id": "tp_cod_wars",
+        "title": "Cod Wars",
+        "period": "1958-1976",
+        "summary": "Persistent maritime confrontations can reward the side that is politically patient and able to make routine friction strategically meaningful.",
+        "lessonForPlayer": "Taiwan Strait coercion may appear incremental, but repeated maritime pressure can slowly rewrite expectations unless it is met with equally patient resistance.",
+        "relevantOutcomes": [
+          "frozen_conflict",
+          "stabilization"
+        ],
+        "tags": [
+          "maritime",
+          "gray-zone",
+          "persistence"
+        ]
+      },
+      {
+        "id": "tp_suez",
+        "title": "Suez Crisis",
+        "period": "1956",
+        "summary": "Even capable military actors can fail when coalition politics and broader economic pressures work against them.",
+        "lessonForPlayer": "In a Taiwan contingency, alliance management is not secondary to military planning. If your coalition fractures, tactical capability may no longer be enough to sustain strategy.",
+        "relevantOutcomes": [
+          "frozen_conflict",
+          "economic_collapse",
+          "war"
+        ],
+        "tags": [
+          "alliance",
+          "coalition",
+          "legitimacy"
+        ]
+      },
+      {
+        "id": "tp_1973_oil",
+        "title": "1973 Oil Shock",
+        "period": "1973-1974",
+        "summary": "Strategic crises can become economic turning points when markets conclude that disruption will outlast the immediate political trigger.",
+        "lessonForPlayer": "Taiwan Strait instability can spill far beyond the region once shipping, insurance, and industrial confidence all begin repricing at the same time.",
+        "relevantOutcomes": [
+          "economic_collapse",
+          "frozen_conflict"
+        ],
+        "tags": [
+          "markets",
+          "energy",
+          "systemic-risk"
+        ]
+      },
+      {
+        "id": "tp_kargil",
+        "title": "Kargil Conflict",
+        "period": "1999",
+        "summary": "Limited military confrontations can remain bounded, but only when leaders deliberately avoid crossing thresholds that would compel full-scale war.",
+        "lessonForPlayer": "Around Taiwan, the challenge is not merely showing strength. It is showing enough strength to deter without accidentally creating a political or military logic that demands escalation.",
+        "relevantOutcomes": [
+          "stabilization",
+          "war",
+          "frozen_conflict"
+        ],
+        "tags": [
+          "escalation-control",
+          "limited-war",
+          "thresholds"
+        ]
+      },
+      {
+        "id": "tp_yom_kippur",
+        "title": "Yom Kippur War",
+        "period": "1973",
+        "summary": "Operational success can still leave the underlying strategic dispute unresolved, producing a brittle peace instead of a durable settlement.",
+        "lessonForPlayer": "Even a successful defense of the Taiwan Strait does not by itself solve the political contest. Military stabilization and strategic resolution are different achievements.",
+        "relevantOutcomes": [
+          "stabilization",
+          "frozen_conflict",
+          "war"
+        ],
+        "tags": [
+          "military",
+          "postwar",
+          "strategy"
+        ]
+      },
+      {
+        "id": "tp_south_china_sea",
+        "title": "South China Sea Gray-Zone Campaigns",
+        "period": "2010s-2020s",
+        "summary": "Persistent pressure below the threshold of war can accumulate real strategic gains when not met with organized resistance.",
+        "lessonForPlayer": "The Taiwan Strait scenario inherits the same lesson: if gray-zone tactics appear low-cost and politically effective, they will be repeated until someone changes the incentive structure.",
+        "relevantOutcomes": [
+          "frozen_conflict",
+          "stabilization",
+          "regime_instability"
+        ],
+        "tags": [
+          "gray-zone",
+          "maritime",
+          "precedent"
+        ]
+      }
+    ],
+    "advisorPostMortems": {
+      "cross": {
+        "frozen_conflict": {
+          "assessment": "We prevented Beijing from turning pressure into a clean strategic gain, but we are now paying for permanent readiness in the Strait. That is a holding action, not resolution.",
+          "selfCritique": "I leaned hard on visible force and did not always separate deterrent value from alliance anxiety.",
+          "recommendation": "Next time pair every military surge with a parallel explanation of end state, duration, and off-ramp so allies know what the force is buying."
+        },
+        "stabilization": {
+          "assessment": "This was the right kind of firmness: enough credible force to block coercion, not so much that we trapped ourselves into combat.",
+          "selfCritique": "I would have preferred earlier posture moves, but the eventual timing worked because the coalition was ready to sustain them.",
+          "recommendation": "Lock posture decisions to explicit coalition milestones rather than domestic political tempo."
+        },
+        "regime_instability": {
+          "assessment": "Beijing discovered that sustained pressure can come back as internal strain when it does not break the coalition. That is leverage, but it is also a danger signal.",
+          "selfCritique": "I underestimated how political stress inside Beijing could make late-stage decisions less predictable, not more.",
+          "recommendation": "When internal strain appears, increase force protection and clarity together; instability can precede rash moves."
+        },
+        "economic_collapse": {
+          "assessment": "Once the crisis became systemic economic shock, military credibility alone could not stabilize the board. Every deployment decision started carrying global commercial consequences.",
+          "selfCritique": "I focused on deterrence in theater and underweighted how quickly market panic could shape alliance appetite for risk.",
+          "recommendation": "Run military and market resilience planning as one campaign, not two parallel tracks."
+        },
+        "war": {
+          "assessment": "By the end we were managing combat, not deterrence. At that point tactical competence mattered, but the strategic failure had already happened upstream.",
+          "selfCritique": "I did not do enough early work to define which thresholds were truly unacceptable and which ones still allowed maneuver.",
+          "recommendation": "Codify escalation thresholds before the crisis peaks; ambiguity that feels useful early can be lethal late."
+        }
+      },
+      "chen": {
+        "frozen_conflict": {
+          "assessment": "A frozen Taiwan Strait is better than war, but it still means coercion has become institutionalized. The diplomatic burden simply shifts from crisis response to long-term containment.",
+          "selfCritique": "I should have pushed earlier for a steadier private channel instead of waiting for public conditions to improve.",
+          "recommendation": "Keep confidential dialogue alive even when public messaging is confrontational; the alternative is governing by brinkmanship alone."
+        },
+        "stabilization": {
+          "assessment": "Stabilization worked because diplomacy was backed by credible leverage, not because rhetoric softened. That is the central lesson.",
+          "selfCritique": "I occasionally worried too much about optics and not enough about building a durable negotiating mechanism.",
+          "recommendation": "Institutionalize crisis-management channels before the next round of pressure begins."
+        },
+        "regime_instability": {
+          "assessment": "Internal strain in Beijing created opportunity, but it also made private assurances more valuable because leaders needed a face-saving way to step back.",
+          "selfCritique": "I may have treated internal division as self-solving leverage when it actually increased the need for careful signaling.",
+          "recommendation": "When the other side is under internal stress, offer exits that preserve face without surrendering principle."
+        },
+        "economic_collapse": {
+          "assessment": "Once markets and supply chains started governing the pace of the crisis, diplomacy became harder because every government had different pain thresholds.",
+          "selfCritique": "I did not build a sufficiently explicit allied diplomatic framework for sharing economic burden and messaging discipline.",
+          "recommendation": "Prepare coalition burden-sharing language early; economic crises punish vague diplomatic architecture."
+        },
+        "war": {
+          "assessment": "War was the collapse of the political space we were trying to protect. By then every message was either deterrent theater or wartime signaling.",
+          "selfCritique": "I did not secure enough trusted backchannel redundancy before the crisis reached peak intensity.",
+          "recommendation": "Never rely on a single communication pathway in a major-power crisis."
+        }
+      },
+      "okonkwo": {
+        "frozen_conflict": {
+          "assessment": "The expensive version of deterrence is still expensive. A long Taiwan Strait standoff is a recurring budget line, supply-chain tax, and risk premium all at once.",
+          "selfCritique": "I framed costs in annual terms when I should have framed them as a structural repricing of the region.",
+          "recommendation": "Translate strategy into multi-year economic burden, not just near-term shock, if you want policymakers to feel the full tradeoff."
+        },
+        "stabilization": {
+          "assessment": "Stabilization succeeded because the coalition convinced markets the Strait would not remain in permanent emergency mode. Expectations mattered almost as much as policy.",
+          "selfCritique": "I could have moved sooner to show resilience measures rather than letting markets discover them piecemeal.",
+          "recommendation": "Make resilience visible early enough to shape expectations before panic gets embedded in pricing."
+        },
+        "regime_instability": {
+          "assessment": "Economic friction landing inside Beijing helped because it challenged the assumption that the PRC could externalize all costs. That pressure changed elite calculations.",
+          "selfCritique": "I did not always distinguish between pain that creates leverage and pain that simply raises the chance of irrational retaliation.",
+          "recommendation": "Target pressure at decision-makers and vulnerable sectors, not at symbolic pain for its own sake."
+        },
+        "economic_collapse": {
+          "assessment": "Once the crisis turned systemic, every actor started optimizing for self-protection rather than coalition coherence. That is what economic collapse does to strategy.",
+          "selfCritique": "I underestimated second-order effects through insurance, trade finance, and continuity planning.",
+          "recommendation": "Treat shipping, semiconductors, and financial plumbing as part of national security planning from the first turn."
+        },
+        "war": {
+          "assessment": "In war, economic models stop being warning tools and start becoming damage-accounting tools. The strategic failure happened before the spreadsheets caught up.",
+          "selfCritique": "I did not make the cost of a Taiwan war vivid enough soon enough.",
+          "recommendation": "Put concrete wartime economic numbers in front of decision-makers before they feel politically boxed in."
+        }
+      },
+      "reed": {
+        "frozen_conflict": {
+          "assessment": "The intelligence picture was good enough to avoid surprises, but not good enough to produce resolution. We understood the pressure campaign; we did not end it.",
+          "selfCritique": "I discounted how much Beijing cared about alliance optics relative to tactical outcomes in the Strait itself.",
+          "recommendation": "Track coalition perception as aggressively as force movement; the adversary certainly does."
+        },
+        "stabilization": {
+          "assessment": "We won because we maintained a clearer read on intent than Beijing had on ours. That informational advantage widened the coalition's room to maneuver.",
+          "selfCritique": "I could have fused commercial, cyber, and military indicators faster instead of treating them as adjacent lanes.",
+          "recommendation": "In a Taiwan contingency, intelligence has to be commercial and political as much as military."
+        },
+        "regime_instability": {
+          "assessment": "Once internal stress surfaced inside Beijing, the hardest problem became interpreting whether pressure would produce caution or overcorrection. Intelligence discipline mattered more than volume.",
+          "selfCritique": "I was too tempted by signs of elite disagreement and not skeptical enough about how partial those windows really were.",
+          "recommendation": "Never confuse partial visibility into internal debate with true predictability."
+        },
+        "economic_collapse": {
+          "assessment": "The warning signs were present, but once the private sector believed the disruption would endure, the crisis acquired its own momentum. Intelligence can describe that shift; it cannot cancel it.",
+          "selfCritique": "I should have elevated market and logistics indicators sooner as strategic signals, not merely supporting evidence.",
+          "recommendation": "Promote commercial telemetry into the main crisis dashboard before the market narrative runs ahead of policy."
+        },
+        "war": {
+          "assessment": "We entered the phase where every ambiguity carried lethal consequences. The intelligence mission narrowed from understanding pressure to protecting forces and warning on imminent attack.",
+          "selfCritique": "I did not insist early enough that some indicators were signs of threshold change rather than continued gray-zone maneuver.",
+          "recommendation": "Define and rehearse threshold indicators before the crisis, because by the time they appear it is too late to invent doctrine."
+        }
+      }
+    },
+    "rivalPerspective": {
       "frozen_conflict": {
-        "assessment": "A frozen Taiwan Strait is better than war, but it still means coercion has become institutionalized. The diplomatic burden simply shifts from crisis response to long-term containment.",
-        "selfCritique": "I should have pushed earlier for a steadier private channel instead of waiting for public conditions to improve.",
-        "recommendation": "Keep confidential dialogue alive even when public messaging is confrontational; the alternative is governing by brinkmanship alone."
+        "internalNarrative": "Inside Beijing, the crisis is judged as an incomplete success. Pressure around Taiwan proved that the coalition can be forced to pay, but it did not produce a durable political concession. Lin's camp argues that maintaining pressure without war preserved leverage; hardliners argue that the U.S. should have been challenged more sharply before the coalition hardened.",
+        "regimeAssessment": "The system will likely treat this as evidence that gray-zone coercion still works, but only up to a point. The main internal debate is whether the next round should be broader and faster or narrower and more patient.",
+        "publicNarrative": "The public line is that Beijing defended its interests, exposed outside interference, and proved that the Taiwan question cannot be compartmentalized away from regional order."
       },
       "stabilization": {
-        "assessment": "Stabilization worked because diplomacy was backed by credible leverage, not because rhetoric softened. That is the central lesson.",
-        "selfCritique": "I occasionally worried too much about optics and not enough about building a durable negotiating mechanism.",
-        "recommendation": "Institutionalize crisis-management channels before the next round of pressure begins."
+        "internalNarrative": "Lin's internal assessment is that the campaign lost efficiency once allied discipline held and commercial costs kept compounding. Beijing did not suffer a dramatic defeat, but it did fail to convert pressure into a politically useful change in the operating environment.",
+        "regimeAssessment": "The leadership lesson is uncomfortable: coercion that once looked gradual and manageable can solidify coalition resolve if overused in the wrong context.",
+        "publicNarrative": "Beijing frames the outcome as a temporary pause and insists that external actors merely recognized the need for restraint. The official story avoids any admission that coalition pressure mattered."
       },
       "regime_instability": {
-        "assessment": "Internal strain in Beijing created opportunity, but it also made private assurances more valuable because leaders needed a face-saving way to step back.",
-        "selfCritique": "I may have treated internal division as self-solving leverage when it actually increased the need for careful signaling.",
-        "recommendation": "When the other side is under internal stress, offer exits that preserve face without surrendering principle."
+        "internalNarrative": "The crisis began feeding back into elite politics. Commercial actors, planners, and security officials stopped agreeing on whether the campaign remained worth its cost. Lin's authority narrowed as different bureaucracies started protecting themselves from the consequences of a prolonged Taiwan confrontation.",
+        "regimeAssessment": "This is the outcome Beijing fears in slow motion: not immediate collapse, but a visible mismatch between strategic ambition and cost tolerance.",
+        "publicNarrative": "Public messaging would emphasize unity and determination while suppressing any suggestion of elite disagreement. The louder the confidence, the more seriously outside analysts should take signs of internal strain."
       },
       "economic_collapse": {
-        "assessment": "Once markets and supply chains started governing the pace of the crisis, diplomacy became harder because every government had different pain thresholds.",
-        "selfCritique": "I did not build a sufficiently explicit allied diplomatic framework for sharing economic burden and messaging discipline.",
-        "recommendation": "Prepare coalition burden-sharing language early; economic crises punish vague diplomatic architecture."
+        "internalNarrative": "Beijing would see this as a warning that strategic pressure around Taiwan can trigger economic dynamics too broad to choreograph. Even officials who support coercion would question whether the system is absorbing costs in the right places and on acceptable timelines.",
+        "regimeAssessment": "The main internal question becomes whether to double down in hopes of forcing a political break, or to seek a pause before the economic damage reshapes domestic priorities.",
+        "publicNarrative": "State messaging would shift blame outward, arguing that outside powers chose economic warfare over regional stability and forced unnecessary hardship onto global markets."
       },
       "war": {
-        "assessment": "War was the collapse of the political space we were trying to protect. By then every message was either deterrent theater or wartime signaling.",
-        "selfCritique": "I did not secure enough trusted backchannel redundancy before the crisis reached peak intensity.",
-        "recommendation": "Never rely on a single communication pathway in a major-power crisis."
+        "internalNarrative": "Once combat begins, internal distinctions between calibrated pressure and broader confrontation collapse. Lin's model of controlled coercion is effectively over, replaced by wartime survival logic.",
+        "regimeAssessment": "The leadership would judge the prewar phase harshly if it concluded that incremental pressure failed to deliver leverage yet still marched the system into conflict on unfavorable timing.",
+        "publicNarrative": "Public narrative would center on inevitability, external provocation, and national resolve, because admitting miscalculation during active conflict is politically impossible."
       }
     },
-    "okonkwo": {
-      "frozen_conflict": {
-        "assessment": "The expensive version of deterrence is still expensive. A long Taiwan Strait standoff is a recurring budget line, supply-chain tax, and risk premium all at once.",
-        "selfCritique": "I framed costs in annual terms when I should have framed them as a structural repricing of the region.",
-        "recommendation": "Translate strategy into multi-year economic burden, not just near-term shock, if you want policymakers to feel the full tradeoff."
+    "playerGradeDescriptors": {
+      "masterful": {
+        "title": "Strategically Disciplined",
+        "description": "You aligned military posture, alliance management, intelligence, and economic signaling without losing control of the escalation ladder."
       },
-      "stabilization": {
-        "assessment": "Stabilization succeeded because the coalition convinced markets the Strait would not remain in permanent emergency mode. Expectations mattered almost as much as policy.",
-        "selfCritique": "I could have moved sooner to show resilience measures rather than letting markets discover them piecemeal.",
-        "recommendation": "Make resilience visible early enough to shape expectations before panic gets embedded in pricing."
+      "competent": {
+        "title": "Operationally Effective",
+        "description": "You protected core interests and avoided the worst branches, though some leverage or resilience was left on the table."
       },
-      "regime_instability": {
-        "assessment": "Economic friction landing inside Beijing helped because it challenged the assumption that the PRC could externalize all costs. That pressure changed elite calculations.",
-        "selfCritique": "I did not always distinguish between pain that creates leverage and pain that simply raises the chance of irrational retaliation.",
-        "recommendation": "Target pressure at decision-makers and vulnerable sectors, not at symbolic pain for its own sake."
+      "mixed": {
+        "title": "Uneven Under Pressure",
+        "description": "Your decisions produced moments of real strength, but inconsistency in signaling or coalition management diluted the overall effect."
       },
-      "economic_collapse": {
-        "assessment": "Once the crisis turned systemic, every actor started optimizing for self-protection rather than coalition coherence. That is what economic collapse does to strategy.",
-        "selfCritique": "I underestimated second-order effects through insurance, trade finance, and continuity planning.",
-        "recommendation": "Treat shipping, semiconductors, and financial plumbing as part of national security planning from the first turn."
+      "poor": {
+        "title": "Reactive and Costly",
+        "description": "You preserved some room to maneuver, but too often allowed Beijing or the market environment to set the terms of the crisis."
       },
-      "war": {
-        "assessment": "In war, economic models stop being warning tools and start becoming damage-accounting tools. The strategic failure happened before the spreadsheets caught up.",
-        "selfCritique": "I did not make the cost of a Taiwan war vivid enough soon enough.",
-        "recommendation": "Put concrete wartime economic numbers in front of decision-makers before they feel politically boxed in."
+      "catastrophic": {
+        "title": "Loss of Escalation Control",
+        "description": "The episode moved beyond deliberate statecraft into cascading consequences you could no longer reliably shape."
       }
     },
-    "reed": {
-      "frozen_conflict": {
-        "assessment": "The intelligence picture was good enough to avoid surprises, but not good enough to produce resolution. We understood the pressure campaign; we did not end it.",
-        "selfCritique": "I discounted how much Beijing cared about alliance optics relative to tactical outcomes in the Strait itself.",
-        "recommendation": "Track coalition perception as aggressively as force movement; the adversary certainly does."
+    "tradeoffCommentary": {
+      "economic_containment": {
+        "stabilization": {
+          "summary": "Commercial continuity held because the coalition signaled enough resilience to keep insurers, shippers, and chip buyers from treating the Strait as a permanently broken lane.",
+          "tradeoff": "The cost was carrying visible readiness and market-support measures at the same time, which narrowed room for cheap or purely symbolic signaling."
+        },
+        "frozen_conflict": {
+          "summary": "Economic damage stayed bounded, but only by normalizing a more expensive operating environment around Taiwan-bound shipping and production planning.",
+          "tradeoff": "The cost was accepting a durable risk premium in the Strait rather than restoring the lower-friction status quo."
+        },
+        "regime_instability": {
+          "summary": "Commercial pressure landed inside Beijing's system hard enough to complicate elite consensus without fully collapsing regional trade flows.",
+          "tradeoff": "The cost was living close to the line where useful economic pressure could have turned into a broader commercial panic."
+        },
+        "economic_collapse": {
+          "summary": "Commercial containment failed once private actors stopped treating the disruption as temporary and began repricing shipping, trade finance, and chip supply on crisis terms.",
+          "tradeoff": "The cost of trying to preserve strategic leverage was a region-wide economic shock that governments could no longer insulate cleanly."
+        },
+        "war": {
+          "summary": "Economic management ceased to be a stabilizing line of effort once combat logic replaced deterrence logic around Taiwan.",
+          "tradeoff": "The cost was that every attempt to preserve commercial continuity was subordinated to force protection, sanctions risk, and wartime repricing."
+        }
       },
-      "stabilization": {
-        "assessment": "We won because we maintained a clearer read on intent than Beijing had on ours. That informational advantage widened the coalition's room to maneuver.",
-        "selfCritique": "I could have fused commercial, cyber, and military indicators faster instead of treating them as adjacent lanes.",
-        "recommendation": "In a Taiwan contingency, intelligence has to be commercial and political as much as military."
+      "coalition_cohesion": {
+        "stabilization": {
+          "summary": "Coalition discipline held because Taipei, Washington, Tokyo, and Manila kept the same story about access, restraint, and acceptable risk.",
+          "tradeoff": "The cost was slower, more negotiated decision-making while allied alignment was maintained turn by turn."
+        },
+        "frozen_conflict": {
+          "summary": "The coalition stayed together, but under a standing burden that made every additional surge in the Strait more politically expensive.",
+          "tradeoff": "The cost was preserving unity through endurance rather than through a cleaner strategic resolution."
+        },
+        "regime_instability": {
+          "summary": "Coalition cohesion remained valuable precisely because signs of strain inside Beijing only mattered if allies did not fracture first.",
+          "tradeoff": "The cost was resisting the temptation to overplay apparent PRC weakness in ways that could have split partners on acceptable risk."
+        },
+        "economic_collapse": {
+          "summary": "Coalition discipline weakened as different governments absorbed very different levels of shipping, market, and industrial pain.",
+          "tradeoff": "The cost was that burden-sharing became a strategic problem in its own right rather than a background diplomatic chore."
+        },
+        "war": {
+          "summary": "Coalition politics shifted from deterrence management to wartime credibility, where solidarity became harder to sustain and more costly to test.",
+          "tradeoff": "The cost was that every military move now also risked becoming a referendum on alliance resolve under fire."
+        }
       },
-      "regime_instability": {
-        "assessment": "Once internal stress surfaced inside Beijing, the hardest problem became interpreting whether pressure would produce caution or overcorrection. Intelligence discipline mattered more than volume.",
-        "selfCritique": "I was too tempted by signs of elite disagreement and not skeptical enough about how partial those windows really were.",
-        "recommendation": "Never confuse partial visibility into internal debate with true predictability."
+      "deterrence_credibility": {
+        "stabilization": {
+          "summary": "Deterrence credibility held because visible readiness, allied messaging, and economic resilience all pointed in the same direction instead of competing for attention.",
+          "tradeoff": "The cost was carrying enough hard-power posture to be believed without drifting into a self-defeating show of force."
+        },
+        "frozen_conflict": {
+          "summary": "The run preserved enough credibility to block a clean PRC gain, but not enough to convince Beijing that continued pressure had become unproductive.",
+          "tradeoff": "The cost was sustaining an expensive deterrent line that prevented defeat without delivering closure."
+        },
+        "regime_instability": {
+          "summary": "Deterrence worked partly because Beijing's leadership had to reckon with rising internal doubts about the return on continued pressure.",
+          "tradeoff": "The cost was operating near the danger that visible elite strain could trigger an irrational demonstration move rather than restraint."
+        },
+        "economic_collapse": {
+          "summary": "Military credibility remained important, but it was no longer sufficient once the economic system started absorbing Taiwan contingency costs as a persistent reality.",
+          "tradeoff": "The cost was that each additional show of resolve had to be justified against markets already behaving as though deterrence had partially failed."
+        },
+        "war": {
+          "summary": "Deterrence credibility collapsed into combat credibility once the crisis crossed from signaling into open conflict.",
+          "tradeoff": "The cost was that earlier posture choices were now judged not by whether they deterred, but by whether they left forces and allies prepared for war."
+        }
       },
-      "economic_collapse": {
-        "assessment": "The warning signs were present, but once the private sector believed the disruption would endure, the crisis acquired its own momentum. Intelligence can describe that shift; it cannot cancel it.",
-        "selfCritique": "I should have elevated market and logistics indicators sooner as strategic signals, not merely supporting evidence.",
-        "recommendation": "Promote commercial telemetry into the main crisis dashboard before the market narrative runs ahead of policy."
+      "escalation_discipline": {
+        "stabilization": {
+          "summary": "Escalation discipline held because the coalition raised costs on Beijing without forcing either side into a public corner it could not back away from.",
+          "tradeoff": "The cost was sacrificing some rhetorical sharpness and tactical freedom to preserve reversibility."
+        },
+        "frozen_conflict": {
+          "summary": "Escalation stayed bounded, but only barely; each turn preserved room to maneuver while leaving the underlying pressure campaign alive.",
+          "tradeoff": "The cost was a brittle equilibrium in which caution prevented war without resolving the contest."
+        },
+        "regime_instability": {
+          "summary": "Escalation discipline became harder once internal strain in Beijing made intent less predictable and public signaling more combustible.",
+          "tradeoff": "The cost was needing even tighter threshold management exactly when the adversary became less internally coherent."
+        },
+        "economic_collapse": {
+          "summary": "Escalation discipline weakened because commercial breakdown accelerated political tempo and made delay itself feel strategically costly.",
+          "tradeoff": "The cost was that crisis management had to compete with panicked market expectations and allied burden-sharing fights."
+        },
+        "war": {
+          "summary": "Escalation discipline failed once one side concluded that further restraint was more dangerous than accepting combat risk.",
+          "tradeoff": "The cost was losing the ability to treat signaling, access pressure, and military posture as separable instruments."
+        }
       },
-      "war": {
-        "assessment": "We entered the phase where every ambiguity carried lethal consequences. The intelligence mission narrowed from understanding pressure to protecting forces and warning on imminent attack.",
-        "selfCritique": "I did not insist early enough that some indicators were signs of threshold change rather than continued gray-zone maneuver.",
-        "recommendation": "Define and rehearse threshold indicators before the crisis, because by the time they appear it is too late to invent doctrine."
-      }
-    }
-  },
-  "rivalPerspective": {
-    "frozen_conflict": {
-      "internalNarrative": "Inside Beijing, the crisis is judged as an incomplete success. Pressure around Taiwan proved that the coalition can be forced to pay, but it did not produce a durable political concession. Lin's camp argues that maintaining pressure without war preserved leverage; hardliners argue that the U.S. should have been challenged more sharply before the coalition hardened.",
-      "regimeAssessment": "The system will likely treat this as evidence that gray-zone coercion still works, but only up to a point. The main internal debate is whether the next round should be broader and faster or narrower and more patient.",
-      "publicNarrative": "The public line is that Beijing defended its interests, exposed outside interference, and proved that the Taiwan question cannot be compartmentalized away from regional order."
-    },
-    "stabilization": {
-      "internalNarrative": "Lin's internal assessment is that the campaign lost efficiency once allied discipline held and commercial costs kept compounding. Beijing did not suffer a dramatic defeat, but it did fail to convert pressure into a politically useful change in the operating environment.",
-      "regimeAssessment": "The leadership lesson is uncomfortable: coercion that once looked gradual and manageable can solidify coalition resolve if overused in the wrong context.",
-      "publicNarrative": "Beijing frames the outcome as a temporary pause and insists that external actors merely recognized the need for restraint. The official story avoids any admission that coalition pressure mattered."
-    },
-    "regime_instability": {
-      "internalNarrative": "The crisis began feeding back into elite politics. Commercial actors, planners, and security officials stopped agreeing on whether the campaign remained worth its cost. Lin's authority narrowed as different bureaucracies started protecting themselves from the consequences of a prolonged Taiwan confrontation.",
-      "regimeAssessment": "This is the outcome Beijing fears in slow motion: not immediate collapse, but a visible mismatch between strategic ambition and cost tolerance.",
-      "publicNarrative": "Public messaging would emphasize unity and determination while suppressing any suggestion of elite disagreement. The louder the confidence, the more seriously outside analysts should take signs of internal strain."
-    },
-    "economic_collapse": {
-      "internalNarrative": "Beijing would see this as a warning that strategic pressure around Taiwan can trigger economic dynamics too broad to choreograph. Even officials who support coercion would question whether the system is absorbing costs in the right places and on acceptable timelines.",
-      "regimeAssessment": "The main internal question becomes whether to double down in hopes of forcing a political break, or to seek a pause before the economic damage reshapes domestic priorities.",
-      "publicNarrative": "State messaging would shift blame outward, arguing that outside powers chose economic warfare over regional stability and forced unnecessary hardship onto global markets."
-    },
-    "war": {
-      "internalNarrative": "Once combat begins, internal distinctions between calibrated pressure and broader confrontation collapse. Lin's model of controlled coercion is effectively over, replaced by wartime survival logic.",
-      "regimeAssessment": "The leadership would judge the prewar phase harshly if it concluded that incremental pressure failed to deliver leverage yet still marched the system into conflict on unfavorable timing.",
-      "publicNarrative": "Public narrative would center on inevitability, external provocation, and national resolve, because admitting miscalculation during active conflict is politically impossible."
-    }
-  },
-  "playerGradeDescriptors": {
-    "masterful": {
-      "title": "Strategically Disciplined",
-      "description": "You aligned military posture, alliance management, intelligence, and economic signaling without losing control of the escalation ladder."
-    },
-    "competent": {
-      "title": "Operationally Effective",
-      "description": "You protected core interests and avoided the worst branches, though some leverage or resilience was left on the table."
-    },
-    "mixed": {
-      "title": "Uneven Under Pressure",
-      "description": "Your decisions produced moments of real strength, but inconsistency in signaling or coalition management diluted the overall effect."
-    },
-    "poor": {
-      "title": "Reactive and Costly",
-      "description": "You preserved some room to maneuver, but too often allowed Beijing or the market environment to set the terms of the crisis."
-    },
-    "catastrophic": {
-      "title": "Loss of Escalation Control",
-      "description": "The episode moved beyond deliberate statecraft into cascading consequences you could no longer reliably shape."
-    }
-  },
-  "tradeoffCommentary": {
-    "economic_containment": {
-      "stabilization": {
-        "summary": "Commercial continuity held because the coalition signaled enough resilience to keep insurers, shippers, and chip buyers from treating the Strait as a permanently broken lane.",
-        "tradeoff": "The cost was carrying visible readiness and market-support measures at the same time, which narrowed room for cheap or purely symbolic signaling."
-      },
-      "frozen_conflict": {
-        "summary": "Economic damage stayed bounded, but only by normalizing a more expensive operating environment around Taiwan-bound shipping and production planning.",
-        "tradeoff": "The cost was accepting a durable risk premium in the Strait rather than restoring the lower-friction status quo."
-      },
-      "regime_instability": {
-        "summary": "Commercial pressure landed inside Beijing's system hard enough to complicate elite consensus without fully collapsing regional trade flows.",
-        "tradeoff": "The cost was living close to the line where useful economic pressure could have turned into a broader commercial panic."
-      },
-      "economic_collapse": {
-        "summary": "Commercial containment failed once private actors stopped treating the disruption as temporary and began repricing shipping, trade finance, and chip supply on crisis terms.",
-        "tradeoff": "The cost of trying to preserve strategic leverage was a region-wide economic shock that governments could no longer insulate cleanly."
-      },
-      "war": {
-        "summary": "Economic management ceased to be a stabilizing line of effort once combat logic replaced deterrence logic around Taiwan.",
-        "tradeoff": "The cost was that every attempt to preserve commercial continuity was subordinated to force protection, sanctions risk, and wartime repricing."
-      }
-    },
-    "coalition_cohesion": {
-      "stabilization": {
-        "summary": "Coalition discipline held because Taipei, Washington, Tokyo, and Manila kept the same story about access, restraint, and acceptable risk.",
-        "tradeoff": "The cost was slower, more negotiated decision-making while allied alignment was maintained turn by turn."
-      },
-      "frozen_conflict": {
-        "summary": "The coalition stayed together, but under a standing burden that made every additional surge in the Strait more politically expensive.",
-        "tradeoff": "The cost was preserving unity through endurance rather than through a cleaner strategic resolution."
-      },
-      "regime_instability": {
-        "summary": "Coalition cohesion remained valuable precisely because signs of strain inside Beijing only mattered if allies did not fracture first.",
-        "tradeoff": "The cost was resisting the temptation to overplay apparent PRC weakness in ways that could have split partners on acceptable risk."
-      },
-      "economic_collapse": {
-        "summary": "Coalition discipline weakened as different governments absorbed very different levels of shipping, market, and industrial pain.",
-        "tradeoff": "The cost was that burden-sharing became a strategic problem in its own right rather than a background diplomatic chore."
-      },
-      "war": {
-        "summary": "Coalition politics shifted from deterrence management to wartime credibility, where solidarity became harder to sustain and more costly to test.",
-        "tradeoff": "The cost was that every military move now also risked becoming a referendum on alliance resolve under fire."
+      "information_posture": {
+        "stabilization": {
+          "summary": "The coalition kept a usable picture because military, diplomatic, and commercial indicators were fused early enough to keep ambiguity manageable.",
+          "tradeoff": "The cost was devoting attention and assets to situational awareness that could not be spent on more visible deterrent theater."
+        },
+        "frozen_conflict": {
+          "summary": "The information picture remained serviceable, but not decisive; you understood the pressure campaign better than you controlled it.",
+          "tradeoff": "The cost was that incomplete clarity forced repeated conservative choices that preserved safety more than momentum."
+        },
+        "regime_instability": {
+          "summary": "Information posture mattered most when fragments of elite stress appeared inside Beijing and the real challenge became judging whether they implied leverage or volatility.",
+          "tradeoff": "The cost was resisting seductive but partial reads of internal PRC instability that could have produced overconfidence."
+        },
+        "economic_collapse": {
+          "summary": "The information picture thinned once private-sector repricing outpaced government interpretation and the crisis acquired its own commercial momentum.",
+          "tradeoff": "The cost was that decisions increasingly had to be made under fast-moving uncertainty about downstream economic damage."
+        },
+        "war": {
+          "summary": "Information posture narrowed from strategic interpretation to immediate warning and force-protection once the Taiwan crisis crossed into combat.",
+          "tradeoff": "The cost was that ambiguity which had been manageable in the gray zone became lethal at wartime tempo."
+        }
       }
     },
-    "deterrence_credibility": {
-      "stabilization": {
-        "summary": "Deterrence credibility held because visible readiness, allied messaging, and economic resilience all pointed in the same direction instead of competing for attention.",
-        "tradeoff": "The cost was carrying enough hard-power posture to be believed without drifting into a self-defeating show of force."
+    "lessonsLearned": [
+      {
+        "id": "ll_reversibility",
+        "title": "Guard reversibility early",
+        "insight": "The most valuable early moves in a Taiwan Strait crisis are the ones that raise cost and clarity without making both sides prisoners of their own public commitments.",
+        "relevantOutcomes": [
+          "stabilization",
+          "frozen_conflict",
+          "war"
+        ],
+        "tags": [
+          "escalation",
+          "reversibility"
+        ]
       },
-      "frozen_conflict": {
-        "summary": "The run preserved enough credibility to block a clean PRC gain, but not enough to convince Beijing that continued pressure had become unproductive.",
-        "tradeoff": "The cost was sustaining an expensive deterrent line that prevented defeat without delivering closure."
+      {
+        "id": "ll_alliance",
+        "title": "Alliance optics are operational facts",
+        "insight": "Beijing is not just measuring ships and aircraft. It is constantly scoring whether allies appear coherent, reluctant, or divided.",
+        "relevantOutcomes": [
+          "stabilization",
+          "frozen_conflict",
+          "regime_instability"
+        ],
+        "tags": [
+          "alliance",
+          "signaling"
+        ]
       },
-      "regime_instability": {
-        "summary": "Deterrence worked partly because Beijing's leadership had to reckon with rising internal doubts about the return on continued pressure.",
-        "tradeoff": "The cost was operating near the danger that visible elite strain could trigger an irrational demonstration move rather than restraint."
+      {
+        "id": "ll_markets",
+        "title": "Markets can accelerate the crisis",
+        "insight": "Once insurers, shippers, and semiconductor buyers stop assuming a quick reset, their behavior creates its own strategic pressure on governments.",
+        "relevantOutcomes": [
+          "economic_collapse",
+          "frozen_conflict",
+          "stabilization"
+        ],
+        "tags": [
+          "markets",
+          "supply-chain"
+        ]
       },
-      "economic_collapse": {
-        "summary": "Military credibility remained important, but it was no longer sufficient once the economic system started absorbing Taiwan contingency costs as a persistent reality.",
-        "tradeoff": "The cost was that each additional show of resolve had to be justified against markets already behaving as though deterrence had partially failed."
+      {
+        "id": "ll_taiwan",
+        "title": "Taiwan is not a narrow military problem",
+        "insight": "The theater sits at the intersection of alliance credibility, semiconductor supply chains, maritime law, cyber risk, and domestic politics in multiple capitals.",
+        "relevantOutcomes": [
+          "stabilization",
+          "economic_collapse",
+          "war"
+        ],
+        "tags": [
+          "theater",
+          "integration"
+        ]
       },
-      "war": {
-        "summary": "Deterrence credibility collapsed into combat credibility once the crisis crossed from signaling into open conflict.",
-        "tradeoff": "The cost was that earlier posture choices were now judged not by whether they deterred, but by whether they left forces and allies prepared for war."
+      {
+        "id": "ll_backchannels",
+        "title": "Private communication is deterrence infrastructure",
+        "insight": "Backchannels do not weaken deterrence when paired with resolve; they reduce the odds that both sides misread silence as commitment to further escalation.",
+        "relevantOutcomes": [
+          "stabilization",
+          "frozen_conflict",
+          "war"
+        ],
+        "tags": [
+          "diplomacy",
+          "communications"
+        ]
+      },
+      {
+        "id": "ll_grayzone",
+        "title": "Gray-zone pressure compounds unless priced",
+        "insight": "Incremental coercion feels tolerable turn by turn, which is precisely why it can become the new baseline if the coalition never changes its cost structure.",
+        "relevantOutcomes": [
+          "frozen_conflict",
+          "stabilization"
+        ],
+        "tags": [
+          "gray-zone",
+          "deterrence"
+        ]
+      },
+      {
+        "id": "ll_resilience",
+        "title": "Resilience is strategy, not housekeeping",
+        "insight": "Fuel, continuity planning, port redundancy, and semiconductor buffers are not merely support functions. They shape whether time favors you or Beijing.",
+        "relevantOutcomes": [
+          "economic_collapse",
+          "stabilization",
+          "frozen_conflict"
+        ],
+        "tags": [
+          "resilience",
+          "continuity"
+        ]
+      },
+      {
+        "id": "ll_face",
+        "title": "Face matters because domestic politics matter",
+        "insight": "Leaders under pressure may accept quiet compromises they would reject publicly. Designing exits that preserve core interests without demanding public humiliation is often the difference between pause and rupture.",
+        "relevantOutcomes": [
+          "stabilization",
+          "regime_instability",
+          "war"
+        ],
+        "tags": [
+          "face",
+          "domestic-politics"
+        ]
+      },
+      {
+        "id": "ll_thresholds",
+        "title": "Thresholds must be defined before they are tested",
+        "insight": "In fast-moving crises, teams rarely invent good threshold doctrine on the fly. They fall back on habits, slogans, and incomplete assumptions.",
+        "relevantOutcomes": [
+          "war",
+          "stabilization",
+          "frozen_conflict"
+        ],
+        "tags": [
+          "thresholds",
+          "planning"
+        ]
+      },
+      {
+        "id": "ll_speed",
+        "title": "Speed favors the side with an integrated picture",
+        "insight": "The advantage does not always go to the side willing to move first. It often goes to the side that can fuse military, political, commercial, and cyber signals before acting.",
+        "relevantOutcomes": [
+          "stabilization",
+          "regime_instability",
+          "economic_collapse"
+        ],
+        "tags": [
+          "intelligence",
+          "decision-making"
+        ]
       }
-    },
-    "escalation_discipline": {
-      "stabilization": {
-        "summary": "Escalation discipline held because the coalition raised costs on Beijing without forcing either side into a public corner it could not back away from.",
-        "tradeoff": "The cost was sacrificing some rhetorical sharpness and tactical freedom to preserve reversibility."
-      },
-      "frozen_conflict": {
-        "summary": "Escalation stayed bounded, but only barely; each turn preserved room to maneuver while leaving the underlying pressure campaign alive.",
-        "tradeoff": "The cost was a brittle equilibrium in which caution prevented war without resolving the contest."
-      },
-      "regime_instability": {
-        "summary": "Escalation discipline became harder once internal strain in Beijing made intent less predictable and public signaling more combustible.",
-        "tradeoff": "The cost was needing even tighter threshold management exactly when the adversary became less internally coherent."
-      },
-      "economic_collapse": {
-        "summary": "Escalation discipline weakened because commercial breakdown accelerated political tempo and made delay itself feel strategically costly.",
-        "tradeoff": "The cost was that crisis management had to compete with panicked market expectations and allied burden-sharing fights."
-      },
-      "war": {
-        "summary": "Escalation discipline failed once one side concluded that further restraint was more dangerous than accepting combat risk.",
-        "tradeoff": "The cost was losing the ability to treat signaling, access pressure, and military posture as separable instruments."
-      }
-    },
-    "information_posture": {
-      "stabilization": {
-        "summary": "The coalition kept a usable picture because military, diplomatic, and commercial indicators were fused early enough to keep ambiguity manageable.",
-        "tradeoff": "The cost was devoting attention and assets to situational awareness that could not be spent on more visible deterrent theater."
-      },
-      "frozen_conflict": {
-        "summary": "The information picture remained serviceable, but not decisive; you understood the pressure campaign better than you controlled it.",
-        "tradeoff": "The cost was that incomplete clarity forced repeated conservative choices that preserved safety more than momentum."
-      },
-      "regime_instability": {
-        "summary": "Information posture mattered most when fragments of elite stress appeared inside Beijing and the real challenge became judging whether they implied leverage or volatility.",
-        "tradeoff": "The cost was resisting seductive but partial reads of internal PRC instability that could have produced overconfidence."
-      },
-      "economic_collapse": {
-        "summary": "The information picture thinned once private-sector repricing outpaced government interpretation and the crisis acquired its own commercial momentum.",
-        "tradeoff": "The cost was that decisions increasingly had to be made under fast-moving uncertainty about downstream economic damage."
-      },
-      "war": {
-        "summary": "Information posture narrowed from strategic interpretation to immediate warning and force-protection once the Taiwan crisis crossed into combat.",
-        "tradeoff": "The cost was that ambiguity which had been manageable in the gray zone became lethal at wartime tempo."
-      }
-    }
-  },
-  "lessonsLearned": [
-    {
-      "id": "ll_reversibility",
-      "title": "Guard reversibility early",
-      "insight": "The most valuable early moves in a Taiwan Strait crisis are the ones that raise cost and clarity without making both sides prisoners of their own public commitments.",
-      "relevantOutcomes": [
-        "stabilization",
-        "frozen_conflict",
-        "war"
-      ],
-      "tags": [
-        "escalation",
-        "reversibility"
-      ]
-    },
-    {
-      "id": "ll_alliance",
-      "title": "Alliance optics are operational facts",
-      "insight": "Beijing is not just measuring ships and aircraft. It is constantly scoring whether allies appear coherent, reluctant, or divided.",
-      "relevantOutcomes": [
-        "stabilization",
-        "frozen_conflict",
-        "regime_instability"
-      ],
-      "tags": [
-        "alliance",
-        "signaling"
-      ]
-    },
-    {
-      "id": "ll_markets",
-      "title": "Markets can accelerate the crisis",
-      "insight": "Once insurers, shippers, and semiconductor buyers stop assuming a quick reset, their behavior creates its own strategic pressure on governments.",
-      "relevantOutcomes": [
-        "economic_collapse",
-        "frozen_conflict",
-        "stabilization"
-      ],
-      "tags": [
-        "markets",
-        "supply-chain"
-      ]
-    },
-    {
-      "id": "ll_taiwan",
-      "title": "Taiwan is not a narrow military problem",
-      "insight": "The theater sits at the intersection of alliance credibility, semiconductor supply chains, maritime law, cyber risk, and domestic politics in multiple capitals.",
-      "relevantOutcomes": [
-        "stabilization",
-        "economic_collapse",
-        "war"
-      ],
-      "tags": [
-        "theater",
-        "integration"
-      ]
-    },
-    {
-      "id": "ll_backchannels",
-      "title": "Private communication is deterrence infrastructure",
-      "insight": "Backchannels do not weaken deterrence when paired with resolve; they reduce the odds that both sides misread silence as commitment to further escalation.",
-      "relevantOutcomes": [
-        "stabilization",
-        "frozen_conflict",
-        "war"
-      ],
-      "tags": [
-        "diplomacy",
-        "communications"
-      ]
-    },
-    {
-      "id": "ll_grayzone",
-      "title": "Gray-zone pressure compounds unless priced",
-      "insight": "Incremental coercion feels tolerable turn by turn, which is precisely why it can become the new baseline if the coalition never changes its cost structure.",
-      "relevantOutcomes": [
-        "frozen_conflict",
-        "stabilization"
-      ],
-      "tags": [
-        "gray-zone",
-        "deterrence"
-      ]
-    },
-    {
-      "id": "ll_resilience",
-      "title": "Resilience is strategy, not housekeeping",
-      "insight": "Fuel, continuity planning, port redundancy, and semiconductor buffers are not merely support functions. They shape whether time favors you or Beijing.",
-      "relevantOutcomes": [
-        "economic_collapse",
-        "stabilization",
-        "frozen_conflict"
-      ],
-      "tags": [
-        "resilience",
-        "continuity"
-      ]
-    },
-    {
-      "id": "ll_face",
-      "title": "Face matters because domestic politics matter",
-      "insight": "Leaders under pressure may accept quiet compromises they would reject publicly. Designing exits that preserve core interests without demanding public humiliation is often the difference between pause and rupture.",
-      "relevantOutcomes": [
-        "stabilization",
-        "regime_instability",
-        "war"
-      ],
-      "tags": [
-        "face",
-        "domestic-politics"
-      ]
-    },
-    {
-      "id": "ll_thresholds",
-      "title": "Thresholds must be defined before they are tested",
-      "insight": "In fast-moving crises, teams rarely invent good threshold doctrine on the fly. They fall back on habits, slogans, and incomplete assumptions.",
-      "relevantOutcomes": [
-        "war",
-        "stabilization",
-        "frozen_conflict"
-      ],
-      "tags": [
-        "thresholds",
-        "planning"
-      ]
-    },
-    {
-      "id": "ll_speed",
-      "title": "Speed favors the side with an integrated picture",
-      "insight": "The advantage does not always go to the side willing to move first. It often goes to the side that can fuse military, political, commercial, and cyber signals before acting.",
-      "relevantOutcomes": [
-        "stabilization",
-        "regime_instability",
-        "economic_collapse"
-      ],
-      "tags": [
-        "intelligence",
-        "decision-making"
-      ]
-    }
-  ]
-}
+    ]
+  }
+]

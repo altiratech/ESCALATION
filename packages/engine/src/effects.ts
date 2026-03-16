@@ -1,5 +1,7 @@
 import type {
   ActionDefinition,
+  ActionDelayedEffectDefinition,
+  ActionVariantDefinition,
   DelayedEffect,
   GameState,
   MeterState,
@@ -18,15 +20,36 @@ const applySideEffect = (state: GameState, sideEffect: SideEffectDefinition): vo
   state.latent = applyLatentDeltas(state.latent, sideEffect.latentDeltas);
 };
 
+export const getActionVariant = (
+  action: ActionDefinition,
+  variantId?: string | null
+): ActionVariantDefinition | null => {
+  if (!action.variants || action.variants.length === 0) {
+    return null;
+  }
+
+  if (variantId) {
+    return action.variants.find((variant) => variant.id === variantId) ?? null;
+  }
+
+  return (
+    action.variants.find((variant) => variant.id === action.defaultVariantId) ??
+    action.variants.find((variant) => variant.isDefault) ??
+    action.variants[0] ??
+    null
+  );
+};
+
 const queueDelayedEffects = (
   state: GameState,
-  action: ActionDefinition,
+  actionId: string,
+  delayedEffects: ActionDelayedEffectDefinition[],
   actor: 'player' | 'rival'
 ): void => {
-  for (const delayed of action.delayedEffects) {
+  for (const delayed of delayedEffects) {
     const item: DelayedEffect = {
-      id: `${action.id}:${state.turn}:${delayed.delayTurns}:${Math.round(delayed.chance * 100)}`,
-      sourceActionId: action.id,
+      id: `${actionId}:${state.turn}:${delayed.delayTurns}:${Math.round(delayed.chance * 100)}`,
+      sourceActionId: actionId,
       sourceActor: actor,
       applyOnTurn: state.turn + delayed.delayTurns,
       chance: delayed.chance,
@@ -47,10 +70,19 @@ export const applyActionToState = (
   action: ActionDefinition,
   actor: 'player' | 'rival',
   rng: SeededRng,
-  pressureMultiplier: number
+  pressureMultiplier: number,
+  variantId?: string | null
 ): AppliedActionResult => {
+  const variant = actor === 'player' ? getActionVariant(action, variantId) : null;
+
   state.meters = applyMeterDeltas(state.meters, action.immediateMeterDeltas, pressureMultiplier);
   state.latent = applyLatentDeltas(state.latent, action.immediateLatentDeltas, pressureMultiplier);
+  if (variant?.immediateMeterDeltas) {
+    state.meters = applyMeterDeltas(state.meters, variant.immediateMeterDeltas, pressureMultiplier);
+  }
+  if (variant?.immediateLatentDeltas) {
+    state.latent = applyLatentDeltas(state.latent, variant.immediateLatentDeltas, pressureMultiplier);
+  }
 
   const triggeredSideEffects: string[] = [];
 
@@ -69,7 +101,10 @@ export const applyActionToState = (
     state.intelQuality.expiresAtTurn = state.turn + 2;
   }
 
-  queueDelayedEffects(state, action, actor);
+  queueDelayedEffects(state, action.id, action.delayedEffects, actor);
+  if (variant?.delayedEffects?.length) {
+    queueDelayedEffects(state, `${action.id}:${variant.id}`, variant.delayedEffects, actor);
+  }
   return { triggeredSideEffects };
 };
 

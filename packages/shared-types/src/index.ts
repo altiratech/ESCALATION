@@ -19,6 +19,7 @@ export type TimerMode = 'standard' | 'relaxed' | 'off';
 export type BeatPhase = 'opening' | 'rising' | 'crisis' | 'climax' | 'resolution';
 export type DebriefTag = 'PlayerAction' | 'SecondaryEffect' | 'SystemEvent';
 export type AdvisorRecommendationAlignment = 'supports' | 'cautions' | 'opposes';
+export type TruthTier = 'verified_facts' | 'working_theories' | 'unknowns';
 
 export type Visibility = 'public' | 'secret' | 'semi-public';
 export type ActorType = 'player' | 'rival';
@@ -29,8 +30,17 @@ export interface LatentState {
   globalLegitimacy: number;
   rivalDomesticPressure: number;
   playerDomesticApproval: number;
+  usSurgeSlack: number;
+  munitionsDepth: number;
+  politicalBuffer: number;
+  taiwanResilience: number;
+  shippingStress: number;
+  cyberPrepositioning: number;
+  deceptionEffectiveness: number;
   vulnerabilityFlags: string[];
 }
+
+export type LatentDelta = Partial<Omit<LatentState, 'vulnerabilityFlags'>>;
 
 export interface BeliefState {
   bluffProb: number;
@@ -54,7 +64,7 @@ export interface DelayedEffect {
   applyOnTurn: number;
   chance: number;
   meterDeltas: Partial<MeterState>;
-  latentDeltas?: Partial<Omit<LatentState, 'vulnerabilityFlags'>>;
+  latentDeltas?: LatentDelta;
   description: string;
 }
 
@@ -81,7 +91,7 @@ export interface SideEffectDefinition {
   id: string;
   chance: number;
   meterDeltas: Partial<MeterState>;
-  latentDeltas?: Partial<Omit<LatentState, 'vulnerabilityFlags'>>;
+  latentDeltas?: LatentDelta;
   narrativeToken: string;
 }
 
@@ -95,6 +105,28 @@ export interface ActionSignalProfile {
   humiliationRisk: number;
 }
 
+export interface ActionDelayedEffectDefinition {
+  delayTurns: number;
+  chance: number;
+  meterDeltas: Partial<MeterState>;
+  latentDeltas?: LatentDelta;
+  description: string;
+}
+
+export interface ActionVariantDefinition {
+  id: string;
+  label: string;
+  summary: string;
+  interpretationHints: string[];
+  immediateMeterDeltas?: Partial<MeterState>;
+  immediateLatentDeltas?: LatentDelta;
+  delayedEffects?: ActionDelayedEffectDefinition[];
+  narrativeEmphasis: string;
+  advisorFraming: string;
+  hiddenDownsideCategory: string;
+  isDefault?: boolean;
+}
+
 export interface ActionDefinition {
   id: string;
   actor: ActorType;
@@ -103,15 +135,11 @@ export interface ActionDefinition {
   visibility: Visibility;
   tags: string[];
   immediateMeterDeltas: Partial<MeterState>;
-  immediateLatentDeltas?: Partial<Omit<LatentState, 'vulnerabilityFlags'>>;
+  immediateLatentDeltas?: LatentDelta;
   sideEffects: SideEffectDefinition[];
-  delayedEffects: Array<{
-    delayTurns: number;
-    chance: number;
-    meterDeltas: Partial<MeterState>;
-    latentDeltas?: Partial<Omit<LatentState, 'vulnerabilityFlags'>>;
-    description: string;
-  }>;
+  delayedEffects: ActionDelayedEffectDefinition[];
+  variants?: ActionVariantDefinition[];
+  defaultVariantId?: string;
   intelQualityBoost?: number;
   signal: ActionSignalProfile;
   minTurn?: number;
@@ -172,12 +200,25 @@ export interface ScenarioContextSection {
   body: string;
 }
 
+export interface TruthSignalItem {
+  id: string;
+  title: string;
+  body: string;
+}
+
+export interface BeatTruthModel {
+  verifiedFacts: TruthSignalItem[];
+  workingTheories: TruthSignalItem[];
+  unknowns: TruthSignalItem[];
+}
+
 export interface BeatNode {
   id: string;
   phase: BeatPhase;
   sceneFragments: string[];
   advisorLines: Record<string, string[]>;
   advisorActionGuidance?: Record<string, BeatAdvisorActionGuidance>;
+  truthModel?: BeatTruthModel;
   windowContext?: {
     sections: ScenarioContextSection[];
   };
@@ -206,6 +247,10 @@ export interface ScenarioDefinition {
   name: string;
   briefing: string;
   role: string;
+  worldModelId?: string;
+  roleTrackId?: string;
+  isLegacy?: boolean;
+  autoTerminateCatastrophicOutcomes?: boolean;
   missionObjectives: MissionObjective[];
   adversaryProfileId: string;
   maxTurns: number;
@@ -272,6 +317,9 @@ export interface TurnHistoryEntry {
   beatIdAfter: string;
   offeredActionIds: string[];
   playerActionId: string;
+  playerActionVariantId?: string | null;
+  playerActionVariantLabel?: string | null;
+  playerActionCustomLabel?: string | null;
   rivalActionId: string;
   meterBefore: MeterState;
   meterAfter: MeterState;
@@ -318,6 +366,9 @@ export interface TurnResolution {
   beatIdBefore: string;
   beatIdAfter: string;
   playerActionId: string;
+  playerActionVariantId?: string | null;
+  playerActionVariantLabel?: string | null;
+  playerActionCustomLabel?: string | null;
   rivalActionId: string;
   triggeredEvents: string[];
   selectedImageId: string | null;
@@ -949,6 +1000,9 @@ export interface StartEpisodeRequest {
 export interface SubmitActionRequest {
   expectedTurn: number;
   actionId: string;
+  variantId?: string | null;
+  customLabel?: string | null;
+  interpretationRationale?: string | null;
 }
 
 export interface InterpretCommandRequest {
@@ -961,6 +1015,8 @@ export type InterpretDecision = 'execute' | 'review' | 'reject';
 export interface InterpretCommandSuggestion {
   actionId: string;
   actionName: string;
+  variantId?: string | null;
+  variantLabel?: string | null;
 }
 
 export interface InterpretCommandResponse {
@@ -970,6 +1026,11 @@ export interface InterpretCommandResponse {
   decision: InterpretDecision;
   interpretedActionId: string | null;
   interpretedActionName: string | null;
+  variantId: string | null;
+  variantLabel: string | null;
+  customLabel: string | null;
+  interpretationRationale: string | null;
+  narrativeEmphasis: string | null;
   message: string;
   suggestions: InterpretCommandSuggestion[];
 }

@@ -6,7 +6,7 @@ interface CommandInputProps {
   turn: number;
   disabled: boolean;
   onSubmitCommand: (commandText: string) => Promise<CommandSubmitResult>;
-  onSelectAction: (actionId: string) => Promise<void>;
+  onSelectAction: (suggestion: CommandSuggestion) => Promise<void>;
 }
 
 interface CommandLine {
@@ -18,14 +18,23 @@ interface CommandLine {
 export interface CommandSubmitResult {
   message: string;
   decision?: 'execute' | 'review' | 'reject';
-  suggestions?: ActionDefinition[];
+  suggestions?: CommandSuggestion[];
+}
+
+export interface CommandSuggestion {
+  action: ActionDefinition;
+  variantId?: string | null;
+  variantLabel?: string | null;
+  customLabel?: string | null;
+  interpretationRationale?: string | null;
+  narrativeEmphasis?: string | null;
 }
 
 export const CommandInput = ({ turn, disabled, onSubmitCommand, onSelectAction }: CommandInputProps) => {
   const [draft, setDraft] = useState('');
   const [sending, setSending] = useState(false);
   const [lines, setLines] = useState<CommandLine[]>([]);
-  const [pendingSuggestions, setPendingSuggestions] = useState<ActionDefinition[]>([]);
+  const [pendingSuggestions, setPendingSuggestions] = useState<CommandSuggestion[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const nextLineIdRef = useRef(1);
   const lastTurnRef = useRef<number | null>(null);
@@ -81,18 +90,21 @@ export const CommandInput = ({ turn, disabled, onSubmitCommand, onSelectAction }
     }
   };
 
-  const confirmSuggestedAction = async (action: ActionDefinition): Promise<void> => {
+  const confirmSuggestedAction = async (suggestion: CommandSuggestion): Promise<void> => {
     if (sending || disabled) {
       return;
     }
 
-    appendLine('player', `Select ${action.name}`);
+    appendLine('player', `Select ${suggestion.customLabel ?? suggestion.action.name}`);
     setSending(true);
 
     try {
-      await onSelectAction(action.id);
+      await onSelectAction(suggestion);
       setPendingSuggestions([]);
-      appendLine('system', `Selected: ${action.name}. Review it on the decision page and commit it when ready.`);
+      appendLine(
+        'system',
+        `Selected: ${suggestion.action.name}${suggestion.variantLabel ? ` · ${suggestion.variantLabel}` : ''}. Review it on the decision page and commit it when ready.`
+      );
     } catch (error) {
       appendLine('system', error instanceof Error ? error.message : 'Suggested action selection failed.');
     } finally {
@@ -139,17 +151,17 @@ export const CommandInput = ({ turn, disabled, onSubmitCommand, onSelectAction }
         <div className="mt-2 rounded-md border border-accent/40 bg-accent/10 p-2">
           <p className="text-[0.62rem] uppercase tracking-[0.1em] text-accent">Review Suggested Match</p>
           <div className="mt-1.5 flex flex-wrap gap-1.5">
-            {pendingSuggestions.map((action) => (
+            {pendingSuggestions.map((suggestion) => (
               <button
-                key={`confirm:${action.id}`}
+                key={`confirm:${suggestion.action.id}:${suggestion.variantId ?? 'base'}`}
                 type="button"
                 className="rounded-md border border-accent/60 px-2 py-1 text-[0.6rem] uppercase tracking-[0.09em] text-textMain transition hover:bg-accent/15 disabled:cursor-not-allowed disabled:opacity-45"
                 onClick={() => {
-                  void confirmSuggestedAction(action);
+                  void confirmSuggestedAction(suggestion);
                 }}
                 disabled={disabled || sending}
               >
-                Select {action.name}
+                Select {suggestion.variantLabel ? `${suggestion.action.name} · ${suggestion.variantLabel}` : suggestion.action.name}
               </button>
             ))}
           </div>
@@ -186,7 +198,7 @@ export const CommandInput = ({ turn, disabled, onSubmitCommand, onSelectAction }
       </div>
 
       <p className="mt-2 text-[0.66rem] text-textMuted">
-        Typed instructions are translated into a suggested response. Review the selected response on this page before committing the decision window.
+        Typed instructions are translated into a suggested response and, when relevant, a more specific response variant. Review the selected response on this page before committing the decision window.
       </p>
         </>
       ) : null}

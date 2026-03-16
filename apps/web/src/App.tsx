@@ -3,6 +3,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type {
   ActionDefinition,
   ActionNarrativePhaseContent,
+  ActionVariantDefinition,
   BeatPhase,
   BootstrapPayload,
   CinematicPhaseTransitionKey,
@@ -26,7 +27,7 @@ import {
 import { ActionCards } from './components/ActionCards';
 import { AdvisorPanel } from './components/AdvisorPanel';
 import { BriefingPanel } from './components/BriefingPanel';
-import { CommandInput, type CommandSubmitResult } from './components/CommandInput';
+import { CommandInput, type CommandSubmitResult, type CommandSuggestion } from './components/CommandInput';
 import { ReportView } from './components/ReportView';
 import { StartScreen } from './components/StartScreen';
 import { getAdvisorActionReads } from './lib/decisionSupport';
@@ -207,12 +208,50 @@ interface RecentActionNarrativeView {
   detail: ActionNarrativePhaseContent;
 }
 
+interface SelectedResponseSelection {
+  actionId: string;
+  variantId: string | null;
+  variantLabel: string | null;
+  customLabel: string | null;
+  interpretationRationale: string | null;
+  narrativeEmphasis: string | null;
+  source: 'manual' | 'custom';
+}
+
+interface SuggestedResponseSelection extends SelectedResponseSelection {
+  action: ActionDefinition;
+}
+
+const getDefaultVariant = (action: ActionDefinition): ActionVariantDefinition | null => {
+  if (!action.variants || action.variants.length === 0) {
+    return null;
+  }
+  return (
+    action.variants.find((variant) => variant.id === action.defaultVariantId || variant.isDefault) ??
+    action.variants[0] ??
+    null
+  );
+};
+
+const buildManualSelection = (action: ActionDefinition): SelectedResponseSelection => {
+  const variant = getDefaultVariant(action);
+  return {
+    actionId: action.id,
+    variantId: variant?.id ?? null,
+    variantLabel: variant?.label ?? null,
+    customLabel: null,
+    interpretationRationale: null,
+    narrativeEmphasis: variant?.narrativeEmphasis ?? null,
+    source: 'manual'
+  };
+};
+
 const App = () => {
   const [reference, setReference] = useState<BootstrapPayload | null>(null);
   const [episode, setEpisode] = useState<EpisodeView | null>(null);
   const [report, setReport] = useState<PostGameReport | null>(null);
   const [profileId, setProfileId] = useState<string | null>(null);
-  const [selectedActionId, setSelectedActionId] = useState<string | null>(null);
+  const [selectedResponse, setSelectedResponse] = useState<SelectedResponseSelection | null>(null);
   const [turnStage, setTurnStage] = useState<TurnStage>('brief');
 
   const [loading, setLoading] = useState(false);
@@ -289,7 +328,16 @@ const App = () => {
 
     return readsByActionId;
   }, [activeAdvisorDossiers, currentBeat, episode?.offeredActions]);
-  const selectedAction = episode?.offeredActions.find((action) => action.id === selectedActionId) ?? null;
+  const selectedAction = episode?.offeredActions.find((action) => action.id === selectedResponse?.actionId) ?? null;
+  const selectedVariant = useMemo(() => {
+    if (!selectedAction) {
+      return null;
+    }
+    if (selectedResponse?.variantId) {
+      return selectedAction.variants?.find((variant) => variant.id === selectedResponse.variantId) ?? getDefaultVariant(selectedAction);
+    }
+    return getDefaultVariant(selectedAction);
+  }, [selectedAction, selectedResponse?.variantId]);
   const actionAdvisorSummaries = useMemo(() => {
     const summaries = new Map<string, { supports: number; cautions: number; opposes: number }>();
 
@@ -331,7 +379,10 @@ const App = () => {
     }
 
     return {
-      actionName: action.name,
+      actionName:
+        episode.recentTurn?.playerActionCustomLabel ??
+        episode.recentTurn?.playerActionVariantLabel ??
+        action.name,
       phaseLabel: beatBefore?.phase ?? 'crisis',
       detail
     };
@@ -362,7 +413,7 @@ const App = () => {
 
   const applyEpisodeUpdate = useCallback(async (nextEpisode: EpisodeView): Promise<void> => {
     setEpisode(nextEpisode);
-    setSelectedActionId(null);
+    setSelectedResponse(null);
     setTurnStage('brief');
     if (nextEpisode.status === 'completed') {
       const completedReport = await fetchReport(nextEpisode.episodeId);
@@ -410,14 +461,39 @@ const App = () => {
   };
 
   const handleActionSelect = useCallback(async (actionId: string): Promise<void> => {
-    setSelectedActionId(actionId);
+    if (!episode) {
+      return;
+    }
+
+    const action = episode.offeredActions.find((entry) => entry.id === actionId);
+    if (!action) {
+      return;
+    }
+
+    setSelectedResponse(buildManualSelection(action));
+  }, [episode]);
+
+  const handleCommandSuggestionSelect = useCallback(async (suggestion: CommandSuggestion): Promise<void> => {
+    const variant = suggestion.variantId
+      ? suggestion.action.variants?.find((entry) => entry.id === suggestion.variantId) ?? null
+      : getDefaultVariant(suggestion.action);
+
+    setSelectedResponse({
+      actionId: suggestion.action.id,
+      variantId: variant?.id ?? suggestion.variantId ?? null,
+      variantLabel: variant?.label ?? suggestion.variantLabel ?? null,
+      customLabel: suggestion.customLabel ?? null,
+      interpretationRationale: suggestion.interpretationRationale ?? null,
+      narrativeEmphasis: suggestion.narrativeEmphasis ?? variant?.narrativeEmphasis ?? null,
+      source: 'custom'
+    });
   }, []);
 
   const handleActionCommit = async (): Promise<void> => {
     if (!episode) {
       return;
     }
-    if (!selectedActionId) {
+    if (!selectedResponse) {
       return;
     }
 
@@ -427,7 +503,10 @@ const App = () => {
     try {
       const response = await submitAction(episode.episodeId, {
         expectedTurn: episode.turn,
-        actionId: selectedActionId
+        actionId: selectedResponse.actionId,
+        variantId: selectedResponse.variantId,
+        customLabel: selectedResponse.customLabel,
+        interpretationRationale: selectedResponse.interpretationRationale
       });
 
       await applyEpisodeUpdate(response.episode);
@@ -487,11 +566,26 @@ const App = () => {
   }, [episode?.episodeId, episode?.turn, episode?.currentBeatId]);
 
   useEffect(() => {
-    setSelectedActionId((current) => {
-      if (!episode) {
+    setSelectedResponse((current) => {
+      if (!episode || !current) {
         return null;
       }
-      return episode.offeredActions.some((action) => action.id === current) ? current : null;
+
+      const action = episode.offeredActions.find((entry) => entry.id === current.actionId);
+      if (!action) {
+        return null;
+      }
+
+      const variant = current.variantId
+        ? action.variants?.find((entry) => entry.id === current.variantId) ?? null
+        : getDefaultVariant(action);
+
+      return {
+        ...current,
+        variantId: variant?.id ?? null,
+        variantLabel: variant?.label ?? null,
+        narrativeEmphasis: current.narrativeEmphasis ?? variant?.narrativeEmphasis ?? null
+      };
     });
   }, [episode?.episodeId, episode?.turn, episode?.currentBeatId, episode?.offeredActions]);
 
@@ -522,7 +616,7 @@ const App = () => {
     setReport(null);
     setError(null);
     setCountdownRemaining(null);
-    setSelectedActionId(null);
+    setSelectedResponse(null);
     setTurnStage('brief');
     timeoutGuardRef.current = null;
   };
@@ -564,17 +658,37 @@ const App = () => {
 
       if (interpretation.stale) {
         setEpisode(interpretation.episode);
-        setSelectedActionId(null);
+        setSelectedResponse(null);
         return {
           message: 'Command target was stale. Synced to the latest decision window.'
         };
       }
 
       if (interpretation.decision !== 'execute' || !interpretation.interpretedActionId) {
-        const suggestionActions: ActionDefinition[] = interpretation.decision === 'review'
+        const suggestionActions: SuggestedResponseSelection[] = interpretation.decision === 'review'
           ? interpretation.suggestions
-            .map((suggestion) => episode.offeredActions.find((action) => action.id === suggestion.actionId))
-            .filter((action): action is ActionDefinition => Boolean(action))
+            .map<SuggestedResponseSelection | null>((suggestion) => {
+              const action = episode.offeredActions.find((entry) => entry.id === suggestion.actionId);
+              if (!action) {
+                return null;
+              }
+
+              const variant = suggestion.variantId
+                ? action.variants?.find((entry) => entry.id === suggestion.variantId) ?? null
+                : getDefaultVariant(action);
+
+              return {
+                action,
+                actionId: action.id,
+                variantId: variant?.id ?? null,
+                variantLabel: variant?.label ?? suggestion.variantLabel ?? null,
+                customLabel: null,
+                interpretationRationale: null,
+                narrativeEmphasis: variant?.narrativeEmphasis ?? null,
+                source: 'custom' as const
+              };
+            })
+            .filter((entry): entry is SuggestedResponseSelection => Boolean(entry))
           : [];
 
         return {
@@ -583,7 +697,24 @@ const App = () => {
           suggestions: suggestionActions
         };
       }
-      setSelectedActionId(interpretation.interpretedActionId);
+
+      const interpretedAction = episode.offeredActions.find((action) => action.id === interpretation.interpretedActionId);
+      if (interpretedAction) {
+        const variant = interpretation.variantId
+          ? interpretedAction.variants?.find((entry) => entry.id === interpretation.variantId) ?? null
+          : getDefaultVariant(interpretedAction);
+
+        setSelectedResponse({
+          actionId: interpretedAction.id,
+          variantId: variant?.id ?? interpretation.variantId,
+          variantLabel: variant?.label ?? interpretation.variantLabel,
+          customLabel: interpretation.customLabel,
+          interpretationRationale: interpretation.interpretationRationale,
+          narrativeEmphasis: interpretation.narrativeEmphasis ?? variant?.narrativeEmphasis ?? null,
+          source: 'custom'
+        });
+      }
+
       return {
         message: `${interpretation.message} Review the selected action and commit when ready.`,
         decision: interpretation.decision
@@ -739,7 +870,12 @@ const App = () => {
         ? 'Working Estimate'
         : 'Fragmentary';
   const theaterTimeContext = currentScenarioWorld?.dateAnchor.timeContext ?? null;
-  const currentDirective = currentScenario?.briefing ?? currentScenarioWorld?.economicBackdrop.straitEconomicValue ?? '';
+  const currentDirective =
+    episode.briefing.briefingParagraph ??
+    currentBeat?.sceneFragments[0] ??
+    currentScenario?.briefing ??
+    currentScenarioWorld?.economicBackdrop.straitEconomicValue ??
+    '';
   const turnResolutionGuidance =
     episode.activeCountdown && remainingSeconds !== null
       ? `Select one response, inspect the tradeoffs, and confirm it before ${formatSeconds(remainingSeconds)} elapses.`
@@ -771,7 +907,16 @@ const App = () => {
     episode.meters,
     episode.recentTurn?.meterBefore
   );
-  const activeWindowContextSections = [...dynamicContextSections, ...(currentBeat?.windowContext?.sections ?? [])].slice(0, 3);
+  const activeWindowContextSections = currentBeat?.windowContext?.sections?.length
+    ? currentBeat.windowContext.sections
+    : dynamicContextSections;
+  const activeTruthModel = currentBeat?.truthModel ?? null;
+  const selectedResponseLabel = selectedResponse?.customLabel
+    ?? (selectedAction
+      ? selectedResponse?.variantLabel
+        ? `${selectedAction.name} · ${selectedResponse.variantLabel}`
+        : selectedAction.name
+      : null);
   const turnStageLabel = turnStage === 'brief' ? 'Situation Summary' : 'Decision';
   const turnStageActionLabel = turnStage === 'brief'
     ? selectedAction
@@ -813,7 +958,7 @@ const App = () => {
             </div>
             <div className="console-chip">
               <strong>Selected</strong>
-              <span>{selectedAction?.name ?? 'Awaiting decision'}</span>
+              <span>{selectedResponseLabel ?? 'Awaiting decision'}</span>
             </div>
             {showExtendTimer ? (
               <button
@@ -933,6 +1078,7 @@ const App = () => {
             turn={episode.turn}
             briefing={episode.briefing}
             scenarioWorld={currentScenarioWorld}
+            truthModel={activeTruthModel}
             windowContextSections={activeWindowContextSections}
             supportingSignals={supportingSignals}
             turnDebrief={episode.turnDebrief}
@@ -1000,7 +1146,7 @@ const App = () => {
                 }`}
               >
                 <strong>Decision</strong>
-                <span>{selectedAction?.name ?? 'Choose a response'}</span>
+                <span>{selectedResponseLabel ?? 'Choose a response'}</span>
               </div>
               <button
                 type="button"
@@ -1017,14 +1163,18 @@ const App = () => {
             <ActionCards
               actions={episode.offeredActions}
               disabled={loading || episode.status !== 'active'}
-              selectedActionId={selectedActionId}
+              selectedActionId={selectedResponse?.actionId ?? null}
+              selectedVariantLabel={selectedResponse?.variantLabel ?? null}
+              selectedCustomLabel={selectedResponse?.customLabel ?? null}
+              selectedInterpretationRationale={selectedResponse?.interpretationRationale ?? null}
+              selectedNarrativeEmphasis={selectedResponse?.narrativeEmphasis ?? selectedVariant?.narrativeEmphasis ?? null}
               actionAdvisorSummaries={actionAdvisorSummaries}
               customResponseSlot={
                 <CommandInput
                   turn={episode.turn}
                   disabled={loading || episode.status !== 'active'}
                   onSubmitCommand={handleCommandSubmit}
-                  onSelectAction={handleActionSelect}
+                  onSelectAction={handleCommandSuggestionSelect}
                 />
               }
               onSelect={(actionId) => {

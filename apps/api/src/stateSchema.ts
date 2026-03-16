@@ -17,13 +17,27 @@ const latentStateSchema = z.object({
   globalLegitimacy: z.number(),
   rivalDomesticPressure: z.number(),
   playerDomesticApproval: z.number(),
+  usSurgeSlack: z.number().optional(),
+  munitionsDepth: z.number().optional(),
+  politicalBuffer: z.number().optional(),
+  taiwanResilience: z.number().optional(),
+  shippingStress: z.number().optional(),
+  cyberPrepositioning: z.number().optional(),
+  deceptionEffectiveness: z.number().optional(),
   vulnerabilityFlags: z.array(z.string())
 });
 
 const partialLatentDeltaSchema = z.object({
   globalLegitimacy: z.number().optional(),
   rivalDomesticPressure: z.number().optional(),
-  playerDomesticApproval: z.number().optional()
+  playerDomesticApproval: z.number().optional(),
+  usSurgeSlack: z.number().optional(),
+  munitionsDepth: z.number().optional(),
+  politicalBuffer: z.number().optional(),
+  taiwanResilience: z.number().optional(),
+  shippingStress: z.number().optional(),
+  cyberPrepositioning: z.number().optional(),
+  deceptionEffectiveness: z.number().optional()
 });
 
 const beliefStateSchema = z.object({
@@ -94,6 +108,9 @@ const turnHistoryEntrySchema = z.object({
   beatIdAfter: z.string(),
   offeredActionIds: z.array(z.string()),
   playerActionId: z.string(),
+  playerActionVariantId: z.string().nullable().optional(),
+  playerActionVariantLabel: z.string().nullable().optional(),
+  playerActionCustomLabel: z.string().nullable().optional(),
   rivalActionId: z.string(),
   meterBefore: meterStateSchema,
   meterAfter: meterStateSchema,
@@ -168,7 +185,24 @@ export const parseGameStateJson = (stateJson: string, episodeId: string): GameSt
     throw new GameStateValidationError(episodeId, ['Invalid JSON payload'], error);
   }
 
-  const validated = gameStateSchema.safeParse(parsed);
+  const candidate =
+    parsed && typeof parsed === 'object'
+      ? ({
+          ...(parsed as Record<string, unknown>),
+          latent: {
+            usSurgeSlack: 62,
+            munitionsDepth: 58,
+            politicalBuffer: 54,
+            taiwanResilience: 68,
+            shippingStress: 36,
+            cyberPrepositioning: 48,
+            deceptionEffectiveness: 52,
+            ...((parsed as { latent?: Record<string, unknown> }).latent ?? {})
+          }
+        } satisfies Record<string, unknown>)
+      : parsed;
+
+  const validated = gameStateSchema.safeParse(candidate);
   if (!validated.success) {
     throw new GameStateValidationError(
       episodeId,

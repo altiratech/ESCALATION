@@ -33,6 +33,11 @@
         "openingAssessment": "Beijing is trying to normalize control without taking the legal or military risk of declaring a blockade. If Coast Guard and militia hulls make inspection authority look routine, reversing it gets harder every day.",
         "redLine": "A boarding, collision, or east-of-Taiwan military move that threatens reinforcement routes or causes Taiwanese or allied casualties.",
         "preferredEndstate": "China pauses inspections, allied presence stays visible, and Taiwan's air and maritime access remains open without a first shot being fired."
+      },
+      "northern_strait_black_swan": {
+        "openingAssessment": "Beijing is trying to normalize control without taking the legal or military risk of declaring a blockade. If Coast Guard and militia hulls make inspection authority look routine, reversing it gets harder every day.",
+        "redLine": "A boarding, collision, or east-of-Taiwan military move that threatens reinforcement routes or causes Taiwanese or allied casualties.",
+        "preferredEndstate": "China pauses inspections, allied presence stays visible, and Taiwan's air and maritime access remains open without a first shot being fired."
       }
     }
   },
@@ -67,6 +72,11 @@
     },
     "scenarioSpecific": {
       "northern_strait_flashpoint": {
+        "openingAssessment": "This is a legitimacy contest as much as a maritime one. If allies split on legal framing, sanctions timing, or visible military support, Beijing gets the bilateral crisis it wants.",
+        "redLine": "Any coalition move that looks like symbolic escalation without allied buy-in, or any concession that validates Chinese inspection authority as a new normal.",
+        "preferredEndstate": "A unified coalition message, a visible but disciplined reassurance package for Taiwan, and a negotiated pause in inspections that does not legitimize coercive control of the strait."
+      },
+      "northern_strait_black_swan": {
         "openingAssessment": "This is a legitimacy contest as much as a maritime one. If allies split on legal framing, sanctions timing, or visible military support, Beijing gets the bilateral crisis it wants.",
         "redLine": "Any coalition move that looks like symbolic escalation without allied buy-in, or any concession that validates Chinese inspection authority as a new normal.",
         "preferredEndstate": "A unified coalition message, a visible but disciplined reassurance package for Taiwan, and a negotiated pause in inspections that does not legitimize coercive control of the strait."
@@ -107,6 +117,11 @@
         "openingAssessment": "Insurers, chip buyers, and freight desks are moving before governments do. The strait does not have to close fully for the world to feel it; uncertainty alone can shock shipping, advanced manufacturing, and market confidence.",
         "redLine": "A sanctions or military move that fractures allied economic discipline or triggers uncontrolled stress in shipping, energy, and semiconductor markets.",
         "preferredEndstate": "Commercial transit resumes under credible reassurance, coalition discipline holds, and market participants believe the crisis has an off-ramp instead of a spiral."
+      },
+      "northern_strait_black_swan": {
+        "openingAssessment": "Insurers, chip buyers, and freight desks are moving before governments do. The strait does not have to close fully for the world to feel it; uncertainty alone can shock shipping, advanced manufacturing, and market confidence.",
+        "redLine": "A sanctions or military move that fractures allied economic discipline or triggers uncontrolled stress in shipping, energy, and semiconductor markets.",
+        "preferredEndstate": "Commercial transit resumes under credible reassurance, coalition discipline holds, and market participants believe the crisis has an off-ramp instead of a spiral."
       }
     }
   },
@@ -141,6 +156,11 @@
     },
     "scenarioSpecific": {
       "northern_strait_flashpoint": {
+        "openingAssessment": "This is choreographed gray-zone pressure: maritime regulators, Coast Guard hulls, militia traffic, cyber preparation, and propaganda are all moving on one clock. The inspection order is testing reaction speed, not just legal arguments.",
+        "redLine": "An attributed covert action, cyber disruption, or deniable maritime incident that forces both sides out of ambiguity and into overt retaliation.",
+        "preferredEndstate": "Beijing backs off after concluding the coalition has more visibility, more staying power, and more options than its planners expected."
+      },
+      "northern_strait_black_swan": {
         "openingAssessment": "This is choreographed gray-zone pressure: maritime regulators, Coast Guard hulls, militia traffic, cyber preparation, and propaganda are all moving on one clock. The inspection order is testing reaction speed, not just legal arguments.",
         "redLine": "An attributed covert action, cyber disruption, or deniable maritime incident that forces both sides out of ambiguity and into overt retaliation.",
         "preferredEndstate": "Beijing backs off after concluding the coalition has more visibility, more staying power, and more options than its planners expected."

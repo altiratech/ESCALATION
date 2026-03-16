@@ -1,191 +1,384 @@
-{
-  "scenarioId": "northern_strait_flashpoint",
-  "region": {
-    "name": "Taiwan Strait",
-    "description": "The Taiwan Strait separates Taiwan from mainland China's Fujian coast and links the East China Sea to the South China Sea. Traffic moving between Northeast Asia, Southeast Asia, and global markets routinely crosses the strait or its immediate approaches. The corridor also sits beside Taiwan's west-coast ports, dense undersea cable routes, and a fabrication base that anchors a large share of the world's advanced semiconductor output. A coercive inspection regime or quasi-blockade here would not stay local; it would hit shipping schedules, chip supply, insurance markets, and alliance credibility at the same time.",
-    "coordinates": "Approx. 23.5°N to 26.5°N latitude, 119.5°E to 121.5°E longitude",
-    "keyFeatures": [
-      "Kaohsiung, Taichung, and Keelung ports — Taiwan's main commercial gateways",
-      "Fujian coast military complexes near Xiamen, Fuzhou, and Pingtan — primary PLA staging areas",
-      "Median line and central transit corridor — core gray-zone pressure zone",
-      "Penghu archipelago — forward Taiwanese position astride the western approaches",
-      "Bashi Channel south of Taiwan — route linking the strait to the wider Pacific and Philippine Sea",
-      "Undersea cable landing points and west-coast power / fabrication infrastructure — high-value non-kinetic targets"
+[
+  {
+    "scenarioId": "northern_strait_flashpoint",
+    "region": {
+      "name": "Taiwan Strait",
+      "description": "The Taiwan Strait separates Taiwan from mainland China's Fujian coast and links the East China Sea to the South China Sea. Traffic moving between Northeast Asia, Southeast Asia, and global markets routinely crosses the strait or its immediate approaches. The corridor also sits beside Taiwan's west-coast ports, dense undersea cable routes, and a fabrication base that anchors a large share of the world's advanced semiconductor output. A coercive inspection regime or quasi-blockade here would not stay local; it would hit shipping schedules, chip supply, insurance markets, and alliance credibility at the same time.",
+      "coordinates": "Approx. 23.5°N to 26.5°N latitude, 119.5°E to 121.5°E longitude",
+      "keyFeatures": [
+        "Kaohsiung, Taichung, and Keelung ports — Taiwan's main commercial gateways",
+        "Fujian coast military complexes near Xiamen, Fuzhou, and Pingtan — primary PLA staging areas",
+        "Median line and central transit corridor — core gray-zone pressure zone",
+        "Penghu archipelago — forward Taiwanese position astride the western approaches",
+        "Bashi Channel south of Taiwan — route linking the strait to the wider Pacific and Philippine Sea",
+        "Undersea cable landing points and west-coast power / fabrication infrastructure — high-value non-kinetic targets"
+      ],
+      "climateSeason": "Late March into early April. Spring fog, rougher cross-strait winds, and intermittent heavy rain degrade visibility and complicate maritime identification. Conditions are not severe enough to halt operations, but they increase the chance that an unsafe intercept or misread maneuver becomes an incident."
+    },
+    "dateAnchor": {
+      "year": 2026,
+      "month": "March-April",
+      "dayRange": "The 10-turn window spans 24 March – 9 April 2026, covering the acute period between Beijing's new maritime-control announcement and the next major allied decision window.",
+      "timeContext": "Cross-strait military tempo remains elevated after late-2025 blockade-style PLA drills, recurring median-line crossings, and persistent cyber pressure on Taiwanese infrastructure. Global markets are already sensitive to shipping disruption, export-control escalation, and any threat to advanced semiconductor supply."
+    },
+    "playerNation": {
+      "name": "United States and Indo-Pacific partners",
+      "governmentType": "The player role represents the U.S. National Security Advisor coordinating a coalition built around Washington, Taipei, Tokyo, Manila, Canberra, and supportive European partners.",
+      "currentLeader": "President of the United States",
+      "domesticContext": "Washington is balancing inflation sensitivity, industrial-policy pressure around semiconductor supply, and a domestic debate over how much military risk the U.S. should absorb in Asia. Any visible loss of credibility in the strait would reverberate through alliance politics, but a fast military escalation would face immediate scrutiny at home.",
+      "militaryPosture": "The U.S. Indo-Pacific posture includes forward naval and air assets, ISR coverage, cyber defense coordination, and reinforcement options from Japan, Guam, and the Philippine theater. Japan and the Philippines are directly affected by any change in the strait; both are politically supportive but want disciplined coordination before the first exchange of fire.",
+      "alliances": [
+        {
+          "name": "Taiwan",
+          "description": "Self-governing island democracy under direct coercive pressure. It needs maritime access, market confidence, and visible reassurance without being pushed into symbolic moves Beijing can frame as a provocation."
+        },
+        {
+          "name": "Japan",
+          "description": "Critical rear-area ally whose southwest islands, sea lanes, and industrial supply chains are exposed to escalation around Taiwan. Tokyo is central to logistics, deterrence credibility, and coalition cohesion."
+        },
+        {
+          "name": "Philippines",
+          "description": "Treaty ally whose northern bases, maritime domain, and political signaling matter for access, surveillance, and wider regional escalation control."
+        }
+      ]
+    },
+    "rivalState": {
+      "name": "People's Republic of China",
+      "governmentType": "Party-led authoritarian state with decision-making concentrated in the top party leadership, the Central Military Commission, and the security apparatus.",
+      "leaderTitle": "General Secretary and Chairman of the Central Military Commission",
+      "domesticContext": "Beijing is balancing slower growth, property-sector strain, local-government debt pressure, and an ideological insistence that outside powers cannot normalize support for Taiwan. Nationalist messaging makes de-escalation politically costly if it looks like retreat under U.S. pressure.",
+      "militaryCapability": "The PLA can combine Eastern Theater Command naval and air forces, Rocket Force signaling, Coast Guard hulls, maritime militia, cyber operations, and information warfare into a layered pressure campaign. The most dangerous feature of the scenario is not an immediate amphibious invasion; it is Beijing's ability to make coercion look administrative, legal, and reversible until the moment it is not.",
+      "economicLeverage": "China can weaponize market fear, shipping uncertainty, trade dependence, manufacturing exposure, rare-earth leverage, and the threat of countersanctions. It also knows that many U.S. partners fear the economic cost of a prolonged Taiwan crisis even if they oppose coercion in principle.",
+      "knownRedLines": "High-confidence red lines include any move toward formal Taiwanese independence, permanent foreign military basing on Taiwan, or direct strikes on mainland territory. A sustained allied military posture east of Taiwan combined with financial sanctions on major Chinese institutions would likely trigger rapid counter-escalation across military, cyber, and economic domains."
+    },
+    "stakeholders": [
+      {
+        "id": "taiwan_government",
+        "name": "Government of Taiwan",
+        "type": "ally",
+        "description": "Taipei needs commerce to continue, markets to stay functional, and foreign support to remain visible without appearing to outsource its survival. Public calm and military readiness have to move together.",
+        "influence": "Controls civil defense, port operations, reserve activation, and public messaging inside Taiwan. Its tone can calm or inflame the situation.",
+        "disposition": "Wants clear reassurance and visible coalition presence, but must avoid actions Beijing can package as a formal break from the status quo."
+      },
+      {
+        "id": "japan_government",
+        "name": "Government of Japan",
+        "type": "ally",
+        "description": "Japan is exposed through southwest island security, shipping lanes, energy imports, and industrial supply chains. It is both a military enabler and a political barometer for the wider coalition.",
+        "influence": "Can provide basing access, logistics, maritime surveillance, and diplomatic weight; also shapes how much broader allied support holds together.",
+        "disposition": "Supportive of deterrence, but highly sensitive to uncontrolled escalation and any strike activity near Okinawa or the Ryukyus."
+      },
+      {
+        "id": "philippines_government",
+        "name": "Government of the Philippines",
+        "type": "ally",
+        "description": "Manila matters because northern Philippine access, airspace, and political signaling affect the coalition's ability to monitor and reinforce the theater. It also has its own China-related maritime friction to manage.",
+        "influence": "Can widen or constrain allied access south of Taiwan through basing, overflight, and public posture choices.",
+        "disposition": "Aligned with the United States but wary of becoming the first retaliatory target if the crisis spills south."
+      },
+      {
+        "id": "shipping_insurance_markets",
+        "name": "Commercial shipping and war-risk insurers",
+        "type": "commercial",
+        "description": "Shipping lines and insurers will reprice or reroute before diplomats finish their first call. They translate military ambiguity into real costs almost immediately.",
+        "influence": "Can make the strait economically unusable without a formal blockade by withdrawing coverage, raising premiums, or diverting traffic.",
+        "disposition": "Risk-averse and highly responsive to boarding incidents, missile notices, cable cuts, and cyber disruption."
+      },
+      {
+        "id": "global_chip_buyers",
+        "name": "Global semiconductor and electronics buyers",
+        "type": "commercial",
+        "description": "Manufacturers and cloud-hardware supply chains are directly exposed to any disruption around Taiwan's fabrication and export system. Their panic buying can create shortages before any factory is physically damaged.",
+        "influence": "Contingency ordering, inventory hoarding, and market signaling amplify global economic stress and political pressure on coalition governments.",
+        "disposition": "They want credible assurance that fabrication, power, ports, and air cargo flows will keep moving."
+      }
     ],
-    "climateSeason": "Late March into early April. Spring fog, rougher cross-strait winds, and intermittent heavy rain degrade visibility and complicate maritime identification. Conditions are not severe enough to halt operations, but they increase the chance that an unsafe intercept or misread maneuver becomes an incident."
-  },
-  "dateAnchor": {
-    "year": 2026,
-    "month": "March-April",
-    "dayRange": "The 10-turn window spans 24 March – 9 April 2026, covering the acute period between Beijing's new maritime-control announcement and the next major allied decision window.",
-    "timeContext": "Cross-strait military tempo remains elevated after late-2025 blockade-style PLA drills, recurring median-line crossings, and persistent cyber pressure on Taiwanese infrastructure. Global markets are already sensitive to shipping disruption, export-control escalation, and any threat to advanced semiconductor supply."
-  },
-  "playerNation": {
-    "name": "United States and Indo-Pacific partners",
-    "governmentType": "The player role represents the U.S. National Security Advisor coordinating a coalition built around Washington, Taipei, Tokyo, Manila, Canberra, and supportive European partners.",
-    "currentLeader": "President of the United States",
-    "domesticContext": "Washington is balancing inflation sensitivity, industrial-policy pressure around semiconductor supply, and a domestic debate over how much military risk the U.S. should absorb in Asia. Any visible loss of credibility in the strait would reverberate through alliance politics, but a fast military escalation would face immediate scrutiny at home.",
-    "militaryPosture": "The U.S. Indo-Pacific posture includes forward naval and air assets, ISR coverage, cyber defense coordination, and reinforcement options from Japan, Guam, and the Philippine theater. Japan and the Philippines are directly affected by any change in the strait; both are politically supportive but want disciplined coordination before the first exchange of fire.",
-    "alliances": [
+    "economicBackdrop": {
+      "globalConditions": "Global disinflation has stalled, freight markets remain fragile after repeated Red Sea disruptions, and capital is still hypersensitive to geopolitical choke points. Any Taiwan shock would hit an already tense mix of shipping, insurance, energy, and technology markets.",
+      "straitEconomicValue": "The Taiwan Strait matters because it sits beside Taiwan's core export corridors and the world's most important concentration of advanced chip production. A gray-zone inspection regime would not need to stop every ship to do damage; even intermittent delays, boardings, cable cuts, or exclusion zones could disrupt electronics, autos, industrial controls, cloud hardware, and defense supply chains worldwide.",
+      "vulnerabilities": "The most immediate vulnerabilities are commercial shipping confidence, Taiwan's port and power resilience, undersea cables, and allied willingness to absorb sanctions and countersanctions. Markets also fear a split between military reassurance and financial caution among coalition governments.",
+      "marketSentiment": "War-risk premiums, semiconductor equities, Asian FX, and shipping names will respond before official policy does. If Beijing convinces markets that routine transit is no longer routine, the economic damage begins even without a missile launch."
+    },
+    "crisisTimeline": [
       {
-        "name": "Taiwan",
-        "description": "Self-governing island democracy under direct coercive pressure. It needs maritime access, market confidence, and visible reassurance without being pushed into symbolic moves Beijing can frame as a provocation."
+        "daysBeforeStart": -90,
+        "event": "After late-2025 encirclement drills, PLA air and naval activity around Taiwan settles into a new normal: more median-line crossings, more around-island routing, and more public messaging that blockade-style operations are now a routine option.",
+        "significance": "Beijing is conditioning regional audiences to accept higher operational tempo and lower warning time before a real crisis."
       },
       {
-        "name": "Japan",
-        "description": "Critical rear-area ally whose southwest islands, sea lanes, and industrial supply chains are exposed to escalation around Taiwan. Tokyo is central to logistics, deterrence credibility, and coalition cohesion."
+        "daysBeforeStart": -63,
+        "event": "Taiwanese port, customs, and telecom networks absorb a fresh wave of cyber intrusions. The activity looks more like pre-positioning and mapping than immediate sabotage, but the target set is unmistakably logistical.",
+        "significance": "This suggests a campaign designed to pair maritime coercion with disruption of port throughput, customs clearance, and public communications."
       },
       {
-        "name": "Philippines",
-        "description": "Treaty ally whose northern bases, maritime domain, and political signaling matter for access, surveillance, and wider regional escalation control."
+        "daysBeforeStart": -45,
+        "event": "Chinese maritime regulators circulate new language around “traffic safety,” “ship reporting,” and “inspection compliance” for vessels operating in waters west of Taiwan. The measures are framed as administrative, but shipping counsel reads them as the legal shell of a pressure campaign.",
+        "significance": "Beijing is building a bureaucratic justification for coercion that can be presented as regulation rather than blockade."
+      },
+      {
+        "daysBeforeStart": -30,
+        "event": "A new round of PLA joint drills includes missile units, Coast Guard escorts, and east-of-Taiwan naval operations. The exercise pattern mirrors blockade rehearsal more than symbolic signaling.",
+        "significance": "The military piece is now integrated with law-enforcement and gray-zone actors, shrinking the space between pressure and actual interdiction."
+      },
+      {
+        "daysBeforeStart": -18,
+        "event": "Repair activity around offshore cable infrastructure is harassed by nominally civilian vessels and low-level jamming. The incidents remain deniable, but insurers and telecom operators begin contingency planning.",
+        "significance": "Non-kinetic disruption is entering the crisis picture, raising the risk that a shipping problem quickly becomes a communications and market-confidence problem."
+      },
+      {
+        "daysBeforeStart": -12,
+        "event": "Washington, Tokyo, and Manila intensify private consultations on access, ISR, and public messaging. Taipei asks for visible reassurance but also warns that poorly coordinated symbolism could help Beijing frame the crisis as foreign interference.",
+        "significance": "Coalition alignment exists, but it is conditional and politically fragile."
+      },
+      {
+        "daysBeforeStart": -7,
+        "event": "War-risk insurers issue new advisories for the Taiwan Strait and adjacent approaches. Several carriers begin modeling reroutes east of Taiwan and through the Philippine Sea despite the added fuel and scheduling cost.",
+        "significance": "The market is now translating military ambiguity into real economic friction before any formal interdiction has started."
+      },
+      {
+        "daysBeforeStart": -3,
+        "event": "Beijing announces a fresh round of live-fire notices and maritime-control drills off Fujian while state media warns that “outside forces” are attempting to hollow out Chinese sovereignty in the strait.",
+        "significance": "The political narrative is being hardened at home so that backing down later looks more costly."
+      },
+      {
+        "daysBeforeStart": 0,
+        "event": "CRISIS START: Chinese maritime authorities, backed by Coast Guard hulls and an extended PLA exercise, announce a 48-hour registration and inspection regime for selected commercial traffic transiting key parts of the Taiwan Strait. The measure is presented as a safety and customs action, but shipping analysts assess it as the beginning of a gray-zone blockade rehearsal with immediate coercive effect.",
+        "significance": "Beijing is trying to establish control without using the word blockade. The coalition now has to decide whether to accept the new normal, contest it diplomatically, or challenge it with visible military and economic moves."
       }
-    ]
-  },
-  "rivalState": {
-    "name": "People's Republic of China",
-    "governmentType": "Party-led authoritarian state with decision-making concentrated in the top party leadership, the Central Military Commission, and the security apparatus.",
-    "leaderTitle": "General Secretary and Chairman of the Central Military Commission",
-    "domesticContext": "Beijing is balancing slower growth, property-sector strain, local-government debt pressure, and an ideological insistence that outside powers cannot normalize support for Taiwan. Nationalist messaging makes de-escalation politically costly if it looks like retreat under U.S. pressure.",
-    "militaryCapability": "The PLA can combine Eastern Theater Command naval and air forces, Rocket Force signaling, Coast Guard hulls, maritime militia, cyber operations, and information warfare into a layered pressure campaign. The most dangerous feature of the scenario is not an immediate amphibious invasion; it is Beijing's ability to make coercion look administrative, legal, and reversible until the moment it is not.",
-    "economicLeverage": "China can weaponize market fear, shipping uncertainty, trade dependence, manufacturing exposure, rare-earth leverage, and the threat of countersanctions. It also knows that many U.S. partners fear the economic cost of a prolonged Taiwan crisis even if they oppose coercion in principle.",
-    "knownRedLines": "High-confidence red lines include any move toward formal Taiwanese independence, permanent foreign military basing on Taiwan, or direct strikes on mainland territory. A sustained allied military posture east of Taiwan combined with financial sanctions on major Chinese institutions would likely trigger rapid counter-escalation across military, cyber, and economic domains."
-  },
-  "stakeholders": [
-    {
-      "id": "taiwan_government",
-      "name": "Government of Taiwan",
-      "type": "ally",
-      "description": "Taipei needs commerce to continue, markets to stay functional, and foreign support to remain visible without appearing to outsource its survival. Public calm and military readiness have to move together.",
-      "influence": "Controls civil defense, port operations, reserve activation, and public messaging inside Taiwan. Its tone can calm or inflame the situation.",
-      "disposition": "Wants clear reassurance and visible coalition presence, but must avoid actions Beijing can package as a formal break from the status quo."
+    ],
+    "intelligenceGaps": [
+      "Is Beijing seeking a temporary coercive bargaining chip, a new semi-permanent inspection norm, or a pathway toward a true blockade?",
+      "How much allied economic pain will Tokyo, Manila, Canberra, and European partners tolerate before coalition discipline weakens?",
+      "How far has China already pre-positioned cyber and cable-disruption capabilities against Taiwan's logistics, power, and communications networks?",
+      "Would a Chinese boarding or collision be tightly controlled political theater, or a sign that local commanders are operating under looser escalation guidance?",
+      "How quickly would commercial shipping and insurance markets abandon routine transit if the first inspection or detention goes badly?",
+      "What internal debate is happening in Beijing between pressure advocates, military risk managers, and economic technocrats?"
+    ],
+    "legalFramework": {
+      "maritimeLaw": "The central Taiwan Strait and many of its approaches lie outside any state's recognized territorial sea, even though Beijing increasingly talks as if it can administer the entire corridor. Under UNCLOS, routine international navigation through the strait and adjacent high-seas/EEZ waters should not be subject to unilateral coercive inspection rules imposed for political leverage. China can still wrap pressure in safety and customs language, creating enough ambiguity to slow commercial response even when the legal argument is weak.",
+      "treatyObligations": "There is no formal U.S. mutual-defense treaty with Taiwan, but the Taiwan Relations Act, long-standing U.S. policy commitments, and allied credibility all make the crisis strategically central. Japan and the Philippines become relevant quickly because any east-of-Taiwan or south-of-Taiwan escalation touches treaty geography, access, or operational support. That means a “Taiwan-only” crisis can widen into a broader alliance crisis faster than official statements imply.",
+      "sanctionsFramework": "The United States and partners already have export-control, entity-list, and sanctions tools related to China, but any major crisis would force harder choices: financial sanctions on state-linked institutions, shipping restrictions, insurance measures, export-control expansion, and countersanctions risk. The problem is not a lack of tools; it is that every serious tool carries blowback for allies, markets, and domestic politics."
     },
-    {
-      "id": "japan_government",
-      "name": "Government of Japan",
-      "type": "ally",
-      "description": "Japan is exposed through southwest island security, shipping lanes, energy imports, and industrial supply chains. It is both a military enabler and a political barometer for the wider coalition.",
-      "influence": "Can provide basing access, logistics, maritime surveillance, and diplomatic weight; also shapes how much broader allied support holds together.",
-      "disposition": "Supportive of deterrence, but highly sensitive to uncontrolled escalation and any strike activity near Okinawa or the Ryukyus."
+    "theaterDiagram": {
+      "path": "/assets/images/taiwan-strait-theater-diagram.svg",
+      "alt": "Diagram of the Taiwan Strait showing Taiwan, the Fujian coast, key ports, the central transit corridor, and Beijing's inspection pressure zone.",
+      "caption": "Most commercial traffic uses the central Taiwan Strait corridor between Taiwan's west-coast ports and the wider East and South China Sea trade system. Beijing's inspection regime pressures that lane without declaring a formal blockade."
     },
-    {
-      "id": "philippines_government",
-      "name": "Government of the Philippines",
-      "type": "ally",
-      "description": "Manila matters because northern Philippine access, airspace, and political signaling affect the coalition's ability to monitor and reinforce the theater. It also has its own China-related maritime friction to manage.",
-      "influence": "Can widen or constrain allied access south of Taiwan through basing, overflight, and public posture choices.",
-      "disposition": "Aligned with the United States but wary of becoming the first retaliatory target if the crisis spills south."
-    },
-    {
-      "id": "shipping_insurance_markets",
-      "name": "Commercial shipping and war-risk insurers",
-      "type": "commercial",
-      "description": "Shipping lines and insurers will reprice or reroute before diplomats finish their first call. They translate military ambiguity into real costs almost immediately.",
-      "influence": "Can make the strait economically unusable without a formal blockade by withdrawing coverage, raising premiums, or diverting traffic.",
-      "disposition": "Risk-averse and highly responsive to boarding incidents, missile notices, cable cuts, and cyber disruption."
-    },
-    {
-      "id": "global_chip_buyers",
-      "name": "Global semiconductor and electronics buyers",
-      "type": "commercial",
-      "description": "Manufacturers and cloud-hardware supply chains are directly exposed to any disruption around Taiwan's fabrication and export system. Their panic buying can create shortages before any factory is physically damaged.",
-      "influence": "Contingency ordering, inventory hoarding, and market signaling amplify global economic stress and political pressure on coalition governments.",
-      "disposition": "They want credible assurance that fabrication, power, ports, and air cargo flows will keep moving."
+    "openingBackground": {
+      "summary": "China claims Taiwan as part of its territory, while Taiwan operates as a self-governing democracy with its own government, military, and global trade relationships. Because Taiwan sits at the center of advanced chip production and major regional shipping routes, coercion in the strait can create military, commercial, and market consequences at the same time.",
+      "sections": [
+        {
+          "id": "territorial_dispute",
+          "title": "Territorial Dispute",
+          "body": "Beijing treats unification with Taiwan as a core sovereignty issue and rejects any move that looks like permanent separation or foreign-backed normalization. Taiwan rejects rule from Beijing and depends on deterrence, trade, and external support to preserve the status quo."
+        },
+        {
+          "id": "economic_relevance",
+          "title": "Why Taiwan Matters Economically",
+          "body": "Taiwan sits beside one of the world's most important trade corridors and houses a critical share of advanced semiconductor production. Even limited disruption around its ports, cables, power, or shipping lanes can hit electronics, industrial supply chains, insurance pricing, and broader market confidence very quickly."
+        },
+        {
+          "id": "military_alliance_stakes",
+          "title": "Military And Alliance Stakes",
+          "body": "A Taiwan crisis is not just a cross-strait problem. It immediately tests U.S. credibility, Japanese and Philippine support, and how far allies will go to contest coercion without sliding into direct war."
+        },
+        {
+          "id": "first_disruptions",
+          "title": "What Disruption Would Hit First",
+          "body": "Commercial behavior usually moves before official policy. Shipping firms, war-risk insurers, and manufacturers start repricing and rerouting as soon as routine transit no longer looks routine, which means the first economic damage can arrive before any open exchange of fire."
+        }
+      ]
     }
-  ],
-  "economicBackdrop": {
-    "globalConditions": "Global disinflation has stalled, freight markets remain fragile after repeated Red Sea disruptions, and capital is still hypersensitive to geopolitical choke points. Any Taiwan shock would hit an already tense mix of shipping, insurance, energy, and technology markets.",
-    "straitEconomicValue": "The Taiwan Strait matters because it sits beside Taiwan's core export corridors and the world's most important concentration of advanced chip production. A gray-zone inspection regime would not need to stop every ship to do damage; even intermittent delays, boardings, cable cuts, or exclusion zones could disrupt electronics, autos, industrial controls, cloud hardware, and defense supply chains worldwide.",
-    "vulnerabilities": "The most immediate vulnerabilities are commercial shipping confidence, Taiwan's port and power resilience, undersea cables, and allied willingness to absorb sanctions and countersanctions. Markets also fear a split between military reassurance and financial caution among coalition governments.",
-    "marketSentiment": "War-risk premiums, semiconductor equities, Asian FX, and shipping names will respond before official policy does. If Beijing convinces markets that routine transit is no longer routine, the economic damage begins even without a missile launch."
   },
-  "crisisTimeline": [
-    {
-      "daysBeforeStart": -90,
-      "event": "After late-2025 encirclement drills, PLA air and naval activity around Taiwan settles into a new normal: more median-line crossings, more around-island routing, and more public messaging that blockade-style operations are now a routine option.",
-      "significance": "Beijing is conditioning regional audiences to accept higher operational tempo and lower warning time before a real crisis."
+  {
+    "scenarioId": "northern_strait_black_swan",
+    "region": {
+      "name": "Taiwan Strait",
+      "description": "The Taiwan Strait separates Taiwan from mainland China's Fujian coast and links the East China Sea to the South China Sea. Traffic moving between Northeast Asia, Southeast Asia, and global markets routinely crosses the strait or its immediate approaches. The corridor also sits beside Taiwan's west-coast ports, dense undersea cable routes, and a fabrication base that anchors a large share of the world's advanced semiconductor output. In this scenario the danger begins before any declared blockade: an abnormal signal, a degraded picture, and a market primed to treat ambiguity as the first stage of coercion.",
+      "coordinates": "Approx. 23.5°N to 26.5°N latitude, 119.5°E to 121.5°E longitude",
+      "keyFeatures": [
+        "Kaohsiung, Taichung, and Keelung ports — Taiwan's main commercial gateways",
+        "Fujian coast military complexes near Xiamen, Fuzhou, and Pingtan — primary PLA staging areas",
+        "Median line and central transit corridor — core gray-zone pressure zone",
+        "Penghu archipelago — forward Taiwanese position astride the western approaches",
+        "Bashi Channel south of Taiwan — route linking the strait to the wider Pacific and Philippine Sea",
+        "Undersea cable landing points and west-coast power / fabrication infrastructure — high-value non-kinetic targets"
+      ],
+      "climateSeason": "Late March into early April. Spring fog, rougher cross-strait winds, and intermittent heavy rain degrade visibility and complicate maritime identification. Conditions are not severe enough to halt operations, but they increase the chance that an unsafe intercept or misread maneuver becomes an incident."
     },
-    {
-      "daysBeforeStart": -63,
-      "event": "Taiwanese port, customs, and telecom networks absorb a fresh wave of cyber intrusions. The activity looks more like pre-positioning and mapping than immediate sabotage, but the target set is unmistakably logistical.",
-      "significance": "This suggests a campaign designed to pair maritime coercion with disruption of port throughput, customs clearance, and public communications."
+    "dateAnchor": {
+      "year": 2026,
+      "month": "March-April",
+      "dayRange": "The 8-window run spans the acute period between the first abnormal Dongsha signal and the point where blockade, strike, or managed relief becomes the live outcome question.",
+      "timeContext": "Cross-strait military tempo remains elevated after late-2025 blockade rehearsals, but the opening shock here is not a declared inspection regime. It begins with an abnormal signal, an unreliable picture, and a market already primed to overreact if ambiguity hardens into control."
     },
-    {
-      "daysBeforeStart": -45,
-      "event": "Chinese maritime regulators circulate new language around “traffic safety,” “ship reporting,” and “inspection compliance” for vessels operating in waters west of Taiwan. The measures are framed as administrative, but shipping counsel reads them as the legal shell of a pressure campaign.",
-      "significance": "Beijing is building a bureaucratic justification for coercion that can be presented as regulation rather than blockade."
+    "playerNation": {
+      "name": "United States and Indo-Pacific partners",
+      "governmentType": "The player role represents the U.S. National Security Advisor coordinating a coalition built around Washington, Taipei, Tokyo, Manila, Canberra, and supportive European partners.",
+      "currentLeader": "President of the United States",
+      "domesticContext": "Washington is balancing inflation sensitivity, industrial-policy pressure around semiconductor supply, and a domestic debate over how much military risk the U.S. should absorb in Asia. Any visible loss of credibility in the strait would reverberate through alliance politics, but a fast military escalation would face immediate scrutiny at home.",
+      "militaryPosture": "The U.S. Indo-Pacific posture includes forward naval and air assets, ISR coverage, cyber defense coordination, and reinforcement options from Japan, Guam, and the Philippine theater. Japan and the Philippines are directly affected by any change in the strait; both are politically supportive but want disciplined coordination before the first exchange of fire.",
+      "alliances": [
+        {
+          "name": "Taiwan",
+          "description": "Self-governing island democracy under direct coercive pressure. It needs maritime access, market confidence, and visible reassurance without being pushed into symbolic moves Beijing can frame as a provocation."
+        },
+        {
+          "name": "Japan",
+          "description": "Critical rear-area ally whose southwest islands, sea lanes, and industrial supply chains are exposed to escalation around Taiwan. Tokyo is central to logistics, deterrence credibility, and coalition cohesion."
+        },
+        {
+          "name": "Philippines",
+          "description": "Treaty ally whose northern bases, maritime domain, and political signaling matter for access, surveillance, and wider regional escalation control."
+        }
+      ]
     },
-    {
-      "daysBeforeStart": -30,
-      "event": "A new round of PLA joint drills includes missile units, Coast Guard escorts, and east-of-Taiwan naval operations. The exercise pattern mirrors blockade rehearsal more than symbolic signaling.",
-      "significance": "The military piece is now integrated with law-enforcement and gray-zone actors, shrinking the space between pressure and actual interdiction."
+    "rivalState": {
+      "name": "People's Republic of China",
+      "governmentType": "Party-led authoritarian state with decision-making concentrated in the top party leadership, the Central Military Commission, and the security apparatus.",
+      "leaderTitle": "General Secretary and Chairman of the Central Military Commission",
+      "domesticContext": "Beijing is balancing slower growth, property-sector strain, local-government debt pressure, and an ideological insistence that outside powers cannot normalize support for Taiwan. Nationalist messaging makes de-escalation politically costly if it looks like retreat under U.S. pressure.",
+      "militaryCapability": "The PLA can combine Eastern Theater Command naval and air forces, Rocket Force signaling, Coast Guard hulls, maritime militia, cyber operations, and information warfare into a layered pressure campaign. The most dangerous feature of the scenario is not an immediate amphibious invasion; it is Beijing's ability to make coercion look administrative, legal, and reversible until the moment it is not.",
+      "economicLeverage": "China can weaponize market fear, shipping uncertainty, trade dependence, manufacturing exposure, rare-earth leverage, and the threat of countersanctions. It also knows that many U.S. partners fear the economic cost of a prolonged Taiwan crisis even if they oppose coercion in principle.",
+      "knownRedLines": "High-confidence red lines include any move toward formal Taiwanese independence, permanent foreign military basing on Taiwan, or direct strikes on mainland territory. A sustained allied military posture east of Taiwan combined with financial sanctions on major Chinese institutions would likely trigger rapid counter-escalation across military, cyber, and economic domains."
     },
-    {
-      "daysBeforeStart": -18,
-      "event": "Repair activity around offshore cable infrastructure is harassed by nominally civilian vessels and low-level jamming. The incidents remain deniable, but insurers and telecom operators begin contingency planning.",
-      "significance": "Non-kinetic disruption is entering the crisis picture, raising the risk that a shipping problem quickly becomes a communications and market-confidence problem."
-    },
-    {
-      "daysBeforeStart": -12,
-      "event": "Washington, Tokyo, and Manila intensify private consultations on access, ISR, and public messaging. Taipei asks for visible reassurance but also warns that poorly coordinated symbolism could help Beijing frame the crisis as foreign interference.",
-      "significance": "Coalition alignment exists, but it is conditional and politically fragile."
-    },
-    {
-      "daysBeforeStart": -7,
-      "event": "War-risk insurers issue new advisories for the Taiwan Strait and adjacent approaches. Several carriers begin modeling reroutes east of Taiwan and through the Philippine Sea despite the added fuel and scheduling cost.",
-      "significance": "The market is now translating military ambiguity into real economic friction before any formal interdiction has started."
-    },
-    {
-      "daysBeforeStart": -3,
-      "event": "Beijing announces a fresh round of live-fire notices and maritime-control drills off Fujian while state media warns that “outside forces” are attempting to hollow out Chinese sovereignty in the strait.",
-      "significance": "The political narrative is being hardened at home so that backing down later looks more costly."
-    },
-    {
-      "daysBeforeStart": 0,
-      "event": "CRISIS START: Chinese maritime authorities, backed by Coast Guard hulls and an extended PLA exercise, announce a 48-hour registration and inspection regime for selected commercial traffic transiting key parts of the Taiwan Strait. The measure is presented as a safety and customs action, but shipping analysts assess it as the beginning of a gray-zone blockade rehearsal with immediate coercive effect.",
-      "significance": "Beijing is trying to establish control without using the word blockade. The coalition now has to decide whether to accept the new normal, contest it diplomatically, or challenge it with visible military and economic moves."
-    }
-  ],
-  "intelligenceGaps": [
-    "Is Beijing seeking a temporary coercive bargaining chip, a new semi-permanent inspection norm, or a pathway toward a true blockade?",
-    "How much allied economic pain will Tokyo, Manila, Canberra, and European partners tolerate before coalition discipline weakens?",
-    "How far has China already pre-positioned cyber and cable-disruption capabilities against Taiwan's logistics, power, and communications networks?",
-    "Would a Chinese boarding or collision be tightly controlled political theater, or a sign that local commanders are operating under looser escalation guidance?",
-    "How quickly would commercial shipping and insurance markets abandon routine transit if the first inspection or detention goes badly?",
-    "What internal debate is happening in Beijing between pressure advocates, military risk managers, and economic technocrats?"
-  ],
-  "legalFramework": {
-    "maritimeLaw": "The central Taiwan Strait and many of its approaches lie outside any state's recognized territorial sea, even though Beijing increasingly talks as if it can administer the entire corridor. Under UNCLOS, routine international navigation through the strait and adjacent high-seas/EEZ waters should not be subject to unilateral coercive inspection rules imposed for political leverage. China can still wrap pressure in safety and customs language, creating enough ambiguity to slow commercial response even when the legal argument is weak.",
-    "treatyObligations": "There is no formal U.S. mutual-defense treaty with Taiwan, but the Taiwan Relations Act, long-standing U.S. policy commitments, and allied credibility all make the crisis strategically central. Japan and the Philippines become relevant quickly because any east-of-Taiwan or south-of-Taiwan escalation touches treaty geography, access, or operational support. That means a “Taiwan-only” crisis can widen into a broader alliance crisis faster than official statements imply.",
-    "sanctionsFramework": "The United States and partners already have export-control, entity-list, and sanctions tools related to China, but any major crisis would force harder choices: financial sanctions on state-linked institutions, shipping restrictions, insurance measures, export-control expansion, and countersanctions risk. The problem is not a lack of tools; it is that every serious tool carries blowback for allies, markets, and domestic politics."
-  },
-  "theaterDiagram": {
-    "path": "/assets/images/taiwan-strait-theater-diagram.svg",
-    "alt": "Diagram of the Taiwan Strait showing Taiwan, the Fujian coast, key ports, the central transit corridor, and Beijing's inspection pressure zone.",
-    "caption": "Most commercial traffic uses the central Taiwan Strait corridor between Taiwan's west-coast ports and the wider East and South China Sea trade system. Beijing's inspection regime pressures that lane without declaring a formal blockade."
-  },
-  "openingBackground": {
-    "summary": "China claims Taiwan as part of its territory, while Taiwan operates as a self-governing democracy with its own government, military, and global trade relationships. Because Taiwan sits at the center of advanced chip production and major regional shipping routes, coercion in the strait can create military, commercial, and market consequences at the same time.",
-    "sections": [
+    "stakeholders": [
       {
-        "id": "territorial_dispute",
-        "title": "Territorial Dispute",
-        "body": "Beijing treats unification with Taiwan as a core sovereignty issue and rejects any move that looks like permanent separation or foreign-backed normalization. Taiwan rejects rule from Beijing and depends on deterrence, trade, and external support to preserve the status quo."
+        "id": "taiwan_government",
+        "name": "Government of Taiwan",
+        "type": "ally",
+        "description": "Taipei needs commerce to continue, markets to stay functional, and foreign support to remain visible without appearing to outsource its survival. Public calm and military readiness have to move together.",
+        "influence": "Controls civil defense, port operations, reserve activation, and public messaging inside Taiwan. Its tone can calm or inflame the situation.",
+        "disposition": "Wants clear reassurance and visible coalition presence, but must avoid actions Beijing can package as a formal break from the status quo."
       },
       {
-        "id": "economic_relevance",
-        "title": "Why Taiwan Matters Economically",
-        "body": "Taiwan sits beside one of the world's most important trade corridors and houses a critical share of advanced semiconductor production. Even limited disruption around its ports, cables, power, or shipping lanes can hit electronics, industrial supply chains, insurance pricing, and broader market confidence very quickly."
+        "id": "japan_government",
+        "name": "Government of Japan",
+        "type": "ally",
+        "description": "Japan is exposed through southwest island security, shipping lanes, energy imports, and industrial supply chains. It is both a military enabler and a political barometer for the wider coalition.",
+        "influence": "Can provide basing access, logistics, maritime surveillance, and diplomatic weight; also shapes how much broader allied support holds together.",
+        "disposition": "Supportive of deterrence, but highly sensitive to uncontrolled escalation and any strike activity near Okinawa or the Ryukyus."
       },
       {
-        "id": "military_alliance_stakes",
-        "title": "Military And Alliance Stakes",
-        "body": "A Taiwan crisis is not just a cross-strait problem. It immediately tests U.S. credibility, Japanese and Philippine support, and how far allies will go to contest coercion without sliding into direct war."
+        "id": "philippines_government",
+        "name": "Government of the Philippines",
+        "type": "ally",
+        "description": "Manila matters because northern Philippine access, airspace, and political signaling affect the coalition's ability to monitor and reinforce the theater. It also has its own China-related maritime friction to manage.",
+        "influence": "Can widen or constrain allied access south of Taiwan through basing, overflight, and public posture choices.",
+        "disposition": "Aligned with the United States but wary of becoming the first retaliatory target if the crisis spills south."
       },
       {
-        "id": "first_disruptions",
-        "title": "What Disruption Would Hit First",
-        "body": "Commercial behavior usually moves before official policy. Shipping firms, war-risk insurers, and manufacturers start repricing and rerouting as soon as routine transit no longer looks routine, which means the first economic damage can arrive before any open exchange of fire."
+        "id": "shipping_insurance_markets",
+        "name": "Commercial shipping and war-risk insurers",
+        "type": "commercial",
+        "description": "Shipping lines and insurers will reprice or reroute before diplomats finish their first call. They translate military ambiguity into real costs almost immediately.",
+        "influence": "Can make the strait economically unusable without a formal blockade by withdrawing coverage, raising premiums, or diverting traffic.",
+        "disposition": "Risk-averse and highly responsive to boarding incidents, missile notices, cable cuts, and cyber disruption."
+      },
+      {
+        "id": "global_chip_buyers",
+        "name": "Global semiconductor and electronics buyers",
+        "type": "commercial",
+        "description": "Manufacturers and cloud-hardware supply chains are directly exposed to any disruption around Taiwan's fabrication and export system. Their panic buying can create shortages before any factory is physically damaged.",
+        "influence": "Contingency ordering, inventory hoarding, and market signaling amplify global economic stress and political pressure on coalition governments.",
+        "disposition": "They want credible assurance that fabrication, power, ports, and air cargo flows will keep moving."
       }
-    ]
+    ],
+    "economicBackdrop": {
+      "globalConditions": "Global disinflation has stalled, freight markets remain fragile after repeated Red Sea disruptions, and capital is still hypersensitive to geopolitical choke points. Any Taiwan shock would hit an already tense mix of shipping, insurance, energy, and technology markets.",
+      "straitEconomicValue": "The Taiwan Strait matters because it sits beside Taiwan's core export corridors and the world's most important concentration of advanced chip production. The opening danger is not a formal blockade; it is a confusing signal picture that can still trigger rerouting, insurance repricing, chip anxiety, and alliance stress long before anyone admits the crisis has hardened.",
+      "vulnerabilities": "The most immediate vulnerabilities are commercial shipping confidence, Taiwan's port and power resilience, undersea cables, and allied willingness to absorb sanctions and countersanctions. Markets also fear a split between military reassurance and financial caution among coalition governments.",
+      "marketSentiment": "War-risk premiums, semiconductor equities, Asian FX, and shipping names will respond before official policy does. If Beijing convinces markets that routine transit is no longer routine, the economic damage begins even without a missile launch."
+    },
+    "crisisTimeline": [
+      {
+        "daysBeforeStart": -90,
+        "event": "After late-2025 encirclement drills, PLA air and naval activity around Taiwan settles into a new normal: more median-line crossings, more around-island routing, and more public messaging that blockade-style operations are now a routine option.",
+        "significance": "Beijing is conditioning regional audiences to accept higher operational tempo and lower warning time before a real crisis."
+      },
+      {
+        "daysBeforeStart": -63,
+        "event": "Taiwanese port, customs, and telecom networks absorb a fresh wave of cyber intrusions. The activity looks more like pre-positioning and mapping than immediate sabotage, but the target set is unmistakably logistical.",
+        "significance": "This suggests a campaign designed to pair maritime coercion with disruption of port throughput, customs clearance, and public communications."
+      },
+      {
+        "daysBeforeStart": -45,
+        "event": "Chinese maritime regulators circulate new language around “traffic safety,” “ship reporting,” and “inspection compliance” for vessels operating in waters west of Taiwan. The measures are framed as administrative, but shipping counsel reads them as the legal shell of a pressure campaign.",
+        "significance": "Beijing is building a bureaucratic justification for coercion that can be presented as regulation rather than blockade."
+      },
+      {
+        "daysBeforeStart": -30,
+        "event": "A new round of PLA joint drills includes missile units, Coast Guard escorts, and east-of-Taiwan naval operations. The exercise pattern mirrors blockade rehearsal more than symbolic signaling.",
+        "significance": "The military piece is now integrated with law-enforcement and gray-zone actors, shrinking the space between pressure and actual interdiction."
+      },
+      {
+        "daysBeforeStart": -18,
+        "event": "Repair activity around offshore cable infrastructure is harassed by nominally civilian vessels and low-level jamming. The incidents remain deniable, but insurers and telecom operators begin contingency planning.",
+        "significance": "Non-kinetic disruption is entering the crisis picture, raising the risk that a shipping problem quickly becomes a communications and market-confidence problem."
+      },
+      {
+        "daysBeforeStart": -12,
+        "event": "Washington, Tokyo, and Manila intensify private consultations on access, ISR, and public messaging. Taipei asks for visible reassurance but also warns that poorly coordinated symbolism could help Beijing frame the crisis as foreign interference.",
+        "significance": "Coalition alignment exists, but it is conditional and politically fragile."
+      },
+      {
+        "daysBeforeStart": -7,
+        "event": "War-risk insurers issue new advisories for the Taiwan Strait and adjacent approaches. Several carriers begin modeling reroutes east of Taiwan and through the Philippine Sea despite the added fuel and scheduling cost.",
+        "significance": "The market is now translating military ambiguity into real economic friction before any formal interdiction has started."
+      },
+      {
+        "daysBeforeStart": -3,
+        "event": "Beijing announces a fresh round of live-fire notices and maritime-control drills off Fujian while state media warns that “outside forces” are attempting to hollow out Chinese sovereignty in the strait.",
+        "significance": "The political narrative is being hardened at home so that backing down later looks more costly."
+      },
+      {
+        "daysBeforeStart": 0,
+        "event": "CRISIS START: Taiwanese and U.S. sensors pick up an abnormal drone and maritime pattern near Dongsha and the southern approaches to the Strait, while multiple civilian transponders begin spoofing positions in ways that make the radar picture unreliable. Beijing does not explain the activity, but shipping desks and intelligence shops both conclude that the ambiguity itself may be the opening move.",
+        "significance": "The coalition now has to decide whether this is a probe, a deception screen, or the first move in a coercive campaign that has not yet declared itself."
+      }
+    ],
+    "intelligenceGaps": [
+      "Is Beijing using the Dongsha anomaly as a probe, a deception screen for force movement, or the soft opening of a later inspection and control regime?",
+      "How much allied economic pain will Tokyo, Manila, Canberra, and European partners tolerate before coalition discipline weakens?",
+      "How far has China already pre-positioned cyber and cable-disruption capabilities against Taiwan's logistics, power, and communications networks?",
+      "Would a boarding, collision, or unsafe intercept be tightly controlled political theater, or a sign that local commanders are operating under looser escalation guidance?",
+      "How quickly would commercial shipping and insurance markets abandon routine transit if the radar picture remains unreliable for another 24-48 hours?",
+      "What internal debate is happening in Beijing between deception advocates, military risk managers, and economic technocrats?"
+    ],
+    "legalFramework": {
+      "maritimeLaw": "The central Taiwan Strait and many of its approaches lie outside any state's recognized territorial sea, even though Beijing increasingly talks as if it can administer the entire corridor. Under UNCLOS, routine international navigation through the strait and adjacent high-seas/EEZ waters should not be subject to unilateral coercive inspection rules imposed for political leverage. China can still wrap pressure in safety and customs language, creating enough ambiguity to slow commercial response even when the legal argument is weak.",
+      "treatyObligations": "There is no formal U.S. mutual-defense treaty with Taiwan, but the Taiwan Relations Act, long-standing U.S. policy commitments, and allied credibility all make the crisis strategically central. Japan and the Philippines become relevant quickly because any east-of-Taiwan or south-of-Taiwan escalation touches treaty geography, access, or operational support. That means a “Taiwan-only” crisis can widen into a broader alliance crisis faster than official statements imply.",
+      "sanctionsFramework": "The United States and partners already have export-control, entity-list, and sanctions tools related to China, but any major crisis would force harder choices: financial sanctions on state-linked institutions, shipping restrictions, insurance measures, export-control expansion, and countersanctions risk. The problem is not a lack of tools; it is that every serious tool carries blowback for allies, markets, and domestic politics."
+    },
+    "theaterDiagram": {
+      "path": "/assets/images/taiwan-strait-theater-diagram.svg",
+      "alt": "Diagram of the Taiwan Strait showing Taiwan, the Fujian coast, key ports, the central transit corridor, and Beijing's inspection pressure zone.",
+      "caption": "Most commercial traffic uses the central Taiwan Strait corridor between Taiwan's west-coast ports and the wider East and South China Sea trade system. Control or confusion in that lane can delay, inspect, or intimidate shipping before Beijing ever declares a formal blockade."
+    },
+    "openingBackground": {
+      "summary": "China claims Taiwan as part of its territory, while Taiwan governs itself and anchors one of the world’s most important semiconductor and shipping systems. That makes the Taiwan Strait dangerous not just because war is possible, but because ambiguous coercion here can trigger military, commercial, and financial shocks long before open conflict begins.",
+      "sections": [
+        {
+          "id": "territorial_dispute",
+          "title": "Territorial dispute",
+          "body": "Beijing treats unification with Taiwan as unfinished sovereignty and increasingly uses gray-zone pressure to narrow Taiwan’s practical autonomy without declaring war. Taiwan rejects PRC rule and depends on deterrence, trade access, and external support to preserve the status quo."
+        },
+        {
+          "id": "economic_relevance",
+          "title": "Why Taiwan matters economically",
+          "body": "Taiwan sits beside a critical commercial corridor and houses a large share of advanced chip fabrication. Even limited disruption around its ports, cables, logistics systems, or surrounding sea lanes can ripple into electronics, industrial supply chains, insurers, and global risk assets within hours."
+        },
+        {
+          "id": "military_alliance_stakes",
+          "title": "Military and alliance stakes",
+          "body": "A Taiwan crisis tests U.S. credibility, Japanese and Philippine support, and how much allied political and military risk the coalition will actually absorb in Asia. The danger is often less an immediate invasion than a sequence of coercive moves that narrow the coalition’s room to act."
+        },
+        {
+          "id": "first_disruptions",
+          "title": "What disruption hits first",
+          "body": "Commercial behavior usually moves first. Shipping firms, insurers, and manufacturers begin repricing or rerouting as soon as the corridor looks less routine, which means the first damage can be financial and logistical long before a missile launch."
+        }
+      ]
+    }
   }
-}
+]

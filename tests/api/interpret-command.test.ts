@@ -1,11 +1,38 @@
 import { describe, expect, it } from 'vitest';
 
-import { actions } from '@wargames/content';
+import { getScenario, actions } from '@wargames/content';
+import { initializeGameState } from '@wargames/engine';
 
 import { interpretCommand } from '../../apps/api/src/interpret';
 
 describe('interpretCommand', () => {
-  const offered = actions.filter((entry) => entry.actor === 'player').slice(0, 8);
+  const scenario = getScenario('northern_strait_black_swan');
+  const offered = scenario.availablePlayerActionIds
+    .map((actionId) => actions.find((entry) => entry.id === actionId))
+    .filter((entry): entry is (typeof actions)[number] => Boolean(entry));
+  const initialState = initializeGameState('episode-test', 'seed-test', {
+    scenario,
+    adversaryProfile: {
+      id: 'test-profile',
+      name: 'Test Adversary',
+      description: 'Test',
+      riskTolerance: 0.5,
+      escalationThreshold: 0.5,
+      covertPreference: 0.5,
+      egoSensitivity: 0.5,
+      bluffSensitivity: 0.5,
+      priorities: {
+        preserveEconomy: 0.5,
+        preserveRegimeStability: 0.5,
+        preserveImage: 0.5,
+        projectStrength: 0.5,
+        avoidAllianceBreak: 0.5
+      }
+    },
+    actions,
+    images: []
+  });
+  const currentBeat = scenario.beats.find((beat) => beat.id === initialState.currentBeatId) ?? null;
 
   it('executes on exact action id', () => {
     const action = offered[0];
@@ -41,5 +68,23 @@ describe('interpretCommand', () => {
     const result = interpretCommand('launch weather balloon from mars', offered);
     expect(result.decision).toBe('reject');
     expect(result.interpretedActionId).toBeNull();
+  });
+
+  it('selects a bounded variant for a private custom response', () => {
+    const result = interpretCommand(
+      'Use a quiet private backchannel through a deniable third party to test an offramp',
+      offered,
+      {
+        scenario,
+        state: initialState,
+        currentTruthModel: currentBeat?.truthModel ?? null
+      }
+    );
+
+    expect(result.decision).toBe('execute');
+    expect(result.interpretedActionId).toBe('backchannel_diplomacy');
+    expect(result.variantId).toBe('quiet_probe');
+    expect(result.variantLabel).toBe('Quiet Probe');
+    expect(result.interpretationRationale).toContain('Quiet Probe');
   });
 });
