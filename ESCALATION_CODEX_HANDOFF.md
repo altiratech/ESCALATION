@@ -3777,3 +3777,9 @@ All passed in-session after the refactor.
 ### 66.10.4 Open note
 
 1. Local `wrangler dev` did not expose a reachable listener in this sandbox session, so visual smoke for this pass should happen against the deployed build rather than the local API.
+
+### 66.10.5 Commit / deploy status
+
+1. Commit: `28926a7` `Refactor Flashpoint setup and live context flow`
+2. Push: `origin/main`
+3. Deploy run: `23141037906` `success`
