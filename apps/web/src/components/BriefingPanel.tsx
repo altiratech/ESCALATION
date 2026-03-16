@@ -4,6 +4,7 @@ import type {
   ActionNarrativePhaseContent,
   BeatTruthModel,
   EpisodeMeterHistoryPoint,
+  ImageAsset,
   MeterKey,
   MeterState,
   NarrativeBundle,
@@ -27,6 +28,8 @@ interface BriefingPanelProps {
   scenarioWorld: ScenarioWorldDefinition | null;
   truthModel: BeatTruthModel | null;
   windowContextSections: ScenarioContextSection[];
+  imageAsset: ImageAsset | null;
+  imageCaptionOverride?: string | null;
   supportingSignals: BriefingSignalItem[];
   turnDebrief: TurnDebrief | null;
   recentActionNarrative: {
@@ -47,7 +50,6 @@ interface BriefingPanelProps {
     fragments: string[];
   } | null;
   meters: MeterState;
-  meterLabels: Record<MeterKey, string>;
   previousMeters?: MeterState | undefined;
   meterHistory: EpisodeMeterHistoryPoint[];
 }
@@ -103,37 +105,36 @@ const hiddenDownsideLabel = (category?: string | null): string => {
   return labels[category] ?? 'Delayed downside';
 };
 
-const describeMeterShift = (key: MeterKey, label: string, delta: number): string => {
-  const amount = Math.abs(delta);
+const describeShiftInScene = (key: MeterKey, delta: number): string => {
   if (key === 'economicStability') {
     return delta < 0
-      ? `${label} weakened by ${amount} points, which means commercial conditions felt more fragile immediately.`
-      : `${label} improved by ${amount} points, which means commercial conditions absorbed the move better than expected.`;
+      ? 'Insurers widen cover, cargo planners start holding shipments, and the commercial read darkens almost immediately.'
+      : 'For the moment, freight desks stop assuming the corridor is about to fail outright.'
   }
   if (key === 'energySecurity') {
     return delta < 0
-      ? `${label} fell by ${amount} points, suggesting logistics and supply channels took new strain.`
-      : `${label} improved by ${amount} points, suggesting logistics pressure eased enough to steady planning.`;
+      ? 'Fuel and logistics desks begin treating Taiwan as part of a wider supply shock instead of a contained regional scare.'
+      : 'Energy and logistics planners get a little room back, even if nobody trusts it to last.'
   }
   if (key === 'domesticCohesion') {
     return delta < 0
-      ? `${label} fell by ${amount} points, meaning the political system absorbed the move less comfortably than hoped.`
-      : `${label} improved by ${amount} points, meaning the domestic read held together better than expected.`;
+      ? 'Political aides stop talking only about optics and start asking what shortages, layoffs, or public anger might look like if this keeps spreading.'
+      : 'For a few hours the domestic picture holds, which matters because panic at home can break strategy abroad.'
   }
   if (key === 'militaryReadiness') {
     return delta < 0
-      ? `${label} slipped by ${amount} points, reducing immediate operating slack.`
-      : `${label} rose by ${amount} points, increasing visible operating posture and readiness.`;
+      ? 'Commanders are warning that every new visible move is burning real slack now.'
+      : 'More readiness is on the board, which may steady deterrence or shorten warning time if it is misread.'
   }
   if (key === 'allianceTrust') {
     return delta < 0
-      ? `${label} fell by ${amount} points, which means coalition discipline took a visible hit.`
-      : `${label} improved by ${amount} points, which means allied alignment strengthened around the move.`;
+      ? 'Calls with allied capitals get sharper as governments start diverging on how much more pain they will absorb.'
+      : 'For the moment, allied capitals are speaking from the same page instead of improvising in public.';
   }
 
   return delta > 0
-    ? `${label} rose by ${amount} points, making the next window more dangerous and compressed.`
-    : `${label} fell by ${amount} points, reopening some room before the next hard choice.`;
+    ? 'Hotlines sound busier, pilots and captains sound jumpier, and nobody is trusting the next clean picture.'
+    : 'The pace slackens for the moment, but nobody in the room thinks the danger is gone.';
 };
 
 export const BriefingPanel = ({
@@ -142,13 +143,14 @@ export const BriefingPanel = ({
   scenarioWorld,
   truthModel,
   windowContextSections,
+  imageAsset,
+  imageCaptionOverride,
   supportingSignals,
   turnDebrief,
   recentActionNarrative,
   recentResolvedAction,
   phaseTransition,
   meters,
-  meterLabels,
   previousMeters,
   meterHistory
 }: BriefingPanelProps) => {
@@ -185,7 +187,7 @@ export const BriefingPanel = ({
         details.push(normalizeTickerLine(briefing.tickerLine));
       }
       if (details.length === 0) {
-        details.push('Analyst desk is still validating corroborating signals from theater channels.');
+        details.push('Operators are still trying to match the latest report against theater feeds and commercial traffic data.');
       }
       return details;
     });
@@ -236,33 +238,32 @@ export const BriefingPanel = ({
     return (Object.keys(meters) as MeterKey[])
       .map((key) => ({
         key,
-        label: meterLabels[key],
         delta: meters[key] - previousMeters[key]
       }))
       .filter((entry) => entry.delta !== 0)
       .sort((left, right) => Math.abs(right.delta) - Math.abs(left.delta))
       .slice(0, 2);
-  }, [meterLabels, meters, previousMeters]);
+  }, [meters, previousMeters]);
   const immediateOutcomeCards = recentActionNarrative
     ? [
         {
-          id: 'main_shift',
-          label: 'Main Shift',
+          id: 'everyone_saw',
+          label: 'What Everyone Saw',
+          body: recentActionNarrative.detail.executionNarrative
+        },
+        {
+          id: 'offstage',
+          label: 'What Changed Offstage',
           body:
             recentMeterShifts[0]
-              ? describeMeterShift(recentMeterShifts[0].key, recentMeterShifts[0].label, recentMeterShifts[0].delta)
-              : 'The move changed the pressure picture, but not through one overwhelming visible shift.'
+              ? describeShiftInScene(recentMeterShifts[0].key, recentMeterShifts[0].delta)
+              : recentActionNarrative.detail.successOutcome
         },
         {
-          id: 'best_case',
-          label: 'If This Holds',
-          body: recentActionNarrative.detail.successOutcome
-        },
-        {
-          id: 'new_risk',
+          id: 'room_fears',
           label: recentResolvedAction?.hiddenDownsideCategory
-            ? hiddenDownsideLabel(recentResolvedAction.hiddenDownsideCategory)
-            : 'New Risk',
+            ? `What The Room Fears Now // ${hiddenDownsideLabel(recentResolvedAction.hiddenDownsideCategory)}`
+            : 'What The Room Fears Now',
           body: recentActionNarrative.detail.complicationOutcome
         }
       ]
@@ -534,7 +535,7 @@ export const BriefingPanel = ({
 
   return (
     <section className="console-panel console-panel-muted p-4 sm:p-5">
-      <div className={`grid gap-4 ${scenarioWorld?.theaterDiagram ? 'xl:grid-cols-[1.04fr_0.96fr]' : ''}`}>
+      <div className={`grid gap-4 ${imageAsset || scenarioWorld?.theaterDiagram ? 'xl:grid-cols-[1.04fr_0.96fr]' : ''}`}>
         <div className="space-y-4">
           <article className="console-subpanel px-4 py-3">
             <p className="label">Current Situation</p>
@@ -588,11 +589,39 @@ export const BriefingPanel = ({
           ) : null}
         </div>
 
-        {scenarioWorld?.theaterDiagram ? (
+        {imageAsset ? (
           <figure className="overflow-hidden rounded-md border border-borderTone/80 bg-surface/65">
             <div className="flex items-center justify-between border-b border-borderTone/80 px-3 py-2">
-              <p className="label">Theater Diagram</p>
-              <span className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Route context</span>
+              <p className="label">
+                {imageAsset.kind === 'map'
+                  ? 'Situation Map'
+                  : imageAsset.kind === 'artifact'
+                    ? 'Live Artifact'
+                    : 'Live Visual'}
+              </p>
+              <span className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">
+                {imageAsset.kind === 'map'
+                  ? 'Orientation'
+                  : imageAsset.kind === 'artifact'
+                    ? 'Evidence'
+                    : 'Scene read'}
+              </span>
+            </div>
+            <img
+              src={imageAsset.path}
+              alt={imageAsset.alt}
+              className="h-[18rem] w-full bg-surface object-contain p-2 sm:h-[20rem]"
+              loading="lazy"
+            />
+            <figcaption className="border-t border-borderTone/80 px-3 py-2 text-[0.7rem] leading-relaxed text-textMuted">
+              {imageCaptionOverride ?? imageAsset.caption}
+            </figcaption>
+          </figure>
+        ) : scenarioWorld?.theaterDiagram ? (
+          <figure className="overflow-hidden rounded-md border border-borderTone/80 bg-surface/65">
+            <div className="flex items-center justify-between border-b border-borderTone/80 px-3 py-2">
+              <p className="label">Situation Map</p>
+              <span className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Orientation</span>
             </div>
             <img
               src={scenarioWorld.theaterDiagram.path}

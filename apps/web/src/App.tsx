@@ -4,10 +4,12 @@ import type {
   ActionDefinition,
   ActionNarrativePhaseContent,
   ActionVariantDefinition,
+  BeatNode,
   BeatPhase,
   BootstrapPayload,
   CinematicPhaseTransitionKey,
   EpisodeView,
+  ImageAsset,
   MeterKey,
   MeterState,
   ScenarioContextSection,
@@ -69,6 +71,72 @@ const pacingLabel: Record<'standard' | 'relaxed' | 'off', string> = {
 const normalizeCommand = (value: string): string => value.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
 const normalizeTickerLine = (value: string): string => value.replace(/^(risk|market)\s+ticker:\s*/i, '').trim();
 
+const previewImageKinds: ImageAsset['kind'][] = ['scenario_still', 'artifact', 'documentary_still', 'map'];
+
+const pickPreviewImageAsset = (
+  reference: BootstrapPayload | null,
+  scenario: BootstrapPayload['scenarios'][number] | null,
+  beat: BeatNode | null,
+  options?: {
+    recentImageIds?: string[];
+    selectedAction?: ActionDefinition | null;
+    selectedVariant?: ActionVariantDefinition | null;
+  }
+): ImageAsset | null => {
+  if (!reference || !scenario || !beat) {
+    return null;
+  }
+
+  const recentImageIds = options?.recentImageIds ?? [];
+  const preferredKinds = beat.visualCue?.preferredKinds?.length ? beat.visualCue.preferredKinds : previewImageKinds;
+  const requestedTags = new Set(
+    [
+      ...(beat.imageHints ?? []),
+      ...(beat.visualCue?.tags ?? []),
+      ...(options?.selectedAction?.visualTags ?? []),
+      ...(options?.selectedVariant?.visualTags ?? []),
+      `phase_${beat.phase}`,
+      beat.visualCue?.branchStage ? `branch_${beat.visualCue.branchStage}` : null
+    ]
+      .filter((tag): tag is string => Boolean(tag))
+      .map((tag) => tag.toLowerCase())
+  );
+
+  const candidates = reference.images
+    .filter((asset) => asset.environment === scenario.environment || asset.environment === 'generic')
+    .filter((asset) => !recentImageIds.includes(asset.id))
+    .map((asset) => {
+      const kindScore = preferredKinds.includes(asset.kind)
+        ? (preferredKinds.length - preferredKinds.indexOf(asset.kind)) * 6
+        : 0;
+      const tagScore = asset.tags.reduce(
+        (score, tag) => score + (requestedTags.has(tag.toLowerCase()) ? 4 : 0),
+        0
+      );
+      const mapPenalty =
+        asset.kind === 'map' && preferredKinds[0] !== 'map' && !requestedTags.has('map') ? -6 : 0;
+
+      return {
+        asset,
+        score: kindScore + tagScore + mapPenalty
+      };
+    })
+    .sort((left, right) => right.score - left.score || left.asset.id.localeCompare(right.asset.id));
+
+  if (candidates[0] && candidates[0].score > 0) {
+    return candidates[0].asset;
+  }
+
+  return (
+    reference.images.find(
+      (asset) =>
+        (asset.environment === scenario.environment || asset.environment === 'generic') &&
+        asset.kind !== 'map'
+    ) ??
+    null
+  );
+};
+
 const buildDynamicContextSections = (
   turn: number,
   meters: MeterState,
@@ -96,47 +164,47 @@ const buildDynamicContextSections = (
     shifts.length > 0
       ? {
           id: 'window_change',
-          title: 'What Changed This Window',
+          title: 'What Shifted Under The Surface',
           body: shifts
             .map((entry) => {
               if (entry.key === 'economicStability') {
                 return entry.delta < 0
-                  ? 'Commercial stress widened and markets are treating the strait disruption as more than a passing signal.'
-                  : 'Commercial stress eased slightly, which gives policymakers a little more room before markets force the issue.';
+                  ? 'Commercial actors stopped treating the disruption like a bluff and started planning around real delay, reroute, and inventory pain.'
+                  : 'Commercial stress eased slightly, which buys the room a little time before panic starts writing the script.';
               }
               if (entry.key === 'energySecurity') {
                 return entry.delta < 0
-                  ? 'Energy and logistics channels absorbed new strain, which can spill quickly into freight, insurance, and industrial planning.'
-                  : 'Energy and logistics pressure stabilized enough to keep operational planning from deteriorating further this window.';
+                  ? 'Fuel and logistics planners absorbed a new shock, which is how a regional scare starts bleeding into everyday operating decisions.'
+                  : 'Fuel and logistics pressure steadied just enough to keep the room from feeling one shock away from visible disruption.';
               }
               if (entry.key === 'domesticCohesion') {
                 return entry.delta < 0
-                  ? 'Domestic tolerance for disruption weakened, which makes every additional shock harder to absorb politically.'
-                  : 'Domestic support held long enough to preserve short-term policy flexibility.';
+                  ? 'Domestic tolerance weakened, which means the next visible shock could leave the secure room and land in ordinary life.'
+                  : 'Domestic nerves held for another window, which matters because panic at home can wreck strategy abroad.';
               }
               if (entry.key === 'militaryReadiness') {
                 return entry.delta > 0
-                  ? 'Military posture became more visible, raising both deterrence value and misread risk.'
-                  : 'Military posture softened slightly, which preserves reversibility but can invite harder testing if not paired with other signals.';
+                  ? 'Military posture became more visible, which can steady deterrence or make the next misread far more dangerous.'
+                  : 'Military posture softened slightly, preserving reversibility but inviting a harder test if the other side reads caution as hesitation.';
               }
               if (entry.key === 'allianceTrust') {
                 return entry.delta < 0
-                  ? 'Coalition discipline weakened, so partners may now read the same move very differently.'
-                  : 'Coalition messaging tightened, which improves credibility and reduces the odds of market overreaction.';
+                  ? 'Coalition discipline weakened, so the same event may now be landing as caution in one capital and alarm in another.'
+                  : 'Coalition messaging tightened, which helps because markets and commanders punish mixed signals fast.';
               }
               return entry.delta > 0
-                ? 'Escalation pressure rose, narrowing the room for ambiguous signaling and delayed decisions.'
-                : 'Escalation pressure eased somewhat, but only enough to reopen a small amount of decision space.';
+                ? 'Hotlines, pilots, insurers, and political staffs are all feeling a tighter clock now.'
+                : 'The pace eased for a moment, but nobody in the room thinks that means the danger has passed.';
             })
             .join(' ')
         }
       : {
           id: 'window_change',
-          title: 'What Changed This Window',
+          title: 'What Shifted Under The Surface',
           body:
             turn === 1
-              ? 'The scenario has shifted from background pressure into an active response window. The immediate question is whether this becomes a manageable coercive signal or the start of something harder to reverse.'
-              : 'No single metric moved decisively in this window, so the risk comes from cumulative pressure rather than one dramatic break.'
+              ? 'The background pressure is over. The room is now reacting to a live signal that could still prove manageable or become the first step into something much worse.'
+              : 'Nothing snapped cleanly this window. That is what makes the accumulation dangerous.'
         };
 
   const currentPressureSentences: string[] = [];
@@ -153,14 +221,14 @@ const buildDynamicContextSections = (
     currentPressureSentences.push('Military posture is becoming more operationally relevant, which can stabilize deterrence or accelerate a collision if misread.');
   }
   if (currentPressureSentences.length === 0) {
-    currentPressureSentences.push('Pressure is still manageable, but the balance is fragile enough that a poorly framed move can reset market and alliance expectations quickly.');
+    currentPressureSentences.push('The room is still holding together, but one badly framed move could change how allies, shippers, and markets read the whole crisis.');
   }
 
   return [
     changeSection,
     {
       id: 'current_pressure',
-      title: 'What Matters Right Now',
+      title: 'What Could Crack Next',
       body: currentPressureSentences.slice(0, 2).join(' ')
     }
   ];
@@ -926,30 +994,37 @@ const App = () => {
     currentScenario?.briefing ??
     currentScenarioWorld?.economicBackdrop.straitEconomicValue ??
     '';
+  const whyItMattersSummary =
+    currentBeat?.windowContext?.sections?.[0]?.body ??
+    currentBeat?.sceneFragments[0] ??
+    currentScenarioWorld?.economicBackdrop.straitEconomicValue ??
+    currentDirective ??
+    'This development matters because it can change how the crisis is read across the room, the market, and the corridor.';
   const turnResolutionGuidance =
     episode.activeCountdown && remainingSeconds !== null
       ? `Select one response, inspect the tradeoffs, and confirm it before ${formatSeconds(remainingSeconds)} elapses.`
       : showTakeNoAction
         ? 'Select one response and confirm it, or use Take No Action to hold position.'
         : 'Select one response, inspect the detail, and confirm it to advance the scenario.';
+  const decisionPromptSummary =
+    currentBeat?.windowContext?.sections?.[1]?.body ??
+    turnResolutionGuidance;
   const executiveSummary = [
     {
       label: 'What changed',
       detail:
         episode.briefing.headlines[0] ??
+        currentBeat?.truthModel?.verifiedFacts?.[0]?.title ??
         episode.briefing.briefingParagraph ??
         'New pressure is entering the scenario, but the full change summary is still loading.'
     },
     {
       label: 'Why it matters',
-      detail:
-        currentScenarioWorld?.economicBackdrop.straitEconomicValue ??
-        currentDirective ??
-        'This development matters because it can alter strategic leverage, alliance behavior, and market confidence.'
+      detail: whyItMattersSummary
     },
     {
       label: 'Decision required now',
-      detail: turnResolutionGuidance
+      detail: decisionPromptSummary
     }
   ];
   const dynamicContextSections = buildDynamicContextSections(
@@ -961,6 +1036,15 @@ const App = () => {
     ? currentBeat.windowContext.sections
     : dynamicContextSections;
   const activeTruthModel = currentBeat?.truthModel ?? null;
+  const previewImageAsset = episode.imageAsset
+    ? null
+    : pickPreviewImageAsset(reference, currentScenario, currentBeat, {
+        recentImageIds: episode.recentTurn?.selectedImageId ? [episode.recentTurn.selectedImageId] : [],
+        selectedAction,
+        selectedVariant
+      });
+  const briefingImageAsset = episode.imageAsset ?? previewImageAsset;
+  const briefingImageCaptionOverride = episode.imageAsset ? null : currentBeat?.visualCue?.caption ?? null;
   const selectedResponseLabel = selectedResponse?.customLabel
     ?? (selectedAction
       ? selectedResponse?.variantLabel
@@ -1088,8 +1172,7 @@ const App = () => {
                 </div>
                 <p className="mt-2 text-[0.82rem] leading-relaxed text-textMain">{currentDirective}</p>
                 <p className="mt-2 text-[0.72rem] leading-relaxed text-textMuted">
-                  Review the current situation, key developments, mandate, and operational indicators below. When you are ready,
-                  continue to the decision page to consult advisors and choose a response.
+                  Review the live picture below. When you are ready, move to the decision room and choose the next response.
                 </p>
               </div>
               <div className="flex shrink-0 items-start">
@@ -1130,13 +1213,14 @@ const App = () => {
             scenarioWorld={currentScenarioWorld}
             truthModel={activeTruthModel}
             windowContextSections={activeWindowContextSections}
+            imageAsset={briefingImageAsset}
+            imageCaptionOverride={briefingImageCaptionOverride}
             supportingSignals={supportingSignals}
             turnDebrief={episode.turnDebrief}
             recentActionNarrative={recentActionNarrative}
             recentResolvedAction={recentResolvedAction}
             phaseTransition={phaseTransition}
             meters={episode.meters}
-            meterLabels={episode.meterLabels}
             previousMeters={episode.recentTurn?.meterBefore}
             meterHistory={episode.meterHistory}
           />

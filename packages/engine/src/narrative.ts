@@ -5,8 +5,7 @@ import type {
   GameState,
   MeterKey,
   MeterState,
-  NarrativeBundle,
-  AdversaryProfile
+  NarrativeBundle
 } from '@wargames/shared-types';
 
 import { getDominantDomain } from './utils';
@@ -36,24 +35,56 @@ const tokenHeadlines: Record<string, string> = {
   unauthorized_clash: 'Unauthorized Armed Exchange Reported Near Transit Corridor'
 };
 
-const describeMeterShift = (before: MeterState, after: MeterState): string[] => {
-  const deltas: Array<{ label: string; delta: number }> = [
-    { label: 'economic stability', delta: after.economicStability - before.economicStability },
-    { label: 'energy security', delta: after.energySecurity - before.energySecurity },
-    { label: 'domestic cohesion', delta: after.domesticCohesion - before.domesticCohesion },
-    { label: 'military readiness', delta: after.militaryReadiness - before.militaryReadiness },
-    { label: 'alliance trust', delta: after.allianceTrust - before.allianceTrust },
-    { label: 'escalation pressure', delta: after.escalationIndex - before.escalationIndex }
-  ];
-
-  return deltas
+const buildShiftSceneLine = (before: MeterState, after: MeterState): string | null => {
+  const deltas = ([
+    { key: 'economicStability', delta: after.economicStability - before.economicStability },
+    { key: 'energySecurity', delta: after.energySecurity - before.energySecurity },
+    { key: 'domesticCohesion', delta: after.domesticCohesion - before.domesticCohesion },
+    { key: 'militaryReadiness', delta: after.militaryReadiness - before.militaryReadiness },
+    { key: 'allianceTrust', delta: after.allianceTrust - before.allianceTrust },
+    { key: 'escalationIndex', delta: after.escalationIndex - before.escalationIndex }
+  ] satisfies Array<{ key: MeterKey; delta: number }>)
     .filter((entry) => Math.abs(entry.delta) >= 2)
     .sort((left, right) => Math.abs(right.delta) - Math.abs(left.delta))
-    .slice(0, 2)
-    .map((entry) => {
-      const direction = entry.delta > 0 ? 'rose' : 'fell';
-      return `${entry.label} ${direction} ${Math.abs(Math.round(entry.delta))} points`;
-    });
+    .slice(0, 2);
+
+  const phrases = deltas.map((entry) => {
+    if (entry.key === 'economicStability') {
+      return entry.delta < 0
+        ? 'Container lines, insurers, and chip buyers start behaving as if the corridor may fail for real.'
+        : 'For the moment, the commercial panic eases enough that desks stop assuming the corridor is already lost.';
+    }
+    if (entry.key === 'energySecurity') {
+      return entry.delta < 0
+        ? 'Fuel and freight planners begin treating Taiwan as part of a wider supply shock instead of a contained scare.'
+        : 'Fuel and logistics desks get a little room back, even if nobody trusts it to last.';
+    }
+    if (entry.key === 'domesticCohesion') {
+      return entry.delta < 0
+        ? 'Political aides stop talking only about optics and start asking what shortages, layoffs, and public anger look like if this spreads.'
+        : 'For one more window, the domestic picture holds together well enough to keep strategy from collapsing into panic.';
+    }
+    if (entry.key === 'militaryReadiness') {
+      return entry.delta > 0
+        ? 'More steel and surveillance are moving into view, which can steady deterrence or shorten warning time if misread.'
+        : 'Some visible readiness comes off the table, which buys reversibility but invites a harder test if the other side senses hesitation.';
+    }
+    if (entry.key === 'allianceTrust') {
+      return entry.delta < 0
+        ? 'Calls with allied capitals get sharper as governments start diverging on how much more pain they will absorb.'
+        : 'Allied capitals sound more synchronized for now, which matters because mixed messages feed panic fast.';
+    }
+
+    return entry.delta > 0
+      ? 'Hotlines, pilots, and shipping desks are all working under a tighter clock now.'
+      : 'The pace eases for a moment, but nobody in the room trusts the lull yet.';
+  });
+
+  if (phrases.length === 0) {
+    return null;
+  }
+
+  return phrases.join(' ');
 };
 
 const buildShiftHeadlines = (before: MeterState, after: MeterState): string[] => {
@@ -130,7 +161,7 @@ const domainTickerLine = (state: GameState): string => {
 export const buildOpeningNarrative = (scenarioBriefing: string): NarrativeBundle => {
   return {
     briefingParagraph: scenarioBriefing,
-    headlines: ['Command authority transferred. First-turn options are now available.']
+    headlines: ['The first decision window is live and the room is waiting on your read.']
   };
 };
 
@@ -154,21 +185,19 @@ export const buildOpeningNarrativeFromBeat = (
 };
 
 export const buildNarrativeBundle = (
-  turn: number,
+  _turn: number,
   playerAction: ActionDefinition,
   rivalAction: ActionDefinition,
   state: GameState,
   meterBefore: MeterState,
   meterAfter: MeterState,
   narrativeTokens: string[],
-  rivalProfile: AdversaryProfile,
   activeBeat?: BeatNode,
   options?: {
     playerVariant?: ActionVariantDefinition | null;
     playerCustomLabel?: string | null;
   }
 ): NarrativeBundle => {
-  const shifts = describeMeterShift(meterBefore, meterAfter);
   const dominantDomain = getDominantDomain({
     economicStability: meterAfter.economicStability - meterBefore.economicStability,
     energySecurity: meterAfter.energySecurity - meterBefore.energySecurity,
@@ -178,21 +207,20 @@ export const buildNarrativeBundle = (
     escalationIndex: meterAfter.escalationIndex - meterBefore.escalationIndex
   });
 
-  const tempoPhrase =
-    state.meters.escalationIndex > 72
-      ? 'Crisis tempo accelerated beyond prior diplomatic containment.'
-      : state.meters.escalationIndex < 44
-        ? 'Operational pressure eased, though deterrence friction remains.'
-        : 'The theater remains volatile with narrow room for signaling error.';
-
-  const shiftSentence = shifts.length > 0 ? `Key shifts this turn: ${shifts.join('; ')}.` : 'No single metric moved decisively, but pressure remains cumulative.';
-
   const beatFragment = activeBeat?.sceneFragments[0] ?? '';
+  const beatSecondaryFragment = activeBeat?.sceneFragments[1] ?? '';
+  const shiftSceneLine = buildShiftSceneLine(meterBefore, meterAfter);
   const playerActionLabel = options?.playerCustomLabel?.trim() || options?.playerVariant?.label || playerAction.name;
-  const variantEmphasis = options?.playerVariant?.narrativeEmphasis
-    ? ` ${options.playerVariant.narrativeEmphasis}`
-    : '';
-  const refinedBriefingParagraph = `Window ${turn}: You authorized ${playerActionLabel.toLowerCase()} while the rival answered with ${rivalAction.name.toLowerCase()}. ${tempoPhrase} ${shiftSentence} ${beatFragment}${variantEmphasis} Rival posture reflects ${rivalProfile.name.toLowerCase()} behavior under stress.`
+  const variantEmphasis = options?.playerVariant?.narrativeEmphasis?.trim() ?? '';
+  const fallbackParagraph = `After ${playerActionLabel.toLowerCase()}, the room gets less certainty, not more. ${rivalAction.summary}`;
+  const refinedBriefingParagraph = [
+    beatFragment || fallbackParagraph,
+    beatSecondaryFragment,
+    shiftSceneLine,
+    variantEmphasis
+  ]
+    .filter((value): value is string => Boolean(value && value.trim()))
+    .join(' ')
     .replace(/\s+/g, ' ')
     .trim();
 
@@ -203,10 +231,10 @@ export const buildNarrativeBundle = (
 
   const defaultHeadline =
     state.meters.escalationIndex >= 70
-      ? 'Defense Networks Shift to Elevated Readiness Across Theaters'
+      ? 'Secure Rooms Shift From Contingency Talk To Damage Control'
       : state.meters.escalationIndex <= 40
-        ? 'Diplomatic Channels Reopen as Immediate Risk Moderates'
-        : 'Competing Signals Keep Strategic Environment Unsettled';
+        ? 'The Immediate Panic Backs Off, But Nobody Calls The Crisis Safe'
+        : 'New Fragments Keep The Situation Moving Faster Than The Story Around It';
 
   const beatHeadlines = activeBeat?.headlines ?? [];
   const headlines = Array.from(
@@ -214,8 +242,7 @@ export const buildNarrativeBundle = (
       ...tokenHeadlinesList,
       ...shiftHeadlines,
       ...beatHeadlines,
-      defaultHeadline,
-      `${rivalProfile.name} leadership circle hardens narrative discipline.`
+      defaultHeadline
     ])
   ).slice(0, 2);
 

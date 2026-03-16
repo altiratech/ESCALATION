@@ -11,7 +11,10 @@
       "coastal",
       "news_frame",
       "low_tension"
-    ]
+    ],
+    "kind": "documentary_still",
+    "alt": "economy coastal news_frame visual",
+    "caption": "Atmospheric fallback visual used when a scenario-specific scene is unavailable."
   },
   {
     "id": "img_002",
@@ -25,7 +28,10 @@
       "dense_city",
       "satellite",
       "low_tension"
-    ]
+    ],
+    "kind": "documentary_still",
+    "alt": "economy dense_city satellite visual",
+    "caption": "Atmospheric fallback visual used when a scenario-specific scene is unavailable."
   },
   {
     "id": "img_003",
@@ -39,7 +45,10 @@
       "generic",
       "memo",
       "low_tension"
-    ]
+    ],
+    "kind": "artifact",
+    "alt": "economy generic memo visual",
+    "caption": "Atmospheric fallback visual used when a scenario-specific scene is unavailable."
   },
   {
     "id": "img_004",
@@ -53,7 +62,10 @@
       "arctic",
       "street",
       "high_tension"
-    ]
+    ],
+    "kind": "documentary_still",
+    "alt": "economy arctic street visual",
+    "caption": "Atmospheric fallback visual used when a scenario-specific scene is unavailable."
   },
   {
     "id": "img_005",
@@ -67,7 +79,10 @@
       "industrial",
       "ticker",
       "high_tension"
-    ]
+    ],
+    "kind": "artifact",
+    "alt": "economy industrial ticker visual",
+    "caption": "Atmospheric fallback visual used when a scenario-specific scene is unavailable."
   },
   {
     "id": "img_006",
@@ -81,7 +96,10 @@
       "coastal",
       "news_frame",
       "low_tension"
-    ]
+    ],
+    "kind": "documentary_still",
+    "alt": "energy coastal news_frame visual",
+    "caption": "Atmospheric fallback visual used when a scenario-specific scene is unavailable."
   },
   {
     "id": "img_007",
@@ -95,7 +113,10 @@
       "dense_city",
       "satellite",
       "low_tension"
-    ]
+    ],
+    "kind": "documentary_still",
+    "alt": "energy dense_city satellite visual",
+    "caption": "Atmospheric fallback visual used when a scenario-specific scene is unavailable."
   },
   {
     "id": "img_008",
@@ -109,7 +130,10 @@
       "generic",
       "memo",
       "low_tension"
-    ]
+    ],
+    "kind": "artifact",
+    "alt": "energy generic memo visual",
+    "caption": "Atmospheric fallback visual used when a scenario-specific scene is unavailable."
   },
   {
     "id": "img_009",
@@ -123,7 +147,10 @@
       "arctic",
       "street",
       "high_tension"
-    ]
+    ],
+    "kind": "documentary_still",
+    "alt": "energy arctic street visual",
+    "caption": "Atmospheric fallback visual used when a scenario-specific scene is unavailable."
   },
   {
     "id": "img_010",
@@ -137,7 +164,10 @@
       "industrial",
       "ticker",
       "high_tension"
-    ]
+    ],
+    "kind": "artifact",
+    "alt": "energy industrial ticker visual",
+    "caption": "Atmospheric fallback visual used when a scenario-specific scene is unavailable."
   },
   {
     "id": "img_011",
@@ -151,7 +181,10 @@
       "coastal",
       "news_frame",
       "low_tension"
-    ]
+    ],
+    "kind": "documentary_still",
+    "alt": "unrest coastal news_frame visual",
+    "caption": "Atmospheric fallback visual used when a scenario-specific scene is unavailable."
   },
   {
     "id": "img_012",
@@ -165,7 +198,10 @@
       "dense_city",
       "satellite",
       "low_tension"
-    ]
+    ],
+    "kind": "documentary_still",
+    "alt": "unrest dense_city satellite visual",
+    "caption": "Atmospheric fallback visual used when a scenario-specific scene is unavailable."
   },
   {
     "id": "img_013",
@@ -179,7 +215,10 @@
       "generic",
       "memo",
       "low_tension"
-    ]
+    ],
+    "kind": "artifact",
+    "alt": "unrest generic memo visual",
+    "caption": "Atmospheric fallback visual used when a scenario-specific scene is unavailable."
   },
   {
     "id": "img_014",
@@ -193,7 +232,10 @@
       "arctic",
       "street",
       "high_tension"
-    ]
+    ],
+    "kind": "documentary_still",
+    "alt": "unrest arctic street visual",
+    "caption": "Atmospheric fallback visual used when a scenario-specific scene is unavailable."
   },
   {
     "id": "img_015",
@@ -207,7 +249,10 @@
       "industrial",
       "ticker",
       "high_tension"
-    ]
+    ],
+    "kind": "artifact",
+    "alt": "unrest industrial ticker visual",
+    "caption": "Atmospheric fallback visual used when a scenario-specific scene is unavailable."
   },
   {
     "id": "img_016",
@@ -221,7 +266,10 @@
       "coastal",
       "news_frame",
       "low_tension"
-    ]
+    ],
+    "kind": "documentary_still",
+    "alt": "military coastal news_frame visual",
+    "caption": "Atmospheric fallback visual used when a scenario-specific scene is unavailable."
   },
   {
     "id": "img_017",
@@ -235,7 +283,10 @@
       "dense_city",
       "satellite",
       "low_tension"
-    ]
+    ],
+    "kind": "documentary_still",
+    "alt": "military dense_city satellite visual",
+    "caption": "Atmospheric fallback visual used when a scenario-specific scene is unavailable."
   },
   {
     "id": "img_018",
@@ -249,7 +300,10 @@
       "generic",
       "memo",
       "low_tension"
-    ]
+    ],
+    "kind": "artifact",
+    "alt": "military generic memo visual",
+    "caption": "Atmospheric fallback visual used when a scenario-specific scene is unavailable."
   },
   {
     "id": "img_019",
@@ -263,7 +317,10 @@
       "arctic",
       "street",
       "high_tension"
-    ]
+    ],
+    "kind": "documentary_still",
+    "alt": "military arctic street visual",
+    "caption": "Atmospheric fallback visual used when a scenario-specific scene is unavailable."
   },
   {
     "id": "img_020",
@@ -277,7 +334,10 @@
       "industrial",
       "ticker",
       "high_tension"
-    ]
+    ],
+    "kind": "artifact",
+    "alt": "military industrial ticker visual",
+    "caption": "Atmospheric fallback visual used when a scenario-specific scene is unavailable."
   },
   {
     "id": "img_021",
@@ -291,7 +351,10 @@
       "coastal",
       "news_frame",
       "low_tension"
-    ]
+    ],
+    "kind": "documentary_still",
+    "alt": "cyber coastal news_frame visual",
+    "caption": "Atmospheric fallback visual used when a scenario-specific scene is unavailable."
   },
   {
     "id": "img_022",
@@ -305,7 +368,10 @@
       "dense_city",
       "satellite",
       "low_tension"
-    ]
+    ],
+    "kind": "documentary_still",
+    "alt": "cyber dense_city satellite visual",
+    "caption": "Atmospheric fallback visual used when a scenario-specific scene is unavailable."
   },
   {
     "id": "img_023",
@@ -319,7 +385,10 @@
       "generic",
       "memo",
       "low_tension"
-    ]
+    ],
+    "kind": "artifact",
+    "alt": "cyber generic memo visual",
+    "caption": "Atmospheric fallback visual used when a scenario-specific scene is unavailable."
   },
   {
     "id": "img_024",
@@ -333,7 +402,10 @@
       "arctic",
       "street",
       "high_tension"
-    ]
+    ],
+    "kind": "documentary_still",
+    "alt": "cyber arctic street visual",
+    "caption": "Atmospheric fallback visual used when a scenario-specific scene is unavailable."
   },
   {
     "id": "img_025",
@@ -347,7 +419,10 @@
       "industrial",
       "ticker",
       "high_tension"
-    ]
+    ],
+    "kind": "artifact",
+    "alt": "cyber industrial ticker visual",
+    "caption": "Atmospheric fallback visual used when a scenario-specific scene is unavailable."
   },
   {
     "id": "img_026",
@@ -361,7 +436,10 @@
       "coastal",
       "news_frame",
       "low_tension"
-    ]
+    ],
+    "kind": "documentary_still",
+    "alt": "diplomacy coastal news_frame visual",
+    "caption": "Atmospheric fallback visual used when a scenario-specific scene is unavailable."
   },
   {
     "id": "img_027",
@@ -375,7 +453,10 @@
       "dense_city",
       "satellite",
       "low_tension"
-    ]
+    ],
+    "kind": "documentary_still",
+    "alt": "diplomacy dense_city satellite visual",
+    "caption": "Atmospheric fallback visual used when a scenario-specific scene is unavailable."
   },
   {
     "id": "img_028",
@@ -389,7 +470,10 @@
       "generic",
       "memo",
       "low_tension"
-    ]
+    ],
+    "kind": "artifact",
+    "alt": "diplomacy generic memo visual",
+    "caption": "Atmospheric fallback visual used when a scenario-specific scene is unavailable."
   },
   {
     "id": "img_029",
@@ -403,7 +487,10 @@
       "arctic",
       "street",
       "high_tension"
-    ]
+    ],
+    "kind": "documentary_still",
+    "alt": "diplomacy arctic street visual",
+    "caption": "Atmospheric fallback visual used when a scenario-specific scene is unavailable."
   },
   {
     "id": "img_030",
@@ -417,6 +504,413 @@
       "industrial",
       "ticker",
       "high_tension"
-    ]
+    ],
+    "kind": "artifact",
+    "alt": "diplomacy industrial ticker visual",
+    "caption": "Atmospheric fallback visual used when a scenario-specific scene is unavailable."
+  },
+  {
+    "id": "tw_bs_001",
+    "path": "/assets/images/tw_bs_001_dongsha_anomaly.svg",
+    "kind": "artifact",
+    "domain": "military",
+    "severity": 1,
+    "environment": "coastal",
+    "perspective": "satellite",
+    "tags": [
+      "taiwan",
+      "dongsha",
+      "anomaly",
+      "ambiguous",
+      "artifact",
+      "phase_opening",
+      "branch_ambiguous",
+      "covert",
+      "surveillance"
+    ],
+    "alt": "Operations monitor showing an abnormal drone and shipping pattern south of Taiwan.",
+    "caption": "The first clue is not a shot fired. It is a picture that should make sense and suddenly does not."
+  },
+  {
+    "id": "tw_bs_002",
+    "path": "/assets/images/tw_bs_002_radar_confusion.svg",
+    "kind": "artifact",
+    "domain": "cyber",
+    "severity": 1,
+    "environment": "coastal",
+    "perspective": "satellite",
+    "tags": [
+      "taiwan",
+      "radar",
+      "spoofing",
+      "deception",
+      "artifact",
+      "phase_opening",
+      "branch_compression",
+      "surveillance"
+    ],
+    "alt": "Radar and transponder display showing spoofed tracks and conflicting routes in the Taiwan Strait.",
+    "caption": "Once the picture itself is unreliable, every later move arrives with less warning and more fear."
+  },
+  {
+    "id": "tw_bs_003",
+    "path": "/assets/images/tw_bs_003_stockpile_pressure.svg",
+    "kind": "artifact",
+    "domain": "military",
+    "severity": 2,
+    "environment": "industrial",
+    "perspective": "memo",
+    "tags": [
+      "taiwan",
+      "munitions",
+      "stockpiles",
+      "spr",
+      "middle_east",
+      "artifact",
+      "phase_rising",
+      "branch_compression",
+      "reserves"
+    ],
+    "alt": "Strategic briefing board showing munitions strain, force extension, and energy buffer pressure.",
+    "caption": "The room is no longer only asking what to signal. It is asking what the United States can still sustain."
+  },
+  {
+    "id": "tw_bs_004",
+    "path": "/assets/images/tw_bs_004_control_regime_map.svg",
+    "kind": "map",
+    "domain": "diplomacy",
+    "severity": 2,
+    "environment": "coastal",
+    "perspective": "satellite",
+    "tags": [
+      "taiwan",
+      "corridor",
+      "inspection",
+      "map",
+      "phase_rising",
+      "branch_coercion",
+      "shipping"
+    ],
+    "alt": "Map showing the central Taiwan Strait corridor under a new Chinese inspection and customs pressure regime.",
+    "caption": "It is not called a blockade. It does not have to be. If ships accept the routine, Beijing gets a new normal."
+  },
+  {
+    "id": "tw_bs_005",
+    "path": "/assets/images/tw_bs_005_boarding_incident.svg",
+    "kind": "scenario_still",
+    "domain": "military",
+    "severity": 3,
+    "environment": "coastal",
+    "perspective": "news_frame",
+    "tags": [
+      "taiwan",
+      "boarding",
+      "incident",
+      "coast_guard",
+      "phase_crisis",
+      "branch_incident",
+      "militarized"
+    ],
+    "alt": "Nighttime maritime scene showing a forced stop and collision risk during a Chinese compliance maneuver.",
+    "caption": "One scrape is enough. After that, every captain, minister, and trader is working from a new reality."
+  },
+  {
+    "id": "tw_bs_006",
+    "path": "/assets/images/tw_bs_006_port_outage.svg",
+    "kind": "artifact",
+    "domain": "cyber",
+    "severity": 3,
+    "environment": "industrial",
+    "perspective": "memo",
+    "tags": [
+      "taiwan",
+      "port_outage",
+      "cyber",
+      "artifact",
+      "phase_crisis",
+      "branch_incident",
+      "destabilizing"
+    ],
+    "alt": "Port operations panel showing simultaneous logistics and customs disruptions during the Taiwan crisis.",
+    "caption": "Nobody can tell on the first call whether the outage is coincidence, cover, or the real move."
+  },
+  {
+    "id": "tw_bs_007",
+    "path": "/assets/images/tw_bs_007_false_calm_harbor.svg",
+    "kind": "scenario_still",
+    "domain": "diplomacy",
+    "severity": 2,
+    "environment": "coastal",
+    "perspective": "street",
+    "tags": [
+      "taiwan",
+      "harbor",
+      "false_relief",
+      "shipping",
+      "phase_crisis",
+      "branch_false_relief",
+      "conciliatory"
+    ],
+    "alt": "Quiet harbor scene in fog with ships holding position during an uncertain pause in the crisis.",
+    "caption": "Calm on the water is not the same thing as safety. The hulls are still there. The fear has not left."
+  },
+  {
+    "id": "tw_bs_008",
+    "path": "/assets/images/tw_bs_008_coalition_room.svg",
+    "kind": "scenario_still",
+    "domain": "diplomacy",
+    "severity": 2,
+    "environment": "dense_city",
+    "perspective": "news_frame",
+    "tags": [
+      "taiwan",
+      "coalition",
+      "briefing",
+      "phase_opening",
+      "phase_rising",
+      "allies",
+      "public"
+    ],
+    "alt": "Coalition command room with allied briefers reviewing a worsening Taiwan Strait picture late at night.",
+    "caption": "By the time the room sounds calm again, everyone has already learned how fast it can go wrong."
+  },
+  {
+    "id": "tw_bs_009",
+    "path": "/assets/images/tw_bs_009_blockade_queue.svg",
+    "kind": "scenario_still",
+    "domain": "economy",
+    "severity": 4,
+    "environment": "coastal",
+    "perspective": "news_frame",
+    "tags": [
+      "taiwan",
+      "blockade",
+      "shipping",
+      "queue",
+      "phase_climax",
+      "branch_tail_risk",
+      "punitive"
+    ],
+    "alt": "Container ships waiting outside a constrained Taiwan Strait corridor as insurers and carriers halt normal transit.",
+    "caption": "Once ships stop trusting the lane, the blockade exists whether anyone admits it or not."
+  },
+  {
+    "id": "tw_bs_010",
+    "path": "/assets/images/tw_bs_010_market_panic.svg",
+    "kind": "artifact",
+    "domain": "economy",
+    "severity": 4,
+    "environment": "dense_city",
+    "perspective": "ticker",
+    "tags": [
+      "taiwan",
+      "market",
+      "panic",
+      "chip_shock",
+      "phase_climax",
+      "branch_tail_risk",
+      "punitive"
+    ],
+    "alt": "Trading screen showing steep losses across semiconductor, shipping, and risk assets during the Taiwan crisis.",
+    "caption": "The market is no longer pricing a scare. It is pricing the possibility that the world order just changed shape."
+  },
+  {
+    "id": "tw_bs_011",
+    "path": "/assets/images/tw_bs_011_chip_fab_alert.svg",
+    "kind": "scenario_still",
+    "domain": "economy",
+    "severity": 4,
+    "environment": "industrial",
+    "perspective": "news_frame",
+    "tags": [
+      "taiwan",
+      "chip",
+      "fab",
+      "supply_chain",
+      "phase_climax",
+      "branch_tail_risk",
+      "collapse"
+    ],
+    "alt": "Taiwan semiconductor fabrication complex under emergency warning conditions during a shipping and power disruption.",
+    "caption": "The moment fabs cannot move product or trust power and shipping, the crisis stops being regional."
+  },
+  {
+    "id": "tw_bs_012",
+    "path": "/assets/images/tw_bs_012_hotline_confusion.svg",
+    "kind": "artifact",
+    "domain": "military",
+    "severity": 4,
+    "environment": "generic",
+    "perspective": "memo",
+    "tags": [
+      "taiwan",
+      "hotline",
+      "miscommunication",
+      "nuclear",
+      "phase_climax",
+      "branch_tail_risk",
+      "collapse"
+    ],
+    "alt": "Split hotline and command display suggesting conflicting military messages and compressed warning time.",
+    "caption": "The most dangerous minutes are the ones when everyone is waiting for confirmation from systems nobody fully trusts."
+  },
+  {
+    "id": "tw_bs_013",
+    "path": "/assets/images/tw_bs_013_missile_warning.svg",
+    "kind": "map",
+    "domain": "military",
+    "severity": 4,
+    "environment": "coastal",
+    "perspective": "satellite",
+    "tags": [
+      "taiwan",
+      "missile",
+      "warning",
+      "map",
+      "phase_climax",
+      "branch_tail_risk",
+      "collapse"
+    ],
+    "alt": "Missile warning map showing compressed flight times and overlapping launch arcs around Taiwan.",
+    "caption": "At this stage the numbers on the screen stop looking analytical and start looking like seconds."
+  },
+  {
+    "id": "tw_bs_014",
+    "path": "/assets/images/tw_bs_014_leaked_memo.svg",
+    "kind": "artifact",
+    "domain": "diplomacy",
+    "severity": 2,
+    "environment": "generic",
+    "perspective": "memo",
+    "tags": [
+      "taiwan",
+      "memo",
+      "leak",
+      "artifact",
+      "phase_opening",
+      "phase_crisis",
+      "covert"
+    ],
+    "alt": "Leaked internal memorandum summarizing fears of coercion, chip shock, and alliance fracture in the Taiwan Strait.",
+    "caption": "Some of the most alarming sentences in a crisis are the ones written for internal eyes only."
+  },
+  {
+    "id": "tw_bs_015",
+    "path": "/assets/images/tw_bs_015_civilian_strain.svg",
+    "kind": "documentary_still",
+    "domain": "unrest",
+    "severity": 4,
+    "environment": "dense_city",
+    "perspective": "street",
+    "tags": [
+      "taiwan",
+      "civilian",
+      "shortages",
+      "breadline",
+      "phase_climax",
+      "branch_collapse",
+      "destabilizing"
+    ],
+    "alt": "Civilian queue forming outside darkened storefronts as shortages and layoffs spread during a wider Taiwan crisis.",
+    "caption": "If the worst branch opens, the crisis leaves secure rooms and starts altering daily life."
+  },
+  {
+    "id": "tw_bs_016",
+    "path": "/assets/images/tw_bs_016_relief_corridor.svg",
+    "kind": "scenario_still",
+    "domain": "diplomacy",
+    "severity": 1,
+    "environment": "coastal",
+    "perspective": "news_frame",
+    "tags": [
+      "taiwan",
+      "relief",
+      "corridor",
+      "shipping",
+      "phase_resolution",
+      "branch_relief",
+      "conciliatory"
+    ],
+    "alt": "Cargo ship re-entering a partially reopened Taiwan Strait corridor after a narrow diplomatic relief outcome.",
+    "caption": "Relief is real only when ships move, insurers write cover, and the room can prove the lane is open again."
+  },
+  {
+    "id": "tw_bs_017",
+    "path": "/assets/images/tw_bs_017_strike_exchange.svg",
+    "kind": "scenario_still",
+    "domain": "military",
+    "severity": 4,
+    "environment": "coastal",
+    "perspective": "news_frame",
+    "tags": [
+      "taiwan",
+      "strike",
+      "exchange",
+      "phase_climax",
+      "branch_strike",
+      "militarized"
+    ],
+    "alt": "Night strike over coastal infrastructure as the Taiwan crisis crosses into direct force.",
+    "caption": "The blasts may be limited on paper. On television they look like the end of the old rules."
+  },
+  {
+    "id": "tw_bs_018",
+    "path": "/assets/images/tw_bs_018_invasion_tail.svg",
+    "kind": "scenario_still",
+    "domain": "military",
+    "severity": 4,
+    "environment": "coastal",
+    "perspective": "satellite",
+    "tags": [
+      "taiwan",
+      "invasion",
+      "landing",
+      "phase_climax",
+      "branch_invasion",
+      "collapse",
+      "militarized"
+    ],
+    "alt": "Large-scale coastal assault preparations and shipping movement indicating an invasion tail path against Taiwan.",
+    "caption": "The worst branch never arrives all at once. First it arrives as proof that earlier chances are already gone."
+  },
+  {
+    "id": "tw_bs_019",
+    "path": "/assets/images/tw_bs_019_spr_headline.svg",
+    "kind": "artifact",
+    "domain": "energy",
+    "severity": 2,
+    "environment": "industrial",
+    "perspective": "ticker",
+    "tags": [
+      "taiwan",
+      "spr",
+      "energy",
+      "current_events",
+      "phase_rising",
+      "branch_compression",
+      "artifact"
+    ],
+    "alt": "Energy desk headline about the Strategic Petroleum Reserve and renewed market sensitivity during the Taiwan crisis.",
+    "caption": "Energy fear matters because once oil, freight, and chips move together, the political room gets smaller fast."
+  },
+  {
+    "id": "tw_bs_020",
+    "path": "/assets/images/tw_bs_020_chip_buyers.svg",
+    "kind": "documentary_still",
+    "domain": "economy",
+    "severity": 3,
+    "environment": "industrial",
+    "perspective": "street",
+    "tags": [
+      "taiwan",
+      "buyers",
+      "electronics",
+      "supply_chain",
+      "phase_crisis",
+      "branch_tail_risk",
+      "artifact"
+    ],
+    "alt": "Operations staff reviewing component shortages and emergency procurement messages during the Taiwan crisis.",
+    "caption": "Before governments settle on language, buyers start asking how long they can keep factories open."
   }
 ]

@@ -325,14 +325,15 @@ export const resolveInactionTurn = (
     escalationIndex: state.meters.escalationIndex - meterBefore.escalationIndex
   };
 
-  const selectedImage = chooseImageAsset(
-    context.images,
-    context.scenario,
-    state.meters,
+  const selectedImage = chooseImageAsset({
+    assets: context.images,
+    scenario: context.scenario,
+    beat: targetBeat,
+    meters: state.meters,
     turnDelta,
-    state.recentImageIds,
+    recentImageIds: state.recentImageIds,
     rng
-  );
+  });
 
   const narrative = buildInactionNarrative(targetBeat, decisionWindow.inactionNarrative);
   const turnDebrief = buildInactionDebrief({
@@ -469,14 +470,18 @@ export const resolveTurn = (
     escalationIndex: state.meters.escalationIndex - meterBefore.escalationIndex
   };
 
-  const selectedImage = chooseImageAsset(
-    context.images,
-    context.scenario,
-    state.meters,
+  const beatAfter = getBeat(beatMap, traversal.beatIdAfter);
+  const selectedImage = chooseImageAsset({
+    assets: context.images,
+    scenario: context.scenario,
+    beat: beatAfter,
+    meters: state.meters,
     turnDelta,
-    state.recentImageIds,
-    rng
-  );
+    recentImageIds: state.recentImageIds,
+    rng,
+    playerAction,
+    playerVariant
+  });
 
   const allNarrativeTokens = [
     ...playerResult.triggeredSideEffects,
@@ -493,7 +498,6 @@ export const resolveTurn = (
     meterBefore,
     state.meters,
     allNarrativeTokens,
-    context.adversaryProfile,
     postTraversalBeat,
     {
       playerVariant,

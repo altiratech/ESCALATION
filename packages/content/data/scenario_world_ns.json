@@ -147,7 +147,7 @@
       }
     ],
     "intelligenceGaps": [
-      "Is Beijing seeking a temporary coercive bargaining chip, a new semi-permanent inspection norm, or a pathway toward a true blockade?",
+      "Is Beijing seeking a temporary coercive bargaining chip, a new semi-permanent inspection norm, or the groundwork for a true blockade?",
       "How much allied economic pain will Tokyo, Manila, Canberra, and European partners tolerate before coalition discipline weakens?",
       "How far has China already pre-positioned cyber and cable-disruption capabilities against Taiwan's logistics, power, and communications networks?",
       "Would a Chinese boarding or collision be tightly controlled political theater, or a sign that local commanders are operating under looser escalation guidance?",
@@ -210,7 +210,7 @@
       "year": 2026,
       "month": "March-April",
       "dayRange": "The 8-window run spans the acute period between the first abnormal Dongsha signal and the point where blockade, strike, or managed relief becomes the live outcome question.",
-      "timeContext": "Cross-strait military tempo remains elevated after late-2025 blockade rehearsals, but the opening shock here is not a declared inspection regime. It begins with an abnormal signal, an unreliable picture, and a market already primed to overreact if ambiguity hardens into control."
+      "timeContext": "Spring 2026 opens with Washington looking thinner than it did a year earlier: Middle East operations have burned munitions and money, the Strategic Petroleum Reserve has been tapped again, and Indo-Pacific planners are still staring at a 2027 PLA deadline. Beijing does not need certainty. It only needs to believe the coalition is slower, thinner, and easier to surprise than before."
     },
     "playerNation": {
       "name": "United States and Indo-Pacific partners",
@@ -285,10 +285,10 @@
       }
     ],
     "economicBackdrop": {
-      "globalConditions": "Global disinflation has stalled, freight markets remain fragile after repeated Red Sea disruptions, and capital is still hypersensitive to geopolitical choke points. Any Taiwan shock would hit an already tense mix of shipping, insurance, energy, and technology markets.",
-      "straitEconomicValue": "The Taiwan Strait matters because it sits beside Taiwan's core export corridors and the world's most important concentration of advanced chip production. The opening danger is not a formal blockade; it is a confusing signal picture that can still trigger rerouting, insurance repricing, chip anxiety, and alliance stress long before anyone admits the crisis has hardened.",
-      "vulnerabilities": "The most immediate vulnerabilities are commercial shipping confidence, Taiwan's port and power resilience, undersea cables, and allied willingness to absorb sanctions and countersanctions. Markets also fear a split between military reassurance and financial caution among coalition governments.",
-      "marketSentiment": "War-risk premiums, semiconductor equities, Asian FX, and shipping names will respond before official policy does. If Beijing convinces markets that routine transit is no longer routine, the economic damage begins even without a missile launch."
+      "globalConditions": "Global markets are already brittle after repeated Red Sea disruption, sticky inflation, and energy nerves that never fully reset. A Taiwan shock would hit a world that is still functioning, but far less shock-absorbent than it was eighteen months earlier.",
+      "straitEconomicValue": "The Taiwan Strait sits beside the world’s most important concentration of advanced chip production and one of Asia’s core shipping lanes. If ships hesitate, fabs miss sailings, or insurers walk, the damage will not stay regional.",
+      "vulnerabilities": "The first things to fail are confidence and timing: shipping cover, port clearance, undersea connectivity, power reliability, and the belief that governments still have time to get ahead of the market. Once those go, layoffs, shortages, and political panic can arrive faster than military plans.",
+      "marketSentiment": "Freight desks, insurers, semiconductor buyers, and credit markets will react before ministers do. If Beijing can make routine passage look unsafe, the economic shock begins before the first missile does."
     },
     "crisisTimeline": [
       {
@@ -353,30 +353,30 @@
     "theaterDiagram": {
       "path": "/assets/images/taiwan-strait-theater-diagram.svg",
       "alt": "Diagram of the Taiwan Strait showing Taiwan, the Fujian coast, key ports, the central transit corridor, and Beijing's inspection pressure zone.",
-      "caption": "Most commercial traffic uses the central Taiwan Strait corridor between Taiwan's west-coast ports and the wider East and South China Sea trade system. Control or confusion in that lane can delay, inspect, or intimidate shipping before Beijing ever declares a formal blockade."
+      "caption": "Use the map for orientation only. The crisis itself should be read through live scenes, artifacts, and changing evidence, not the same static picture every window."
     },
     "openingBackground": {
-      "summary": "China claims Taiwan as part of its territory, while Taiwan governs itself and anchors one of the world’s most important semiconductor and shipping systems. That makes the Taiwan Strait dangerous not just because war is possible, but because ambiguous coercion here can trigger military, commercial, and financial shocks long before open conflict begins.",
+      "summary": "China has never abandoned its claim to Taiwan, and Taiwan has never agreed to be ruled from Beijing. What makes this crisis terrifying is not only the military risk. Taiwan sits at the center of advanced chip production, critical shipping lanes, and alliance credibility, so a successful coercive move can tear through markets and daily life long before the world decides whether it is already at war.",
       "sections": [
         {
           "id": "territorial_dispute",
-          "title": "Territorial dispute",
-          "body": "Beijing treats unification with Taiwan as unfinished sovereignty and increasingly uses gray-zone pressure to narrow Taiwan’s practical autonomy without declaring war. Taiwan rejects PRC rule and depends on deterrence, trade access, and external support to preserve the status quo."
+          "title": "Why Beijing Thinks Time Matters",
+          "body": "Xi has tied the PLA to a 2027 readiness benchmark, and Beijing may see the current moment as unusually favorable: Washington looks busier, thinner, and more politically exposed than it did before. That does not make invasion the default. It does make opportunistic pressure easier to imagine."
         },
         {
           "id": "economic_relevance",
-          "title": "Why Taiwan matters economically",
-          "body": "Taiwan sits beside a critical commercial corridor and houses a large share of advanced chip fabrication. Even limited disruption around its ports, cables, logistics systems, or surrounding sea lanes can ripple into electronics, industrial supply chains, insurers, and global risk assets within hours."
+          "title": "Why Taiwan Can Break The Wider Economy",
+          "body": "Taiwan sits beside a corridor that carries commercial traffic across East Asia and anchors the world’s most sensitive semiconductor supply. If ships slow, ports glitch, or fabs cannot move product, the shock spills into electronics, autos, industrials, insurance, and credit almost immediately."
         },
         {
           "id": "military_alliance_stakes",
-          "title": "Military and alliance stakes",
-          "body": "A Taiwan crisis tests U.S. credibility, Japanese and Philippine support, and how much allied political and military risk the coalition will actually absorb in Asia. The danger is often less an immediate invasion than a sequence of coercive moves that narrow the coalition’s room to act."
+          "title": "Why A Misread Is So Dangerous",
+          "body": "A Taiwan crisis tests U.S. credibility, Japanese and Philippine nerve, and the coalition’s ability to hold a line under market panic. It also compresses warning time. In the wrong branch, the room stops arguing about policy and starts arguing about whether the data itself can still be trusted."
         },
         {
           "id": "first_disruptions",
-          "title": "What disruption hits first",
-          "body": "Commercial behavior usually moves first. Shipping firms, insurers, and manufacturers begin repricing or rerouting as soon as the corridor looks less routine, which means the first damage can be financial and logistical long before a missile launch."
+          "title": "What Breaks Before The Shooting",
+          "body": "Commercial behavior usually moves first. Insurers change cover, carriers queue or reroute, chip buyers hoard, and politicians suddenly realize the crisis is leaving the secure room and entering everyday life."
         }
       ]
     }

@@ -118,6 +118,7 @@ export interface ActionVariantDefinition {
   label: string;
   summary: string;
   interpretationHints: string[];
+  visualTags?: string[];
   immediateMeterDeltas?: Partial<MeterState>;
   immediateLatentDeltas?: LatentDelta;
   delayedEffects?: ActionDelayedEffectDefinition[];
@@ -134,6 +135,7 @@ export interface ActionDefinition {
   summary: string;
   visibility: Visibility;
   tags: string[];
+  visualTags?: string[];
   immediateMeterDeltas: Partial<MeterState>;
   immediateLatentDeltas?: LatentDelta;
   sideEffects: SideEffectDefinition[];
@@ -212,6 +214,15 @@ export interface BeatTruthModel {
   unknowns: TruthSignalItem[];
 }
 
+export type ImageAssetKind = 'scenario_still' | 'documentary_still' | 'map' | 'artifact';
+
+export interface BeatVisualCue {
+  preferredKinds: ImageAssetKind[];
+  tags: string[];
+  branchStage?: 'ambiguous' | 'compression' | 'coercion' | 'incident' | 'false_relief' | 'tail_risk' | 'collapse';
+  caption?: string;
+}
+
 export interface BeatNode {
   id: string;
   phase: BeatPhase;
@@ -226,6 +237,7 @@ export interface BeatNode {
   memoLine: string | null;
   tickerLine: string | null;
   imageHints: string[];
+  visualCue?: BeatVisualCue;
   branches: BranchCondition[];
   terminalOutcome: OutcomeCategory | null;
   meterOverrides: Partial<MeterState> | null;
@@ -271,11 +283,14 @@ export interface ScenarioDefinition {
 export interface ImageAsset {
   id: string;
   path: string;
+  kind: ImageAssetKind;
   domain: 'economy' | 'energy' | 'unrest' | 'military' | 'cyber' | 'diplomacy';
   severity: 0 | 1 | 2 | 3 | 4;
   environment: 'generic' | 'coastal' | 'arctic' | 'dense_city' | 'industrial';
   perspective: 'satellite' | 'street' | 'news_frame' | 'memo' | 'ticker';
   tags: string[];
+  alt: string;
+  caption: string;
 }
 
 export interface NarrativeBundle {

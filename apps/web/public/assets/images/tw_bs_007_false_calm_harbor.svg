@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720"><defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0b1016"/>
+      <stop offset="100%" stop-color="#17212c"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1a2330" stop-opacity="0.96"/>
+      <stop offset="100%" stop-color="#111923" stop-opacity="0.92"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="72%" cy="18%" r="60%">
+      <stop offset="0%" stop-color="#69c1ff" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#69c1ff" stop-opacity="0"/>
+    </radialGradient>
+  </defs><rect width="1280" height="720" fill="url(#bg)"/><rect width="1280" height="720" fill="url(#glow)"/><g stroke="#243243" stroke-opacity="0.38">
+    <path d="M0 44h1280"/><path d="M0 88h1280"/><path d="M0 132h1280"/><path d="M0 176h1280"/>
+    <path d="M0 220h1280"/><path d="M0 264h1280"/><path d="M0 308h1280"/><path d="M0 352h1280"/>
+    <path d="M0 396h1280"/><path d="M0 440h1280"/><path d="M0 484h1280"/><path d="M0 528h1280"/>
+    <path d="M0 572h1280"/><path d="M0 616h1280"/><path d="M0 660h1280"/>
+    <path d="M64 0v720"/><path d="M128 0v720"/><path d="M192 0v720"/><path d="M256 0v720"/>
+    <path d="M320 0v720"/><path d="M384 0v720"/><path d="M448 0v720"/><path d="M512 0v720"/>
+    <path d="M576 0v720"/><path d="M640 0v720"/><path d="M704 0v720"/><path d="M768 0v720"/>
+    <path d="M832 0v720"/><path d="M896 0v720"/><path d="M960 0v720"/><path d="M1024 0v720"/>
+    <path d="M1088 0v720"/><path d="M1152 0v720"/><path d="M1216 0v720"/>
+  </g><rect x="44" y="44" width="1192" height="632" rx="18" fill="none" stroke="#2d3a49" stroke-width="2"/><text x="78" y="96" fill="#eff3f7" font-family="IBM Plex Sans Condensed, IBM Plex Sans, sans-serif" font-size="20" letter-spacing="5">ALTIRA FLASHPOINT</text><text x="78" y="132" fill="#69c1ff" font-family="IBM Plex Mono, monospace" font-size="13" letter-spacing="2">FALSE CALM // HARBOR WATCH</text><text x="78" y="188" fill="#f3f4f1" font-family="IBM Plex Sans Condensed, IBM Plex Sans, sans-serif" font-size="42">The Harbor Goes Quiet Too Fast</text><text x="78" y="228" fill="#9faabb" font-family="IBM Plex Sans, sans-serif" font-size="18">The pause is real enough to tempt people into believing it.</text><rect x="60" y="360" width="1160" height="260" fill="#0d141b"/><rect x="0" y="448" width="1280" height="272" fill="#09131d"/><path d="M120 532h152l44 28h-196z" fill="#2a3746" stroke="#43627f"/><path d="M330 516h176l58 34H330z" fill="#324150" stroke="#4c6e8f"/><path d="M592 520h192l66 38H592z" fill="#39495b" stroke="#50779c"/><path d="M874 514h204l72 42H874z" fill="#2f3d4b" stroke="#4f7090"/><rect x="212" y="314" width="20" height="128" fill="#8ea1b7" fill-opacity="0.4"/><rect x="462" y="286" width="20" height="156" fill="#8ea1b7" fill-opacity="0.4"/><rect x="752" y="264" width="20" height="178" fill="#8ea1b7" fill-opacity="0.4"/><path d="M222 320h90" stroke="#ffb429" stroke-width="6"/><path d="M472 292h120" stroke="#ffb429" stroke-width="6"/><path d="M762 270h136" stroke="#ffb429" stroke-width="6"/><text x="104" y="338" fill="#9fb8cf" font-family="IBM Plex Mono, monospace" font-size="13">PORT STATUS</text><text x="102" y="378" fill="#f1f4f7" font-family="IBM Plex Sans Condensed, sans-serif" font-size="34">Carriers stop rerouting for a few hours, but nobody can prove the coercive shell is gone.</text><text x="104" y="420" fill="#d6dce3" font-family="IBM Plex Sans, sans-serif" font-size="20">Traffic is still moving, but nobody believes it is normal.</text><text x="78" y="650" fill="#8f9aa8" font-family="IBM Plex Sans, sans-serif" font-size="17">LIVE SCENE ASSET // The pause is real enough to tempt people into believing it.</text></svg>

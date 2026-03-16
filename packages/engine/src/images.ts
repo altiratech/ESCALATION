@@ -1,4 +1,12 @@
-import type { ImageAsset, MeterState, ScenarioDefinition } from '@wargames/shared-types';
+import type {
+  ActionDefinition,
+  ActionVariantDefinition,
+  BeatNode,
+  ImageAsset,
+  ImageAssetKind,
+  MeterState,
+  ScenarioDefinition
+} from '@wargames/shared-types';
 
 import { SeededRng } from './rng';
 
@@ -39,30 +47,137 @@ const classifySeverity = (meters: MeterState): ImageAsset['severity'] => {
   return 0;
 };
 
-export const chooseImageAsset = (
-  assets: ImageAsset[],
+const kindPreferenceFallback: ImageAssetKind[] = ['scenario_still', 'artifact', 'documentary_still', 'map'];
+
+const stageFromPhase = (beat: BeatNode | undefined): string[] => {
+  if (!beat) {
+    return [];
+  }
+
+  const phaseMap: Record<BeatNode['phase'], string[]> = {
+    opening: ['ambiguous'],
+    rising: ['compression', 'coercion'],
+    crisis: ['incident', 'false_relief'],
+    climax: ['tail_risk', 'collapse'],
+    resolution: ['collapse']
+  };
+
+  const fromCue = beat.visualCue?.branchStage ? [beat.visualCue.branchStage] : [];
+  return [...new Set([...fromCue, ...(phaseMap[beat.phase] ?? [])])];
+};
+
+const buildRequestedTags = (beat: BeatNode | undefined, action?: ActionDefinition | null, variant?: ActionVariantDefinition | null): string[] => {
+  const tags = [
+    ...(beat?.imageHints ?? []),
+    ...(beat?.visualCue?.tags ?? []),
+    ...stageFromPhase(beat),
+    ...(action?.visualTags ?? []),
+    ...(variant?.visualTags ?? [])
+  ];
+
+  return [...new Set(tags.map((tag) => tag.toLowerCase()))];
+};
+
+const scoreKind = (asset: ImageAsset, preferredKinds: ImageAssetKind[]): number => {
+  const index = preferredKinds.indexOf(asset.kind);
+  if (index === -1) {
+    return 0;
+  }
+  return Math.max(1, preferredKinds.length - index) * 6;
+};
+
+const scoreTags = (asset: ImageAsset, requestedTags: string[]): number => {
+  const assetTags = new Set(asset.tags.map((tag) => tag.toLowerCase()));
+  return requestedTags.reduce((score, tag) => score + (assetTags.has(tag) ? 4 : 0), 0);
+};
+
+const scoreAsset = (
+  asset: ImageAsset,
   scenario: ScenarioDefinition,
-  meters: MeterState,
-  turnDelta: Partial<MeterState>,
-  recentImageIds: string[],
-  rng: SeededRng
-): ImageAsset | null => {
+  dominantDomain: ImageAsset['domain'],
+  severity: ImageAsset['severity'],
+  preferredKinds: ImageAssetKind[],
+  requestedTags: string[]
+): number => {
+  let score = 0;
+
+  if (asset.environment === scenario.environment) {
+    score += 8;
+  } else if (asset.environment === 'generic') {
+    score += 4;
+  } else {
+    score -= 4;
+  }
+
+  if (asset.domain === dominantDomain) {
+    score += 7;
+  } else if (asset.domain === 'diplomacy' && dominantDomain !== 'military') {
+    score += 2;
+  }
+
+  score += Math.max(0, 4 - Math.abs(asset.severity - severity)) * 2;
+  score += scoreKind(asset, preferredKinds);
+  score += scoreTags(asset, requestedTags);
+
+  if (asset.kind === 'map' && !requestedTags.includes('map') && preferredKinds[0] !== 'map') {
+    score -= 6;
+  }
+
+  return score;
+};
+
+interface ChooseImageAssetOptions {
+  assets: ImageAsset[];
+  scenario: ScenarioDefinition;
+  beat?: BeatNode;
+  meters: MeterState;
+  turnDelta: Partial<MeterState>;
+  recentImageIds: string[];
+  rng: SeededRng;
+  playerAction?: ActionDefinition | null;
+  playerVariant?: ActionVariantDefinition | null;
+}
+
+export const chooseImageAsset = ({
+  assets,
+  scenario,
+  beat,
+  meters,
+  turnDelta,
+  recentImageIds,
+  rng: _rng,
+  playerAction,
+  playerVariant
+}: ChooseImageAssetOptions): ImageAsset | null => {
   if (assets.length === 0) {
     return null;
   }
 
-  const domain = classifyDomain(turnDelta);
+  const dominantDomain = classifyDomain(turnDelta);
   const severity = classifySeverity(meters);
+  const preferredKinds = beat?.visualCue?.preferredKinds?.length
+    ? beat.visualCue.preferredKinds
+    : kindPreferenceFallback;
+  const requestedTags = buildRequestedTags(beat, playerAction, playerVariant);
 
-  const candidates = assets
-    .filter((asset) => asset.environment === scenario.environment || asset.environment === 'generic')
-    .filter((asset) => asset.domain === domain || asset.domain === 'diplomacy')
-    .filter((asset) => Math.abs(asset.severity - severity) <= 1)
-    .filter((asset) => !recentImageIds.includes(asset.id));
+  const scored = assets
+    .filter((asset) => !recentImageIds.includes(asset.id))
+    .map((asset) => ({
+      asset,
+      score: scoreAsset(asset, scenario, dominantDomain, severity, preferredKinds, requestedTags)
+    }))
+    .sort((left, right) => right.score - left.score);
 
-  if (candidates.length === 0) {
-    return assets.find((asset) => !recentImageIds.includes(asset.id)) ?? assets[0] ?? null;
+  const bestScore = scored[0]?.score ?? Number.NEGATIVE_INFINITY;
+  const shortlisted = scored.filter((entry) => entry.score >= bestScore - 2);
+
+  if (shortlisted.length > 0 && bestScore > 0) {
+    return shortlisted[0]?.asset ?? null;
   }
 
-  return rng.pick(candidates);
+  const fallback = assets
+    .filter((asset) => !recentImageIds.includes(asset.id))
+    .sort((left, right) => scoreTags(right, requestedTags) - scoreTags(left, requestedTags));
+
+  return fallback[0] ?? assets[0] ?? null;
 };

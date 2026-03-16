@@ -3957,3 +3957,67 @@ All passed.
 ### 66.13.5 Open note
 
 1. GitHub Actions still emits the existing non-blocking Node 20 deprecation warning for `actions/checkout@v4` and `actions/setup-node@v4`.
+
+## 66.14 Current-events suspense + decision-reactive visuals (2026-03-16)
+
+### 66.14.1 What changed
+
+1. Scenario One was re-anchored around a current-events-driven opportunity thesis instead of a generic Taiwan crisis backdrop.
+2. `scenario_world_ns.json` and `scenarios.json` now explicitly frame Beijing's read of the moment around:
+- thinner perceived U.S. buffers
+- Middle East munitions / force burn
+- renewed SPR pressure
+- a 2027 PLA readiness horizon
+3. Live scenario writing was tightened away from analytical/gamey language.
+- removed the remaining `Why Finance Should Care`-style framing from live play
+- removed generated `Window X: You authorized ...` summary prose
+- removed narrated meter-delta prose from the main live briefing language
+4. Shared types now support richer visual authoring:
+- `ImageAsset.kind`
+- beat `visualCue`
+- action / variant `visualTags`
+5. Engine image selection in `packages/engine/src/images.ts` now scores assets against:
+- beat cue
+- branch stage
+- action tags
+- variant tags
+- recent image history
+6. The image selector now chooses deterministically from the best authored match instead of randomly rotating among shortlist ties.
+7. `BriefingPanel.tsx` now prefers the live resolved `episode.imageAsset` and only falls back to a beat-authored preview image when the run has not yet resolved a move.
+8. Added a new Taiwan suspense image pack with 20 local authored SVG assets:
+- anomaly / radar confusion
+- stockpile pressure / SPR stress
+- corridor control map
+- boarding incident / port outage
+- false calm / coalition room
+- blockade queue / market panic / chip-fab alert
+- hotline confusion / missile warning / leaked memo
+- civilian strain / relief corridor / strike exchange / invasion tail
+9. Added `tests/engine/images.test.ts` to lock in beat-priority and action-reactive image selection behavior.
+
+### 66.14.2 Why this matters
+
+1. The flagship scenario should now feel less like an analytical strategy sim and more like a plausible crisis thriller.
+2. The live visual should now change with the meaning of the moment instead of pinning the player to one map for multiple windows.
+3. The content now has a better foundation for genuine dread:
+- shipping seizure
+- chip shock
+- financial panic
+- civilian strain
+- hotline / missile-warning fear
+4. This pass improves suspense and scene readability without adding runtime image generation, map libraries, or new UI navigation.
+
+### 66.14.3 Validation
+
+1. `npm run lint`
+2. `npm run build --workspace @wargames/web`
+3. `npm run ci:phase1`
+4. `npx vitest run tests/engine/images.test.ts`
+
+All passed.
+
+### 66.14.4 Open note
+
+1. Existing Monte Carlo policy-concentration warnings remain, but beat coverage still passes at `13/13` for the black-swan scenario.
+2. Intentional untracked review file `FLASHPOINT_CODE_REVIEW_2026_03_14.md` remains untouched.
+3. Next likely product pass is deeper late-window authored consequence scenes and/or stronger immediate branch-signaling after each committed move, not more shell redesign.

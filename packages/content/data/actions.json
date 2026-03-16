@@ -93,7 +93,12 @@
         "narrativeEmphasis": " It buys a sliver of time, but it also increases the risk that a false signal will be mistaken for a real off-ramp.",
         "advisorFraming": "Framed as time-buying and ambiguity-preserving.",
         "hiddenDownsideCategory": "false_relief",
-        "isDefault": true
+        "isDefault": true,
+        "visualTags": [
+          "covert",
+          "private_channel",
+          "quiet"
+        ]
       },
       {
         "id": "firm_channel",
@@ -129,8 +134,18 @@
         ],
         "narrativeEmphasis": " The signal is clearer and riskier; if Beijing rejects it, the next step becomes harder to keep reversible.",
         "advisorFraming": "Framed as private diplomacy with sharper edges.",
-        "hiddenDownsideCategory": "humiliation"
+        "hiddenDownsideCategory": "humiliation",
+        "visualTags": [
+          "covert",
+          "ultimatum",
+          "private_channel"
+        ]
       }
+    ],
+    "visualTags": [
+      "covert",
+      "backchannel",
+      "diplomacy"
     ]
   },
   {
@@ -211,7 +226,12 @@
         "narrativeEmphasis": " It aims to calm allies and markets without yet turning the crisis into a public test of absolute resolve.",
         "advisorFraming": "Framed as message discipline first, escalation second.",
         "hiddenDownsideCategory": "underreaction",
-        "isDefault": true
+        "isDefault": true,
+        "visualTags": [
+          "public",
+          "reassurance",
+          "measured"
+        ]
       },
       {
         "id": "hard_red_line",
@@ -246,8 +266,18 @@
         ],
         "narrativeEmphasis": " It sharpens the stakes immediately and dares the counterpart to either absorb the line or push against it.",
         "advisorFraming": "Framed as overt deterrence with reputational commitment.",
-        "hiddenDownsideCategory": "public_commitment"
+        "hiddenDownsideCategory": "public_commitment",
+        "visualTags": [
+          "public",
+          "red_line",
+          "deterrence"
+        ]
       }
+    ],
+    "visualTags": [
+      "public",
+      "address",
+      "podium"
     ]
   },
   {
@@ -339,7 +369,12 @@
         "narrativeEmphasis": " It tells markets and allies that costs are coming, but tries to keep the first package survivable.",
         "advisorFraming": "Framed as controlled cost imposition.",
         "hiddenDownsideCategory": "financial_spillover",
-        "isDefault": true
+        "isDefault": true,
+        "visualTags": [
+          "punitive",
+          "sanctions",
+          "warning"
+        ]
       },
       {
         "id": "enforcement_wave",
@@ -375,8 +410,18 @@
         ],
         "narrativeEmphasis": " It imposes real pain faster, but it also increases the odds that shipping, financing, and political blowback outrun the coalition’s control.",
         "advisorFraming": "Framed as sharper pressure with faster spillover risk.",
-        "hiddenDownsideCategory": "retaliatory_pressure"
+        "hiddenDownsideCategory": "retaliatory_pressure",
+        "visualTags": [
+          "punitive",
+          "enforcement",
+          "raid"
+        ]
       }
+    ],
+    "visualTags": [
+      "punitive",
+      "finance",
+      "sanctions"
     ]
   },
   {
@@ -469,7 +514,12 @@
         "narrativeEmphasis": " It points the crisis toward the financial channel quickly without pulling every lever at once.",
         "advisorFraming": "Framed as pre-positioned macro pressure.",
         "hiddenDownsideCategory": "market_panic",
-        "isDefault": true
+        "isDefault": true,
+        "visualTags": [
+          "punitive",
+          "prepared",
+          "finance"
+        ]
       },
       {
         "id": "maximal_package",
@@ -506,8 +556,18 @@
         ],
         "narrativeEmphasis": " It makes the line unmistakable, but it also risks turning the financial system into a second battlefield.",
         "advisorFraming": "Framed as systemic cost imposition with little commercial cushioning.",
-        "hiddenDownsideCategory": "systemic_spillover"
+        "hiddenDownsideCategory": "systemic_spillover",
+        "visualTags": [
+          "punitive",
+          "systemic",
+          "market_panic"
+        ]
       }
+    ],
+    "visualTags": [
+      "punitive",
+      "finance",
+      "market_panic"
     ]
   },
   {
@@ -594,10 +654,15 @@
             "description": "Reserve buffers improve the coalition’s political and logistical endurance."
           }
         ],
-        "narrativeEmphasis": " It is a resilience move designed to keep later shocks from breaking the coalition’s political tolerance.",
+        "narrativeEmphasis": " It buys breathing room for fuel, spares, and coalition nerves, but if the move leaks it can tell the market the room expects something worse very soon.",
         "advisorFraming": "Framed as quiet buffer-building.",
         "hiddenDownsideCategory": "panic_signal",
-        "isDefault": true
+        "isDefault": true,
+        "visualTags": [
+          "reserves",
+          "quiet_preparation",
+          "buffer"
+        ]
       },
       {
         "id": "emergency_buffer",
@@ -631,10 +696,20 @@
             "description": "Emergency reserve activity supports endurance but advertises stress to the market."
           }
         ],
-        "narrativeEmphasis": " It hardens the coalition’s buffer, but the urgency itself can read like confirmation that worse disruption is expected.",
+        "narrativeEmphasis": " It hardens the buffer fast, but the urgency itself can make buyers, insurers, and political aides act as if the break has already begun.",
         "advisorFraming": "Framed as visible resilience at the cost of signaling stress.",
-        "hiddenDownsideCategory": "panic_buying"
+        "hiddenDownsideCategory": "panic_buying",
+        "visualTags": [
+          "reserves",
+          "panic_signal",
+          "stockpile"
+        ]
       }
+    ],
+    "visualTags": [
+      "reserves",
+      "supply",
+      "civilian_preparation"
     ]
   },
   {
@@ -724,7 +799,12 @@
         "narrativeEmphasis": " It is designed to steal clarity back from the fog rather than add another visible shock.",
         "advisorFraming": "Framed as hidden collection and attribution.",
         "hiddenDownsideCategory": "exposure",
-        "isDefault": true
+        "isDefault": true,
+        "visualTags": [
+          "covert",
+          "forensics",
+          "screen"
+        ]
       },
       {
         "id": "deep_mapping",
@@ -760,8 +840,18 @@
         ],
         "narrativeEmphasis": " It reaches for deeper clarity faster, but the discovery risk rises with it.",
         "advisorFraming": "Framed as aggressive but still deniable collection.",
-        "hiddenDownsideCategory": "counterintrusion"
+        "hiddenDownsideCategory": "counterintrusion",
+        "visualTags": [
+          "covert",
+          "deep_access",
+          "screen"
+        ]
       }
+    ],
+    "visualTags": [
+      "covert",
+      "cyber",
+      "surveillance"
     ]
   },
   {
@@ -840,7 +930,12 @@
         "narrativeEmphasis": " It creates pain and delay, but keeps a thin layer of reversibility in the response.",
         "advisorFraming": "Framed as limited cyber friction rather than full retaliation.",
         "hiddenDownsideCategory": "reciprocal_cyber",
-        "isDefault": true
+        "isDefault": true,
+        "visualTags": [
+          "cyber",
+          "reversible",
+          "blackout"
+        ]
       },
       {
         "id": "hard_disruption",
@@ -876,8 +971,18 @@
         ],
         "narrativeEmphasis": " It can break the immediate tempo, but the response will be read as a much clearer crossing into offensive action.",
         "advisorFraming": "Framed as offensive cyber escalation.",
-        "hiddenDownsideCategory": "retaliatory_cyber"
+        "hiddenDownsideCategory": "retaliatory_cyber",
+        "visualTags": [
+          "cyber",
+          "hard",
+          "blackout"
+        ]
       }
+    ],
+    "visualTags": [
+      "cyber",
+      "destabilizing",
+      "blackout"
     ]
   },
   {
@@ -961,7 +1066,12 @@
         "narrativeEmphasis": " It adds hidden friction, but if it leaks, the crisis can become harder to narrate and harder to control.",
         "advisorFraming": "Framed as deniable leverage.",
         "hiddenDownsideCategory": "exposure",
-        "isDefault": true
+        "isDefault": true,
+        "visualTags": [
+          "covert",
+          "deniable",
+          "industrial"
+        ]
       },
       {
         "id": "high_tempo_cutout",
@@ -997,8 +1107,18 @@
         ],
         "narrativeEmphasis": " It reaches for sharper hidden leverage at the cost of a much rougher political landing if attribution catches up.",
         "advisorFraming": "Framed as sharper deniable disruption.",
-        "hiddenDownsideCategory": "attribution"
+        "hiddenDownsideCategory": "attribution",
+        "visualTags": [
+          "covert",
+          "explosive",
+          "industrial"
+        ]
       }
+    ],
+    "visualTags": [
+      "covert",
+      "industrial",
+      "sabotage"
     ]
   },
   {
@@ -1089,7 +1209,12 @@
         "narrativeEmphasis": " It improves deterrence while trying not to trigger the loudest possible reaction immediately.",
         "advisorFraming": "Framed as real posture without maximal publicity.",
         "hiddenDownsideCategory": "force_burn",
-        "isDefault": true
+        "isDefault": true,
+        "visualTags": [
+          "militarized",
+          "shadow",
+          "naval"
+        ]
       },
       {
         "id": "broadcast_deterrence",
@@ -1129,8 +1254,18 @@
         ],
         "narrativeEmphasis": " It turns deterrence into public theater, which can restore clarity or force the other side to answer in kind.",
         "advisorFraming": "Framed as visible deterrence with reputational commitment.",
-        "hiddenDownsideCategory": "miscalculation"
+        "hiddenDownsideCategory": "miscalculation",
+        "visualTags": [
+          "militarized",
+          "broadcast",
+          "deterrence"
+        ]
       }
+    ],
+    "visualTags": [
+      "militarized",
+      "visible",
+      "naval"
     ]
   },
   {
@@ -1213,7 +1348,12 @@
         "narrativeEmphasis": " It preserves future slack and lowers the immediate heat, but only if the counterpart does not treat it as an invitation.",
         "advisorFraming": "Framed as reversible de-intensification.",
         "hiddenDownsideCategory": "misread_weakness",
-        "isDefault": true
+        "isDefault": true,
+        "visualTags": [
+          "conciliatory",
+          "quiet",
+          "reposition"
+        ]
       },
       {
         "id": "public_decompression",
@@ -1251,8 +1391,18 @@
         ],
         "narrativeEmphasis": " It maximizes restraint as a signal, but that signal can land as relief or weakness depending on what the other side wanted all along.",
         "advisorFraming": "Framed as overt de-escalation.",
-        "hiddenDownsideCategory": "strategic_retreat"
+        "hiddenDownsideCategory": "strategic_retreat",
+        "visualTags": [
+          "conciliatory",
+          "public",
+          "decompression"
+        ]
       }
+    ],
+    "visualTags": [
+      "conciliatory",
+      "withdrawal",
+      "reposition"
     ]
   },
   {
@@ -1339,7 +1489,12 @@
         "narrativeEmphasis": " It is a clarity move first and a signaling move second, meant to stop the crisis from being decided by the dirtiest picture.",
         "advisorFraming": "Framed as clarity and warning-time recovery.",
         "hiddenDownsideCategory": "collection_overreach",
-        "isDefault": true
+        "isDefault": true,
+        "visualTags": [
+          "artifact",
+          "fusion",
+          "briefing"
+        ]
       },
       {
         "id": "allied_attribution_cell",
@@ -1375,8 +1530,18 @@
         ],
         "narrativeEmphasis": " It turns intelligence into coalition glue, which can be slower than a unilateral move but more stabilizing if the branch worsens.",
         "advisorFraming": "Framed as alliance-backed clarity.",
-        "hiddenDownsideCategory": "slow_rollout"
+        "hiddenDownsideCategory": "slow_rollout",
+        "visualTags": [
+          "artifact",
+          "allied",
+          "attribution"
+        ]
       }
+    ],
+    "visualTags": [
+      "artifact",
+      "surveillance",
+      "isr"
     ]
   },
   {
@@ -1470,7 +1635,12 @@
         "narrativeEmphasis": " It is an offer of process, not surrender, but it can still be read as the first sign that pressure works.",
         "advisorFraming": "Framed as reversible technical relief.",
         "hiddenDownsideCategory": "normalized_coercion",
-        "isDefault": true
+        "isDefault": true,
+        "visualTags": [
+          "conciliatory",
+          "technical",
+          "offramp"
+        ]
       },
       {
         "id": "public_offramp",
@@ -1507,8 +1677,18 @@
         ],
         "narrativeEmphasis": " It aims to flip the burden of escalation onto Beijing, but if Beijing shrugs it off, the coalition may look like it blinked first.",
         "advisorFraming": "Framed as public diplomatic challenge.",
-        "hiddenDownsideCategory": "visible_blink"
+        "hiddenDownsideCategory": "visible_blink",
+        "visualTags": [
+          "conciliatory",
+          "public",
+          "offramp"
+        ]
       }
+    ],
+    "visualTags": [
+      "conciliatory",
+      "process",
+      "offramp"
     ]
   },
   {
