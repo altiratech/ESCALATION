@@ -3912,3 +3912,48 @@ Additional results:
 ### 66.12.4 Non-goal
 
 1. This pass does **not** introduce shared Altira auth, Stripe, SSO, or a workspace rewrite inside Wargames.
+
+## 66.13 Response differentiation + immediate consequence pass (2026-03-16)
+
+### 66.13.1 What shipped
+
+1. `ActionCards.tsx` now uses authored default-variant summaries on the response cards instead of relying mostly on generic action-tag heuristics.
+2. Each response card now carries a plain-language downside cue derived from the variant `hiddenDownsideCategory`, making the options feel more distinct before selection.
+3. Selected-response detail now prefers authored action-narrative consequences for the current beat:
+- counterpart read
+- alliance / market read
+- if this lands
+- delayed risk
+4. Selected-response detail now surfaces the variant hidden downside explicitly instead of burying it inside generic risk copy.
+5. `BriefingPanel.tsx` now turns the post-decision `Immediate Outcome` area into a more legible consequence readout:
+- `Main Shift`
+- `If This Holds`
+- `New Risk`
+6. The immediate-outcome summary now combines:
+- actual meter movement from the resolved window
+- authored action narrative success/complication text
+- the selected variant’s downside category
+
+### 66.13.2 Why this matters
+
+1. The response options should now feel less interchangeable.
+2. The live experience should now bring more of the relief / dread cadence forward into the active scenario instead of saving most of it for the final report.
+3. This is a content-and-readout improvement, not a new mechanic. Deterministic engine authority and the current shell structure remain unchanged.
+
+### 66.13.3 Validation
+
+1. `npm run lint`
+2. `npm run build --workspace @wargames/web`
+3. `npm run ci:phase1`
+
+All passed.
+
+### 66.13.4 Git / deploy
+
+1. Commit: `a9dd2ad` `Sharpen Flashpoint response consequence reads`
+2. Push: `origin/main`
+3. Deploy run: `23159806565` `success`
+
+### 66.13.5 Open note
+
+1. GitHub Actions still emits the existing non-blocking Node 20 deprecation warning for `actions/checkout@v4` and `actions/setup-node@v4`.
