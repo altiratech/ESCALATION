@@ -56,6 +56,9 @@ const sectionLabels: Record<BriefingSectionId, string> = {
   indicators: 'Operational Indicators'
 };
 
+const normalizeTickerLine = (value: string): string =>
+  value.replace(/^(risk|market)\s+ticker:\s*/i, '').trim();
+
 export const BriefingPanel = ({
   turn,
   briefing,
@@ -96,10 +99,10 @@ export const BriefingPanel = ({
         details.push(briefing.memoLine);
       }
       if (index === 1 && briefing.tickerLine) {
-        details.push(briefing.tickerLine);
+        details.push(normalizeTickerLine(briefing.tickerLine));
       }
       if (details.length === 0 && index === 0 && briefing.tickerLine) {
-        details.push(briefing.tickerLine);
+        details.push(normalizeTickerLine(briefing.tickerLine));
       }
       if (details.length === 0) {
         details.push('Analyst desk is still validating corroborating signals from theater channels.');
@@ -117,9 +120,6 @@ export const BriefingPanel = ({
     }
     return 'Open Reporting';
   };
-
-  const clipText = (value: string, limit = 260): string =>
-    value.length > limit ? `${value.slice(0, limit - 1).trimEnd()}…` : value;
 
   const openingBackground = turn === 1 ? scenarioWorld?.openingBackground ?? null : null;
   const primaryHeadlines = briefing.headlines.slice(0, 2);

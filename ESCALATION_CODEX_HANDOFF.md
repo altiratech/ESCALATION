@@ -3783,3 +3783,27 @@ All passed in-session after the refactor.
 1. Commit: `28926a7` `Refactor Flashpoint setup and live context flow`
 2. Push: `origin/main`
 3. Deploy run: `23141037906` `success`
+
+## Flashpoint live-summary + decision cleanup (2026-03-16)
+
+### Shipped locally in this session
+1. Removed primary-text clipping from `apps/web/src/App.tsx` so `Situation Summary`, `Executive Summary`, and `Decision Phase` render full copy instead of ellipsized snippets.
+2. Normalized briefing ticker presentation in `apps/web/src/App.tsx` and `apps/web/src/components/BriefingPanel.tsx` so the UI no longer shows raw `Risk ticker:` / `Market ticker:` prefixes.
+3. Increased the response offer count from 5 to 6 in `packages/engine/src/actionSelection.ts`.
+4. Moved `Custom Response (Advanced)` directly under the response grid by threading it through `ActionCards` via `customResponseSlot`.
+5. Removed bordered chip styling from decision-card visibility and `Supports / Cautions / Opposes` labels in `apps/web/src/components/ActionCards.tsx`.
+6. Preserved scenario health by reverting an attempted fallback-`minTurn` acceleration in `packages/content/data/scenarios.json` after it broke Monte Carlo beat coverage.
+7. Replaced that risky graph tweak with safer live variation:
+   - `packages/engine/src/narrative.ts` now injects dynamic shift-based headlines when tokens are absent
+   - `apps/web/src/App.tsx` now prepends dynamic per-window context sections ahead of authored beat context
+
+### Validation
+1. `npm run lint`
+2. `npm run build --workspace @wargames/web`
+3. `npm run ci:phase1`
+
+All passed after reverting the graph-timing experiment.
+
+### Notes
+1. Intentional untracked file still present in repo root: `FLASHPOINT_CODE_REVIEW_2026_03_14.md`.
+2. This pass is intended to fix the specific user complaints from the March 16 screenshots without reopening broader shell/layout churn.

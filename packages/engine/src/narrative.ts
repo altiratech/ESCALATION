@@ -2,6 +2,7 @@ import type {
   ActionDefinition,
   BeatNode,
   GameState,
+  MeterKey,
   MeterState,
   NarrativeBundle,
   AdversaryProfile
@@ -52,6 +53,53 @@ const describeMeterShift = (before: MeterState, after: MeterState): string[] => 
       const direction = entry.delta > 0 ? 'rose' : 'fell';
       return `${entry.label} ${direction} ${Math.abs(Math.round(entry.delta))} points`;
     });
+};
+
+const buildShiftHeadlines = (before: MeterState, after: MeterState): string[] => {
+  const meterChanges = [
+    { key: 'economicStability', delta: after.economicStability - before.economicStability },
+    { key: 'energySecurity', delta: after.energySecurity - before.energySecurity },
+    { key: 'domesticCohesion', delta: after.domesticCohesion - before.domesticCohesion },
+    { key: 'militaryReadiness', delta: after.militaryReadiness - before.militaryReadiness },
+    { key: 'allianceTrust', delta: after.allianceTrust - before.allianceTrust },
+    { key: 'escalationIndex', delta: after.escalationIndex - before.escalationIndex }
+  ] satisfies Array<{ key: MeterKey; delta: number }>;
+
+  const shifts: Array<{ key: MeterKey; delta: number }> = meterChanges
+    .filter((entry) => Math.abs(entry.delta) >= 2)
+    .sort((left, right) => Math.abs(right.delta) - Math.abs(left.delta))
+    .slice(0, 2);
+
+  return shifts.map((entry) => {
+    if (entry.key === 'economicStability') {
+      return entry.delta < 0
+        ? 'Shipping And Market Risk Reprice As Strait Pressure Persists'
+        : 'Commercial Stress Eases As Immediate Strait Risk Stabilizes';
+    }
+    if (entry.key === 'energySecurity') {
+      return entry.delta < 0
+        ? 'Energy And Logistics Channels Show Strain Under Regional Stress'
+        : 'Energy And Logistics Pressure Temporarily Stabilizes';
+    }
+    if (entry.key === 'domesticCohesion') {
+      return entry.delta < 0
+        ? 'Domestic Pressure Starts Feeding Back Into Strategic Choices'
+        : 'Domestic Backing Holds Long Enough To Preserve Policy Flexibility';
+    }
+    if (entry.key === 'militaryReadiness') {
+      return entry.delta > 0
+        ? 'Visible Readiness Posture Hardens As Response Options Narrow'
+        : 'Operational Posture Softens As Leaders Preserve Reversible Space';
+    }
+    if (entry.key === 'allianceTrust') {
+      return entry.delta < 0
+        ? 'Coalition Discipline Frays As Capitals Read The Crisis Differently'
+        : 'Coalition Coordination Improves Around A Narrower Shared Line';
+    }
+    return entry.delta > 0
+      ? 'Escalation Pressure Rises As Off-Ramp Space Tightens'
+      : 'Escalation Pressure Eases As The Immediate Misread Risk Pulls Back';
+  });
 };
 
 const domainMemoLine = (domain: string): string => {
@@ -142,6 +190,7 @@ export const buildNarrativeBundle = (
   const tokenHeadlinesList = narrativeTokens
     .map((token) => tokenHeadlines[token])
     .filter((headline): headline is string => Boolean(headline));
+  const shiftHeadlines = buildShiftHeadlines(meterBefore, meterAfter);
 
   const defaultHeadline =
     state.meters.escalationIndex >= 70
@@ -151,10 +200,15 @@ export const buildNarrativeBundle = (
         : 'Competing Signals Keep Strategic Environment Unsettled';
 
   const beatHeadlines = activeBeat?.headlines ?? [];
-  const headlines = [
-    tokenHeadlinesList[0] ?? beatHeadlines[0] ?? defaultHeadline,
-    tokenHeadlinesList[1] ?? beatHeadlines[1] ?? `${rivalProfile.name} leadership circle hardens narrative discipline.`
-  ];
+  const headlines = Array.from(
+    new Set([
+      ...tokenHeadlinesList,
+      ...shiftHeadlines,
+      ...beatHeadlines,
+      defaultHeadline,
+      `${rivalProfile.name} leadership circle hardens narrative discipline.`
+    ])
+  ).slice(0, 2);
 
   return {
     briefingParagraph,

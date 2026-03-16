@@ -7,6 +7,9 @@ import type {
   BootstrapPayload,
   CinematicPhaseTransitionKey,
   EpisodeView,
+  MeterKey,
+  MeterState,
+  ScenarioContextSection,
   PostGameReport
 } from '@wargames/shared-types';
 
@@ -63,6 +66,104 @@ const pacingLabel: Record<'standard' | 'relaxed' | 'off', string> = {
 };
 
 const normalizeCommand = (value: string): string => value.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+const normalizeTickerLine = (value: string): string => value.replace(/^(risk|market)\s+ticker:\s*/i, '').trim();
+
+const buildDynamicContextSections = (
+  turn: number,
+  meters: MeterState,
+  previousMeters?: MeterState
+): ScenarioContextSection[] => {
+  const meterChanges = previousMeters
+    ? ([
+        { key: 'economicStability', delta: meters.economicStability - previousMeters.economicStability },
+        { key: 'energySecurity', delta: meters.energySecurity - previousMeters.energySecurity },
+        { key: 'domesticCohesion', delta: meters.domesticCohesion - previousMeters.domesticCohesion },
+        { key: 'militaryReadiness', delta: meters.militaryReadiness - previousMeters.militaryReadiness },
+        { key: 'allianceTrust', delta: meters.allianceTrust - previousMeters.allianceTrust },
+        { key: 'escalationIndex', delta: meters.escalationIndex - previousMeters.escalationIndex }
+      ] satisfies Array<{ key: MeterKey; delta: number }>)
+    : [];
+
+  const shifts: Array<{ key: MeterKey; delta: number }> = previousMeters
+    ? meterChanges
+        .filter((entry) => Math.abs(entry.delta) >= 2)
+        .sort((left, right) => Math.abs(right.delta) - Math.abs(left.delta))
+        .slice(0, 2)
+    : [];
+
+  const changeSection: ScenarioContextSection =
+    shifts.length > 0
+      ? {
+          id: 'window_change',
+          title: 'What Changed This Window',
+          body: shifts
+            .map((entry) => {
+              if (entry.key === 'economicStability') {
+                return entry.delta < 0
+                  ? 'Commercial stress widened and markets are treating the strait disruption as more than a passing signal.'
+                  : 'Commercial stress eased slightly, which gives policymakers a little more room before markets force the issue.';
+              }
+              if (entry.key === 'energySecurity') {
+                return entry.delta < 0
+                  ? 'Energy and logistics channels absorbed new strain, which can spill quickly into freight, insurance, and industrial planning.'
+                  : 'Energy and logistics pressure stabilized enough to keep operational planning from deteriorating further this window.';
+              }
+              if (entry.key === 'domesticCohesion') {
+                return entry.delta < 0
+                  ? 'Domestic tolerance for disruption weakened, which makes every additional shock harder to absorb politically.'
+                  : 'Domestic support held long enough to preserve short-term policy flexibility.';
+              }
+              if (entry.key === 'militaryReadiness') {
+                return entry.delta > 0
+                  ? 'Military posture became more visible, raising both deterrence value and misread risk.'
+                  : 'Military posture softened slightly, which preserves reversibility but can invite harder testing if not paired with other signals.';
+              }
+              if (entry.key === 'allianceTrust') {
+                return entry.delta < 0
+                  ? 'Coalition discipline weakened, so partners may now read the same move very differently.'
+                  : 'Coalition messaging tightened, which improves credibility and reduces the odds of market overreaction.';
+              }
+              return entry.delta > 0
+                ? 'Escalation pressure rose, narrowing the room for ambiguous signaling and delayed decisions.'
+                : 'Escalation pressure eased somewhat, but only enough to reopen a small amount of decision space.';
+            })
+            .join(' ')
+        }
+      : {
+          id: 'window_change',
+          title: 'What Changed This Window',
+          body:
+            turn === 1
+              ? 'The scenario has shifted from background pressure into an active response window. The immediate question is whether this becomes a manageable coercive signal or the start of something harder to reverse.'
+              : 'No single metric moved decisively in this window, so the risk comes from cumulative pressure rather than one dramatic break.'
+        };
+
+  const currentPressureSentences: string[] = [];
+  if (meters.escalationIndex >= 60) {
+    currentPressureSentences.push('Escalation pressure is elevated, so mixed or delayed signals carry a higher chance of misread.');
+  }
+  if (meters.allianceTrust < 55) {
+    currentPressureSentences.push('Allied cohesion is under strain, so visible moves will be judged for discipline as much as resolve.');
+  }
+  if (meters.economicStability < 60) {
+    currentPressureSentences.push('Commercial and market channels are already repricing risk before any formal blockade, which raises the cost of drift.');
+  }
+  if (meters.militaryReadiness >= 65) {
+    currentPressureSentences.push('Military posture is becoming more operationally relevant, which can stabilize deterrence or accelerate a collision if misread.');
+  }
+  if (currentPressureSentences.length === 0) {
+    currentPressureSentences.push('Pressure is still manageable, but the balance is fragile enough that a poorly framed move can reset market and alliance expectations quickly.');
+  }
+
+  return [
+    changeSection,
+    {
+      id: 'current_pressure',
+      title: 'What Matters Right Now',
+      body: currentPressureSentences.slice(0, 2).join(' ')
+    }
+  ];
+};
 
 interface IntelFeedEntry {
   id: string;
@@ -72,9 +173,6 @@ interface IntelFeedEntry {
 }
 
 type TurnStage = 'brief' | 'decision';
-
-const clipLine = (value: string, max = 180): string =>
-  value.length > max ? `${value.slice(0, max - 1).trimEnd()}…` : value;
 
 const pickDeterministicWindow = <T,>(entries: T[], limit: number, anchor: number): T[] => {
   if (entries.length <= limit) {
@@ -584,7 +682,7 @@ const App = () => {
       id: fragment.id,
       channel: `${fragment.sourceType} · ${fragment.confidence.toUpperCase()}`,
       headline: fragment.headline,
-      detail: clipLine(fragment.analystNote ?? fragment.body)
+      detail: fragment.analystNote ?? fragment.body
     });
   }
 
@@ -593,7 +691,7 @@ const App = () => {
       id: article.id,
       channel: `${article.outlet} · ${article.tone.toUpperCase()}`,
       headline: article.headline,
-      detail: clipLine(article.lede)
+      detail: article.lede
     });
   }
 
@@ -608,7 +706,7 @@ const App = () => {
     supportingSignals.push({
       id: 'ticker',
       channel: 'Market',
-      headline: episode.briefing.tickerLine
+      headline: normalizeTickerLine(episode.briefing.tickerLine)
     });
   }
   const rangeValues = Object.values(episode.visibleRanges);
@@ -668,6 +766,12 @@ const App = () => {
       detail: turnResolutionGuidance
     }
   ];
+  const dynamicContextSections = buildDynamicContextSections(
+    episode.turn,
+    episode.meters,
+    episode.recentTurn?.meterBefore
+  );
+  const activeWindowContextSections = [...dynamicContextSections, ...(currentBeat?.windowContext?.sections ?? [])].slice(0, 3);
   const turnStageLabel = turnStage === 'brief' ? 'Situation Summary' : 'Decision';
   const turnStageActionLabel = turnStage === 'brief'
     ? selectedAction
@@ -787,7 +891,7 @@ const App = () => {
                     Review Before Deciding
                   </span>
                 </div>
-                <p className="mt-2 text-[0.82rem] leading-relaxed text-textMain">{clipLine(currentDirective, 220)}</p>
+                <p className="mt-2 text-[0.82rem] leading-relaxed text-textMain">{currentDirective}</p>
                 <p className="mt-2 text-[0.72rem] leading-relaxed text-textMuted">
                   Review the current situation, key developments, mandate, and operational indicators below. When you are ready,
                   continue to the decision page to consult advisors and choose a response.
@@ -819,7 +923,7 @@ const App = () => {
               {executiveSummary.map((entry) => (
                 <article key={entry.label} className="console-subpanel px-3 py-3">
                   <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">{entry.label}</p>
-                  <p className="mt-2 text-[0.78rem] leading-relaxed text-textMain">{clipLine(entry.detail, 220)}</p>
+                  <p className="mt-2 text-[0.78rem] leading-relaxed text-textMain">{entry.detail}</p>
                 </article>
               ))}
             </div>
@@ -829,7 +933,7 @@ const App = () => {
             turn={episode.turn}
             briefing={episode.briefing}
             scenarioWorld={currentScenarioWorld}
-            windowContextSections={currentBeat?.windowContext?.sections ?? []}
+            windowContextSections={activeWindowContextSections}
             supportingSignals={supportingSignals}
             turnDebrief={episode.turnDebrief}
             recentActionNarrative={recentActionNarrative}
@@ -859,7 +963,7 @@ const App = () => {
                   {selectedAction ? 'Ready To Commit' : 'Awaiting Response'}
                 </span>
               </div>
-              <p className="mt-2 text-[0.82rem] leading-relaxed text-textMain">{clipLine(currentDirective, 220)}</p>
+              <p className="mt-2 text-[0.82rem] leading-relaxed text-textMain">{currentDirective}</p>
               <p className="mt-2 text-sm leading-relaxed text-textMain">
                 Compare the available responses, inspect advisor reasoning, then confirm a selected response to advance the scenario.
               </p>
@@ -915,6 +1019,14 @@ const App = () => {
               disabled={loading || episode.status !== 'active'}
               selectedActionId={selectedActionId}
               actionAdvisorSummaries={actionAdvisorSummaries}
+              customResponseSlot={
+                <CommandInput
+                  turn={episode.turn}
+                  disabled={loading || episode.status !== 'active'}
+                  onSubmitCommand={handleCommandSubmit}
+                  onSelectAction={handleActionSelect}
+                />
+              }
               onSelect={(actionId) => {
                 void handleActionSelect(actionId);
               }}
@@ -924,15 +1036,6 @@ const App = () => {
               scenarioId={episode.scenarioId}
               advisorDossiers={reference.advisorDossiers}
               selectedAction={selectedAction}
-            />
-          </div>
-
-          <div className="relative z-[1] mt-4 border-t border-accent/25 pt-4">
-            <CommandInput
-              turn={episode.turn}
-              disabled={loading || episode.status !== 'active'}
-              onSubmitCommand={handleCommandSubmit}
-              onSelectAction={handleActionSelect}
             />
           </div>
         </section>

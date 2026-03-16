@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, type ReactNode } from 'react';
 
 import type { ActionDefinition } from '@wargames/shared-types';
 
@@ -7,17 +7,18 @@ interface ActionCardsProps {
   disabled: boolean;
   selectedActionId: string | null;
   actionAdvisorSummaries: Map<string, { supports: number; cautions: number; opposes: number }>;
+  customResponseSlot?: ReactNode;
   onSelect: (actionId: string) => void;
 }
 
 const visibilityTone = (visibility: ActionDefinition['visibility']): string => {
   if (visibility === 'public') {
-    return 'border-warning/70 text-warning';
+    return 'text-warning';
   }
   if (visibility === 'semi-public') {
-    return 'border-accent/70 text-accent';
+    return 'text-accent';
   }
-  return 'border-positive/70 text-positive';
+  return 'text-positive';
 };
 
 const postureHint = (action: ActionDefinition): string => {
@@ -100,6 +101,7 @@ export const ActionCards = ({
   disabled,
   selectedActionId,
   actionAdvisorSummaries,
+  customResponseSlot,
   onSelect
 }: ActionCardsProps) => {
   const [showHelp, setShowHelp] = useState(false);
@@ -166,7 +168,7 @@ export const ActionCards = ({
                   <div className="flex flex-wrap items-center gap-2">
                     <p className="font-display text-[0.92rem] text-inherit">{action.name}</p>
                     <span
-                      className={`rounded-md border px-1.5 py-0.5 text-[0.55rem] uppercase tracking-[0.12em] ${visibilityTone(action.visibility)}`}
+                      className={`px-1.5 py-0.5 text-[0.55rem] uppercase tracking-[0.12em] ${visibilityTone(action.visibility)}`}
                     >
                       {action.visibility}
                     </span>
@@ -177,14 +179,14 @@ export const ActionCards = ({
                   <p className="mt-2 text-[0.69rem] leading-relaxed text-textMain/90">
                     {actionOneLiner(action)}
                   </p>
-                  <div className="mt-2 flex flex-wrap gap-1.5">
-                    <span className="rounded-md border border-positive/60 px-1.5 py-0.5 text-[0.54rem] uppercase tracking-[0.12em] text-positive">
+                  <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1">
+                    <span className="px-0.5 py-0.5 text-[0.54rem] uppercase tracking-[0.12em] text-positive">
                       Supports {summary.supports}
                     </span>
-                    <span className="rounded-md border border-warning/60 px-1.5 py-0.5 text-[0.54rem] uppercase tracking-[0.12em] text-warning">
+                    <span className="px-0.5 py-0.5 text-[0.54rem] uppercase tracking-[0.12em] text-warning">
                       Cautions {summary.cautions}
                     </span>
-                    <span className="rounded-md border border-red-500/60 px-1.5 py-0.5 text-[0.54rem] uppercase tracking-[0.12em] text-red-300">
+                    <span className="px-0.5 py-0.5 text-[0.54rem] uppercase tracking-[0.12em] text-red-300">
                       Opposes {summary.opposes}
                     </span>
                   </div>
@@ -198,6 +200,8 @@ export const ActionCards = ({
         })}
       </div>
 
+      {customResponseSlot ? <div className="mt-4">{customResponseSlot}</div> : null}
+
       <div className="mt-4 border border-borderTone bg-panelRaised/40 p-3">
         {selectedAction ? (
             <div className="space-y-4">
@@ -206,9 +210,7 @@ export const ActionCards = ({
                   <p className="label">Selected Response</p>
                   <h3 className="mt-2 font-display text-xl text-textMain">{selectedAction.name}</h3>
                 </div>
-              <span
-                className={`rounded-md border px-2 py-1 text-[0.58rem] uppercase tracking-[0.12em] ${visibilityTone(selectedAction.visibility)}`}
-              >
+              <span className={`px-2 py-1 text-[0.58rem] uppercase tracking-[0.12em] ${visibilityTone(selectedAction.visibility)}`}>
                 {selectedAction.visibility}
               </span>
             </div>

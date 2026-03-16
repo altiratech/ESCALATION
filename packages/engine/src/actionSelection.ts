@@ -8,7 +8,7 @@ import type {
 
 import { SeededRng } from './rng';
 
-const ACTION_OFFER_COUNT = 5;
+const ACTION_OFFER_COUNT = 6;
 
 const stressSignalsByMeter: Record<MeterKey, { prefers: string[]; avoids: string[] }> = {
   economicStability: {
