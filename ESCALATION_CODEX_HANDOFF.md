@@ -3727,3 +3727,17 @@ remain always visible.
 
 1. Local commit created: `a95a447` `Add Flashpoint runtime safety guardrails`
 2. Push/deploy intentionally deferred until repo-wide validation finishes cleanly outside this hanging sandbox path.
+
+### 66.9.6 Validation follow-up
+
+1. The earlier non-terminating `npm run` behavior in this session turned out to be a sandbox/wrapper issue, not a Flashpoint code issue.
+2. Direct validation completed successfully:
+- engine TypeScript check
+- API TypeScript check
+- web TypeScript check
+- web `vite build`
+- `node --import tsx scripts/validate-content.ts`
+- `node --import tsx scripts/monte-carlo.ts`
+- `node --import tsx scripts/token-regression.ts`
+- `npx vitest run`
+3. The reliability pass is safe to push/deploy.
