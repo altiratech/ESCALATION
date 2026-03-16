@@ -3695,3 +3695,30 @@ remain always visible.
 - decision specificity
 - scenario realism
 - or residual context density
+
+## 66.9 2026-03-16 Reliability pass from March 14 review
+
+### 66.9.1 What changed
+
+1. Added a dedicated runtime state validator in `apps/api/src/stateSchema.ts` so episode state is checked structurally after deserialization instead of trusting `JSON.parse()` alone.
+2. Wired that validator through the main API state-read paths in `apps/api/src/index.ts` and `apps/api/src/repository.ts`.
+3. Added an explicit API boundary check that rejects action submissions when the chosen `actionId` is not present in the current `offeredActionIds` set.
+4. Added `AppErrorBoundary` and wrapped the web root in `main.tsx` so unexpected render failures degrade to a recovery screen instead of a blank page.
+
+### 66.9.2 What passed
+
+1. Validation:
+- `npm run validate:content`
+- `npx vitest run`
+
+2. Results:
+- `15/15` test files passed
+- `31/31` tests passed
+
+### 66.9.3 Open risk
+
+1. In this sandbox session, repo-wide `npm run lint`, `npm run build --workspace @wargames/web`, and `npm run ci:phase1` entered TypeScript/Vite execution but did not terminate cleanly. Treat deployment as blocked until those commands are rerun in a fresh local or CI environment.
+
+### 66.9.4 Exact next action for resume
+
+1. Rerun the blocked repo-wide validation commands in a fresh shell, then deploy if clean.

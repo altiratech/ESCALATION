@@ -4,25 +4,21 @@ import type { GameState, PostGameReport, TurnResolution } from '@wargames/shared
 
 import type { Database } from './db';
 import { beatProgress, episodes, profiles, reports, scores, turnLogs } from './schema';
+import { GameStateValidationError, parseGameStateJson } from './stateSchema';
 
 const randomId = (): string => crypto.randomUUID();
 
 const toJson = (value: unknown): string => JSON.stringify(value);
 const toFlag = (value: boolean): number => (value ? 1 : 0);
 
-export class CorruptEpisodeStateError extends Error {
-  constructor(episodeId: string, cause?: unknown) {
-    super(`Corrupt or unreadable episode state for ${episodeId}`);
-    this.name = 'CorruptEpisodeStateError';
-    this.cause = cause;
-  }
-}
-
 const parseStateJson = (stateJson: string, episodeId: string): GameState => {
   try {
-    return JSON.parse(stateJson) as GameState;
+    return parseGameStateJson(stateJson, episodeId);
   } catch (error) {
-    throw new CorruptEpisodeStateError(episodeId, error);
+    if (error instanceof GameStateValidationError) {
+      throw error;
+    }
+    throw new GameStateValidationError(episodeId, ['Unknown state validation failure'], error);
   }
 };
 

@@ -60,6 +60,7 @@ import {
   upsertReport
 } from './repository';
 import { interpretCommand as interpretCommandText } from './interpret';
+import { GameStateValidationError, parseGameStateJson } from './stateSchema';
 
 const DEFAULT_ALLOWED_ORIGINS = [
   'https://escalation.altiratech.com',
@@ -299,7 +300,15 @@ app.post('/api/episodes/start', async (context) => {
 app.get('/api/episodes/:episodeId', async (context) => {
   const episodeId = context.req.param('episodeId');
   const db = createDb(context.env);
-  const state = await getEpisodeStateById(db, episodeId);
+  let state: GameState | null;
+  try {
+    state = await getEpisodeStateById(db, episodeId);
+  } catch (error) {
+    if (error instanceof GameStateValidationError) {
+      return context.json({ message: 'Corrupt episode state' }, 422);
+    }
+    throw error;
+  }
 
   if (!state) {
     return context.json({ message: 'Episode not found' }, 404);
@@ -362,6 +371,8 @@ const buildInterpretationMessage = (input: {
   return `${roleLabel} directive not recognized (${confidencePercent}% confidence). Rephrase or use an action card.`;
 };
 
+const parseEpisodeStateOrThrow = (stateJson: string, episodeId: string): GameState => parseGameStateJson(stateJson, episodeId);
+
 app.post('/api/episodes/:episodeId/interpret', async (context) => {
   const episodeId = context.req.param('episodeId');
   const payload = interpretSchema.parse(await context.req.json()) as InterpretCommandRequest;
@@ -374,8 +385,11 @@ app.post('/api/episodes/:episodeId/interpret', async (context) => {
 
   let state: GameState;
   try {
-    state = JSON.parse(episodeRecord.stateJson);
-  } catch {
+    state = parseEpisodeStateOrThrow(episodeRecord.stateJson, episodeId);
+  } catch (error) {
+    if (error instanceof GameStateValidationError) {
+      return context.json({ message: 'Corrupt episode state' }, 422);
+    }
     return context.json({ message: 'Corrupt episode state' }, 422);
   }
 
@@ -465,8 +479,11 @@ app.post('/api/episodes/:episodeId/actions', async (context) => {
 
   let state: GameState;
   try {
-    state = JSON.parse(episodeRecord.stateJson);
-  } catch {
+    state = parseEpisodeStateOrThrow(episodeRecord.stateJson, episodeId);
+  } catch (error) {
+    if (error instanceof GameStateValidationError) {
+      return context.json({ message: 'Corrupt episode state' }, 422);
+    }
     return context.json({ message: 'Corrupt episode state' }, 422);
   }
   const requestTimestamp = Date.now();
@@ -489,6 +506,12 @@ app.post('/api/episodes/:episodeId/actions', async (context) => {
       stale: true,
       episode: staleView
     });
+  }
+
+  if (!state.offeredActionIds.includes(payload.actionId)) {
+    return context.json({
+      message: 'Selected response is not available in the current decision window.'
+    }, 400);
   }
 
   const scenario = getScenario(state.scenarioId);
@@ -539,7 +562,15 @@ app.post('/api/episodes/:episodeId/actions', async (context) => {
     });
 
     if (!persistence.updated) {
-      const latest = await getEpisodeStateById(db, episodeId);
+      let latest: GameState | null;
+      try {
+        latest = await getEpisodeStateById(db, episodeId);
+      } catch (error) {
+        if (error instanceof GameStateValidationError) {
+          return context.json({ message: 'Corrupt episode state' }, 422);
+        }
+        throw error;
+      }
       if (!latest) {
         return context.json({ message: 'Episode no longer available' }, 404);
       }
@@ -627,8 +658,11 @@ app.post('/api/episodes/:episodeId/inaction', async (context) => {
 
   let state: GameState;
   try {
-    state = JSON.parse(episodeRecord.stateJson);
-  } catch {
+    state = parseEpisodeStateOrThrow(episodeRecord.stateJson, episodeId);
+  } catch (error) {
+    if (error instanceof GameStateValidationError) {
+      return context.json({ message: 'Corrupt episode state' }, 422);
+    }
     return context.json({ message: 'Corrupt episode state' }, 422);
   }
   const requestTimestamp = Date.now();
@@ -700,7 +734,15 @@ app.post('/api/episodes/:episodeId/inaction', async (context) => {
   });
 
   if (!persistence.updated) {
-    const latest = await getEpisodeStateById(db, episodeId);
+    let latest: GameState | null;
+    try {
+      latest = await getEpisodeStateById(db, episodeId);
+    } catch (error) {
+      if (error instanceof GameStateValidationError) {
+        return context.json({ message: 'Corrupt episode state' }, 422);
+      }
+      throw error;
+    }
     if (!latest) {
       return context.json({ message: 'Episode no longer available' }, 404);
     }
@@ -749,8 +791,11 @@ app.post('/api/episodes/:episodeId/countdown/extend', async (context) => {
 
   let state: GameState;
   try {
-    state = JSON.parse(episodeRecord.stateJson);
-  } catch {
+    state = parseEpisodeStateOrThrow(episodeRecord.stateJson, episodeId);
+  } catch (error) {
+    if (error instanceof GameStateValidationError) {
+      return context.json({ message: 'Corrupt episode state' }, 422);
+    }
     return context.json({ message: 'Corrupt episode state' }, 422);
   }
   const requestTimestamp = Date.now();
@@ -807,7 +852,15 @@ app.post('/api/episodes/:episodeId/countdown/extend', async (context) => {
   });
 
   if (!persistence.updated) {
-    const latest = await getEpisodeStateById(db, episodeId);
+    let latest: GameState | null;
+    try {
+      latest = await getEpisodeStateById(db, episodeId);
+    } catch (error) {
+      if (error instanceof GameStateValidationError) {
+        return context.json({ message: 'Corrupt episode state' }, 422);
+      }
+      throw error;
+    }
     if (!latest) {
       return context.json({ message: 'Episode no longer available' }, 404);
     }
@@ -839,7 +892,15 @@ app.get('/api/episodes/:episodeId/report', async (context) => {
     return context.json(report);
   }
 
-  const episode = await getEpisodeStateById(db, episodeId);
+  let episode: GameState | null;
+  try {
+    episode = await getEpisodeStateById(db, episodeId);
+  } catch (error) {
+    if (error instanceof GameStateValidationError) {
+      return context.json({ message: 'Corrupt episode state' }, 422);
+    }
+    throw error;
+  }
   if (!episode) {
     return context.json({ message: 'Episode not found' }, 404);
   }
