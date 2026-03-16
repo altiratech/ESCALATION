@@ -3884,3 +3884,31 @@ Additional results:
 - sharper response differentiation
 - stronger immediate consequence reporting
 - deeper authored late-window content
+
+## 66.12 D-179 suite identity and billing alignment (2026-03-16)
+
+### 66.12.1 What changed
+
+1. Added `SUITE_ALIGNMENT_2026-03-16.md` to lock Flashpoint to the shared Altira identity and billing direction from D-179 without forcing a rewrite.
+2. Updated `README.md` so the current `POST /api/profiles` bootstrap is documented as a temporary run-profile mechanism rather than real customer auth.
+3. Clarified that scenario `role` values such as `National Security Advisor` are scenario viewpoints, not suite access-control roles.
+
+### 66.12.2 Current evaluation
+
+1. Flashpoint does **not** currently implement shared customer auth, workspace membership, suite roles, billing, subscriptions, or module entitlements.
+2. The current `profiles` / `profileId` model is acceptable only as a lightweight single-player run bootstrap.
+3. That model should not harden into product-local customer identity, billing, or RBAC.
+
+### 66.12.3 Locked compatibility rules
+
+1. Visible suite roles stay:
+- `user`
+- `manager`
+- `admin`
+2. Billing and module entitlements should remain workspace-based, not Flashpoint-local.
+3. Enterprise SSO is a later layer on the shared workspace model, not the default auth assumption.
+4. If Flashpoint adds multi-user collaboration before shared suite auth exists, it should use workspace-compatible bridge objects rather than inventing a separate product-local identity architecture.
+
+### 66.12.4 Non-goal
+
+1. This pass does **not** introduce shared Altira auth, Stripe, SSO, or a workspace rewrite inside Wargames.

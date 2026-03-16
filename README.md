@@ -36,7 +36,7 @@ npm run dev
 ```
 
 ## Gameplay Loop (MVP)
-- One 10-turn scenario
+- One live flagship scenario (currently an 8-window black-swan Taiwan run, with legacy fixtures still in content for regression coverage)
 - 6 core visible meters + hidden latent variables
 - 12 player actions with immediate, probabilistic, and delayed effects
 - Scenario-embedded adversary profile with belief-driven policy (no player-selected rival profile)
@@ -58,6 +58,29 @@ npm run dev
 - `POST /api/episodes/:episodeId/countdown/extend`
 - `GET /api/episodes/:episodeId/report`
 - `GET /api/reference/bootstrap`
+
+## Current Access Model
+
+Flashpoint does not yet implement suite-grade customer auth or billing.
+
+What exists today:
+- `POST /api/profiles` creates a lightweight playtest run profile keyed by codename
+- episodes attach to that temporary profile for run persistence, scoring, and report lookup
+- there is no shared account, workspace membership, subscription, or entitlement layer in this repo today
+
+What this means:
+- the current `profile` / `profileId` model is a temporary run bootstrap, not the long-term Altira customer identity model
+- the scenario `role` field (for example `National Security Advisor`) is an in-scenario viewpoint, not an access-control role
+
+Altira suite alignment:
+- future customer access should resolve through the shared Altira workspace model rather than product-local auth/billing
+- visible suite roles should stay `user`, `manager`, and `admin`
+- billing and module access should stay workspace-based, not Flashpoint-local
+- enterprise SSO is a later layer on top of that shared model, not the default assumption here
+
+See also:
+- `SUITE_ALIGNMENT_2026-03-16.md`
+- `../../../SYSTEM/DECISIONS.md` D-179
 
 ## Project Structure
 ```text
