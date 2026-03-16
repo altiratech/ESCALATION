@@ -3807,3 +3807,80 @@ All passed after reverting the graph-timing experiment.
 ### Notes
 1. Intentional untracked file still present in repo root: `FLASHPOINT_CODE_REVIEW_2026_03_14.md`.
 2. This pass is intended to fix the specific user complaints from the March 16 screenshots without reopening broader shell/layout churn.
+
+## 66.11 Scenario One black-swan refactor (2026-03-16)
+
+### 66.11.1 What shipped
+
+1. Added a new live playable scenario: `northern_strait_black_swan`.
+2. Rebuilt Scenario One around an 8-window anomaly-first cadence:
+- abnormal signal
+- deceptive picture
+- bandwidth and stockpiles
+- reversible coercion test
+- first irreversible incident
+- false relief or trap
+- tail-risk visibility
+- final resolution window
+3. Added extended Taiwan world-state latent variables in `packages/shared-types/src/index.ts` and engine support in `packages/engine/src/{utils.ts,effects.ts,simulator.ts}`:
+- `usSurgeSlack`
+- `munitionsDepth`
+- `politicalBuffer`
+- `taiwanResilience`
+- `shippingStress`
+- `cyberPrepositioning`
+- `deceptionEffectiveness`
+4. Added truth-tier beat briefing (`Verified Facts`, `Working Theories`, `Unknowns`) and wired it into the live briefing UI.
+5. Added authored bounded action variants for the main NSA action set in `packages/content/data/actions.json`.
+6. Reworked custom response interpretation so it now returns:
+- `baseActionId`
+- `variantId`
+- `variantLabel`
+- `customLabel`
+- `interpretationRationale`
+- `narrativeEmphasis`
+7. Kept deterministic resolution authoritative. Custom response can alter authored variant selection and narrative framing, but it does not invent branches or arbitrary state changes.
+8. Disabled generic catastrophic auto-termination for the black-swan scenario so catastrophic endings appear through explicit late beats rather than cutting off the run on active beats.
+9. Rebalanced final terminal branches so Monte Carlo now reaches all authored endings, with blockade/quarantine as the main fat-tail path and invasion remaining rare but reachable.
+
+### 66.11.2 Important implementation notes
+
+1. The legacy `northern_strait_flashpoint` scenario remains in content and is intentionally still first in `scenarios.json`.
+2. This is deliberate:
+- older engine tests still use `scenarios[0]`
+- smoke scripts still read the first bootstrap scenario id
+- the live product still defaults to the black-swan scenario because `StartScreen.tsx` filters out `isLegacy` scenarios before choosing the default
+3. `packages/content/src/index.ts` was extended so cinematic/world/debrief/rival packs can load multiple scenario entries instead of assuming one pack object.
+4. `apps/api/src/interpret.ts` is still a bounded heuristic interpreter, not a live external LLM integration yet. It is designed so future AI narrative improvisation can slot in above the same deterministic variant-selection contract.
+
+### 66.11.3 Validation
+
+1. `npm run lint`
+2. `npm run build --workspace @wargames/web`
+3. `npm run ci:phase1`
+
+All passed.
+
+Additional results:
+- Monte Carlo: `northern_strait_black_swan` beat coverage `13/13`
+- Tests: `15/15` files, `32/32` tests
+
+### 66.11.4 Git / deploy
+
+1. Feature commit: `6bb1960` `Refactor Flashpoint Scenario One into black-swan thriller`
+2. Push: `origin/main`
+3. Deploy run: `23158135171` `success`
+
+### 66.11.5 Open note
+
+1. GitHub Actions still emits a non-blocking Node 20 deprecation warning for `actions/checkout@v4` and `actions/setup-node@v4`.
+2. Intentional untracked repo-root file remains untouched:
+- `FLASHPOINT_CODE_REVIEW_2026_03_14.md`
+
+### 66.11.6 Best next move
+
+1. Review the live black-swan scenario for tension, ambiguity, and consequence quality.
+2. If the structure feels right, the next highest-value pass is not shell work. It is:
+- sharper response differentiation
+- stronger immediate consequence reporting
+- deeper authored late-window content
