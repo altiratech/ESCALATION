@@ -169,12 +169,6 @@ const App = () => {
     }
     return reference.scenarioWorld.find((entry) => entry.scenarioId === episode.scenarioId) ?? null;
   }, [reference, episode?.scenarioId]);
-  const currentCounterpart = useMemo(() => {
-    if (!reference || !episode) {
-      return null;
-    }
-    return reference.rivalLeaders.find((entry) => entry.scenarioId === episode.scenarioId) ?? null;
-  }, [reference, episode?.scenarioId]);
   const activeAdvisorDossiers = useMemo(() => {
     if (!currentBeat || !reference) {
       return [];
@@ -648,7 +642,6 @@ const App = () => {
         : 'Fragmentary';
   const theaterTimeContext = currentScenarioWorld?.dateAnchor.timeContext ?? null;
   const currentDirective = currentScenario?.briefing ?? currentScenarioWorld?.economicBackdrop.straitEconomicValue ?? '';
-  const missionObjectives = currentScenario?.missionObjectives ?? [];
   const turnResolutionGuidance =
     episode.activeCountdown && remainingSeconds !== null
       ? `Select one response, inspect the tradeoffs, and confirm it before ${formatSeconds(remainingSeconds)} elapses.`
@@ -836,8 +829,7 @@ const App = () => {
             turn={episode.turn}
             briefing={episode.briefing}
             scenarioWorld={currentScenarioWorld}
-            counterpartBrief={currentCounterpart}
-            missionObjectives={missionObjectives}
+            windowContextSections={currentBeat?.windowContext?.sections ?? []}
             supportingSignals={supportingSignals}
             turnDebrief={episode.turnDebrief}
             recentActionNarrative={recentActionNarrative}

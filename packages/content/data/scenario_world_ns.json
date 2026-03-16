@@ -162,5 +162,30 @@
     "path": "/assets/images/taiwan-strait-theater-diagram.svg",
     "alt": "Diagram of the Taiwan Strait showing Taiwan, the Fujian coast, key ports, the central transit corridor, and Beijing's inspection pressure zone.",
     "caption": "Most commercial traffic uses the central Taiwan Strait corridor between Taiwan's west-coast ports and the wider East and South China Sea trade system. Beijing's inspection regime pressures that lane without declaring a formal blockade."
+  },
+  "openingBackground": {
+    "summary": "China claims Taiwan as part of its territory, while Taiwan operates as a self-governing democracy with its own government, military, and global trade relationships. Because Taiwan sits at the center of advanced chip production and major regional shipping routes, coercion in the strait can create military, commercial, and market consequences at the same time.",
+    "sections": [
+      {
+        "id": "territorial_dispute",
+        "title": "Territorial Dispute",
+        "body": "Beijing treats unification with Taiwan as a core sovereignty issue and rejects any move that looks like permanent separation or foreign-backed normalization. Taiwan rejects rule from Beijing and depends on deterrence, trade, and external support to preserve the status quo."
+      },
+      {
+        "id": "economic_relevance",
+        "title": "Why Taiwan Matters Economically",
+        "body": "Taiwan sits beside one of the world's most important trade corridors and houses a critical share of advanced semiconductor production. Even limited disruption around its ports, cables, power, or shipping lanes can hit electronics, industrial supply chains, insurance pricing, and broader market confidence very quickly."
+      },
+      {
+        "id": "military_alliance_stakes",
+        "title": "Military And Alliance Stakes",
+        "body": "A Taiwan crisis is not just a cross-strait problem. It immediately tests U.S. credibility, Japanese and Philippine support, and how far allies will go to contest coercion without sliding into direct war."
+      },
+      {
+        "id": "first_disruptions",
+        "title": "What Disruption Would Hit First",
+        "body": "Commercial behavior usually moves before official policy. Shipping firms, war-risk insurers, and manufacturers start repricing and rerouting as soon as routine transit no longer looks routine, which means the first economic damage can arrive before any open exchange of fire."
+      }
+    ]
   }
 }

@@ -270,6 +270,25 @@
               "opposes": "Rejects moves that force the crisis into an overt channel before the coalition understands the full playbook."
             }
           }
+        },
+        "windowContext": {
+          "sections": [
+            {
+              "id": "opening_move",
+              "title": "What Beijing Is Trying",
+              "body": "The inspection regime is designed to look administrative rather than openly military. If it sticks, Beijing gains a new normal in which commercial traffic accepts Chinese control measures without China having to declare a blockade."
+            },
+            {
+              "id": "why_first_response_matters",
+              "title": "Why The First Response Matters",
+              "body": "The opening response will shape whether allies, shipping firms, and markets treat this as a temporary pressure tactic or the start of a durable restriction on transit. Early hesitation can harden commercial caution faster than diplomacy can reverse it."
+            },
+            {
+              "id": "first_market_read",
+              "title": "What Could Move First",
+              "body": "War-risk insurance, shipping schedules, and semiconductor exposure are likely to react first. The question is whether the coalition can reassure commerce quickly enough to keep economic damage from front-running policy."
+            }
+          ]
         }
       },
       {
@@ -443,6 +462,25 @@
               "opposes": "Rejects moves that force the backchannel opening too quickly into an overt response channel."
             }
           }
+        },
+        "windowContext": {
+          "sections": [
+            {
+              "id": "quiet_channel_signal",
+              "title": "What Quiet Outreach Signals",
+              "body": "A backchannel opening suggests Beijing may still want leverage rather than immediate rupture. That creates room to test off-ramps, but only if the coalition does not confuse private outreach with actual restraint."
+            },
+            {
+              "id": "timing_risk",
+              "title": "Why Timing Matters",
+              "body": "Private diplomacy takes time, while shipping and alliance perceptions move in real time. If the coalition leans too heavily on quiet messaging without visible stabilizing signals, markets may assume the pressure campaign is still winning."
+            },
+            {
+              "id": "coalition_read",
+              "title": "How Allies Will Read This",
+              "body": "Partners want proof that dialogue is buying leverage rather than delaying action. Any sign that Washington is improvising or split on next steps will make coalition discipline harder to maintain."
+            }
+          ]
         }
       },
       {
@@ -615,6 +653,25 @@
               "opposes": "Rejects moves that force the strait-pressure campaign too quickly into an overt response channel."
             }
           }
+        },
+        "windowContext": {
+          "sections": [
+            {
+              "id": "pressure_becoming_operational",
+              "title": "Pressure Is Becoming Operational",
+              "body": "The crisis is moving from announcements into direct interference with movement through the strait. That shift matters because operators and insurers respond to actual friction much more sharply than to rhetoric."
+            },
+            {
+              "id": "commercial_confidence",
+              "title": "Commercial Confidence Is The Battleground",
+              "body": "Beijing does not need to stop every ship to impose costs. A few inspections, close approaches, or uncertain routing rules can be enough to convince carriers that normal transit is no longer worth the risk."
+            },
+            {
+              "id": "accident_risk",
+              "title": "What Could Trigger An Accident",
+              "body": "Crowded operating space, weak visibility, and mixed military-law-enforcement traffic raise the chance that a dangerous intercept or boarding turns into a political crisis neither side intended to trigger."
+            }
+          ]
         }
       },
       {
@@ -781,6 +838,25 @@
               "opposes": "Rejects moves that force the trade-friction phase too quickly into an overt response channel."
             }
           }
+        },
+        "windowContext": {
+          "sections": [
+            {
+              "id": "pressure_widening",
+              "title": "Pressure Is Widening Beyond The Strait",
+              "body": "The problem is no longer just maritime control. Trade friction spreads the cost of the crisis into supply chains, inventory decisions, and political pressure inside allied capitals."
+            },
+            {
+              "id": "early_cost_bearers",
+              "title": "Who Bears The Cost First",
+              "body": "Importers, manufacturers, and shipping-linked firms feel the first commercial hit, while governments absorb the political consequences. That is why coalition discipline can fray even when allies agree on the strategic problem."
+            },
+            {
+              "id": "discipline_test",
+              "title": "Why Coalition Discipline Matters",
+              "body": "If allied governments begin separating military reassurance from economic caution, Beijing gains room to keep tightening pressure without crossing a clear red line."
+            }
+          ]
         }
       },
       {
@@ -947,6 +1023,25 @@
               "opposes": "Rejects moves likely to amplify the information fight into a balance-sheet event."
             }
           }
+        },
+        "windowContext": {
+          "sections": [
+            {
+              "id": "narrative_battle",
+              "title": "The Narrative Battle Matters",
+              "body": "This phase is about who defines the crisis for outside audiences. If Beijing can frame its actions as lawful management and cast coalition moves as escalation, it gains political space even while increasing pressure."
+            },
+            {
+              "id": "false_confidence_risk",
+              "title": "Why False Confidence Is Dangerous",
+              "body": "Conflicting public narratives can cause governments and markets to underestimate how fast the situation is worsening. That can leave the coalition behind the pace of events when a sharper decision is suddenly required."
+            },
+            {
+              "id": "market_watch",
+              "title": "What Markets Watch Here",
+              "body": "Markets care less about who sounds tougher and more about whether the information environment suggests operational control is weakening. Confusion, cyber noise, and competing claims can widen risk premiums on their own."
+            }
+          ]
         }
       },
       {
@@ -1119,6 +1214,25 @@
               "opposes": "Rejects moves that force alliance cohesion too quickly into an overt response channel."
             }
           }
+        },
+        "windowContext": {
+          "sections": [
+            {
+              "id": "beijing_testing_seams",
+              "title": "Beijing Is Testing Coalition Seams",
+              "body": "This window is about whether China can separate the coalition politically even if it cannot separate it militarily. Small public differences become strategically meaningful when the whole strategy depends on a common read of the crisis."
+            },
+            {
+              "id": "public_difference_cost",
+              "title": "Why Public Differences Matter",
+              "body": "Visible disagreement encourages markets and operators to assume the coalition will avoid costly steps. That can make Beijing look more durable and allied messaging less credible."
+            },
+            {
+              "id": "restoring_leverage",
+              "title": "What Restores Leverage",
+              "body": "The coalition needs enough visible alignment to show that pressure on one capital will not fracture the larger response. Reassurance and discipline matter as much here as punitive action."
+            }
+          ]
         }
       },
       {
@@ -1309,6 +1423,25 @@
               "opposes": "Rejects moves that force the narrowing crisis window too quickly into an overt response channel."
             }
           }
+        },
+        "windowContext": {
+          "sections": [
+            {
+              "id": "decision_space_narrowing",
+              "title": "Decision Space Is Narrowing",
+              "body": "The crisis is reaching the point where options that looked moderate earlier may now read as either weakness or escalation. Delay carries more cost because each side is interpreting the other through a tighter, more suspicious lens."
+            },
+            {
+              "id": "time_vs_signal",
+              "title": "Time Pressure Versus Signal Control",
+              "body": "Leaders need to move quickly, but speed can produce messages that are hard to reverse. The challenge is to act fast enough to shape the window without creating a public commitment neither side can later soften."
+            },
+            {
+              "id": "misread_cost",
+              "title": "What A Misread Would Cost",
+              "body": "A badly framed response now can shift the crisis from coercive signaling into hard military preparation, alliance fragmentation, or sudden commercial flight. The margin for corrective follow-up is shrinking."
+            }
+          ]
         }
       },
       {
@@ -1506,6 +1639,25 @@
               "opposes": "Rejects moves likely to amplify the missile-warning phase into a balance-sheet event."
             }
           }
+        },
+        "windowContext": {
+          "sections": [
+            {
+              "id": "baseline_shift",
+              "title": "The Warning Changes The Baseline",
+              "body": "Missile signaling moves the crisis into a more dangerous category because it directly affects how carriers, commanders, and markets think about survivability. Even if no strike occurs, the warning changes the operating baseline."
+            },
+            {
+              "id": "commercial_reaction",
+              "title": "Shipping And Insurance Will React Fast",
+              "body": "War-risk pricing, routing choices, and emergency contingency plans can all jump on this kind of signal. Economic damage can accelerate sharply before governments decide on a unified policy answer."
+            },
+            {
+              "id": "keeping_reversible",
+              "title": "What Keeps This Reversible",
+              "body": "The key is to avoid turning military warning into an irreversible political statement. Responses that preserve room for verification and deconfliction are more valuable than gestures that only add visible heat."
+            }
+          ]
         }
       },
       {
@@ -1684,6 +1836,25 @@
               "opposes": "Rejects steps likely to harden the covert contest into strategic lock-in."
             }
           }
+        },
+        "windowContext": {
+          "sections": [
+            {
+              "id": "ambiguity_domain",
+              "title": "Ambiguity Now Favors Hidden Action",
+              "body": "As overt signaling becomes riskier, both sides gain incentives to lean on covert moves, probes, and deniable disruption. That makes attribution slower and increases the chance of reacting to the wrong cause."
+            },
+            {
+              "id": "attribution_risk",
+              "title": "Attribution Risk Is Central",
+              "body": "If the coalition misattributes a cable, cyber, or sabotage incident, it can escalate visibly while Beijing stays partially shielded. The intelligence burden is higher here than in earlier, more public phases of the crisis."
+            },
+            {
+              "id": "overreaction_cost",
+              "title": "Why Overreaction Matters",
+              "body": "A response that treats ambiguous covert activity as confirmed open escalation may unify Beijing domestically and shake allied confidence. Precision matters more than volume in this window."
+            }
+          ]
         }
       },
       {
@@ -1856,6 +2027,25 @@
               "opposes": "Rejects moves that force the domestic-instability wave too quickly into an overt response channel."
             }
           }
+        },
+        "windowContext": {
+          "sections": [
+            {
+              "id": "domestic_pressure",
+              "title": "Domestic Pressure Is Altering Options",
+              "body": "Public unrest changes the crisis because leaders now have to balance external credibility against internal stability. A government under visible strain has less freedom to absorb risky or expensive moves."
+            },
+            {
+              "id": "adversary_inference",
+              "title": "What The Other Side May Infer",
+              "body": "Beijing may read domestic strain as evidence that time favors continued coercion. That can encourage pressure if the coalition appears focused on internal management rather than strategic control."
+            },
+            {
+              "id": "systems_under_strain",
+              "title": "Which Systems Feel It First",
+              "body": "Transport reliability, public communications, energy confidence, and emergency coordination are likely to come under the most visible stress. Those are exactly the systems that markets and allies use to judge resilience."
+            }
+          ]
         }
       },
       {
@@ -2028,6 +2218,25 @@
               "opposes": "Rejects moves that force the market spiral too quickly into an overt response channel."
             }
           }
+        },
+        "windowContext": {
+          "sections": [
+            {
+              "id": "market_stress_strategic",
+              "title": "Market Stress Has Become Strategic",
+              "body": "The crisis is no longer just shaping markets; markets are now shaping the crisis. Funding pressure, insurance repricing, and corporate contingency moves can constrain policy as much as military signaling does."
+            },
+            {
+              "id": "commercial_damage",
+              "title": "What The Commercial Hit Looks Like",
+              "body": "Shipping delays, rerouting, inventory hoarding, and balance-sheet stress begin to reinforce each other in this phase. The economic story becomes one of system confidence rather than isolated disruption."
+            },
+            {
+              "id": "stabilizing_expectations",
+              "title": "What Stabilizes Expectations",
+              "body": "Markets need credible signs that the corridor will not keep degrading and that coalition policy is coordinated enough to avoid policy whiplash. Mixed signals can deepen the spiral even without a new physical incident."
+            }
+          ]
         }
       },
       {
@@ -2215,6 +2424,25 @@
               "opposes": "Rejects moves likely to amplify the carrier faceoff into a balance-sheet event."
             }
           }
+        },
+        "windowContext": {
+          "sections": [
+            {
+              "id": "forces_too_close",
+              "title": "Forces Are Now Too Close For Comfort",
+              "body": "This is the point where military geometry itself becomes the crisis. Short decision cycles, degraded trust, and overlapping engagement zones make intent harder to read and mistakes harder to correct."
+            },
+            {
+              "id": "deterrence_vs_misread",
+              "title": "Deterrence And Misread Are Colliding",
+              "body": "Each side wants to show resolve without being the first to lose control. The danger is that visible deterrence steps can now be read as preparation for action rather than pressure management."
+            },
+            {
+              "id": "stabilizing_move",
+              "title": "What Counts As Stabilizing",
+              "body": "A stabilizing move in this window is one that reduces ambiguity or buys deconfliction time without looking like collapse. Blunt signaling that worked earlier may now push the crisis over the edge."
+            }
+          ]
         }
       },
       {
@@ -2393,6 +2621,25 @@
               "opposes": "Rejects moves that force the ceasefire channel too quickly into an overt response channel."
             }
           }
+        },
+        "windowContext": {
+          "sections": [
+            {
+              "id": "offramp_conditional",
+              "title": "The Off-Ramp Is Real But Conditional",
+              "body": "A ceasefire lane exists, but it is fragile and reversible. Both sides are testing whether they can slow the crisis without appearing to surrender leverage at home or abroad."
+            },
+            {
+              "id": "verification_matters",
+              "title": "Verification Matters More Than Tone",
+              "body": "Markets and allies will not fully trust calming language unless there is a clear mechanism for transit, force distance, or compliance. Ambiguous optimism is less valuable here than credible proof."
+            },
+            {
+              "id": "fragile_calm",
+              "title": "Why The Calm Is Fragile",
+              "body": "One poorly framed sanction, military move, or public statement can still collapse the channel. The task is no longer just to stop the slide, but to preserve a settlement path that others believe will hold."
+            }
+          ]
         }
       },
       {

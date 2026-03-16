@@ -3741,3 +3741,39 @@ remain always visible.
 - `node --import tsx scripts/token-regression.ts`
 - `npx vitest run`
 3. The reliability pass is safe to push/deploy.
+
+## 66.10 Background + Dynamic Context Refactor (2026-03-16)
+
+### 66.10.1 What changed
+
+1. Removed the separate pre-launch `Scenario Background` step from `apps/web/src/components/StartScreen.tsx`.
+2. Simplified setup into one lean `Configure Scenario Run` page with:
+- one concise scenario brief
+- scenario selector
+- pacing selector
+- optional deterministic seed
+- direct `Begin Scenario` entry
+3. Added `openingBackground` to `packages/content/data/scenario_world_ns.json` and `ScenarioWorldDefinition` so Window 1 can carry the static historical/tension explainer inside the live scenario.
+4. Added authored `windowContext` to live beats in `packages/content/data/scenarios.json` and `BeatNode` so the `Context` surface now changes by decision window.
+5. Refactored `apps/web/src/components/BriefingPanel.tsx` so:
+- Window 1 shows a collapsed `Background` block under `Current Situation`
+- `Context` now renders beat-authored sections instead of repeated scenario-world dossier copy
+- the theater diagram remains available without restoring the old dossier sprawl
+
+### 66.10.2 Why this matters
+
+1. The old setup flow asked users to read a separate dossier and then see overlapping information again once the scenario started.
+2. The new flow keeps setup procedural, moves static orientation into the live experience where it is actually needed, and lets later windows explain changing meaning instead of reprinting the same world facts.
+3. This is materially better for finance/non-wargaming users who need a cleaner read of what is happening now versus what the scenario is broadly about.
+
+### 66.10.3 Validation
+
+1. `npm run lint`
+2. `npm run build --workspace @wargames/web`
+3. `npm run ci:phase1`
+
+All passed in-session after the refactor.
+
+### 66.10.4 Open note
+
+1. Local `wrangler dev` did not expose a reachable listener in this sandbox session, so visual smoke for this pass should happen against the deployed build rather than the local API.

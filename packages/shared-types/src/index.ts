@@ -166,12 +166,21 @@ export interface BeatAdvisorActionGuidance {
   rationaleByAlignment: Record<AdvisorRecommendationAlignment, string>;
 }
 
+export interface ScenarioContextSection {
+  id: string;
+  title: string;
+  body: string;
+}
+
 export interface BeatNode {
   id: string;
   phase: BeatPhase;
   sceneFragments: string[];
   advisorLines: Record<string, string[]>;
   advisorActionGuidance?: Record<string, BeatAdvisorActionGuidance>;
+  windowContext?: {
+    sections: ScenarioContextSection[];
+  };
   headlines: string[];
   memoLine: string | null;
   tickerLine: string | null;
@@ -749,6 +758,10 @@ export interface ScenarioWorldDefinition {
   };
   crisisTimeline: ScenarioWorldTimelineEvent[];
   intelligenceGaps: string[];
+  openingBackground?: {
+    summary: string;
+    sections: ScenarioContextSection[];
+  };
   legalFramework: {
     maritimeLaw: string;
     treatyObligations: string;

@@ -4,9 +4,8 @@ import type {
   ActionNarrativePhaseContent,
   EpisodeMeterHistoryPoint,
   MeterState,
-  MissionObjective,
   NarrativeBundle,
-  RivalLeaderDefinition,
+  ScenarioContextSection,
   ScenarioWorldDefinition,
   TurnDebrief
 } from '@wargames/shared-types';
@@ -24,8 +23,7 @@ interface BriefingPanelProps {
   turn: number;
   briefing: NarrativeBundle;
   scenarioWorld: ScenarioWorldDefinition | null;
-  counterpartBrief: RivalLeaderDefinition | null;
-  missionObjectives: MissionObjective[];
+  windowContextSections: ScenarioContextSection[];
   supportingSignals: BriefingSignalItem[];
   turnDebrief: TurnDebrief | null;
   recentActionNarrative: {
@@ -62,8 +60,7 @@ export const BriefingPanel = ({
   turn,
   briefing,
   scenarioWorld,
-  counterpartBrief,
-  missionObjectives,
+  windowContextSections,
   supportingSignals,
   turnDebrief,
   recentActionNarrative,
@@ -77,6 +74,8 @@ export const BriefingPanel = ({
   const [showPhaseTransition, setShowPhaseTransition] = useState(Boolean(phaseTransition));
   const [showAllDevelopments, setShowAllDevelopments] = useState(false);
   const [showAllSignals, setShowAllSignals] = useState(false);
+  const [showBackground, setShowBackground] = useState(false);
+  const [expandedBackgroundSectionId, setExpandedBackgroundSectionId] = useState<string | null>(null);
   const [activeSection, setActiveSection] = useState<BriefingSectionId>('developments');
 
   useEffect(() => {
@@ -86,6 +85,8 @@ export const BriefingPanel = ({
     setShowPhaseTransition(Boolean(phaseTransition));
     setShowAllDevelopments(false);
     setShowAllSignals(false);
+    setShowBackground(false);
+    setExpandedBackgroundSectionId(null);
   }, [turn, phaseTransition?.key]);
 
   const signalDetails = useMemo(() => {
@@ -120,8 +121,7 @@ export const BriefingPanel = ({
   const clipText = (value: string, limit = 260): string =>
     value.length > limit ? `${value.slice(0, limit - 1).trimEnd()}…` : value;
 
-  const theaterHighlights = scenarioWorld?.region.keyFeatures.slice(0, 3) ?? [];
-  const intelligenceGapPreview = turn === 1 ? scenarioWorld?.intelligenceGaps.slice(0, 3) ?? [] : [];
+  const openingBackground = turn === 1 ? scenarioWorld?.openingBackground ?? null : null;
   const primaryHeadlines = briefing.headlines.slice(0, 2);
   const secondaryHeadlines = briefing.headlines.slice(2);
   const visibleSupportingSignals = showAllSignals ? supportingSignals : supportingSignals.slice(0, 2);
@@ -312,98 +312,23 @@ export const BriefingPanel = ({
 
   const renderContext = () => (
     <div className="space-y-4">
-      {missionObjectives.length > 0 ? (
+      {windowContextSections.length > 0 ? (
+        <section className="grid gap-3 xl:grid-cols-2">
+          {windowContextSections.map((section) => (
+            <article key={section.id} className="console-subpanel px-3 py-3">
+              <p className="label">{section.title}</p>
+              <p className="mt-2 text-[0.74rem] leading-relaxed text-textMuted">{section.body}</p>
+            </article>
+          ))}
+        </section>
+      ) : (
         <section className="console-subpanel px-3 py-3">
-          <p className="label">Decision Priorities</p>
-          <div className="mt-3 space-y-2">
-            {missionObjectives.map((objective) => (
-              <div key={objective.id} className="border-l-2 border-accent/55 pl-3">
-                <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">{objective.label}</p>
-                <p className="mt-1 text-[0.72rem] leading-relaxed text-textMain">{objective.description}</p>
-              </div>
-            ))}
-          </div>
+          <p className="label">Context</p>
+          <p className="mt-2 text-[0.74rem] leading-relaxed text-textMuted">
+            No additional context is loaded for this window. Use the current situation and key developments to guide the next response.
+          </p>
         </section>
-      ) : null}
-
-      {scenarioWorld ? (
-        <section className="grid gap-3 xl:grid-cols-[1.02fr_0.98fr]">
-          <div className="console-subpanel px-3 py-3">
-            <p className="label">Where Pressure Is Building</p>
-            <p className="mt-1 text-sm text-textMain">
-              {scenarioWorld.region.name} · {scenarioWorld.dateAnchor.month} {scenarioWorld.dateAnchor.year}
-            </p>
-            <p className="mt-2 text-[0.7rem] text-textMuted">{scenarioWorld.dateAnchor.dayRange}</p>
-            <p className="mt-2 text-[0.72rem] leading-relaxed text-textMuted">
-              {clipText(scenarioWorld.region.description, 260)}
-            </p>
-            {theaterHighlights.length > 0 ? (
-              <div className="mt-3 flex flex-wrap gap-1.5">
-                {theaterHighlights.map((feature) => (
-                  <span
-                    key={feature}
-                    className="rounded-md border border-borderTone/70 px-1.5 py-0.5 text-[0.56rem] uppercase tracking-[0.1em] text-textMuted"
-                  >
-                    {feature}
-                  </span>
-                ))}
-              </div>
-            ) : null}
-          </div>
-
-          <div className="console-subpanel px-3 py-3">
-            <p className="label">Why Finance Should Care</p>
-            <p className="mt-2 text-[0.72rem] leading-relaxed text-textMuted">
-              {clipText(scenarioWorld.economicBackdrop.straitEconomicValue, 250)}
-            </p>
-            <div className="mt-3 border-t border-borderTone/70 pt-3">
-              <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Likely market read</p>
-              <p className="mt-2 text-[0.72rem] leading-relaxed text-textMuted">
-                {clipText(scenarioWorld.economicBackdrop.marketSentiment, 220)}
-              </p>
-            </div>
-          </div>
-        </section>
-      ) : null}
-
-      {counterpartBrief || intelligenceGapPreview.length > 0 ? (
-        <section className="grid gap-3 xl:grid-cols-[1fr_0.92fr]">
-          {counterpartBrief ? (
-            <div className="console-subpanel px-3 py-3">
-              <p className="label">What We Know</p>
-              <p className="mt-1 text-sm text-textMain">
-                {counterpartBrief.leader.publicName} · {counterpartBrief.leader.title}
-              </p>
-              <p className="mt-2 text-[0.72rem] leading-relaxed text-textMuted">
-                {clipText(counterpartBrief.leader.psychologicalProfile.summary, 220)}
-              </p>
-              <p className="mt-2 text-[0.7rem] leading-relaxed text-textMuted">
-                <span className="text-textMain">Known red line:</span>{' '}
-                {clipText(counterpartBrief.leader.motivations.redLine, 180)}
-              </p>
-              {(counterpartBrief.leader.intelFragments.opening ?? []).length > 0 ? (
-                <p className="mt-2 text-[0.7rem] leading-relaxed text-textMuted">
-                  <span className="text-textMain">Current read:</span>{' '}
-                  {clipText((counterpartBrief.leader.intelFragments.opening ?? [])[0] ?? '', 170)}
-                </p>
-              ) : null}
-            </div>
-          ) : null}
-
-          {intelligenceGapPreview.length > 0 ? (
-            <div className="console-subpanel px-3 py-3">
-              <p className="label">What We Still Don't Know</p>
-              <div className="mt-2 space-y-2">
-                {intelligenceGapPreview.map((entry) => (
-                  <p key={entry} className="border-l border-borderTone/80 pl-3 text-[0.72rem] leading-relaxed text-textMuted">
-                    {clipText(entry, 200)}
-                  </p>
-                ))}
-              </div>
-            </div>
-          ) : null}
-        </section>
-      ) : null}
+      )}
     </div>
   );
 
@@ -431,12 +356,58 @@ export const BriefingPanel = ({
   return (
     <section className="console-panel console-panel-muted p-4 sm:p-5">
       <div className={`grid gap-4 ${scenarioWorld?.theaterDiagram ? 'xl:grid-cols-[1.04fr_0.96fr]' : ''}`}>
-        <article className="console-subpanel px-4 py-3">
-          <p className="label">Current Situation</p>
-          <p className="mt-3 border-l-2 border-accent/70 pl-4 text-sm leading-relaxed text-textMain">
-            {briefing.briefingParagraph}
-          </p>
-        </article>
+        <div className="space-y-4">
+          <article className="console-subpanel px-4 py-3">
+            <p className="label">Current Situation</p>
+            <p className="mt-3 border-l-2 border-accent/70 pl-4 text-sm leading-relaxed text-textMain">
+              {briefing.briefingParagraph}
+            </p>
+          </article>
+
+          {openingBackground ? (
+            <section className="console-subpanel px-4 py-3">
+              <button
+                type="button"
+                className="flex w-full items-start justify-between gap-3 text-left"
+                onClick={() => setShowBackground((current) => !current)}
+              >
+                <div>
+                  <p className="label">Background</p>
+                  <p className="mt-2 text-[0.78rem] leading-relaxed text-textMuted">{openingBackground.summary}</p>
+                </div>
+                <span className="text-[0.58rem] uppercase tracking-[0.12em] text-accent">
+                  {showBackground ? 'Hide' : 'Open'}
+                </span>
+              </button>
+              {showBackground ? (
+                <div className="mt-3 space-y-2 border-t border-borderTone/70 pt-3">
+                  {openingBackground.sections.map((section) => {
+                    const open = expandedBackgroundSectionId === section.id;
+                    return (
+                      <article key={section.id} className="rounded-md border border-borderTone/70 bg-panelRaised/35">
+                        <button
+                          type="button"
+                          className="flex w-full items-center justify-between gap-3 px-3 py-2 text-left"
+                          onClick={() => setExpandedBackgroundSectionId(open ? null : section.id)}
+                        >
+                          <span className="text-[0.62rem] uppercase tracking-[0.12em] text-textMain">{section.title}</span>
+                          <span className="text-[0.58rem] uppercase tracking-[0.12em] text-accent">
+                            {open ? 'Hide' : 'Open'}
+                          </span>
+                        </button>
+                        {open ? (
+                          <div className="border-t border-borderTone/70 px-3 py-2.5 text-[0.72rem] leading-relaxed text-textMuted">
+                            {section.body}
+                          </div>
+                        ) : null}
+                      </article>
+                    );
+                  })}
+                </div>
+              ) : null}
+            </section>
+          ) : null}
+        </div>
 
         {scenarioWorld?.theaterDiagram ? (
           <figure className="overflow-hidden rounded-md border border-borderTone/80 bg-surface/65">
