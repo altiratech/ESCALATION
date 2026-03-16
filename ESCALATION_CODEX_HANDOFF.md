@@ -4021,3 +4021,56 @@ All passed.
 1. Existing Monte Carlo policy-concentration warnings remain, but beat coverage still passes at `13/13` for the black-swan scenario.
 2. Intentional untracked review file `FLASHPOINT_CODE_REVIEW_2026_03_14.md` remains untouched.
 3. Next likely product pass is deeper late-window authored consequence scenes and/or stronger immediate branch-signaling after each committed move, not more shell redesign.
+
+## 66.15 Story-depth pass: concrete procedural detail + summary de-duplication (2026-03-16)
+
+### 66.15.1 What changed
+
+1. `Situation Summary` no longer reuses the full `Current Situation` paragraph.
+2. The top summary band now prefers a shorter desk-style lead:
+   - `memoLine`
+   - then first verified fact body
+   - then headline / scene fallback
+3. The opening live beat no longer prepends setup-brief exposition into the first dramatic scene paragraph.
+4. Rewrote the key black-swan beats to use more interpretable procedural detail instead of abstract smart-sounding shorthand:
+   - `ns_abnormal_signal`
+   - `ns_deceptive_picture`
+   - `ns_first_irreversible_incident`
+   - `ns_tail_risk_visibility`
+   - `ns_final_resolution_window`
+5. Those beats now lean harder on:
+   - exact sequence / time markers
+   - who observed what
+   - what specifically looked wrong
+   - what contradiction remains unresolved
+   - why the room is alarmed
+
+### 66.15.2 Why this matters
+
+1. The user correctly called out that prior copy often sounded precise without actually helping the player picture the event.
+2. This pass raises the writing bar toward:
+   - concrete observation
+   - understandable uncertainty
+   - richer suspense
+3. It also reduces a real UX problem:
+   - the summary rail should orient
+   - the scene paragraph should immerse
+   - they should not do the same job twice
+
+### 66.15.3 Validation
+
+1. `npm run lint`
+2. `npm run build --workspace @wargames/web`
+3. `npm run ci:phase1`
+4. `npx vitest run tests/engine/images.test.ts`
+
+All passed.
+
+### 66.15.4 Open note
+
+1. This is a story-depth pass, not the final visual-realism pass.
+2. The next likely content move is to bring the same procedural-detail standard to the remaining mid-scenario beats:
+   - Window 3
+   - Window 4
+   - Window 6
+3. The next likely visual move is a curated photoreal still / photographed-artifact pack to replace the remaining schematic feel of the current local SVG assets.

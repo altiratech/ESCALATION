@@ -169,8 +169,12 @@ export const buildOpeningNarrativeFromBeat = (
   scenarioBriefing: string,
   beat: BeatNode
 ): NarrativeBundle => {
+  const openingParagraph =
+    beat.sceneFragments.length > 0
+      ? beat.sceneFragments.join(' ').trim()
+      : scenarioBriefing;
   const bundle: NarrativeBundle = {
-    briefingParagraph: `${scenarioBriefing} ${beat.sceneFragments[0] ?? ''}`.trim(),
+    briefingParagraph: openingParagraph,
     headlines: beat.headlines.slice(0, 2)
   };
 

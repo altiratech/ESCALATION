@@ -1036,6 +1036,16 @@ const App = () => {
     ? currentBeat.windowContext.sections
     : dynamicContextSections;
   const activeTruthModel = currentBeat?.truthModel ?? null;
+  const summaryLead =
+    currentBeat?.memoLine ??
+    activeTruthModel?.verifiedFacts?.[0]?.body ??
+    episode.briefing.headlines[0] ??
+    currentBeat?.sceneFragments[0] ??
+    currentDirective;
+  const summaryPrompt =
+    activeTruthModel
+      ? 'Use the briefing below to separate confirmed facts from working theories before you move into the decision room.'
+      : 'Use the briefing below to separate what is known from what is still being inferred before you choose a response.';
   const previewImageAsset = episode.imageAsset
     ? null
     : pickPreviewImageAsset(reference, currentScenario, currentBeat, {
@@ -1170,9 +1180,9 @@ const App = () => {
                     Review Before Deciding
                   </span>
                 </div>
-                <p className="mt-2 text-[0.82rem] leading-relaxed text-textMain">{currentDirective}</p>
+                <p className="mt-2 text-[0.82rem] leading-relaxed text-textMain">{summaryLead}</p>
                 <p className="mt-2 text-[0.72rem] leading-relaxed text-textMuted">
-                  Review the live picture below. When you are ready, move to the decision room and choose the next response.
+                  {summaryPrompt}
                 </p>
               </div>
               <div className="flex shrink-0 items-start">
