@@ -66,17 +66,15 @@ const stageFromPhase = (beat: BeatNode | undefined): string[] => {
   return [...new Set([...fromCue, ...(phaseMap[beat.phase] ?? [])])];
 };
 
-const buildRequestedTags = (beat: BeatNode | undefined, action?: ActionDefinition | null, variant?: ActionVariantDefinition | null): string[] => {
-  const tags = [
-    ...(beat?.imageHints ?? []),
-    ...(beat?.visualCue?.tags ?? []),
-    ...stageFromPhase(beat),
-    ...(action?.visualTags ?? []),
-    ...(variant?.visualTags ?? [])
-  ];
+const normalizedTags = (tags: string[]): string[] => [...new Set(tags.map((tag) => tag.toLowerCase()))];
 
-  return [...new Set(tags.map((tag) => tag.toLowerCase()))];
-};
+const buildBeatTags = (beat: BeatNode | undefined): string[] =>
+  normalizedTags([...(beat?.imageHints ?? []), ...(beat?.visualCue?.tags ?? []), ...stageFromPhase(beat)]);
+
+const buildActionTags = (action?: ActionDefinition | null): string[] => normalizedTags([...(action?.visualTags ?? [])]);
+
+const buildVariantTags = (variant?: ActionVariantDefinition | null): string[] =>
+  normalizedTags([...(variant?.visualTags ?? [])]);
 
 const scoreKind = (asset: ImageAsset, preferredKinds: ImageAssetKind[]): number => {
   const index = preferredKinds.indexOf(asset.kind);
@@ -86,9 +84,9 @@ const scoreKind = (asset: ImageAsset, preferredKinds: ImageAssetKind[]): number 
   return Math.max(1, preferredKinds.length - index) * 6;
 };
 
-const scoreTags = (asset: ImageAsset, requestedTags: string[]): number => {
+const scoreTags = (asset: ImageAsset, requestedTags: string[], weight = 4): number => {
   const assetTags = new Set(asset.tags.map((tag) => tag.toLowerCase()));
-  return requestedTags.reduce((score, tag) => score + (assetTags.has(tag) ? 4 : 0), 0);
+  return requestedTags.reduce((score, tag) => score + (assetTags.has(tag) ? weight : 0), 0);
 };
 
 const scoreAsset = (
@@ -97,7 +95,9 @@ const scoreAsset = (
   dominantDomain: ImageAsset['domain'],
   severity: ImageAsset['severity'],
   preferredKinds: ImageAssetKind[],
-  requestedTags: string[]
+  beatTags: string[],
+  actionTags: string[],
+  variantTags: string[]
 ): number => {
   let score = 0;
 
@@ -117,9 +117,11 @@ const scoreAsset = (
 
   score += Math.max(0, 4 - Math.abs(asset.severity - severity)) * 2;
   score += scoreKind(asset, preferredKinds);
-  score += scoreTags(asset, requestedTags);
+  score += scoreTags(asset, beatTags, 4);
+  score += scoreTags(asset, actionTags, 6);
+  score += scoreTags(asset, variantTags, 8);
 
-  if (asset.kind === 'map' && !requestedTags.includes('map') && preferredKinds[0] !== 'map') {
+  if (asset.kind === 'map' && !beatTags.includes('map') && preferredKinds[0] !== 'map') {
     score -= 6;
   }
 
@@ -158,13 +160,16 @@ export const chooseImageAsset = ({
   const preferredKinds = beat?.visualCue?.preferredKinds?.length
     ? beat.visualCue.preferredKinds
     : kindPreferenceFallback;
-  const requestedTags = buildRequestedTags(beat, playerAction, playerVariant);
+  const beatTags = buildBeatTags(beat);
+  const actionTags = buildActionTags(playerAction);
+  const variantTags = buildVariantTags(playerVariant);
+  const requestedTags = normalizedTags([...beatTags, ...actionTags, ...variantTags]);
 
   const scored = assets
     .filter((asset) => !recentImageIds.includes(asset.id))
     .map((asset) => ({
       asset,
-      score: scoreAsset(asset, scenario, dominantDomain, severity, preferredKinds, requestedTags)
+      score: scoreAsset(asset, scenario, dominantDomain, severity, preferredKinds, beatTags, actionTags, variantTags)
     }))
     .sort((left, right) => right.score - left.score);
 
