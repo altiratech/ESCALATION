@@ -500,7 +500,7 @@
         },
         "headlines": [
           "Shipping Convoys Reroute as Strait Harassment Intensifies",
-          "Defense Attachés Warn of Accidental Contact Risk"
+          "Defense Attach\u00e9s Warn of Accidental Contact Risk"
         ],
         "memoLine": "Operations memo: rules-of-engagement clarification requested by forward commanders.",
         "tickerLine": "Risk ticker: Asia maritime index volatility at 4-week high.",
@@ -968,7 +968,7 @@
               "military_posture_increase"
             ],
             "rationaleByAlignment": {
-              "supports": "Prefers actions that steady public interpretation and keep allies from validating Beijing’s framing.",
+              "supports": "Prefers actions that steady public interpretation and keep allies from validating Beijing\u2019s framing.",
               "cautions": "Can accept this if the message discipline is tight and coalition fallout stays limited.",
               "opposes": "Rejects moves that overreact publicly and turn disinformation into a self-fulfilling escalation story."
             }
@@ -2344,7 +2344,7 @@
               "limited_concession"
             ],
             "rationaleByAlignment": {
-              "supports": "Backs choices that make U.S. and allied intent unmistakable before the faceoff breaks on someone else’s terms.",
+              "supports": "Backs choices that make U.S. and allied intent unmistakable before the faceoff breaks on someone else\u2019s terms.",
               "cautions": "Can live with this if it still contributes to clear resolve in the immediate operating picture.",
               "opposes": "Rejects actions that read as hesitation or that trade away visible control at the point of maximum danger."
             }
@@ -3173,7 +3173,7 @@
             "rationaleByAlignment": {
               "supports": "Prefers optionality, collection, and deniable leverage while the anomaly is still more suggestive than explicit.",
               "cautions": "Can work, but only if paired with a clear sense of what hidden architecture is already in motion.",
-              "opposes": "Rejects loud overt moves that surrender deniability, simplify the other side’s story, or close off covert options too early."
+              "opposes": "Rejects loud overt moves that surrender deniability, simplify the other side\u2019s story, or close off covert options too early."
             }
           }
         },
@@ -3181,19 +3181,19 @@
           "verifiedFacts": [
             {
               "id": "dongsha_anomaly",
-              "title": "Three observers saw the same false cluster",
+              "title": "Three sensors logged the same six contacts",
               "body": "Taiwanese coastal radar, a Japanese P-1 patrol aircraft, and the bridge crew of the Taima Star ferry all logged the same six-contact cluster south of Dongsha between 04:17 and 04:19 Taipei time."
             },
             {
               "id": "transponder_gap",
-              "title": "Three contacts jumped across the lane",
+              "title": "Three tracks vanished, then reappeared four miles east",
               "body": "In the common picture, three contacts dropped out and reappeared about four nautical miles east while duplicate AIS identities continued to broadcast in the original shipping lane."
             }
           ],
           "workingTheories": [
             {
               "id": "coercive_probe",
-              "title": "Someone may be rehearsing how to steal warning time",
+              "title": "This may be a rehearsal for stealing warning time",
               "body": "If this was deliberate, the point may not have been the six contacts themselves. It may have been to learn how long allied operators argue before anyone is willing to say the picture has been touched."
             },
             {
@@ -3220,7 +3220,7 @@
             {
               "id": "pressure_meaning",
               "title": "Why This Is Dangerous",
-              "body": "If Beijing can contaminate the picture before anyone agrees on the facts, it can steal the most valuable thing in a crisis: warning time."
+              "body": "If six vessel-sized returns can appear in a routine merchant lane and nobody can say which of them were real, Beijing gets the one thing every later decision depends on: warning time."
             },
             {
               "id": "decision_question",
@@ -3235,10 +3235,10 @@
           ]
         },
         "headlines": [
-          "Six Vessel-Sized Contacts Break The Dongsha Picture",
-          "Three Allied Observers Catch The Same Impossible Jump"
+          "Six Contacts Appear In The Merchant Lane South Of Dongsha",
+          "A Patrol Aircraft And Ferry Crew Confirm The Same Jump"
         ],
-        "memoLine": "Desk note: at 04:17 Taipei time, coastal radar, a Japanese patrol aircraft, and a civilian ferry all logged the same false track pattern south of Dongsha.",
+        "memoLine": "Desk note: at 04:17 Taipei time, coastal radar south of Dongsha picked up six vessel-sized returns inside the northbound merchant lane. A Japanese P-1 patrol aircraft and the Taima Star ferry logged the same jump minutes later.",
         "tickerLine": "Marine insurers flag the southern approaches after duplicate ship identities appear in a lane that should be routine.",
         "imageHints": [
           "taiwan",
@@ -3277,7 +3277,16 @@
             "surveillance"
           ],
           "branchStage": "ambiguous",
-          "caption": "The first sign of danger is a picture that should make sense and suddenly does not."
+          "caption": "At 04:17 six vessel-sized returns appeared south of Dongsha, and three of them reappeared four nautical miles east minutes later.",
+          "heroImageIds": [
+            "tw_bs_031",
+            "tw_bs_028"
+          ],
+          "evidenceImageIds": [
+            "tw_bs_032",
+            "tw_bs_001",
+            "tw_bs_002"
+          ]
         }
       },
       {
@@ -3400,7 +3409,7 @@
               "limited_concession"
             ],
             "rationaleByAlignment": {
-              "supports": "When the radar picture may be lying, he wants collection, deniable leverage, and quiet tests of the counterpart’s real intent.",
+              "supports": "When the radar picture may be lying, he wants collection, deniable leverage, and quiet tests of the counterpart\u2019s real intent.",
               "cautions": "May be necessary, but he worries overt moves reveal too much about what we know or do not know.",
               "opposes": "Rejects clean, loud answers to a deliberately dirty signal environment."
             }
@@ -3415,7 +3424,7 @@
             },
             {
               "id": "warning_time_compression",
-              "title": "A patrol-aircraft transponder was mirrored",
+              "title": "One patrol-aircraft track appeared in two places at once",
               "body": "For part of the window, one aviation track appeared in two places at once on regional systems, which is why operators stopped treating the event as a simple sensor glitch."
             }
           ],
@@ -3449,7 +3458,7 @@
             {
               "id": "signal_meaning",
               "title": "What Changed In The Room",
-              "body": "The room is no longer debating one strange contact. It is debating whether the common picture can still be trusted at all."
+              "body": "The room is no longer arguing about one strange contact. It is arguing about whether the shared picture of the Strait can still be trusted at all."
             },
             {
               "id": "market_read",
@@ -3464,10 +3473,10 @@
           ]
         },
         "headlines": [
-          "AIS Replays And Selective Jamming Contaminate The Corridor Picture",
-          "Operators Stop Debating Glitch Versus Spoof And Start Counting Lost Warning Time"
+          "Spoofed Ship Identities Spread Beyond The Original Dongsha Cluster",
+          "Operators Stop Trusting The Common Picture"
         ],
-        "memoLine": "Analyst note: the screen is no longer just reporting the crisis; it is becoming part of it.",
+        "memoLine": "Desk note: merchant AIS positions are replaying stale packets, one patrol-aircraft transponder briefly appeared in two places at once, and operators are now treating the corridor picture itself as compromised.",
         "tickerLine": "Carriers start asking whether routing data can still be trusted before any government uses the word blockade.",
         "imageHints": [
           "taiwan",
@@ -3505,7 +3514,16 @@
             "surveillance"
           ],
           "branchStage": "compression",
-          "caption": "Once the picture itself is unreliable, every later move arrives with less warning."
+          "caption": "Duplicate AIS identities and mirrored transponder data are now contaminating the common picture across the lane.",
+          "heroImageIds": [
+            "tw_bs_028",
+            "tw_bs_031"
+          ],
+          "evidenceImageIds": [
+            "tw_bs_002",
+            "tw_bs_032",
+            "tw_bs_014"
+          ]
         }
       },
       {
@@ -3638,12 +3656,12 @@
           "verifiedFacts": [
             {
               "id": "force_extension",
-              "title": "The readiness slide is uglier in private than it is in public",
+              "title": "The private readiness slide is uglier than the public line",
               "body": "The secure briefing shows tighter magazine depth, longer Pacific reinforcement timelines, and less spare ISR coverage than public statements imply."
             },
             {
               "id": "munitions_strain",
-              "title": "Energy buffer is already part of the same discussion",
+              "title": "Fuel buffer is now on the same slide as munitions burn",
               "body": "The March 11 SPR release memo is now sitting beside the munitions review because planners assume oil, shipping, and military tempo could all tighten at once."
             }
           ],
@@ -3677,7 +3695,7 @@
             {
               "id": "signal_meaning",
               "title": "The Slide Nobody Wanted",
-              "body": "Taiwan is no longer a self-contained map problem. It is tied to magazines, fuel, shipping, and how much bad news Washington can absorb at once."
+              "body": "Taiwan is now sitting inside the same conversation as magazines, fuel cover, freight risk, and how much bad news Washington can absorb at once."
             },
             {
               "id": "market_hears",
@@ -3692,10 +3710,10 @@
           ]
         },
         "headlines": [
-          "A Logistics Slide Turns Taiwan Into A Buffer Question",
-          "SPR, Munitions Burn, And Reinforcement Timelines Enter The Same Call"
+          "Private Logistics Readout Shows Magazines Thin And Buffers Worse Than Advertised",
+          "SPR Drawdown, Munitions Burn, And Reinforcement Delays Hit The Same Briefing"
         ],
-        "memoLine": "Readout: the room is no longer arguing about language alone; it is arguing about how many real shocks the system can still absorb.",
+        "memoLine": "Readout: a logistics briefer has put the ugly slide on the wall - tighter magazine depth, a thinner fuel cushion, and Pacific reinforcement timelines that run longer than the public line suggests.",
         "tickerLine": "Oil desks, freight brokers, and chip buyers keep twitching together whenever Taiwan flashes back onto the screen.",
         "imageHints": [
           "taiwan",
@@ -3737,7 +3755,17 @@
             "energy"
           ],
           "branchStage": "compression",
-          "caption": "The room is no longer only asking what to signal. It is asking what the United States can actually sustain if this runs longer."
+          "caption": "The wall now carries munitions burn, SPR drawdown, and Pacific reinforcement timelines on the same slide.",
+          "heroImageIds": [
+            "tw_bs_021",
+            "tw_bs_033",
+            "tw_bs_024"
+          ],
+          "evidenceImageIds": [
+            "tw_bs_019",
+            "tw_bs_032",
+            "tw_bs_003"
+          ]
         }
       },
       {
@@ -3811,7 +3839,7 @@
             ],
             "rationaleByAlignment": {
               "supports": "Wants to contest the legitimacy of the coercion while keeping allied discipline and an exit ramp intact.",
-              "cautions": "Can fit, but only if the move does not validate Beijing’s administrative framing or split partners.",
+              "cautions": "Can fit, but only if the move does not validate Beijing\u2019s administrative framing or split partners.",
               "opposes": "Rejects steps most likely to turn a coercive test into a direct military showdown too early."
             }
           },
@@ -3835,7 +3863,7 @@
               "military_posture_decrease"
             ],
             "rationaleByAlignment": {
-              "supports": "Favors protecting the corridor’s commercial function or raising cost in ways the alliance can sustain.",
+              "supports": "Favors protecting the corridor\u2019s commercial function or raising cost in ways the alliance can sustain.",
               "cautions": "Sees some leverage, but worries about commercial spillover and insurer behavior if execution is messy.",
               "opposes": "Rejects responses that make the corridor economically unusable before they make it strategically safer."
             }
@@ -3924,10 +3952,10 @@
           ]
         },
         "headlines": [
-          "Chinese Safety Notice Puts Permission In Front Of Passage",
-          "Captains Slow To Inspection Speed Before Any Capital Uses The Word Blockade"
+          "Chinese Route Notices Put Permission In Front Of Passage",
+          "Captains Slow Before Any Government Uses The Word Blockade"
         ],
-        "memoLine": "Paperwork first, hulls second. That sequence is the whole point.",
+        "memoLine": "Ops note: the first notice is in inboxes now, and some captains are already slowing before any capital is willing to call the lane controlled.",
         "tickerLine": "Charterers begin asking whether routine west-coast Taiwan calls now require political as well as commercial clearance.",
         "imageHints": [
           "taiwan",
@@ -4009,7 +4037,16 @@
             "map"
           ],
           "branchStage": "coercion",
-          "caption": "No one has declared the lane closed. Commerce may start behaving as if it is controlled anyway."
+          "caption": "The notices look administrative on paper. In the lane, they are already changing how captains move.",
+          "heroImageIds": [
+            "tw_bs_023",
+            "tw_bs_024"
+          ],
+          "evidenceImageIds": [
+            "tw_bs_004",
+            "tw_bs_032",
+            "tw_bs_014"
+          ]
         }
       },
       {
@@ -4286,7 +4323,16 @@
             "militarized"
           ],
           "branchStage": "incident",
-          "caption": "Once the boarding footage is public, insurers, port operators, and commanders stop asking whether the pressure is real."
+          "caption": "The boarding clip is public, a deckhand is hurt, and west-coast port systems are failing in the same hour.",
+          "heroImageIds": [
+            "tw_bs_029",
+            "tw_bs_022"
+          ],
+          "evidenceImageIds": [
+            "tw_bs_030",
+            "tw_bs_006",
+            "tw_bs_032"
+          ]
         }
       },
       {
@@ -4458,7 +4504,7 @@
             {
               "id": "signal_meaning",
               "title": "Why The Quiet Feels Wrong",
-              "body": "The surface picture is calmer, but the hulls, access, and coercive machinery that created the danger are still in place."
+              "body": "The surface picture is calmer, but the hulls, access rules, and coercive machinery that created the danger are still sitting in the water."
             },
             {
               "id": "why_now",
@@ -4473,10 +4519,10 @@
           ]
         },
         "headlines": [
-          "Several Ships Pass Cleanly, But The Control Net Stays In Place",
-          "The Room Gets A Taste Of Relief It Cannot Yet Verify"
+          "A Few Hulls Are Waved Through, But The Control Net Never Drops",
+          "Markets Get A Taste Of Relief Nobody Can Verify"
         ],
-        "memoLine": "The screens look better for the first time in hours. That is exactly why nobody wants to say the word relief out loud.",
+        "memoLine": "Ops note: several scheduled crossings cleared without incident, but the hulls, route authorities, and suspicious network traffic that created the scare are still in place.",
         "tickerLine": "A few hulls move, premium quotes loosen slightly, and every experienced hand in the room asks what is being set up behind the lull.",
         "imageHints": [
           "taiwan",
@@ -4525,7 +4571,16 @@
             "dawn"
           ],
           "branchStage": "false_relief",
-          "caption": "The water looks calm enough for people to fool themselves for an hour. That is what makes the lull dangerous."
+          "caption": "A few ships are moving again, but the enforcement hulls, route authorities, and suspicious network traffic never actually left.",
+          "heroImageIds": [
+            "tw_bs_027",
+            "tw_bs_024"
+          ],
+          "evidenceImageIds": [
+            "tw_bs_014",
+            "tw_bs_032",
+            "tw_bs_007"
+          ]
         }
       },
       {
@@ -4768,7 +4823,17 @@
             "shortages"
           ],
           "branchStage": "tail_risk",
-          "caption": "The lane is still open on paper. Insurers, fabs, and command staffs are beginning to act as if the failure case is close enough to plan around."
+          "caption": "Bookings are freezing, component buyers are hoarding, and hotline officers are now speaking in minutes instead of margins.",
+          "heroImageIds": [
+            "tw_bs_023",
+            "tw_bs_026",
+            "tw_bs_033"
+          ],
+          "evidenceImageIds": [
+            "tw_bs_011",
+            "tw_bs_012",
+            "tw_bs_032"
+          ]
         }
       },
       {
@@ -5105,7 +5170,17 @@
             "market_panic"
           ],
           "branchStage": "collapse",
-          "caption": "By now the damage is already in motion. The final move decides which part of the world breaks first."
+          "caption": "Cargo holds, fab schedules, trading desks, and command posts are all waiting on the same hour now.",
+          "heroImageIds": [
+            "tw_bs_024",
+            "tw_bs_026",
+            "tw_bs_023"
+          ],
+          "evidenceImageIds": [
+            "tw_bs_011",
+            "tw_bs_012",
+            "tw_bs_032"
+          ]
         }
       },
       {
@@ -5324,7 +5399,15 @@
             "conciliatory"
           ],
           "branchStage": "collapse",
-          "caption": "Relief becomes real only when ships move, cover returns, and Taipei can prove the lane still works under pressure."
+          "caption": "Relief becomes real only when ships move, cover returns, and Taipei can prove the lane still works under pressure.",
+          "heroImageIds": [
+            "tw_bs_016",
+            "tw_bs_024"
+          ],
+          "evidenceImageIds": [
+            "tw_bs_032",
+            "tw_bs_014"
+          ]
         }
       },
       {
@@ -5542,7 +5625,16 @@
             "shipping"
           ],
           "branchStage": "collapse",
-          "caption": "Nothing explodes, but the cost of using the Strait hardens into routine business practice."
+          "caption": "Nothing explodes, but the cost of using the Strait hardens into routine business practice.",
+          "heroImageIds": [
+            "tw_bs_027",
+            "tw_bs_016",
+            "tw_bs_024"
+          ],
+          "evidenceImageIds": [
+            "tw_bs_032",
+            "tw_bs_014"
+          ]
         }
       },
       {
@@ -5563,7 +5655,7 @@
           ],
           "okonkwo": [
             "This is where financial-system spillover and alliance fatigue can outrun military plans.",
-            "Even a “managed” branch can be economically brutal if the corridor stays compromised."
+            "Even a \u201cmanaged\u201d branch can be economically brutal if the corridor stays compromised."
           ],
           "reed": [
             "At this point I care about hidden branch activation more than public commentary.",
@@ -5763,7 +5855,17 @@
             "collapse"
           ],
           "branchStage": "collapse",
-          "caption": "The blockade becomes real the moment insurers, carriers, and buyers act as if the corridor is already lost."
+          "caption": "The blockade becomes real the moment insurers, carriers, and buyers act as if the corridor is already lost.",
+          "heroImageIds": [
+            "tw_bs_023",
+            "tw_bs_026",
+            "tw_bs_011"
+          ],
+          "evidenceImageIds": [
+            "tw_bs_012",
+            "tw_bs_010",
+            "tw_bs_032"
+          ]
         }
       },
       {
@@ -5784,7 +5886,7 @@
           ],
           "okonkwo": [
             "This is where financial-system spillover and alliance fatigue can outrun military plans.",
-            "Even a “managed” branch can be economically brutal if the corridor stays compromised."
+            "Even a \u201cmanaged\u201d branch can be economically brutal if the corridor stays compromised."
           ],
           "reed": [
             "At this point I care about hidden branch activation more than public commentary.",
@@ -5984,7 +6086,17 @@
             "militarized"
           ],
           "branchStage": "collapse",
-          "caption": "The strike may be limited in target count. The fear it unleashes is not."
+          "caption": "The strike may be limited in target count. The fear it unleashes is not.",
+          "heroImageIds": [
+            "tw_bs_017",
+            "tw_bs_033",
+            "tw_bs_030"
+          ],
+          "evidenceImageIds": [
+            "tw_bs_012",
+            "tw_bs_013",
+            "tw_bs_032"
+          ]
         }
       },
       {
@@ -6005,7 +6117,7 @@
           ],
           "okonkwo": [
             "This is where financial-system spillover and alliance fatigue can outrun military plans.",
-            "Even a “managed” branch can be economically brutal if the corridor stays compromised."
+            "Even a \u201cmanaged\u201d branch can be economically brutal if the corridor stays compromised."
           ],
           "reed": [
             "At this point I care about hidden branch activation more than public commentary.",
@@ -6205,7 +6317,17 @@
             "militarized"
           ],
           "branchStage": "collapse",
-          "caption": "The terrifying part is not that the crossing is confirmed. It is that the coast now looks ready enough that everyone must plan as if it could be."
+          "caption": "The coast now looks ready enough that governments, carriers, and civilians all have to plan as if the crossing could be real.",
+          "heroImageIds": [
+            "tw_bs_018",
+            "tw_bs_032",
+            "tw_bs_026"
+          ],
+          "evidenceImageIds": [
+            "tw_bs_012",
+            "tw_bs_013",
+            "tw_bs_011"
+          ]
         }
       }
     ],

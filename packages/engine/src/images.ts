@@ -76,6 +76,18 @@ const buildActionTags = (action?: ActionDefinition | null): string[] => normaliz
 const buildVariantTags = (variant?: ActionVariantDefinition | null): string[] =>
   normalizedTags([...(variant?.visualTags ?? [])]);
 
+const rankedCuratedAssets = (
+  ranked: Array<{ asset: ImageAsset; score: number }>,
+  ids: string[] | undefined
+): Array<{ asset: ImageAsset; score: number }> => {
+  if (!ids || ids.length === 0) {
+    return [];
+  }
+
+  const allowed = new Set(ids);
+  return ranked.filter((entry) => allowed.has(entry.asset.id));
+};
+
 const scoreKind = (asset: ImageAsset, preferredKinds: ImageAssetKind[]): number => {
   const index = preferredKinds.indexOf(asset.kind);
   if (index === -1) {
@@ -207,13 +219,18 @@ export const chooseImageAsset = ({
   const variantTags = buildVariantTags(playerVariant);
   const requestedTags = normalizedTags([...beatTags, ...actionTags, ...variantTags]);
 
-  const scored = assets
-    .filter((asset) => !recentImageIds.includes(asset.id))
+  const available = assets.filter((asset) => !recentImageIds.includes(asset.id));
+  const scored = (available.length > 0 ? available : assets)
     .map((asset) => ({
       asset,
       score: scoreAsset(asset, scenario, dominantDomain, severity, preferredKinds, beatTags, actionTags, variantTags)
     }))
     .sort((left, right) => right.score - left.score);
+
+  const curatedHero = rankedCuratedAssets(scored, beat?.visualCue?.heroImageIds);
+  if (curatedHero.length > 0 && (curatedHero[0]?.score ?? 0) > 0) {
+    return curatedHero[0]?.asset ?? null;
+  }
 
   const bestScore = scored[0]?.score ?? Number.NEGATIVE_INFINITY;
   const shortlisted = scored.filter((entry) => entry.score >= bestScore - 2);
@@ -266,6 +283,33 @@ export const chooseImageGallery = (
   const selected: ImageAsset[] = [];
   const usedKinds = new Set<ImageAssetKind>();
   const usedPerspectives = new Set<ImageAsset['perspective']>();
+
+  const curatedHero = rankedCuratedAssets(ranked, options.beat?.visualCue?.heroImageIds);
+  if (curatedHero.length > 0) {
+    selected.push(curatedHero[0]!.asset);
+    usedKinds.add(curatedHero[0]!.asset.kind);
+    usedPerspectives.add(curatedHero[0]!.asset.perspective);
+  }
+
+  const curatedEvidence = rankedCuratedAssets(ranked, options.beat?.visualCue?.evidenceImageIds)
+    .filter((entry) => !selected.some((asset) => asset.id === entry.asset.id));
+
+  for (const { asset } of curatedEvidence) {
+    if (selected.length >= count) {
+      break;
+    }
+
+    const adjustedScore = ranked.find((entry) => entry.asset.id === asset.id)?.score ?? 0;
+    const sameKindPenalty = usedKinds.has(asset.kind) ? 3 : 0;
+    const samePerspectivePenalty = usedPerspectives.has(asset.perspective) ? 2 : 0;
+    if (selected.length > 0 && adjustedScore - sameKindPenalty - samePerspectivePenalty < 2) {
+      continue;
+    }
+
+    selected.push(asset);
+    usedKinds.add(asset.kind);
+    usedPerspectives.add(asset.perspective);
+  }
 
   for (const { asset } of ranked) {
     if (selected.length >= count) {

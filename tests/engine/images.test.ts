@@ -340,4 +340,92 @@ describe('image selection', () => {
     expect(gallery.map((asset) => asset.id)).toContain('photo_shipping');
     expect(gallery.map((asset) => asset.id)).not.toContain('img_001');
   });
+
+  it('honors beat-authored hero and evidence image ids when present', () => {
+    const scenario = { environment: 'coastal' } as ScenarioDefinition;
+    const beat = {
+      id: 'curated_window',
+      phase: 'opening',
+      imageHints: ['taiwan', 'anomaly'],
+      visualCue: {
+        preferredKinds: ['documentary_still', 'artifact', 'map'],
+        tags: ['taiwan', 'anomaly', 'surveillance'],
+        branchStage: 'ambiguous',
+        heroImageIds: ['hero_watch'],
+        evidenceImageIds: ['evidence_satellite', 'evidence_artifact']
+      }
+    } as BeatNode;
+    const assets = [
+      {
+        id: 'hero_watch',
+        kind: 'documentary_still',
+        path: '/assets/images/watch.jpg',
+        alt: 'Watch floor',
+        caption: 'Watch floor',
+        environment: 'coastal',
+        domain: 'military',
+        severity: 1,
+        perspective: 'news_frame',
+        tags: ['taiwan', 'anomaly', 'surveillance']
+      },
+      {
+        id: 'evidence_satellite',
+        kind: 'map',
+        path: '/assets/images/overhead.jpg',
+        alt: 'Satellite read',
+        caption: 'Satellite read',
+        environment: 'coastal',
+        domain: 'military',
+        severity: 1,
+        perspective: 'satellite',
+        tags: ['taiwan', 'anomaly', 'map']
+      },
+      {
+        id: 'evidence_artifact',
+        kind: 'artifact',
+        path: '/assets/images/log.png',
+        alt: 'Bridge log',
+        caption: 'Bridge log',
+        environment: 'coastal',
+        domain: 'military',
+        severity: 1,
+        perspective: 'memo',
+        tags: ['taiwan', 'anomaly', 'surveillance']
+      },
+      {
+        id: 'generic_top_score',
+        kind: 'documentary_still',
+        path: '/assets/images/generic.jpg',
+        alt: 'Generic scene',
+        caption: 'Generic scene',
+        environment: 'coastal',
+        domain: 'military',
+        severity: 1,
+        perspective: 'street',
+        tags: ['taiwan', 'anomaly', 'surveillance', 'public']
+      }
+    ] satisfies ImageAsset[];
+
+    const gallery = chooseImageGallery({
+      assets,
+      scenario,
+      beat,
+      meters: {
+        economicStability: 70,
+        energySecurity: 68,
+        domesticCohesion: 67,
+        militaryReadiness: 58,
+        allianceTrust: 62,
+        escalationIndex: 39
+      },
+      turnDelta: zeroShift,
+      recentImageIds: [],
+      rng: new SeededRng('IMG-CURATED')
+    });
+
+    expect(gallery[0]?.id).toBe('hero_watch');
+    expect(gallery.map((asset) => asset.id).slice(1)).toEqual(
+      expect.arrayContaining(['evidence_satellite', 'evidence_artifact'])
+    );
+  });
 });

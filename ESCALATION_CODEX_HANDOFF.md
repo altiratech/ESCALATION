@@ -4363,3 +4363,46 @@ All passed.
 1. This is a hierarchy/trust fix, not the final visual system.
 2. Flashpoint still needs deeper beat-authored hero/evidence sets and a larger modern editorial still library if every late branch is going to look as specific as it reads.
 3. Intentional untracked file remains untouched: `FLASHPOINT_CODE_REVIEW_2026_03_14.md`.
+
+### 66.22 Beat-authored hero/evidence curation pass (2026-03-17)
+
+#### 66.22.1 What shipped
+
+1. Added two new optional beat-visual fields in `packages/shared-types/src/index.ts`:
+   - `heroImageIds`
+   - `evidenceImageIds`
+2. Updated `packages/engine/src/images.ts` so both `chooseImageAsset` and `chooseImageGallery` honor those authored image pools before broader fallback scoring.
+3. Updated `apps/web/src/App.tsx` preview selection to respect the same beat-authored pools before the episode is resolved.
+4. Authored curated hero/evidence sets across `northern_strait_black_swan` in `packages/content/data/scenarios.json` for:
+   - main windows
+   - final decision window
+   - the main terminal beats
+5. Tightened several beat headlines, memo lines, and context bodies so the first read is more concrete:
+   - `ns_abnormal_signal`
+   - `ns_deceptive_picture`
+   - `ns_bandwidth_stockpiles`
+   - `ns_reversible_coercion`
+   - `ns_false_relief_or_trap`
+6. Changed the top `What changed` executive-summary card to prefer the active beat's first verified-fact title before the broader headline.
+7. Added a selector regression test in `tests/engine/images.test.ts` to lock in curated hero/evidence behavior.
+
+#### 66.22.2 Why it matters
+
+1. The previous hierarchy pass improved presentation, but Flashpoint still depended too much on generic tag scoring to decide which visuals belonged to a beat.
+2. This pass lets the scenario author say, in effect:
+   - this is the hero scene for this window
+   - this is the corroborating evidence for this window
+3. That makes the experience feel more authored and less assembled.
+
+#### 66.22.3 Validation
+
+1. `npm run lint`
+2. `npx vitest run tests/engine/images.test.ts`
+3. `npm run build --workspace @wargames/web`
+4. `npm run ci:phase1`
+
+#### 66.22.4 Open note
+
+1. This materially improves beat curation, but it does not eliminate the need for a larger modern editorial still library.
+2. Some terminal beats still use the best available pool rather than a perfect bespoke set because the image catalog is still smaller than the final desired coverage.
+3. Intentional untracked file remains untouched: `FLASHPOINT_CODE_REVIEW_2026_03_14.md`.

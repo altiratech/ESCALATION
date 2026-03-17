@@ -191,9 +191,18 @@ const arrangeBriefingVisuals = (
     };
   }
 
-  const heroAsset =
-    [...deduped].sort((left, right) => heroVisualScore(right) - heroVisualScore(left) || left.id.localeCompare(right.id))[0] ??
-    null;
+  const primaryIsStrongScene =
+    primaryAsset &&
+    !primaryAsset.id.startsWith('img_') &&
+    primaryAsset.kind !== 'map' &&
+    primaryAsset.kind !== 'artifact';
+
+  const heroAsset = primaryIsStrongScene
+    ? primaryAsset
+    : ([...deduped].sort(
+        (left, right) => heroVisualScore(right) - heroVisualScore(left) || left.id.localeCompare(right.id)
+      )[0] ??
+      null);
 
   const evidenceAssets = deduped
     .filter((asset) => asset.id !== heroAsset?.id)
@@ -207,6 +216,18 @@ const arrangeBriefingVisuals = (
     heroAsset,
     evidenceAssets
   };
+};
+
+const rankedCuratedPreviewAssets = (
+  candidates: Array<{ asset: ImageAsset; score: number }>,
+  ids: string[] | undefined
+): Array<{ asset: ImageAsset; score: number }> => {
+  if (!ids || ids.length === 0) {
+    return [];
+  }
+
+  const allowed = new Set(ids);
+  return candidates.filter((entry) => allowed.has(entry.asset.id));
 };
 
 const pickPreviewImageAssets = (
@@ -241,7 +262,6 @@ const pickPreviewImageAssets = (
 
   const candidates = reference.images
     .filter((asset) => asset.environment === scenario.environment || asset.environment === 'generic')
-    .filter((asset) => !recentImageIds.includes(asset.id))
     .map((asset) => {
       const kindScore = preferredKinds.includes(asset.kind)
         ? (preferredKinds.length - preferredKinds.indexOf(asset.kind)) * 6
@@ -253,10 +273,11 @@ const pickPreviewImageAssets = (
       const mapPenalty =
         asset.kind === 'map' && preferredKinds[0] !== 'map' && !requestedTags.has('map') ? -6 : 0;
       const realismScore = previewImageRealismScore(asset);
+      const recentPenalty = recentImageIds.includes(asset.id) ? -12 : 0;
 
       return {
         asset,
-        score: kindScore + tagScore + mapPenalty + realismScore
+        score: kindScore + tagScore + mapPenalty + realismScore + recentPenalty
       };
     })
     .sort((left, right) => right.score - left.score || left.asset.id.localeCompare(right.asset.id));
@@ -264,6 +285,34 @@ const pickPreviewImageAssets = (
   const selected: ImageAsset[] = [];
   const usedKinds = new Set<ImageAsset['kind']>();
   const usedPerspectives = new Set<ImageAsset['perspective']>();
+
+  const curatedHero = rankedCuratedPreviewAssets(candidates, beat.visualCue?.heroImageIds);
+  if (curatedHero.length > 0) {
+    selected.push(curatedHero[0]!.asset);
+    usedKinds.add(curatedHero[0]!.asset.kind);
+    usedPerspectives.add(curatedHero[0]!.asset.perspective);
+  }
+
+  const curatedEvidence = rankedCuratedPreviewAssets(candidates, beat.visualCue?.evidenceImageIds).filter(
+    (entry) => !selected.some((asset) => asset.id === entry.asset.id)
+  );
+
+  for (const candidate of curatedEvidence) {
+    if (selected.length >= count) {
+      break;
+    }
+
+    const diversityPenalty =
+      (usedKinds.has(candidate.asset.kind) ? 3 : 0) +
+      (usedPerspectives.has(candidate.asset.perspective) ? 2 : 0);
+    if (selected.length > 0 && candidate.score - diversityPenalty < 2) {
+      continue;
+    }
+
+    selected.push(candidate.asset);
+    usedKinds.add(candidate.asset.kind);
+    usedPerspectives.add(candidate.asset.perspective);
+  }
 
   for (const candidate of candidates) {
     if (selected.length >= count) {
@@ -1165,8 +1214,17 @@ const App = () => {
     currentScenario?.briefing ??
     currentScenarioWorld?.economicBackdrop.straitEconomicValue ??
     '';
+  const dynamicContextSections = buildDynamicContextSections(
+    episode.turn,
+    episode.meters,
+    episode.recentTurn?.meterBefore
+  );
+  const activeWindowContextSections = currentBeat?.windowContext?.sections?.length
+    ? currentBeat.windowContext.sections
+    : dynamicContextSections;
+  const activeTruthModel = currentBeat?.truthModel ?? null;
   const whyItMattersSummary =
-    currentBeat?.windowContext?.sections?.[0]?.body ??
+    activeWindowContextSections[0]?.body ??
     currentBeat?.sceneFragments[0] ??
     currentScenarioWorld?.economicBackdrop.straitEconomicValue ??
     currentDirective ??
@@ -1178,14 +1236,14 @@ const App = () => {
         ? 'Select one response and confirm it, or use Take No Action to hold position.'
         : 'Select one response, inspect the detail, and confirm it to advance the scenario.';
   const decisionPromptSummary =
-    currentBeat?.windowContext?.sections?.[1]?.body ??
+    activeWindowContextSections[1]?.body ??
     turnResolutionGuidance;
   const executiveSummary = [
     {
       label: 'What changed',
       detail:
+        activeTruthModel?.verifiedFacts?.[0]?.title ??
         episode.briefing.headlines[0] ??
-        currentBeat?.truthModel?.verifiedFacts?.[0]?.title ??
         episode.briefing.briefingParagraph ??
         'New pressure is entering the scenario, but the full change summary is still loading.'
     },
@@ -1198,15 +1256,6 @@ const App = () => {
       detail: decisionPromptSummary
     }
   ];
-  const dynamicContextSections = buildDynamicContextSections(
-    episode.turn,
-    episode.meters,
-    episode.recentTurn?.meterBefore
-  );
-  const activeWindowContextSections = currentBeat?.windowContext?.sections?.length
-    ? currentBeat.windowContext.sections
-    : dynamicContextSections;
-  const activeTruthModel = currentBeat?.truthModel ?? null;
   const summaryLead =
     episode.briefing.headlines[0] ??
     currentBeat?.memoLine ??

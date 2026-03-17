@@ -221,6 +221,8 @@ export interface BeatVisualCue {
   tags: string[];
   branchStage?: 'ambiguous' | 'compression' | 'coercion' | 'incident' | 'false_relief' | 'tail_risk' | 'collapse';
   caption?: string;
+  heroImageIds?: string[];
+  evidenceImageIds?: string[];
 }
 
 export interface BeatNode {
