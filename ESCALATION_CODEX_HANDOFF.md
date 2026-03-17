@@ -4074,3 +4074,47 @@ All passed.
    - Window 4
    - Window 6
 3. The next likely visual move is a curated photoreal still / photographed-artifact pack to replace the remaining schematic feel of the current local SVG assets.
+
+## 66.16 Mid-scenario depth + first photoreal still (2026-03-16)
+
+### 66.16.1 What changed
+
+1. Rewrote the remaining mid-scenario black-swan beats to carry the same procedural-detail standard as the opening and late windows:
+   - `ns_bandwidth_stockpiles`
+   - `ns_reversible_coercion`
+   - `ns_false_relief_or_trap`
+2. Those beats now explain:
+   - exact sequence / timing cues
+   - what document, system, or platform changed
+   - what commercial actors are doing
+   - what contradiction still remains unresolved
+   - why the room is worried
+3. Added the first true photoreal still to the Taiwan suspense pack:
+   - `tw_bs_021_spr_pipes.jpg`
+4. Added `tw_bs_021` to `packages/content/data/images.json` as a `documentary_still` with energy / stockpile / compression tags.
+5. Updated the bandwidth/stockpiles beat to prefer documentary stills first, which now causes Window 3 to resolve to the real SPR image rather than the earlier authored artifact.
+
+### 66.16.2 Why this matters
+
+1. The middle of the scenario was still lagging behind the opening and climax in richness and interpretability.
+2. This pass makes the scenario curve feel more continuous:
+   - opening wrongness
+   - mid-scenario compression
+   - late-scenario dread
+3. The first real still proves the live image system can support grounded photoreal assets without new infrastructure.
+
+### 66.16.3 Validation
+
+1. `npm run lint`
+2. `npm run build --workspace @wargames/web`
+3. `npm run ci:phase1`
+4. `npx vitest run tests/engine/images.test.ts`
+5. Sanity check: `chooseImageAsset(...)` for `ns_bandwidth_stockpiles` now resolves to `tw_bs_021`.
+
+All passed.
+
+### 66.16.4 Open note
+
+1. The broader photoreal still pack is only partially unblocked.
+2. `OPENAI_API_KEY` was not set locally in this session, so the bundled image-generation path could not be used.
+3. Some defense-hosted direct image URLs also blocked scripted download, so this pass intentionally favored one clean, high-fit still over forcing several weak or mismatched substitutions.

@@ -3511,7 +3511,7 @@
         "id": "ns_bandwidth_stockpiles",
         "phase": "rising",
         "sceneFragments": [
-          "The room stops treating Taiwan as an isolated map problem. Middle East operations have burned money and munitions faster than anyone likes to say in public, the SPR has been tapped again, and Beijing may be looking at that thinner buffer and deciding the window is better now than later."
+          "At 06:40 Washington time, a logistics briefer puts the slide no one wanted on the wall. Magazine ships covering the Gulf have not been backfilled, long-range munitions burn is running ahead of plan, and one Pacific reinforcement timeline on the screen is measured in days longer than the public map suggests. Beside it sits an Energy memo from March 11 on the latest Strategic Petroleum Reserve release. No one in the room thinks any one figure decides the crisis. The fear is that Beijing has spent the last year studying the same figures and concluded the United States looks easier to stretch now than later."
         ],
         "advisorLines": {
           "cross": [
@@ -3637,37 +3637,37 @@
           "verifiedFacts": [
             {
               "id": "force_extension",
-              "title": "U.S. force extension is real",
-              "body": "Carrier coverage, ISR attention, and magazine depth are tighter than the public language suggests."
+              "title": "The readiness slide is uglier in private than it is in public",
+              "body": "The secure briefing shows tighter magazine depth, longer Pacific reinforcement timelines, and less spare ISR coverage than public statements imply."
             },
             {
               "id": "munitions_strain",
-              "title": "Munitions review has moved into the live discussion",
-              "body": "Planners are now gaming what a longer Taiwan crisis does to stocks that are already under pressure."
+              "title": "Energy buffer is already part of the same discussion",
+              "body": "The March 11 SPR release memo is now sitting beside the munitions review because planners assume oil, shipping, and military tempo could all tighten at once."
             }
           ],
           "workingTheories": [
             {
               "id": "political_buffer",
-              "title": "Political tolerance may be thinner than assumed",
-              "body": "Another energy and inflation shock could narrow what Washington can hold together at home even if support for Taiwan stays broad."
+              "title": "Beijing may be counting reload days, not slogans",
+              "body": "Analysts increasingly think the signal is meant to test whether American capacity is thinner than American language suggests."
             },
             {
               "id": "beijing_reads_slack",
-              "title": "Beijing may be reading capacity, not just resolve",
-              "body": "The signal so far may be designed to measure how much real weight sits behind allied words."
+              "title": "Domestic politics may harden before strategy does",
+              "body": "If fuel, freight, and chip prices all lurch at the same time, Washington could lose political room before it loses military options."
             }
           ],
           "unknowns": [
             {
               "id": "how_long_can_hold",
-              "title": "Nobody can say how many simultaneous shocks the coalition can absorb",
-              "body": "That answer depends on stocks, shipping, and politics that do not sit on one clean dashboard."
+              "title": "No one knows how much hidden slack still exists",
+              "body": "Some of the most important reserve and industrial numbers live in side channels, outdated spreadsheets, or assumptions no one has stress-tested since the last crisis."
             },
             {
               "id": "hidden_stockpile_cost",
-              "title": "Some of the most important constraints are still offstage",
-              "body": "The room knows enough to worry, but not enough to sound certain."
+              "title": "No one knows which shortage would bite first",
+              "body": "The first visible break could show up as a weapons delay, an energy scare, a shipping freeze, or a political fight at home. The room does not know which one would move first."
             }
           ]
         },
@@ -3675,27 +3675,27 @@
           "sections": [
             {
               "id": "signal_meaning",
-              "title": "What Just Changed",
-              "body": "Taiwan now shares the room with the Gulf, with inflation, and with every stockpile that was supposed to be someone else’s problem."
+              "title": "The Slide Nobody Wanted",
+              "body": "Taiwan is no longer a self-contained map problem. It is tied to magazines, fuel, shipping, and how much bad news Washington can absorb at once."
             },
             {
               "id": "market_hears",
-              "title": "What The Street Hears",
-              "body": "If oil, freight, and chips all start moving together, panic can outrun policy before the first public ultimatum is even written."
+              "title": "What This Does To Your Choice",
+              "body": "A response that sounds strong but cannot survive three more windows may be worse than a narrower move that the United States and the coalition can actually sustain."
             },
             {
               "id": "branch_hint",
-              "title": "What Beijing May Be Testing",
-              "body": "A stretched coalition is easier to push with “reversible” pressure than with open fire."
+              "title": "What Beijing Could Be Reading",
+              "body": "If Beijing thinks U.S. buffers are thinner than advertised, it has every reason to keep tightening pressure without crossing the line cleanly."
             }
           ]
         },
         "headlines": [
-          "Washington Looks Thinner Than It Did Eighteen Months Ago",
-          "Munitions Burn, Energy Buffer, And The 2027 Clock Enter The Taiwan Call"
+          "A Logistics Slide Turns Taiwan Into A Buffer Question",
+          "SPR, Munitions Burn, And Reinforcement Timelines Enter The Same Call"
         ],
-        "memoLine": "Readout: the question is no longer what sounds strong, but what can still be sustained if this keeps getting worse.",
-        "tickerLine": "Oil, freight, and chip names start moving together whenever Taiwan flashes red.",
+        "memoLine": "Readout: the room is no longer arguing about language alone; it is arguing about how many real shocks the system can still absorb.",
+        "tickerLine": "Oil desks, freight brokers, and chip buyers keep twitching together whenever Taiwan flashes back onto the screen.",
         "imageHints": [
           "taiwan",
           "munitions",
@@ -3721,6 +3721,7 @@
         "decisionWindow": null,
         "visualCue": {
           "preferredKinds": [
+            "documentary_still",
             "artifact",
             "scenario_still"
           ],
@@ -3731,17 +3732,18 @@
             "spr",
             "middle_east",
             "compression",
-            "reserves"
+            "reserves",
+            "energy"
           ],
           "branchStage": "compression",
-          "caption": "The room is no longer only asking what to signal. It is asking how much real slack is left."
+          "caption": "The room is no longer only asking what to signal. It is asking what the United States can actually sustain if this runs longer."
         }
       },
       {
         "id": "ns_reversible_coercion",
         "phase": "rising",
         "sceneFragments": [
-          "Beijing rolls out a “maritime safety and customs compliance” regime over the corridor. Forms, routing instructions, and inspection language appear first. Hulls appear behind them. By dusk, shipping companies are already asking whether permission has become part of passage."
+          "At 13:05 local, shipping agents begin receiving a four-page Maritime Safety Administration notice requiring pre-arrival registration, cargo declaration, and route confirmation for vessels entering the western approaches to Taiwan. The first captains told to comply are ordered down to inspection speed. Coast Guard hulls sit just outside the coordinates listed in the notice. No one in the room can call it a blockade with a straight face yet. The problem is that insurers, charterers, and bridge crews may start treating it like one before diplomats settle on the word."
         ],
         "advisorLines": {
           "cross": [
@@ -3867,37 +3869,37 @@
           "verifiedFacts": [
             {
               "id": "inspection_regime",
-              "title": "A control regime is now on paper",
-              "body": "Chinese maritime authorities have introduced registration, selective routing, and possible inspection in key approaches."
+              "title": "The notices are in inboxes, not rumor chains",
+              "body": "Chinese maritime authorities have issued formal registration and route-confirmation notices for vessels approaching the western side of the strait."
             },
             {
               "id": "coast_guard_backing",
-              "title": "The paperwork is backed by hulls",
-              "body": "Coast Guard and militia presence is strong enough to make the bureaucracy coercive in practice."
+              "title": "Enforcement ships are already in position",
+              "body": "Coast Guard and militia hulls are sitting close enough to the declared box that captains have to assume the paperwork can be enforced."
             }
           ],
           "workingTheories": [
             {
               "id": "gray_zone_blockade",
-              "title": "This may be blockade behavior in administrative clothing",
-              "body": "The goal may be to make control feel routine before anyone can rally a full coalition response."
+              "title": "The form itself may be the weapon",
+              "body": "If captains slow, register, and wait for permission out of caution, Beijing gets a coercive result without firing a shot."
             },
             {
               "id": "market_normalization_test",
-              "title": "Beijing may be testing whether commerce gives in first",
-              "body": "If carriers absorb the regime as friction instead of coercion, the corridor is lost without a shot."
+              "title": "Commerce may normalize the pressure before governments do",
+              "body": "The most dangerous outcome is not a dramatic announcement. It is insurers, terminals, and charterers quietly deciding that routine passage no longer exists."
             }
           ],
           "unknowns": [
             {
               "id": "boardings_rule_set",
-              "title": "Nobody knows how quickly stops become boardings",
-              "body": "The live detention rules are still partly implied, which is what makes them dangerous."
+              "title": "No one knows how fast document checks become boardings",
+              "body": "The first notice uses administrative language, but no one can yet say where the line sits between inspection speed, forced stop, and armed boarding."
             },
             {
               "id": "cyber_pairing",
-              "title": "Nobody knows what is paired behind the scenes",
-              "body": "Port, customs, and telecom intrusion could still be sitting behind the visible maritime move."
+              "title": "No one knows what is waiting behind the legal shell",
+              "body": "Customs systems, port software, and telecom routing may already be primed to make the maritime notice feel more binding than it looks on paper."
             }
           ]
         },
@@ -3905,27 +3907,27 @@
           "sections": [
             {
               "id": "signal_meaning",
-              "title": "What This Feels Like In The Room",
-              "body": "The crisis has moved out of rumor and into structure. From here on, every response trades reversibility against credibility."
+              "title": "Paper Before Pressure",
+              "body": "The coercion is arriving as forms, coordinates, and route instructions first. That is what makes it hard to answer cleanly and easy for commerce to obey by instinct."
             },
             {
               "id": "what_closes",
-              "title": "What Starts Closing Now",
-              "body": "Once commercial actors begin asking for permission to move, time stops being neutral."
+              "title": "What Commercial Actors Will Decide For You",
+              "body": "If captains, insurers, and terminals begin acting as though Beijing now grants passage, the corridor starts changing hands before any capital says so out loud."
             },
             {
               "id": "branch_hint",
-              "title": "What Could Break Next",
-              "body": "If this shell survives, the first violent incident may follow as enforcement rather than announcement."
+              "title": "What Happens If This Lasts One Tide Too Long",
+              "body": "A procedure that survives even one shipping cycle starts to look like the new rule, not a temporary stunt."
             }
           ]
         },
         "headlines": [
-          "Inspection Forms Become A Weapon In The Corridor",
-          "Shipping Starts Asking Who Now Has To Grant Passage"
+          "Chinese Safety Notice Puts Permission In Front Of Passage",
+          "Captains Slow To Inspection Speed Before Any Capital Uses The Word Blockade"
         ],
-        "memoLine": "Paperwork in front, hulls behind it. The coercion is now practical whether or not anyone calls it a blockade.",
-        "tickerLine": "Insurance desks start treating the lane as politically controlled even before any declared closure.",
+        "memoLine": "Paperwork first, hulls second. That sequence is the whole point.",
+        "tickerLine": "Charterers begin asking whether routine west-coast Taiwan calls now require political as well as commercial clearance.",
         "imageHints": [
           "taiwan",
           "corridor",
@@ -4006,7 +4008,7 @@
             "map"
           ],
           "branchStage": "coercion",
-          "caption": "It is not called a blockade. It does not have to be. If ships accept the routine, Beijing gets the new normal it wants."
+          "caption": "No one has declared the lane closed. Commerce may start behaving as if it is controlled anyway."
         }
       },
       {
@@ -4286,7 +4288,7 @@
         "id": "ns_false_relief_or_trap",
         "phase": "crisis",
         "sceneFragments": [
-          "The water goes quieter. Some inspections are deferred. A few carriers stop rerouting. Third parties whisper about “technical stabilization.” But the hulls remain in place, the intrusions do not fully stop, and nobody in the room can prove the calm is real."
+          "Just after midnight, two scheduled inspections are waved through and one militia screen drifts a few miles east. By 01:10, carrier chats are filling with messages that the worst may have passed. Then the cyber liaison points out the same credential-harvesting traffic is still hitting Taiwanese logistics networks, and fresh satellite passes show the auxiliary hulls never really left the operating box. The room can feel itself wanting good news. That is what makes the lull dangerous."
         ],
         "advisorLines": {
           "cross": [
@@ -4412,37 +4414,37 @@
           "verifiedFacts": [
             {
               "id": "temporary_pause",
-              "title": "Some pressure really did ease",
-              "body": "Inspection tempo and public rhetoric both softened for several hours."
+              "title": "Some traffic really was waved through cleanly",
+              "body": "A small number of scheduled crossings cleared without the delays or confrontations that defined the earlier window."
             },
             {
               "id": "architecture_remains",
-              "title": "The control shell is still there",
-              "body": "Hull placement, routing authority, and cyber concern did not disappear with the quieter tone."
+              "title": "The coercive machinery did not disappear with the quieter tone",
+              "body": "The hulls, route authorities, and suspicious network traffic all remain close enough to restart pressure on short notice."
             }
           ],
           "workingTheories": [
             {
               "id": "false_relief",
-              "title": "This may be a lull designed to lower everybody’s guard",
-              "body": "A tactical pause can calm markets and capitals just long enough to make the next move land harder."
+              "title": "This may be a lull designed to pull everyone off balance",
+              "body": "A tactical pause can steady markets and soften allied nerves just long enough to make the next move harder to answer."
             },
             {
               "id": "real_test",
-              "title": "It could also be a genuine test of whether restraint still works",
-              "body": "The counterpart may be probing whether the coalition can take a narrow procedural win without trying to humiliate Beijing with it."
+              "title": "It could also be a narrow opening that disappears if mishandled",
+              "body": "The counterpart may be testing whether the coalition can take a limited procedural win without trying to turn it into public humiliation."
             }
           ],
           "unknowns": [
             {
               "id": "verification_gap",
-              "title": "Nobody can verify the pause will hold",
-              "body": "There is still no durable mechanism proving the regime will not snap back without warning."
+              "title": "No one can verify the pause survives daylight",
+              "body": "There is still no mechanism proving the inspections, routing demands, and shadow traffic will not snap back with the next watch change."
             },
             {
               "id": "hidden_layers",
-              "title": "Nobody knows what stayed live behind the calm",
-              "body": "Cyber access, militia positioning, and shipping intimidation may simply be off camera for the moment."
+              "title": "No one knows what stayed live beneath the surface",
+              "body": "Credential harvesting, militia positioning, and quiet commercial intimidation may all still be in place even if the water looks calmer."
             }
           ]
         },
@@ -4450,27 +4452,27 @@
           "sections": [
             {
               "id": "signal_meaning",
-              "title": "What This Feels Like",
-              "body": "This is the kind of window that gets misread because everyone is exhausted enough to want it to be over."
+              "title": "Why The Quiet Feels Wrong",
+              "body": "The surface picture is calmer, but the systems and hulls that created the danger are still close enough to switch back on."
             },
             {
               "id": "why_now",
-              "title": "Why The Pause Is Dangerous",
-              "body": "If the room relaxes too fast, the next move lands against softer political nerves and a more trusting market."
+              "title": "What Makes This Window Dangerous",
+              "body": "Everyone in the room wants to believe the pressure has broken. That is exactly when people start making declarations they cannot take back."
             },
             {
               "id": "branch_hint",
-              "title": "What Could Be Hiding In The Quiet",
-              "body": "The calm could be real. It could also be the breath before the part that terrifies everybody."
+              "title": "What Could Still Be Hiding In The Lull",
+              "body": "A real off-ramp is possible. So is a tactical breath before a worse move timed against a relaxed market and a tired coalition."
             }
           ]
         },
         "headlines": [
-          "The Water Calms Faster Than Anyone Can Explain",
-          "A Pause Arrives, But The Machinery Of Control Stays Put"
+          "Several Ships Pass Cleanly, But The Control Net Stays In Place",
+          "The Room Gets A Taste Of Relief It Cannot Yet Verify"
         ],
-        "memoLine": "The room wants calm badly enough to lie to itself. That is what makes this window dangerous.",
-        "tickerLine": "Premiums soften for a few hours, but underwriters still will not call the lane normal.",
+        "memoLine": "For the first time all day, people in the room want to believe the screen. That is not the same thing as proof.",
+        "tickerLine": "Premiums ease for a few hours, but underwriters still refuse to write the word normal next to the lane.",
         "imageHints": [
           "taiwan",
           "false_relief",
@@ -4505,18 +4507,18 @@
         "visualCue": {
           "preferredKinds": [
             "scenario_still",
-            "artifact"
+            "artifact",
+            "documentary_still"
           ],
           "tags": [
             "taiwan",
             "false_relief",
             "harbor",
             "shipping",
-            "fog",
-            "conciliatory"
+            "fog"
           ],
           "branchStage": "false_relief",
-          "caption": "Calm on the water is not the same thing as safety. The fear has not left the room."
+          "caption": "The water looks calmer. That does not mean the machinery behind the fear has gone anywhere."
         }
       },
       {

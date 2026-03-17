@@ -912,5 +912,27 @@
     ],
     "alt": "Operations staff reviewing component shortages and emergency procurement messages during the Taiwan crisis.",
     "caption": "Before governments settle on language, buyers start asking how long they can keep factories open."
+  },
+  {
+    "id": "tw_bs_021",
+    "path": "/assets/images/tw_bs_021_spr_pipes.jpg",
+    "kind": "documentary_still",
+    "domain": "energy",
+    "severity": 2,
+    "environment": "industrial",
+    "perspective": "news_frame",
+    "tags": [
+      "taiwan",
+      "spr",
+      "energy",
+      "stockpiles",
+      "current_events",
+      "phase_rising",
+      "branch_compression",
+      "reserves",
+      "middle_east"
+    ],
+    "alt": "Strategic Petroleum Reserve piping and infrastructure used as a grounded visual for thinner energy buffer and crisis compression.",
+    "caption": "By this point the room is reading Taiwan against fuel, reserve, and sustainment numbers at the same time."
   }
 ]
