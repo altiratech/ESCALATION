@@ -74,12 +74,20 @@ const normalizeTickerLine = (value: string): string =>
 
 const imagePanelLabel = (asset: ImageAsset): string => {
   if (asset.kind === 'map') {
-    return 'Situation Map';
+    return 'Overhead Read';
   }
   if (asset.kind === 'artifact') {
-    return 'Live Artifact';
+    return 'Evidence Board';
   }
-  return 'Live Visual';
+
+  const perspective = String(asset.perspective).toLowerCase();
+  if (perspective === 'satellite' || perspective === 'surveillance') {
+    return 'Surveillance Read';
+  }
+  if (perspective === 'street') {
+    return 'Ground View';
+  }
+  return 'Live Scene';
 };
 
 const imagePanelMode = (asset: ImageAsset): string => {
@@ -87,7 +95,15 @@ const imagePanelMode = (asset: ImageAsset): string => {
     return 'Orientation';
   }
   if (asset.kind === 'artifact') {
+    return 'Internal Read';
+  }
+
+  const perspective = String(asset.perspective).toLowerCase();
+  if (perspective === 'satellite' || perspective === 'surveillance') {
     return 'Evidence';
+  }
+  if (perspective === 'street') {
+    return 'Public Read';
   }
   return 'Scene Read';
 };
@@ -632,12 +648,12 @@ export const BriefingPanel = ({
                 <img
                   src={imageAsset.path}
                   alt={imageAsset.alt}
-                  className={`h-[18rem] w-full bg-surface sm:h-[20rem] ${
+                  className={`h-[17rem] w-full bg-surface sm:h-[19rem] xl:h-[21rem] ${
                     imageAsset.kind === 'map' || imageAsset.kind === 'artifact' ? 'object-contain p-2' : 'object-cover'
                   }`}
                   loading="lazy"
                 />
-                <figcaption className="border-t border-borderTone/80 px-3 py-2 text-[0.7rem] leading-relaxed text-textMuted">
+                <figcaption className="border-t border-borderTone/80 px-3 py-2 text-[0.72rem] leading-relaxed text-textMuted">
                   {imageCaptionOverride ?? imageAsset.caption}
                 </figcaption>
               </figure>
@@ -648,7 +664,9 @@ export const BriefingPanel = ({
                 {supportingImageAssets.map((asset) => (
                   <figure key={asset.id} className="overflow-hidden rounded-md border border-borderTone/80 bg-surface/65">
                     <div className="flex items-center justify-between border-b border-borderTone/80 px-3 py-2">
-                      <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">{imagePanelLabel(asset)}</p>
+                      <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">
+                        {imagePanelLabel(asset)}
+                      </p>
                       <span className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">
                         {imagePanelMode(asset)}
                       </span>
@@ -656,12 +674,12 @@ export const BriefingPanel = ({
                     <img
                       src={asset.path}
                       alt={asset.alt}
-                      className={`h-[10.5rem] w-full bg-surface ${
+                      className={`h-[9.5rem] w-full bg-surface ${
                         asset.kind === 'map' || asset.kind === 'artifact' ? 'object-contain p-2' : 'object-cover'
                       }`}
                       loading="lazy"
                     />
-                    <figcaption className="border-t border-borderTone/80 px-3 py-2 text-[0.66rem] leading-relaxed text-textMuted">
+                    <figcaption className="border-t border-borderTone/80 px-3 py-2 text-[0.64rem] leading-relaxed text-textMuted">
                       {asset.caption}
                     </figcaption>
                   </figure>

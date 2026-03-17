@@ -4324,3 +4324,42 @@ All passed.
 3. The next highest-value Flashpoint pass is probably one of:
    - keep expanding the rights-safe editorial still library so every black-swan beat can reliably support 2-3 strong images
    - deepen the late-window/ending scene writing again so the suspense stays specific all the way through the last decision and aftermath
+
+### 66.21 Hero-image hierarchy + screenshot cleanup pass (2026-03-17)
+
+#### 66.21.1 What shipped
+
+1. Reworked `apps/web/src/App.tsx` so the live briefing no longer assumes the engine's first selected asset should also be the display hero. The web layer now reorders the available visual pool into:
+   - one hero scene image
+   - up to two corroborating evidence frames
+2. The new presentation ordering prefers photoreal `documentary_still` / `scenario_still` assets for the hero slot and demotes artifact/map-heavy frames into the evidence strip when stronger scene images exist.
+3. Tightened `apps/web/src/components/BriefingPanel.tsx` so visual labels/modes read more like `Live Scene`, `Ground View`, `Surveillance Read`, `Evidence Board`, and `Overhead Read` rather than repeating `Live Artifact` everywhere.
+4. Compacted the top live-summary stack:
+   - removed the extra instructional sentence under `Situation Summary`
+   - removed the extra intro sentence above `Executive Summary`
+   - tightened summary-card spacing so the evidence surface lands earlier above the fold
+5. Cleaned image metadata in `packages/content/data/images.json`:
+   - removed `tw_bs_025` from active selection because the destroyer image read as the wrong era for the scenario
+   - rewrote several still captions (`tw_bs_027`-`tw_bs_033`) to be more factual and scene-specific
+
+#### 66.21.2 Why it matters
+
+1. Screenshot review showed the page was stronger than before, but the visual hierarchy still felt mixed and sometimes broke immersion.
+2. The biggest trust hit was when a faux artifact panel or wrong-era ship photo became the dominant image instead of a believable modern scene.
+3. This pass improves the reading order without touching the underlying simulation flow:
+   - less repeated briefing before the fold
+   - one clearer hero image
+   - supporting evidence that feels corroborative instead of random
+
+#### 66.21.3 Validation
+
+1. `npm run lint`
+2. `npx vitest run tests/engine/images.test.ts`
+3. `npm run build --workspace @wargames/web`
+4. `npm run ci:phase1`
+
+#### 66.21.4 Open note
+
+1. This is a hierarchy/trust fix, not the final visual system.
+2. Flashpoint still needs deeper beat-authored hero/evidence sets and a larger modern editorial still library if every late branch is going to look as specific as it reads.
+3. Intentional untracked file remains untouched: `FLASHPOINT_CODE_REVIEW_2026_03_14.md`.

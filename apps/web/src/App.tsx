@@ -90,6 +90,125 @@ const previewImageRealismScore = (asset: ImageAsset): number => {
   return lowerPath.endsWith('.svg') ? -4 : 0;
 };
 
+const isPhotorealAsset = (asset: ImageAsset): boolean => {
+  const lowerPath = asset.path.toLowerCase();
+  return (
+    !asset.id.startsWith('img_') &&
+    (lowerPath.endsWith('.jpg') || lowerPath.endsWith('.jpeg') || lowerPath.endsWith('.png') || lowerPath.endsWith('.webp'))
+  );
+};
+
+const heroVisualScore = (asset: ImageAsset): number => {
+  let score = 0;
+
+  if (asset.kind === 'documentary_still') {
+    score += 18;
+  } else if (asset.kind === 'scenario_still') {
+    score += 16;
+  } else if (asset.kind === 'map') {
+    score -= 6;
+  } else if (asset.kind === 'artifact') {
+    score -= 8;
+  }
+
+  if (isPhotorealAsset(asset)) {
+    score += 12;
+  }
+
+  if (asset.id.startsWith('img_')) {
+    score -= 12;
+  }
+
+  const lowerPerspective = String(asset.perspective).toLowerCase();
+  if (lowerPerspective === 'news_frame' || lowerPerspective === 'street') {
+    score += 5;
+  } else if (lowerPerspective === 'satellite' || lowerPerspective === 'surveillance') {
+    score += 2;
+  } else if (lowerPerspective === 'memo' || lowerPerspective === 'ticker') {
+    score -= 3;
+  }
+
+  const tags = new Set(asset.tags.map((tag) => tag.toLowerCase()));
+  for (const tag of ['incident', 'boarding', 'shipping', 'tail_risk', 'warning_time', 'watchfloor', 'cic']) {
+    if (tags.has(tag)) {
+      score += 2;
+    }
+  }
+
+  return score;
+};
+
+const evidenceVisualScore = (asset: ImageAsset, heroAsset: ImageAsset | null): number => {
+  let score = 0;
+  const lowerPerspective = String(asset.perspective).toLowerCase();
+
+  if (asset.kind === 'artifact') {
+    score += 12;
+  } else if (asset.kind === 'map') {
+    score += 9;
+  } else if (lowerPerspective === 'satellite' || lowerPerspective === 'surveillance') {
+    score += 8;
+  } else if (lowerPerspective === 'memo' || lowerPerspective === 'ticker') {
+    score += 7;
+  } else {
+    score += 4;
+  }
+
+  if (isPhotorealAsset(asset)) {
+    score += 4;
+  }
+
+  if (asset.id.startsWith('img_')) {
+    score -= 10;
+  }
+
+  if (heroAsset) {
+    if (heroAsset.kind === asset.kind) {
+      score -= 4;
+    }
+    if (String(heroAsset.perspective).toLowerCase() === lowerPerspective) {
+      score -= 3;
+    }
+  }
+
+  return score;
+};
+
+const arrangeBriefingVisuals = (
+  primaryAsset: ImageAsset | null,
+  supportingAssets: ImageAsset[]
+): {
+  heroAsset: ImageAsset | null;
+  evidenceAssets: ImageAsset[];
+} => {
+  const pool = [primaryAsset, ...supportingAssets].filter((asset): asset is ImageAsset => Boolean(asset));
+  const deduped = pool.filter((asset, index, array) => array.findIndex((entry) => entry.id === asset.id) === index);
+
+  if (deduped.length === 0) {
+    return {
+      heroAsset: null,
+      evidenceAssets: []
+    };
+  }
+
+  const heroAsset =
+    [...deduped].sort((left, right) => heroVisualScore(right) - heroVisualScore(left) || left.id.localeCompare(right.id))[0] ??
+    null;
+
+  const evidenceAssets = deduped
+    .filter((asset) => asset.id !== heroAsset?.id)
+    .sort(
+      (left, right) =>
+        evidenceVisualScore(right, heroAsset) - evidenceVisualScore(left, heroAsset) || left.id.localeCompare(right.id)
+    )
+    .slice(0, 2);
+
+  return {
+    heroAsset,
+    evidenceAssets
+  };
+};
+
 const pickPreviewImageAssets = (
   reference: BootstrapPayload | null,
   scenario: BootstrapPayload['scenarios'][number] | null,
@@ -1094,10 +1213,6 @@ const App = () => {
     activeTruthModel?.verifiedFacts?.[0]?.title ??
     currentBeat?.sceneFragments[0] ??
     currentDirective;
-  const summaryPrompt =
-    activeTruthModel
-      ? 'Use the briefing below to separate confirmed facts from working theories before you move into the decision room.'
-      : 'Use the briefing below to separate what is known from what is still being inferred before you choose a response.';
   const previewImageAssets = episode.imageAsset
     ? []
     : pickPreviewImageAssets(reference, currentScenario, currentBeat, {
@@ -1113,6 +1228,9 @@ const App = () => {
     ? episode.supportingImageAssets
     : previewImageAssets.slice(1);
   const briefingImageCaptionOverride = episode.imageAsset ? null : currentBeat?.visualCue?.caption ?? null;
+  const arrangedBriefingVisuals = arrangeBriefingVisuals(briefingImageAsset, briefingSupportingImageAssets);
+  const appliedBriefingImageCaptionOverride =
+    arrangedBriefingVisuals.heroAsset?.id === briefingImageAsset?.id ? briefingImageCaptionOverride : null;
   const selectedResponseLabel = selectedResponse?.customLabel
     ?? (selectedAction
       ? selectedResponse?.variantLabel
@@ -1238,10 +1356,7 @@ const App = () => {
                     Review Before Deciding
                   </span>
                 </div>
-                <p className="mt-2 text-[0.82rem] leading-relaxed text-textMain">{summaryLead}</p>
-                <p className="mt-2 text-[0.72rem] leading-relaxed text-textMuted">
-                  {summaryPrompt}
-                </p>
+                <p className="mt-2 text-[0.8rem] leading-relaxed text-textMain">{summaryLead}</p>
               </div>
               <div className="flex shrink-0 items-start">
                 <button
@@ -1256,20 +1371,17 @@ const App = () => {
             </div>
           </section>
 
-          <section className="console-panel console-panel-muted px-3 py-3 sm:px-4">
+          <section className="console-panel console-panel-muted px-3 py-2.5 sm:px-4">
             <div className="flex items-center justify-between gap-3">
-              <div>
+              <div className="min-w-0">
                 <p className="label">Executive Summary</p>
-                <p className="mt-2 text-[0.72rem] leading-relaxed text-textMuted">
-                  Start here if you want the fast read before moving into the detailed briefing.
-                </p>
               </div>
             </div>
-            <div className="mt-3 grid gap-3 lg:grid-cols-3">
+            <div className="mt-2 grid gap-2 lg:grid-cols-3">
               {executiveSummary.map((entry) => (
-                <article key={entry.label} className="console-subpanel px-3 py-3">
+                <article key={entry.label} className="console-subpanel px-3 py-2.5">
                   <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">{entry.label}</p>
-                  <p className="mt-2 text-[0.78rem] leading-relaxed text-textMain">{entry.detail}</p>
+                  <p className="mt-1.5 text-[0.74rem] leading-relaxed text-textMain">{entry.detail}</p>
                 </article>
               ))}
             </div>
@@ -1281,9 +1393,9 @@ const App = () => {
             scenarioWorld={currentScenarioWorld}
             truthModel={activeTruthModel}
             windowContextSections={activeWindowContextSections}
-            imageAsset={briefingImageAsset}
-            supportingImageAssets={briefingSupportingImageAssets}
-            imageCaptionOverride={briefingImageCaptionOverride}
+            imageAsset={arrangedBriefingVisuals.heroAsset}
+            supportingImageAssets={arrangedBriefingVisuals.evidenceAssets}
+            imageCaptionOverride={appliedBriefingImageCaptionOverride}
             supportingSignals={supportingSignals}
             turnDebrief={episode.turnDebrief}
             recentActionNarrative={recentActionNarrative}

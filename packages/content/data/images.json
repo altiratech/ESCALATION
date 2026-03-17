@@ -1014,31 +1014,6 @@
     "caption": "The last hours of a crisis are spent in rooms like this, where every screen is already telling a different version of tomorrow."
   },
   {
-    "id": "tw_bs_025",
-    "path": "/assets/images/tw_bs_025_destroyer_sea.jpg",
-    "kind": "documentary_still",
-    "domain": "military",
-    "severity": 4,
-    "environment": "coastal",
-    "perspective": "news_frame",
-    "tags": [
-      "taiwan",
-      "destroyer",
-      "naval",
-      "strike",
-      "tail_risk",
-      "phase_climax",
-      "phase_resolution",
-      "branch_strike",
-      "militarized",
-      "visible",
-      "deterrence",
-      "red_line"
-    ],
-    "alt": "Destroyer underway at sea in heavy weather",
-    "caption": "When the room chooses visible force late, this is what the decision looks like in the water: steel, wake, and almost no margin for error."
-  },
-  {
     "id": "tw_bs_026",
     "path": "/assets/images/tw_bs_026_empty_shelves.jpg",
     "kind": "documentary_still",
@@ -1088,7 +1063,7 @@
       "conciliatory"
     ],
     "alt": "Harbor at dawn under calm light",
-    "caption": "The dangerous calm is the one that looks safe enough for everyone to believe a little too soon."
+    "caption": "Traffic looks normal again from shore, but inspection craft stayed on station and carriers still treated the lane as unsettled."
   },
   {
     "id": "tw_bs_028",
@@ -1112,7 +1087,7 @@
       "screen"
     ],
     "alt": "Sailor on a modern combat information center watch floor",
-    "caption": "The first hours of a crisis are spent in blue-lit rooms like this, where no one yet knows whether the screen is warning or bait."
+    "caption": "Watchstanders are working from the same corrupted picture the ferry crews and patrol aircraft saw, which is why no one is ready to call it a glitch."
   },
   {
     "id": "tw_bs_029",
@@ -1136,7 +1111,7 @@
       "public"
     ],
     "alt": "Boarding team climbing from a small boat onto a large vessel at sea",
-    "caption": "Administrative pressure stops feeling administrative the moment armed men start climbing steel in open water."
+    "caption": "The boarding clip was circulating before the foreign ministries finished drafting a line, which is when the stop stopped looking routine."
   },
   {
     "id": "tw_bs_030",
@@ -1159,7 +1134,7 @@
       "screen"
     ],
     "alt": "Night-vision view of a servicemember scanning in darkness",
-    "caption": "By the time the scene is reduced to green phosphor and silhouettes, no one in the room is pretending the danger is theoretical."
+    "caption": "Night-vision footage showed small craft moving against dark hulls after the notification regime had already started breaking down."
   },
   {
     "id": "tw_bs_031",
@@ -1182,7 +1157,7 @@
       "screen"
     ],
     "alt": "Military flight deck cockpit with live avionics over water",
-    "caption": "Air patrols do not calm a crisis. They just make sure someone sees the next bad move before it arrives."
+    "caption": "Patrol crews are now flying to answer a narrower question: which tracks are traffic, which are spoofed, and which are moving with intent."
   },
   {
     "id": "tw_bs_032",
@@ -1231,6 +1206,6 @@
       "red_line"
     ],
     "alt": "Modern U.S. Navy watchstander at a combat information center console",
-    "caption": "Late in the night, every new order looks ordinary on paper and irreversible in the chair."
+    "caption": "Late visible moves are made in rooms like this, where each order is checked against fuel, magazines, and how much warning time is left."
   }
 ]
