@@ -4482,3 +4482,35 @@ All passed.
 1. This is a prose-quality pass only.
 2. The next major visual improvement still requires more modern editorial/surveillance stills or generated assets once image-generation access is available.
 3. Intentional untracked review file remains untouched: `FLASHPOINT_CODE_REVIEW_2026_03_14.md`.
+
+### 66.25 Local image-generation environment wiring (2026-03-17)
+
+#### 66.25.1 What shipped
+
+1. Added repo-local wrapper `scripts/imagegen.sh`.
+2. The wrapper:
+   - loads `.env.local` by default,
+   - supports `FLASHPOINT_IMAGEGEN_ENV_FILE` override,
+   - points at the shared skill CLI `~/.codex/skills/imagegen/scripts/image_gen.py`,
+   - keeps cache writes inside `tmp/uv-cache`,
+   - writes candidates under `output/imagegen/`,
+   - allows `--dry-run` without an API key.
+3. Updated `README.md` with the new local image-generation workflow.
+4. Updated `.gitignore` so `output/imagegen/` stays untracked.
+
+#### 66.25.2 Why it matters
+
+1. Wargames did not have any existing shell-level or launchctl-level `OPENAI_API_KEY` setup in this environment.
+2. This creates a stable, low-risk path for future Flashpoint still generation without changing the product rule against runtime image generation.
+3. Future sessions can now validate the path with `./scripts/imagegen.sh generate --prompt "..." --dry-run` even before a live key is available.
+
+#### 66.25.3 Validation
+
+1. `./scripts/imagegen.sh generate --prompt "Flashpoint dry run" --dry-run`
+2. Confirmed the expected no-key failure path for a live call.
+3. Confirmed `uv run --with openai python -c "import openai; print('openai-ok')"` works when cache is redirected into the repo.
+
+#### 66.25.4 Open note
+
+1. Live image generation is still blocked until a valid `OPENAI_API_KEY` is placed in `.env.local` or another secret file referenced through `FLASHPOINT_IMAGEGEN_ENV_FILE`.
+2. Intentional untracked review file remains untouched: `FLASHPOINT_CODE_REVIEW_2026_03_14.md`.

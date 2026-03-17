@@ -12,4 +12,5 @@ coverage
 *.tsbuildinfo
 .venv
 tmp
+output/imagegen
 *.swp

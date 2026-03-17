@@ -128,6 +128,40 @@ Assets are written to:
 - `apps/web/public/assets/images/`
 - `packages/content/data/images.json`
 
+## Local Image Generation (Authoring Only)
+Use this only for offline asset authoring. The live product still does not generate images during gameplay.
+
+1. Create a local gitignored env file in the repo root:
+
+```bash
+cat > .env.local <<'EOF'
+OPENAI_API_KEY=your_key_here
+EOF
+```
+
+2. Use the repo wrapper, which loads `.env.local` and calls the shared Codex image-generation CLI:
+
+```bash
+./scripts/imagegen.sh generate \
+  --prompt "Modern coast guard boarding party at dawn in the Taiwan Strait, editorial newspaper photography, realistic vessel details, no text" \
+  --size 1536x1024 \
+  --quality high \
+  --out output/imagegen/tw-boarding-dawn.png
+```
+
+3. Review generated candidates under `output/imagegen/`, then move only selected finals into:
+- `apps/web/public/assets/images/`
+- `packages/content/data/images.json`
+
+Notes:
+- `.env.local` is gitignored.
+- `output/imagegen/` is gitignored.
+- The wrapper uses the shared skill CLI at `~/.codex/skills/imagegen/scripts/image_gen.py`.
+- Override the secret file path with `FLASHPOINT_IMAGEGEN_ENV_FILE=/absolute/path/to/file`.
+- The wrapper keeps `uv` cache writes inside `tmp/uv-cache` so local runs work cleanly in this workspace.
+- `OPENAI_API_KEY` is required for live API calls.
+- `--dry-run` works without a key and is useful for validating the local path.
+
 ## Optional Narrative Polishing (LLM Adapter)
 Default mode is deterministic template-only facts.
 
