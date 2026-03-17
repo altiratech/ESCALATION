@@ -4118,3 +4118,68 @@ All passed.
 1. The broader photoreal still pack is only partially unblocked.
 2. `OPENAI_API_KEY` was not set locally in this session, so the bundled image-generation path could not be used.
 3. Some defense-hosted direct image URLs also blocked scripted download, so this pass intentionally favored one clean, high-fit still over forcing several weak or mismatched substitutions.
+
+## 66.17 Late-window suspense + photoreal still pack (2026-03-16)
+
+### 66.17.1 What changed
+
+1. Rewrote the late black-swan beats to make the endgame feel more concrete and frightening:
+   - `ns_first_irreversible_incident`
+   - `ns_false_relief_or_trap`
+   - `ns_tail_risk_visibility`
+   - `ns_final_resolution_window`
+2. Those beats now emphasize:
+   - exact timing and observed events
+   - what broke in shipping, ports, and warning systems
+   - what ordinary people and commercial actors are starting to do
+   - what the room is now forced to admit out loud
+3. Tightened the `climax`-phase aftermath prose in `action_narratives_ns.json` for the main player actions so post-decision `Immediate Outcome` feels more specific:
+   - `Backchannel_diplomacy`
+   - `Intelligence_surge`
+   - `Military_posture_increase`
+   - `Military_posture_decrease`
+   - `Limited_concession`
+   - `Public_signaling_speech`
+   - `Targeted_sanctions`
+   - `Broad_sanctions`
+   - `Resource_stockpiling`
+4. Added six new real-photo stills to the Taiwan suspense pack:
+   - `tw_bs_022_boarding_photo.jpg`
+   - `tw_bs_023_shipping_queue.jpg`
+   - `tw_bs_024_command_center.jpg`
+   - `tw_bs_025_destroyer_sea.jpg`
+   - `tw_bs_026_empty_shelves.jpg`
+   - `tw_bs_027_false_relief_harbor.jpg`
+5. Added local source / license tracking for real stills in:
+   - `apps/web/public/assets/images/ATTRIBUTION.md`
+6. Tuned `packages/engine/src/images.ts` so beat tags still matter, but action and variant visual tags now matter more for final image choice.
+
+### 66.17.2 Why this matters
+
+1. The user explicitly wants the scenario to feel more like a terrifying crisis thriller and less like an abstract strategy sim.
+2. The late windows were still too soft because:
+   - the prose described pressure more than events
+   - the visuals still leaned too schematic
+   - different endgame moves were not visually diverging enough
+3. This pass makes the endgame more legible and more emotionally varied:
+   - punitive / shipping-collapse choices now lean toward `tw_bs_023`
+   - visible military escalation now leans toward `tw_bs_025`
+   - conciliatory / final secure-room choices now lean toward `tw_bs_024`
+   - emergency-buffer / civilian-preparation choices now lean toward `tw_bs_026`
+
+### 66.17.3 Validation
+
+1. `npx vitest run tests/engine/images.test.ts`
+2. `npm run ci:phase1`
+3. Selector sanity checks confirmed:
+   - `tail risk / broad sanctions` -> `tw_bs_023`
+   - `tail risk / military increase` -> `tw_bs_025`
+   - `final / backchannel` -> `tw_bs_024`
+   - `final / stockpiling` -> `tw_bs_026`
+4. Deploy run `23174037145` succeeded.
+
+### 66.17.4 Open note
+
+1. The live pack now has a real late-window photo baseline, but the full photoreal library is still not complete.
+2. Future image additions should keep using rights-safe public-domain / attributed sources unless `OPENAI_API_KEY` becomes available for the local generated-stills path.
+3. The next content-quality gap is probably branch-specific end states and even richer immediate-outcome consequences, not more shell work.
