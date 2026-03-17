@@ -4183,3 +4183,46 @@ All passed.
 1. The live pack now has a real late-window photo baseline, but the full photoreal library is still not complete.
 2. Future image additions should keep using rights-safe public-domain / attributed sources unless `OPENAI_API_KEY` becomes available for the local generated-stills path.
 3. The next content-quality gap is probably branch-specific end states and even richer immediate-outcome consequences, not more shell work.
+
+### 66.18 Endgame branch differentiation (2026-03-16)
+
+#### 66.18.1 What shipped
+
+1. Deepened the five terminal beats in `packages/content/data/scenarios.json`:
+   - `ns_managed_relief`
+   - `ns_managed_freeze`
+   - `ns_blockade_lock`
+   - `ns_limited_strike_exchange`
+   - `ns_invasion_tail`
+2. Each terminal beat now has:
+   - branch-specific `sceneFragments`
+   - non-null `memoLine`
+   - non-null `tickerLine`
+   - full `truthModel` with `verifiedFacts`, `workingTheories`, and `unknowns`
+   - three authored `windowContext.sections`
+3. Added branch-specific report support:
+   - `PostGameReport.terminalBeatId`
+   - `CinematicsDefinition.terminalBeatEndings`
+4. Updated report selection so `apps/web/src/components/ReportView.tsx` prefers `cinematics.terminalBeatEndings[report.terminalBeatId]` before falling back to generic outcome endings.
+5. Updated `packages/engine/src/report.ts` so the report preserves the resolved terminal beat id and prefers terminal-beat narrative summary text for the top report read when available.
+
+#### 66.18.2 Why it matters
+
+1. The user correctly identified that the endgame still felt flattened because two pairs of authored branches were merging back into the same generic aftermath:
+   - `ns_managed_freeze` and `ns_blockade_lock` -> `frozen_conflict`
+   - `ns_limited_strike_exchange` and `ns_invasion_tail` -> `war`
+2. The suspense work in the live scenario was already stronger than the aftermath layer.
+3. This pass keeps the branch identity alive after the final move instead of handing the player a generic report ending that blurs what actually happened.
+
+#### 66.18.3 Validation
+
+1. `npm run lint`
+2. `npx vitest run tests/engine/report-causality.test.ts`
+3. `npm run build --workspace @wargames/web`
+4. `npm run ci:phase1`
+5. Deploy run `23174646953` succeeded.
+
+#### 66.18.4 Open note
+
+1. The live ending and aftermath sequence are now more distinct, but the deeper debrief layer still keys most analysis off broad outcome categories.
+2. If the user still wants more difference between `freeze` and `blockade lock`, or between `strike exchange` and `invasion tail`, the next best pass is branch-specific deep debrief / tradeoff commentary rather than more UI changes.
