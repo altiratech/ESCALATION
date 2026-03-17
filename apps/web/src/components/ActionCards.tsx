@@ -162,7 +162,7 @@ const hiddenDownsideMeta = (category?: string | null): { label: string; detail: 
     },
     market_panic: {
       label: 'Market panic',
-      detail: 'Markets may treat the move as the start of a worse branch and reprice faster than governments can steady expectations.'
+      detail: 'Markets may treat the move as the start of something worse and reprice faster than governments can steady expectations.'
     },
     miscalculation: {
       label: 'Miscalculation',

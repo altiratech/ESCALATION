@@ -89,6 +89,11 @@ const scoreTags = (asset: ImageAsset, requestedTags: string[], weight = 4): numb
   return requestedTags.reduce((score, tag) => score + (assetTags.has(tag) ? weight : 0), 0);
 };
 
+const countTagMatches = (asset: ImageAsset, requestedTags: string[]): number => {
+  const assetTags = new Set(asset.tags.map((tag) => tag.toLowerCase()));
+  return requestedTags.reduce((count, tag) => count + (assetTags.has(tag) ? 1 : 0), 0);
+};
+
 const scoreAssetRealism = (asset: ImageAsset): number => {
   if (asset.id.startsWith('img_')) {
     return -10;
@@ -121,6 +126,9 @@ const scoreAsset = (
   variantTags: string[]
 ): number => {
   let score = 0;
+  const beatMatchCount = countTagMatches(asset, beatTags);
+  const actionMatchCount = countTagMatches(asset, actionTags);
+  const variantMatchCount = countTagMatches(asset, variantTags);
 
   if (asset.environment === scenario.environment) {
     score += 8;
@@ -142,6 +150,18 @@ const scoreAsset = (
   score += scoreTags(asset, actionTags, 6);
   score += scoreTags(asset, variantTags, 8);
   score += scoreAssetRealism(asset);
+  score += actionMatchCount > 0 ? 6 : 0;
+  score += variantMatchCount > 0 ? 8 : 0;
+
+  if (beatTags.length > 0 && beatMatchCount === 0) {
+    score -= 6;
+  }
+  if (actionTags.length > 0 && actionMatchCount === 0) {
+    score -= 8;
+  }
+  if (variantTags.length > 0 && variantMatchCount === 0) {
+    score -= 10;
+  }
 
   if (asset.kind === 'map' && !beatTags.includes('map') && preferredKinds[0] !== 'map') {
     score -= 6;
@@ -250,6 +270,14 @@ export const chooseImageGallery = (
   for (const { asset } of ranked) {
     if (selected.length >= count) {
       break;
+    }
+
+    const beatMatchCount = countTagMatches(asset, beatTags);
+    const actionMatchCount = countTagMatches(asset, actionTags);
+    const variantMatchCount = countTagMatches(asset, variantTags);
+
+    if (selected.length > 0 && beatMatchCount < 2 && actionMatchCount === 0 && variantMatchCount === 0) {
+      continue;
     }
 
     const sameKindPenalty = usedKinds.has(asset.kind) ? 3 : 0;

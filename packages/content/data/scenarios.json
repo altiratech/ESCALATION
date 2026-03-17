@@ -3264,8 +3264,8 @@
         "decisionWindow": null,
         "visualCue": {
           "preferredKinds": [
+            "documentary_still",
             "artifact",
-            "scenario_still",
             "map"
           ],
           "tags": [
@@ -3493,8 +3493,9 @@
         "decisionWindow": null,
         "visualCue": {
           "preferredKinds": [
+            "documentary_still",
             "artifact",
-            "scenario_still"
+            "map"
           ],
           "tags": [
             "taiwan",
@@ -3723,7 +3724,7 @@
           "preferredKinds": [
             "documentary_still",
             "artifact",
-            "scenario_still"
+            "map"
           ],
           "tags": [
             "taiwan",
@@ -3995,8 +3996,8 @@
         "decisionWindow": null,
         "visualCue": {
           "preferredKinds": [
+            "documentary_still",
             "map",
-            "scenario_still",
             "artifact"
           ],
           "tags": [
@@ -4023,8 +4024,8 @@
             "From here on, every signal is judged against the fear that control is slipping."
           ],
           "chen": [
-            "We need to decide whether this is the last reversible moment or the first step into a harder branch.",
-            "A panicked show of force could make the incident the justification for the next escalation."
+            "We need to decide whether this is the last moment we can contain or the first scene of an open exchange.",
+            "A panicked show of force could make the incident the excuse for whatever comes next."
           ],
           "okonkwo": [
             "This is where the commercial system can jump from repricing to partial withdrawal.",
@@ -4270,8 +4271,8 @@
         "visualCue": {
           "preferredKinds": [
             "documentary_still",
-            "scenario_still",
-            "artifact"
+            "artifact",
+            "map"
           ],
           "tags": [
             "taiwan",
@@ -4511,8 +4512,8 @@
         "visualCue": {
           "preferredKinds": [
             "documentary_still",
-            "scenario_still",
-            "artifact"
+            "artifact",
+            "map"
           ],
           "tags": [
             "taiwan",
@@ -4535,20 +4536,20 @@
         ],
         "advisorLines": {
           "cross": [
-            "Now the ugly branches are visible. The next move decides whether deterrence holds or we move into open force.",
-            "A weak signal here invites the other side to normalize the new line."
+            "Now the worst possibilities are on the table. The next move decides whether the lane holds or whether this crosses into direct force.",
+            "A weak signal here invites the other side to make tonight's line look permanent."
           ],
           "chen": [
             "We are down to options that each close something valuable.",
             "The right move is the one that preserves the most future control, not the one that sounds toughest."
           ],
           "okonkwo": [
-            "This is where financial-system spillover and alliance fatigue can outrun military plans.",
-            "Even a “managed” branch can be economically brutal if the corridor stays compromised."
+            "This is where financial spillover and alliance fatigue can outrun military planning.",
+            "Even a controlled pause can be economically brutal if the corridor stays compromised."
           ],
           "reed": [
-            "At this point I care about hidden branch activation more than public commentary.",
-            "Whatever we choose now will tell us whether the earlier anomalies were probing, cover, or a live opening sequence."
+            "At this point I care less about speeches than about what earlier moves have already put in motion.",
+            "Whatever we choose now will tell us whether the earlier anomalies were probing, cover, or the opening of something larger."
           ]
         },
         "advisorActionGuidance": {
@@ -4752,7 +4753,6 @@
         "visualCue": {
           "preferredKinds": [
             "documentary_still",
-            "scenario_still",
             "artifact",
             "map"
           ],
@@ -4783,8 +4783,8 @@
             "We either preserve the corridor with a credible line, or we absorb the fact that someone else now defines the operating space."
           ],
           "chen": [
-            "The best final move is the one that avoids the worst branch without pretending the risk disappeared.",
-            "Stability here may still look ugly, but ugly stability beats cinematic collapse."
+            "The best final move avoids catastrophe without pretending the danger vanished.",
+            "Stability here may still look ugly, but ugly stability beats a sunrise full of fire and contradictory warnings."
           ],
           "okonkwo": [
             "From a market standpoint, clarity now matters almost as much as outcome.",
@@ -5091,7 +5091,6 @@
         "visualCue": {
           "preferredKinds": [
             "documentary_still",
-            "scenario_still",
             "artifact",
             "map"
           ],
@@ -5313,9 +5312,9 @@
         "decisionWindow": null,
         "visualCue": {
           "preferredKinds": [
-            "scenario_still",
-            "artifact",
-            "map"
+            "documentary_still",
+            "map",
+            "artifact"
           ],
           "tags": [
             "taiwan",
@@ -5532,9 +5531,9 @@
         "decisionWindow": null,
         "visualCue": {
           "preferredKinds": [
-            "scenario_still",
-            "artifact",
-            "map"
+            "documentary_still",
+            "map",
+            "artifact"
           ],
           "tags": [
             "taiwan",
@@ -5751,9 +5750,9 @@
         "decisionWindow": null,
         "visualCue": {
           "preferredKinds": [
-            "scenario_still",
-            "artifact",
-            "map"
+            "documentary_still",
+            "map",
+            "artifact"
           ],
           "tags": [
             "taiwan",
@@ -5972,7 +5971,8 @@
         "decisionWindow": null,
         "visualCue": {
           "preferredKinds": [
-            "scenario_still",
+            "documentary_still",
+            "map",
             "artifact"
           ],
           "tags": [
@@ -6192,9 +6192,9 @@
         "decisionWindow": null,
         "visualCue": {
           "preferredKinds": [
-            "scenario_still",
-            "artifact",
-            "map"
+            "documentary_still",
+            "map",
+            "artifact"
           ],
           "tags": [
             "taiwan",

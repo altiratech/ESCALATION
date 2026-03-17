@@ -42,3 +42,33 @@ This directory contains a mix of authored local SVG placeholders and curated rea
   - Source: Christian Ferrer, "Harbour of Sète at dawn cf01"
   - Source page: https://commons.wikimedia.org/wiki/File:Harbour_of_S%C3%A8te_at_dawn_cf01.jpg
   - License: CC BY 4.0
+
+- `tw_bs_028_cic_watch.jpg`
+  - Source: U.S. Navy photo by Mass Communication Specialist 2nd Class Alice Husted
+  - Source page: https://www.dvidshub.net/image/9165809/uss-mahan-ddg-72-sailors-stand-combat-information-center-watch
+  - License: Public domain
+
+- `tw_bs_029_coast_guard_boarding.jpg`
+  - Source: U.S. Coast Guard photo
+  - Source page: https://www.dvidshub.net/image/8074035/coast-guard-cutter-terrell-horne-conducts-boarding
+  - License: Public domain
+
+- `tw_bs_030_nvg_watch.jpg`
+  - Source: U.S. Marine Corps photo by Staff Sgt. Dylan Chagnon
+  - Source page: https://www.dvidshub.net/image/9536267/11th-meu-marines-sailors-conduct-nighttime-deck-landing-qualifications-aboard-uss-portland
+  - License: Public domain
+
+- `tw_bs_031_cockpit_watch.jpg`
+  - Source: U.S. Air National Guard photo by Mysti Bicoy
+  - Source page: https://www.dvidshub.net/image/7047618/pueo-night-vision
+  - License: Public domain
+
+- `tw_bs_032_taiwan_strait_satellite.jpg`
+  - Source: NASA Johnson Space Center / ISS Expedition 72 Crew Earth Observations
+  - Source page: https://commons.wikimedia.org/wiki/File:The_Taiwan_Strait_separates_China%27s_southeast_coast_from_Taiwan_(iss072e435710).jpg
+  - License: Public domain
+
+- `tw_bs_033_modern_cic_watch.jpg`
+  - Source: U.S. Navy photo
+  - Source page: https://www.dvidshub.net/image/9504271/us-sailor-stands-watch-in-the-combat-information-center
+  - License: Public domain

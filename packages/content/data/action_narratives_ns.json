@@ -30,11 +30,11 @@
         },
         "climax": {
           "preActionBrief": "Chen wants one last quiet channel before the crisis hardens around public images and public commitments. If there is still a way to stop ships moving and warnings flashing before sunrise, it probably starts in private and it probably starts now.",
-          "executionNarrative": "You send a narrow message through Singapore: unsafe inspections stop tonight, harassment of commercial traffic stops tonight, and the hotline stays staffed until both sides can prove the lane is still functioning. It is the kind of offer made when the alternative is letting frightened markets and frightened commanders write the next chapter for you.",
-          "successOutcome": "If Beijing takes the opening, ships can move before sunrise and the room gets proof that catastrophe is not inevitable. The off-ramp is ugly, but it is real enough to matter.",
-          "complicationOutcome": "If the offer leaks or is pocketed, you will look like the side asking for calm while the other side finishes shaping the battlefield.",
-          "rivalReaction": "Beijing will treat the channel as evidence that Washington still fears economic rupture and warning failure. That makes the offer tempting, but only if PRC officials think they can pause without surrendering the coercive advantage already on screen.",
-          "allianceReaction": "Allies want the call made, but they do not want to wake up to a private deal that leaves them holding the public fallout. They will back the channel if it looks like a bridge to de-risking rather than a quiet blink."
+          "executionNarrative": "Singapore carries a three-line message before midnight: unsafe inspections stop tonight, shadowing of commercial hulls stops tonight, and the hotline stays staffed until both sides can prove the lane is still functioning. It is the kind of message governments send when they are trying to stop traders and commanders from taking over the story by morning.",
+          "successOutcome": "If Beijing bites, the first proof is movement, not rhetoric. A pair of delayed hulls clears without harassment, underwriters stop widening terms, and the room gets one hard piece of evidence that catastrophe is not locked in.",
+          "complicationOutcome": "If the channel leaks or stalls, cargo desks read it as Washington asking for time while the other side keeps shaping the water.",
+          "rivalReaction": "Beijing will hear the offer as proof Washington still fears a shutdown of the lane and a market break before the next opening bell. Hardliners may argue that is exactly why one more squeeze is worth it.",
+          "allianceReaction": "Allies can live with the channel if it produces verifiable movement before dawn. They will revolt if it looks like a private plea that leaves them defending the public line alone."
         }
       }
     },
@@ -67,11 +67,11 @@
         },
         "climax": {
           "preActionBrief": "Reed proposes a narrowly scoped cyber intrusion to map PRC maritime command, logistics, and influence networks supporting operations around Taiwan. Beijing is looking for either a face-saving off-ramp or proof that the coalition will blink first.",
-          "executionNarrative": "You approve a compartmented cyber collection mission against infrastructure supporting PRC coast guard, maritime militia, and theater logistics coordination. The access yields traffic patterns, scheduling cues, and indicators of how Beijing is sequencing pressure against Taiwan-bound shipping and allied responses.",
-          "successOutcome": "The access sharpens warning time and helps distinguish signaling from preparations for more dangerous moves. Your team gains a cleaner picture of who is directing the gray-zone campaign and which nodes matter most.",
-          "complicationOutcome": "Forensic noise suggests the access may be noticed. Even if attribution stays murky, Beijing begins hardening networks and scrutinizing foreign-linked cyber activity across the theater.",
-          "rivalReaction": "If Beijing detects anomalies, it will assume the U.S. Is preparing to expose or disrupt its command picture. That raises PRC sensitivity to further cyber moves and may accelerate counterintelligence sweeps.",
-          "allianceReaction": "Allied cyber and intelligence services quietly welcome the improved warning picture, but they will insist the operation remain collection-focused and not bleed into a visible cyber exchange that could alarm commercial operators."
+          "executionNarrative": "You push a collection team through maritime dispatch and militia cueing systems that have been muddying the picture all night. For the first time, analysts can match some orders to some hulls instead of guessing from a dirty screen.",
+          "successOutcome": "The pull gives the room something precious: a few extra minutes of warning and a cleaner read on which boats are bait, which are escorts, and which orders are coming from higher headquarters.",
+          "complicationOutcome": "If the access trips alarms, Beijing can wipe the board, scrub the route, and accuse Washington of hacking civilian shipping systems while the evidence is still half-classified.",
+          "rivalReaction": "If PRC operators catch the scrape, they will assume Washington is preparing to expose or disrupt the next move. That raises the odds of counterintelligence sweeps, decoys, and a faster handoff to harder units.",
+          "allianceReaction": "Partners like the cleaner picture, but only if the operation stays invisible. The moment it spills into headlines, commercial operators start asking whether the cyber fight has already reached the ports."
         }
       }
     },
@@ -104,11 +104,11 @@
         },
         "climax": {
           "preActionBrief": "Operators present a limited disruption option against systems enabling PRC coercive maritime activity, including logistics dispatch and vessel cueing. The next move may define whether the episode ends in stabilization, economic fracture, or open war.",
-          "executionNarrative": "You authorize a time-boxed cyber disruption designed to degrade PRC operational coordination without creating civilian casualties. For several hours, routing data, tasking queues, and selected support systems flicker offline, forcing Beijing's field units to rely on slower and noisier backup procedures.",
-          "successOutcome": "The disruption buys breathing room for Taiwanese and allied operators, temporarily lowers operational tempo, and demonstrates that gray-zone pressure can be answered without firing a shot.",
-          "complicationOutcome": "Commercial networks experience collateral strain and Beijing publicly accuses Washington of attacking civilian infrastructure. The cyber domain becomes a more visible front of the crisis.",
-          "rivalReaction": "PRC leadership is likely to view active cyber disruption as a threshold-crossing move even if it remains below kinetic conflict. Beijing may respond asymmetrically against logistics, ports, or political targets it believes are linked to coalition pressure.",
-          "allianceReaction": "Allies appreciate the non-kinetic effect, but they worry about escalation control if civilian networks or regional financial systems see spillover. Support remains conditional on tight targeting and clear messaging."
+          "executionNarrative": "You authorize a timed disruption against dispatch and cueing nodes feeding the pressure ring. Route queues misfire, support systems stall, and field units spend the next hours on backup procedures instead of harassment.",
+          "successOutcome": "For one shift, the ring loosens. A few captains move, a few insurers stop tightening, and Taiwan gets breathing room without a missile in the air.",
+          "complicationOutcome": "If the disruption splashes into civilian systems, container bookings stall and Beijing goes public with the claim that Washington attacked commercial infrastructure first.",
+          "rivalReaction": "PRC planners will treat an active disruption as the moment the cyber fight stopped being collection and became combat support. Retaliation is likely to land where the coalition is least ready: ports, brokers, fuel, or payments.",
+          "allianceReaction": "Allies will tolerate it only if the effect is sharp and the spillover is low. The minute freight or banking systems wobble, the political case gets much harder."
         }
       }
     },
@@ -141,11 +141,11 @@
         },
         "climax": {
           "preActionBrief": "A covert option is on the table to quietly disable a PRC node enabling coercive operations around Taiwan, such as a militia staging asset or logistics enabler. Your decision now will shape not just deterrence, but the post-crisis political order in the Indo-Pacific.",
-          "executionNarrative": "You approve a deniable disruption campaign against a supporting asset used to sustain maritime pressure. The operation is executed through cutouts and technical means intended to create delay, uncertainty, and maintenance failures rather than public spectacle.",
-          "successOutcome": "Operational friction appears in the PRC pressure campaign without handing Beijing clean evidence for public retaliation. The move slows activity at a sensitive moment and forces Chinese planners to divert attention inward.",
-          "complicationOutcome": "The damage is real but attribution becomes a live political contest. Beijing treats the incident as foreign sabotage and uses it to justify a louder security response around Taiwan and in the information domain.",
-          "rivalReaction": "Even without proof, PRC leadership will suspect outside interference if a critical support node fails at a decisive moment. That can produce caution, but it can also strengthen hardliners arguing that the U.S. Is already fighting covertly.",
-          "allianceReaction": "Only a narrow set of allies will tolerate this approach, and even they will expect strict deniability. If the operation becomes public, coalition unity becomes harder to sustain."
+          "executionNarrative": "You authorize a deniable cutout operation against a support node keeping the pressure ring moving. The damage is small on paper and maddening in practice: delays, bad fuel, missing parts, and a unit that cannot launch on time.",
+          "successOutcome": "The slowdown is real enough to break the rhythm of the operation without giving Beijing a clean photo to wave at the world.",
+          "complicationOutcome": "If the damage is discovered too quickly, Beijing gets both a grievance and a justification. The next security sweep, boarding, or cyber retaliation comes with a ready-made story.",
+          "rivalReaction": "Even without proof, PRC security services will assume outside interference once a critical support node fails at the wrong hour. That can scare them into caution or convince hardliners the covert war is already underway.",
+          "allianceReaction": "Only the smallest circle of partners wants this option. If it works quietly, they will pretend not to know. If it goes loud, they will ask why Washington chose sabotage before exhausting cleaner tools."
         }
       }
     },
@@ -178,11 +178,11 @@
         },
         "climax": {
           "preActionBrief": "Cross is no longer talking about symbolism. She is talking about whether someone will physically stand in the lane if the next stop turns into fire or the next warning picture turns real.",
-          "executionNarrative": "You order additional destroyers, patrol aircraft, tanker support, and escort-ready forces into the operating box and tell allies to act as if the corridor may have to be held, not merely discussed. The movement order is visible enough that insurers, traders, and the other side all understand the same thing at once: this is no longer a rehearsal.",
-          "successOutcome": "For the first time tonight, captains and commanders can imagine somebody physically keeping the corridor open. That alone can steady a market and complicate Beijing's next move.",
-          "complicationOutcome": "Every radar blip now sits next to live weapons and tired crews. The deterrent move is also the move most likely to put a fireball on screens by dawn if anyone misreads the next pass.",
-          "rivalReaction": "Beijing will read the surge as an attempt to lock the coalition into the fight before panic can thin it out. That can restore deterrence, but it also raises the chance that PRC commanders probe the line while it is newly crowded and least forgiving.",
-          "allianceReaction": "Front-line allies welcome the steel, but quieter partners immediately ask whether Washington has also chosen the point at which it is willing to trade ships for credibility. That answer gets harder to finesse once the extra hulls are moving."
+          "executionNarrative": "You put more gray hulls, patrol aircraft, and tanker support into the box and quietly tell commanders to prepare to escort, shadow, or interpose. The order is visible enough that traders, captains, and Beijing all get the message before the press office does.",
+          "successOutcome": "The lane no longer looks undefended. That alone can steady nerves and force Beijing to calculate against real steel instead of assumed hesitation.",
+          "complicationOutcome": "Crowded water and crowded air mean one bad turn, one hot pilot, or one misread warning can put wreckage on screens before sunrise.",
+          "rivalReaction": "Beijing will read the surge as an attempt to lock the coalition into physical contest before fear can thin it out. The danger is a probing move from a local commander who wants to show the line can still be tested.",
+          "allianceReaction": "Front-line allies like the hulls. More distant partners immediately start asking whether Washington just crossed from deterrence into a commitment to fight for every stop and every convoy."
         }
       }
     },
@@ -215,11 +215,11 @@
         },
         "climax": {
           "preActionBrief": "This is the last real chance to deny Beijing the collision or launch warning it may want. The gamble is that stepping back one visible notch buys time instead of signaling surrender.",
-          "executionNarrative": "You pull the most visible assets back from the hottest approaches while keeping submarines, ISR, and rapid-response packages in place. The move is meant to take one spark out of the picture without abandoning the ability to hit back if the lane actually collapses.",
-          "successOutcome": "If the other side was looking for a face-saving pause, this can lower the temperature without conceding the corridor. It buys diplomats and exhausted operators a few precious hours.",
-          "complicationOutcome": "If Beijing reads it as a blink, insurers and allies may decide Washington will not physically contest the next squeeze. Once that belief spreads, the lane can fail without a shot.",
-          "rivalReaction": "PRC officials may interpret the reduced signature as proof that the coalition fears the next incident more than Beijing does. If they do, they are more likely to test the new limit quickly rather than reward the restraint.",
-          "allianceReaction": "Partners will tolerate the de-emphasis only if Washington is simultaneously screaming reassurance in private channels. Otherwise the move risks looking like orderly retreat dressed up as prudence."
+          "executionNarrative": "You pull the most visible assets back from the hottest approaches while keeping submarines, ISR, and rapid-response packages in place. The move is meant to take one spark out of the picture without surrendering the ability to hit back if the lane actually collapses.",
+          "successOutcome": "If the other side wanted less steel on the screen before it paused, this can buy hours without conceding the principle of free transit.",
+          "complicationOutcome": "If insurers and allies read the pullback as the last visible defender leaving the lane, the commercial system can panic faster than Beijing needs to move.",
+          "rivalReaction": "PRC officials may treat the reduced signature as proof that the coalition fears the next incident more than Beijing does. That can invite a harder push while the water is newly clear.",
+          "allianceReaction": "Partners will only tolerate the step-back if Washington is privately over-communicating intent. Otherwise it feels like orderly retreat with better phrasing."
         }
       }
     },
@@ -252,11 +252,11 @@
         },
         "climax": {
           "preActionBrief": "This is the last chance to buy a cleaner picture before the room starts making endgame choices on half-trusted tracks and exhausted assumptions.",
-          "executionNarrative": "You pull in allied ISR, commercial imagery, signals analysts, and shipping data teams to force a cleaner picture before the next decision. Screens get better, not calmer. The reward is minutes of warning time and a smaller chance of making history based on a ghost track.",
-          "successOutcome": "A better picture can keep the room from firing, sanctioning, or conceding at ghosts. In a crisis like this, that is not a small thing.",
-          "complicationOutcome": "Better collection does not slow the crisis by itself. If the next visible move lands first, you may only end up understanding the disaster more clearly than everyone else.",
-          "rivalReaction": "If Beijing sees the collection surge, it will assume Washington is preparing to expose, counter, or preempt the next move. That raises the value of deception and compresses warning time again.",
-          "allianceReaction": "Allies like the discipline of a cleaner picture, but some will ask whether collection this late is prudence or a sign that Washington still lacks the confidence to choose."
+          "executionNarrative": "You fuse allied ISR, commercial imagery, merchant AIS, signals intercepts, and cyber reporting into one running picture. The room gets less blind, not less frightened.",
+          "successOutcome": "For the first time all night, analysts can separate decoys from escorts and paperwork from actual preparation. That can stop one panicked decision from turning into history.",
+          "complicationOutcome": "Better collection does not slow ships or shut down orders. If the next move lands first, you may simply watch the disaster arrive in higher resolution.",
+          "rivalReaction": "If Beijing sees the surge, it will answer with more decoys, more spoofing, and more pressure on the people and firms feeding the picture.",
+          "allianceReaction": "Partners support the push because a cleaner screen is better than a guessed war. They will still ask whether Washington is buying clarity because it still cannot decide."
         }
       }
     },
@@ -289,11 +289,11 @@
         },
         "climax": {
           "preActionBrief": "This is the concession you make only if you think a smaller political loss tonight is better than a larger physical loss by morning. The danger is obvious: once coercion rewrites procedure, it rarely stops at procedure.",
-          "executionNarrative": "You authorize a tightly bounded procedural concession around inspection practice and registration language in hopes of getting the lane breathing again before the next market open. On paper it is narrow. In political terms it is the kind of move everyone in the room knows will be studied for years if it works and for different reasons if it fails.",
-          "successOutcome": "If Beijing truly wants a pause, this can get ships moving before the first morning headlines lock in the damage. The room buys time at the cost of pride.",
-          "complicationOutcome": "If coercion was the point, you have just shown the world that enough pressure can rewrite the rules of the lane. That lesson does not stay in the strait.",
-          "rivalReaction": "Beijing will test whether the concession is a one-night expedient or proof that calibrated pain moves Washington and its partners. If the answer looks like the latter, PRC officials will bank the precedent fast.",
-          "allianceReaction": "Some allies will call it responsible crisis management. Others will worry they are watching the birth of a new normal in which commercial intimidation becomes a negotiating tool."
+          "executionNarrative": "You accept a narrow procedural formula on registration and inspection language in exchange for immediate movement and verification. On paper it is technical. Everyone in the room knows it is really a wager that smaller humiliation now prevents larger damage by morning.",
+          "successOutcome": "If Beijing wants a pause more than a precedent, the move can get ships through before the Asian open and keep fabs from missing another cycle.",
+          "complicationOutcome": "If coercion was the point, the concession teaches every capital in the region that enough commercial pain can rewrite the rules of the lane.",
+          "rivalReaction": "Beijing will test whether the concession is a one-night expedient or proof that calibrated pain moves the coalition. If it looks like the latter, officials will try to bank the new procedure immediately.",
+          "allianceReaction": "Some partners will call it damage control. Others will hear the sound of a bad precedent being born."
         }
       }
     },
@@ -326,11 +326,11 @@
         },
         "climax": {
           "preActionBrief": "If you go on camera now, the words stop being framing and start being commitment. This is the speech that can steady the room or leave the whole coalition hanging from its own rhetoric.",
-          "executionNarrative": "You go on camera with allied language synchronized, name the coercion directly, and warn that the next unsafe stop, systems hit, or strike will trigger a coordinated response. Markets, commanders, and the other side all hear the same thing at once, which is exactly why the speech matters and exactly why it is dangerous.",
-          "successOutcome": "For a few hours, allies, markets, and operators are finally reading from one line instead of six. That can buy real steadiness when confusion is doing half the enemy's work.",
-          "complicationOutcome": "If Beijing calls the bluff or the next incident lands anyway, your words become the countdown clock on a credibility test everyone can see.",
-          "rivalReaction": "Beijing will parse the speech for thresholds and doubt. A disciplined line can stiffen deterrence; an overreaching line invites PRC planners to test whether Washington just promised more than it can safely deliver.",
-          "allianceReaction": "Partners welcome the clarity, but once the speech is out they will expect the White House to act like the speech was written for history rather than cable television."
+          "executionNarrative": "You go on camera with allied wording aligned and name the behavior plainly: unsafe stops, coerced routing, cyber interference, and consequences if it continues. Every captain, trader, and commander hears the same line at once.",
+          "successOutcome": "For a few hours, the coalition sounds like one government instead of many nervous ministries. That alone can steady a room that has been fraying at the edges.",
+          "complicationOutcome": "If Beijing tests the line immediately, your words become a clock counting down to a credibility test everyone can see.",
+          "rivalReaction": "PRC planners will study the speech for the exact point at which rhetoric becomes military obligation. Anything fuzzy invites testing; anything too hard invites a dare.",
+          "allianceReaction": "Partners like the clarity, but once the statement is public they expect Washington to live inside it. No one wants to be left holding a promise the White House cannot actually cash."
         }
       }
     },
@@ -363,11 +363,11 @@
         },
         "climax": {
           "preActionBrief": "Treasury can still raise the price without lighting up the entire global system. The question is whether you can do it fast enough to matter and narrowly enough to keep the compliance shock from outrunning the policy intent.",
-          "executionNarrative": "Treasury and Commerce move on the shipping, insurance, logistics, and dual-use nodes enabling the pressure ring around Taiwan. Compliance desks do not wait for daylight. Banks, freight brokers, and counterparties start freezing activity first and asking lawyers what exactly changed second.",
-          "successOutcome": "You put an immediate price on the current move without detonating the whole relationship. For a moment, it restores the feeling that the coalition still has tools between speeches and gunfire.",
-          "complicationOutcome": "Even a narrow package can scare firms into overcompliance. Sailings stop, letters of credit wobble, and the commercial shock lands faster than the public explanation.",
-          "rivalReaction": "Beijing will portray the package as economic warfare hidden inside legal process and will look for ways to retaliate where coalition firms feel the pain fastest.",
-          "allianceReaction": "Most partners can support a narrow package, but only if Washington keeps the legal rationale crisp and the private reassurance constant once firms begin calling their ministries in alarm."
+          "executionNarrative": "Treasury and Commerce move on the specific insurers, brokers, logistics fronts, and dual-use nodes keeping the pressure ring alive. Before dawn, compliance desks start freezing cargoes and asking legal questions later.",
+          "successOutcome": "The package puts a price on the current move without detonating the entire economic relationship. For a moment, it restores the sense that there are tools between speeches and gunfire.",
+          "complicationOutcome": "Even a narrow package can trigger overcompliance. Sailings pause, letters of credit wobble, and the commercial shock outruns the policy memo meant to explain it.",
+          "rivalReaction": "Beijing will call it economic warfare carried out in lawyerly language and will look for the quickest place to make coalition firms feel the pain back.",
+          "allianceReaction": "Most partners can support it if Washington keeps the case narrow and the phone lines open. The moment ordinary firms think the rules are broader than advertised, political support gets slippery."
         }
       }
     },
@@ -400,11 +400,11 @@
         },
         "climax": {
           "preActionBrief": "Treasury is asking whether to stop signaling and start hurting. Once this package goes, you are no longer threatening systemic cost. You are creating it.",
-          "executionNarrative": "You sign off on a broad package that hits financing, insurance channels, export licenses, and the firms still servicing the coercive ring around Taiwan. Compliance desks stop waiting for daylight. Phones light up from Singapore to Frankfurt as firms try to work out which cargoes, payments, and counterparties are suddenly toxic.",
-          "successOutcome": "The shock tells Beijing the coalition is willing to make this expensive now, not later. For a few hours, it can restore deterrence by proving the economic fight will not stay theoretical.",
-          "complicationOutcome": "The same shock hits everyone else too. Traders start pricing a semiconductor seizure, lenders widen terms, and ministers begin preparing for layoffs if the lane does not reopen fast.",
-          "rivalReaction": "Beijing will treat the package as proof that Washington has decided the crisis already exceeds normal diplomatic containment. That can force caution, but it can also accelerate retaliation in domains the coalition cannot easily insulate.",
-          "allianceReaction": "Some allies will applaud the resolve. Others will start counting how many days of market pain, factory disruption, and domestic anger they can absorb before unity begins to crack."
+          "executionNarrative": "You approve the package that tells every bank, insurer, freight broker, and chip buyer to assume the old rules are over. Compliance desks stop waiting for daylight. Cargoes stall on legal review while traders try to guess whether this is the start of a financial quarantine.",
+          "successOutcome": "The shock proves the coalition is willing to impose systemic cost now, not later. In the best case, that is enough to convince Beijing the next squeeze will not stay cheap.",
+          "complicationOutcome": "The same shock slams everyone else. Funding stress widens, factories start gaming shutdown plans, and ministers begin talking about layoffs before the cameras are on.",
+          "rivalReaction": "Beijing will treat the package as proof Washington has decided the crisis already exceeds normal containment. That can force caution or speed retaliation in whatever domain feels least insulated.",
+          "allianceReaction": "Some allies will praise the resolve. Others will spend the next hour calculating how many trading days of pain they can survive before unity cracks."
         }
       }
     },
@@ -437,11 +437,11 @@
         },
         "climax": {
           "preActionBrief": "This is the move you make when you think ordinary life may soon start feeling the crisis. It strengthens the coalition, but it also tells the public that the people with the full picture are preparing for failure, not just stress.",
-          "executionNarrative": "You order allied governments and major firms to start moving fuel, medical inventories, chip inputs, and logistics spares into protected buffers while ports and distributors shift onto continuity plans. The work is practical, but it is also legible. Truck drivers, buyers, and wholesalers can tell the state is bracing for disruption long before the press office finds the right language for it.",
-          "successOutcome": "The buffers make the coalition harder to break and can keep one more shock from turning into visible scarcity. They also show Beijing that time may not be the weapon it hoped it was.",
-          "complicationOutcome": "People only move this way when they think normal commerce might fail. Buyers hoard, local shortages appear, and the preparation itself can become the first public signal that a long emergency has begun.",
-          "rivalReaction": "Beijing will read the stockpiling push as proof that Washington is preparing to absorb a prolonged confrontation rather than fold under commercial stress. That can strengthen deterrence while also convincing hardliners that the window is closing.",
-          "allianceReaction": "The practical case is strong, but political leaders know what the pictures of stockpiles, rationing plans, and guarded depots will do to public nerves if the crisis worsens overnight."
+          "executionNarrative": "You order quiet stockpile moves across fuel, medical inventories, chip inputs, and logistics spares while ports and distributors shift onto continuity plans. The work is practical, but it is visible enough that truckers, warehouse crews, and buyers start reading the room for themselves.",
+          "successOutcome": "The buffers make it harder for Beijing to win by exhausting nerves alone. One more supply shock does not immediately turn into empty tanks or empty lines.",
+          "complicationOutcome": "The same pictures that reassure planners can scare the public. Once buyers see guarded depots and accelerated orders, hoarding and rumor can do the rest.",
+          "rivalReaction": "Beijing will read the stockpiling push as proof the coalition is preparing to absorb a longer confrontation rather than fold under commercial stress. That can stiffen deterrence while telling hardliners the window may be narrowing.",
+          "allianceReaction": "The practical case is strong. Politically, everyone knows what stockpile images, rationing chatter, and guarded depots do to public nerves if the crisis worsens overnight."
         }
       }
     }

@@ -1089,9 +1089,9 @@ const App = () => {
     : dynamicContextSections;
   const activeTruthModel = currentBeat?.truthModel ?? null;
   const summaryLead =
-    currentBeat?.memoLine ??
-    activeTruthModel?.verifiedFacts?.[0]?.body ??
     episode.briefing.headlines[0] ??
+    currentBeat?.memoLine ??
+    activeTruthModel?.verifiedFacts?.[0]?.title ??
     currentBeat?.sceneFragments[0] ??
     currentDirective;
   const summaryPrompt =

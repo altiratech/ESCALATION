@@ -143,15 +143,6 @@ const pressureForTurn = (scenario: ScenarioDefinition, turn: number): number => 
   return scenario.pressureCurve[turn - 1] ?? scenario.pressureCurve[scenario.pressureCurve.length - 1] ?? 1;
 };
 
-const meterDisplayNames: Record<keyof GameState['meters'], string> = {
-  economicStability: 'market stability',
-  energySecurity: 'energy security',
-  domesticCohesion: 'domestic cohesion',
-  militaryReadiness: 'force readiness',
-  allianceTrust: 'alliance trust',
-  escalationIndex: 'escalation pressure'
-};
-
 const applyMeterDeltas = (state: GameState, deltas: Partial<GameState['meters']>): void => {
   for (const [key, delta] of Object.entries(deltas)) {
     if (typeof delta !== 'number') {
@@ -184,14 +175,45 @@ const buildInactionDebrief = (payload: {
   meterAfter: GameState['meters'];
   inactionNarrative: string;
 }): TurnDebrief => {
+  const inactionShiftRead = (key: keyof GameState['meters'], delta: number): string => {
+    if (key === 'economicStability') {
+      return delta < 0
+        ? 'Secondary effect: carriers, brokers, and lenders took the silence as a sign that the lane might be left to fend for itself.'
+        : 'Secondary effect: the commercial picture steadied for the moment, mostly because nothing new forced firms to make a worse assumption.'
+    }
+    if (key === 'energySecurity') {
+      return delta < 0
+        ? 'Secondary effect: fuel and logistics desks widened their contingency planning as the window closed without a visible response.'
+        : 'Secondary effect: energy desks got a little breathing room, even if nobody trusted it to last.'
+    }
+    if (key === 'domesticCohesion') {
+      return delta < 0
+        ? 'Secondary effect: aides started preparing for anger at home because silence in a crisis rarely stays invisible for long.'
+        : 'Secondary effect: the public picture held together for one more cycle, which mattered more than it looked.'
+    }
+    if (key === 'militaryReadiness') {
+      return delta < 0
+        ? 'Secondary effect: commanders lost usable slack while waiting for guidance that never came.'
+        : 'Secondary effect: operators gained a little room to reset the force posture before the next move.'
+    }
+    if (key === 'allianceTrust') {
+      return delta < 0
+        ? 'Secondary effect: allied capitals started filling the silence with their own assumptions, which is how a coalition begins to drift.'
+        : 'Secondary effect: partners took the pause as discipline rather than paralysis, at least for the moment.'
+    }
+    return delta > 0
+      ? 'Secondary effect: the tempo eased briefly after the window closed without a directive.'
+      : 'Secondary effect: the room came out of the silence more alarmed than before.';
+  };
+
   const playerLine =
     payload.source === 'timeout'
       ? 'No directive was issued before the decision window expired.'
       : 'You deliberately selected Take No Action during the decision window.';
   const shift = strongestShift(payload.meterBefore, payload.meterAfter);
   const secondaryLine = shift
-    ? `Secondary effect: ${meterDisplayNames[shift.key]} ${shift.delta > 0 ? 'rose' : 'fell'} ${Math.abs(Math.round(shift.delta))} points after the no-action branch triggered.`
-    : 'Secondary effect: the no-action branch shifted strategic tempo without a single dominant meter move.';
+    ? inactionShiftRead(shift.key, shift.delta)
+    : 'Secondary effect: the silence changed the pace of the crisis even without one dominant visible effect.';
 
   return {
     lines: [

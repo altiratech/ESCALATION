@@ -276,10 +276,12 @@ export const BriefingPanel = ({
         {
           id: 'offstage',
           label: 'What Changed Offstage',
-          body:
-            recentMeterShifts[0]
-              ? describeShiftInScene(recentMeterShifts[0].key, recentMeterShifts[0].delta)
-              : recentActionNarrative.detail.successOutcome
+          body: [
+            recentActionNarrative.detail.successOutcome,
+            recentMeterShifts[0] ? describeShiftInScene(recentMeterShifts[0].key, recentMeterShifts[0].delta) : null
+          ]
+            .filter(Boolean)
+            .join(' ')
         },
         {
           id: 'room_fears',

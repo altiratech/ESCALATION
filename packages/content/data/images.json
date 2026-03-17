@@ -999,7 +999,16 @@
       "phase_resolution",
       "collapse",
       "public",
-      "diplomacy"
+      "diplomacy",
+      "phase_opening",
+      "phase_rising",
+      "phase_crisis",
+      "allied",
+      "fusion",
+      "attribution",
+      "backchannel",
+      "private_channel",
+      "quiet"
     ],
     "alt": "Military command center with officers monitoring a live operation",
     "caption": "The last hours of a crisis are spent in rooms like this, where every screen is already telling a different version of tomorrow."
@@ -1052,7 +1061,9 @@
       "civilian_preparation",
       "stockpile",
       "reserves",
-      "buffer"
+      "buffer",
+      "supply",
+      "emergency_buffer"
     ],
     "alt": "Nearly empty grocery store shelves",
     "caption": "If the worst branch opens, the crisis leaves secure rooms and starts showing up where ordinary people buy food."
@@ -1078,5 +1089,148 @@
     ],
     "alt": "Harbor at dawn under calm light",
     "caption": "The dangerous calm is the one that looks safe enough for everyone to believe a little too soon."
+  },
+  {
+    "id": "tw_bs_028",
+    "path": "/assets/images/tw_bs_028_cic_watch.jpg",
+    "kind": "documentary_still",
+    "domain": "military",
+    "severity": 2,
+    "environment": "coastal",
+    "perspective": "news_frame",
+    "tags": [
+      "taiwan",
+      "cic",
+      "watchfloor",
+      "naval",
+      "surveillance",
+      "isr",
+      "phase_opening",
+      "phase_rising",
+      "ambiguous",
+      "covert",
+      "screen"
+    ],
+    "alt": "Sailor on a modern combat information center watch floor",
+    "caption": "The first hours of a crisis are spent in blue-lit rooms like this, where no one yet knows whether the screen is warning or bait."
+  },
+  {
+    "id": "tw_bs_029",
+    "path": "/assets/images/tw_bs_029_coast_guard_boarding.jpg",
+    "kind": "documentary_still",
+    "domain": "military",
+    "severity": 3,
+    "environment": "coastal",
+    "perspective": "street",
+    "tags": [
+      "taiwan",
+      "coast_guard",
+      "boarding",
+      "shipping",
+      "incident",
+      "coercion",
+      "militarized",
+      "visible",
+      "phase_crisis",
+      "phase_climax",
+      "public"
+    ],
+    "alt": "Boarding team climbing from a small boat onto a large vessel at sea",
+    "caption": "Administrative pressure stops feeling administrative the moment armed men start climbing steel in open water."
+  },
+  {
+    "id": "tw_bs_030",
+    "path": "/assets/images/tw_bs_030_nvg_watch.jpg",
+    "kind": "artifact",
+    "domain": "military",
+    "severity": 3,
+    "environment": "coastal",
+    "perspective": "surveillance",
+    "tags": [
+      "taiwan",
+      "night_vision",
+      "surveillance",
+      "covert",
+      "night_ops",
+      "incident",
+      "tail_risk",
+      "phase_crisis",
+      "phase_climax",
+      "screen"
+    ],
+    "alt": "Night-vision view of a servicemember scanning in darkness",
+    "caption": "By the time the scene is reduced to green phosphor and silhouettes, no one in the room is pretending the danger is theoretical."
+  },
+  {
+    "id": "tw_bs_031",
+    "path": "/assets/images/tw_bs_031_cockpit_watch.jpg",
+    "kind": "documentary_still",
+    "domain": "military",
+    "severity": 2,
+    "environment": "coastal",
+    "perspective": "news_frame",
+    "tags": [
+      "taiwan",
+      "air_patrol",
+      "cockpit",
+      "surveillance",
+      "isr",
+      "warning_time",
+      "phase_opening",
+      "phase_rising",
+      "visible",
+      "screen"
+    ],
+    "alt": "Military flight deck cockpit with live avionics over water",
+    "caption": "Air patrols do not calm a crisis. They just make sure someone sees the next bad move before it arrives."
+  },
+  {
+    "id": "tw_bs_032",
+    "path": "/assets/images/tw_bs_032_taiwan_strait_satellite.jpg",
+    "kind": "map",
+    "domain": "diplomacy",
+    "severity": 1,
+    "environment": "coastal",
+    "perspective": "satellite",
+    "tags": [
+      "taiwan",
+      "strait",
+      "satellite",
+      "map",
+      "orientation",
+      "shipping",
+      "phase_opening",
+      "phase_rising",
+      "corridor",
+      "surveillance",
+      "ambiguity",
+      "warning_time",
+      "screen"
+    ],
+    "alt": "Satellite image showing Taiwan and the strait separating it from mainland China",
+    "caption": "Seen from orbit, the corridor looks simple. The crisis comes from how quickly a narrow piece of water can choke everything tied to it."
+  },
+  {
+    "id": "tw_bs_033",
+    "path": "/assets/images/tw_bs_033_modern_cic_watch.jpg",
+    "kind": "documentary_still",
+    "domain": "military",
+    "severity": 4,
+    "environment": "coastal",
+    "perspective": "news_frame",
+    "tags": [
+      "taiwan",
+      "cic",
+      "watchfloor",
+      "naval",
+      "militarized",
+      "deterrence",
+      "visible",
+      "phase_crisis",
+      "phase_climax",
+      "red_line"
+    ],
+    "alt": "Modern U.S. Navy watchstander at a combat information center console",
+    "caption": "Late in the night, every new order looks ordinary on paper and irreversible in the chair."
   }
 ]
