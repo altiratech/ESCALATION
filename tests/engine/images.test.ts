@@ -428,4 +428,77 @@ describe('image selection', () => {
       expect.arrayContaining(['evidence_satellite', 'evidence_artifact'])
     );
   });
+
+  it('does not auto-fill curated galleries with weak fallback images', () => {
+    const scenario = { environment: 'coastal' } as ScenarioDefinition;
+    const beat = {
+      id: 'curated_terminal_window',
+      phase: 'climax',
+      imageHints: ['taiwan', 'shipping'],
+      visualCue: {
+        preferredKinds: ['documentary_still', 'artifact', 'map'],
+        tags: ['shipping', 'tail_risk'],
+        branchStage: 'tail_risk',
+        heroImageIds: ['hero_photo'],
+        evidenceImageIds: ['evidence_satellite']
+      }
+    } as BeatNode;
+    const assets = [
+      {
+        id: 'hero_photo',
+        kind: 'documentary_still',
+        path: '/assets/images/hero.jpg',
+        alt: 'Hero photo',
+        caption: 'Hero photo',
+        environment: 'coastal',
+        domain: 'military',
+        severity: 3,
+        perspective: 'news_frame',
+        tags: ['taiwan', 'shipping', 'tail_risk']
+      },
+      {
+        id: 'evidence_satellite',
+        kind: 'map',
+        path: '/assets/images/sat.jpg',
+        alt: 'Evidence satellite',
+        caption: 'Evidence satellite',
+        environment: 'coastal',
+        domain: 'diplomacy',
+        severity: 2,
+        perspective: 'satellite',
+        tags: ['taiwan', 'shipping', 'tail_risk']
+      },
+      {
+        id: 'weak_fallback',
+        kind: 'scenario_still',
+        path: '/assets/images/weak.svg',
+        alt: 'Weak fallback',
+        caption: 'Weak fallback',
+        environment: 'generic',
+        domain: 'diplomacy',
+        severity: 0,
+        perspective: 'street',
+        tags: ['generic']
+      }
+    ] satisfies ImageAsset[];
+
+    const gallery = chooseImageGallery({
+      assets,
+      scenario,
+      beat,
+      meters: {
+        economicStability: 43,
+        energySecurity: 49,
+        domesticCohesion: 47,
+        militaryReadiness: 60,
+        allianceTrust: 50,
+        escalationIndex: 74
+      },
+      turnDelta: zeroShift,
+      recentImageIds: [],
+      rng: new SeededRng('IMG-CURATED-NOFILL')
+    });
+
+    expect(gallery.map((asset) => asset.id)).toEqual(['hero_photo', 'evidence_satellite']);
+  });
 });

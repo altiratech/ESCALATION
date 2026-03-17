@@ -933,7 +933,7 @@
       "middle_east"
     ],
     "alt": "Strategic Petroleum Reserve piping and infrastructure used as a grounded visual for thinner energy buffer and crisis compression.",
-    "caption": "By this point the room is reading Taiwan against fuel, reserve, and sustainment numbers at the same time."
+    "caption": "This is the sustainment side of the same crisis brief: fuel cushion, reload pace, and how long the United States can surge without breaking somewhere else."
   },
   {
     "id": "tw_bs_022",
@@ -956,7 +956,7 @@
       "visible"
     ],
     "alt": "Coast Guard boarding team approaching a vessel at sea",
-    "caption": "Once there is a boarding clip and an injured crewman, the pressure campaign stops looking administrative."
+    "caption": "The first public boarding image changes the politics immediately: once an injured crewman is on camera, nobody can sell the stop as routine paperwork."
   },
   {
     "id": "tw_bs_023",
@@ -979,69 +979,7 @@
       "public"
     ],
     "alt": "Large queue of cargo vessels waiting offshore",
-    "caption": "A lane can fail before it formally closes. All it takes is enough ships deciding they no longer trust the water ahead."
-  },
-  {
-    "id": "tw_bs_024",
-    "path": "/assets/images/tw_bs_024_command_center.jpg",
-    "kind": "documentary_still",
-    "domain": "diplomacy",
-    "severity": 3,
-    "environment": "coastal",
-    "perspective": "news_frame",
-    "tags": [
-      "taiwan",
-      "command_room",
-      "briefing",
-      "hotline",
-      "final_window",
-      "outcome",
-      "phase_resolution",
-      "collapse",
-      "public",
-      "diplomacy",
-      "phase_opening",
-      "phase_rising",
-      "phase_crisis",
-      "allied",
-      "fusion",
-      "attribution",
-      "backchannel",
-      "private_channel",
-      "quiet"
-    ],
-    "alt": "Military command center with officers monitoring a live operation",
-    "caption": "The last hours of a crisis are spent in rooms like this, where every screen is already telling a different version of tomorrow."
-  },
-  {
-    "id": "tw_bs_026",
-    "path": "/assets/images/tw_bs_026_empty_shelves.jpg",
-    "kind": "documentary_still",
-    "domain": "unrest",
-    "severity": 4,
-    "environment": "coastal",
-    "perspective": "street",
-    "tags": [
-      "taiwan",
-      "civilian",
-      "shortages",
-      "grocery",
-      "collapse",
-      "market_panic",
-      "phase_climax",
-      "phase_resolution",
-      "branch_collapse",
-      "panic_signal",
-      "unrest",
-      "civilian_preparation",
-      "stockpile",
-      "reserves",
-      "buffer",
-      "supply",
-      "emergency_buffer"
-    ],
-    "alt": "Nearly empty grocery store shelves",
-    "caption": "If the worst branch opens, the crisis leaves secure rooms and starts showing up where ordinary people buy food."
+    "caption": "This is what a closed lane looks like before the word blockade is spoken: ships holding offshore, schedules slipping, and insurers pricing the water as emergency risk."
   },
   {
     "id": "tw_bs_027",
@@ -1063,7 +1001,7 @@
       "conciliatory"
     ],
     "alt": "Harbor at dawn under calm light",
-    "caption": "Traffic looks normal again from shore, but inspection craft stayed on station and carriers still treated the lane as unsettled."
+    "caption": "From shore the lane looks calm again. On the shipping side, carriers are still routing as if the next inspection stop could restart at any watch change."
   },
   {
     "id": "tw_bs_028",
@@ -1087,7 +1025,7 @@
       "screen"
     ],
     "alt": "Sailor on a modern combat information center watch floor",
-    "caption": "Watchstanders are working from the same corrupted picture the ferry crews and patrol aircraft saw, which is why no one is ready to call it a glitch."
+    "caption": "Watchstanders are sorting live tracks from spoofed ones in real time; that is why nobody in the room is ready to dismiss the picture as a glitch."
   },
   {
     "id": "tw_bs_029",
@@ -1111,7 +1049,7 @@
       "public"
     ],
     "alt": "Boarding team climbing from a small boat onto a large vessel at sea",
-    "caption": "The boarding clip was circulating before the foreign ministries finished drafting a line, which is when the stop stopped looking routine."
+    "caption": "Boarding video hit public channels before governments agreed on language, turning an inspection stop into a crisis image."
   },
   {
     "id": "tw_bs_030",
@@ -1134,7 +1072,7 @@
       "screen"
     ],
     "alt": "Night-vision view of a servicemember scanning in darkness",
-    "caption": "Night-vision footage showed small craft moving against dark hulls after the notification regime had already started breaking down."
+    "caption": "Night-vision watch crews are now looking for small-craft movement against dark hulls, the kind of close-range activity that can turn paperwork into force."
   },
   {
     "id": "tw_bs_031",
@@ -1157,7 +1095,7 @@
       "screen"
     ],
     "alt": "Military flight deck cockpit with live avionics over water",
-    "caption": "Patrol crews are now flying to answer a narrower question: which tracks are traffic, which are spoofed, and which are moving with intent."
+    "caption": "Patrol crews are flying to answer a narrower question: which returns are real traffic, which are spoofed, and which are positioning for the next move."
   },
   {
     "id": "tw_bs_032",
@@ -1183,7 +1121,7 @@
       "screen"
     ],
     "alt": "Satellite image showing Taiwan and the strait separating it from mainland China",
-    "caption": "Seen from orbit, the corridor looks simple. The crisis comes from how quickly a narrow piece of water can choke everything tied to it."
+    "caption": "Seen from orbit, the Strait still looks orderly. The crisis is how quickly a few miles of water can choke the routes tied to Taiwan."
   },
   {
     "id": "tw_bs_033",
@@ -1206,6 +1144,6 @@
       "red_line"
     ],
     "alt": "Modern U.S. Navy watchstander at a combat information center console",
-    "caption": "Late visible moves are made in rooms like this, where each order is checked against fuel, magazines, and how much warning time is left."
+    "caption": "Visible deterrence looks like this: real watchstanders checking fuel, reload time, and the next track while the hotline lags behind the picture."
   }
 ]

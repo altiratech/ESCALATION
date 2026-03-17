@@ -283,6 +283,9 @@ export const chooseImageGallery = (
   const selected: ImageAsset[] = [];
   const usedKinds = new Set<ImageAssetKind>();
   const usedPerspectives = new Set<ImageAsset['perspective']>();
+  const hasCuratedGallery =
+    (options.beat?.visualCue?.heroImageIds?.length ?? 0) > 0 ||
+    (options.beat?.visualCue?.evidenceImageIds?.length ?? 0) > 0;
 
   const curatedHero = rankedCuratedAssets(ranked, options.beat?.visualCue?.heroImageIds);
   if (curatedHero.length > 0) {
@@ -309,6 +312,10 @@ export const chooseImageGallery = (
     selected.push(asset);
     usedKinds.add(asset.kind);
     usedPerspectives.add(asset.perspective);
+  }
+
+  if (hasCuratedGallery && selected.length > 0) {
+    return selected.slice(0, count);
   }
 
   for (const { asset } of ranked) {

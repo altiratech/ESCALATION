@@ -4406,3 +4406,42 @@ All passed.
 1. This materially improves beat curation, but it does not eliminate the need for a larger modern editorial still library.
 2. Some terminal beats still use the best available pool rather than a perfect bespoke set because the image catalog is still smaller than the final desired coverage.
 3. Intentional untracked file remains untouched: `FLASHPOINT_CODE_REVIEW_2026_03_14.md`.
+
+### 66.23 Terminal-branch truth-model + gallery discipline pass (2026-03-17)
+
+#### 66.23.1 What shipped
+
+1. Updated `packages/engine/src/images.ts` so curated beat galleries stop once authored hero/evidence assets are selected, instead of auto-filling weaker fallback tiles.
+2. Removed two visually off-direction assets from the active catalog in `packages/content/data/images.json`:
+   - `tw_bs_024`
+   - `tw_bs_026`
+3. Tightened modern still captions in `packages/content/data/images.json` for the stronger live assets (`tw_bs_021`, `tw_bs_022`, `tw_bs_023`, `tw_bs_027`-`tw_bs_033`) so they read more like factual corroboration than mood copy.
+4. Rewrote the late black-swan beats in `packages/content/data/scenarios.json` to be more concrete and consequence-forward:
+   - `ns_tail_risk_visibility`
+   - `ns_final_resolution_window`
+   - `ns_managed_relief`
+   - `ns_managed_freeze`
+   - `ns_blockade_lock`
+   - `ns_limited_strike_exchange`
+   - `ns_invasion_tail`
+5. Retuned terminal and late-beat curated visual pools so they lean on the stronger modern stills and surveillance/satellite evidence rather than archival or black-and-white images.
+6. Added a regression test in `tests/engine/images.test.ts` to verify that curated galleries do not auto-fill weak fallback images.
+
+#### 66.23.2 Why it matters
+
+1. The previous hero/evidence curation pass improved structure, but curated windows could still pick up one extra weak tile simply because the gallery tried to reach three images.
+2. The user explicitly asked for a consistent modern editorial visual language, and the archival-looking / black-and-white stills were undermining that direction.
+3. The terminal branches now read more like concrete crisis outcomes and less like generalized strategic summaries.
+
+#### 66.23.3 Validation
+
+1. `npm run lint`
+2. `npm run build --workspace @wargames/web`
+3. `npx vitest run tests/engine/images.test.ts`
+4. `npm run ci:phase1`
+
+#### 66.23.4 Open note
+
+1. This pass improves the quality bar with the existing library, but it does not add new imagery.
+2. A future visual pass should still add more modern editorial / surveillance / satellite stills for the final branches once better source material or image-generation access is available.
+3. Intentional untracked file remains untouched: `FLASHPOINT_CODE_REVIEW_2026_03_14.md`.
