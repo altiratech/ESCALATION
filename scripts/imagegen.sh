@@ -35,7 +35,11 @@ EOF
 fi
 
 export CODEX_HOME="${CODEX_HOME:-$HOME/.codex}"
-IMAGE_GEN="${IMAGE_GEN:-$CODEX_HOME/skills/imagegen/scripts/image_gen.py}"
+DEFAULT_IMAGE_GEN="$REPO_ROOT/scripts/image_gen.py"
+if [ ! -f "$DEFAULT_IMAGE_GEN" ]; then
+  DEFAULT_IMAGE_GEN="$CODEX_HOME/skills/imagegen/scripts/image_gen.py"
+fi
+IMAGE_GEN="${IMAGE_GEN:-$DEFAULT_IMAGE_GEN}"
 export UV_CACHE_DIR="${UV_CACHE_DIR:-$REPO_ROOT/tmp/uv-cache}"
 
 if [ ! -f "$IMAGE_GEN" ]; then
@@ -45,6 +49,9 @@ Bundled image generation CLI not found at:
 
 Expected shared skill path:
   \$CODEX_HOME/skills/imagegen/scripts/image_gen.py
+
+Vendored repo path:
+  $REPO_ROOT/scripts/image_gen.py
 EOF
   exit 1
 fi

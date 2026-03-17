@@ -1,0 +1,162 @@
+name: Flashpoint Image Generation
+
+on:
+  workflow_dispatch:
+    inputs:
+      prompt:
+        description: "Primary image prompt"
+        required: true
+        type: string
+      out_name:
+        description: "Base output filename (no extension)"
+        required: true
+        default: "flashpoint-scene"
+        type: string
+      variants:
+        description: "How many variants to generate"
+        required: true
+        default: "1"
+        type: choice
+        options:
+          - "1"
+          - "2"
+          - "3"
+          - "4"
+      size:
+        description: "Image size"
+        required: true
+        default: "1536x1024"
+        type: choice
+        options:
+          - "1536x1024"
+          - "1024x1024"
+          - "1024x1536"
+      quality:
+        description: "Generation quality"
+        required: true
+        default: "high"
+        type: choice
+        options:
+          - "auto"
+          - "low"
+          - "medium"
+          - "high"
+      use_case:
+        description: "Use-case label for prompt augmentation"
+        required: false
+        default: "photorealistic-natural"
+        type: string
+      scene:
+        description: "Scene/background"
+        required: false
+        type: string
+      subject:
+        description: "Subject"
+        required: false
+        type: string
+      style:
+        description: "Style/medium"
+        required: false
+        default: "editorial newspaper photography"
+        type: string
+      composition:
+        description: "Composition/framing"
+        required: false
+        default: "cinematic wide frame, grounded realism"
+        type: string
+      lighting:
+        description: "Lighting/mood"
+        required: false
+        default: "natural available light, high tension"
+        type: string
+      constraints:
+        description: "Required constraints"
+        required: false
+        default: "modern realistic vessels, credible uniforms and equipment, no text, no watermark"
+        type: string
+      negative:
+        description: "Avoid"
+        required: false
+        default: "anachronistic ships, black and white imagery, cartoon look, glossy sci-fi styling, fake UI overlays"
+        type: string
+      dry_run:
+        description: "Validate payload without calling the API"
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install image generation dependencies
+        run: python -m pip install --upgrade pip openai pillow
+
+      - name: Validate secret presence
+        if: ${{ !inputs.dry_run }}
+        run: |
+          if [ -z "${OPENAI_API_KEY}" ]; then
+            echo "Missing OPENAI_API_KEY repo secret."
+            echo "Add it in GitHub: Settings -> Secrets and variables -> Actions."
+            exit 1
+          fi
+
+      - name: Generate images
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p output/imagegen
+
+          cmd=(
+            python scripts/image_gen.py generate
+            --prompt "${{ inputs.prompt }}"
+            --out "output/imagegen/${{ inputs.out_name }}.png"
+            --size "${{ inputs.size }}"
+            --quality "${{ inputs.quality }}"
+            --n "${{ inputs.variants }}"
+            --use-case "${{ inputs.use_case }}"
+            --style "${{ inputs.style }}"
+            --composition "${{ inputs.composition }}"
+            --lighting "${{ inputs.lighting }}"
+            --constraints "${{ inputs.constraints }}"
+            --negative "${{ inputs.negative }}"
+            --downscale-max-dim 1024
+            --force
+          )
+
+          if [ -n "${{ inputs.scene }}" ]; then
+            cmd+=(--scene "${{ inputs.scene }}")
+          fi
+
+          if [ -n "${{ inputs.subject }}" ]; then
+            cmd+=(--subject "${{ inputs.subject }}")
+          fi
+
+          if [ "${{ inputs.dry_run }}" = "true" ]; then
+            cmd+=(--dry-run)
+          fi
+
+          printf 'Running:'
+          printf ' %q' "${cmd[@]}"
+          printf '\n'
+          "${cmd[@]}"
+
+      - name: Upload generated images
+        uses: actions/upload-artifact@v4
+        with:
+          name: flashpoint-imagegen-${{ github.run_id }}
+          path: output/imagegen/
+          if-no-files-found: error

@@ -128,8 +128,32 @@ Assets are written to:
 - `apps/web/public/assets/images/`
 - `packages/content/data/images.json`
 
-## Local Image Generation (Authoring Only)
+## Image Generation (Authoring Only)
 Use this only for offline asset authoring. The live product still does not generate images during gameplay.
+
+### GitHub Actions Path
+This is the recommended path if you do not want the API key on your laptop or in any repo-local env file.
+
+1. Add this GitHub repo secret in `altiratech/ESCALATION`:
+- `OPENAI_API_KEY`
+
+2. Run the manual workflow:
+- `.github/workflows/imagegen.yml`
+- workflow name: `Flashpoint Image Generation`
+
+3. Provide the prompt and any optional scene/style fields in the workflow form.
+
+4. Download the generated artifact from the workflow run, review it, and only then move selected finals into:
+- `apps/web/public/assets/images/`
+- `packages/content/data/images.json`
+
+Notes:
+- This keeps the key in GitHub Actions only.
+- The workflow uses the vendored CLI at `scripts/image_gen.py`.
+- `dry_run=true` validates the payload without calling the API.
+
+### Local Wrapper Path
+Use this if you want faster local iteration and are comfortable keeping the key outside source control.
 
 1. Create a local gitignored env file in the repo root:
 
@@ -139,7 +163,7 @@ OPENAI_API_KEY=your_key_here
 EOF
 ```
 
-2. Use the repo wrapper, which loads `.env.local` and calls the shared Codex image-generation CLI:
+2. Use the repo wrapper, which loads `.env.local` and calls the vendored repo image-generation CLI:
 
 ```bash
 ./scripts/imagegen.sh generate \
@@ -156,7 +180,7 @@ EOF
 Notes:
 - `.env.local` is gitignored.
 - `output/imagegen/` is gitignored.
-- The wrapper uses the shared skill CLI at `~/.codex/skills/imagegen/scripts/image_gen.py`.
+- The wrapper prefers the vendored repo CLI at `scripts/image_gen.py` and falls back to the shared skill path if needed.
 - Override the secret file path with `FLASHPOINT_IMAGEGEN_ENV_FILE=/absolute/path/to/file`.
 - The wrapper keeps `uv` cache writes inside `tmp/uv-cache` so local runs work cleanly in this workspace.
 - `OPENAI_API_KEY` is required for live API calls.

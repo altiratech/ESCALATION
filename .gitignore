@@ -13,4 +13,6 @@ coverage
 .venv
 tmp
 output/imagegen
+__pycache__/
+*.pyc
 *.swp

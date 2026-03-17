@@ -4514,3 +4514,32 @@ All passed.
 
 1. Live image generation is still blocked until a valid `OPENAI_API_KEY` is placed in `.env.local` or another secret file referenced through `FLASHPOINT_IMAGEGEN_ENV_FILE`.
 2. Intentional untracked review file remains untouched: `FLASHPOINT_CODE_REVIEW_2026_03_14.md`.
+
+### 66.26 GitHub image-generation workflow + vendored CLI (2026-03-17)
+
+#### 66.26.1 What shipped
+
+1. Vendored the shared OpenAI image-generation CLI into `scripts/image_gen.py`.
+2. Updated `scripts/imagegen.sh` to prefer the vendored repo CLI and fall back to the shared skill path only if needed.
+3. Added manual workflow `.github/workflows/imagegen.yml` for offline asset authoring via GitHub Actions.
+4. Updated `.gitignore` to keep generated image outputs and Python cache files out of git.
+5. Updated `README.md` with the recommended GitHub-secret workflow and the fallback local-wrapper path.
+
+#### 66.26.2 Why it matters
+
+1. The user explicitly raised concerns about storing `OPENAI_API_KEY` in code or repo-local secret files.
+2. GitHub Actions is the cleaner boundary for manual image-generation batches than Cloudflare runtime or product runtime.
+3. Vendoring the CLI means local and GitHub generation now use the same exact tool path.
+
+#### 66.26.3 Validation
+
+1. `bash -n scripts/imagegen.sh`
+2. `python3 -m py_compile scripts/image_gen.py`
+3. `./scripts/imagegen.sh generate --prompt "Flashpoint workflow dry run" --size 1536x1024 --quality high --out output/imagegen/workflow-test.png --dry-run`
+4. Verified repo secret state with `gh secret list --repo altiratech/ESCALATION`.
+
+#### 66.26.4 Open note
+
+1. `OPENAI_API_KEY` is not yet present in GitHub repo secrets for `altiratech/ESCALATION`.
+2. The workflow is ready, but live generation will fail until that secret is added.
+3. Intentional untracked review file remains untouched: `FLASHPOINT_CODE_REVIEW_2026_03_14.md`.
