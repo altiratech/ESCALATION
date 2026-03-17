@@ -21,6 +21,9 @@ export const toEpisodeView = (
 
   const recentTurn = state.history[state.history.length - 1] ?? null;
   const selectedImageId = recentTurn?.selectedImageId ?? null;
+  const supportingImageAssets = (recentTurn?.selectedSupportingImageIds ?? [])
+    .map((id) => imageMap.get(id))
+    .filter((entry): entry is ImageAsset => Boolean(entry));
   const meterHistory = state.history.length > 0
     ? [
         {
@@ -67,6 +70,7 @@ export const toEpisodeView = (
     meterHistory,
     briefing: recentTurn?.narrative ?? state.openingBriefing,
     imageAsset: selectedImageId ? imageMap.get(selectedImageId) ?? null : null,
+    supportingImageAssets,
     offeredActions: state.offeredActionIds.map((id) => actionMap.get(id)).filter((entry): entry is ActionDefinition => Boolean(entry)),
     recentTurn,
     outcome: state.outcome

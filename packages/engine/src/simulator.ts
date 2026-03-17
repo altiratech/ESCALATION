@@ -19,7 +19,7 @@ import { updateBeliefs } from './beliefs';
 import { buildTurnDebrief } from './debrief';
 import { applyActionToState, applyDueDelayedEffects, getActionVariant } from './effects';
 import { triggerEvents } from './events';
-import { chooseImageAsset } from './images';
+import { chooseImageGallery } from './images';
 import { degradeIntelQuality, projectVisibleRanges } from './intel';
 import { buildNarrativeBundle, buildOpeningNarrative, buildOpeningNarrativeFromBeat } from './narrative';
 import { evaluateOutcome, isCatastrophicTermination } from './outcome';
@@ -325,7 +325,7 @@ export const resolveInactionTurn = (
     escalationIndex: state.meters.escalationIndex - meterBefore.escalationIndex
   };
 
-  const selectedImage = chooseImageAsset({
+  const selectedImages = chooseImageGallery({
     assets: context.images,
     scenario: context.scenario,
     beat: targetBeat,
@@ -334,6 +334,8 @@ export const resolveInactionTurn = (
     recentImageIds: state.recentImageIds,
     rng
   });
+  const selectedImage = selectedImages[0] ?? null;
+  const selectedSupportingImageIds = selectedImages.slice(1).map((asset) => asset.id);
 
   const narrative = buildInactionNarrative(targetBeat, decisionWindow.inactionNarrative);
   const turnDebrief = buildInactionDebrief({
@@ -358,12 +360,15 @@ export const resolveInactionTurn = (
     narrative,
     turnDebrief,
     selectedImageId: selectedImage?.id ?? null,
+    selectedSupportingImageIds,
     rngTrace: [...rng.trace]
   };
 
   state.history.push(historyEntry);
   state.turnDebrief = turnDebrief;
-  state.recentImageIds = selectedImage ? [...state.recentImageIds, selectedImage.id].slice(-6) : state.recentImageIds;
+  state.recentImageIds = selectedImages.length > 0
+    ? [...state.recentImageIds, ...selectedImages.map((asset) => asset.id)].slice(-9)
+    : state.recentImageIds;
 
   const reachedTurnLimit = state.turn >= state.maxTurns;
   const catastrophic = context.scenario.autoTerminateCatastrophicOutcomes !== false
@@ -392,6 +397,7 @@ export const resolveInactionTurn = (
     rivalActionId: historyEntry.rivalActionId,
     triggeredEvents: historyEntry.triggeredEvents,
     selectedImageId: historyEntry.selectedImageId,
+    selectedSupportingImageIds: historyEntry.selectedSupportingImageIds,
     narrative,
     turnDebrief,
     visibleRanges,
@@ -471,7 +477,7 @@ export const resolveTurn = (
   };
 
   const beatAfter = getBeat(beatMap, traversal.beatIdAfter);
-  const selectedImage = chooseImageAsset({
+  const selectedImages = chooseImageGallery({
     assets: context.images,
     scenario: context.scenario,
     beat: beatAfter,
@@ -482,6 +488,8 @@ export const resolveTurn = (
     playerAction,
     playerVariant
   });
+  const selectedImage = selectedImages[0] ?? null;
+  const selectedSupportingImageIds = selectedImages.slice(1).map((asset) => asset.id);
 
   const allNarrativeTokens = [
     ...playerResult.triggeredSideEffects,
@@ -545,12 +553,15 @@ export const resolveTurn = (
     narrative,
     turnDebrief,
     selectedImageId: selectedImage?.id ?? null,
+    selectedSupportingImageIds,
     rngTrace: [...rng.trace]
   };
 
   state.history.push(historyEntry);
   state.turnDebrief = turnDebrief;
-  state.recentImageIds = selectedImage ? [...state.recentImageIds, selectedImage.id].slice(-6) : state.recentImageIds;
+  state.recentImageIds = selectedImages.length > 0
+    ? [...state.recentImageIds, ...selectedImages.map((asset) => asset.id)].slice(-9)
+    : state.recentImageIds;
 
   const reachedTurnLimit = state.turn >= state.maxTurns;
   const catastrophic = context.scenario.autoTerminateCatastrophicOutcomes !== false
@@ -593,6 +604,7 @@ export const resolveTurn = (
     rivalActionId: rivalAction.id,
     triggeredEvents: historyEntry.triggeredEvents,
     selectedImageId: historyEntry.selectedImageId,
+    selectedSupportingImageIds: historyEntry.selectedSupportingImageIds,
     narrative,
     turnDebrief,
     visibleRanges,

@@ -89,6 +89,27 @@ const scoreTags = (asset: ImageAsset, requestedTags: string[], weight = 4): numb
   return requestedTags.reduce((score, tag) => score + (assetTags.has(tag) ? weight : 0), 0);
 };
 
+const scoreAssetRealism = (asset: ImageAsset): number => {
+  if (asset.id.startsWith('img_')) {
+    return -10;
+  }
+
+  const lowerPath = asset.path.toLowerCase();
+  if (lowerPath.endsWith('.jpg') || lowerPath.endsWith('.jpeg') || lowerPath.endsWith('.png') || lowerPath.endsWith('.webp')) {
+    return 8;
+  }
+
+  if (asset.kind === 'map' || asset.kind === 'artifact') {
+    return 0;
+  }
+
+  if (lowerPath.endsWith('.svg')) {
+    return -4;
+  }
+
+  return 0;
+};
+
 const scoreAsset = (
   asset: ImageAsset,
   scenario: ScenarioDefinition,
@@ -120,6 +141,7 @@ const scoreAsset = (
   score += scoreTags(asset, beatTags, 4);
   score += scoreTags(asset, actionTags, 6);
   score += scoreTags(asset, variantTags, 8);
+  score += scoreAssetRealism(asset);
 
   if (asset.kind === 'map' && !beatTags.includes('map') && preferredKinds[0] !== 'map') {
     score -= 6;
@@ -185,4 +207,72 @@ export const chooseImageAsset = ({
     .sort((left, right) => scoreTags(right, requestedTags) - scoreTags(left, requestedTags));
 
   return fallback[0] ?? assets[0] ?? null;
+};
+
+export const chooseImageGallery = (
+  options: ChooseImageAssetOptions,
+  count = 3
+): ImageAsset[] => {
+  if (count <= 0 || options.assets.length === 0) {
+    return [];
+  }
+
+  const dominantDomain = classifyDomain(options.turnDelta);
+  const severity = classifySeverity(options.meters);
+  const preferredKinds = options.beat?.visualCue?.preferredKinds?.length
+    ? options.beat.visualCue.preferredKinds
+    : kindPreferenceFallback;
+  const beatTags = buildBeatTags(options.beat);
+  const actionTags = buildActionTags(options.playerAction);
+  const variantTags = buildVariantTags(options.playerVariant);
+  const available = options.assets.filter((asset) => !options.recentImageIds.includes(asset.id));
+
+  const ranked = (available.length > 0 ? available : options.assets)
+    .map((asset) => ({
+      asset,
+      score: scoreAsset(
+        asset,
+        options.scenario,
+        dominantDomain,
+        severity,
+        preferredKinds,
+        beatTags,
+        actionTags,
+        variantTags
+      )
+    }))
+    .sort((left, right) => right.score - left.score || left.asset.id.localeCompare(right.asset.id));
+
+  const selected: ImageAsset[] = [];
+  const usedKinds = new Set<ImageAssetKind>();
+  const usedPerspectives = new Set<ImageAsset['perspective']>();
+
+  for (const { asset } of ranked) {
+    if (selected.length >= count) {
+      break;
+    }
+
+    const sameKindPenalty = usedKinds.has(asset.kind) ? 3 : 0;
+    const samePerspectivePenalty = usedPerspectives.has(asset.perspective) ? 2 : 0;
+    const adjustedScore = ranked.find((entry) => entry.asset.id === asset.id)?.score ?? 0;
+    if (selected.length > 0 && adjustedScore - sameKindPenalty - samePerspectivePenalty < 4) {
+      continue;
+    }
+
+    selected.push(asset);
+    usedKinds.add(asset.kind);
+    usedPerspectives.add(asset.perspective);
+  }
+
+  for (const { asset } of ranked) {
+    if (selected.length >= count) {
+      break;
+    }
+    if (selected.some((entry) => entry.id === asset.id)) {
+      continue;
+    }
+    selected.push(asset);
+  }
+
+  return selected;
 };

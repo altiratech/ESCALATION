@@ -29,6 +29,7 @@ interface BriefingPanelProps {
   truthModel: BeatTruthModel | null;
   windowContextSections: ScenarioContextSection[];
   imageAsset: ImageAsset | null;
+  supportingImageAssets: ImageAsset[];
   imageCaptionOverride?: string | null;
   supportingSignals: BriefingSignalItem[];
   turnDebrief: TurnDebrief | null;
@@ -70,6 +71,26 @@ const sectionLabels: Record<BriefingSectionId, string> = {
 
 const normalizeTickerLine = (value: string): string =>
   value.replace(/^(risk|market)\s+ticker:\s*/i, '').trim();
+
+const imagePanelLabel = (asset: ImageAsset): string => {
+  if (asset.kind === 'map') {
+    return 'Situation Map';
+  }
+  if (asset.kind === 'artifact') {
+    return 'Live Artifact';
+  }
+  return 'Live Visual';
+};
+
+const imagePanelMode = (asset: ImageAsset): string => {
+  if (asset.kind === 'map') {
+    return 'Orientation';
+  }
+  if (asset.kind === 'artifact') {
+    return 'Evidence';
+  }
+  return 'Scene Read';
+};
 
 const hiddenDownsideLabel = (category?: string | null): string => {
   if (!category) {
@@ -144,6 +165,7 @@ export const BriefingPanel = ({
   truthModel,
   windowContextSections,
   imageAsset,
+  supportingImageAssets,
   imageCaptionOverride,
   supportingSignals,
   turnDebrief,
@@ -535,7 +557,13 @@ export const BriefingPanel = ({
 
   return (
     <section className="console-panel console-panel-muted p-4 sm:p-5">
-      <div className={`grid gap-4 ${imageAsset || scenarioWorld?.theaterDiagram ? 'xl:grid-cols-[1.04fr_0.96fr]' : ''}`}>
+      <div
+        className={`grid gap-4 ${
+          imageAsset || supportingImageAssets.length > 0 || scenarioWorld?.theaterDiagram
+            ? 'xl:grid-cols-[1.04fr_0.96fr]'
+            : ''
+        }`}
+      >
         <div className="space-y-4">
           <article className="console-subpanel px-4 py-3">
             <p className="label">Current Situation</p>
@@ -589,34 +617,56 @@ export const BriefingPanel = ({
           ) : null}
         </div>
 
-        {imageAsset ? (
-          <figure className="overflow-hidden rounded-md border border-borderTone/80 bg-surface/65">
-            <div className="flex items-center justify-between border-b border-borderTone/80 px-3 py-2">
-              <p className="label">
-                {imageAsset.kind === 'map'
-                  ? 'Situation Map'
-                  : imageAsset.kind === 'artifact'
-                    ? 'Live Artifact'
-                    : 'Live Visual'}
-              </p>
-              <span className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">
-                {imageAsset.kind === 'map'
-                  ? 'Orientation'
-                  : imageAsset.kind === 'artifact'
-                    ? 'Evidence'
-                    : 'Scene read'}
-              </span>
-            </div>
-            <img
-              src={imageAsset.path}
-              alt={imageAsset.alt}
-              className="h-[18rem] w-full bg-surface object-contain p-2 sm:h-[20rem]"
-              loading="lazy"
-            />
-            <figcaption className="border-t border-borderTone/80 px-3 py-2 text-[0.7rem] leading-relaxed text-textMuted">
-              {imageCaptionOverride ?? imageAsset.caption}
-            </figcaption>
-          </figure>
+        {imageAsset || supportingImageAssets.length > 0 ? (
+          <div className="space-y-3">
+            {imageAsset ? (
+              <figure className="overflow-hidden rounded-md border border-borderTone/80 bg-surface/65">
+                <div className="flex items-center justify-between border-b border-borderTone/80 px-3 py-2">
+                  <p className="label">{imagePanelLabel(imageAsset)}</p>
+                  <span className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">
+                    {imagePanelMode(imageAsset)}
+                  </span>
+                </div>
+                <img
+                  src={imageAsset.path}
+                  alt={imageAsset.alt}
+                  className={`h-[18rem] w-full bg-surface sm:h-[20rem] ${
+                    imageAsset.kind === 'map' || imageAsset.kind === 'artifact' ? 'object-contain p-2' : 'object-cover'
+                  }`}
+                  loading="lazy"
+                />
+                <figcaption className="border-t border-borderTone/80 px-3 py-2 text-[0.7rem] leading-relaxed text-textMuted">
+                  {imageCaptionOverride ?? imageAsset.caption}
+                </figcaption>
+              </figure>
+            ) : null}
+
+            {supportingImageAssets.length > 0 ? (
+              <div className={`grid gap-3 ${supportingImageAssets.length > 1 ? 'md:grid-cols-2' : ''}`}>
+                {supportingImageAssets.map((asset) => (
+                  <figure key={asset.id} className="overflow-hidden rounded-md border border-borderTone/80 bg-surface/65">
+                    <div className="flex items-center justify-between border-b border-borderTone/80 px-3 py-2">
+                      <p className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">{imagePanelLabel(asset)}</p>
+                      <span className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">
+                        {imagePanelMode(asset)}
+                      </span>
+                    </div>
+                    <img
+                      src={asset.path}
+                      alt={asset.alt}
+                      className={`h-[10.5rem] w-full bg-surface ${
+                        asset.kind === 'map' || asset.kind === 'artifact' ? 'object-contain p-2' : 'object-cover'
+                      }`}
+                      loading="lazy"
+                    />
+                    <figcaption className="border-t border-borderTone/80 px-3 py-2 text-[0.66rem] leading-relaxed text-textMuted">
+                      {asset.caption}
+                    </figcaption>
+                  </figure>
+                ))}
+              </div>
+            ) : null}
+          </div>
         ) : scenarioWorld?.theaterDiagram ? (
           <figure className="overflow-hidden rounded-md border border-borderTone/80 bg-surface/65">
             <div className="flex items-center justify-between border-b border-borderTone/80 px-3 py-2">

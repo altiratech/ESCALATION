@@ -344,6 +344,7 @@ export interface TurnHistoryEntry {
   narrative: NarrativeBundle;
   turnDebrief: TurnDebrief;
   selectedImageId: string | null;
+  selectedSupportingImageIds: string[];
   rngTrace: number[];
 }
 
@@ -387,6 +388,7 @@ export interface TurnResolution {
   rivalActionId: string;
   triggeredEvents: string[];
   selectedImageId: string | null;
+  selectedSupportingImageIds: string[];
   narrative: NarrativeBundle;
   turnDebrief: TurnDebrief;
   visibleRanges: Record<MeterKey, MeterRange>;
@@ -532,11 +534,13 @@ export interface DebriefDeepTradeoffCommentary {
 export interface DebriefDeepDefinition {
   scenarioId: string;
   strategyArcSummaries: Partial<Record<OutcomeCategory, DebriefDeepStrategyArc>>;
+  terminalBeatStrategyArcs?: Record<string, DebriefDeepStrategyArc>;
   historicalParallels: DebriefDeepHistoricalParallel[];
   advisorPostMortems: Record<string, Partial<Record<OutcomeCategory, DebriefDeepAdvisorPostMortem>>>;
   rivalPerspective: Partial<Record<OutcomeCategory, DebriefDeepRivalPerspective>>;
   playerGradeDescriptors: Record<PlayerGradeKey, DebriefDeepGradeDescriptor>;
   tradeoffCommentary?: Record<string, Partial<Record<OutcomeCategory, DebriefDeepTradeoffCommentary>>>;
+  terminalBeatTradeoffCommentary?: Record<string, Record<string, DebriefDeepTradeoffCommentary>>;
   lessonsLearned: DebriefDeepLesson[];
 }
 
@@ -987,6 +991,7 @@ export interface EpisodeView {
   meterHistory: EpisodeMeterHistoryPoint[];
   briefing: NarrativeBundle;
   imageAsset: ImageAsset | null;
+  supportingImageAssets: ImageAsset[];
   offeredActions: ActionDefinition[];
   recentTurn: TurnHistoryEntry | null;
   outcome: OutcomeCategory | null;

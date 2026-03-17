@@ -71,9 +71,26 @@ const pacingLabel: Record<'standard' | 'relaxed' | 'off', string> = {
 const normalizeCommand = (value: string): string => value.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
 const normalizeTickerLine = (value: string): string => value.replace(/^(risk|market)\s+ticker:\s*/i, '').trim();
 
-const previewImageKinds: ImageAsset['kind'][] = ['scenario_still', 'artifact', 'documentary_still', 'map'];
+const previewImageKinds: ImageAsset['kind'][] = ['scenario_still', 'documentary_still', 'artifact', 'map'];
 
-const pickPreviewImageAsset = (
+const previewImageRealismScore = (asset: ImageAsset): number => {
+  if (asset.id.startsWith('img_')) {
+    return -10;
+  }
+
+  const lowerPath = asset.path.toLowerCase();
+  if (lowerPath.endsWith('.jpg') || lowerPath.endsWith('.jpeg') || lowerPath.endsWith('.png') || lowerPath.endsWith('.webp')) {
+    return 8;
+  }
+
+  if (asset.kind === 'map' || asset.kind === 'artifact') {
+    return 0;
+  }
+
+  return lowerPath.endsWith('.svg') ? -4 : 0;
+};
+
+const pickPreviewImageAssets = (
   reference: BootstrapPayload | null,
   scenario: BootstrapPayload['scenarios'][number] | null,
   beat: BeatNode | null,
@@ -81,10 +98,11 @@ const pickPreviewImageAsset = (
     recentImageIds?: string[];
     selectedAction?: ActionDefinition | null;
     selectedVariant?: ActionVariantDefinition | null;
-  }
-): ImageAsset | null => {
+  },
+  count = 3
+): ImageAsset[] => {
   if (!reference || !scenario || !beat) {
-    return null;
+    return [];
   }
 
   const recentImageIds = options?.recentImageIds ?? [];
@@ -115,26 +133,60 @@ const pickPreviewImageAsset = (
       );
       const mapPenalty =
         asset.kind === 'map' && preferredKinds[0] !== 'map' && !requestedTags.has('map') ? -6 : 0;
+      const realismScore = previewImageRealismScore(asset);
 
       return {
         asset,
-        score: kindScore + tagScore + mapPenalty
+        score: kindScore + tagScore + mapPenalty + realismScore
       };
     })
     .sort((left, right) => right.score - left.score || left.asset.id.localeCompare(right.asset.id));
 
-  if (candidates[0] && candidates[0].score > 0) {
-    return candidates[0].asset;
+  const selected: ImageAsset[] = [];
+  const usedKinds = new Set<ImageAsset['kind']>();
+  const usedPerspectives = new Set<ImageAsset['perspective']>();
+
+  for (const candidate of candidates) {
+    if (selected.length >= count) {
+      break;
+    }
+    if (selected.length > 0 && candidate.score <= 0) {
+      continue;
+    }
+
+    const diversityPenalty =
+      (usedKinds.has(candidate.asset.kind) ? 3 : 0) +
+      (usedPerspectives.has(candidate.asset.perspective) ? 2 : 0);
+    if (selected.length > 0 && candidate.score - diversityPenalty < 4) {
+      continue;
+    }
+
+    selected.push(candidate.asset);
+    usedKinds.add(candidate.asset.kind);
+    usedPerspectives.add(candidate.asset.perspective);
   }
 
-  return (
-    reference.images.find(
-      (asset) =>
-        (asset.environment === scenario.environment || asset.environment === 'generic') &&
-        asset.kind !== 'map'
-    ) ??
-    null
-  );
+  if (selected.length < count) {
+    for (const candidate of candidates) {
+      if (selected.length >= count) {
+        break;
+      }
+      if (selected.some((asset) => asset.id === candidate.asset.id)) {
+        continue;
+      }
+      selected.push(candidate.asset);
+    }
+  }
+
+  if (selected.length > 0) {
+    return selected;
+  }
+
+  return reference.images.filter(
+    (asset) =>
+      (asset.environment === scenario.environment || asset.environment === 'generic') &&
+      asset.kind !== 'map'
+  ).slice(0, count);
 };
 
 const buildDynamicContextSections = (
@@ -1046,14 +1098,20 @@ const App = () => {
     activeTruthModel
       ? 'Use the briefing below to separate confirmed facts from working theories before you move into the decision room.'
       : 'Use the briefing below to separate what is known from what is still being inferred before you choose a response.';
-  const previewImageAsset = episode.imageAsset
-    ? null
-    : pickPreviewImageAsset(reference, currentScenario, currentBeat, {
-        recentImageIds: episode.recentTurn?.selectedImageId ? [episode.recentTurn.selectedImageId] : [],
+  const previewImageAssets = episode.imageAsset
+    ? []
+    : pickPreviewImageAssets(reference, currentScenario, currentBeat, {
+        recentImageIds: [
+          ...(episode.recentTurn?.selectedImageId ? [episode.recentTurn.selectedImageId] : []),
+          ...(episode.recentTurn?.selectedSupportingImageIds ?? [])
+        ],
         selectedAction,
         selectedVariant
       });
-  const briefingImageAsset = episode.imageAsset ?? previewImageAsset;
+  const briefingImageAsset = episode.imageAsset ?? previewImageAssets[0] ?? null;
+  const briefingSupportingImageAssets = episode.imageAsset
+    ? episode.supportingImageAssets
+    : previewImageAssets.slice(1);
   const briefingImageCaptionOverride = episode.imageAsset ? null : currentBeat?.visualCue?.caption ?? null;
   const selectedResponseLabel = selectedResponse?.customLabel
     ?? (selectedAction
@@ -1224,6 +1282,7 @@ const App = () => {
             truthModel={activeTruthModel}
             windowContextSections={activeWindowContextSections}
             imageAsset={briefingImageAsset}
+            supportingImageAssets={briefingSupportingImageAssets}
             imageCaptionOverride={briefingImageCaptionOverride}
             supportingSignals={supportingSignals}
             turnDebrief={episode.turnDebrief}

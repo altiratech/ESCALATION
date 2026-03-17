@@ -4226,3 +4226,51 @@ All passed.
 
 1. The live ending and aftermath sequence are now more distinct, but the deeper debrief layer still keys most analysis off broad outcome categories.
 2. If the user still wants more difference between `freeze` and `blockade lock`, or between `strike exchange` and `invasion tail`, the next best pass is branch-specific deep debrief / tradeoff commentary rather than more UI changes.
+
+### 66.19 Multi-image live gallery + terminal debrief overrides (2026-03-16)
+
+#### 66.19.1 What shipped
+
+1. Extended shared types so turn state can persist a primary selected image plus supporting image ids:
+   - `TurnHistoryEntry.selectedSupportingImageIds`
+   - `TurnResolution.selectedSupportingImageIds`
+   - `EpisodeView.supportingImageAssets`
+2. Updated the engine selector path so resolved turns now choose a small gallery instead of only one image:
+   - `packages/engine/src/images.ts`
+   - `packages/engine/src/simulator.ts`
+   - `packages/engine/src/view.ts`
+3. Tightened image scoring so real-photo assets are favored over generic `img_00x` SVG fallback art when a stronger match exists.
+4. Updated the live web shell so the briefing surface can render a primary image plus up to two supporting visuals in the same window:
+   - `apps/web/src/App.tsx`
+   - `apps/web/src/components/BriefingPanel.tsx`
+5. Added branch-specific deep debrief override support:
+   - `DebriefDeepDefinition.terminalBeatStrategyArcs`
+   - `DebriefDeepDefinition.terminalBeatTradeoffCommentary`
+6. Updated `packages/engine/src/report.ts` so the report now prefers terminal-beat deep-debrief overrides before falling back to broad outcome commentary.
+7. Authored terminal-beat strategy arcs and tradeoff commentary for the five black-swan endings in `packages/content/data/debrief_deep_ns.json`.
+8. Updated API state validation in `apps/api/src/stateSchema.ts` so older persisted turn-history entries default missing `selectedSupportingImageIds` to `[]` instead of failing validation.
+9. Added regression coverage in:
+   - `tests/engine/images.test.ts`
+   - `tests/engine/report-causality.test.ts`
+
+#### 66.19.2 Why it matters
+
+1. The user explicitly wanted images to do more work and not remain static, and one visual per window was still making the live read feel flatter than the writing ambition.
+2. The engine already had a growing real-photo still pack, but the UI and state model were leaving too much of that potential unused.
+3. The endgame branches were already distinct in live play and cinematics, but the deeper report analysis still collapsed pairs of endings back into generic `frozen_conflict` and `war` commentary.
+4. This pass fixes both problems without forcing a new simulation engine or another shell redesign.
+
+#### 66.19.3 Validation
+
+1. `npm run lint`
+2. `npm run build --workspace @wargames/web`
+3. `npx vitest run tests/engine/images.test.ts tests/engine/report-causality.test.ts`
+4. `npm run ci:phase1`
+
+#### 66.19.4 Open note
+
+1. The gallery chassis is live, but the truly large hyper-photoreal still library still depends on either curated local sourcing or a future generated-stills pass.
+2. `OPENAI_API_KEY` was not set in this session, so no new generated editorial stills were created here.
+3. The next highest-value product step is probably one of:
+   - keep growing the rights-safe editorial still library
+   - deepen late-window authored scene writing and immediate branch-signaling now that the gallery/report structure is stronger

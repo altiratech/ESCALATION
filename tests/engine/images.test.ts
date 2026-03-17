@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { chooseImageAsset, SeededRng } from '@wargames/engine';
+import { chooseImageAsset, chooseImageGallery, SeededRng } from '@wargames/engine';
 import type {
   ActionDefinition,
   ActionVariantDefinition,
@@ -252,5 +252,92 @@ describe('image selection', () => {
 
     expect(punitiveSelection?.id).toBe('market_scene');
     expect(forceSelection?.id).toBe('naval_scene');
+  });
+
+  it('prefers a diversified photoreal gallery over generic fallback stills', () => {
+    const scenario = { environment: 'coastal' } as ScenarioDefinition;
+    const beat = {
+      id: 'synthetic_gallery',
+      phase: 'climax',
+      imageHints: ['taiwan', 'shipping', 'tail_risk'],
+      visualCue: {
+        preferredKinds: ['scenario_still', 'documentary_still', 'artifact', 'map'],
+        tags: ['shipping', 'tail_risk'],
+        branchStage: 'tail_risk'
+      }
+    } as BeatNode;
+    const assets = [
+      {
+        id: 'img_001',
+        kind: 'documentary_still',
+        path: '/assets/images/img_001.svg',
+        alt: 'Generic fallback still',
+        caption: 'Generic fallback still',
+        environment: 'coastal',
+        domain: 'economy',
+        severity: 3,
+        perspective: 'news_frame',
+        tags: ['taiwan', 'shipping', 'tail_risk']
+      },
+      {
+        id: 'photo_shipping',
+        kind: 'documentary_still',
+        path: '/assets/images/shipping_queue.jpg',
+        alt: 'Shipping queue',
+        caption: 'Shipping queue',
+        environment: 'coastal',
+        domain: 'economy',
+        severity: 3,
+        perspective: 'news_frame',
+        tags: ['taiwan', 'shipping', 'tail_risk', 'queue']
+      },
+      {
+        id: 'photo_destroyer',
+        kind: 'scenario_still',
+        path: '/assets/images/destroyer.jpg',
+        alt: 'Destroyer at sea',
+        caption: 'Destroyer at sea',
+        environment: 'coastal',
+        domain: 'military',
+        severity: 3,
+        perspective: 'shipboard',
+        tags: ['taiwan', 'shipping', 'tail_risk', 'visible_deterrence']
+      },
+      {
+        id: 'artifact_order',
+        kind: 'artifact',
+        path: '/assets/images/order_sheet.png',
+        alt: 'Order sheet',
+        caption: 'Order sheet',
+        environment: 'coastal',
+        domain: 'diplomacy',
+        severity: 2,
+        perspective: 'briefing_slide',
+        tags: ['taiwan', 'shipping', 'tail_risk', 'orders']
+      }
+    ] satisfies ImageAsset[];
+
+    const gallery = chooseImageGallery({
+      assets,
+      scenario,
+      beat,
+      meters: {
+        economicStability: 39,
+        energySecurity: 46,
+        domesticCohesion: 42,
+        militaryReadiness: 61,
+        allianceTrust: 48,
+        escalationIndex: 76
+      },
+      turnDelta: zeroShift,
+      recentImageIds: [],
+      rng: new SeededRng('IMG-GALLERY')
+    });
+
+    expect(gallery).toHaveLength(3);
+    expect(gallery[0]?.id).not.toBe('img_001');
+    expect(gallery.map((asset) => asset.id)).toContain('photo_destroyer');
+    expect(gallery.map((asset) => asset.id)).toContain('photo_shipping');
+    expect(gallery.map((asset) => asset.id)).not.toContain('img_001');
   });
 });

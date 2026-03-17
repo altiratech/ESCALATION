@@ -20,6 +20,8 @@ import {
 
 const scenario = scenarios[0];
 const adversaryProfile = scenario ? getScenarioAdversaryProfile(scenario.id) : null;
+const blackSwanScenario = scenarios.find((entry) => entry.id === 'northern_strait_black_swan');
+const blackSwanAdversaryProfile = blackSwanScenario ? getScenarioAdversaryProfile(blackSwanScenario.id) : null;
 
 describe('post-game causality report', () => {
   it('builds full causality sections with narrative pack overlays', () => {
@@ -90,5 +92,60 @@ describe('post-game causality report', () => {
     expect(Array.isArray(report.fullCausality.unseenSystemEvents)).toBe(true);
     expect(Array.isArray(report.fullCausality.branchesNotTaken)).toBe(true);
     expect(report.fullCausality.branchesNotTaken.length).toBeLessThanOrEqual(6);
+  });
+
+  it('prefers terminal-beat-specific deep debrief commentary when available', () => {
+    if (!blackSwanScenario || !blackSwanAdversaryProfile) {
+      throw new Error('Black swan scenario/adversaryProfile unavailable');
+    }
+
+    let state = initializeGameState('report-terminal', 'REPORT-TERMINAL', {
+      scenario: blackSwanScenario,
+      adversaryProfile: blackSwanAdversaryProfile,
+      actions,
+      images
+    }, {
+      nowMs: 20_000
+    });
+
+    for (let safety = 0; safety < 4 && state.status === 'active'; safety += 1) {
+      const selected = state.offeredActionIds[0];
+      if (!selected) {
+        break;
+      }
+
+      const { nextState } = resolveTurn(state, selected, {
+        scenario: blackSwanScenario,
+        adversaryProfile: blackSwanAdversaryProfile,
+        actions,
+        images
+      }, 20_000 + (safety * 1_000));
+      state = nextState;
+    }
+
+    state.status = 'completed';
+    state.currentBeatId = 'ns_blockade_lock';
+    state.outcome = 'frozen_conflict';
+    state.offeredActionIds = [];
+    state.activeCountdown = null;
+
+    const deepDebrief = getDebriefDeep(blackSwanScenario.id);
+    const report = buildPostGameReport(state, buildActionMap(actions), {
+      scenario: blackSwanScenario,
+      adversaryProfile: blackSwanAdversaryProfile,
+      rivalLeader: getRivalLeader(blackSwanScenario.id, blackSwanAdversaryProfile.id),
+      deepDebrief
+    });
+
+    expect(report.terminalBeatId).toBe('ns_blockade_lock');
+    expect(report.fullCausality.deepDebrief?.strategyArc?.headline).toBe(
+      deepDebrief?.terminalBeatStrategyArcs?.ns_blockade_lock?.headline
+    );
+    expect(report.fullCausality.tradeoffScorecards.find((entry) => entry.id === 'economic_containment')?.summary).toBe(
+      deepDebrief?.terminalBeatTradeoffCommentary?.ns_blockade_lock?.economic_containment?.summary
+    );
+    expect(report.fullCausality.tradeoffScorecards.find((entry) => entry.id === 'economic_containment')?.tradeoff).toBe(
+      deepDebrief?.terminalBeatTradeoffCommentary?.ns_blockade_lock?.economic_containment?.tradeoff
+    );
   });
 });

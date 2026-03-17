@@ -120,6 +120,7 @@ const turnHistoryEntrySchema = z.object({
   narrative: narrativeBundleSchema,
   turnDebrief: turnDebriefSchema,
   selectedImageId: z.string().nullable(),
+  selectedSupportingImageIds: z.array(z.string()).default([]),
   rngTrace: z.array(z.number())
 });
 

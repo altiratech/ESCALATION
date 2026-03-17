@@ -564,6 +564,7 @@ const gradeKeyForScore = (score: number): PlayerGradeKey => {
 const buildDeepDebrief = (
   state: GameState,
   outcome: OutcomeCategory,
+  terminalBeatId?: string | null,
   deepDebrief?: DebriefDeepDefinition | null
 ): PostGameReport['fullCausality']['deepDebrief'] => {
   if (!deepDebrief) {
@@ -581,7 +582,10 @@ const buildDeepDebrief = (
       description: gradeDescriptor?.description ?? '',
       score
     },
-    strategyArc: deepDebrief.strategyArcSummaries[outcome] ?? null,
+    strategyArc:
+      (terminalBeatId ? deepDebrief.terminalBeatStrategyArcs?.[terminalBeatId] : null)
+      ?? deepDebrief.strategyArcSummaries[outcome]
+      ?? null,
     rivalPerspective: deepDebrief.rivalPerspective[outcome] ?? null,
     historicalParallels: deepDebrief.historicalParallels
       .filter((entry) => entry.relevantOutcomes.includes(outcome))
@@ -623,6 +627,7 @@ const averageIntelQuality = (state: GameState): number => {
 const buildTradeoffScorecards = (
   state: GameState,
   outcome: OutcomeCategory,
+  terminalBeatId?: string | null,
   deepDebrief?: DebriefDeepDefinition | null
 ): TradeoffScorecard[] => {
   const economicContainment = Math.round((state.meters.economicStability * 0.65) + (state.meters.energySecurity * 0.35));
@@ -740,7 +745,9 @@ const buildTradeoffScorecards = (
   ];
 
   return scorecards.map((scorecard) => {
-    const authored = deepDebrief?.tradeoffCommentary?.[scorecard.id]?.[outcome];
+    const authored =
+      (terminalBeatId ? deepDebrief?.terminalBeatTradeoffCommentary?.[terminalBeatId]?.[scorecard.id] : null)
+      ?? deepDebrief?.tradeoffCommentary?.[scorecard.id]?.[outcome];
     if (!authored) {
       return scorecard;
     }
@@ -855,8 +862,8 @@ export const buildPostGameReport = (
       hiddenDeltas,
       adversaryLogicSummary: buildAdversaryLogicSummary(state, actionMap, options.adversaryProfile),
       rivalLeaderReveal: buildRivalLeaderReveal(options.rivalLeader ?? undefined),
-      deepDebrief: buildDeepDebrief(state, outcome, options.deepDebrief ?? null),
-      tradeoffScorecards: buildTradeoffScorecards(state, outcome, options.deepDebrief ?? null),
+      deepDebrief: buildDeepDebrief(state, outcome, terminalBeat?.id ?? null, options.deepDebrief ?? null),
+      tradeoffScorecards: buildTradeoffScorecards(state, outcome, terminalBeat?.id ?? null, options.deepDebrief ?? null),
       unseenSystemEvents,
       branchesNotTaken,
       advisorRetrospectives

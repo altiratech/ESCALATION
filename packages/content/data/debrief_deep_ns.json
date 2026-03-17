@@ -1163,6 +1163,150 @@
           "decision-making"
         ]
       }
-    ]
+    ],
+    "terminalBeatStrategyArcs": {
+      "ns_managed_relief": {
+        "headline": "The scare broke before Beijing could turn it into a new operating rule",
+        "narrative": "The crisis ended before carriers, insurers, and governments fully reorganized around a permanently threatened Strait. Beijing backed away without winning a visible concession, and the coalition proved it could stop an ugly test from becoming the new normal. The relief is real, but so is the warning: everyone in the room now knows how quickly a few dirty minutes can rattle markets, navies, and politics at once.",
+        "keyTurningPoint": "The decisive shift came when Beijing saw that confusion was not producing a cheap administrative win and that another shove would trigger tighter, more unified pushback.",
+        "whatIfNote": "A slower or visibly divided response might have let temporary inspection language harden into precedent before anyone admitted what had happened."
+      },
+      "ns_managed_freeze": {
+        "headline": "The Strait reopened into a colder and more militarized peace",
+        "narrative": "Traffic resumed, but only under a heavier naval shadow and with commercial actors pricing the next scare into every voyage. Hotlines stayed open, escorts stayed visible, and the immediate panic faded without restoring anything like the old normal. This ending avoided collapse, but it still leaves the region living inside a rehearsed crisis that can flare again with less warning and higher cost.",
+        "keyTurningPoint": "The climb stopped when both capitals concluded the next collision would kill people neither was ready to lose for an ambiguous gain.",
+        "whatIfNote": "A cleaner off-ramp might have restored more normal shipping. A harder public line could have frozen the confrontation sooner, but at a higher daily cost."
+      },
+      "ns_blockade_lock": {
+        "headline": "Administrative coercion hardened into a slow economic siege",
+        "narrative": "No formal blockade needed to be declared. Customs holds, selective inspections, insurance withdrawals, and carrier caution were enough to squeeze Taiwan and force allied governments into emergency economic triage. The war everyone feared did not arrive, but the world still began reorganizing around a crippled Strait, with fabs, freight desks, and finance teams acting as though normal access could not be trusted.",
+        "keyTurningPoint": "The break came when private firms stopped treating the disruption as a passing scare and began operating as though the lane might stay impaired for months.",
+        "whatIfNote": "A faster resilience push might have blunted some panic. A weaker answer would likely have taught Beijing that strangulation below the threshold of war can work."
+      },
+      "ns_limited_strike_exchange": {
+        "headline": "A limited exchange shattered the fiction that this was still a controlled test",
+        "narrative": "Once ships and installations were hit, the crisis stopped being about signaling and became a live contest over retaliation, restraint, and alliance credibility. Markets cracked first. Then civilian life began to register the shock through shortages, panic buying, suspended bookings, and emergency planning. The war remained limited only in the military sense; socially and economically, the shock spread much wider and faster.",
+        "keyTurningPoint": "The decisive break came when one side answered a dangerous incident with force instead of absorbing the blow and fighting for time.",
+        "whatIfNote": "Several earlier turns still allowed deterrence without combat. After the first exchange, every option was worse and every clock shorter."
+      },
+      "ns_invasion_tail": {
+        "headline": "The crisis became the opening chapter of a Taiwan war",
+        "narrative": "By the end, mobilization and civilian disruption were no longer projections. Ports choked, fabs stopped promising delivery, financial plumbing went defensive, and governments began preparing for a war that could reorder the global economy and drag nuclear risk into daily briefing language. The invasion tail is not a clean landing. It is the point where catastrophe acquires operational momentum and ordinary life starts to fracture around it.",
+        "keyTurningPoint": "The moment of no return arrived when pressure, misread readiness, and fear of losing the initiative fused into a decision for larger military action.",
+        "whatIfNote": "The last reversible moments were earlier than they looked. Once leaders started planning against invasion rather than coercion, the political space collapsed."
+      }
+    },
+    "terminalBeatTradeoffCommentary": {
+      "ns_managed_relief": {
+        "economic_containment": {
+          "summary": "Chip buyers and carriers flinched, but the lane reopened before emergency workarounds became the new operating model.",
+          "tradeoff": "The price was showing enough readiness and market support to spook commercial actors for a few days while you pulled the temperature down."
+        },
+        "coalition_cohesion": {
+          "summary": "Partners stayed aligned because nobody had to explain away a major casualty event or a long commercial shutdown.",
+          "tradeoff": "The cost was slower consensus-building while every capital checked whether the scare was real or self-inflicted."
+        },
+        "deterrence_credibility": {
+          "summary": "Beijing saw a coalition that could get louder without losing discipline or collapsing into panic.",
+          "tradeoff": "The price was walking close to the line where a visible show of resolve could itself have triggered the next incident."
+        },
+        "escalation_discipline": {
+          "summary": "You kept the crisis reversible and denied both sides a public corner they could not back out of.",
+          "tradeoff": "The cost was leaving some coercive behavior unanswered in the moment to avoid a cleaner break later."
+        },
+        "information_posture": {
+          "summary": "The room never got perfect clarity, but it had enough usable signal to avoid panicked improvisation.",
+          "tradeoff": "The cost was dedicating scarce attention to verification and attribution when political pressure favored speed over certainty."
+        }
+      },
+      "ns_managed_freeze": {
+        "economic_containment": {
+          "summary": "The worst shock passed, but shipping, insurance, and inventory planning never returned to peacetime assumptions.",
+          "tradeoff": "The cost was accepting a permanent risk premium around Taiwan in exchange for avoiding open conflict."
+        },
+        "coalition_cohesion": {
+          "summary": "Allies stayed together, though mostly around the logic of endurance rather than resolution.",
+          "tradeoff": "The cost was living with different appetites for pain inside the coalition every time escorts surged or cargo slowed."
+        },
+        "deterrence_credibility": {
+          "summary": "Deterrence held well enough to stop a worse break, but not well enough to convince Beijing the tactic had failed.",
+          "tradeoff": "The cost was an expensive standing posture that buys time without restoring normality."
+        },
+        "escalation_discipline": {
+          "summary": "Escalation stayed contained because both sides learned to tolerate an uglier daily status quo.",
+          "tradeoff": "The cost was normalizing a colder, more militarized Strait in order to avoid the next rung up."
+        },
+        "information_posture": {
+          "summary": "The picture improved, but not enough to strip ambiguity out of each new transit or exercise.",
+          "tradeoff": "The cost was permanent watchfulness and repeated false alarms in a theater that no longer feels routine."
+        }
+      },
+      "ns_blockade_lock": {
+        "economic_containment": {
+          "summary": "Commercial containment failed in practice even without a declared blockade; the lane became unreliable enough to freeze real business decisions.",
+          "tradeoff": "The cost was that every attempt to preserve leverage landed on factories, carriers, and consumers far from the Strait."
+        },
+        "coalition_cohesion": {
+          "summary": "Partners agreed the pressure was intolerable, but disagreed on how much economic pain to absorb to break it.",
+          "tradeoff": "The cost was turning alliance management into a daily fight over burden-sharing and political tolerance."
+        },
+        "deterrence_credibility": {
+          "summary": "Military credibility remained visible, yet Beijing still proved it could impose pain without immediately triggering war.",
+          "tradeoff": "The cost was looking strong at sea while the commercial system absorbed the damage anyway."
+        },
+        "escalation_discipline": {
+          "summary": "You avoided a shooting war, but only by letting coercion harden into a grinding siege.",
+          "tradeoff": "The cost was accepting a slower-moving disaster in order to avoid a faster one."
+        },
+        "information_posture": {
+          "summary": "The room understood what Beijing was doing, but clear understanding did not translate into clean ways to stop it.",
+          "tradeoff": "The cost was watching the mechanism of coercion in high resolution while the window for low-cost options closed."
+        }
+      },
+      "ns_limited_strike_exchange": {
+        "economic_containment": {
+          "summary": "Once the first exchange landed, economic management turned into damage control: ships diverted, insurers froze cover, and companies rationed exposure.",
+          "tradeoff": "The cost of restoring credibility with force was a shock that ripped through trade, funding, and civilian confidence."
+        },
+        "coalition_cohesion": {
+          "summary": "The alliance pulled together around the strike, but under the harsher logic of wartime solidarity and casualty politics.",
+          "tradeoff": "The cost was that every next move became a test of who was willing to bleed, not just who was willing to signal."
+        },
+        "deterrence_credibility": {
+          "summary": "Credibility after the exchange depended on surviving the next round, not on the elegance of the original signal.",
+          "tradeoff": "The cost was losing the ability to separate deterrence from retaliation."
+        },
+        "escalation_discipline": {
+          "summary": "Discipline largely failed; the best you achieved was preventing a still larger war in the hours after the exchange.",
+          "tradeoff": "The cost was living inside compressed warning time where restraint could be mistaken for weakness and action for panic."
+        },
+        "information_posture": {
+          "summary": "The information picture became both richer and less usable as conflicting strike reports, damage claims, and warning data flooded the room.",
+          "tradeoff": "The cost was making life-and-death choices under a torrent of partial truth."
+        }
+      },
+      "ns_invasion_tail": {
+        "economic_containment": {
+          "summary": "Economic containment collapsed. Chip flows, shipping, trade finance, and consumer confidence all started behaving as though the prewar economy was already gone.",
+          "tradeoff": "The cost was that every remaining policy tool had to compete with mobilization, shortages, and global repricing."
+        },
+        "coalition_cohesion": {
+          "summary": "Coalition politics shifted from crisis management to war survival, where solidarity mattered more and proved harder to sustain.",
+          "tradeoff": "The cost was forcing governments to choose, in public, how much pain and risk they would absorb for Taiwan."
+        },
+        "deterrence_credibility": {
+          "summary": "Deterrence failed upstream and was replaced by the brutal question of whether the coalition could impose costs in an actual war.",
+          "tradeoff": "The cost was entering a contest where credibility is measured in losses, endurance, and willingness to widen the fight."
+        },
+        "escalation_discipline": {
+          "summary": "Escalation discipline broke down before the invasion tail fully declared itself; by then leaders were reacting to momentum, not controlling it.",
+          "tradeoff": "The cost was moving from preventable crisis to managed catastrophe."
+        },
+        "information_posture": {
+          "summary": "Warning time collapsed under mobilization, cyber disruption, rumor, and fear of surprise. Even true reports carried the feel of possible deception.",
+          "tradeoff": "The cost was that the room had to think about nuclear signaling and misread launches while still trying to understand the conventional picture."
+        }
+      }
+    }
   }
 ]
