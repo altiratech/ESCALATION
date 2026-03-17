@@ -4274,3 +4274,53 @@ All passed.
 3. The next highest-value product step is probably one of:
    - keep growing the rights-safe editorial still library
    - deepen late-window authored scene writing and immediate branch-signaling now that the gallery/report structure is stronger
+
+### 66.20 Editorial still pack + late-scene consequence pass (2026-03-16)
+
+#### 66.20.1 What shipped
+
+1. Added six new local editorial/surveillance stills for Flashpoint's Taiwan scenario:
+   - `apps/web/public/assets/images/tw_bs_028_cic_watch.jpg`
+   - `apps/web/public/assets/images/tw_bs_029_coast_guard_boarding.jpg`
+   - `apps/web/public/assets/images/tw_bs_030_nvg_watch.jpg`
+   - `apps/web/public/assets/images/tw_bs_031_cockpit_watch.jpg`
+   - `apps/web/public/assets/images/tw_bs_032_taiwan_strait_satellite.jpg`
+   - `apps/web/public/assets/images/tw_bs_033_modern_cic_watch.jpg`
+2. Registered those assets in `packages/content/data/images.json` with metadata tuned for opening ambiguity, coercive shipping control, surveillance, cockpit ISR, and late militarized watch-floor reads.
+3. Extended `apps/web/public/assets/images/ATTRIBUTION.md` with source/license notes for the new stills.
+4. Reworked `packages/content/data/action_narratives_ns.json` climax-phase consequence text so the late diplomacy, cyber, sanctions, force-posture, concession, speech, and stockpiling responses land with more concrete visible/offstage fallout.
+5. Tightened a few black-swan scenario beats in `packages/content/data/scenarios.json` so live visual preferences now bias toward `documentary_still` more often and some lingering branch-speak in late advisor guidance is less exposed.
+6. Tuned the image selector in `packages/engine/src/images.ts` so beat/action/variant cues matter more when scoring assets.
+7. Cleaned up a few remaining live-story UX rough edges:
+   - `apps/web/src/App.tsx`: shorter top `Situation Summary` lead so it does not echo `Current Situation`
+   - `apps/web/src/components/BriefingPanel.tsx`: `What Changed Offstage` now leads with authored consequence text before any scene-shift read
+   - `packages/engine/src/simulator.ts`: no-action debriefs no longer narrate raw point changes
+   - `apps/web/src/components/ActionCards.tsx`: removed one remaining player-facing `branch` phrase from downside copy
+
+#### 66.20.2 Why it matters
+
+1. The user wants Flashpoint to feel like a Michael Crichton / *Sum of All Fears* style crisis story, not a polished strategy dashboard.
+2. The prior gallery/debrief pass created the right chassis, but the user correctly called out two remaining issues:
+   - the visuals still felt too schematic or too static in places
+   - some consequence writing still sounded abstract or AI-generic
+3. This pass improves both without another shell rewrite:
+   - stronger local editorial stills
+   - more decision-reactive gallery selection
+   - more concrete late-window consequence writing
+   - less duplicated top-summary prose
+
+#### 66.20.3 Validation
+
+1. `npm run lint`
+2. `npm run build --workspace @wargames/web`
+3. `npx vitest run tests/engine/images.test.ts tests/engine/report-causality.test.ts`
+4. `npm run ci:phase1`
+5. Additional selector sanity checks were run locally against representative black-swan beats/actions to confirm the gallery resolves against the new metadata without runtime errors.
+
+#### 66.20.4 Open note
+
+1. The still library is materially better now, but it is not yet complete enough to guarantee three perfect editorial frames for every beat/action/variant combination.
+2. `OPENAI_API_KEY` was still not set in this session, so this pass stayed on curated local assets only.
+3. The next highest-value Flashpoint pass is probably one of:
+   - keep expanding the rights-safe editorial still library so every black-swan beat can reliably support 2-3 strong images
+   - deepen the late-window/ending scene writing again so the suspense stays specific all the way through the last decision and aftermath
