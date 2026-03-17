@@ -64,6 +64,7 @@ describe('post-game causality report', () => {
     });
 
     expect(report.finalMeters.escalationIndex).toBe(state.meters.escalationIndex);
+    expect(report.terminalBeatId).toBe(state.currentBeatId);
     expect(report.pivotalDecision.actionName.length).toBeGreaterThan(0);
     expect(report.alternativeLine.suggestedActionName.length).toBeGreaterThan(0);
     expect(report.fullCausality.hiddenDeltas).toHaveLength(6);

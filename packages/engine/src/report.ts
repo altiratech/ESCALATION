@@ -771,6 +771,7 @@ export const buildPostGameReport = (
   options: BuildPostGameReportOptions = {}
 ): PostGameReport => {
   const outcome = state.outcome ?? evaluateOutcome(state);
+  const terminalBeat = options.scenario?.beats.find((beat) => beat.id === state.currentBeatId) ?? null;
   const timeline = getTimeline(state);
   const pivotal = findPivotalTurn(state.history);
   const alternative = pickAlternative(pivotal, actionMap);
@@ -802,8 +803,15 @@ export const buildPostGameReport = (
     player_focus: pivotalActionName
   };
 
-  const narrativeTitle = options.causalityNarrative?.title ?? `${outcome.replace('_', ' ')} outcome`;
-  const narrativeSummary = options.causalityNarrative?.summary ?? describeOutcome(outcome);
+  const narrativeTitle =
+    terminalBeat?.headlines[0]
+    ?? options.causalityNarrative?.title
+    ?? `${outcome.replace('_', ' ')} outcome`;
+  const narrativeSummary =
+    terminalBeat?.windowContext?.sections?.[0]?.body
+    ?? terminalBeat?.sceneFragments[0]
+    ?? options.causalityNarrative?.summary
+    ?? describeOutcome(outcome);
   const causalTemplate = options.causalityNarrative?.causalNote ?? 'Primary driver: {primary_driver}. Critical turn: {critical_turn} via {critical_action}.';
   const causalNote = applyTemplate(causalTemplate, templateValues);
 
@@ -815,6 +823,7 @@ export const buildPostGameReport = (
   return {
     episodeId: state.id,
     outcome,
+    terminalBeatId: terminalBeat?.terminalOutcome ? terminalBeat.id : null,
     outcomeExplanation: describeOutcome(outcome),
     timeline,
     finalMeters: state.meters,

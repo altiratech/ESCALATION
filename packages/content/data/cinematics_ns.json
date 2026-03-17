@@ -249,6 +249,63 @@
         "tone": "devastating",
         "musicCue": "war_aftermath"
       }
+    },
+    "terminalBeatEndings": {
+      "ns_managed_relief": {
+        "title": "The Corridor Breathes Again",
+        "fragments": [
+          "Forty-eight hours later, escorted daylight sailings are moving again through the median lane. Crews do it quietly, with naval hulls over the horizon and insurers charging rates that feel like punishment.",
+          "Taipei gets its first full outbound semiconductor convoy away before dawn. The screens calm, but nobody in government mistakes calmer screens for a solved problem.",
+          "The coalition calls it restored access. Beijing calls it a temporary adjustment. Both are really describing the same thing: the lane survived because enough people were willing to spend political and military capital to keep it from dying."
+        ],
+        "epilogueNote": "Managed relief is not a return to normal. It is the proof that the corridor can still be saved if the coalition moves fast enough and keeps moving together.",
+        "tone": "bittersweet",
+        "musicCue": "bittersweet_resolve"
+      },
+      "ns_managed_freeze": {
+        "title": "The New Strait",
+        "fragments": [
+          "Three months later, the waterway is technically open and commercially diminished. Captains still cross, but the old routine traffic is gone, replaced by escorts, paperwork, and premiums that make every voyage feel provisional.",
+          "Boardrooms adapt faster than governments do. Inventory shifts, component contracts rewrite, and Taiwan exposure is priced like a standing emergency rather than a temporary scare.",
+          "No memorials are built because no war began. That is what makes this ending so deceptive. The map survives. The rules people lived by do not."
+        ],
+        "epilogueNote": "The frozen branch leaves the world intact and poorer, with coercion embedded in the cost of doing business through the Strait.",
+        "tone": "somber",
+        "musicCue": "tense_low"
+      },
+      "ns_blockade_lock": {
+        "title": "Closed By Behavior",
+        "fragments": [
+          "No formal blockade declaration is ever issued. It does not matter. The underwriters leave, the container lines reroute, and the factories that depend on just-in-time Taiwan inputs start missing clocks within days.",
+          "Politics struggles to keep up with commerce. By the time diplomats agree on language, the private sector has already redrawn the map of acceptable risk.",
+          "The corridor is still visible on satellite imagery. On freight screens and in procurement meetings, it is gone."
+        ],
+        "epilogueNote": "This ending belongs to lawyers, insurers, schedulers, and shipping controllers as much as admirals. They are the ones who make the blockade real.",
+        "tone": "devastating",
+        "musicCue": "economic_collapse"
+      },
+      "ns_limited_strike_exchange": {
+        "title": "Eighteen Minutes",
+        "fragments": [
+          "The opening exchange lasts less than twenty minutes. The blast footage will replay for years.",
+          "Because the first strikes are described as limited, every capital spends the next six hours trying to decide whether restraint still exists or whether the vocabulary is simply lagging behind the facts.",
+          "Markets stop asking whether this is a scare. Families stop asking whether loved ones should leave the coast. The crisis crosses from contingency planning into wartime behavior before anyone dares admit it on camera."
+        ],
+        "epilogueNote": "A short strike exchange can still reorganize the world. Duration is not the same thing as consequence.",
+        "tone": "devastating",
+        "musicCue": "war_aftermath"
+      },
+      "ns_invasion_tail": {
+        "title": "The Loading Coast",
+        "fragments": [
+          "The last clean warning comes from overhead imagery: ferry decks full of armor, bridging equipment staged under floodlights, field hospitals lit up along the Fujian coast.",
+          "For a few hours the world lives in the gap between preparation and impact. Traders model depression scenarios, allied staffs rehearse casualty flows, and every phone call sounds as if it might be the last one before the first wave sails.",
+          "This branch is terrifying because the crossing has not fully begun and normal life is already breaking."
+        ],
+        "epilogueNote": "Invasion tail is the moment deterrence dies before history has finished writing the first page of the war.",
+        "tone": "devastating",
+        "musicCue": "war_aftermath"
+      }
     }
   }
 ]

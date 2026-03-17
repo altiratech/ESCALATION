@@ -500,7 +500,7 @@
         },
         "headlines": [
           "Shipping Convoys Reroute as Strait Harassment Intensifies",
-          "Defense Attach\u00e9s Warn of Accidental Contact Risk"
+          "Defense Attachés Warn of Accidental Contact Risk"
         ],
         "memoLine": "Operations memo: rules-of-engagement clarification requested by forward commanders.",
         "tickerLine": "Risk ticker: Asia maritime index volatility at 4-week high.",
@@ -968,7 +968,7 @@
               "military_posture_increase"
             ],
             "rationaleByAlignment": {
-              "supports": "Prefers actions that steady public interpretation and keep allies from validating Beijing\u2019s framing.",
+              "supports": "Prefers actions that steady public interpretation and keep allies from validating Beijing’s framing.",
               "cautions": "Can accept this if the message discipline is tight and coalition fallout stays limited.",
               "opposes": "Rejects moves that overreact publicly and turn disinformation into a self-fulfilling escalation story."
             }
@@ -2344,7 +2344,7 @@
               "limited_concession"
             ],
             "rationaleByAlignment": {
-              "supports": "Backs choices that make U.S. and allied intent unmistakable before the faceoff breaks on someone else\u2019s terms.",
+              "supports": "Backs choices that make U.S. and allied intent unmistakable before the faceoff breaks on someone else’s terms.",
               "cautions": "Can live with this if it still contributes to clear resolve in the immediate operating picture.",
               "opposes": "Rejects actions that read as hesitation or that trade away visible control at the point of maximum danger."
             }
@@ -3173,7 +3173,7 @@
             "rationaleByAlignment": {
               "supports": "Prefers optionality, collection, and deniable leverage while the anomaly is still more suggestive than explicit.",
               "cautions": "Can work, but only if paired with a clear sense of what hidden architecture is already in motion.",
-              "opposes": "Rejects loud overt moves that surrender deniability, simplify the other side\u2019s story, or close off covert options too early."
+              "opposes": "Rejects loud overt moves that surrender deniability, simplify the other side’s story, or close off covert options too early."
             }
           }
         },
@@ -3400,7 +3400,7 @@
               "limited_concession"
             ],
             "rationaleByAlignment": {
-              "supports": "When the radar picture may be lying, he wants collection, deniable leverage, and quiet tests of the counterpart\u2019s real intent.",
+              "supports": "When the radar picture may be lying, he wants collection, deniable leverage, and quiet tests of the counterpart’s real intent.",
               "cautions": "May be necessary, but he worries overt moves reveal too much about what we know or do not know.",
               "opposes": "Rejects clean, loud answers to a deliberately dirty signal environment."
             }
@@ -3810,7 +3810,7 @@
             ],
             "rationaleByAlignment": {
               "supports": "Wants to contest the legitimacy of the coercion while keeping allied discipline and an exit ramp intact.",
-              "cautions": "Can fit, but only if the move does not validate Beijing\u2019s administrative framing or split partners.",
+              "cautions": "Can fit, but only if the move does not validate Beijing’s administrative framing or split partners.",
               "opposes": "Rejects steps most likely to turn a coercive test into a direct military showdown too early."
             }
           },
@@ -3834,7 +3834,7 @@
               "military_posture_decrease"
             ],
             "rationaleByAlignment": {
-              "supports": "Favors protecting the corridor\u2019s commercial function or raising cost in ways the alliance can sustain.",
+              "supports": "Favors protecting the corridor’s commercial function or raising cost in ways the alliance can sustain.",
               "cautions": "Sees some leverage, but worries about commercial spillover and insurer behavior if execution is messy.",
               "opposes": "Rejects responses that make the corridor economically unusable before they make it strategically safer."
             }
@@ -4544,7 +4544,7 @@
           ],
           "okonkwo": [
             "This is where financial-system spillover and alliance fatigue can outrun military plans.",
-            "Even a \u201cmanaged\u201d branch can be economically brutal if the corridor stays compromised."
+            "Even a “managed” branch can be economically brutal if the corridor stays compromised."
           ],
           "reed": [
             "At this point I care about hidden branch activation more than public commentary.",
@@ -5113,7 +5113,8 @@
         "id": "ns_managed_relief",
         "phase": "resolution",
         "sceneFragments": [
-          "The lane cracks open just enough for ships to move again. Trading screens stop flashing red, carriers test the corridor in daylight, and nobody in the room mistakes relief for safety."
+          "At 09:40 local time, two container ships that had been holding east of the median line enter the corridor under daylight escort and make Kaohsiung before noon. Limited war-risk cover returns only after the second hull clears without challenge.",
+          "No one in the room calls it victory. Patrol lines remain, premiums stay punitive, and Taipei is warned to expect another test the moment coalition attention drifts."
         ],
         "advisorLines": {
           "cross": [
@@ -5236,24 +5237,68 @@
           }
         },
         "truthModel": {
-          "verifiedFacts": [],
-          "workingTheories": [],
-          "unknowns": []
+          "verifiedFacts": [
+            {
+              "id": "relief_transits",
+              "title": "Two delayed container ships made the run",
+              "body": "Two container ships that had been holding east of the median line completed escorted daylight transits into Kaohsiung without interception."
+            },
+            {
+              "id": "relief_cover",
+              "title": "Limited cover returned for daytime sailings",
+              "body": "War-risk underwriters restored narrow cover for escorted daylight passages, but overnight sailings and unscheduled deviations remain excluded."
+            }
+          ],
+          "workingTheories": [
+            {
+              "id": "relief_pause",
+              "title": "Beijing may be pausing, not yielding",
+              "body": "The pause may reflect a decision to stop short of a coalition test it could lose, rather than a decision to abandon pressure around the Strait."
+            },
+            {
+              "id": "relief_time",
+              "title": "The coalition bought time, not trust",
+              "body": "Traffic is moving because escorts, public messaging, and emergency cover lined up for one window, not because commercial actors believe the old risk picture has returned."
+            }
+          ],
+          "unknowns": [
+            {
+              "id": "relief_duration",
+              "title": "No one knows how long the cover window lasts",
+              "body": "Underwriters are writing one transit at a time, which means a single new scare could shut the lane faster than it reopened."
+            },
+            {
+              "id": "relief_hidden",
+              "title": "The machinery that created the scare may still be intact",
+              "body": "Spoofing, militia routing, and customs-language groundwork may still be sitting in place even if the visible pressure eased."
+            }
+          ]
         },
         "windowContext": {
           "sections": [
             {
-              "id": "resolution",
-              "title": "Resolution",
-              "body": "The worst branch was avoided, but nobody leaves this run believing the old normal is intact."
+              "id": "what_held",
+              "title": "What Held",
+              "body": "The corridor stayed usable because escorts, insurers, and port authorities all moved at the same time. If any one of those slips, traffic can freeze again."
+            },
+            {
+              "id": "fragile_relief",
+              "title": "Why Nobody In The Room Relaxes",
+              "body": "Warships are still shadowing the route, premiums are still punishing, and every captain knows a second scare would shut the window faster than the first."
+            },
+            {
+              "id": "bought_time",
+              "title": "What You Bought",
+              "body": "You bought working time for Taipei, allied capitals, and the market. You did not buy innocence; the next test will come against a lane everyone now knows can be rattled."
             }
           ]
         },
         "headlines": [
-          "A Narrow Offramp Holds Long Enough For Ships To Move Again"
+          "Daylight Transits Resume Under Escort",
+          "Limited Cover Returns To The Corridor"
         ],
-        "memoLine": null,
-        "tickerLine": null,
+        "memoLine": "Ops note: Two delayed container ships clear the median lane under escort and reach Kaohsiung before noon.",
+        "tickerLine": "Market ticker: Limited war-risk cover returns for escorted daylight transits; chip exporters resume priority bookings.",
         "imageHints": [
           "taiwan",
           "relief",
@@ -5269,6 +5314,7 @@
         "visualCue": {
           "preferredKinds": [
             "scenario_still",
+            "artifact",
             "map"
           ],
           "tags": [
@@ -5279,14 +5325,15 @@
             "conciliatory"
           ],
           "branchStage": "collapse",
-          "caption": "Relief only counts if ships move, insurers write cover, and the room can prove the lane is still open."
+          "caption": "Relief becomes real only when ships move, cover returns, and Taipei can prove the lane still works under pressure."
         }
       },
       {
         "id": "ns_managed_freeze",
         "phase": "resolution",
         "sceneFragments": [
-          "The shooting never starts, but the lane never really normalizes either. Markets stop panicking, then settle into a colder assumption: Beijing learned it can tighten the strait without paying the full price of war."
+          "No missile lands and no boarding clip goes viral. Instead, carriers file next month's schedules around the Strait, Taiwan-bound cargo moves on slower routings, and war-risk clauses become standard language in contracts that used to treat the corridor as routine.",
+          "That is how this branch settles in: ordinary life keeps moving, but on worse terms. Beijing did not have to close the lane. It taught the world what using it might cost."
         ],
         "advisorLines": {
           "cross": [
@@ -5409,24 +5456,68 @@
           }
         },
         "truthModel": {
-          "verifiedFacts": [],
-          "workingTheories": [],
-          "unknowns": []
+          "verifiedFacts": [
+            {
+              "id": "freeze_routes",
+              "title": "Carriers rewrote their schedules",
+              "body": "Major shipping lines shifted Taiwan-bound traffic onto longer routings and wider timing buffers instead of treating the Strait as routine passage."
+            },
+            {
+              "id": "freeze_patrols",
+              "title": "The patrol pattern stayed in place",
+              "body": "PRC maritime and aviation presence remains elevated enough that operators are planning for recurring pressure, not a clean reset."
+            }
+          ],
+          "workingTheories": [
+            {
+              "id": "freeze_normalize",
+              "title": "Beijing may be testing whether pain can become routine",
+              "body": "The apparent calm may be less about backing down than about seeing whether insurers, shippers, and allies will slowly normalize the new baseline."
+            },
+            {
+              "id": "freeze_adapt",
+              "title": "Business adaptation may outlast the crisis itself",
+              "body": "Once procurement teams rewrite contracts and buffers around a dangerous Strait, the commercial map can stay colder even if the patrol intensity fades."
+            }
+          ],
+          "unknowns": [
+            {
+              "id": "freeze_return",
+              "title": "No one knows when the next squeeze comes",
+              "body": "The same lane could face another inspection scare or routing disruption with little warning because the coercive architecture never fully came down."
+            },
+            {
+              "id": "freeze_reverse",
+              "title": "No one knows who will pay to reverse the new normal",
+              "body": "Reopening a corridor is easier than restoring trust once boards, insurers, and freight desks have repriced the route for recurring danger."
+            }
+          ]
         },
         "windowContext": {
           "sections": [
             {
-              "id": "resolution",
-              "title": "Resolution",
-              "body": "This is the outcome where the world keeps moving, but on worse terms than before."
+              "id": "changed_permanently",
+              "title": "What Changed Permanently",
+              "body": "The Strait survives on the map, but not as a frictionless commercial lane. Every future transit now carries the memory and price of this run."
+            },
+            {
+              "id": "still_hurts",
+              "title": "Why This Still Hurts",
+              "body": "Factories keep moving, shelves stay stocked, and the headlines cool down, but every supply chain touching Taiwan is now running with extra time, cost, and fear built in."
+            },
+            {
+              "id": "next_crisis",
+              "title": "What The Next Crisis Will Inherit",
+              "body": "The next round starts from a worse baseline. Beijing learned the world can be made to absorb chronic intimidation without hearing a shot."
             }
           ]
         },
         "headlines": [
-          "The Crisis Freezes Into A Worse Normal Instead Of Breaking Open"
+          "Calm Returns Without Confidence",
+          "War-Risk Premiums Become The New Strait Tax"
         ],
-        "memoLine": null,
-        "tickerLine": null,
+        "memoLine": "Watch floor: Overnight calm holds, but carriers file next week's routes as if the old corridor no longer exists.",
+        "tickerLine": "Market ticker: War-risk premia stay embedded, Taiwan lead times lengthen, and insurers price the Strait as a chronic hazard.",
         "imageHints": [
           "taiwan",
           "freeze",
@@ -5442,6 +5533,7 @@
         "visualCue": {
           "preferredKinds": [
             "scenario_still",
+            "artifact",
             "map"
           ],
           "tags": [
@@ -5451,14 +5543,15 @@
             "shipping"
           ],
           "branchStage": "collapse",
-          "caption": "The world survives, but the line everyone depended on comes back thinner and less trusted."
+          "caption": "Nothing explodes, but the cost of using the Strait hardens into routine business practice."
         }
       },
       {
         "id": "ns_blockade_lock",
         "phase": "climax",
         "sceneFragments": [
-          "By morning the commercial answer is already in. Insurers walk, ships drift or turn away, and chip buyers start calling lawyers about force majeure before governments finish their statements."
+          "Before Washington and Beijing finish trading statements, the private sector has already delivered its verdict. Underwriters suspend cover on Taiwan-bound traffic, three carriers divert south, and fab customers begin invoking force-majeure clauses on shipments that were supposed to leave tonight.",
+          "That is what makes this branch so dangerous: the lane is still open on paper, but commerce has already decided it is gone."
         ],
         "advisorLines": {
           "cross": [
@@ -5471,7 +5564,7 @@
           ],
           "okonkwo": [
             "This is where financial-system spillover and alliance fatigue can outrun military plans.",
-            "Even a \u201cmanaged\u201d branch can be economically brutal if the corridor stays compromised."
+            "Even a “managed” branch can be economically brutal if the corridor stays compromised."
           ],
           "reed": [
             "At this point I care about hidden branch activation more than public commentary.",
@@ -5581,24 +5674,68 @@
           }
         },
         "truthModel": {
-          "verifiedFacts": [],
-          "workingTheories": [],
-          "unknowns": []
+          "verifiedFacts": [
+            {
+              "id": "blockade_cover",
+              "title": "Underwriters suspended cover on Taiwan-bound traffic",
+              "body": "London and Singapore war-risk desks stopped writing ordinary cover for Taiwan-bound voyages, forcing shippers to choose between delay, diversion, or extreme premium pricing."
+            },
+            {
+              "id": "blockade_chips",
+              "title": "Chip contracts began slipping before any formal closure",
+              "body": "Downstream buyers started invoking contingency clauses as soon as shipment timings became legally and commercially unreliable."
+            }
+          ],
+          "workingTheories": [
+            {
+              "id": "blockade_self_deterrence",
+              "title": "Commercial self-deterrence may be doing Beijing's work",
+              "body": "If the market refuses to use the lane on its own, Beijing may not need a formal blockade declaration to achieve much of the same effect."
+            },
+            {
+              "id": "blockade_no_announcement",
+              "title": "A formal blockade may no longer be necessary",
+              "body": "Pressure can now be enforced through insurance, compliance, and fear even if official statements keep calling the measures temporary or administrative."
+            }
+          ],
+          "unknowns": [
+            {
+              "id": "blockade_restore",
+              "title": "No one knows whether escorts can restore trust once lawyers pull the trigger",
+              "body": "After shipping contracts move into force-majeure and compliance review, a naval escort alone may not be enough to reopen the lane quickly."
+            },
+            {
+              "id": "blockade_next_step",
+              "title": "No one knows whether the next step is boarding, customs control, or something harsher",
+              "body": "The private sector freeze may be only the first layer of coercion, not the final one."
+            }
+          ]
         },
         "windowContext": {
           "sections": [
             {
-              "id": "resolution",
-              "title": "Resolution",
-              "body": "The blockade locked in through commercial behavior before diplomacy found a way to break it."
+              "id": "everyone_saw",
+              "title": "What Everyone Saw",
+              "body": "The commercial lane died in real time. Cargo stopped moving not because diplomats said it was closed, but because insurers, carriers, and buyers decided it was no longer a tolerable risk."
+            },
+            {
+              "id": "broke_itself",
+              "title": "What Broke By Itself",
+              "body": "The private sector did the irreversible work. Once route planners, procurement teams, and legal counsel switched into crisis mode, the economic map changed faster than public policy could."
+            },
+            {
+              "id": "harder_reverse",
+              "title": "Why This Is Harder To Reverse",
+              "body": "A lane can be reopened by force or diplomacy. Trust lost across shipping, insurance, and semiconductors comes back slower, and sometimes not at all."
             }
           ]
         },
         "headlines": [
-          "The Corridor Is Not Officially Closed, But Commerce Treats It As Lost"
+          "The Lane Closes Before Anyone Says It Is Closed",
+          "Force-Majeure Language Hits Chip Contracts"
         ],
-        "memoLine": null,
-        "tickerLine": null,
+        "memoLine": "Shipping desk: The corridor is still legal to use and effectively closed.",
+        "tickerLine": "Market ticker: Spot freight gaps higher, chip buyers invoke force-majeure language, and fuel hedges surge on expected rerouting.",
         "imageHints": [
           "taiwan",
           "blockade",
@@ -5627,14 +5764,15 @@
             "collapse"
           ],
           "branchStage": "collapse",
-          "caption": "Once insurers and carriers stop trusting the lane, the blockade is real whether anyone announces it or not."
+          "caption": "The blockade becomes real the moment insurers, carriers, and buyers act as if the corridor is already lost."
         }
       },
       {
         "id": "ns_limited_strike_exchange",
         "phase": "climax",
         "sceneFragments": [
-          "The first blasts are brief and precise on paper. On every screen in the room they look like the end of the old rules. Markets seize, hotlines strain, and everyone starts counting what cannot be unfired."
+          "At 02:13 Taipei time, two precision strikes hit corridor-enabling sites within eighteen minutes of each other: a coastal radar relay and a logistics pier being used for emergency resupply. The damage is limited. The meaning is not.",
+          "Phones ring at once from Tokyo, Manila, and PACOM. Equity futures lock limit-down, tanker rates jump, and the hotline stays live but clogged as both capitals try to prove they still control events."
         ],
         "advisorLines": {
           "cross": [
@@ -5647,7 +5785,7 @@
           ],
           "okonkwo": [
             "This is where financial-system spillover and alliance fatigue can outrun military plans.",
-            "Even a \u201cmanaged\u201d branch can be economically brutal if the corridor stays compromised."
+            "Even a “managed” branch can be economically brutal if the corridor stays compromised."
           ],
           "reed": [
             "At this point I care about hidden branch activation more than public commentary.",
@@ -5757,24 +5895,68 @@
           }
         },
         "truthModel": {
-          "verifiedFacts": [],
-          "workingTheories": [],
-          "unknowns": []
+          "verifiedFacts": [
+            {
+              "id": "strike_targets",
+              "title": "Two precision strikes hit surveillance and logistics nodes",
+              "body": "The first exchange targeted systems that help keep the corridor open and interpreted, not dense urban targets or broad civilian infrastructure."
+            },
+            {
+              "id": "strike_hotline",
+              "title": "The hotline stayed open and overloaded",
+              "body": "Both capitals kept the emergency channel alive, but the pace of calls and cross-checks lagged the speed of events on the water and in the air."
+            }
+          ],
+          "workingTheories": [
+            {
+              "id": "strike_bounded",
+              "title": "This may be meant as a bounded demonstration",
+              "body": "The target set suggests an attempt to shock, warn, and stop short of mass casualties while still proving that live force is now on the table."
+            },
+            {
+              "id": "strike_followon",
+              "title": "The next exchange could outrun political control",
+              "body": "Even if both capitals want a short strike cycle, pilots, commanders, and operators are now working inside a tempo that punishes hesitation and rewards overreaction."
+            }
+          ],
+          "unknowns": [
+            {
+              "id": "strike_airborne",
+              "title": "No one knows whether follow-on packages are already airborne",
+              "body": "The room still cannot rule out additional launches or counterstrikes already moving on timelines faster than diplomacy."
+            },
+            {
+              "id": "strike_nuclear",
+              "title": "No one knows when nuclear signaling enters the room",
+              "body": "Strategists are already asking when missile warnings, dispersal moves, or command-post shifts start being read through a nuclear lens."
+            }
+          ]
         },
         "windowContext": {
           "sections": [
             {
-              "id": "resolution",
-              "title": "Resolution",
-              "body": "Control now depends on whether the room can keep a short war from becoming something much bigger."
+              "id": "everyone_saw",
+              "title": "What Everyone Saw",
+              "body": "A crisis built on ambiguity crossed into live force. The images are clear enough that nobody can keep using gray-zone vocabulary with a straight face."
+            },
+            {
+              "id": "offstage",
+              "title": "What Changed Offstage",
+              "body": "Contingency plans moved from binders to execution. Financial desks, logistics planners, and military staffs all shifted into wartime behavior before any government admitted the word applied."
+            },
+            {
+              "id": "shorter_clock",
+              "title": "Why The Clock Feels Shorter",
+              "body": "Once shots are fired, every later decision is made inside casualty, retaliation, and misread-alert logic. Time stops belonging to politicians alone."
             }
           ]
         },
         "headlines": [
-          "Direct Force Breaks Through The Gray-Zone Shell"
+          "Precision Strikes End The Old Rules",
+          "Markets And Hotlines Seize At Once"
         ],
-        "memoLine": null,
-        "tickerLine": null,
+        "memoLine": "Flash update: Precision strikes hit surveillance and logistics nodes before dawn; the hotline is open but overloaded.",
+        "tickerLine": "Market ticker: Index futures lock limit-down, LNG and crude gap higher, and carriers clear decks for wartime routing.",
         "imageHints": [
           "taiwan",
           "strike",
@@ -5802,14 +5984,15 @@
             "militarized"
           ],
           "branchStage": "collapse",
-          "caption": "The strike may be limited. The fear it unleashes is not."
+          "caption": "The strike may be limited in target count. The fear it unleashes is not."
         }
       },
       {
         "id": "ns_invasion_tail",
         "phase": "climax",
         "sceneFragments": [
-          "The thing everyone kept trying not to say out loud begins to take form. Movement along the coast stops looking like pressure and starts looking like preparation to change the map before the coalition can recover."
+          "Just after midnight, satellite passes from Pingtan to Xiapu show civilian roll-on ferries loading military vehicles under floodlights, bridge parks pulled out of storage, and field hospitals opening along the coast. None of it is proof of a crossing. Taken together, it stops looking like theater.",
+          "Taipei begins dispersing aircraft and moving senior officials to continuity sites. Traders stop modeling a bad week and start modeling a break in the world economy. The room is no longer asking whether Beijing can frighten the corridor. It is asking how many hours remain before the first wave sails."
         ],
         "advisorLines": {
           "cross": [
@@ -5822,7 +6005,7 @@
           ],
           "okonkwo": [
             "This is where financial-system spillover and alliance fatigue can outrun military plans.",
-            "Even a \u201cmanaged\u201d branch can be economically brutal if the corridor stays compromised."
+            "Even a “managed” branch can be economically brutal if the corridor stays compromised."
           ],
           "reed": [
             "At this point I care about hidden branch activation more than public commentary.",
@@ -5932,24 +6115,68 @@
           }
         },
         "truthModel": {
-          "verifiedFacts": [],
-          "workingTheories": [],
-          "unknowns": []
+          "verifiedFacts": [
+            {
+              "id": "invasion_loading",
+              "title": "Civilian ferries began loading military vehicles",
+              "body": "Multiple overhead passes show civilian roll-on ferries taking on armored vehicles, engineering equipment, and fuel support loads at coastal embarkation points."
+            },
+            {
+              "id": "invasion_continuity",
+              "title": "Taipei activated continuity measures",
+              "body": "Aircraft dispersal, continuity-site movement, and emergency government relocation drills all began before dawn."
+            }
+          ],
+          "workingTheories": [
+            {
+              "id": "invasion_cover",
+              "title": "This looks like invasion staging under coercion cover",
+              "body": "The pressure campaign may have been used to thin warning time, normalize abnormal traffic, and position lift assets without triggering the political response a cleaner mobilization would have caused."
+            },
+            {
+              "id": "invasion_blink",
+              "title": "It could still be a final bluff designed to force a blink",
+              "body": "Some in the room argue the visible loading may be meant to force concessions before a crossing becomes necessary, not to guarantee that one is already inevitable."
+            }
+          ],
+          "unknowns": [
+            {
+              "id": "invasion_hhour",
+              "title": "No one knows whether H-hour is tonight or a week away",
+              "body": "The preparations are visible, but the precise launch window remains obscured by deception, weather, and deliberate signaling noise."
+            },
+            {
+              "id": "invasion_missiles",
+              "title": "No one knows whether missile forces are already cued for a wider opening strike",
+              "body": "Strategic planners cannot yet tell whether the coastal loading picture is paired with an imminent missile package or still waiting on a final political order."
+            }
+          ]
         },
         "windowContext": {
           "sections": [
             {
-              "id": "resolution",
-              "title": "Resolution",
-              "body": "Earlier choices, thinner slack, and the loss of warning time made the most terrifying branch reachable."
+              "id": "coast_changed",
+              "title": "What Changed On The Coast",
+              "body": "The coastline now looks less like a pressure theater and more like a loading dock for a war. Visible preparation has moved from harassment tools to lift, engineering, and medical capacity."
+            },
+            {
+              "id": "different_pressure",
+              "title": "Why This Is Different From Pressure",
+              "body": "Pressure can be reversed. Embarkation, bridge equipment, and field hospitals point toward an operation that would try to change facts physically before diplomacy catches up."
+            },
+            {
+              "id": "afraid_to_say",
+              "title": "What The Room Is Afraid To Say",
+              "body": "If this is real invasion staging, then the next arguments are about casualty forecasts, refugee flows, semiconductor cutoff, and how close the nuclear shadow moves once direct U.S.-China war becomes thinkable."
             }
           ]
         },
         "headlines": [
-          "The Worst Branch Stops Feeling Hypothetical"
+          "Coastal Loading Stops Looking Like Theater",
+          "Continuity Plans Go Live In Taipei"
         ],
-        "memoLine": null,
-        "tickerLine": null,
+        "memoLine": "Satellite read: Civilian ferries are loading military vehicles under floodlights from Pingtan to Xiapu.",
+        "tickerLine": "Market ticker: TSMC suppliers suspend guidance, Asian shipping halts bookings, and Treasury desks begin war-rationing scenarios.",
         "imageHints": [
           "taiwan",
           "invasion",
@@ -5966,18 +6193,19 @@
         "visualCue": {
           "preferredKinds": [
             "scenario_still",
-            "map",
-            "artifact"
+            "artifact",
+            "map"
           ],
           "tags": [
             "taiwan",
             "invasion",
+            "loading",
             "coast",
             "collapse",
             "militarized"
           ],
           "branchStage": "collapse",
-          "caption": "The worst branch never arrives all at once. First it arrives as proof that earlier chances are already gone."
+          "caption": "The terrifying part is not that the crossing is confirmed. It is that the coast now looks ready enough that everyone must plan as if it could be."
         }
       }
     ],

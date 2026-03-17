@@ -409,6 +409,7 @@ export interface ReportTimelinePoint {
 export interface PostGameReport {
   episodeId: string;
   outcome: OutcomeCategory;
+  terminalBeatId: string | null;
   outcomeExplanation: string;
   timeline: ReportTimelinePoint[];
   finalMeters: MeterState;
@@ -755,6 +756,7 @@ export interface CinematicsDefinition {
   openingCinematic: OpeningCinematic;
   phaseTransitions: Partial<Record<CinematicPhaseTransitionKey, CinematicTransition>>;
   endings: Partial<Record<OutcomeCategory, CinematicEnding>>;
+  terminalBeatEndings?: Record<string, CinematicEnding>;
 }
 
 export interface ScenarioWorldAlliance {

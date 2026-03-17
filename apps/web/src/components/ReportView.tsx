@@ -140,7 +140,11 @@ const deriveMandateHeadline = (
 export const ReportView = ({ report, scenario, advisorDossiers, cinematics, onRestart }: ReportViewProps) => {
   const advisorNameById = new Map(advisorDossiers.map((entry) => [entry.id, entry.name]));
   const deepDebrief = report.fullCausality.deepDebrief;
-  const endingCinematic = cinematics?.endings[report.outcome] ?? null;
+  const endingCinematic = (
+    report.terminalBeatId
+      ? cinematics?.terminalBeatEndings?.[report.terminalBeatId] ?? null
+      : null
+  ) ?? cinematics?.endings[report.outcome] ?? null;
   const objectiveAssessments = deriveObjectiveAssessments(scenario, report);
   const mandateHeadline = deriveMandateHeadline(report, objectiveAssessments);
 
