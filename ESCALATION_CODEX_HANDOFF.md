@@ -4445,3 +4445,40 @@ All passed.
 1. This pass improves the quality bar with the existing library, but it does not add new imagery.
 2. A future visual pass should still add more modern editorial / surveillance / satellite stills for the final branches once better source material or image-generation access is available.
 3. Intentional untracked file remains untouched: `FLASHPOINT_CODE_REVIEW_2026_03_14.md`.
+
+### 66.24 Early-window prose specificity pass (2026-03-17)
+
+#### 66.24.1 What shipped
+
+1. Tightened the opening and mid-scenario black-swan beats in `packages/content/data/scenarios.json`:
+   - `ns_abnormal_signal`
+   - `ns_deceptive_picture`
+   - `ns_bandwidth_stockpiles`
+   - `ns_reversible_coercion`
+   - `ns_false_relief_or_trap`
+2. Revised a number of `Verified Facts`, `Working Theories`, and `Unknowns` titles so they read more like operational observations and less like polished labels.
+3. Reframed several `Context` section titles toward scene-specific reads, for example:
+   - `What The Wrong Picture Buys Them`
+   - `The Screen Is Now Suspect`
+   - `What The Sustainment Slide Changes`
+   - `How Control Arrives`
+   - `What Made Everyone Exhale`
+4. Tightened the opening memo line to emphasize the false pattern rather than the mere existence of returns.
+
+#### 66.24.2 Why it matters
+
+1. The user correctly called out that some early-window writing still sounded “smart” without being concrete enough to picture.
+2. This pass pushes the first half of the black-swan run closer to the stronger late-window writing standard already established in previous passes.
+3. The live brief should now be easier to read as a scene with a specific problem, not just a well-worded executive synopsis.
+
+#### 66.24.3 Validation
+
+1. `npm run lint`
+2. `npm run build --workspace @wargames/web`
+3. `npm run ci:phase1`
+
+#### 66.24.4 Open note
+
+1. This is a prose-quality pass only.
+2. The next major visual improvement still requires more modern editorial/surveillance stills or generated assets once image-generation access is available.
+3. Intentional untracked review file remains untouched: `FLASHPOINT_CODE_REVIEW_2026_03_14.md`.

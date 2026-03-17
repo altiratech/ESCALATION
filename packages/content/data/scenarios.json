@@ -3181,36 +3181,36 @@
           "verifiedFacts": [
             {
               "id": "dongsha_anomaly",
-              "title": "Three sensors logged the same six contacts",
+              "title": "Coastal radar, a P-1, and a ferry all logged the same cluster",
               "body": "Taiwanese coastal radar, a Japanese P-1 patrol aircraft, and the bridge crew of the Taima Star ferry all logged the same six-contact cluster south of Dongsha between 04:17 and 04:19 Taipei time."
             },
             {
               "id": "transponder_gap",
-              "title": "Three tracks vanished, then reappeared four miles east",
+              "title": "Three contacts jumped four miles without the time or speed to do it",
               "body": "In the common picture, three contacts dropped out and reappeared about four nautical miles east while duplicate AIS identities continued to broadcast in the original shipping lane."
             }
           ],
           "workingTheories": [
             {
               "id": "coercive_probe",
-              "title": "This may be a rehearsal for stealing warning time",
-              "body": "If this was deliberate, the point may not have been the six contacts themselves. It may have been to learn how long allied operators argue before anyone is willing to say the picture has been touched."
+              "title": "Someone may be measuring how long the coalition argues with a dirty screen",
+              "body": "If this was deliberate, the point may not have been the six contacts themselves. It may have been to learn how long allied operators debate the picture before anyone is willing to say it has been touched."
             },
             {
               "id": "diversion_setup",
-              "title": "The southern noise may be masking a quieter setup elsewhere",
-              "body": "Analysts cannot rule out the possibility that the Dongsha anomaly was meant to pull surveillance south while cyber access or maritime-control preparations moved farther north."
+              "title": "The Dongsha cluster may be the distraction, not the target",
+              "body": "Analysts cannot rule out the possibility that the southern anomaly was meant to pull surveillance south while cyber access or maritime-control preparations moved farther north."
             }
           ],
           "unknowns": [
             {
               "id": "operator_identity",
-              "title": "No one knows who controlled the contacts",
+              "title": "No one knows whether the false tracks were run from shore, the water, or the air",
               "body": "The signatures could point to Coast Guard auxiliaries, militia hulls, a centrally tasked deception cell, or a local commander given unusual freedom. The room does not have that answer yet."
             },
             {
               "id": "follow_on_move",
-              "title": "No one knows whether this was the first move or cover for the real move",
+              "title": "No one knows whether an inspection order, a cyber move, or nothing else follows",
               "body": "There is still no proof linking the anomaly to an inspection order, boarding action, or cyber strike. What unnerves the room is that every one of those branches still fits what was seen."
             }
           ]
@@ -3219,18 +3219,18 @@
           "sections": [
             {
               "id": "pressure_meaning",
-              "title": "Why This Is Dangerous",
-              "body": "If six vessel-sized returns can appear in a routine merchant lane and nobody can say which of them were real, Beijing gets the one thing every later decision depends on: warning time."
+              "title": "What The Wrong Picture Buys Them",
+              "body": "If six vessel-sized returns can sit in a routine merchant lane and nobody can say which are real, Beijing gains the one thing every later move depends on: warning time."
             },
             {
               "id": "decision_question",
-              "title": "What You Have To Decide First",
-              "body": "Do you spend this window buying clarity, do you put visible steel and language into the field, or do you stay quiet long enough to avoid making confusion look like panic?"
+              "title": "The First Choice",
+              "body": "Do you spend this window buying clarity, put visible steel and language into the field, or stay quiet long enough to avoid making confusion look like panic?"
             },
             {
               "id": "closure_risk",
-              "title": "What Could Go Wrong Fast",
-              "body": "A loud public response before attribution is cleaner could hand Beijing the simplest story in the world: Washington panicked first."
+              "title": "The Fastest Way To Lose The Window",
+              "body": "A loud public response before attribution is cleaner could hand Beijing the easiest story in the world: Washington panicked first."
             }
           ]
         },
@@ -3238,7 +3238,7 @@
           "Six Contacts Appear In The Merchant Lane South Of Dongsha",
           "A Patrol Aircraft And Ferry Crew Confirm The Same Jump"
         ],
-        "memoLine": "Desk note: at 04:17 Taipei time, coastal radar south of Dongsha picked up six vessel-sized returns inside the northbound merchant lane. A Japanese P-1 patrol aircraft and the Taima Star ferry logged the same jump minutes later.",
+        "memoLine": "Desk note: at 04:17 Taipei time, coastal radar south of Dongsha picked up six vessel-sized returns in the northbound merchant lane. A Japanese P-1 and the Taima Star ferry logged the same false pattern minutes later.",
         "tickerLine": "Marine insurers flag the southern approaches after duplicate ship identities appear in a lane that should be routine.",
         "imageHints": [
           "taiwan",
@@ -3431,13 +3431,13 @@
           "workingTheories": [
             {
               "id": "picture_manipulation",
-              "title": "The picture itself may now be the weapon",
-              "body": "If the coalition cannot trust routing, it becomes easier to impose safety controls later and harder for carriers to wait for official guidance."
+              "title": "The traffic picture itself may now be the coercive tool",
+              "body": "If the coalition cannot trust routing data, it becomes easier to impose safety controls later and harder for carriers to wait for official guidance."
             },
             {
               "id": "testing_rules",
-              "title": "The coalition may be the real target of the test",
-              "body": "Analysts increasingly suspect the point is to measure who leaks, who reaches for public force, and who freezes when the data goes bad."
+              "title": "The real test may be who moves first when the data goes bad",
+              "body": "Analysts increasingly suspect the point is to measure who leaks, who reaches for public force, and who freezes when the common picture stops making sense."
             }
           ],
           "unknowns": [
@@ -3457,17 +3457,17 @@
           "sections": [
             {
               "id": "signal_meaning",
-              "title": "What Changed In The Room",
+              "title": "The Screen Is Now Suspect",
               "body": "The room is no longer arguing about one strange contact. It is arguing about whether the shared picture of the Strait can still be trusted at all."
             },
             {
               "id": "market_read",
-              "title": "What This Window Forces You To Decide",
-              "body": "Do you act before the legal shell of coercion appears, or do you keep waiting for a cleaner picture that may never come?"
+              "title": "The Next Decision",
+              "body": "Do you act before the legal shell of coercion appears, or keep waiting for a cleaner picture that may never come?"
             },
             {
               "id": "branch_hint",
-              "title": "What Could Break Next",
+              "title": "What A Dirty Screen Allows",
               "body": "If the picture stays contaminated, Beijing can introduce control as paperwork and dare the coalition to call it what it is."
             }
           ]
@@ -3476,7 +3476,7 @@
           "Spoofed Ship Identities Spread Beyond The Original Dongsha Cluster",
           "Operators Stop Trusting The Common Picture"
         ],
-        "memoLine": "Desk note: merchant AIS positions are replaying stale packets, one patrol-aircraft transponder briefly appeared in two places at once, and operators are now treating the corridor picture itself as compromised.",
+        "memoLine": "Desk note: stale AIS packets are replaying in the lane, one patrol-aircraft transponder briefly showed up in two places at once, and operators are now treating the corridor picture itself as compromised.",
         "tickerLine": "Carriers start asking whether routing data can still be trusted before any government uses the word blockade.",
         "imageHints": [
           "taiwan",
@@ -3694,17 +3694,17 @@
           "sections": [
             {
               "id": "signal_meaning",
-              "title": "The Slide Nobody Wanted",
+              "title": "What The Sustainment Slide Changes",
               "body": "Taiwan is now sitting inside the same conversation as magazines, fuel cover, freight risk, and how much bad news Washington can absorb at once."
             },
             {
               "id": "market_hears",
-              "title": "What This Does To Your Choice",
-              "body": "A response that sounds strong but cannot survive three more windows may be worse than a narrower move that the United States and the coalition can actually sustain."
+              "title": "What It Rules Out",
+              "body": "A move that sounds strong but cannot survive three more windows may be worse than a narrower one the United States and the coalition can actually sustain."
             },
             {
               "id": "branch_hint",
-              "title": "What Beijing Could Be Reading",
+              "title": "What Beijing May Think It Learned",
               "body": "If Beijing thinks U.S. buffers are thinner than advertised, it has every reason to keep tightening pressure without crossing the line cleanly."
             }
           ]
@@ -3934,17 +3934,17 @@
           "sections": [
             {
               "id": "signal_meaning",
-              "title": "Paper Before Pressure",
+              "title": "How Control Arrives",
               "body": "The coercion is arriving as forms, coordinates, and route instructions first. That is what makes it hard to answer cleanly and easy for commerce to obey by instinct."
             },
             {
               "id": "what_closes",
-              "title": "What Commercial Actors Will Decide For You",
+              "title": "Who Starts Obeying First",
               "body": "If captains, insurers, and terminals begin acting as though Beijing now grants passage, the corridor starts changing hands before any capital says so out loud."
             },
             {
               "id": "branch_hint",
-              "title": "What Happens If This Lasts One Tide Too Long",
+              "title": "What One Shipping Cycle Can Do",
               "body": "A procedure that survives even one shipping cycle starts to look like the new rule, not a temporary stunt."
             }
           ]
@@ -4499,17 +4499,17 @@
           "sections": [
             {
               "id": "signal_meaning",
-              "title": "Why The Quiet Feels Wrong",
+              "title": "What Made Everyone Exhale",
               "body": "The surface picture is calmer, but the hulls, access rules, and coercive machinery that created the danger are still sitting in the water."
             },
             {
               "id": "why_now",
-              "title": "What Tired People Do In A Lull",
+              "title": "Why That Is Dangerous",
               "body": "This is the hour when markets relax too early, ministers reassure too early, and commanders convince themselves the next shift can handle the bad news."
             },
             {
               "id": "branch_hint",
-              "title": "What Might Already Be Hiding Behind It",
+              "title": "What Still Has Not Moved",
               "body": "A real off-ramp is possible. So is a tactical breath timed to hit a relieved market and a coalition that has already started exhaling."
             }
           ]
