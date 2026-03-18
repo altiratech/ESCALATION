@@ -176,7 +176,10 @@ jobs:
               fi
               local downloaded="tmp/imagegen/workflow-inputs/reference-${index}.${ext}"
               echo "Downloading reference ${index}: ${trimmed}" >&2
-              curl -fsSL "$trimmed" -o "$downloaded"
+              if ! curl -fsSL "$trimmed" -o "$downloaded"; then
+                echo "Failed to download reference image: ${trimmed}" >&2
+                exit 1
+              fi
               printf '%s' "$downloaded"
               return 0
             fi
