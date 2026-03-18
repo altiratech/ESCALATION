@@ -175,7 +175,7 @@ jobs:
                 ext="png"
               fi
               local downloaded="tmp/imagegen/workflow-inputs/reference-${index}.${ext}"
-              echo "Downloading reference ${index}: ${trimmed}"
+              echo "Downloading reference ${index}: ${trimmed}" >&2
               curl -fsSL "$trimmed" -o "$downloaded"
               printf '%s' "$downloaded"
               return 0
