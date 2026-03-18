@@ -119,6 +119,7 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p output/imagegen
+          preview_file="output/imagegen/request-preview.json"
 
           cmd=(
             python scripts/image_gen.py generate
@@ -152,7 +153,11 @@ jobs:
           printf 'Running:'
           printf ' %q' "${cmd[@]}"
           printf '\n'
-          "${cmd[@]}"
+          if [ "${{ inputs.dry_run }}" = "true" ]; then
+            "${cmd[@]}" | tee "$preview_file"
+          else
+            "${cmd[@]}"
+          fi
 
       - name: Upload generated images
         uses: actions/upload-artifact@v4

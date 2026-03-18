@@ -150,7 +150,7 @@ This is the recommended path if you do not want the API key on your laptop or in
 Notes:
 - This keeps the key in GitHub Actions only.
 - The workflow uses the vendored CLI at `scripts/image_gen.py`.
-- `dry_run=true` validates the payload without calling the API.
+- `dry_run=true` validates the payload without calling the API and uploads a `request-preview.json` artifact instead of images.
 
 ### Local Wrapper Path
 Use this if you want faster local iteration and are comfortable keeping the key outside source control.
