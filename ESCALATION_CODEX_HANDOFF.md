@@ -4596,3 +4596,38 @@ All passed.
    - stronger documentary defaults
    - real reference-image anchoring
 3. Intentional untracked review file remains untouched: `FLASHPOINT_CODE_REVIEW_2026_03_14.md`.
+
+#### 66.28 Reference-image workflow hardening + first credible command-center / thermal outputs (2026-03-18)
+
+##### 66.28.1 What changed
+
+1. Fixed `.github/workflows/imagegen.yml` so `materialize_reference()` now exits immediately with a clear error if `curl` cannot download a reference image.
+2. Pushed workflow fix as commit `42d4aae` (`Fail fast on bad image refs`).
+3. Confirmed GitHub Actions could not fetch DVIDS `/download/image/...` URLs (`403`), but could fetch the direct CloudFront image URLs exposed in DVIDS page metadata.
+4. Ran successful reference-edit batches with direct public image URLs:
+   - `23270570327` -> `tw-command-center-v1-*`
+   - `23270570344` -> `tw-surveillance-evidence-v1-*`
+   - `23270838284` -> `tw-command-center-v2-*`
+   - `23270838324` -> `tw-thermal-maritime-v1-*`
+   - `23270838280` -> `tw-white-phosphor-v1-*`
+
+##### 66.28.2 Quality read
+
+1. `tw-command-center-v2` is the strongest category so far and is approaching product-usable realism.
+2. `tw-thermal-maritime-v1` produced credible black/white-hot maritime evidence-style frames.
+3. `tw-white-phosphor-v1` is improved in direction but still reads somewhat synthetic versus the user’s “viewer should think it is real” bar.
+4. Mixed surveillance frames (`tw-surveillance-evidence-v1`) were useful for learning, but splitting thermal and white-phosphor into separate prompt families produced a clearer result.
+
+##### 66.28.3 Important operational note
+
+1. Chat-attached images from the user are still best treated as art-direction guidance unless they also exist as repo files or public URLs.
+2. Current best input order for `edit` mode is:
+   - direct public image URLs (preferred)
+   - repo-local reference images
+   - chat attachments only as non-executable visual guidance
+
+##### 66.28.4 Next move
+
+1. Shortlist the best `tw-command-center-v2` and `tw-thermal-maritime-v1` outputs for promotion into `apps/web/public/assets/images/`.
+2. Keep iterating white-phosphor NVG with even stricter documentary / sensor-native prompting until it no longer reads synthetic.
+3. After that, return to standard-USCG compliance/interdiction imagery and separate it cleanly from MSRT escalation imagery in the product pack.
