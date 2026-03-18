@@ -141,9 +141,21 @@ This is the recommended path if you do not want the API key on your laptop or in
 - `.github/workflows/imagegen.yml`
 - workflow name: `Flashpoint Image Generation`
 
-3. Provide the prompt and any optional scene/style fields in the workflow form.
+3. Choose `mode`:
+- `generate` for pure text-to-image
+- `edit` to anchor against one or more real reference images
 
-4. Download the generated artifact from the workflow run, review it, and only then move selected finals into:
+4. Provide the prompt and any optional scene/style fields in the workflow form.
+
+5. In `edit` mode, use `reference_images` to provide either:
+- repo-relative image paths already present on the checked-out branch, or
+- public HTTPS URLs separated by commas or new lines
+
+You can also supply:
+- `input_fidelity=high` to stay closer to the reference image(s)
+- `mask_path` for a repo-relative PNG mask if you want to constrain the edit region
+
+6. Download the generated artifact from the workflow run, review it, and only then move selected finals into:
 - `apps/web/public/assets/images/`
 - `packages/content/data/images.json`
 
@@ -151,6 +163,7 @@ Notes:
 - This keeps the key in GitHub Actions only.
 - The workflow uses the vendored CLI at `scripts/image_gen.py`.
 - `dry_run=true` validates the payload without calling the API and uploads a `request-preview.json` artifact instead of images.
+- Workflow defaults now bias toward documentary/wire-service realism rather than cinematic poster styling. For Flashpoint, prefer real-world reference imagery plus `edit` mode whenever the first text-only generation still looks synthetic.
 
 ### Local Wrapper Path
 Use this if you want faster local iteration and are comfortable keeping the key outside source control.
@@ -167,7 +180,7 @@ EOF
 
 ```bash
 ./scripts/imagegen.sh generate \
-  --prompt "Modern coast guard boarding party at dawn in the Taiwan Strait, editorial newspaper photography, realistic vessel details, no text" \
+  --prompt "Modern maritime interdiction at dawn in the Taiwan Strait, wire-service editorial photojournalism, realistic vessel details" \
   --size 1536x1024 \
   --quality high \
   --out output/imagegen/tw-boarding-dawn.png

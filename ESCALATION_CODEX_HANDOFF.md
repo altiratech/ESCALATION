@@ -4543,3 +4543,56 @@ All passed.
 1. `OPENAI_API_KEY` is not yet present in GitHub repo secrets for `altiratech/ESCALATION`.
 2. The workflow is ready, but live generation will fail until that secret is added.
 3. Intentional untracked review file remains untouched: `FLASHPOINT_CODE_REVIEW_2026_03_14.md`.
+
+### 66.27 Image workflow realism defaults + reference-image edit path (2026-03-17)
+
+#### 66.27.1 What shipped
+
+1. Updated `.github/workflows/imagegen.yml` to add a required `mode` input with:
+   - `generate` for pure text-to-image
+   - `edit` for reference-image anchored generation
+2. Added workflow inputs for:
+   - `reference_images`
+   - `mask_path`
+   - `input_fidelity`
+3. `reference_images` now accepts either:
+   - repo-relative image paths already present on the checked-out branch, or
+   - public `https://` URLs, which the workflow downloads into `tmp/imagegen/workflow-inputs/` before calling the CLI
+4. Changed the workflow defaults away from cinematic prompting and toward documentary realism:
+   - `style`: `wire-service editorial photojournalism`
+   - `composition`: `telephoto news photography from nearby support craft, slightly imperfect framing, grounded realism`
+   - `lighting`: `natural available light, maritime haze, restrained documentary tension`
+   - `constraints`: now allow official service markings while still forbidding watermarks
+   - `negative`: now pushes away from painterly / animated / HDR / movie-poster output
+5. Updated `README.md` so the GitHub authoring path now documents:
+   - `generate` vs `edit`
+   - reference-image URL/path usage
+   - `input_fidelity`
+   - the new documentary-realism bias
+
+#### 66.27.2 Why it matters
+
+1. The first successful text-to-image batch proved the workflow worked, but the image still read as a strong AI-generated mood frame rather than a trustworthy newsroom photograph.
+2. Flashpoint needs real-world, wire-service-grade credibility more than cinematic polish.
+3. The repo already had edit support in `scripts/image_gen.py`; exposing it in the workflow removes the need to invent a second tool path.
+
+#### 66.27.3 Validation
+
+1. Parsed the updated workflow YAML.
+2. Confirmed `scripts/image_gen.py` already supports:
+   - `edit`
+   - multiple `--image` inputs
+   - `--mask`
+   - `--input-fidelity`
+3. Verified the latest successful real generation run (`23225160792`) produced:
+   - `tw-boarding-dawn.png`
+   - `tw-boarding-dawn-web.png`
+
+#### 66.27.4 Open note
+
+1. The pipeline is now healthy end-to-end.
+2. The remaining quality risk is not workflow plumbing but asset direction:
+   - better prompts
+   - stronger documentary defaults
+   - real reference-image anchoring
+3. Intentional untracked review file remains untouched: `FLASHPOINT_CODE_REVIEW_2026_03_14.md`.
