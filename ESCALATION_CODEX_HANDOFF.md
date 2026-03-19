@@ -4631,3 +4631,53 @@ All passed.
 1. Shortlist the best `tw-command-center-v2` and `tw-thermal-maritime-v1` outputs for promotion into `apps/web/public/assets/images/`.
 2. Keep iterating white-phosphor NVG with even stricter documentary / sensor-native prompting until it no longer reads synthetic.
 3. After that, return to standard-USCG compliance/interdiction imagery and separate it cleanly from MSRT escalation imagery in the product pack.
+
+#### 66.29 Asset promotion + Coast Guard-specific white phosphor
+
+##### 66.29.1 What changed
+
+1. Ran one more Coast Guard-specific white-phosphor batch using repo-local references:
+   - `apps/web/public/assets/images/tw_bs_029_coast_guard_boarding.jpg`
+   - `apps/web/public/assets/images/tw_bs_030_nvg_watch.jpg`
+2. Successful GitHub workflow run:
+   - `23307314910` -> `tw-white-phosphor-v4-*`
+3. Promoted three generated stills into the repo:
+   - `apps/web/public/assets/images/tw_bs_034_command_center_watchfloor.png`
+   - `apps/web/public/assets/images/tw_bs_035_thermal_maritime.png`
+   - `apps/web/public/assets/images/tw_bs_036_white_phosphor_uscg_watch.png`
+4. Added new image metadata in `packages/content/data/images.json`.
+5. Rewired key black-swan beats in `packages/content/data/scenarios.json` so the live briefing now prefers:
+   - `tw_bs_034` for command-center / watchfloor beats
+   - `tw_bs_035` for thermal evidence in crisis/climax
+   - `tw_bs_036` for Coast Guard-specific white-phosphor night watch / boarding evidence
+6. Updated `apps/web/public/assets/images/ATTRIBUTION.md` to log the generated-asset workflow runs and reference basis.
+
+##### 66.29.2 Validation
+
+1. `npm run lint` passed
+2. `npx vitest run tests/engine/images.test.ts` passed
+3. `npm run build --workspace @wargames/web` passed
+4. `npm run ci:phase1` passed
+5. Current totals:
+   - `16/16` test files passed
+   - `39/39` tests passed
+
+##### 66.29.3 Quality read
+
+1. `tw_bs_034_command_center_watchfloor.png` is now the strongest command-center asset in the product pack and benefits from:
+   - less brittle visible text
+   - more realistic room clutter / glare
+   - cleaner Taiwan Strait wall-display geometry
+2. `tw_bs_035_thermal_maritime.png` is strong enough to use as live evidence imagery now.
+3. `tw_bs_036_white_phosphor_uscg_watch.png` is materially better than earlier NVG batches because it keeps:
+   - through-tube framing
+   - believable Coast Guard markings
+   - shallow analog depth-of-field
+   - more credible tube noise / blemishes
+4. Remaining weakness is subtle: the images are now usable, but some command-center / NVG outputs still carry a faint generated sheen rather than pure wire-photo realism.
+
+##### 66.29.4 Current best next move
+
+1. Review the updated beats in the live app and confirm the promoted images are showing in the expected windows.
+2. If the remaining sheen is still distracting, do one more command-center refinement pass.
+3. Otherwise, shift the next image push toward expanding the standard-USCG daytime/interdiction library and keep it visually separate from the later MSRT escalation set.

@@ -3280,7 +3280,7 @@
           "caption": "At 04:17 six vessel-sized returns appeared south of Dongsha, and three of them reappeared four nautical miles east minutes later.",
           "heroImageIds": [
             "tw_bs_031",
-            "tw_bs_028"
+            "tw_bs_034"
           ],
           "evidenceImageIds": [
             "tw_bs_032",
@@ -3516,7 +3516,7 @@
           "branchStage": "compression",
           "caption": "Duplicate AIS identities and mirrored transponder data are now contaminating the common picture across the lane.",
           "heroImageIds": [
-            "tw_bs_028",
+            "tw_bs_034",
             "tw_bs_031"
           ],
           "evidenceImageIds": [
@@ -3757,7 +3757,7 @@
           "branchStage": "compression",
           "caption": "The wall now carries munitions burn, SPR drawdown, and Pacific reinforcement timelines on the same slide.",
           "heroImageIds": [
-            "tw_bs_033",
+            "tw_bs_034",
             "tw_bs_021"
           ],
           "evidenceImageIds": [
@@ -4325,7 +4325,7 @@
             "tw_bs_022"
           ],
           "evidenceImageIds": [
-            "tw_bs_030",
+            "tw_bs_036",
             "tw_bs_006",
             "tw_bs_032"
           ]
@@ -4820,10 +4820,10 @@
           "caption": "War-risk cover is disappearing, chip buyers are hoarding, and one bad warning track could now land in the same hour as commercial panic.",
           "heroImageIds": [
             "tw_bs_023",
-            "tw_bs_033"
+            "tw_bs_034"
           ],
           "evidenceImageIds": [
-            "tw_bs_030",
+            "tw_bs_035",
             "tw_bs_032"
           ]
         }
@@ -5164,11 +5164,11 @@
           "branchStage": "collapse",
           "caption": "Ports, ATMs, hotlines, and trading desks are all waiting on the same hour now.",
           "heroImageIds": [
-            "tw_bs_033",
+            "tw_bs_034",
             "tw_bs_023"
           ],
           "evidenceImageIds": [
-            "tw_bs_030",
+            "tw_bs_035",
             "tw_bs_032"
           ]
         }
@@ -5848,7 +5848,7 @@
             "tw_bs_029"
           ],
           "evidenceImageIds": [
-            "tw_bs_030",
+            "tw_bs_035",
             "tw_bs_032"
           ]
         }
@@ -6073,8 +6073,8 @@
           "branchStage": "collapse",
           "caption": "The first strike is limited in target count. The fear it unleashes is not.",
           "heroImageIds": [
-            "tw_bs_033",
-            "tw_bs_030"
+            "tw_bs_034",
+            "tw_bs_035"
           ],
           "evidenceImageIds": [
             "tw_bs_032"
@@ -6302,10 +6302,10 @@
           "caption": "The coast now looks active enough that carriers, civilians, and governments all have to plan as if a real crossing could follow.",
           "heroImageIds": [
             "tw_bs_032",
-            "tw_bs_030"
+            "tw_bs_035"
           ],
           "evidenceImageIds": [
-            "tw_bs_033"
+            "tw_bs_034"
           ]
         }
       }

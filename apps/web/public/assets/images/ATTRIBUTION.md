@@ -72,3 +72,20 @@ This directory contains a mix of authored local SVG placeholders and curated rea
   - Source: U.S. Navy photo
   - Source page: https://www.dvidshub.net/image/9504271/us-sailor-stands-watch-in-the-combat-information-center
   - License: Public domain
+
+## Generated reference-guided stills
+
+- `tw_bs_034_command_center_watchfloor.png`
+  - Source: Generated with the Flashpoint OpenAI image-edit workflow
+  - Workflow run: `23305774022`
+  - Reference basis: modern command-center photography plus Flashpoint-specific Taiwan Strait prompt direction
+
+- `tw_bs_035_thermal_maritime.png`
+  - Source: Generated with the Flashpoint OpenAI image-edit workflow
+  - Workflow run: `23270838324`
+  - Reference basis: real maritime thermal surveillance imagery plus Flashpoint prompt direction
+
+- `tw_bs_036_white_phosphor_uscg_watch.png`
+  - Source: Generated with the Flashpoint OpenAI image-edit workflow
+  - Workflow run: `23307314910`
+  - Reference basis: `tw_bs_029_coast_guard_boarding.jpg`, `tw_bs_030_nvg_watch.jpg`, and Coast Guard-specific white-phosphor guidance

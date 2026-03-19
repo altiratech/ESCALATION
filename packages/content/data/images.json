@@ -1145,5 +1145,79 @@
     ],
     "alt": "Modern U.S. Navy watchstander at a combat information center console",
     "caption": "Visible deterrence looks like this: real watchstanders checking fuel, reload time, and the next track while the hotline lags behind the picture."
+  },
+  {
+    "id": "tw_bs_034",
+    "path": "/assets/images/tw_bs_034_command_center_watchfloor.png",
+    "kind": "documentary_still",
+    "domain": "military",
+    "severity": 3,
+    "environment": "coastal",
+    "perspective": "news_frame",
+    "tags": [
+      "taiwan",
+      "cic",
+      "watchfloor",
+      "command_center",
+      "screen",
+      "warning_time",
+      "phase_opening",
+      "phase_rising",
+      "phase_crisis",
+      "phase_climax",
+      "visible"
+    ],
+    "alt": "Modern command-center watchfloor monitoring the Taiwan Strait on large wall displays",
+    "caption": "This is the room where ambiguity stops being abstract: live traffic, hotline notes, and Taiwan Strait geometry are all on the wall at once."
+  },
+  {
+    "id": "tw_bs_035",
+    "path": "/assets/images/tw_bs_035_thermal_maritime.png",
+    "kind": "artifact",
+    "domain": "military",
+    "severity": 4,
+    "environment": "coastal",
+    "perspective": "surveillance",
+    "tags": [
+      "taiwan",
+      "thermal",
+      "maritime",
+      "surveillance",
+      "screen",
+      "covert",
+      "night_ops",
+      "incident",
+      "tail_risk",
+      "phase_crisis",
+      "phase_climax"
+    ],
+    "alt": "Thermal surveillance view of a small boat moving at night with a classified overlay",
+    "caption": "Thermal is where the lane starts looking dangerous at night: a small craft, live bodies on deck, and enough heat signature to know this is not harmless traffic."
+  },
+  {
+    "id": "tw_bs_036",
+    "path": "/assets/images/tw_bs_036_white_phosphor_uscg_watch.png",
+    "kind": "artifact",
+    "domain": "military",
+    "severity": 4,
+    "environment": "coastal",
+    "perspective": "surveillance",
+    "tags": [
+      "taiwan",
+      "coast_guard",
+      "night_vision",
+      "white_phosphor",
+      "boarding",
+      "shipping",
+      "surveillance",
+      "night_ops",
+      "incident",
+      "tail_risk",
+      "phase_crisis",
+      "phase_climax",
+      "visible"
+    ],
+    "alt": "White-phosphor night-vision view of a Coast Guard boarding approach alongside a cargo ship",
+    "caption": "Through the tube, this is what a compliance stop looks like when it is one bad move away from becoming force: a ladder on the hull, a small boat holding station, and Coast Guard gear lit by reflections off black water."
   }
 ]
