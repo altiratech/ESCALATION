@@ -84,8 +84,10 @@ const rankedCuratedAssets = (
     return [];
   }
 
-  const allowed = new Set(ids);
-  return ranked.filter((entry) => allowed.has(entry.asset.id));
+  const rankedById = new Map(ranked.map((entry) => [entry.asset.id, entry]));
+  return ids
+    .map((id) => rankedById.get(id))
+    .filter((entry): entry is { asset: ImageAsset; score: number } => Boolean(entry));
 };
 
 const scoreKind = (asset: ImageAsset, preferredKinds: ImageAssetKind[]): number => {
@@ -112,16 +114,16 @@ const scoreAssetRealism = (asset: ImageAsset): number => {
   }
 
   const lowerPath = asset.path.toLowerCase();
+  if (lowerPath.endsWith('.svg')) {
+    return -18;
+  }
+
   if (lowerPath.endsWith('.jpg') || lowerPath.endsWith('.jpeg') || lowerPath.endsWith('.png') || lowerPath.endsWith('.webp')) {
     return 8;
   }
 
   if (asset.kind === 'map' || asset.kind === 'artifact') {
     return 0;
-  }
-
-  if (lowerPath.endsWith('.svg')) {
-    return -4;
   }
 
   return 0;
@@ -220,15 +222,21 @@ export const chooseImageAsset = ({
   const requestedTags = normalizedTags([...beatTags, ...actionTags, ...variantTags]);
 
   const available = assets.filter((asset) => !recentImageIds.includes(asset.id));
+  const scoredAll = assets
+    .map((asset) => ({
+      asset,
+      score: scoreAsset(asset, scenario, dominantDomain, severity, preferredKinds, beatTags, actionTags, variantTags)
+    }))
+    .sort((left, right) => right.score - left.score || left.asset.id.localeCompare(right.asset.id));
   const scored = (available.length > 0 ? available : assets)
     .map((asset) => ({
       asset,
       score: scoreAsset(asset, scenario, dominantDomain, severity, preferredKinds, beatTags, actionTags, variantTags)
     }))
-    .sort((left, right) => right.score - left.score);
+    .sort((left, right) => right.score - left.score || left.asset.id.localeCompare(right.asset.id));
 
-  const curatedHero = rankedCuratedAssets(scored, beat?.visualCue?.heroImageIds);
-  if (curatedHero.length > 0 && (curatedHero[0]?.score ?? 0) > 0) {
+  const curatedHero = rankedCuratedAssets(scoredAll, beat?.visualCue?.heroImageIds);
+  if (curatedHero.length > 0) {
     return curatedHero[0]?.asset ?? null;
   }
 
@@ -264,6 +272,21 @@ export const chooseImageGallery = (
   const variantTags = buildVariantTags(options.playerVariant);
   const available = options.assets.filter((asset) => !options.recentImageIds.includes(asset.id));
 
+  const rankedAll = options.assets
+    .map((asset) => ({
+      asset,
+      score: scoreAsset(
+        asset,
+        options.scenario,
+        dominantDomain,
+        severity,
+        preferredKinds,
+        beatTags,
+        actionTags,
+        variantTags
+      )
+    }))
+    .sort((left, right) => right.score - left.score || left.asset.id.localeCompare(right.asset.id));
   const ranked = (available.length > 0 ? available : options.assets)
     .map((asset) => ({
       asset,
@@ -287,26 +310,19 @@ export const chooseImageGallery = (
     (options.beat?.visualCue?.heroImageIds?.length ?? 0) > 0 ||
     (options.beat?.visualCue?.evidenceImageIds?.length ?? 0) > 0;
 
-  const curatedHero = rankedCuratedAssets(ranked, options.beat?.visualCue?.heroImageIds);
+  const curatedHero = rankedCuratedAssets(rankedAll, options.beat?.visualCue?.heroImageIds);
   if (curatedHero.length > 0) {
     selected.push(curatedHero[0]!.asset);
     usedKinds.add(curatedHero[0]!.asset.kind);
     usedPerspectives.add(curatedHero[0]!.asset.perspective);
   }
 
-  const curatedEvidence = rankedCuratedAssets(ranked, options.beat?.visualCue?.evidenceImageIds)
+  const curatedEvidence = rankedCuratedAssets(rankedAll, options.beat?.visualCue?.evidenceImageIds)
     .filter((entry) => !selected.some((asset) => asset.id === entry.asset.id));
 
   for (const { asset } of curatedEvidence) {
     if (selected.length >= count) {
       break;
-    }
-
-    const adjustedScore = ranked.find((entry) => entry.asset.id === asset.id)?.score ?? 0;
-    const sameKindPenalty = usedKinds.has(asset.kind) ? 3 : 0;
-    const samePerspectivePenalty = usedPerspectives.has(asset.perspective) ? 2 : 0;
-    if (selected.length > 0 && adjustedScore - sameKindPenalty - samePerspectivePenalty < 2) {
-      continue;
     }
 
     selected.push(asset);

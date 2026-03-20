@@ -3279,13 +3279,12 @@
           "branchStage": "ambiguous",
           "caption": "At 04:17 six vessel-sized returns appeared south of Dongsha, and three of them reappeared four nautical miles east minutes later.",
           "heroImageIds": [
-            "tw_bs_031",
-            "tw_bs_034"
+            "tw_bs_034",
+            "tw_bs_028"
           ],
           "evidenceImageIds": [
             "tw_bs_032",
-            "tw_bs_001",
-            "tw_bs_002"
+            "tw_bs_028"
           ]
         }
       },
@@ -3516,13 +3515,12 @@
           "branchStage": "compression",
           "caption": "Duplicate AIS identities and mirrored transponder data are now contaminating the common picture across the lane.",
           "heroImageIds": [
-            "tw_bs_034",
-            "tw_bs_031"
+            "tw_bs_028",
+            "tw_bs_034"
           ],
           "evidenceImageIds": [
-            "tw_bs_002",
             "tw_bs_032",
-            "tw_bs_014"
+            "tw_bs_034"
           ]
         }
       },
@@ -3758,11 +3756,11 @@
           "caption": "The wall now carries munitions burn, SPR drawdown, and Pacific reinforcement timelines on the same slide.",
           "heroImageIds": [
             "tw_bs_034",
-            "tw_bs_021"
+            "tw_bs_028"
           ],
           "evidenceImageIds": [
-            "tw_bs_032",
-            "tw_bs_019"
+            "tw_bs_021",
+            "tw_bs_032"
           ]
         }
       },
@@ -4041,7 +4039,7 @@
           ],
           "evidenceImageIds": [
             "tw_bs_032",
-            "tw_bs_014"
+            "tw_bs_034"
           ]
         }
       },
@@ -4321,12 +4319,11 @@
           "branchStage": "incident",
           "caption": "The boarding clip is public, a deckhand is hurt, and west-coast port systems are failing in the same hour.",
           "heroImageIds": [
-            "tw_bs_029",
-            "tw_bs_022"
+            "tw_bs_035",
+            "tw_bs_034"
           ],
           "evidenceImageIds": [
-            "tw_bs_036",
-            "tw_bs_006",
+            "tw_bs_034",
             "tw_bs_032"
           ]
         }
@@ -4573,7 +4570,7 @@
           ],
           "evidenceImageIds": [
             "tw_bs_032",
-            "tw_bs_014"
+            "tw_bs_034"
           ]
         }
       },

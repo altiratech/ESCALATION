@@ -4681,3 +4681,42 @@ All passed.
 1. Review the updated beats in the live app and confirm the promoted images are showing in the expected windows.
 2. If the remaining sheen is still distracting, do one more command-center refinement pass.
 3. Otherwise, shift the next image push toward expanding the standard-USCG daytime/interdiction library and keep it visually separate from the later MSRT escalation set.
+
+#### 66.30 Beat-curation selector fix + legacy slide cleanup
+
+##### 66.30.1 What changed
+
+1. Fixed the selector so beat-authored `heroImageIds` and `evidenceImageIds` are now honored in authored order instead of being silently re-ranked by score.
+2. Curated beat imagery is now allowed even if the same asset appeared recently; recency suppression remains only for generic fallback selection.
+3. Increased the realism penalty on legacy `.svg` visuals so old PowerPoint-style slide assets no longer displace photoreal curated stills in later windows.
+4. Cleaned the active black-swan beat authoring in `packages/content/data/scenarios.json`:
+   - Opening / early windows now use the newer command-center + satellite family instead of `tw_bs_001`, `tw_bs_002`, `tw_bs_014`, and `tw_bs_019`.
+   - `ns_bandwidth_stockpiles` now demotes `tw_bs_021` to supporting context instead of letting it lead the beat.
+   - `ns_first_irreversible_incident` no longer leads with U.S. Coast Guard hero art that implied the wrong actor for the described China Coast Guard incident.
+5. Added regression tests covering:
+   - authored hero order winning over score
+   - curated assets still showing even if they were used recently
+
+##### 66.30.2 Validation
+
+1. `npx vitest run tests/engine/images.test.ts` passed
+2. `npm run build --workspace @wargames/web` passed
+3. `npm run lint` passed
+4. `npm run ci:phase1` passed
+5. Current totals:
+   - `16/16` test files passed
+   - `41/41` tests passed
+
+##### 66.30.3 Why this matters
+
+1. This directly addresses the product failures visible in live review:
+   - Turn 2 repeating Turn 1's image
+   - Turn 3 / Turn 7 falling back into old slide-style visuals
+   - Window 5 showing the wrong actor through U.S. Coast Guard hero imagery
+2. The problem is now much more clearly a content-library gap in a few later beats, not a selector bug reintroducing retired visuals.
+
+##### 66.30.4 Best next move
+
+1. Live-review the updated opening, rising, crisis, and tail-risk windows to confirm the new curated ordering is actually surfacing in the browser.
+2. If any remaining window still falls back to the old slide family, search for explicit legacy asset ids in `scenarios.json` first before generating more art.
+3. If the actor mismatch is still too soft in the first irreversible incident, generate or source a China Coast Guard / PRC maritime-enforcement-equivalent still rather than reusing U.S. Coast Guard imagery.

@@ -429,6 +429,66 @@ describe('image selection', () => {
     );
   });
 
+  it('treats authored hero order as authoritative even when a later hero scores better', () => {
+    const scenario = { environment: 'coastal' } as ScenarioDefinition;
+    const beat = {
+      id: 'curated_hero_order',
+      phase: 'opening',
+      imageHints: ['taiwan', 'anomaly'],
+      visualCue: {
+        preferredKinds: ['documentary_still', 'artifact', 'map'],
+        tags: ['taiwan', 'anomaly', 'surveillance'],
+        branchStage: 'ambiguous',
+        heroImageIds: ['first_hero', 'second_hero']
+      }
+    } as BeatNode;
+    const assets = [
+      {
+        id: 'first_hero',
+        kind: 'documentary_still',
+        path: '/assets/images/first.jpg',
+        alt: 'First hero',
+        caption: 'First hero',
+        environment: 'coastal',
+        domain: 'military',
+        severity: 1,
+        perspective: 'news_frame',
+        tags: ['taiwan', 'anomaly']
+      },
+      {
+        id: 'second_hero',
+        kind: 'documentary_still',
+        path: '/assets/images/second.jpg',
+        alt: 'Second hero',
+        caption: 'Second hero',
+        environment: 'coastal',
+        domain: 'military',
+        severity: 1,
+        perspective: 'news_frame',
+        tags: ['taiwan', 'anomaly', 'surveillance', 'covert', 'warning_time']
+      }
+    ] satisfies ImageAsset[];
+
+    const selected = chooseImageAsset({
+      assets,
+      scenario,
+      beat,
+      meters: {
+        economicStability: 71,
+        energySecurity: 69,
+        domesticCohesion: 68,
+        militaryReadiness: 57,
+        allianceTrust: 63,
+        escalationIndex: 40
+      },
+      turnDelta: zeroShift,
+      recentImageIds: [],
+      rng: new SeededRng('IMG-CURATED-ORDER')
+    });
+
+    expect(selected?.id).toBe('first_hero');
+  });
+
   it('does not auto-fill curated galleries with weak fallback images', () => {
     const scenario = { environment: 'coastal' } as ScenarioDefinition;
     const beat = {
@@ -500,5 +560,78 @@ describe('image selection', () => {
     });
 
     expect(gallery.map((asset) => asset.id)).toEqual(['hero_photo', 'evidence_satellite']);
+  });
+
+  it('still uses authored curated assets even if they appeared recently', () => {
+    const scenario = { environment: 'coastal' } as ScenarioDefinition;
+    const beat = {
+      id: 'curated_recent_assets',
+      phase: 'climax',
+      imageHints: ['taiwan', 'shipping'],
+      visualCue: {
+        preferredKinds: ['documentary_still', 'artifact', 'map'],
+        tags: ['shipping', 'tail_risk'],
+        branchStage: 'tail_risk',
+        heroImageIds: ['hero_recent'],
+        evidenceImageIds: ['evidence_recent']
+      }
+    } as BeatNode;
+    const assets = [
+      {
+        id: 'hero_recent',
+        kind: 'documentary_still',
+        path: '/assets/images/hero.jpg',
+        alt: 'Hero recent',
+        caption: 'Hero recent',
+        environment: 'coastal',
+        domain: 'economy',
+        severity: 3,
+        perspective: 'news_frame',
+        tags: ['taiwan', 'shipping', 'tail_risk']
+      },
+      {
+        id: 'evidence_recent',
+        kind: 'artifact',
+        path: '/assets/images/evidence.png',
+        alt: 'Evidence recent',
+        caption: 'Evidence recent',
+        environment: 'coastal',
+        domain: 'military',
+        severity: 3,
+        perspective: 'surveillance',
+        tags: ['taiwan', 'shipping', 'tail_risk']
+      },
+      {
+        id: 'fallback_slide',
+        kind: 'scenario_still',
+        path: '/assets/images/fallback.svg',
+        alt: 'Fallback slide',
+        caption: 'Fallback slide',
+        environment: 'coastal',
+        domain: 'economy',
+        severity: 4,
+        perspective: 'news_frame',
+        tags: ['taiwan', 'shipping', 'tail_risk', 'queue', 'collapse']
+      }
+    ] satisfies ImageAsset[];
+
+    const gallery = chooseImageGallery({
+      assets,
+      scenario,
+      beat,
+      meters: {
+        economicStability: 38,
+        energySecurity: 44,
+        domesticCohesion: 45,
+        militaryReadiness: 58,
+        allianceTrust: 49,
+        escalationIndex: 79
+      },
+      turnDelta: zeroShift,
+      recentImageIds: ['hero_recent', 'evidence_recent'],
+      rng: new SeededRng('IMG-CURATED-RECENT')
+    });
+
+    expect(gallery.map((asset) => asset.id)).toEqual(['hero_recent', 'evidence_recent']);
   });
 });

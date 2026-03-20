@@ -79,6 +79,10 @@ const previewImageRealismScore = (asset: ImageAsset): number => {
   }
 
   const lowerPath = asset.path.toLowerCase();
+  if (lowerPath.endsWith('.svg')) {
+    return -18;
+  }
+
   if (lowerPath.endsWith('.jpg') || lowerPath.endsWith('.jpeg') || lowerPath.endsWith('.png') || lowerPath.endsWith('.webp')) {
     return 8;
   }
@@ -87,7 +91,7 @@ const previewImageRealismScore = (asset: ImageAsset): number => {
     return 0;
   }
 
-  return lowerPath.endsWith('.svg') ? -4 : 0;
+  return 0;
 };
 
 const isPhotorealAsset = (asset: ImageAsset): boolean => {
@@ -226,8 +230,10 @@ const rankedCuratedPreviewAssets = (
     return [];
   }
 
-  const allowed = new Set(ids);
-  return candidates.filter((entry) => allowed.has(entry.asset.id));
+  const candidatesById = new Map(candidates.map((entry) => [entry.asset.id, entry]));
+  return ids
+    .map((id) => candidatesById.get(id))
+    .filter((entry): entry is { asset: ImageAsset; score: number } => Boolean(entry));
 };
 
 const pickPreviewImageAssets = (
@@ -260,53 +266,59 @@ const pickPreviewImageAssets = (
       .map((tag) => tag.toLowerCase())
   );
 
-  const candidates = reference.images
-    .filter((asset) => asset.environment === scenario.environment || asset.environment === 'generic')
-    .map((asset) => {
-      const kindScore = preferredKinds.includes(asset.kind)
-        ? (preferredKinds.length - preferredKinds.indexOf(asset.kind)) * 6
-        : 0;
-      const tagScore = asset.tags.reduce(
-        (score, tag) => score + (requestedTags.has(tag.toLowerCase()) ? 4 : 0),
-        0
-      );
-      const mapPenalty =
-        asset.kind === 'map' && preferredKinds[0] !== 'map' && !requestedTags.has('map') ? -6 : 0;
-      const realismScore = previewImageRealismScore(asset);
-      const recentPenalty = recentImageIds.includes(asset.id) ? -12 : 0;
+  const scoreCandidate = (asset: ImageAsset): { asset: ImageAsset; score: number } => {
+    const kindScore = preferredKinds.includes(asset.kind)
+      ? (preferredKinds.length - preferredKinds.indexOf(asset.kind)) * 6
+      : 0;
+    const tagScore = asset.tags.reduce(
+      (score, tag) => score + (requestedTags.has(tag.toLowerCase()) ? 4 : 0),
+      0
+    );
+    const mapPenalty =
+      asset.kind === 'map' && preferredKinds[0] !== 'map' && !requestedTags.has('map') ? -6 : 0;
+    const realismScore = previewImageRealismScore(asset);
+    const recentPenalty = recentImageIds.includes(asset.id) ? -12 : 0;
 
+    return {
+      asset,
+      score: kindScore + tagScore + mapPenalty + realismScore + recentPenalty
+    };
+  };
+
+  const scopedAssets = reference.images.filter(
+    (asset) => asset.environment === scenario.environment || asset.environment === 'generic'
+  );
+  const allCandidates = scopedAssets
+    .map((asset) => {
+      const candidate = scoreCandidate(asset);
       return {
-        asset,
-        score: kindScore + tagScore + mapPenalty + realismScore + recentPenalty
+        ...candidate,
+        score: candidate.score + (recentImageIds.includes(asset.id) ? 12 : 0)
       };
     })
+    .sort((left, right) => right.score - left.score || left.asset.id.localeCompare(right.asset.id));
+  const candidates = scopedAssets
+    .map((asset) => scoreCandidate(asset))
     .sort((left, right) => right.score - left.score || left.asset.id.localeCompare(right.asset.id));
 
   const selected: ImageAsset[] = [];
   const usedKinds = new Set<ImageAsset['kind']>();
   const usedPerspectives = new Set<ImageAsset['perspective']>();
 
-  const curatedHero = rankedCuratedPreviewAssets(candidates, beat.visualCue?.heroImageIds);
+  const curatedHero = rankedCuratedPreviewAssets(allCandidates, beat.visualCue?.heroImageIds);
   if (curatedHero.length > 0) {
     selected.push(curatedHero[0]!.asset);
     usedKinds.add(curatedHero[0]!.asset.kind);
     usedPerspectives.add(curatedHero[0]!.asset.perspective);
   }
 
-  const curatedEvidence = rankedCuratedPreviewAssets(candidates, beat.visualCue?.evidenceImageIds).filter(
+  const curatedEvidence = rankedCuratedPreviewAssets(allCandidates, beat.visualCue?.evidenceImageIds).filter(
     (entry) => !selected.some((asset) => asset.id === entry.asset.id)
   );
 
   for (const candidate of curatedEvidence) {
     if (selected.length >= count) {
       break;
-    }
-
-    const diversityPenalty =
-      (usedKinds.has(candidate.asset.kind) ? 3 : 0) +
-      (usedPerspectives.has(candidate.asset.perspective) ? 2 : 0);
-    if (selected.length > 0 && candidate.score - diversityPenalty < 2) {
-      continue;
     }
 
     selected.push(candidate.asset);
