@@ -3,7 +3,7 @@
 import fs from "node:fs";
 import path from "node:path";
 
-const repoRoot = "/Users/ryanjameson/Desktop/Lifehub/Code/active/Wargames";
+const repoRoot = "/Users/ryanjameson/Desktop/Lifehub/Code/active/flashpoint";
 const dataDir = path.join(repoRoot, "packages/content/data");
 const imageCatalogPath = path.join(dataDir, "images.json");
 const scenariosPath = path.join(dataDir, "scenarios.json");

@@ -1,4 +1,4 @@
-# Wargames Agent Rules
+# Flashpoint Agent Rules
 
 Read first:
 - `CURRENT_STATUS.md`
