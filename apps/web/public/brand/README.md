@@ -1,4 +1,4 @@
-Altira brand bundle for Flashpoint / Wargames public assets.
+Legacy Altira brand assets retained for Flashpoint public assets.
 
 Included assets:
 - `altira-wordmark-dark.png`
@@ -6,4 +6,4 @@ Included assets:
 - `altira-icon-dark.png`
 - `altira-icon-light.png`
 
-Source pack: `/Users/ryanjameson/Desktop/png`
+Source pack: local operator asset folder at `/Users/ryanjameson/Desktop/png`
