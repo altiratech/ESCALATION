@@ -4720,3 +4720,31 @@ All passed.
 1. Live-review the updated opening, rising, crisis, and tail-risk windows to confirm the new curated ordering is actually surfacing in the browser.
 2. If any remaining window still falls back to the old slide family, search for explicit legacy asset ids in `scenarios.json` first before generating more art.
 3. If the actor mismatch is still too soft in the first irreversible incident, generate or source a China Coast Guard / PRC maritime-enforcement-equivalent still rather than reusing U.S. Coast Guard imagery.
+
+#### 66.31 Live production browser review after selector fix
+
+##### 66.31.1 What was reviewed
+
+1. Walked the production app in a real headed browser at `https://escalation.altiratech.com` using Playwright CLI, starting from scenario setup and moving through an end-to-end Taiwan Strait run.
+2. Reviewed the live UI as an end user would see it: setup, Turn 1 summary, Turn 1 decision screen, and summary/decision progression through Turns 2-5, plus the final debrief.
+3. Captured live snapshots/screenshots during the run so the read reflects shipped behavior rather than local assumptions.
+
+##### 66.31.2 What held up in production
+
+1. Turn 2 no longer repeated Turn 1's hero image.
+2. Turn 3 no longer led with the SPR pipeline still; the command-center image now holds the hero slot and the old slide-style evidence art did not resurface in the top stack.
+3. The unsafe-intercept / coercive-paperwork window no longer leads with U.S. Coast Guard imagery that implies the wrong actor.
+4. Through the first five windows on this run, the page felt materially more credible than the earlier screenshot set that prompted the selector fix.
+
+##### 66.31.3 What still feels weak live
+
+1. Supporting imagery still repeats the same command-center + satellite grammar too often, which makes later windows feel less visually distinct than the writing suggests.
+2. The injury-incident window is semantically better than before, but its hero still feels slightly abstract because it leads with the watchfloor instead of a direct incident-specific still.
+3. The live response-window timer is now a first-order UX factor: if the reviewer lingers, the scenario can auto-advance before the page is fully absorbed.
+4. Because of that timer behavior, later-window review needs either very fast progression or explicit use of the `Extend` affordance to avoid skipping summary states.
+
+##### 66.31.4 Best next move
+
+1. Prioritize one more live browser pass focused on later windows (`6-8`) with deliberate use of `Extend` so the late-turn imagery can be judged on-screen before timeout.
+2. Improve visual diversity by reducing repeated command-center / satellite support combinations in the mid and late windows.
+3. Generate or source a more direct incident-specific still for the injury-incident beat so the writing and hero image land at the same emotional level.

@@ -573,6 +573,15 @@ export const BriefingPanel = ({
     return renderDevelopments();
   };
 
+  const supportGridClass =
+    supportingImageAssets.length <= 1
+      ? 'grid gap-3'
+      : 'grid gap-3 md:grid-cols-2';
+  const supportImageHeightClass =
+    supportingImageAssets.length <= 1
+      ? 'h-[15rem] sm:h-[16.5rem] xl:h-[18rem]'
+      : 'h-[12.5rem] sm:h-[14rem] xl:h-[15rem]';
+
   return (
     <section className="console-panel console-panel-muted p-4 sm:p-5">
       <div
@@ -635,7 +644,7 @@ export const BriefingPanel = ({
           ) : null}
         </div>
 
-        {imageAsset || supportingImageAssets.length > 0 ? (
+        {imageAsset || supportingImageAssets.length > 0 || scenarioWorld?.theaterDiagram ? (
           <div className="space-y-3">
             {imageAsset ? (
               <figure className="overflow-hidden rounded-md border border-borderTone/80 bg-surface/65">
@@ -660,7 +669,7 @@ export const BriefingPanel = ({
             ) : null}
 
             {supportingImageAssets.length > 0 ? (
-              <div className={`grid gap-3 ${supportingImageAssets.length > 1 ? 'md:grid-cols-2' : ''}`}>
+              <div className={supportGridClass}>
                 {supportingImageAssets.map((asset) => (
                   <figure key={asset.id} className="overflow-hidden rounded-md border border-borderTone/80 bg-surface/65">
                     <div className="flex items-center justify-between border-b border-borderTone/80 px-3 py-2">
@@ -674,7 +683,7 @@ export const BriefingPanel = ({
                     <img
                       src={asset.path}
                       alt={asset.alt}
-                      className={`h-[9.5rem] w-full bg-surface ${
+                      className={`${supportImageHeightClass} w-full bg-surface ${
                         asset.kind === 'map' || asset.kind === 'artifact' ? 'object-contain p-2' : 'object-cover'
                       }`}
                       loading="lazy"
@@ -686,23 +695,24 @@ export const BriefingPanel = ({
                 ))}
               </div>
             ) : null}
+            {scenarioWorld?.theaterDiagram ? (
+              <figure className="overflow-hidden rounded-md border border-borderTone/80 bg-surface/65">
+                <div className="flex items-center justify-between border-b border-borderTone/80 px-3 py-2">
+                  <p className="label">Situation Map</p>
+                  <span className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Orientation</span>
+                </div>
+                <img
+                  src={scenarioWorld.theaterDiagram.path}
+                  alt={scenarioWorld.theaterDiagram.alt}
+                  className="h-[18rem] w-full bg-surface object-contain p-2 sm:h-[20rem]"
+                  loading="lazy"
+                />
+                <figcaption className="border-t border-borderTone/80 px-3 py-2 text-[0.7rem] leading-relaxed text-textMuted">
+                  {scenarioWorld.theaterDiagram.caption}
+                </figcaption>
+              </figure>
+            ) : null}
           </div>
-        ) : scenarioWorld?.theaterDiagram ? (
-          <figure className="overflow-hidden rounded-md border border-borderTone/80 bg-surface/65">
-            <div className="flex items-center justify-between border-b border-borderTone/80 px-3 py-2">
-              <p className="label">Situation Map</p>
-              <span className="text-[0.58rem] uppercase tracking-[0.12em] text-textMuted">Orientation</span>
-            </div>
-            <img
-              src={scenarioWorld.theaterDiagram.path}
-              alt={scenarioWorld.theaterDiagram.alt}
-              className="h-[18rem] w-full bg-surface object-contain p-2 sm:h-[20rem]"
-              loading="lazy"
-            />
-            <figcaption className="border-t border-borderTone/80 px-3 py-2 text-[0.7rem] leading-relaxed text-textMuted">
-              {scenarioWorld.theaterDiagram.caption}
-            </figcaption>
-          </figure>
         ) : null}
       </div>
 

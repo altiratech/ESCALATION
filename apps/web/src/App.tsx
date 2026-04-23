@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import type {
   ActionDefinition,
@@ -19,7 +19,6 @@ import type {
 import {
   bootstrapReference,
   createProfile,
-  extendCountdown,
   fetchReport,
   interpretCommand as interpretEpisodeCommand,
   startEpisode,
@@ -34,44 +33,45 @@ import { ReportView } from './components/ReportView';
 import { StartScreen } from './components/StartScreen';
 import { getAdvisorActionReads } from './lib/decisionSupport';
 
-const formatSeconds = (seconds: number): string => {
-  const whole = Math.max(0, Math.floor(seconds));
-  const minutes = Math.floor(whole / 60);
-  const remainder = whole % 60;
-  return `${minutes}:${String(remainder).padStart(2, '0')}`;
-};
-
-const pickPressureText = (
-  reference: BootstrapPayload,
-  beatId: string,
-  secondsRemaining: number
-): string | null => {
-  const category = reference.narrativeCandidates.categories.find((entry) => entry.category === 'pressure_text');
-  if (!category || category.category !== 'pressure_text') {
-    return null;
-  }
-
-  const choose = (entries: typeof category.entries): string | null => {
-    const ordered = [...entries].sort((left, right) => left.thresholdSeconds - right.thresholdSeconds);
-    const selected = ordered.find((entry) => secondsRemaining <= entry.thresholdSeconds);
-    return selected?.text ?? null;
-  };
-
-  const beatSpecific = category.entries.filter((entry) => entry.beatId === beatId);
-  const generic = category.entries.filter((entry) => entry.beatId === '_generic');
-  return choose(beatSpecific) ?? choose(generic);
-};
-
-const pacingLabel: Record<'standard' | 'relaxed' | 'off', string> = {
-  standard: 'Real-Time',
-  relaxed: 'Extended',
-  off: 'Untimed'
-};
-
 const normalizeCommand = (value: string): string => value.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
 const normalizeTickerLine = (value: string): string => value.replace(/^(risk|market)\s+ticker:\s*/i, '').trim();
 
 const previewImageKinds: ImageAsset['kind'][] = ['scenario_still', 'documentary_still', 'artifact', 'map'];
+
+const visualFamilyKey = (asset: ImageAsset): string => {
+  const tags = new Set(asset.tags.map((tag) => tag.toLowerCase()));
+  const lowerPerspective = String(asset.perspective).toLowerCase();
+
+  if (tags.has('white_phosphor') || tags.has('night_vision') || tags.has('night_ops')) {
+    return 'night-vision';
+  }
+  if (tags.has('thermal')) {
+    return 'thermal';
+  }
+  if (tags.has('satellite') || lowerPerspective === 'satellite' || asset.kind === 'map') {
+    return 'satellite';
+  }
+  if (lowerPerspective === 'surveillance' || asset.kind === 'artifact') {
+    return 'surveillance';
+  }
+  if (tags.has('command_center') || tags.has('watchfloor') || tags.has('cic')) {
+    return 'watchfloor';
+  }
+  if (tags.has('boarding') || tags.has('coast_guard')) {
+    return 'boarding';
+  }
+  if (tags.has('queue') || tags.has('blockade') || tags.has('shipping')) {
+    return 'shipping-lane';
+  }
+  if (tags.has('harbor') || tags.has('port') || tags.has('false_relief')) {
+    return 'harbor';
+  }
+  if (tags.has('spr') || tags.has('energy') || tags.has('reserves') || tags.has('stockpiles')) {
+    return 'energy-logistics';
+  }
+
+  return `${asset.kind}:${lowerPerspective}`;
+};
 
 const previewImageRealismScore = (asset: ImageAsset): number => {
   if (asset.id.startsWith('img_')) {
@@ -173,6 +173,9 @@ const evidenceVisualScore = (asset: ImageAsset, heroAsset: ImageAsset | null): n
     if (String(heroAsset.perspective).toLowerCase() === lowerPerspective) {
       score -= 3;
     }
+    if (visualFamilyKey(heroAsset) === visualFamilyKey(asset)) {
+      score -= 8;
+    }
   }
 
   return score;
@@ -214,7 +217,24 @@ const arrangeBriefingVisuals = (
       (left, right) =>
         evidenceVisualScore(right, heroAsset) - evidenceVisualScore(left, heroAsset) || left.id.localeCompare(right.id)
     )
-    .slice(0, 2);
+    .reduce<ImageAsset[]>((selected, asset) => {
+      if (selected.length >= 2) {
+        return selected;
+      }
+
+      const family = visualFamilyKey(asset);
+      const usedFamilies = new Set([
+        ...(heroAsset ? [visualFamilyKey(heroAsset)] : []),
+        ...selected.map((entry) => visualFamilyKey(entry))
+      ]);
+
+      if (usedFamilies.has(family)) {
+        return selected;
+      }
+
+      selected.push(asset);
+      return selected;
+    }, []);
 
   return {
     heroAsset,
@@ -278,10 +298,16 @@ const pickPreviewImageAssets = (
       asset.kind === 'map' && preferredKinds[0] !== 'map' && !requestedTags.has('map') ? -6 : 0;
     const realismScore = previewImageRealismScore(asset);
     const recentPenalty = recentImageIds.includes(asset.id) ? -12 : 0;
+    const recentFamilyPenalty = recentImageIds.some((id) => {
+      const recentAsset = reference.images.find((entry) => entry.id === id);
+      return recentAsset ? visualFamilyKey(recentAsset) === visualFamilyKey(asset) : false;
+    })
+      ? -10
+      : 0;
 
     return {
       asset,
-      score: kindScore + tagScore + mapPenalty + realismScore + recentPenalty
+      score: kindScore + tagScore + mapPenalty + realismScore + recentPenalty + recentFamilyPenalty
     };
   };
 
@@ -304,12 +330,14 @@ const pickPreviewImageAssets = (
   const selected: ImageAsset[] = [];
   const usedKinds = new Set<ImageAsset['kind']>();
   const usedPerspectives = new Set<ImageAsset['perspective']>();
+  const usedFamilies = new Set<string>();
 
   const curatedHero = rankedCuratedPreviewAssets(allCandidates, beat.visualCue?.heroImageIds);
   if (curatedHero.length > 0) {
     selected.push(curatedHero[0]!.asset);
     usedKinds.add(curatedHero[0]!.asset.kind);
     usedPerspectives.add(curatedHero[0]!.asset.perspective);
+    usedFamilies.add(visualFamilyKey(curatedHero[0]!.asset));
   }
 
   const curatedEvidence = rankedCuratedPreviewAssets(allCandidates, beat.visualCue?.evidenceImageIds).filter(
@@ -321,9 +349,15 @@ const pickPreviewImageAssets = (
       break;
     }
 
+    const family = visualFamilyKey(candidate.asset);
+    if (usedFamilies.has(family)) {
+      continue;
+    }
+
     selected.push(candidate.asset);
     usedKinds.add(candidate.asset.kind);
     usedPerspectives.add(candidate.asset.perspective);
+    usedFamilies.add(family);
   }
 
   for (const candidate of candidates) {
@@ -336,7 +370,8 @@ const pickPreviewImageAssets = (
 
     const diversityPenalty =
       (usedKinds.has(candidate.asset.kind) ? 3 : 0) +
-      (usedPerspectives.has(candidate.asset.perspective) ? 2 : 0);
+      (usedPerspectives.has(candidate.asset.perspective) ? 2 : 0) +
+      (usedFamilies.has(visualFamilyKey(candidate.asset)) ? 8 : 0);
     if (selected.length > 0 && candidate.score - diversityPenalty < 4) {
       continue;
     }
@@ -344,18 +379,7 @@ const pickPreviewImageAssets = (
     selected.push(candidate.asset);
     usedKinds.add(candidate.asset.kind);
     usedPerspectives.add(candidate.asset.perspective);
-  }
-
-  if (selected.length < count) {
-    for (const candidate of candidates) {
-      if (selected.length >= count) {
-        break;
-      }
-      if (selected.some((asset) => asset.id === candidate.asset.id)) {
-        continue;
-      }
-      selected.push(candidate.asset);
-    }
+    usedFamilies.add(visualFamilyKey(candidate.asset));
   }
 
   if (selected.length > 0) {
@@ -580,8 +604,6 @@ const App = () => {
   const [loading, setLoading] = useState(false);
   const [bootstrapping, setBootstrapping] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [countdownRemaining, setCountdownRemaining] = useState<number | null>(null);
-  const timeoutGuardRef = useRef<string | null>(null);
 
   useEffect(() => {
     const load = async (): Promise<void> => {
@@ -891,30 +913,6 @@ const App = () => {
     [applyEpisodeUpdate, episode]
   );
 
-  const handleExtendTimer = useCallback(async (): Promise<void> => {
-    if (!episode) {
-      return;
-    }
-
-    setLoading(true);
-    setError(null);
-
-    try {
-      const response = await extendCountdown(episode.episodeId, {
-        expectedTurn: episode.turn
-      });
-      setEpisode(response.episode);
-    } catch (extendError) {
-      setError(extendError instanceof Error ? extendError.message : 'Timer extension failed');
-    } finally {
-      setLoading(false);
-    }
-  }, [episode]);
-
-  useEffect(() => {
-    timeoutGuardRef.current = null;
-  }, [episode?.episodeId, episode?.turn, episode?.currentBeatId]);
-
   useEffect(() => {
     setSelectedResponse((current) => {
       if (!episode || !current) {
@@ -939,36 +937,12 @@ const App = () => {
     });
   }, [episode?.episodeId, episode?.turn, episode?.currentBeatId, episode?.offeredActions]);
 
-  useEffect(() => {
-    if (!episode || episode.status !== 'active' || !episode.activeCountdown) {
-      setCountdownRemaining(null);
-      return;
-    }
-
-    const timeoutKey = `${episode.episodeId}:${episode.turn}:${episode.currentBeatId}`;
-    const tick = (): void => {
-      const remaining = Math.max(0, Math.ceil((episode.activeCountdown!.expiresAt - Date.now()) / 1000));
-      setCountdownRemaining(remaining);
-
-      if (remaining === 0 && timeoutGuardRef.current !== timeoutKey) {
-        timeoutGuardRef.current = timeoutKey;
-        void handleInaction('timeout');
-      }
-    };
-
-    tick();
-    const interval = window.setInterval(tick, 250);
-    return () => window.clearInterval(interval);
-  }, [episode?.episodeId, episode?.turn, episode?.currentBeatId, episode?.status, episode?.activeCountdown?.expiresAt, handleInaction]);
-
   const reset = (): void => {
     setEpisode(null);
     setReport(null);
     setError(null);
-    setCountdownRemaining(null);
     setSelectedResponse(null);
     setTurnStage('brief');
-    timeoutGuardRef.current = null;
   };
 
   const handleCommandSubmit = useCallback(async (commandText: string): Promise<CommandSubmitResult> => {
@@ -987,14 +961,14 @@ const App = () => {
     const normalized = normalizeCommand(commandText);
     const holdCommand = ['hold', 'stand by', 'standby', 'no action', 'take no action'].includes(normalized);
     if (holdCommand) {
-      if (episode.timerMode === 'off' && currentBeat?.decisionWindow) {
+      if (currentBeat?.decisionWindow) {
         await handleInaction('explicit');
         return {
-          message: 'Instruction accepted: holding position and taking no action during this decision window.'
+          message: 'Instruction accepted: holding position through this decision window.'
         };
       }
       return {
-        message: 'Hold instruction recognized, but explicit no-action is only available on untimed decision windows.'
+        message: 'Hold instruction recognized, but there is no open decision window to hold through right now.'
       };
     }
 
@@ -1104,48 +1078,9 @@ const App = () => {
     return <StartScreen reference={reference} loading={loading} error={error} onStart={handleStart} />;
   }
 
-  const remainingSeconds = episode.activeCountdown
-    ? countdownRemaining ?? Math.max(0, episode.activeCountdown.secondsRemaining)
-    : null;
-  const countdownRatio =
-    episode.activeCountdown && remainingSeconds !== null && episode.activeCountdown.seconds > 0
-      ? remainingSeconds / episode.activeCountdown.seconds
-      : null;
-  const countdownToneClass =
-    countdownRatio === null
-      ? 'text-textMuted'
-      : countdownRatio <= 0.25
-        ? 'text-red-400 animate-pulse'
-        : countdownRatio <= 0.5
-          ? 'text-warning'
-          : 'text-textMain';
-  const countdownUrgencyLabel =
-    countdownRatio === null ? 'No active window' : countdownRatio <= 0.25 ? 'Critical' : countdownRatio <= 0.5 ? 'Elevated' : 'Stable';
-  const progressToneClass =
-    countdownRatio === null ? 'bg-borderTone' : countdownRatio <= 0.25 ? 'bg-red-500' : countdownRatio <= 0.5 ? 'bg-warning' : 'bg-textMain';
-  const canExtendTimer = Boolean(
-    episode.activeCountdown &&
-      remainingSeconds !== null &&
-      remainingSeconds > 0 &&
-      episode.timerMode !== 'off' &&
-      episode.extendTimerUsesRemaining > 0 &&
-      episode.activeCountdown.extendsUsed < 1 &&
-      !loading &&
-      episode.status === 'active'
-  );
-  const showExtendTimer = Boolean(episode.activeCountdown && episode.timerMode !== 'off');
   const showTakeNoAction =
     episode.status === 'active' &&
-    episode.timerMode === 'off' &&
     Boolean(currentBeat?.decisionWindow);
-  const extendPreviewSeconds = episode.activeCountdown ? Math.max(1, Math.round(episode.activeCountdown.seconds * 0.5)) : 0;
-  const pressureText = (
-    episode.activeCountdown &&
-    remainingSeconds !== null &&
-    remainingSeconds >= 0
-  )
-    ? pickPressureText(reference, episode.currentBeatId, remainingSeconds)
-    : null;
 
   const beatIntelFragments = reference.intelFragments
     .filter((entry) => entry.beatId === episode.currentBeatId && (!currentBeat || entry.phase === currentBeat.phase))
@@ -1176,13 +1111,6 @@ const App = () => {
     });
   }
 
-  if (pressureText) {
-    supportingSignals.push({
-      id: 'timer-pressure',
-      channel: 'Timer',
-      headline: pressureText
-    });
-  }
   if (supportingSignals.length === 0 && episode.briefing.tickerLine) {
     supportingSignals.push({
       id: 'ticker',
@@ -1241,12 +1169,9 @@ const App = () => {
     currentScenarioWorld?.economicBackdrop.straitEconomicValue ??
     currentDirective ??
     'This development matters because it can change how the crisis is read across the room, the market, and the corridor.';
-  const turnResolutionGuidance =
-    episode.activeCountdown && remainingSeconds !== null
-      ? `Select one response, inspect the tradeoffs, and confirm it before ${formatSeconds(remainingSeconds)} elapses.`
-      : showTakeNoAction
-        ? 'Select one response and confirm it, or use Take No Action to hold position.'
-        : 'Select one response, inspect the detail, and confirm it to advance the scenario.';
+  const turnResolutionGuidance = showTakeNoAction
+    ? 'Select one response and confirm it, or hold position if you want one more window of observation before you move.'
+    : 'Select one response, inspect the detail, and confirm it to advance the scenario.';
   const decisionPromptSummary =
     activeWindowContextSections[1]?.body ??
     turnResolutionGuidance;
@@ -1315,20 +1240,12 @@ const App = () => {
               <span className="font-display text-xl text-textMain">{currentScenarioName}</span>
               <span className="text-borderTone">/</span>
               <span>{currentScenario?.role ?? 'Decision Simulation'}</span>
-              <span className="text-borderTone">/</span>
-              <span>{pacingLabel[episode.timerMode]}</span>
             </div>
             {theaterTimeContext ? (
               <p className="max-w-4xl text-[0.72rem] leading-relaxed text-textMuted">{theaterTimeContext}</p>
             ) : null}
           </div>
           <div className="flex flex-wrap items-center gap-2">
-            <div className="console-chip">
-              <strong>Clock</strong>
-              <span className={countdownToneClass}>
-                {episode.activeCountdown && remainingSeconds !== null ? formatSeconds(remainingSeconds) : 'Standby'}
-              </span>
-            </div>
             <div className="console-chip">
               <strong>Signal Quality</strong>
               <span>{intelStateLabel}</span>
@@ -1341,16 +1258,6 @@ const App = () => {
               <strong>Selected</strong>
               <span>{selectedResponseLabel ?? 'Awaiting decision'}</span>
             </div>
-            {showExtendTimer ? (
-              <button
-                type="button"
-                className="rounded-md border border-borderTone px-2 py-1 text-[0.62rem] font-semibold uppercase tracking-[0.1em] text-textMuted transition hover:border-accent hover:text-textMain disabled:cursor-not-allowed disabled:opacity-45"
-                onClick={() => void handleExtendTimer()}
-                disabled={!canExtendTimer}
-              >
-                Extend +{formatSeconds(extendPreviewSeconds)}
-              </button>
-            ) : null}
             {showTakeNoAction ? (
               <button
                 type="button"
@@ -1358,7 +1265,7 @@ const App = () => {
                 onClick={() => void handleInaction('explicit')}
                 disabled={loading || episode.status !== 'active'}
               >
-                Take No Action
+                Hold Position
               </button>
             ) : null}
           </div>
@@ -1382,24 +1289,16 @@ const App = () => {
             <p className="console-metric-value">{marketStressLabel}</p>
           </div>
             <div className="console-metric">
-              <p className="console-metric-label">Response Window</p>
+              <p className="console-metric-label">Decision Window</p>
               <p className="console-metric-value">
-                {episode.activeCountdown && remainingSeconds !== null ? countdownUrgencyLabel : episode.timerMode === 'off' ? 'Player Held' : 'Closed'}
+                {episode.status === 'active' && currentBeat?.decisionWindow
+                  ? turnStage === 'brief'
+                    ? 'Reviewing'
+                    : 'Open'
+                  : 'Briefing'}
               </p>
           </div>
         </div>
-
-        {episode.activeCountdown && remainingSeconds !== null ? (
-          <div className="mt-3 h-1.5 overflow-hidden rounded-sm bg-borderTone/70">
-            <div
-              className={`h-full transition-[width] duration-200 ${progressToneClass}`}
-              style={{
-                width: `${Math.max(0, Math.min(100, ((remainingSeconds / Math.max(1, episode.activeCountdown.seconds)) * 100)))}%`
-              }}
-            />
-          </div>
-        ) : null}
-        {pressureText ? <p className="mt-2 text-[0.7rem] text-textMuted">{pressureText}</p> : null}
       </header>
 
       {error ? (

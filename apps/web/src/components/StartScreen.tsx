@@ -16,24 +16,6 @@ interface StartScreenProps {
 
 const randomSeed = (): string => Math.random().toString(36).slice(2, 10).toUpperCase();
 
-const timerModes = [
-  {
-    id: 'standard',
-    label: 'Real-Time',
-    detail: 'Live decision pressure with active countdown windows.'
-  },
-  {
-    id: 'relaxed',
-    label: 'Extended',
-    detail: 'More deliberation time without removing urgency.'
-  },
-  {
-    id: 'off',
-    label: 'Untimed',
-    detail: 'No countdown pressure. You choose when to hold position.'
-  }
-] as const;
-
 const environmentLabel: Record<string, string> = {
   coastal: 'Maritime region',
   arctic: 'Arctic region',
@@ -54,7 +36,6 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
   const defaultScenario = playableScenarios[0]?.id ?? reference.scenarios[0]?.id ?? '';
 
   const [scenarioId, setScenarioId] = useState(defaultScenario);
-  const [timerMode, setTimerMode] = useState<'standard' | 'relaxed' | 'off'>('standard');
 
   const selectedScenario = useMemo(
     () => playableScenarios.find((entry) => entry.id === scenarioId) ?? reference.scenarios.find((entry) => entry.id === scenarioId),
@@ -77,32 +58,63 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
       },
       {
         label: 'Region',
-        value: selectedScenario?.environment
-          ? environmentLabel[selectedScenario.environment] ?? 'Global theater'
-          : 'N/A'
+        value:
+          selectedScenarioWorld?.region.name ??
+          (selectedScenario?.environment
+            ? environmentLabel[selectedScenario.environment] ?? 'Global theater'
+            : 'N/A')
       },
       {
-        label: 'Decision Windows',
-        value: `${selectedScenario?.maxTurns ?? 0} staged decision windows`
+        label: 'Windows',
+        value: `${selectedScenario?.maxTurns ?? 0} staged briefing windows`
+      },
+      {
+        label: 'Date Anchor',
+        value: selectedScenarioWorld
+          ? `${selectedScenarioWorld.dateAnchor.month} ${selectedScenarioWorld.dateAnchor.year}`
+          : 'Current scenario timing'
       }
     ],
-    [selectedScenario]
+    [selectedScenario, selectedScenarioWorld]
   );
 
   const systemNotes = useMemo(
     () => [
-      'The first decision window opens immediately after launch.',
-      'The setup page stays procedural and concise on purpose.',
-      'Live guidance, context, and advisors appear after the scenario begins.'
+      'This run is user-paced. Windows advance only when you commit a response or deliberately hold position.',
+      'The setup screen now carries the why-now framing so the scenario starts with context instead of a countdown.',
+      'Markets, shipping behavior, and alliance interpretation can move long before anyone uses the language of open war.'
     ],
     []
   );
 
-  const theaterStamp = selectedScenarioWorld
-    ? `${selectedScenarioWorld.region.name} / ${selectedScenarioWorld.dateAnchor.month} ${selectedScenarioWorld.dateAnchor.year}`
-    : 'Theater data pending';
+  const setupContextCards = useMemo(() => {
+    const sections = selectedScenarioWorld?.openingBackground?.sections ?? [];
+    if (sections.length > 0) {
+      return sections;
+    }
 
-  const currentTimerLabel = timerModes.find((mode) => mode.id === timerMode)?.label ?? 'Real-Time';
+    return [
+      {
+        id: 'why_now',
+        title: 'Why This Window Looks Different',
+        body: 'The coalition is entering the run from a thinner economic and military position than it had a year earlier, which makes ambiguity and warning-time compression more dangerous.'
+      },
+      {
+        id: 'market_first',
+        title: 'Why The Market Moves First',
+        body: 'Commercial actors usually react before governments settle on language, which is why insurance, freight, and chip supply can break before policy does.'
+      },
+      {
+        id: 'what_you_control',
+        title: 'What The First Decisions Do',
+        body: 'The early windows are about shaping how the room, the market, and the corridor read the same event before pressure becomes the accepted baseline.'
+      }
+    ];
+  }, [selectedScenarioWorld]);
+
+  const theaterStamp = selectedScenarioWorld
+    ? `${selectedScenarioWorld.region.name} / ${selectedScenarioWorld.dateAnchor.month} ${selectedScenarioWorld.dateAnchor.year} / ${selectedScenarioWorld.dateAnchor.dayRange}`
+    : 'Theater data pending';
 
   const handleStart = async (): Promise<void> => {
     const payload: {
@@ -113,7 +125,7 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
     } = {
       codename,
       scenarioId,
-      timerMode
+      timerMode: 'off'
     };
 
     const normalizedSeed = seed.trim();
@@ -144,12 +156,12 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
             <p className="console-sidebar-label">Run State</p>
             <div className="space-y-2">
               <div className="console-nav-meta">
-                <p className="text-[0.58rem] uppercase tracking-[0.14em] text-textMuted">Pacing</p>
-                <p className="mt-1 text-[0.72rem] uppercase tracking-[0.08em] text-textMain">{currentTimerLabel}</p>
+                <p className="text-[0.58rem] uppercase tracking-[0.14em] text-textMuted">Flow</p>
+                <p className="mt-1 text-[0.72rem] uppercase tracking-[0.08em] text-textMain">User-paced</p>
               </div>
               <div className="console-nav-meta">
                 <p className="text-[0.58rem] uppercase tracking-[0.14em] text-textMuted">Launch Path</p>
-                <p className="mt-1 text-[0.72rem] uppercase tracking-[0.08em] text-textMain">Direct scenario start</p>
+                <p className="mt-1 text-[0.72rem] uppercase tracking-[0.08em] text-textMain">Context-first briefing</p>
               </div>
             </div>
           </div>
@@ -170,13 +182,13 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
                   <span>{selectedScenario?.name ?? 'None'}</span>
                 </div>
                 <div className="console-chip">
-                  <strong>Pacing</strong>
-                  <span>{currentTimerLabel}</span>
+                  <strong>Flow</strong>
+                  <span>User-paced</span>
                 </div>
               </div>
             </div>
             <p className="mt-3 max-w-4xl text-[0.76rem] leading-relaxed text-textMuted">
-              Choose the scenario and pacing, then begin the first decision window. The detailed background and live context now appear inside the scenario itself instead of on a separate pre-launch page.
+              Choose the scenario, review why this window looks dangerous now, then begin the first briefing window. Flashpoint now defaults to a user-paced flow so the reading surface stays in sync with the choices you are actually making.
             </p>
           </header>
 
@@ -218,42 +230,12 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
                 </div>
 
                 <div className="space-y-3">
-                  <div className="console-subpanel px-3 py-3">
-                    <p className="label">Launch Guidance</p>
-                    <p className="mt-2 text-[0.76rem] leading-relaxed text-textMuted">
-                      The scenario begins immediately after launch. Window 1 opens with a current situation summary, current developments, and the background needed to make the first decision.
-                    </p>
-                  </div>
-                  <div className="console-subpanel px-3 py-3">
-                    <p className="label">What Changes First</p>
-                    <p className="mt-2 text-[0.76rem] leading-relaxed text-textMuted">
-                      Markets, shipping behavior, and allied interpretation tend to move before formal policy does. The early decisions are about shaping that read before pressure becomes routine.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-5 space-y-2">
-                <p className="label">Pacing Preference</p>
-                <div className="grid gap-2 xl:grid-cols-3">
-                  {timerModes.map((mode) => {
-                    const active = timerMode === mode.id;
-                    return (
-                      <button
-                        key={mode.id}
-                        type="button"
-                        className={`border px-3 py-3 text-left transition ${
-                          active
-                            ? 'border-accent bg-accent/12 text-textMain'
-                            : 'border-borderTone bg-panelRaised text-textMuted hover:border-accent/70 hover:text-textMain'
-                        }`}
-                        onClick={() => setTimerMode(mode.id)}
-                      >
-                        <p className="font-mono text-[0.62rem] uppercase tracking-[0.16em]">{mode.label}</p>
-                        <p className="mt-2 text-[0.74rem] leading-relaxed">{mode.detail}</p>
-                      </button>
-                    );
-                  })}
+                  {setupContextCards.map((card) => (
+                    <div key={card.id} className="console-subpanel px-3 py-3">
+                      <p className="label">{card.title}</p>
+                      <p className="mt-2 text-[0.76rem] leading-relaxed text-textMuted">{card.body}</p>
+                    </div>
+                  ))}
                 </div>
               </div>
 

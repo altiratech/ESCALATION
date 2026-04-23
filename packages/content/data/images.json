@@ -554,7 +554,7 @@
   },
   {
     "id": "tw_bs_003",
-    "path": "/assets/images/tw_bs_003_stockpile_pressure.svg",
+    "path": "/assets/images/tw_bs_003_stockpile_pressure.png",
     "kind": "artifact",
     "domain": "military",
     "severity": 2,
@@ -576,7 +576,7 @@
   },
   {
     "id": "tw_bs_004",
-    "path": "/assets/images/tw_bs_004_control_regime_map.svg",
+    "path": "/assets/images/tw_bs_004_control_regime_map.png",
     "kind": "map",
     "domain": "diplomacy",
     "severity": 2,
@@ -895,7 +895,7 @@
   },
   {
     "id": "tw_bs_020",
-    "path": "/assets/images/tw_bs_020_chip_buyers.svg",
+    "path": "/assets/images/tw_bs_020_chip_buyers.png",
     "kind": "documentary_still",
     "domain": "economy",
     "severity": 3,
@@ -912,51 +912,6 @@
     ],
     "alt": "Operations staff reviewing component shortages and emergency procurement messages during the Taiwan crisis.",
     "caption": "Before governments settle on language, buyers start asking how long they can keep factories open."
-  },
-  {
-    "id": "tw_bs_021",
-    "path": "/assets/images/tw_bs_021_spr_pipes.jpg",
-    "kind": "documentary_still",
-    "domain": "energy",
-    "severity": 2,
-    "environment": "industrial",
-    "perspective": "news_frame",
-    "tags": [
-      "taiwan",
-      "spr",
-      "energy",
-      "stockpiles",
-      "current_events",
-      "phase_rising",
-      "branch_compression",
-      "reserves",
-      "middle_east"
-    ],
-    "alt": "Strategic Petroleum Reserve piping and infrastructure used as a grounded visual for thinner energy buffer and crisis compression.",
-    "caption": "This is the sustainment side of the same crisis brief: fuel cushion, reload pace, and how long the United States can surge without breaking somewhere else."
-  },
-  {
-    "id": "tw_bs_022",
-    "path": "/assets/images/tw_bs_022_boarding_photo.jpg",
-    "kind": "documentary_still",
-    "domain": "military",
-    "severity": 2,
-    "environment": "coastal",
-    "perspective": "news_frame",
-    "tags": [
-      "taiwan",
-      "boarding",
-      "incident",
-      "coast_guard",
-      "shipping",
-      "phase_crisis",
-      "branch_incident",
-      "militarized",
-      "public",
-      "visible"
-    ],
-    "alt": "Coast Guard boarding team approaching a vessel at sea",
-    "caption": "The first public boarding image changes the politics immediately: once an injured crewman is on camera, nobody can sell the stop as routine paperwork."
   },
   {
     "id": "tw_bs_023",
@@ -982,52 +937,6 @@
     "caption": "This is what a closed lane looks like before the word blockade is spoken: ships holding offshore, schedules slipping, and insurers pricing the water as emergency risk."
   },
   {
-    "id": "tw_bs_027",
-    "path": "/assets/images/tw_bs_027_false_relief_harbor.jpg",
-    "kind": "documentary_still",
-    "domain": "diplomacy",
-    "severity": 2,
-    "environment": "coastal",
-    "perspective": "street",
-    "tags": [
-      "taiwan",
-      "false_relief",
-      "harbor",
-      "shipping",
-      "quiet",
-      "dawn",
-      "phase_crisis",
-      "branch_false_relief",
-      "conciliatory"
-    ],
-    "alt": "Harbor at dawn under calm light",
-    "caption": "From shore the lane looks calm again. On the shipping side, carriers are still routing as if the next inspection stop could restart at any watch change."
-  },
-  {
-    "id": "tw_bs_028",
-    "path": "/assets/images/tw_bs_028_cic_watch.jpg",
-    "kind": "documentary_still",
-    "domain": "military",
-    "severity": 2,
-    "environment": "coastal",
-    "perspective": "news_frame",
-    "tags": [
-      "taiwan",
-      "cic",
-      "watchfloor",
-      "naval",
-      "surveillance",
-      "isr",
-      "phase_opening",
-      "phase_rising",
-      "ambiguous",
-      "covert",
-      "screen"
-    ],
-    "alt": "Sailor on a modern combat information center watch floor",
-    "caption": "Watchstanders are sorting live tracks from spoofed ones in real time; that is why nobody in the room is ready to dismiss the picture as a glitch."
-  },
-  {
     "id": "tw_bs_029",
     "path": "/assets/images/tw_bs_029_coast_guard_boarding.jpg",
     "kind": "documentary_still",
@@ -1050,52 +959,6 @@
     ],
     "alt": "Boarding team climbing from a small boat onto a large vessel at sea",
     "caption": "Boarding video hit public channels before governments agreed on language, turning an inspection stop into a crisis image."
-  },
-  {
-    "id": "tw_bs_030",
-    "path": "/assets/images/tw_bs_030_nvg_watch.jpg",
-    "kind": "artifact",
-    "domain": "military",
-    "severity": 3,
-    "environment": "coastal",
-    "perspective": "surveillance",
-    "tags": [
-      "taiwan",
-      "night_vision",
-      "surveillance",
-      "covert",
-      "night_ops",
-      "incident",
-      "tail_risk",
-      "phase_crisis",
-      "phase_climax",
-      "screen"
-    ],
-    "alt": "Night-vision view of a servicemember scanning in darkness",
-    "caption": "Night-vision watch crews are now looking for small-craft movement against dark hulls, the kind of close-range activity that can turn paperwork into force."
-  },
-  {
-    "id": "tw_bs_031",
-    "path": "/assets/images/tw_bs_031_cockpit_watch.jpg",
-    "kind": "documentary_still",
-    "domain": "military",
-    "severity": 2,
-    "environment": "coastal",
-    "perspective": "news_frame",
-    "tags": [
-      "taiwan",
-      "air_patrol",
-      "cockpit",
-      "surveillance",
-      "isr",
-      "warning_time",
-      "phase_opening",
-      "phase_rising",
-      "visible",
-      "screen"
-    ],
-    "alt": "Military flight deck cockpit with live avionics over water",
-    "caption": "Patrol crews are flying to answer a narrower question: which returns are real traffic, which are spoofed, and which are positioning for the next move."
   },
   {
     "id": "tw_bs_032",

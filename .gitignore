@@ -12,6 +12,8 @@ coverage
 *.tsbuildinfo
 .venv
 tmp
+.playwright-cli/
+output/image-review/
 output/imagegen
 __pycache__/
 *.pyc

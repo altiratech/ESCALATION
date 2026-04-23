@@ -261,7 +261,7 @@ app.post('/api/episodes/start', async (context) => {
     actions,
     images
   }, {
-    timerMode: payload.timerMode ?? 'standard',
+    timerMode: payload.timerMode ?? 'off',
     nowMs: requestTimestamp
   });
 

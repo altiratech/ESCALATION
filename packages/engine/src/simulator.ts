@@ -209,7 +209,7 @@ const buildInactionDebrief = (payload: {
   const playerLine =
     payload.source === 'timeout'
       ? 'No directive was issued before the decision window expired.'
-      : 'You deliberately selected Take No Action during the decision window.';
+      : 'You deliberately held position during the decision window.';
   const shift = strongestShift(payload.meterBefore, payload.meterAfter);
   const secondaryLine = shift
     ? inactionShiftRead(shift.key, shift.delta)

@@ -68,6 +68,41 @@ const stageFromPhase = (beat: BeatNode | undefined): string[] => {
 
 const normalizedTags = (tags: string[]): string[] => [...new Set(tags.map((tag) => tag.toLowerCase()))];
 
+const visualFamilyKey = (asset: ImageAsset): string => {
+  const tags = new Set(asset.tags.map((tag) => tag.toLowerCase()));
+  const lowerPerspective = String(asset.perspective).toLowerCase();
+
+  if (tags.has('white_phosphor') || tags.has('night_vision') || tags.has('night_ops')) {
+    return 'night-vision';
+  }
+  if (tags.has('thermal')) {
+    return 'thermal';
+  }
+  if (tags.has('satellite') || lowerPerspective === 'satellite' || asset.kind === 'map') {
+    return 'satellite';
+  }
+  if (lowerPerspective === 'surveillance' || asset.kind === 'artifact') {
+    return 'surveillance';
+  }
+  if (tags.has('command_center') || tags.has('watchfloor') || tags.has('cic')) {
+    return 'watchfloor';
+  }
+  if (tags.has('boarding') || tags.has('coast_guard')) {
+    return 'boarding';
+  }
+  if (tags.has('queue') || tags.has('blockade') || tags.has('shipping')) {
+    return 'shipping-lane';
+  }
+  if (tags.has('harbor') || tags.has('port') || tags.has('false_relief')) {
+    return 'harbor';
+  }
+  if (tags.has('spr') || tags.has('energy') || tags.has('reserves') || tags.has('stockpiles')) {
+    return 'energy-logistics';
+  }
+
+  return `${asset.kind}:${lowerPerspective}`;
+};
+
 const buildBeatTags = (beat: BeatNode | undefined): string[] =>
   normalizedTags([...(beat?.imageHints ?? []), ...(beat?.visualCue?.tags ?? []), ...stageFromPhase(beat)]);
 
@@ -220,18 +255,28 @@ export const chooseImageAsset = ({
   const actionTags = buildActionTags(playerAction);
   const variantTags = buildVariantTags(playerVariant);
   const requestedTags = normalizedTags([...beatTags, ...actionTags, ...variantTags]);
+  const recentFamilies = new Set(
+    recentImageIds
+      .map((id) => assets.find((asset) => asset.id === id))
+      .filter((asset): asset is ImageAsset => Boolean(asset))
+      .map((asset) => visualFamilyKey(asset))
+  );
 
   const available = assets.filter((asset) => !recentImageIds.includes(asset.id));
   const scoredAll = assets
     .map((asset) => ({
       asset,
-      score: scoreAsset(asset, scenario, dominantDomain, severity, preferredKinds, beatTags, actionTags, variantTags)
+      score:
+        scoreAsset(asset, scenario, dominantDomain, severity, preferredKinds, beatTags, actionTags, variantTags) -
+        (recentFamilies.has(visualFamilyKey(asset)) ? 10 : 0)
     }))
     .sort((left, right) => right.score - left.score || left.asset.id.localeCompare(right.asset.id));
   const scored = (available.length > 0 ? available : assets)
     .map((asset) => ({
       asset,
-      score: scoreAsset(asset, scenario, dominantDomain, severity, preferredKinds, beatTags, actionTags, variantTags)
+      score:
+        scoreAsset(asset, scenario, dominantDomain, severity, preferredKinds, beatTags, actionTags, variantTags) -
+        (recentFamilies.has(visualFamilyKey(asset)) ? 10 : 0)
     }))
     .sort((left, right) => right.score - left.score || left.asset.id.localeCompare(right.asset.id));
 
@@ -271,6 +316,12 @@ export const chooseImageGallery = (
   const actionTags = buildActionTags(options.playerAction);
   const variantTags = buildVariantTags(options.playerVariant);
   const available = options.assets.filter((asset) => !options.recentImageIds.includes(asset.id));
+  const recentFamilies = new Set(
+    options.recentImageIds
+      .map((id) => options.assets.find((asset) => asset.id === id))
+      .filter((asset): asset is ImageAsset => Boolean(asset))
+      .map((asset) => visualFamilyKey(asset))
+  );
 
   const rankedAll = options.assets
     .map((asset) => ({
@@ -284,7 +335,7 @@ export const chooseImageGallery = (
         beatTags,
         actionTags,
         variantTags
-      )
+      ) - (recentFamilies.has(visualFamilyKey(asset)) ? 10 : 0)
     }))
     .sort((left, right) => right.score - left.score || left.asset.id.localeCompare(right.asset.id));
   const ranked = (available.length > 0 ? available : options.assets)
@@ -299,13 +350,14 @@ export const chooseImageGallery = (
         beatTags,
         actionTags,
         variantTags
-      )
+      ) - (recentFamilies.has(visualFamilyKey(asset)) ? 10 : 0)
     }))
     .sort((left, right) => right.score - left.score || left.asset.id.localeCompare(right.asset.id));
 
   const selected: ImageAsset[] = [];
   const usedKinds = new Set<ImageAssetKind>();
   const usedPerspectives = new Set<ImageAsset['perspective']>();
+  const usedFamilies = new Set<string>();
   const hasCuratedGallery =
     (options.beat?.visualCue?.heroImageIds?.length ?? 0) > 0 ||
     (options.beat?.visualCue?.evidenceImageIds?.length ?? 0) > 0;
@@ -315,6 +367,7 @@ export const chooseImageGallery = (
     selected.push(curatedHero[0]!.asset);
     usedKinds.add(curatedHero[0]!.asset.kind);
     usedPerspectives.add(curatedHero[0]!.asset.perspective);
+    usedFamilies.add(visualFamilyKey(curatedHero[0]!.asset));
   }
 
   const curatedEvidence = rankedCuratedAssets(rankedAll, options.beat?.visualCue?.evidenceImageIds)
@@ -325,9 +378,15 @@ export const chooseImageGallery = (
       break;
     }
 
+    const family = visualFamilyKey(asset);
+    if (usedFamilies.has(family)) {
+      continue;
+    }
+
     selected.push(asset);
     usedKinds.add(asset.kind);
     usedPerspectives.add(asset.perspective);
+    usedFamilies.add(family);
   }
 
   if (hasCuratedGallery && selected.length > 0) {
@@ -349,24 +408,16 @@ export const chooseImageGallery = (
 
     const sameKindPenalty = usedKinds.has(asset.kind) ? 3 : 0;
     const samePerspectivePenalty = usedPerspectives.has(asset.perspective) ? 2 : 0;
+    const sameFamilyPenalty = usedFamilies.has(visualFamilyKey(asset)) ? 8 : 0;
     const adjustedScore = ranked.find((entry) => entry.asset.id === asset.id)?.score ?? 0;
-    if (selected.length > 0 && adjustedScore - sameKindPenalty - samePerspectivePenalty < 4) {
+    if (selected.length > 0 && adjustedScore - sameKindPenalty - samePerspectivePenalty - sameFamilyPenalty < 4) {
       continue;
     }
 
     selected.push(asset);
     usedKinds.add(asset.kind);
     usedPerspectives.add(asset.perspective);
-  }
-
-  for (const { asset } of ranked) {
-    if (selected.length >= count) {
-      break;
-    }
-    if (selected.some((entry) => entry.id === asset.id)) {
-      continue;
-    }
-    selected.push(asset);
+    usedFamilies.add(visualFamilyKey(asset));
   }
 
   return selected;
