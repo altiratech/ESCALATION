@@ -1,32 +1,41 @@
-# Altira Flashpoint (legacy repo: ESCALATION / WARGAMES)
+# Altira Flashpoint
 
-Cloudflare-native, single-player strategic scenario-intelligence product.
+Altira Flashpoint is a Cloudflare-native, single-player strategic scenario-intelligence product.
 
-## Stack
-- Frontend: React + Vite + TypeScript + Tailwind
-- Backend: Hono on Cloudflare Workers
-- Database: Cloudflare D1 + Drizzle ORM
-- Engine: deterministic TypeScript simulation core (seeded RNG)
-- Content: data-driven JSON definitions for scenarios, actions, adversary profiles, and image metadata
+The public GitHub repo is `altiratech/ESCALATION`. Some package and folder names still use the older `wargames` naming.
 
-## Quick Start (One Command)
-From repo root:
+## Status
+
+Active MVP build.
+
+Current runtime capabilities include:
+- one flagship black-swan scenario with deterministic simulation state
+- authored beat-graph narrative traversal
+- player actions with immediate, probabilistic, and delayed effects
+- visible meters plus hidden latent variables
+- timed decision windows with accessibility modes
+- scenario-embedded adversary behavior
+- turn debriefs and post-game intelligence reports
+- D1-backed run persistence and analytics metadata
+
+Flashpoint does not use real-world leaders or real private networks. Narrative facts are state-derived rather than free-form invented during play.
+
+## Quick Start
 
 ```bash
+git clone https://github.com/altiratech/ESCALATION.git
+cd ESCALATION
 npm run quickstart
 ```
 
-This does:
-1. install dependencies
-2. generate placeholder image lexicon
-3. run local D1 migration + seed
-4. start API (`wrangler dev`) + web (`vite`) concurrently
+`npm run quickstart` installs dependencies, generates the placeholder image lexicon, applies local D1 setup, seeds local content, and starts the API and web app together.
 
 Local URLs:
 - Web: `http://localhost:5173`
 - API: `http://localhost:8787`
 
-## Manual Setup
+Manual setup:
+
 ```bash
 npm install
 npm run generate:images
@@ -35,21 +44,17 @@ npm run db:seed
 npm run dev
 ```
 
-## Gameplay Loop (MVP)
-- One live flagship scenario (currently an 8-window black-swan Taiwan run, with legacy fixtures still in content for regression coverage)
-- 6 core visible meters + hidden latent variables
-- 12 player actions with immediate, probabilistic, and delayed effects
-- Scenario-embedded adversary profile with belief-driven policy (no player-selected rival profile)
-- Beat-graph-driven narrative traversal (18-beat authored graph for Northern Strait)
-- Deterministic Turn Debrief strip (2-3 causal lines per turn, fog-of-war preserving)
-- Timed-beat runtime with ambient countdown, urgency thresholds, timeout-to-inaction branching, and per-beat/episode timer extension controls
-- Timer accessibility mode at episode start (`standard`, `relaxed`, `off`) with explicit `Take No Action` path in `off` mode
-- Beat/timer analytics metadata persisted per run (`beat_progress` table: transitions, timeout/explicit inaction, extension usage)
-- Narrative candidate pack integrated into content pipeline (`narrative_candidates_v2.json`) for timed pressure text, debrief variants, and post-game reveal overlays
-- Narrative-first advisor panel sourced from beat-authored guidance (dashboard/intel meter panes removed)
-- End-of-episode post-game intelligence report with Full Causality sections (hidden deltas, adversary logic summary, unseen events, branch alternatives, advisor retrospectives)
+## Product Loop
+
+- read the current scenario beat
+- choose an action or explicitly take no action
+- watch deterministic state and hidden variables evolve
+- receive a concise causal debrief
+- continue through the authored beat graph
+- review full causality after the episode ends
 
 ## API Surface
+
 - `POST /api/profiles`
 - `POST /api/episodes/start`
 - `GET /api/episodes/:episodeId`
@@ -59,173 +64,50 @@ npm run dev
 - `GET /api/episodes/:episodeId/report`
 - `GET /api/reference/bootstrap`
 
-## Current Access Model
+## Access Model
 
-Flashpoint does not yet implement suite-grade customer auth or billing.
+Flashpoint currently uses a lightweight playtest profile model:
+- `POST /api/profiles` creates a temporary run profile keyed by codename
+- episodes attach to that profile for persistence, scoring, and report lookup
+- there is no shared Altira account, workspace membership, subscription, or entitlement layer in this repo yet
 
-What exists today:
-- `POST /api/profiles` creates a lightweight playtest run profile keyed by codename
-- episodes attach to that temporary profile for run persistence, scoring, and report lookup
-- there is no shared account, workspace membership, subscription, or entitlement layer in this repo today
+The scenario `role` field is an in-scenario viewpoint, not an access-control role.
 
-What this means:
-- the current `profile` / `profileId` model is a temporary run bootstrap, not the long-term Altira customer identity model
-- the scenario `role` field (for example `National Security Advisor`) is an in-scenario viewpoint, not an access-control role
+## Repo Shape
 
-Altira suite alignment:
-- future customer access should resolve through the shared Altira workspace model rather than product-local auth/billing
-- visible suite roles should stay `user`, `manager`, and `admin`
-- billing and module access should stay workspace-based, not Flashpoint-local
-- enterprise SSO is a later layer on top of that shared model, not the default assumption here
-
-See also:
-- `SUITE_ALIGNMENT_2026-03-16.md`
-- `../../../SYSTEM/DECISIONS.md` D-179
-
-## Project Structure
 ```text
-apps/
-  api/                  # Hono Worker + D1 persistence
-  web/                  # React/Vite client
-packages/
-  engine/               # deterministic simulation core
-  content/              # JSON game definitions
-  shared-types/         # shared domain and API types
-db/
-  migrations/           # SQL migrations
-  seed/                 # seed SQL
-scripts/
-  generate-placeholders.ts
-  generate-placeholders.mjs
-tests/
-  engine/               # deterministic/unit tests
+apps/api/          Hono Worker API and D1 persistence
+apps/web/          React/Vite client
+packages/engine/   deterministic simulation core
+packages/content/  scenario, action, adversary, beat, and image metadata
+packages/shared-types/
+db/                D1 migrations and seed data
+scripts/           validation, image, simulation, and deployment helpers
+tests/             deterministic and content integrity tests
 ```
 
-## Data-Driven Content
-Primary files:
+## Content and Asset Authoring
+
+Primary content lives in:
 - `packages/content/data/scenarios.json`
 - `packages/content/data/actions.json`
 - `packages/content/data/adversary_profiles.json`
 - `packages/content/data/images.json`
-
-Add or tune gameplay by editing these JSON files. Engine loads them directly at runtime.
-
-Narrative extension pack:
 - `packages/content/data/narrative_candidates_v2.json`
 
-Beat graph authoring (Phase 1):
-- `ScenarioDefinition.startingBeatId`
-- `ScenarioDefinition.beats[]` (`BeatNode` with ordered branches and optional timed decision windows)
-
-## Image Lexicon
 Generate local placeholder visuals and metadata:
 
 ```bash
 npm run generate:images
 ```
 
-Assets are written to:
-- `apps/web/public/assets/images/`
-- `packages/content/data/images.json`
-
-## Image Generation (Authoring Only)
-Use this only for offline asset authoring. The live product still does not generate images during gameplay.
-
-### GitHub Actions Path
-This is the recommended path if you do not want the API key on your laptop or in any repo-local env file.
-
-1. Add this GitHub repo secret in `altiratech/ESCALATION`:
-- `OPENAI_API_KEY`
-
-2. Run the manual workflow:
-- `.github/workflows/imagegen.yml`
-- workflow name: `Flashpoint Image Generation`
-
-3. Choose `mode`:
-- `generate` for pure text-to-image
-- `edit` to anchor against one or more real reference images
-
-4. Provide the prompt and any optional scene/style fields in the workflow form.
-
-5. In `edit` mode, use `reference_images` to provide either:
-- repo-relative image paths already present on the checked-out branch, or
-- public HTTPS URLs separated by commas or new lines
-
-You can also supply:
-- `input_fidelity=high` to stay closer to the reference image(s)
-- `mask_path` for a repo-relative PNG mask if you want to constrain the edit region
-
-6. Download the generated artifact from the workflow run, review it, and only then move selected finals into:
-- `apps/web/public/assets/images/`
-- `packages/content/data/images.json`
-
-Notes:
-- This keeps the key in GitHub Actions only.
-- The workflow uses the vendored CLI at `scripts/image_gen.py`.
-- `dry_run=true` validates the payload without calling the API and uploads a `request-preview.json` artifact instead of images.
-- Workflow defaults now bias toward documentary/wire-service realism rather than cinematic poster styling. For Flashpoint, prefer real-world reference imagery plus `edit` mode whenever the first text-only generation still looks synthetic.
-
-### Local Wrapper Path
-Use this if you want faster local iteration and are comfortable keeping the key outside source control.
-
-1. Create a local gitignored env file in the repo root:
-
-```bash
-cat > .env.local <<'EOF'
-OPENAI_API_KEY=your_key_here
-EOF
-```
-
-2. Use the repo wrapper, which loads `.env.local` and calls the vendored repo image-generation CLI:
-
-```bash
-./scripts/imagegen.sh generate \
-  --prompt "Modern maritime interdiction at dawn in the Taiwan Strait, wire-service editorial photojournalism, realistic vessel details" \
-  --size 1536x1024 \
-  --quality high \
-  --out output/imagegen/tw-boarding-dawn.png
-```
-
-3. Review generated candidates under `output/imagegen/`, then move only selected finals into:
-- `apps/web/public/assets/images/`
-- `packages/content/data/images.json`
-
-Notes:
-- `.env.local` is gitignored.
-- `output/imagegen/` is gitignored.
-- The wrapper prefers the vendored repo CLI at `scripts/image_gen.py` and falls back to the shared skill path if needed.
-- Override the secret file path with `FLASHPOINT_IMAGEGEN_ENV_FILE=/absolute/path/to/file`.
-- The wrapper keeps `uv` cache writes inside `tmp/uv-cache` so local runs work cleanly in this workspace.
-- `OPENAI_API_KEY` is required for live API calls.
-- `--dry-run` works without a key and is useful for validating the local path.
-
-## Optional Narrative Polishing (LLM Adapter)
-Default mode is deterministic template-only facts.
-
-Set in Worker env (`apps/api/wrangler.toml` or Cloudflare vars):
-- `LLM_MODE=off` (default)
-- `LLM_MODE=mock` (mock tone-polish adapter)
-- `CORS_ALLOW_ORIGINS` (comma-separated allowlist; use `*` only for temporary diagnostics)
-- `RATE_LIMIT_ENABLED=1` (set `0` to disable)
-- `RATE_LIMIT_MAX_REQUESTS=120` (per IP + method, within the configured window)
-- `RATE_LIMIT_WINDOW_SECONDS=60`
-
-No provider key is required for MVP.
+Optional image-generation workflows exist for offline asset authoring only. Live gameplay does not generate images during the turn loop.
 
 ## Testing
-Run tests:
 
 ```bash
 npm test
 ```
-
-Includes:
-- deterministic seed replay
-- delayed effect scheduling
-- belief update behavior
-- outcome rule evaluation
-- beat traversal logic
-- beat graph structural validation
 
 Phase 1 content-tooling gates:
 
@@ -235,86 +117,22 @@ npm run simulate:balance
 npm run test:token-regression
 ```
 
-One-shot Phase 1 gate:
+One-shot gate:
 
 ```bash
 npm run ci:phase1
 ```
 
-`ci:phase1` fails on:
-- beat graph integrity errors (unreachable beats, broken branch targets, terminal-orphan paths)
-- degenerate Monte Carlo distributions (>80% convergence to one terminal beat)
-- missing Monte Carlo beat coverage
-- token budget regressions >10% over configured limits
+## Deployment
 
-## Cloudflare Deployment
-1. Authenticate:
-```bash
-npx wrangler whoami
-# if needed
-npx wrangler login
-```
+Flashpoint deploys through Cloudflare Workers, D1, and Cloudflare Pages. Required production credentials should be configured as GitHub Actions or Cloudflare secrets, not committed to the repo.
 
-2. Create D1 DB (once):
-```bash
-npx wrangler d1 create escalation-db
-```
-
-3. Update `apps/api/wrangler.toml` with returned `database_id`.
-
-4. Apply migration + seed remotely:
-```bash
-cd apps/api
-npx wrangler d1 execute escalation-db --remote --file=../../db/migrations/0001_init.sql
-npx wrangler d1 execute escalation-db --remote --file=../../db/migrations/0002_tracking_analytics.sql
-npx wrangler d1 execute escalation-db --remote --file=../../db/seed/seed.sql
-```
-
-5. Deploy API Worker:
-```bash
-npm run deploy --workspace @wargames/api
-```
-
-6. Deploy web app (static) using your Cloudflare web hosting flow and point it to Worker API route.
-
-7. Attach DNS for `escalation.altiratech.com` in Cloudflare.
-
-## GitHub Actions CI/CD
-- `CI` workflow (`.github/workflows/ci.yml`) runs on pull requests.
-- `Deploy` workflow (`.github/workflows/deploy.yml`) runs on `main` pushes and:
-  1. runs lint + `ci:phase1`,
-  2. deploys API Worker,
-  3. builds/deploys web to Cloudflare Pages,
-  4. runs post-deploy verification checks.
-
-Required repo secrets:
-- `CLOUDFLARE_API_TOKEN`
-- `CLOUDFLARE_ACCOUNT_ID`
-
-Optional repo variables:
-- `CLOUDFLARE_PAGES_PROJECT` (default `escalation-web`)
-- `CLOUDFLARE_PAGES_BRANCH` (default `main`)
-- `ESCALATION_VERIFY_API_HEALTH_URL`
-- `ESCALATION_VERIFY_API_BOOTSTRAP_URL`
-- `ESCALATION_VERIFY_WEB_URL`
-
-## Deployment Verification
-Run production verification checks manually:
+Useful deployment verification:
 
 ```bash
-./scripts/verify-deploy.sh
+npm run verify:deploy
 ```
 
-Override targets via env vars:
+## License
 
-```bash
-VERIFY_API_HEALTH_URL=https://escalation.altiratech.com/api/healthz \
-VERIFY_API_BOOTSTRAP_URL=https://escalation.altiratech.com/api/reference/bootstrap \
-VERIFY_WEB_URL=https://escalation.altiratech.com \
-./scripts/verify-deploy.sh
-```
-
-## Notes
-- No real-world leaders/networks are referenced.
-- Narrative facts are state-derived, not free-form invented.
-- No live image generation in turn loop.
+No open-source license has been selected yet. Public source visibility does not grant reuse rights until a license file is added.
