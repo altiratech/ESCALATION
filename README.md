@@ -2,7 +2,7 @@
 
 Altira Flashpoint is a Cloudflare-native, single-player strategic scenario-intelligence product.
 
-The public GitHub repo is `altiratech/ESCALATION`. Some package and folder names still use the older `wargames` naming.
+The public GitHub repo is `altiratech/flashpoint`. Some package names still use the older `wargames` naming.
 
 ## Status
 
@@ -23,8 +23,8 @@ Flashpoint does not use real-world leaders or real private networks. Narrative f
 ## Quick Start
 
 ```bash
-git clone https://github.com/altiratech/ESCALATION.git
-cd ESCALATION
+git clone https://github.com/altiratech/flashpoint.git
+cd flashpoint
 npm run quickstart
 ```
 
