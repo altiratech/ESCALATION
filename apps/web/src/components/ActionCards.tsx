@@ -14,7 +14,7 @@ interface ActionCardsProps {
   selectedActionNarrativePreview?: ActionNarrativePhaseContent | null;
   actionAdvisorSummaries: Map<string, { supports: number; cautions: number; opposes: number }>;
   customResponseSlot?: ReactNode;
-  onSelect: (actionId: string) => void;
+  onSelect: (actionId: string, variantId?: string | null) => void;
 }
 
 const getDefaultVariant = (action: ActionDefinition): ActionVariantDefinition | null => {
@@ -36,6 +36,11 @@ const getSelectedVariant = (action: ActionDefinition, selectedVariantId?: string
 
   return action.variants?.find((variant) => variant.id === selectedVariantId) ?? getDefaultVariant(action);
 };
+
+const variantButtonTone = (active: boolean): string =>
+  active
+    ? 'border-accent bg-accent/12 text-textMain shadow-[inset_0_-2px_0_rgba(255,177,0,1)]'
+    : 'border-borderTone/80 bg-panelRaised/35 text-textMuted hover:border-accent/70 hover:bg-panelRaised/60 hover:text-textMain';
 
 const visibilityTone = (visibility: ActionDefinition['visibility']): string => {
   if (visibility === 'public') {
@@ -393,6 +398,42 @@ export const ActionCards = ({
             </div>
 
             <div className="space-y-2">
+              {selectedAction.variants && selectedAction.variants.length > 1 ? (
+                <div>
+                  <p className="label">Response Envelope</p>
+                  <div className="mt-2 grid gap-2 md:grid-cols-2">
+                    {selectedAction.variants.map((variant) => {
+                      const active = selectedVariant?.id === variant.id;
+                      const downside = hiddenDownsideMeta(variant.hiddenDownsideCategory);
+                      return (
+                        <button
+                          key={variant.id}
+                          type="button"
+                          className={`rounded-md border px-3 py-2 text-left transition ${variantButtonTone(active)} ${
+                            disabled ? 'cursor-not-allowed opacity-55' : ''
+                          }`}
+                          disabled={disabled}
+                          onClick={() => onSelect(selectedAction.id, variant.id)}
+                        >
+                          <div className="flex items-start justify-between gap-2">
+                            <p className="text-[0.74rem] font-semibold uppercase tracking-[0.08em]">{variant.label}</p>
+                            <span className="text-[0.55rem] uppercase tracking-[0.1em] text-accent">
+                              {active ? 'Selected' : 'Choose'}
+                            </span>
+                          </div>
+                          <p className="mt-1 text-[0.7rem] leading-relaxed">{variant.summary}</p>
+                          {downside ? (
+                            <p className="mt-1 text-[0.62rem] leading-relaxed text-textMuted">
+                              Risk: {downside.label}
+                            </p>
+                          ) : null}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              ) : null}
+
               <p className="label">Immediate Move</p>
               <p className="text-[0.8rem] leading-relaxed text-textMain">
                 {selectedVariant?.summary ?? actionOneLiner(selectedAction)}

@@ -3,7 +3,7 @@ import { and, desc, eq } from 'drizzle-orm';
 import type { GameState, PostGameReport, TurnResolution } from '@wargames/shared-types';
 
 import type { Database } from './db';
-import { beatProgress, episodes, profiles, reports, scores, turnLogs } from './schema';
+import { beatProgress, clientTelemetry, episodes, profiles, reports, scores, turnLogs } from './schema';
 import { GameStateValidationError, parseGameStateJson } from './stateSchema';
 
 const randomId = (): string => crypto.randomUUID();
@@ -442,6 +442,32 @@ export const insertBeatProgress = async (
     extendUsed: toFlag(payload.extendUsed),
     extendTimerUsesRemaining: payload.extendTimerUsesRemaining
   }).onConflictDoNothing();
+};
+
+export interface ClientTelemetryPayload {
+  episodeId: string | null;
+  scenarioId: string | null;
+  eventName: string;
+  turnNumber: number | null;
+  elapsedMs: number | null;
+  metadata: Record<string, unknown>;
+  userAgent: string | null;
+}
+
+export const insertClientTelemetry = async (
+  db: Database,
+  payload: ClientTelemetryPayload
+): Promise<void> => {
+  await db.insert(clientTelemetry).values({
+    id: randomId(),
+    episodeId: payload.episodeId,
+    scenarioId: payload.scenarioId,
+    eventName: payload.eventName,
+    turnNumber: payload.turnNumber,
+    elapsedMs: payload.elapsedMs,
+    metadataJson: toJson(payload.metadata),
+    userAgent: payload.userAgent
+  });
 };
 
 export const upsertReport = async (

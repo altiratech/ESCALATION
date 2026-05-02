@@ -281,7 +281,7 @@ export const chooseImageAsset = ({
     .sort((left, right) => right.score - left.score || left.asset.id.localeCompare(right.asset.id));
 
   const curatedHero = rankedCuratedAssets(scoredAll, beat?.visualCue?.heroImageIds);
-  if (curatedHero.length > 0) {
+  if (curatedHero.length > 0 && actionTags.length === 0 && variantTags.length === 0) {
     return curatedHero[0]?.asset ?? null;
   }
 
@@ -315,6 +315,7 @@ export const chooseImageGallery = (
   const beatTags = buildBeatTags(options.beat);
   const actionTags = buildActionTags(options.playerAction);
   const variantTags = buildVariantTags(options.playerVariant);
+  const hasDecisionVisualContext = actionTags.length > 0 || variantTags.length > 0;
   const available = options.assets.filter((asset) => !options.recentImageIds.includes(asset.id));
   const recentFamilies = new Set(
     options.recentImageIds
@@ -363,34 +364,35 @@ export const chooseImageGallery = (
     (options.beat?.visualCue?.evidenceImageIds?.length ?? 0) > 0;
 
   const curatedHero = rankedCuratedAssets(rankedAll, options.beat?.visualCue?.heroImageIds);
-  if (curatedHero.length > 0) {
-    selected.push(curatedHero[0]!.asset);
-    usedKinds.add(curatedHero[0]!.asset.kind);
-    usedPerspectives.add(curatedHero[0]!.asset.perspective);
-    usedFamilies.add(visualFamilyKey(curatedHero[0]!.asset));
-  }
+  const curatedEvidence = rankedCuratedAssets(rankedAll, options.beat?.visualCue?.evidenceImageIds);
 
-  const curatedEvidence = rankedCuratedAssets(rankedAll, options.beat?.visualCue?.evidenceImageIds)
-    .filter((entry) => !selected.some((asset) => asset.id === entry.asset.id));
-
-  for (const { asset } of curatedEvidence) {
-    if (selected.length >= count) {
-      break;
+  if (!hasDecisionVisualContext) {
+    if (curatedHero.length > 0) {
+      selected.push(curatedHero[0]!.asset);
+      usedKinds.add(curatedHero[0]!.asset.kind);
+      usedPerspectives.add(curatedHero[0]!.asset.perspective);
+      usedFamilies.add(visualFamilyKey(curatedHero[0]!.asset));
     }
 
-    const family = visualFamilyKey(asset);
-    if (usedFamilies.has(family)) {
-      continue;
+    for (const { asset } of curatedEvidence.filter((entry) => !selected.some((item) => item.id === entry.asset.id))) {
+      if (selected.length >= count) {
+        break;
+      }
+
+      const family = visualFamilyKey(asset);
+      if (usedFamilies.has(family)) {
+        continue;
+      }
+
+      selected.push(asset);
+      usedKinds.add(asset.kind);
+      usedPerspectives.add(asset.perspective);
+      usedFamilies.add(family);
     }
 
-    selected.push(asset);
-    usedKinds.add(asset.kind);
-    usedPerspectives.add(asset.perspective);
-    usedFamilies.add(family);
-  }
-
-  if (hasCuratedGallery && selected.length > 0) {
-    return selected.slice(0, count);
+    if (hasCuratedGallery && selected.length > 0) {
+      return selected.slice(0, count);
+    }
   }
 
   for (const { asset } of ranked) {
@@ -418,6 +420,22 @@ export const chooseImageGallery = (
     usedKinds.add(asset.kind);
     usedPerspectives.add(asset.perspective);
     usedFamilies.add(visualFamilyKey(asset));
+  }
+
+  if (hasDecisionVisualContext) {
+    for (const { asset } of [...curatedHero, ...curatedEvidence]) {
+      if (selected.length >= count) {
+        break;
+      }
+      if (selected.some((item) => item.id === asset.id)) {
+        continue;
+      }
+
+      selected.push(asset);
+      usedKinds.add(asset.kind);
+      usedPerspectives.add(asset.perspective);
+      usedFamilies.add(visualFamilyKey(asset));
+    }
   }
 
   return selected;

@@ -54,6 +54,7 @@ import {
   getEpisodeState,
   getEpisodeStateById,
   getReport,
+  insertClientTelemetry,
   insertBeatProgress,
   persistEpisodeAndBeatProgressAtomic,
   persistResolvedTurnAtomic,
@@ -63,7 +64,6 @@ import { interpretCommand as interpretCommandText } from './interpret';
 import { GameStateValidationError, parseGameStateJson } from './stateSchema';
 
 const DEFAULT_ALLOWED_ORIGINS = [
-  'https://escalation.altiratech.com',
   'https://escalation-web.pages.dev',
   'http://localhost:5173',
   'http://127.0.0.1:5173'
@@ -240,6 +240,23 @@ app.post('/api/profiles', async (context) => {
   return context.json(profile);
 });
 
+app.post('/api/telemetry', async (context) => {
+  const payload = telemetrySchema.parse(await context.req.json());
+  const db = createDb(context.env);
+
+  await insertClientTelemetry(db, {
+    episodeId: payload.episodeId ?? null,
+    scenarioId: payload.scenarioId ?? null,
+    eventName: payload.eventName,
+    turnNumber: payload.turnNumber ?? null,
+    elapsedMs: payload.elapsedMs ?? null,
+    metadata: payload.metadata ?? {},
+    userAgent: context.req.header('User-Agent') ?? null
+  });
+
+  return context.json({ ok: true });
+});
+
 const startSchema = z.object({
   profileId: z.string().uuid(),
   scenarioId: z.string().min(1),
@@ -344,6 +361,15 @@ const extendCountdownSchema = z.object({
 const interpretSchema = z.object({
   expectedTurn: z.number().int().min(1),
   commandText: z.string().min(1).max(300)
+});
+
+const telemetrySchema = z.object({
+  episodeId: z.string().uuid().nullable().optional(),
+  scenarioId: z.string().min(1).max(120).nullable().optional(),
+  eventName: z.enum(['session_start', 'decision_made', 'game_completed', 'game_abandoned', 'client_error']),
+  turnNumber: z.number().int().min(1).nullable().optional(),
+  elapsedMs: z.number().int().min(0).max(86_400_000).nullable().optional(),
+  metadata: z.record(z.string(), z.unknown()).optional()
 });
 
 const buildInterpretationMessage = (input: {

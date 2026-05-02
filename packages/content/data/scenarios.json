@@ -3249,10 +3249,26 @@
         ],
         "branches": [
           {
-            "targetBeatId": "ns_deceptive_picture",
+            "targetBeatId": "ns_bandwidth_stockpiles",
             "conditions": [],
             "minTurn": null,
             "maxTurn": null,
+            "requiresActionTag": "military",
+            "priority": 3
+          },
+          {
+            "targetBeatId": "ns_bandwidth_stockpiles",
+            "conditions": [],
+            "minTurn": null,
+            "maxTurn": null,
+            "requiresActionTag": "energy",
+            "priority": 2
+          },
+          {
+            "targetBeatId": "ns_deceptive_picture",
+            "conditions": [],
+            "minTurn": null,
+            "maxTurn": 99,
             "requiresActionTag": null,
             "priority": 1
           }
@@ -3484,10 +3500,26 @@
         ],
         "branches": [
           {
-            "targetBeatId": "ns_bandwidth_stockpiles",
+            "targetBeatId": "ns_reversible_coercion",
             "conditions": [],
             "minTurn": null,
             "maxTurn": null,
+            "requiresActionTag": "intel",
+            "priority": 3
+          },
+          {
+            "targetBeatId": "ns_reversible_coercion",
+            "conditions": [],
+            "minTurn": null,
+            "maxTurn": null,
+            "requiresActionTag": "military",
+            "priority": 2
+          },
+          {
+            "targetBeatId": "ns_bandwidth_stockpiles",
+            "conditions": [],
+            "minTurn": null,
+            "maxTurn": 99,
             "requiresActionTag": null,
             "priority": 1
           }
@@ -3719,10 +3751,40 @@
         ],
         "branches": [
           {
+            "targetBeatId": "ns_first_irreversible_incident",
+            "conditions": [
+              {
+                "source": "meter",
+                "key": "escalationIndex",
+                "op": "gte",
+                "value": 50
+              }
+            ],
+            "minTurn": null,
+            "maxTurn": null,
+            "requiresActionTag": "military",
+            "priority": 3
+          },
+          {
+            "targetBeatId": "ns_first_irreversible_incident",
+            "conditions": [
+              {
+                "source": "latent",
+                "key": "shippingStress",
+                "op": "gte",
+                "value": 40
+              }
+            ],
+            "minTurn": null,
+            "maxTurn": null,
+            "requiresActionTag": "energy",
+            "priority": 2
+          },
+          {
             "targetBeatId": "ns_reversible_coercion",
             "conditions": [],
             "minTurn": null,
-            "maxTurn": null,
+            "maxTurn": 99,
             "requiresActionTag": null,
             "priority": 1
           }
@@ -4002,7 +4064,7 @@
             "targetBeatId": "ns_first_irreversible_incident",
             "conditions": [],
             "minTurn": null,
-            "maxTurn": null,
+            "maxTurn": 99,
             "requiresActionTag": null,
             "priority": 1
           }
@@ -4273,7 +4335,7 @@
             "targetBeatId": "ns_tail_risk_visibility",
             "conditions": [],
             "minTurn": null,
-            "maxTurn": null,
+            "maxTurn": 99,
             "requiresActionTag": null,
             "priority": 1
           }
@@ -4517,10 +4579,26 @@
         ],
         "branches": [
           {
-            "targetBeatId": "ns_tail_risk_visibility",
+            "targetBeatId": "ns_final_resolution_window",
             "conditions": [],
             "minTurn": null,
             "maxTurn": null,
+            "requiresActionTag": "military",
+            "priority": 3
+          },
+          {
+            "targetBeatId": "ns_final_resolution_window",
+            "conditions": [],
+            "minTurn": null,
+            "maxTurn": null,
+            "requiresActionTag": "energy",
+            "priority": 2
+          },
+          {
+            "targetBeatId": "ns_tail_risk_visibility",
+            "conditions": [],
+            "minTurn": null,
+            "maxTurn": 99,
             "requiresActionTag": null,
             "priority": 1
           }
@@ -4763,10 +4841,46 @@
         ],
         "branches": [
           {
+            "targetBeatId": "ns_managed_relief",
+            "conditions": [
+              {
+                "source": "meter",
+                "key": "escalationIndex",
+                "op": "lte",
+                "value": 72
+              },
+              {
+                "source": "meter",
+                "key": "allianceTrust",
+                "op": "gte",
+                "value": 45
+              }
+            ],
+            "minTurn": null,
+            "maxTurn": null,
+            "requiresActionTag": "diplomacy",
+            "priority": 3
+          },
+          {
+            "targetBeatId": "ns_blockade_lock",
+            "conditions": [
+              {
+                "source": "latent",
+                "key": "shippingStress",
+                "op": "gte",
+                "value": 48
+              }
+            ],
+            "minTurn": null,
+            "maxTurn": null,
+            "requiresActionTag": "energy",
+            "priority": 2
+          },
+          {
             "targetBeatId": "ns_final_resolution_window",
             "conditions": [],
             "minTurn": null,
-            "maxTurn": null,
+            "maxTurn": 99,
             "requiresActionTag": null,
             "priority": 1
           }
@@ -5110,7 +5224,7 @@
             "targetBeatId": "ns_managed_freeze",
             "conditions": [],
             "minTurn": null,
-            "maxTurn": null,
+            "maxTurn": 99,
             "requiresActionTag": null,
             "priority": 1
           }

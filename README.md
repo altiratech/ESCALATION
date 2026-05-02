@@ -34,6 +34,12 @@ Local URLs:
 - Web: `http://localhost:5173`
 - API: `http://localhost:8787`
 
+Standalone preview defaults:
+- Web: `https://escalation-web.pages.dev`
+- API: `https://escalation-api.rjameson.workers.dev`
+
+Flashpoint is no longer previewed as an Altiratech.com product route. Use the Pages/Workers preview pair above until a standalone domain is selected.
+
 Manual setup:
 
 ```bash
@@ -132,6 +138,8 @@ Useful deployment verification:
 ```bash
 npm run verify:deploy
 ```
+
+Override verification targets with `VERIFY_WEB_URL`, `VERIFY_API_ORIGIN`, or `VERIFY_SCENARIO_ID` when testing a branch preview or future standalone domain.
 
 ## License
 

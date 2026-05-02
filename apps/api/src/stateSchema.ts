@@ -2,6 +2,8 @@ import { z } from 'zod';
 
 import type { GameState } from '@wargames/shared-types';
 
+export const CURRENT_GAME_STATE_SCHEMA_VERSION = 1;
+
 const meterStateSchema = z.object({
   economicStability: z.number(),
   energySecurity: z.number(),
@@ -139,6 +141,7 @@ const meterLabelsSchema = z.object({
 });
 
 const gameStateSchema = z.object({
+  schemaVersion: z.literal(CURRENT_GAME_STATE_SCHEMA_VERSION),
   id: z.string(),
   scenarioId: z.string(),
   turn: z.number().int().min(1),
@@ -167,6 +170,45 @@ const gameStateSchema = z.object({
   openingBriefing: narrativeBundleSchema
 }).passthrough();
 
+type ParsedStateRecord = Record<string, unknown>;
+
+const isRecord = (value: unknown): value is ParsedStateRecord =>
+  Boolean(value) && typeof value === 'object' && !Array.isArray(value);
+
+const readSchemaVersion = (parsed: ParsedStateRecord, episodeId: string): number => {
+  if (parsed.schemaVersion === undefined || parsed.schemaVersion === null) {
+    return 0;
+  }
+
+  if (!Number.isInteger(parsed.schemaVersion)) {
+    throw new GameStateValidationError(episodeId, ['schemaVersion: Expected integer schema version']);
+  }
+
+  return parsed.schemaVersion as number;
+};
+
+const migrateGameState = (parsed: ParsedStateRecord, episodeId: string): ParsedStateRecord => {
+  const sourceVersion = readSchemaVersion(parsed, episodeId);
+  if (sourceVersion > CURRENT_GAME_STATE_SCHEMA_VERSION) {
+    throw new GameStateValidationError(episodeId, [
+      `schemaVersion: Unsupported future schema version ${sourceVersion}; current version is ${CURRENT_GAME_STATE_SCHEMA_VERSION}`
+    ]);
+  }
+
+  const migrated: ParsedStateRecord = {
+    ...parsed,
+    schemaVersion: CURRENT_GAME_STATE_SCHEMA_VERSION
+  };
+
+  if (sourceVersion === 0) {
+    // Version 0 is the pre-versioning state shape. Its only known migration is
+    // stamping the current schema version before validation.
+    migrated.schemaVersion = CURRENT_GAME_STATE_SCHEMA_VERSION;
+  }
+
+  return migrated;
+};
+
 export class GameStateValidationError extends Error {
   issues: string[];
 
@@ -187,9 +229,9 @@ export const parseGameStateJson = (stateJson: string, episodeId: string): GameSt
   }
 
   const candidate =
-    parsed && typeof parsed === 'object'
+    isRecord(parsed)
       ? ({
-          ...(parsed as Record<string, unknown>),
+          ...migrateGameState(parsed, episodeId),
           latent: {
             usSurgeSlack: 62,
             munitionsDepth: 58,
@@ -198,7 +240,7 @@ export const parseGameStateJson = (stateJson: string, episodeId: string): GameSt
             shippingStress: 36,
             cyberPrepositioning: 48,
             deceptionEffectiveness: 52,
-            ...((parsed as { latent?: Record<string, unknown> }).latent ?? {})
+            ...(isRecord(parsed.latent) ? parsed.latent : {})
           }
         } satisfies Record<string, unknown>)
       : parsed;

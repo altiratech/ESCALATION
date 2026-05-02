@@ -429,6 +429,92 @@ describe('image selection', () => {
     );
   });
 
+  it('lets selected action context lead a curated beat gallery while preserving curated evidence', () => {
+    const scenario = { environment: 'coastal' } as ScenarioDefinition;
+    const beat = {
+      id: 'curated_decision_context',
+      phase: 'rising',
+      imageHints: ['taiwan', 'shipping'],
+      visualCue: {
+        preferredKinds: ['documentary_still', 'artifact', 'map'],
+        tags: ['shipping', 'coercion'],
+        branchStage: 'coercion',
+        heroImageIds: ['curated_watchfloor'],
+        evidenceImageIds: ['curated_map']
+      }
+    } as BeatNode;
+    const assets = [
+      {
+        id: 'curated_watchfloor',
+        kind: 'documentary_still',
+        path: '/assets/images/watch.jpg',
+        alt: 'Watch floor',
+        caption: 'Watch floor',
+        environment: 'coastal',
+        domain: 'military',
+        severity: 2,
+        perspective: 'news_frame',
+        tags: ['taiwan', 'shipping', 'coercion', 'watchfloor']
+      },
+      {
+        id: 'curated_map',
+        kind: 'map',
+        path: '/assets/images/map.png',
+        alt: 'Map',
+        caption: 'Map',
+        environment: 'coastal',
+        domain: 'military',
+        severity: 2,
+        perspective: 'satellite',
+        tags: ['taiwan', 'shipping', 'coercion', 'map']
+      },
+      {
+        id: 'variant_market_room',
+        kind: 'documentary_still',
+        path: '/assets/images/market-room.jpg',
+        alt: 'Market desk',
+        caption: 'Market desk',
+        environment: 'coastal',
+        domain: 'economy',
+        severity: 3,
+        perspective: 'street',
+        tags: ['taiwan', 'shipping', 'coercion', 'market_panic', 'economic_pressure']
+      }
+    ] satisfies ImageAsset[];
+    const action = {
+      id: 'sanctions',
+      visualTags: ['economic_pressure']
+    } as ActionDefinition;
+    const variant = {
+      id: 'punitive',
+      visualTags: ['market_panic']
+    } as ActionVariantDefinition;
+
+    const gallery = chooseImageGallery({
+      assets,
+      scenario,
+      beat,
+      meters: {
+        economicStability: 46,
+        energySecurity: 52,
+        domesticCohesion: 49,
+        militaryReadiness: 60,
+        allianceTrust: 51,
+        escalationIndex: 62
+      },
+      turnDelta: zeroShift,
+      recentImageIds: [],
+      rng: new SeededRng('IMG-DECISION-CONTEXT'),
+      playerAction: action,
+      playerVariant: variant
+    });
+
+    expect(gallery[0]?.id).toBe('variant_market_room');
+    expect(gallery.map((asset) => asset.id)).toEqual(
+      expect.arrayContaining(['curated_watchfloor', 'curated_map'])
+    );
+  });
+
   it('treats authored hero order as authoritative even when a later hero scores better', () => {
     const scenario = { environment: 'coastal' } as ScenarioDefinition;
     const beat = {

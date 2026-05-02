@@ -581,12 +581,14 @@ export const BriefingPanel = ({
     supportingImageAssets.length <= 1
       ? 'h-[15rem] sm:h-[16.5rem] xl:h-[18rem]'
       : 'h-[12.5rem] sm:h-[14rem] xl:h-[15rem]';
+  const shouldShowTheaterDiagram = Boolean(scenarioWorld?.theaterDiagram) &&
+    (turn === 1 || (!imageAsset && supportingImageAssets.length === 0));
 
   return (
     <section className="console-panel console-panel-muted p-4 sm:p-5">
       <div
         className={`grid gap-4 ${
-          imageAsset || supportingImageAssets.length > 0 || scenarioWorld?.theaterDiagram
+          imageAsset || supportingImageAssets.length > 0 || shouldShowTheaterDiagram
             ? 'xl:grid-cols-[1.04fr_0.96fr]'
             : ''
         }`}
@@ -644,7 +646,7 @@ export const BriefingPanel = ({
           ) : null}
         </div>
 
-        {imageAsset || supportingImageAssets.length > 0 || scenarioWorld?.theaterDiagram ? (
+        {imageAsset || supportingImageAssets.length > 0 || shouldShowTheaterDiagram ? (
           <div className="space-y-3">
             {imageAsset ? (
               <figure className="overflow-hidden rounded-md border border-borderTone/80 bg-surface/65">
@@ -695,7 +697,7 @@ export const BriefingPanel = ({
                 ))}
               </div>
             ) : null}
-            {scenarioWorld?.theaterDiagram ? (
+            {shouldShowTheaterDiagram && scenarioWorld?.theaterDiagram ? (
               <figure className="overflow-hidden rounded-md border border-borderTone/80 bg-surface/65">
                 <div className="flex items-center justify-between border-b border-borderTone/80 px-3 py-2">
                   <p className="label">Situation Map</p>

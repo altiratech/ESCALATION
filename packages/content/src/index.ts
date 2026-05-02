@@ -147,6 +147,42 @@ const normalizeNarrativeCandidatesPack = (rawPack: RawNarrativePack): NarrativeC
 
 export const narrativeCandidates = normalizeNarrativeCandidatesPack(narrativeCandidatesData as RawNarrativePack);
 
+const narrativeScenarioAliases: Record<string, string[]> = {
+  northern_strait_flashpoint: ['northern_strait_black_swan']
+};
+
+const narrativeBeatAliases: Record<string, string[]> = {
+  ns_opening_signal: ['ns_abnormal_signal'],
+  ns_strait_pressure: ['ns_deceptive_picture', 'ns_reversible_coercion'],
+  ns_trade_friction: ['ns_bandwidth_stockpiles'],
+  ns_crisis_window: ['ns_first_irreversible_incident', 'ns_false_relief_or_trap'],
+  ns_backchannel_opening: ['ns_false_relief_or_trap'],
+  ns_market_spiral: ['ns_tail_risk_visibility'],
+  ns_carrier_faceoff: ['ns_final_resolution_window'],
+  ns_missile_warning: ['ns_final_resolution_window'],
+  ns_info_war: ['ns_deceptive_picture'],
+  ns_alliance_split: ['ns_tail_risk_visibility'],
+  ns_covert_shadow: ['ns_reversible_coercion'],
+  ns_ceasefire_channel: ['ns_managed_relief'],
+  ns_urban_unrest: ['ns_blockade_lock']
+};
+
+const expandNarrativeBeatIds = (beatId: string): string[] => {
+  const expanded = new Set<string>([beatId, ...(narrativeBeatAliases[beatId] ?? [])]);
+
+  for (const [sourceBeatId, aliases] of Object.entries(narrativeBeatAliases)) {
+    if (aliases.includes(beatId)) {
+      expanded.add(sourceBeatId);
+    }
+  }
+
+  return [...expanded];
+};
+
+const scenarioUsesNarrativePack = (scenario: ScenarioDefinition): boolean =>
+  scenario.id === narrativeCandidates.scenario ||
+  (narrativeScenarioAliases[narrativeCandidates.scenario] ?? []).includes(scenario.id);
+
 export const playerActions = actions.filter((action) => action.actor === 'player');
 export const rivalActions = actions.filter((action) => action.actor === 'rival');
 
@@ -233,9 +269,11 @@ const buildAdvisorLineOverlay = (): Map<string, AdvisorLineCandidate[]> => {
   }
 
   for (const entry of category.entries) {
-    const current = byBeat.get(entry.beatId) ?? [];
-    current.push(entry);
-    byBeat.set(entry.beatId, current);
+    for (const beatId of expandNarrativeBeatIds(entry.beatId)) {
+      const current = byBeat.get(beatId) ?? [];
+      current.push(entry);
+      byBeat.set(beatId, current);
+    }
   }
 
   return byBeat;
@@ -273,7 +311,7 @@ const mergeScenarioAdvisorLines = (
 
 const advisorLineOverlayByBeat = buildAdvisorLineOverlay();
 export const scenarios = (scenariosData as ScenarioDefinition[]).map((scenario) =>
-  scenario.id === narrativeCandidates.scenario
+  scenarioUsesNarrativePack(scenario)
     ? mergeScenarioAdvisorLines(scenario, advisorLineOverlayByBeat)
     : scenario
 );
@@ -290,7 +328,8 @@ export const getPressureText = (beatId: string, secondsRemaining: number): strin
     return null;
   }
 
-  const beatEntries = category.entries.filter((entry) => entry.beatId === beatId);
+  const beatIds = new Set(expandNarrativeBeatIds(beatId));
+  const beatEntries = category.entries.filter((entry) => beatIds.has(entry.beatId));
   const genericEntries = category.entries.filter((entry) => entry.beatId === '_generic');
   return pickThresholdText(beatEntries, secondsRemaining) ?? pickThresholdText(genericEntries, secondsRemaining);
 };

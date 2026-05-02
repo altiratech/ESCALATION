@@ -240,8 +240,8 @@ export const ReportView = ({ report, scenario, advisorDossiers, cinematics, onRe
             </p>
           </div>
           <div className="mt-4 space-y-3 text-sm leading-relaxed text-textMuted">
-            {endingCinematic.fragments.map((fragment) => (
-              <p key={fragment}>{fragment}</p>
+            {endingCinematic.fragments.map((fragment, index) => (
+              <p key={`${index}:${fragment}`}>{fragment}</p>
             ))}
           </div>
           <p className="mt-4 border-l-2 border-accent/70 pl-4 text-sm leading-relaxed text-textMain">
@@ -278,8 +278,8 @@ export const ReportView = ({ report, scenario, advisorDossiers, cinematics, onRe
         <article className="card p-5">
           <p className="label">Decision Blind Spots</p>
           <ul className="mt-3 list-disc space-y-2 pl-4 text-sm text-textMuted">
-            {report.misjudgments.map((item) => (
-              <li key={item}>{item}</li>
+            {report.misjudgments.map((item, index) => (
+              <li key={`${index}:${item}`}>{item}</li>
             ))}
           </ul>
         </article>
@@ -373,8 +373,8 @@ export const ReportView = ({ report, scenario, advisorDossiers, cinematics, onRe
             <article>
               <p className="label">Recent Signaling</p>
               <ul className="mt-2 space-y-2 text-sm text-textMuted">
-                {report.fullCausality.rivalLeaderReveal.publicStatements.map((statement) => (
-                  <li key={statement.context}>
+                {report.fullCausality.rivalLeaderReveal.publicStatements.map((statement, index) => (
+                  <li key={`${index}:${statement.context}`}>
                     <span className="text-textMain">{statement.context}</span>: {statement.analystNote}
                   </li>
                 ))}
@@ -492,8 +492,8 @@ export const ReportView = ({ report, scenario, advisorDossiers, cinematics, onRe
           <p className="label">Advisor Retrospectives</p>
           {report.fullCausality.advisorRetrospectives.length > 0 ? (
             <ul className="mt-3 space-y-2 text-sm text-textMuted">
-              {report.fullCausality.advisorRetrospectives.map((entry) => (
-                <li key={`${entry.advisor}:${entry.text}`}>
+              {report.fullCausality.advisorRetrospectives.map((entry, index) => (
+                <li key={`${index}:${entry.advisor}:${entry.text}`}>
                   <span className="text-textMain">{entry.advisor.toUpperCase()}</span>: {entry.text}
                 </li>
               ))}
@@ -509,14 +509,14 @@ export const ReportView = ({ report, scenario, advisorDossiers, cinematics, onRe
         <p className="mt-2 text-xs text-textMuted">Top counterfactual branches by stress impact and pivot relevance (max 6).</p>
         {report.fullCausality.branchesNotTaken.length > 0 ? (
           <div className="mt-3 space-y-3">
-            {report.fullCausality.branchesNotTaken.map((entry) => (
-              <article key={`${entry.turn}:${entry.beatId}`} className="rounded-md border border-borderTone/70 bg-panelRaised/40 p-3">
+            {report.fullCausality.branchesNotTaken.map((entry, entryIndex) => (
+              <article key={`${entry.turn}:${entry.beatId}:${entry.selectedBeatId}:${entryIndex}`} className="rounded-md border border-borderTone/70 bg-panelRaised/40 p-3">
                 <p className="text-sm text-textMain">
                   Decision window {entry.turn} | Chosen response {entry.selectedActionId}
                 </p>
                 <ul className="mt-2 list-disc space-y-1 pl-4 text-xs text-textMuted">
-                  {entry.alternatives.map((alt) => (
-                    <li key={`${entry.turn}:${entry.beatId}:${alt.targetBeatId}`}>
+                  {entry.alternatives.map((alt, altIndex) => (
+                    <li key={`${entry.turn}:${entry.beatId}:${alt.targetBeatId}:${altIndex}`}>
                       {alt.reason}
                     </li>
                   ))}
@@ -542,8 +542,8 @@ export const ReportView = ({ report, scenario, advisorDossiers, cinematics, onRe
               </tr>
             </thead>
             <tbody>
-              {report.beliefEvolution.map((entry) => (
-                <tr key={entry.turn} className="text-textMain">
+              {report.beliefEvolution.map((entry, index) => (
+                <tr key={`${entry.turn}:${index}`} className="text-textMain">
                   <td className="border-b border-borderTone/60 py-2 pr-4">{entry.turn}</td>
                   <td className="border-b border-borderTone/60 py-2 pr-4">{entry.bluffProb.toFixed(2)}</td>
                   <td className="border-b border-borderTone/60 py-2 pr-4">{entry.thresholdHighProb.toFixed(2)}</td>

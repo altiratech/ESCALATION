@@ -1,8 +1,8 @@
 {
-  "scenarioId": "Northern_strait_flashpoint",
+  "scenarioId": "northern_strait_black_swan",
   "actions": [
     {
-      "actionId": "Backchannel_diplomacy",
+      "actionId": "backchannel_diplomacy",
       "phases": {
         "opening": {
           "preActionBrief": "Chen recommends reopening a quiet Singapore channel to senior PRC interlocutors. Repeated median-line crossings, maritime militia swarms, and pressure on commercial traffic around Taiwan are compressing the decision window. The first move will define whether this stays in the gray zone or hardens into a military showdown.",
@@ -39,7 +39,7 @@
       }
     },
     {
-      "actionId": "Cyber_intrusion",
+      "actionId": "cyber_intrusion",
       "phases": {
         "opening": {
           "preActionBrief": "Reed proposes a narrowly scoped cyber intrusion to map PRC maritime command, logistics, and influence networks supporting operations around Taiwan. Beijing is probing for hesitation, not yet committing to an outright quarantine.",
@@ -76,7 +76,7 @@
       }
     },
     {
-      "actionId": "Cyber_disruption",
+      "actionId": "cyber_disruption",
       "phases": {
         "opening": {
           "preActionBrief": "Operators present a limited disruption option against systems enabling PRC coercive maritime activity, including logistics dispatch and vessel cueing. The first 48 hours still leave room for calibrated signaling if neither side creates casualties.",
@@ -113,7 +113,7 @@
       }
     },
     {
-      "actionId": "Covert_sabotage",
+      "actionId": "covert_sabotage",
       "phases": {
         "opening": {
           "preActionBrief": "A covert option is on the table to quietly disable a PRC node enabling coercive operations around Taiwan, such as a militia staging asset or logistics enabler. The first move will define whether this stays in the gray zone or hardens into a military showdown.",
@@ -150,7 +150,7 @@
       }
     },
     {
-      "actionId": "Military_posture_increase",
+      "actionId": "military_posture_increase",
       "phases": {
         "opening": {
           "preActionBrief": "Cross urges a visible military surge: additional naval presence, higher air readiness, and public escort posture for key traffic near Taiwan. Repeated median-line crossings, maritime militia swarms, and pressure on commercial traffic around Taiwan are compressing the decision window.",
@@ -187,7 +187,7 @@
       }
     },
     {
-      "actionId": "Military_posture_decrease",
+      "actionId": "military_posture_decrease",
       "phases": {
         "opening": {
           "preActionBrief": "Military commanders can step back the most visible U.S. Presence while preserving ISR, submarines, and contingency readiness. The question is whether reducing public military heat buys space or invites more pressure.",
@@ -224,7 +224,7 @@
       }
     },
     {
-      "actionId": "Intelligence_surge",
+      "actionId": "intelligence_surge",
       "phases": {
         "opening": {
           "preActionBrief": "Reed and Cross jointly recommend an intelligence surge: ISR sorties, signals collection, commercial imagery buys, and allied fusion focused on the Taiwan operating picture. The first 48 hours still leave room for calibrated signaling if neither side creates casualties.",
@@ -261,7 +261,7 @@
       }
     },
     {
-      "actionId": "Limited_concession",
+      "actionId": "limited_concession",
       "phases": {
         "opening": {
           "preActionBrief": "Chen proposes a narrow concession designed to buy time without conceding Taiwan's political status: for example, adjusting exercise timing, endorsing a hotline mechanism, or backing a neutral shipping-safety protocol. The first move will define whether this stays in the gray zone or hardens into a military showdown.",
@@ -298,7 +298,7 @@
       }
     },
     {
-      "actionId": "Public_signaling_speech",
+      "actionId": "public_signaling_speech",
       "phases": {
         "opening": {
           "preActionBrief": "The speechwriters and policy team have a public signaling option: a major address clarifying U.S. Objectives, alliance commitments, and the costs Beijing will face if coercion continues. Shipping insurers and semiconductor traders are repricing Taiwan exposure in real time.",
@@ -335,7 +335,7 @@
       }
     },
     {
-      "actionId": "Targeted_sanctions",
+      "actionId": "targeted_sanctions",
       "phases": {
         "opening": {
           "preActionBrief": "Okonkwo recommends targeted measures on specific entities supporting coercive operations: maritime militia fronts, dual-use exporters, logistics firms, insurers, and financial facilitators tied to pressure on Taiwan. Shipping insurers and semiconductor traders are repricing Taiwan exposure in real time.",
@@ -372,7 +372,7 @@
       }
     },
     {
-      "actionId": "Broad_sanctions",
+      "actionId": "broad_sanctions",
       "phases": {
         "opening": {
           "preActionBrief": "The economic team has drafted a much wider package hitting PRC finance, shipping, technology access, and selected state-linked institutions if coercion around Taiwan crosses another threshold. The first 48 hours still leave room for calibrated signaling if neither side creates casualties.",
@@ -409,7 +409,7 @@
       }
     },
     {
-      "actionId": "Resource_stockpiling",
+      "actionId": "resource_stockpiling",
       "phases": {
         "opening": {
           "preActionBrief": "Okonkwo proposes accelerated stockpiling of fuel, precision components, medical supplies, and semiconductor contingencies across Taiwan, Japan, Guam, and the Philippines. Shipping insurers and semiconductor traders are repricing Taiwan exposure in real time.",

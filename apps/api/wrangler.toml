@@ -6,7 +6,7 @@ workers_dev = true
 [vars]
 APP_ENV = "development"
 LLM_MODE = "off"
-CORS_ALLOW_ORIGINS = "http://localhost:5173,http://127.0.0.1:5173,https://escalation.altiratech.com,https://escalation-web.pages.dev"
+CORS_ALLOW_ORIGINS = "http://localhost:5173,http://127.0.0.1:5173,https://escalation-web.pages.dev"
 RATE_LIMIT_ENABLED = "1"
 RATE_LIMIT_MAX_REQUESTS = "120"
 RATE_LIMIT_WINDOW_SECONDS = "60"
@@ -16,7 +16,3 @@ binding = "DB"
 database_name = "escalation-db"
 database_id = "d7068c3e-dfa3-4edd-9f49-087d6e292592"
 preview_database_id = "d7068c3e-dfa3-4edd-9f49-087d6e292592"
-
-[[routes]]
-pattern = "escalation.altiratech.com/api/*"
-zone_name = "altiratech.com"

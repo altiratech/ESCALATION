@@ -28,6 +28,7 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
   const [codename] = useState(() => `RUN-${randomSeed()}`);
   const [seed, setSeed] = useState('');
   const [showAdvanced, setShowAdvanced] = useState(false);
+  const [timerMode, setTimerMode] = useState<'standard' | 'relaxed' | 'off'>('off');
 
   const playableScenarios = useMemo(
     () => reference.scenarios.filter((entry) => !entry.isLegacy),
@@ -80,11 +81,15 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
 
   const systemNotes = useMemo(
     () => [
-      'This run is user-paced. Windows advance only when you commit a response or deliberately hold position.',
-      'The setup screen now carries the why-now framing so the scenario starts with context instead of a countdown.',
+      timerMode === 'off'
+        ? 'This run is user-paced. Windows advance only when you commit a response or deliberately hold position.'
+        : 'Timed mode is active. Decision windows can expire into an inaction branch if you do not commit or hold in time.',
+      timerMode === 'relaxed'
+        ? 'Relaxed timing gives each decision window 50% more time and keeps one extension available per beat while episode extensions remain.'
+        : 'Standard timing uses the authored clock for each decision window; user-paced mode keeps the clock off.',
       'Markets, shipping behavior, and alliance interpretation can move long before anyone uses the language of open war.'
     ],
-    []
+    [timerMode]
   );
 
   const setupContextCards = useMemo(() => {
@@ -125,7 +130,7 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
     } = {
       codename,
       scenarioId,
-      timerMode: 'off'
+      timerMode
     };
 
     const normalizedSeed = seed.trim();
@@ -227,6 +232,45 @@ export const StartScreen = ({ reference, loading, error, onStart }: StartScreenP
                       ))}
                     </select>
                   </label>
+
+                  <div>
+                    <p className="label">Decision Clock</p>
+                    <div className="mt-2 grid gap-2">
+                      {([
+                        {
+                          id: 'off',
+                          label: 'User-paced',
+                          detail: 'No countdown. Best for reading, review, and first-time evaluation.'
+                        },
+                        {
+                          id: 'relaxed',
+                          label: 'Relaxed timed',
+                          detail: 'Timed windows with 50% more time and extension support.'
+                        },
+                        {
+                          id: 'standard',
+                          label: 'Standard timed',
+                          detail: 'Authored pressure clock. Best for a sharper playtest run.'
+                        }
+                      ] as const).map((option) => (
+                        <button
+                          key={option.id}
+                          type="button"
+                          className={`rounded-md border px-3 py-2 text-left transition ${
+                            timerMode === option.id
+                              ? 'border-accent bg-accent/12 text-textMain shadow-[inset_0_-2px_0_rgba(255,177,0,1)]'
+                              : 'border-borderTone/80 bg-panelRaised/45 text-textMuted hover:border-accent/70 hover:text-textMain'
+                          }`}
+                          onClick={() => setTimerMode(option.id)}
+                        >
+                          <span className="block text-[0.68rem] font-semibold uppercase tracking-[0.12em]">
+                            {option.label}
+                          </span>
+                          <span className="mt-1 block text-[0.68rem] leading-relaxed">{option.detail}</span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
                 </div>
 
                 <div className="space-y-3">

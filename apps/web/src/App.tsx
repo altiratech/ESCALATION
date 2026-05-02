@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import type {
   ActionDefinition,
@@ -19,8 +19,10 @@ import type {
 import {
   bootstrapReference,
   createProfile,
+  extendCountdown,
   fetchReport,
   interpretCommand as interpretEpisodeCommand,
+  sendTelemetry,
   startEpisode,
   submitAction,
   submitInaction
@@ -273,27 +275,35 @@ const pickPreviewImageAssets = (
 
   const recentImageIds = options?.recentImageIds ?? [];
   const preferredKinds = beat.visualCue?.preferredKinds?.length ? beat.visualCue.preferredKinds : previewImageKinds;
+  const beatTags = [
+    ...(beat.imageHints ?? []),
+    ...(beat.visualCue?.tags ?? []),
+    `phase_${beat.phase}`,
+    beat.visualCue?.branchStage ? `branch_${beat.visualCue.branchStage}` : null
+  ]
+    .filter((tag): tag is string => Boolean(tag))
+    .map((tag) => tag.toLowerCase());
+  const actionTags = (options?.selectedAction?.visualTags ?? []).map((tag) => tag.toLowerCase());
+  const variantTags = (options?.selectedVariant?.visualTags ?? []).map((tag) => tag.toLowerCase());
+  const hasDecisionVisualContext = actionTags.length > 0 || variantTags.length > 0;
   const requestedTags = new Set(
     [
-      ...(beat.imageHints ?? []),
-      ...(beat.visualCue?.tags ?? []),
-      ...(options?.selectedAction?.visualTags ?? []),
-      ...(options?.selectedVariant?.visualTags ?? []),
-      `phase_${beat.phase}`,
-      beat.visualCue?.branchStage ? `branch_${beat.visualCue.branchStage}` : null
+      ...beatTags,
+      ...actionTags,
+      ...variantTags
     ]
       .filter((tag): tag is string => Boolean(tag))
-      .map((tag) => tag.toLowerCase())
   );
 
   const scoreCandidate = (asset: ImageAsset): { asset: ImageAsset; score: number } => {
     const kindScore = preferredKinds.includes(asset.kind)
       ? (preferredKinds.length - preferredKinds.indexOf(asset.kind)) * 6
       : 0;
-    const tagScore = asset.tags.reduce(
-      (score, tag) => score + (requestedTags.has(tag.toLowerCase()) ? 4 : 0),
-      0
-    );
+    const assetTags = new Set(asset.tags.map((tag) => tag.toLowerCase()));
+    const tagScore =
+      beatTags.reduce((score, tag) => score + (assetTags.has(tag) ? 4 : 0), 0) +
+      actionTags.reduce((score, tag) => score + (assetTags.has(tag) ? 7 : 0), 0) +
+      variantTags.reduce((score, tag) => score + (assetTags.has(tag) ? 9 : 0), 0);
     const mapPenalty =
       asset.kind === 'map' && preferredKinds[0] !== 'map' && !requestedTags.has('map') ? -6 : 0;
     const realismScore = previewImageRealismScore(asset);
@@ -333,7 +343,7 @@ const pickPreviewImageAssets = (
   const usedFamilies = new Set<string>();
 
   const curatedHero = rankedCuratedPreviewAssets(allCandidates, beat.visualCue?.heroImageIds);
-  if (curatedHero.length > 0) {
+  if (!hasDecisionVisualContext && curatedHero.length > 0) {
     selected.push(curatedHero[0]!.asset);
     usedKinds.add(curatedHero[0]!.asset.kind);
     usedPerspectives.add(curatedHero[0]!.asset.perspective);
@@ -344,7 +354,7 @@ const pickPreviewImageAssets = (
     (entry) => !selected.some((asset) => asset.id === entry.asset.id)
   );
 
-  for (const candidate of curatedEvidence) {
+  for (const candidate of hasDecisionVisualContext ? [] : curatedEvidence) {
     if (selected.length >= count) {
       break;
     }
@@ -380,6 +390,18 @@ const pickPreviewImageAssets = (
     usedKinds.add(candidate.asset.kind);
     usedPerspectives.add(candidate.asset.perspective);
     usedFamilies.add(visualFamilyKey(candidate.asset));
+  }
+
+  if (hasDecisionVisualContext) {
+    for (const candidate of [...curatedHero, ...curatedEvidence]) {
+      if (selected.length >= count) {
+        break;
+      }
+      if (selected.some((asset) => asset.id === candidate.asset.id)) {
+        continue;
+      }
+      selected.push(candidate.asset);
+    }
   }
 
   if (selected.length > 0) {
@@ -580,8 +602,10 @@ const getDefaultVariant = (action: ActionDefinition): ActionVariantDefinition | 
   );
 };
 
-const buildManualSelection = (action: ActionDefinition): SelectedResponseSelection => {
-  const variant = getDefaultVariant(action);
+const buildManualSelection = (action: ActionDefinition, variantId?: string | null): SelectedResponseSelection => {
+  const variant = variantId
+    ? action.variants?.find((entry) => entry.id === variantId) ?? getDefaultVariant(action)
+    : getDefaultVariant(action);
   return {
     actionId: action.id,
     variantId: variant?.id ?? null,
@@ -600,6 +624,9 @@ const App = () => {
   const [profileId, setProfileId] = useState<string | null>(null);
   const [selectedResponse, setSelectedResponse] = useState<SelectedResponseSelection | null>(null);
   const [turnStage, setTurnStage] = useState<TurnStage>('brief');
+  const [nowMs, setNowMs] = useState(() => Date.now());
+  const turnStartedAtMs = useRef(Date.now());
+  const completedTelemetryEpisodeIds = useRef(new Set<string>());
 
   const [loading, setLoading] = useState(false);
   const [bootstrapping, setBootstrapping] = useState(true);
@@ -787,7 +814,21 @@ const App = () => {
     setEpisode(nextEpisode);
     setSelectedResponse(null);
     setTurnStage('brief');
+    turnStartedAtMs.current = Date.now();
     if (nextEpisode.status === 'completed') {
+      if (!completedTelemetryEpisodeIds.current.has(nextEpisode.episodeId)) {
+        completedTelemetryEpisodeIds.current.add(nextEpisode.episodeId);
+        sendTelemetry({
+          episodeId: nextEpisode.episodeId,
+          scenarioId: nextEpisode.scenarioId,
+          eventName: 'game_completed',
+          turnNumber: nextEpisode.turn,
+          metadata: {
+            outcome: nextEpisode.outcome,
+            timerMode: nextEpisode.timerMode
+          }
+        });
+      }
       const completedReport = await fetchReport(nextEpisode.episodeId);
       setReport(completedReport);
     }
@@ -824,6 +865,17 @@ const App = () => {
       const started = await startEpisode(payload);
 
       setReport(null);
+      completedTelemetryEpisodeIds.current.delete(started.episodeId);
+      sendTelemetry({
+        episodeId: started.episodeId,
+        scenarioId: started.scenarioId,
+        eventName: 'session_start',
+        turnNumber: started.turn,
+        metadata: {
+          timerMode: started.timerMode,
+          seedProvided: Boolean(input.seed)
+        }
+      });
       await applyEpisodeUpdate(started);
     } catch (startError) {
       setError(startError instanceof Error ? startError.message : 'Failed to start episode');
@@ -832,7 +884,7 @@ const App = () => {
     }
   };
 
-  const handleActionSelect = useCallback(async (actionId: string): Promise<void> => {
+  const handleActionSelect = useCallback(async (actionId: string, variantId?: string | null): Promise<void> => {
     if (!episode) {
       return;
     }
@@ -842,7 +894,7 @@ const App = () => {
       return;
     }
 
-    setSelectedResponse(buildManualSelection(action));
+    setSelectedResponse(buildManualSelection(action, variantId));
   }, [episode]);
 
   const handleCommandSuggestionSelect = useCallback(async (suggestion: CommandSuggestion): Promise<void> => {
@@ -871,6 +923,7 @@ const App = () => {
 
     setLoading(true);
     setError(null);
+    const elapsedMs = Date.now() - turnStartedAtMs.current;
 
     try {
       const response = await submitAction(episode.episodeId, {
@@ -881,6 +934,20 @@ const App = () => {
         interpretationRationale: selectedResponse.interpretationRationale
       });
 
+      sendTelemetry({
+        episodeId: episode.episodeId,
+        scenarioId: episode.scenarioId,
+        eventName: 'decision_made',
+        turnNumber: episode.turn,
+        elapsedMs,
+        metadata: {
+          source: selectedResponse.source,
+          actionId: selectedResponse.actionId,
+          variantId: selectedResponse.variantId,
+          custom: Boolean(selectedResponse.customLabel),
+          stale: response.stale
+        }
+      });
       await applyEpisodeUpdate(response.episode);
     } catch (submitError) {
       setError(submitError instanceof Error ? submitError.message : 'Action submission failed');
@@ -897,11 +964,24 @@ const App = () => {
 
       setLoading(true);
       setError(null);
+      const elapsedMs = Date.now() - turnStartedAtMs.current;
 
       try {
         const response = await submitInaction(episode.episodeId, {
           expectedTurn: episode.turn,
           source
+        });
+        sendTelemetry({
+          episodeId: episode.episodeId,
+          scenarioId: episode.scenarioId,
+          eventName: 'decision_made',
+          turnNumber: episode.turn,
+          elapsedMs,
+          metadata: {
+            source,
+            actionId: '__no_action__',
+            stale: response.stale
+          }
         });
         await applyEpisodeUpdate(response.episode);
       } catch (submitError) {
@@ -912,6 +992,27 @@ const App = () => {
     },
     [applyEpisodeUpdate, episode]
   );
+
+  const handleCountdownExtend = useCallback(async (): Promise<void> => {
+    if (!episode?.activeCountdown) {
+      return;
+    }
+
+    setLoading(true);
+    setError(null);
+
+    try {
+      const response = await extendCountdown(episode.episodeId, {
+        expectedTurn: episode.turn
+      });
+      await applyEpisodeUpdate(response.episode);
+      setTurnStage('decision');
+    } catch (extendError) {
+      setError(extendError instanceof Error ? extendError.message : 'Countdown extension failed');
+    } finally {
+      setLoading(false);
+    }
+  }, [applyEpisodeUpdate, episode]);
 
   useEffect(() => {
     setSelectedResponse((current) => {
@@ -936,6 +1037,50 @@ const App = () => {
       };
     });
   }, [episode?.episodeId, episode?.turn, episode?.currentBeatId, episode?.offeredActions]);
+
+  useEffect(() => {
+    if (!episode?.activeCountdown || episode.status !== 'active') {
+      return;
+    }
+
+    setNowMs(Date.now());
+    const interval = window.setInterval(() => setNowMs(Date.now()), 1000);
+    return () => window.clearInterval(interval);
+  }, [episode?.activeCountdown?.expiresAt, episode?.episodeId, episode?.status, episode?.turn]);
+
+  useEffect(() => {
+    if (!episode?.activeCountdown || episode.status !== 'active' || loading || turnStage !== 'decision') {
+      return;
+    }
+
+    if (nowMs >= episode.activeCountdown.expiresAt) {
+      void handleInaction('timeout');
+    }
+  }, [episode?.activeCountdown, episode?.status, handleInaction, loading, nowMs, turnStage]);
+
+  useEffect(() => {
+    if (!episode || episode.status !== 'active') {
+      return;
+    }
+
+    const handleBeforeUnload = (): void => {
+      sendTelemetry({
+        episodeId: episode.episodeId,
+        scenarioId: episode.scenarioId,
+        eventName: 'game_abandoned',
+        turnNumber: episode.turn,
+        elapsedMs: Date.now() - turnStartedAtMs.current,
+        metadata: {
+          currentBeatId: episode.currentBeatId,
+          timerMode: episode.timerMode,
+          selectedActionId: selectedResponse?.actionId ?? null
+        }
+      });
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+  }, [episode, selectedResponse?.actionId]);
 
   const reset = (): void => {
     setEpisode(null);
@@ -1081,6 +1226,31 @@ const App = () => {
   const showTakeNoAction =
     episode.status === 'active' &&
     Boolean(currentBeat?.decisionWindow);
+  const activeCountdown = episode.activeCountdown;
+  const timerRemainingSeconds = activeCountdown
+    ? Math.max(0, Math.ceil((activeCountdown.expiresAt - nowMs) / 1000))
+    : null;
+  const timerModeLabel =
+    episode.timerMode === 'off'
+      ? 'User-paced'
+      : episode.timerMode === 'relaxed'
+        ? 'Relaxed timed'
+        : 'Standard timed';
+  const timerProgressPercent = activeCountdown
+    ? Math.max(0, Math.min(100, (timerRemainingSeconds ?? 0) / activeCountdown.seconds * 100))
+    : 100;
+  const canExtendCountdown =
+    Boolean(activeCountdown) &&
+    episode.timerMode !== 'off' &&
+    episode.extendTimerUsesRemaining > 0 &&
+    (activeCountdown?.extendsUsed ?? 0) < 1 &&
+    (timerRemainingSeconds ?? 0) > 0;
+  const timerUrgencyClass =
+    timerRemainingSeconds !== null && timerRemainingSeconds <= 15
+      ? 'border-warning/70 bg-warning/10 text-warning'
+      : timerRemainingSeconds !== null && timerRemainingSeconds <= 30
+        ? 'border-accent/70 bg-accent/10 text-accent'
+        : 'border-borderTone bg-panelRaised text-textMuted';
 
   const beatIntelFragments = reference.intelFragments
     .filter((entry) => entry.beatId === episode.currentBeatId && (!currentBeat || entry.phase === currentBeat.phase))
@@ -1199,20 +1369,23 @@ const App = () => {
     activeTruthModel?.verifiedFacts?.[0]?.title ??
     currentBeat?.sceneFragments[0] ??
     currentDirective;
-  const previewImageAssets = episode.imageAsset
-    ? []
-    : pickPreviewImageAssets(reference, currentScenario, currentBeat, {
+  const hasSelectedDecisionVisualContext = Boolean(selectedAction || selectedVariant);
+  const previewImageAssets = hasSelectedDecisionVisualContext
+    ? pickPreviewImageAssets(reference, currentScenario, currentBeat, {
         recentImageIds: [
           ...(episode.recentTurn?.selectedImageId ? [episode.recentTurn.selectedImageId] : []),
           ...(episode.recentTurn?.selectedSupportingImageIds ?? [])
         ],
         selectedAction,
         selectedVariant
-      });
-  const briefingImageAsset = episode.imageAsset ?? previewImageAssets[0] ?? null;
-  const briefingSupportingImageAssets = episode.imageAsset
-    ? episode.supportingImageAssets
-    : previewImageAssets.slice(1);
+      })
+    : [];
+  const briefingImageAsset = previewImageAssets[0] ?? episode.imageAsset ?? null;
+  const briefingSupportingImageAssets = hasSelectedDecisionVisualContext
+    ? [...previewImageAssets.slice(1), ...(episode.imageAsset ? [episode.imageAsset] : []), ...episode.supportingImageAssets]
+      .filter((asset, index, array) => array.findIndex((entry) => entry.id === asset.id) === index)
+      .slice(0, 3)
+    : episode.supportingImageAssets;
   const briefingImageCaptionOverride = episode.imageAsset ? null : currentBeat?.visualCue?.caption ?? null;
   const arrangedBriefingVisuals = arrangeBriefingVisuals(briefingImageAsset, briefingSupportingImageAssets);
   const appliedBriefingImageCaptionOverride =
@@ -1258,6 +1431,14 @@ const App = () => {
               <strong>Selected</strong>
               <span>{selectedResponseLabel ?? 'Awaiting decision'}</span>
             </div>
+            <div className={`console-chip ${timerUrgencyClass}`}>
+              <strong>Clock</strong>
+              <span>
+                {timerRemainingSeconds !== null
+                  ? `${timerRemainingSeconds}s`
+                  : timerModeLabel}
+              </span>
+            </div>
             {showTakeNoAction ? (
               <button
                 type="button"
@@ -1291,11 +1472,13 @@ const App = () => {
             <div className="console-metric">
               <p className="console-metric-label">Decision Window</p>
               <p className="console-metric-value">
-                {episode.status === 'active' && currentBeat?.decisionWindow
-                  ? turnStage === 'brief'
-                    ? 'Reviewing'
-                    : 'Open'
-                  : 'Briefing'}
+                {timerRemainingSeconds !== null
+                  ? `${timerRemainingSeconds}s`
+                  : episode.status === 'active' && currentBeat?.decisionWindow
+                    ? turnStage === 'brief'
+                      ? 'Reviewing'
+                      : 'Open'
+                    : 'Briefing'}
               </p>
           </div>
         </div>
@@ -1407,6 +1590,36 @@ const App = () => {
                   <p className="mt-1 text-[0.7rem] leading-relaxed text-textMain">Advance the scenario only after you are satisfied with the selected response.</p>
                 </div>
               </div>
+              <div className={`mt-3 rounded-md border px-3 py-2 ${timerUrgencyClass}`}>
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <div>
+                    <p className="text-[0.56rem] font-semibold uppercase tracking-[0.12em]">Decision Clock</p>
+                    <p className="mt-1 text-[0.7rem] leading-relaxed">
+                      {activeCountdown && timerRemainingSeconds !== null
+                        ? `${timerModeLabel}: ${timerRemainingSeconds} seconds remain before this window resolves as inaction.`
+                        : `${timerModeLabel}: no automatic timeout is active for this window.`}
+                    </p>
+                  </div>
+                  {activeCountdown ? (
+                    <button
+                      type="button"
+                      className="rounded-md border border-current/50 px-2.5 py-1 text-[0.6rem] font-semibold uppercase tracking-[0.1em] transition hover:bg-current/10 disabled:cursor-not-allowed disabled:opacity-45"
+                      onClick={() => void handleCountdownExtend()}
+                      disabled={loading || !canExtendCountdown}
+                    >
+                      Extend Clock
+                    </button>
+                  ) : null}
+                </div>
+                {activeCountdown ? (
+                  <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-black/35">
+                    <div
+                      className="h-full bg-current transition-[width] duration-500"
+                      style={{ width: `${timerProgressPercent}%` }}
+                    />
+                  </div>
+                ) : null}
+              </div>
             </div>
             <div className="relative z-[1] flex shrink-0 flex-wrap items-center gap-2">
               <button
@@ -1456,8 +1669,8 @@ const App = () => {
                   onSelectAction={handleCommandSuggestionSelect}
                 />
               }
-              onSelect={(actionId) => {
-                void handleActionSelect(actionId);
+              onSelect={(actionId, variantId) => {
+                void handleActionSelect(actionId, variantId);
               }}
             />
             <AdvisorPanel

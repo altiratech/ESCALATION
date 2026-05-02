@@ -5,10 +5,12 @@ import { getPressureText, scenarios } from '@wargames/content';
 describe('narrative candidate helpers', () => {
   it('selects beat-specific pressure text by threshold and falls back to generic', () => {
     const crisisLine = getPressureText('ns_crisis_window', 14);
+    const activeCrisisLine = getPressureText('ns_first_irreversible_incident', 14);
     const fallbackLine = getPressureText('unknown_future_beat', 9);
 
     expect(crisisLine).toBeTruthy();
     expect(crisisLine?.toLowerCase()).toContain('fifteen seconds');
+    expect(activeCrisisLine).toBe(crisisLine);
     expect(fallbackLine).toBeTruthy();
     expect(fallbackLine?.toLowerCase()).toContain('ten seconds');
   });
@@ -24,5 +26,21 @@ describe('narrative candidate helpers', () => {
     expect(openingBeat.advisorLines.reed.length).toBeGreaterThan(0);
     expect(openingBeat.advisorLines.cross.length).toBeGreaterThanOrEqual(2);
     expect(new Set(openingBeat.advisorLines.cross).size).toBe(openingBeat.advisorLines.cross.length);
+  });
+
+  it('maps legacy narrative candidate advisor lines onto the active black-swan scenario', () => {
+    const activeScenario = scenarios.find((scenario) => scenario.id === 'northern_strait_black_swan');
+    const openingBeat = activeScenario?.beats.find((beat) => beat.id === 'ns_abnormal_signal');
+
+    if (!openingBeat) {
+      throw new Error('Expected active opening beat in scenario content');
+    }
+
+    expect(openingBeat.advisorLines.cross).toEqual(
+      expect.arrayContaining(['Show steel early or the window closes.'])
+    );
+    expect(openingBeat.advisorLines.chen).toEqual(
+      expect.arrayContaining(['Preserve diplomatic oxygen before this hardens.'])
+    );
   });
 });

@@ -89,6 +89,18 @@ export const llmCalls = sqliteTable('llm_calls', {
   createdAt: text('created_at').notNull().default('CURRENT_TIMESTAMP')
 });
 
+export const clientTelemetry = sqliteTable('client_telemetry', {
+  id: text('id').primaryKey(),
+  episodeId: text('episode_id'),
+  scenarioId: text('scenario_id'),
+  eventName: text('event_name').notNull(),
+  turnNumber: int('turn_number'),
+  elapsedMs: int('elapsed_ms'),
+  metadataJson: text('metadata_json').notNull(),
+  userAgent: text('user_agent'),
+  createdAt: text('created_at').notNull().default('CURRENT_TIMESTAMP')
+});
+
 export const reports = sqliteTable('reports', {
   episodeId: text('episode_id').primaryKey(),
   reportJson: text('report_json').notNull(),

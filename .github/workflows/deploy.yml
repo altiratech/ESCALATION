@@ -87,9 +87,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: [deploy_api, deploy_web]
     env:
-      VERIFY_API_HEALTH_URL: ${{ vars.ESCALATION_VERIFY_API_HEALTH_URL || 'https://escalation.altiratech.com/api/healthz' }}
-      VERIFY_API_BOOTSTRAP_URL: ${{ vars.ESCALATION_VERIFY_API_BOOTSTRAP_URL || 'https://escalation.altiratech.com/api/reference/bootstrap' }}
-      VERIFY_WEB_URL: ${{ vars.ESCALATION_VERIFY_WEB_URL || 'https://escalation.altiratech.com' }}
+      VERIFY_API_ORIGIN: ${{ vars.FLASHPOINT_VERIFY_API_ORIGIN || 'https://escalation-api.rjameson.workers.dev' }}
+      VERIFY_WEB_URL: ${{ vars.FLASHPOINT_VERIFY_WEB_URL || 'https://escalation-web.pages.dev' }}
+      VERIFY_SCENARIO_ID: ${{ vars.FLASHPOINT_VERIFY_SCENARIO_ID || 'northern_strait_black_swan' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4

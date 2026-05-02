@@ -351,6 +351,7 @@ export interface TurnHistoryEntry {
 }
 
 export interface GameState {
+  schemaVersion: number;
   id: string;
   scenarioId: string;
   turn: number;

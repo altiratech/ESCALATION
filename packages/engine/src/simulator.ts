@@ -100,6 +100,7 @@ export const initializeGameState = (
   };
 
   const baseState: GameState = {
+    schemaVersion: 1,
     id: episodeId,
     scenarioId: context.scenario.id,
     turn: 1,

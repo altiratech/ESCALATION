@@ -134,3 +134,35 @@ export const fetchReport = async (episodeId: string): Promise<PostGameReport> =>
   const response = await fetch(apiUrl(`/api/episodes/${episodeId}/report`));
   return parseJson<PostGameReport>(response);
 };
+
+export interface TelemetryPayload {
+  episodeId?: string | null;
+  scenarioId?: string | null;
+  eventName: 'session_start' | 'decision_made' | 'game_completed' | 'game_abandoned' | 'client_error';
+  turnNumber?: number | null;
+  elapsedMs?: number | null;
+  metadata?: Record<string, unknown>;
+}
+
+export const sendTelemetry = (payload: TelemetryPayload): void => {
+  const body = JSON.stringify(payload);
+  const url = apiUrl('/api/telemetry');
+
+  if (navigator.sendBeacon) {
+    const blob = new Blob([body], { type: 'application/json' });
+    if (navigator.sendBeacon(url, blob)) {
+      return;
+    }
+  }
+
+  void fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body,
+    keepalive: true
+  }).catch(() => {
+    // Telemetry must never interrupt gameplay.
+  });
+};

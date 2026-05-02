@@ -15,6 +15,7 @@ tmp
 .playwright-cli/
 output/image-review/
 output/imagegen
+output/playwright/
 __pycache__/
 *.pyc
 *.swp

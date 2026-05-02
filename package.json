@@ -9,10 +9,12 @@
   ],
   "scripts": {
     "dev": "concurrently -k -n api,web -c yellow,cyan \"npm run dev --workspace @wargames/api\" \"npm run dev --workspace @wargames/web\"",
-    "build": "npm run build --workspace @wargames/engine && npm run build --workspace @wargames/shared-types && npm run build --workspace @wargames/content && npm run build --workspace @wargames/api && npm run build --workspace @wargames/web",
+    "build": "npm run validate:content && npm run build --workspace @wargames/engine && npm run build --workspace @wargames/shared-types && npm run build --workspace @wargames/content && npm run build --workspace @wargames/api && npm run build --workspace @wargames/web",
     "test": "vitest run",
     "test:watch": "vitest",
     "validate:content": "node --import tsx scripts/validate-content.ts",
+    "diagnose:decision-visuals": "node --import tsx scripts/decision-visual-diagnostics.ts",
+    "smoke:browser": "node --import tsx scripts/full-run-browser-smoke.ts",
     "simulate:balance": "node --import tsx scripts/monte-carlo.ts",
     "test:token-regression": "node --import tsx scripts/token-regression.ts",
     "verify:deploy": "./scripts/verify-deploy.sh",
@@ -24,6 +26,7 @@
     "quickstart": "npm install && npm run generate:images && npm run db:migrate && npm run db:seed && npm run dev"
   },
   "devDependencies": {
+    "@playwright/test": "^1.59.1",
     "@types/node": "^22.13.10",
     "concurrently": "^9.1.2",
     "tsx": "^4.19.3",
