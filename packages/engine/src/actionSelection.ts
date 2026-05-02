@@ -105,7 +105,9 @@ export const selectPlayerActionOptions = (
 
   if (!seen.has('military_posture_increase') && !seen.has('military_posture_decrease')) {
     const forced = state.meters.escalationIndex > 60 ? 'military_posture_decrease' : 'military_posture_increase';
-    seen.add(forced);
+    if (scenario.availablePlayerActionIds.includes(forced)) {
+      seen.add(forced);
+    }
   }
 
   const offered = [...seen].slice(0, ACTION_OFFER_COUNT);

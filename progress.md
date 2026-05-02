@@ -20,3 +20,10 @@ Original prompt: Ok please start working through each Linear task. Keep going un
 - Added lightweight client telemetry storage/API and web pings for `session_start`, `decision_made`, `game_completed`, and `game_abandoned` with turn/timing metadata for playtest measurement.
 - Added `npm run smoke:browser` full-run Playwright smoke; after installing Chromium and running local dev outside the sandbox, it completed a full 6-window run to the mandate report with no captured console/page errors.
 - Added `IMAGE_GENERATION_MATRIX.md` so the next image pass is decision-context-driven instead of another broad replacement sweep.
+
+## 2026-05-02
+
+- Verified the follow-up bug-fix pass: `npm run simulate:balance`, `npm test`, `npm run lint`, and `npm run build` all pass.
+- Balance result: legacy `northern_strait_flashpoint` improved to 31.5% top terminal share, but active `northern_strait_black_swan` still concentrates at 43.7%, so content/branch tuning remains a real next task.
+- Updated `IMAGE_GENERATION_MATRIX.md` around Ryan's new direction: US decision-maker perspective, chips/AI/economy as the dominant theme, US domestic/government visuals first, accurate thermal/IR guidance, and less Asia-default casting.
+- Next implementation tranche after this commit: curate the Codex-generated images, copy selected assets into `apps/web/public/assets/images/`, add image metadata in `packages/content/data/images.json`, and rerun visual diagnostics/browser smoke.

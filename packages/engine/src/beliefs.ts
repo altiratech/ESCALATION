@@ -33,11 +33,11 @@ export const updateBeliefs = (
   );
 
   next.economicallyWeakProb = clampProbability(
-    next.economicallyWeakProb + (economyWeakness * 0.14) + (playerAction.signal.economicStressSignal * 0.1) + boundedNoise(rng)
+    next.economicallyWeakProb * 0.82 + (economyWeakness * 0.14) + (playerAction.signal.economicStressSignal * 0.1) + boundedNoise(rng)
   );
 
   next.allianceFragileProb = clampProbability(
-    next.allianceFragileProb + (allianceFragility * 0.12) + (playerAction.signal.allianceStressSignal * 0.12) + boundedNoise(rng)
+    next.allianceFragileProb * 0.82 + (allianceFragility * 0.12) + (playerAction.signal.allianceStressSignal * 0.12) + boundedNoise(rng)
   );
 
   const velocityDelta = (playerAction.signal.escalatory - playerAction.signal.deescalatory) * 0.16;
@@ -45,7 +45,7 @@ export const updateBeliefs = (
 
   const pressureSignal = ratio(state.latent.rivalDomesticPressure);
   next.deescalateUnderPressure = clampProbability(
-    next.deescalateUnderPressure + ((playerAction.signal.deescalatory + 0.15) * 0.08) + ((1 - pressureSignal) * 0.05) + boundedNoise(rng)
+    next.deescalateUnderPressure * 0.78 + ((playerAction.signal.deescalatory + 0.15) * 0.08) + ((1 - pressureSignal) * 0.05) + boundedNoise(rng)
   );
 
   const humiliationImpulse =

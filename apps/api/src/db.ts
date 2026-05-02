@@ -142,7 +142,17 @@ const ensureEpisodeProfileColumn = async (env: Env): Promise<void> => {
     return;
   }
 
-  await env.DB.prepare('ALTER TABLE episodes ADD COLUMN adversary_profile_id TEXT').run();
+  try {
+    await env.DB.prepare('ALTER TABLE episodes ADD COLUMN adversary_profile_id TEXT').run();
+  } catch (error) {
+    const recheck = await env.DB.prepare('PRAGMA table_info(episodes)').all<{ name: string }>();
+    const recheckColumns = new Set((recheck.results ?? []).map((column) => column.name));
+    if (!recheckColumns.has('adversary_profile_id')) {
+      throw error;
+    }
+    return;
+  }
+
   if (columns.has('archetype_id')) {
     await env.DB.prepare(
       'UPDATE episodes SET adversary_profile_id = archetype_id WHERE adversary_profile_id IS NULL'
