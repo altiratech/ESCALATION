@@ -3,6 +3,7 @@
 Product: Flashpoint / ESCALATION scenario and response simulation.
 
 Current state:
+- Stabilization checkpoint committed and pushed to `origin/main` as `d408151` (`Stabilize Flashpoint gameplay recovery`).
 - Gameplay/UX recovery pass is implemented in the working tree for Linear `ALT-27` through `ALT-44`, with `ALT-38` still only partially closed.
 - Active black-swan diagnostics now show every non-terminal beat has at least 2 reachable next beats and 4-7 distinct hero candidates across action/variant combinations.
 - Manual response variants are selectable, selected actions/variants influence preview visuals, and authored action narratives are connected through validated lowercase IDs.
@@ -16,6 +17,6 @@ Validation:
 - Known red: `npm audit` and `npm audit --omit=dev` remain red for no-fix Hono/Drizzle runtime advisories plus dev/build-chain advisories; see `DEPENDENCY_SECURITY_TRIAGE.md`.
 
 Next:
-- Review the large working-tree diff, then commit/push or deploy when ready.
-- Generate the first bespoke decision-path image batch from `IMAGE_GENERATION_MATRIX.md`.
+- Generate the first bespoke decision-path image batch from `IMAGE_GENERATION_MATRIX.md`; local `.env.local` is currently empty, so repo-file generation needs `OPENAI_API_KEY` restored first.
+- Deploy/preview after the image batch is wired, then run a visual playthrough.
 - Finish `ALT-38`: durable rate limits, idempotency/retry behavior, D1 migration governance, and bootstrap payload strategy.
