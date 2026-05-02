@@ -3,7 +3,8 @@
 Product: Flashpoint / ESCALATION scenario and response simulation.
 
 Current state:
-- Stabilization checkpoint committed and pushed to `origin/main` as `d408151` (`Stabilize Flashpoint gameplay recovery`).
+- Stabilization checkpoint is pushed to `origin/main` through `bdb7201`; gameplay recovery landed in `d408151` (`Stabilize Flashpoint gameplay recovery`).
+- Claude's backlog evaluation is preserved in `CODEX_TASK_EVALUATION.md`; Codex already processed the priority/relation/task updates it recommended.
 - Gameplay/UX recovery pass is implemented in the working tree for Linear `ALT-27` through `ALT-44`, with `ALT-38` still only partially closed.
 - Active black-swan diagnostics now show every non-terminal beat has at least 2 reachable next beats and 4-7 distinct hero candidates across action/variant combinations.
 - Manual response variants are selectable, selected actions/variants influence preview visuals, and authored action narratives are connected through validated lowercase IDs.
