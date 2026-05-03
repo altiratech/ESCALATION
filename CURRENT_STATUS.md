@@ -3,7 +3,7 @@
 Product: Flashpoint / ESCALATION scenario and response simulation.
 
 Current state:
-- Stabilization checkpoint is pushed to `origin/main` through `d5fc189`; gameplay recovery landed in `d408151`; balance/code fixes landed in `c385af0`.
+- Stabilization and visual-expansion work is pushed to `origin/main`; gameplay recovery landed in `d408151`, balance/code fixes landed in `c385af0`, and the second US visual tranche landed in `ca3ea5d`.
 - Belief update now decays `economicallyWeakProb` (* 0.82), `allianceFragileProb` (* 0.82), and `deescalateUnderPressure` (* 0.78) each turn, preventing monotonic saturation that was driving concentrated terminal distributions.
 - Action selection forced-military-posture inject now validates against `scenario.availablePlayerActionIds` before adding to the offered set.
 - `ensureEpisodeProfileColumn` ALTER TABLE is wrapped in try/catch with a re-check, preventing concurrent cold-start crashes on D1.
