@@ -167,6 +167,69 @@ describe('image selection', () => {
     expect(forcefulSelection?.id).toBe('forceful_scene');
   });
 
+  it('lets action-matched imagery beat a stronger generic beat match after a response is selected', () => {
+    const scenario = { environment: 'coastal' } as ScenarioDefinition;
+    const beat = {
+      id: 'synthetic_response_context',
+      phase: 'crisis',
+      imageHints: ['taiwan', 'shipping', 'incident'],
+      visualCue: {
+        preferredKinds: ['documentary_still', 'artifact', 'map'],
+        tags: ['taiwan', 'shipping', 'incident'],
+        branchStage: 'incident'
+      }
+    } as BeatNode;
+    const assets = [
+      {
+        id: 'beat_shipping_scene',
+        kind: 'documentary_still',
+        path: '/assets/images/shipping.jpg',
+        alt: 'Shipping scene',
+        caption: 'Shipping scene',
+        environment: 'coastal',
+        domain: 'military',
+        severity: 3,
+        perspective: 'street',
+        tags: ['taiwan', 'shipping', 'incident', 'coast_guard', 'visible']
+      },
+      {
+        id: 'action_domestic_scene',
+        kind: 'documentary_still',
+        path: '/assets/images/us-market.jpg',
+        alt: 'US market scene',
+        caption: 'US market scene',
+        environment: 'generic',
+        domain: 'economy',
+        severity: 4,
+        perspective: 'ticker',
+        tags: ['us_domestic', 'finance', 'market_panic', 'punitive', 'public']
+      }
+    ] satisfies ImageAsset[];
+
+    const selected = chooseImageAsset({
+      assets,
+      scenario,
+      beat,
+      meters: {
+        economicStability: 43,
+        energySecurity: 48,
+        domesticCohesion: 46,
+        militaryReadiness: 58,
+        allianceTrust: 50,
+        escalationIndex: 72
+      },
+      turnDelta: { economicStability: -8, escalationIndex: 5 },
+      recentImageIds: [],
+      rng: new SeededRng('IMG-ACTION-LEADS'),
+      playerAction: {
+        id: 'broad_sanctions',
+        visualTags: ['finance', 'market_panic']
+      } as ActionDefinition
+    });
+
+    expect(selected?.id).toBe('action_domestic_scene');
+  });
+
   it('lets the action variant break ties when the beat is otherwise the same', () => {
     const scenario = { environment: 'coastal' } as ScenarioDefinition;
     const beat = {

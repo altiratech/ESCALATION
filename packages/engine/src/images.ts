@@ -178,6 +178,7 @@ const scoreAsset = (
   const beatMatchCount = countTagMatches(asset, beatTags);
   const actionMatchCount = countTagMatches(asset, actionTags);
   const variantMatchCount = countTagMatches(asset, variantTags);
+  const hasDecisionVisualContext = actionTags.length > 0 || variantTags.length > 0;
 
   if (asset.environment === scenario.environment) {
     score += 8;
@@ -195,12 +196,12 @@ const scoreAsset = (
 
   score += Math.max(0, 4 - Math.abs(asset.severity - severity)) * 2;
   score += scoreKind(asset, preferredKinds);
-  score += scoreTags(asset, beatTags, 4);
-  score += scoreTags(asset, actionTags, 6);
-  score += scoreTags(asset, variantTags, 8);
+  score += scoreTags(asset, beatTags, hasDecisionVisualContext ? 2 : 4);
+  score += scoreTags(asset, actionTags, 10);
+  score += scoreTags(asset, variantTags, 12);
   score += scoreAssetRealism(asset);
-  score += actionMatchCount > 0 ? 6 : 0;
-  score += variantMatchCount > 0 ? 8 : 0;
+  score += actionMatchCount > 0 ? 10 : 0;
+  score += variantMatchCount > 0 ? 12 : 0;
 
   if (beatTags.length > 0 && beatMatchCount === 0) {
     score -= 6;
