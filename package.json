@@ -15,6 +15,7 @@
     "validate:content": "node --import tsx scripts/validate-content.ts",
     "diagnose:decision-visuals": "node --import tsx scripts/decision-visual-diagnostics.ts",
     "smoke:browser": "node --import tsx scripts/full-run-browser-smoke.ts",
+    "smoke:browser:varied": "PLAYTEST_RESPONSE_STRATEGY=varied PLAYTEST_OUTPUT_DIR=output/playwright-varied node --import tsx scripts/full-run-browser-smoke.ts",
     "simulate:balance": "node --import tsx scripts/monte-carlo.ts",
     "test:token-regression": "node --import tsx scripts/token-regression.ts",
     "verify:deploy": "./scripts/verify-deploy.sh",

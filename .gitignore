@@ -16,6 +16,7 @@ tmp
 output/image-review/
 output/imagegen
 output/playwright/
+output/playwright-varied/
 __pycache__/
 *.pyc
 *.swp

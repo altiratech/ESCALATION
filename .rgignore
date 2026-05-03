@@ -4,4 +4,5 @@ apps/web/dist/
 apps/api/.wrangler/
 output/image-review/
 output/imagegen/
+output/playwright-varied/
 coverage/
