@@ -3,7 +3,7 @@
 Product: Flashpoint / ESCALATION scenario and response simulation.
 
 Current state:
-- Stabilization checkpoint is pushed to `origin/main` through `077f287`; gameplay recovery landed in `d408151`; balance/code fixes landed in `c385af0`.
+- Stabilization checkpoint is pushed to `origin/main` through `ca3ea5d`; gameplay recovery landed in `d408151`; balance/code fixes landed in `c385af0`.
 - Belief update now decays `economicallyWeakProb` (* 0.82), `allianceFragileProb` (* 0.82), and `deescalateUnderPressure` (* 0.78) each turn, preventing monotonic saturation that was driving concentrated terminal distributions.
 - Action selection forced-military-posture inject now validates against `scenario.availablePlayerActionIds` before adding to the offered set.
 - `ensureEpisodeProfileColumn` ALTER TABLE is wrapped in try/catch with a re-check, preventing concurrent cold-start crashes on D1.
@@ -22,7 +22,6 @@ Validation:
 - Known red: `npm audit` remains red for no-fix Hono/Drizzle runtime advisories; see `DEPENDENCY_SECURITY_TRIAGE.md`.
 
 Next:
-- Commit and push the second image tranche plus selector weighting fix.
 - Add a broader browser smoke that varies selected actions so public/economic/military imagery is exercised in screenshots, not only diagnostics.
 - Tune active black-swan branch balance to reduce terminal concentration without making outcomes feel random.
 - Finish `ALT-38`: durable rate limits, idempotency/retry behavior, D1 migration governance, and bootstrap payload strategy.
