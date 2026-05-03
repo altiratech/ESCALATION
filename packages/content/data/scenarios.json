@@ -5131,30 +5131,30 @@
                 "source": "meter",
                 "key": "escalationIndex",
                 "op": "gte",
-                "value": 84
+                "value": 92
               },
               {
                 "source": "latent",
                 "key": "taiwanResilience",
                 "op": "lte",
-                "value": 72
+                "value": 73
               },
               {
                 "source": "latent",
                 "key": "usSurgeSlack",
                 "op": "lte",
-                "value": 54
+                "value": 52
               },
               {
                 "source": "latent",
                 "key": "munitionsDepth",
                 "op": "lte",
-                "value": 51
+                "value": 52
               }
             ],
             "minTurn": null,
             "maxTurn": null,
-            "requiresActionTag": null,
+            "requiresActionTag": "military",
             "priority": 7
           },
           {
@@ -5164,13 +5164,34 @@
                 "source": "meter",
                 "key": "escalationIndex",
                 "op": "gte",
-                "value": 80
+                "value": 94
+              },
+              {
+                "source": "meter",
+                "key": "allianceTrust",
+                "op": "lte",
+                "value": 65
+              }
+            ],
+            "minTurn": null,
+            "maxTurn": null,
+            "requiresActionTag": "pressure",
+            "priority": 6
+          },
+          {
+            "targetBeatId": "ns_limited_strike_exchange",
+            "conditions": [
+              {
+                "source": "meter",
+                "key": "escalationIndex",
+                "op": "gte",
+                "value": 86
               },
               {
                 "source": "latent",
                 "key": "munitionsDepth",
                 "op": "lte",
-                "value": 48
+                "value": 52
               }
             ],
             "minTurn": null,
@@ -5185,7 +5206,7 @@
                 "source": "latent",
                 "key": "shippingStress",
                 "op": "gte",
-                "value": 48
+                "value": 45
               }
             ],
             "minTurn": null,

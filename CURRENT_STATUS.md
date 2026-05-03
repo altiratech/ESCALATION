@@ -12,17 +12,18 @@ Current state:
 - Codex-generated image tranche 2 is applied and verified locally: market crash, family cable-news crisis, tech layoffs, port congestion, White House press briefing, Congressional chip hearing, deployment pier families, electronics shortage, gas lines/freight shock, semiconductor fab disruption, and allied coordination call.
 - Image selector weighting now lets selected action/variant context lead over generic beat-matched maritime assets, with regression coverage in `tests/engine/images.test.ts`.
 - Browser smoke now has `npm run smoke:browser` for the default Backchannel path and `npm run smoke:browser:varied` for varied non-backchannel screenshots with visible-image logging and US-image minimum assertions.
+- Active `northern_strait_black_swan` final-window branch gates now split severe endings across blockade lock, limited strike, managed freeze, managed relief, and military-only invasion tail risk instead of over-defaulting to managed freeze.
+- `npm run simulate:balance` now prints dominant terminal IDs and full terminal distributions; beat validation warns if an unbounded default fallback can shadow later branches.
 - Gameplay/UX recovery pass covers Linear `ALT-27` through `ALT-44`; `ALT-38` still only partially closed.
 - Timer setup exposes user-paced, relaxed, and standard modes; decision screens show countdown/extend/timeout UX.
 - Full-run browser smoke paths reached the mandate report locally with no console/page errors.
 
 Validation:
-- Passed: `npm run lint`, `npm test` (17 files / 47 tests), `npm run build`, `npm run simulate:balance`, `npm run validate:content`, `npm run diagnose:decision-visuals`, `PLAYTEST_WEB_URL=http://127.0.0.1:5179 npm run smoke:browser`, and `PLAYTEST_WEB_URL=http://127.0.0.1:5179 npm run smoke:browser:varied`.
-- Balance note: older `northern_strait_flashpoint` top terminal share is 31.5%; active `northern_strait_black_swan` remains concentrated at 43.7% and needs another content/balance pass.
+- Passed: `npm run lint`, `npm test` (17 files / 48 tests), `npm run build`, `npm run simulate:balance`, `npm run validate:content`, `npm run diagnose:decision-visuals`, `PLAYTEST_WEB_URL=http://127.0.0.1:5179 npm run smoke:browser`, and `PLAYTEST_WEB_URL=http://127.0.0.1:5179 npm run smoke:browser:varied`.
+- Balance note: older `northern_strait_flashpoint` top terminal share is 31.5%; active `northern_strait_black_swan` top terminal share is now 30.0% at `ns_blockade_lock` with all five terminals represented.
 - Visual note: screenshot review confirms default and varied paths now render Situation Room, allied coordination, corrected thermal, port congestion, AI/data-center, supermarket, family cable-news, and deployment-pier imagery in-game.
 - Known red: `npm audit` remains red for no-fix Hono/Drizzle runtime advisories; see `DEPENDENCY_SECURITY_TRIAGE.md`.
 
 Next:
-- Tune active black-swan branch balance to reduce terminal concentration without making outcomes feel random.
 - Add targeted screenshot coverage or balance-aware offer tuning for the remaining domestic assets not yet seen in final smoke: electronics shortage, semiconductor fab disruption, White House, market-crash, gas/freight, nuclear-risk, and Congressional-hearing imagery.
 - Finish `ALT-38`: durable rate limits, idempotency/retry behavior, D1 migration governance, and bootstrap payload strategy.

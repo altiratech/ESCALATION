@@ -1,4 +1,4 @@
-import type { BeatNode, ScenarioDefinition } from '@wargames/shared-types';
+import type { BeatNode, BranchCondition, ScenarioDefinition } from '@wargames/shared-types';
 
 export interface ValidationIssue {
   level: 'error' | 'warning';
@@ -50,6 +50,35 @@ const collectReachable = (startBeatId: string, beatMap: Map<string, BeatNode>): 
   }
 
   return visited;
+};
+
+const hasActionGate = (branch: BranchCondition): boolean => {
+  return typeof branch.requiresActionTag === 'string' && branch.requiresActionTag.length > 0;
+};
+
+const hasTurnGate = (branch: BranchCondition): boolean => {
+  const hasMinTurn = branch.minTurn !== undefined && branch.minTurn !== null;
+  const hasMaxTurn = branch.maxTurn !== undefined && branch.maxTurn !== null;
+  return hasMinTurn || hasMaxTurn;
+};
+
+const isDefaultFallbackBranch = (branch: BranchCondition): boolean => {
+  return branch.conditions.length === 0 && !hasActionGate(branch);
+};
+
+const sortBranchesForEvaluation = (
+  branches: BranchCondition[]
+): Array<{ branch: BranchCondition; index: number }> => {
+  return branches
+    .map((branch, index) => ({ branch, index }))
+    .sort((left, right) => {
+      const leftPriority = left.branch.priority ?? 0;
+      const rightPriority = right.branch.priority ?? 0;
+      if (leftPriority !== rightPriority) {
+        return rightPriority - leftPriority;
+      }
+      return left.index - right.index;
+    });
 };
 
 const computeTerminalReachability = (beatId: string, beatMap: Map<string, BeatNode>, memo: Map<string, boolean>, active: Set<string>): boolean => {
@@ -114,19 +143,29 @@ export const analyzeBeatGraph = (scenario: ScenarioDefinition): BeatGraphAnalysi
       });
     }
 
-    const hasFallbackBranch = beat.branches.some(
-      (branch) =>
-        branch.conditions.length === 0 &&
-        ((branch.minTurn !== undefined && branch.minTurn !== null) || (branch.maxTurn !== undefined && branch.maxTurn !== null))
-    );
+    const hasFallbackBranch = beat.branches.some(isDefaultFallbackBranch);
 
     if (!beat.terminalOutcome && !hasFallbackBranch) {
       issues.push({
         level: 'warning',
         scenarioId: scenario.id,
         beatId: beat.id,
-        message: 'No explicit fallback branch (empty conditions + turn bound).'
+        message: 'No default fallback branch (empty conditions + no action tag).'
       });
+    }
+
+    const orderedBranches = sortBranchesForEvaluation(beat.branches);
+    for (let index = 0; index < orderedBranches.length - 1; index += 1) {
+      const { branch } = orderedBranches[index] as { branch: BranchCondition; index: number };
+      if (isDefaultFallbackBranch(branch) && !hasTurnGate(branch)) {
+        issues.push({
+          level: 'warning',
+          scenarioId: scenario.id,
+          beatId: beat.id,
+          message: 'Default fallback branch is evaluated before later branches and may shadow them.'
+        });
+        break;
+      }
     }
 
     for (const branch of beat.branches) {

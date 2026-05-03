@@ -135,18 +135,20 @@ for (const scenario of scenarios) {
         }
       }
 
-      const policyTop = [...policyTerminalDistribution.values()].sort((a, b) => b - a)[0] ?? 0;
+      const policyTopTerminal = [...policyTerminalDistribution.entries()].sort((a, b) => b[1] - a[1])[0];
+      const policyTop = policyTopTerminal?.[1] ?? 0;
       const policyShare = policyTop / Math.max(1, runs);
       if (policyShare > 0.8) {
         console.warn(
-          `[WARN] Highly concentrated policy distribution for ${scenario.id}/${adversaryProfile.id}/${policy}: ${(policyShare * 100).toFixed(1)}%`
+          `[WARN] Highly concentrated policy distribution for ${scenario.id}/${adversaryProfile.id}/${policy}: ${(policyShare * 100).toFixed(1)}% at ${policyTopTerminal?.[0] ?? 'unknown'}`
         );
       }
     }
   }
 
   const totalRuns = adversaryProfiles.length * policies.length * RUNS_PER_POLICY;
-  const topTerminal = [...terminalDistribution.entries()].sort((a, b) => b[1] - a[1])[0];
+  const terminalEntries = [...terminalDistribution.entries()].sort((a, b) => b[1] - a[1]);
+  const topTerminal = terminalEntries[0];
   const topShare = (topTerminal?.[1] ?? 0) / Math.max(1, totalRuns);
 
   if (topShare > 0.8) {
@@ -165,7 +167,12 @@ for (const scenario of scenarios) {
   console.log(`Scenario ${scenario.id}`);
   console.log(`  Total runs: ${totalRuns}`);
   console.log(`  Unique terminal beats: ${terminalDistribution.size}`);
-  console.log(`  Top terminal share: ${(topShare * 100).toFixed(1)}%`);
+  console.log(`  Top terminal share: ${(topShare * 100).toFixed(1)}% at ${topTerminal?.[0] ?? 'unknown'}`);
+  console.log(
+    `  Terminal distribution: ${terminalEntries
+      .map(([terminalBeatId, count]) => `${terminalBeatId}=${count}`)
+      .join(', ')}`
+  );
   console.log(`  Beat coverage: ${globalBeatCoverage.size}/${scenario.beats.length}`);
 }
 
