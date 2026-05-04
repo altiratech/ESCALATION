@@ -17,6 +17,7 @@
     "diagnose:visual-targets": "node --import tsx scripts/visual-target-diagnostics.ts",
     "smoke:browser": "node --import tsx scripts/full-run-browser-smoke.ts",
     "smoke:browser:varied": "PLAYTEST_RESPONSE_STRATEGY=varied PLAYTEST_OUTPUT_DIR=output/playwright-varied node --import tsx scripts/full-run-browser-smoke.ts",
+    "smoke:browser:public-econ": "PLAYTEST_RESPONSE_STRATEGY=public-econ PLAYTEST_SEED=public-econ-2 PLAYTEST_OUTPUT_DIR=output/playwright-public-econ node --import tsx scripts/full-run-browser-smoke.ts",
     "simulate:balance": "node --import tsx scripts/monte-carlo.ts",
     "test:token-regression": "node --import tsx scripts/token-regression.ts",
     "verify:deploy": "./scripts/verify-deploy.sh",

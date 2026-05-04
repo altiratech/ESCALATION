@@ -17,6 +17,7 @@ output/image-review/
 output/imagegen
 output/playwright/
 output/playwright-varied/
+output/playwright-public-econ/
 __pycache__/
 *.pyc
 *.swp

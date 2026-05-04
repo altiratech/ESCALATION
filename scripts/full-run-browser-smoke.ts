@@ -8,6 +8,7 @@ const outputDir = process.env.PLAYTEST_OUTPUT_DIR ?? 'output/playwright';
 const maxDecisionWindows = Number.parseInt(process.env.PLAYTEST_MAX_WINDOWS ?? '10', 10);
 const headed = process.env.PLAYTEST_HEADED === '1';
 const responseStrategy = process.env.PLAYTEST_RESPONSE_STRATEGY ?? 'default';
+const deterministicSeed = process.env.PLAYTEST_SEED?.trim() ?? '';
 
 const sleep = (ms: number): Promise<void> => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -62,7 +63,33 @@ const variedResponsePreferences: ResponsePreference[] = [
   { name: /Backchannel Diplomacy/i, variantName: /Firm Channel/i }
 ];
 
+const publicEconomicResponsePreferences: ResponsePreference[] = [
+  { name: /Public Strategic Address/i, variantName: /Hard Red Line/i },
+  { name: /Targeted Sanctions/i, variantName: /Enforcement Wave/i },
+  { name: /Broad Sanctions/i, variantName: /Maximal Package/i },
+  { name: /Resource Stockpiling/i, variantName: /Emergency Buffer/i },
+  { name: /Military Posture Increase/i, variantName: /Broadcast Deterrence/i },
+  { name: /Intelligence Surge/i, variantName: /Allied Attribution Cell/i },
+  { name: /Offer Limited Concession/i, variantName: /Public Offramp/i },
+  { name: /Backchannel Diplomacy/i, variantName: /Firm Channel/i },
+  { name: /Military Posture Decrease/i, variantName: /Public Decompression/i }
+];
+
+const publicEconomicRequiredImages = [
+  '/assets/images/tw_us_white_house_press_briefing.png',
+  '/assets/images/tw_us_market_crash_chip_crisis.png',
+  '/assets/images/tw_us_semiconductor_fab_disruption.png'
+];
+
 const preferencesForWindow = (windowIndex: number): ResponsePreference[] => {
+  if (responseStrategy === 'public-econ') {
+    return [
+      ...publicEconomicResponsePreferences,
+      ...variedResponsePreferences,
+      ...defaultResponsePreferences
+    ];
+  }
+
   if (responseStrategy === 'varied') {
     const offset = (windowIndex - 1) % variedResponsePreferences.length;
     return [
@@ -73,6 +100,21 @@ const preferencesForWindow = (windowIndex: number): ResponsePreference[] => {
   }
 
   return defaultResponsePreferences;
+};
+
+const configureDeterministicSeed = async (page: Page): Promise<void> => {
+  if (!deterministicSeed) {
+    return;
+  }
+
+  const advancedButton = page.getByRole('button', { name: /Open/i }).filter({ hasText: /Open/i }).last();
+  if (await advancedButton.isVisible().catch(() => false)) {
+    await advancedButton.click();
+  }
+
+  const seedInput = page.getByPlaceholder(/Leave blank for auto-seed/i).first();
+  await seedInput.waitFor({ state: 'visible', timeout: 5_000 });
+  await seedInput.fill(deterministicSeed);
 };
 
 const chooseFirstAvailableResponse = async (page: Page, windowIndex: number): Promise<string> => {
@@ -161,6 +203,7 @@ const run = async (): Promise<void> => {
 
     await page.goto(webUrl, { waitUntil: 'domcontentloaded' });
     await waitForAppReady(page);
+    await configureDeterministicSeed(page);
     imageLog.push(`00-setup: ${(await captureStep(page, '00-setup')).map((entry) => entry.src).join(', ') || 'no images'}`);
 
     if (!(await clickByRole(page, /Begin Scenario/i))) {
@@ -234,6 +277,15 @@ const run = async (): Promise<void> => {
       }
     }
 
+    if (responseStrategy === 'public-econ') {
+      const visibleImages = new Set(imageLog.flatMap((entry) => entry.match(usFocusedImagePattern) ?? []));
+      const missingImages = publicEconomicRequiredImages.filter((image) => !visibleImages.has(image));
+
+      if (missingImages.length > 0) {
+        throw new Error(`Public/economic smoke missed required image(s): ${missingImages.join(', ')}`);
+      }
+    }
+
     if (consoleErrors.length > 0 || pageErrors.length > 0) {
       throw new Error(
         [
@@ -247,6 +299,9 @@ const run = async (): Promise<void> => {
     console.log('Browser smoke completed successfully.');
     console.log(`URL: ${webUrl}`);
     console.log(`Response strategy: ${responseStrategy}`);
+    if (deterministicSeed) {
+      console.log(`Seed: ${deterministicSeed}`);
+    }
     console.log(`Decision windows: ${decisionLog.length}`);
     console.log(decisionLog.join('\n'));
     console.log('Visible images:');
