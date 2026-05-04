@@ -11,6 +11,7 @@ Current state:
 - Codex-generated image tranche 1 is wired into `images.json`: Situation Room chip crisis, AI/data-center supply exposure, US supermarket panic, nuclear-risk command display, and corrected thermal boarding imagery.
 - Codex-generated image tranche 2 is applied and verified locally: market crash, family cable-news crisis, tech layoffs, port congestion, White House press briefing, Congressional chip hearing, deployment pier families, electronics shortage, gas lines/freight shock, semiconductor fab disruption, and allied coordination call.
 - Image selector weighting now lets selected action/variant context lead over generic beat-matched maritime assets, with regression coverage in `tests/engine/images.test.ts`.
+- `npm run diagnose:visual-targets` now proves the seven priority US/chips/economy images are selector-reachable; electronics, gas/freight, nuclear-risk, and Congress are also reachable under the normal offer model.
 - Browser smoke now has `npm run smoke:browser` for the default Backchannel path and `npm run smoke:browser:varied` for varied non-backchannel screenshots with visible-image logging and US-image minimum assertions.
 - Active `northern_strait_black_swan` final-window branch gates now split severe endings across blockade lock, limited strike, managed freeze, managed relief, and military-only invasion tail risk instead of over-defaulting to managed freeze.
 - `npm run simulate:balance` now prints dominant terminal IDs and full terminal distributions; beat validation warns if an unbounded default fallback can shadow later branches.
@@ -19,11 +20,10 @@ Current state:
 - Full-run browser smoke paths reached the mandate report locally with no console/page errors.
 
 Validation:
-- Passed: `npm run lint`, `npm test` (17 files / 48 tests), `npm run build`, `npm run simulate:balance`, `npm run validate:content`, `npm run diagnose:decision-visuals`, `PLAYTEST_WEB_URL=http://127.0.0.1:5179 npm run smoke:browser`, and `PLAYTEST_WEB_URL=http://127.0.0.1:5179 npm run smoke:browser:varied`.
+- Passed: `npm run lint`, `npm test` (17 files / 48 tests), `npm run build`, `npm run simulate:balance`, `npm run validate:content`, `npm run diagnose:decision-visuals`, `npm run diagnose:visual-targets`, `PLAYTEST_WEB_URL=http://127.0.0.1:5179 npm run smoke:browser`, and `PLAYTEST_WEB_URL=http://127.0.0.1:5179 npm run smoke:browser:varied`.
 - Balance note: older `northern_strait_flashpoint` top terminal share is 31.5%; active `northern_strait_black_swan` top terminal share is now 30.0% at `ns_blockade_lock` with all five terminals represented.
-- Visual note: screenshot review confirms default and varied paths now render Situation Room, allied coordination, corrected thermal, port congestion, AI/data-center, supermarket, family cable-news, and deployment-pier imagery in-game.
+- Visual note: screenshot review confirms default and varied paths now render Situation Room, allied coordination, corrected thermal, electronics shortage, port congestion, AI/data-center, supermarket, family cable-news, and deployment-pier imagery in-game.
 - Known red: `npm audit` remains red for no-fix Hono/Drizzle runtime advisories; see `DEPENDENCY_SECURITY_TRIAGE.md`.
 
 Next:
-- Add targeted screenshot coverage or balance-aware offer tuning for the remaining domestic assets not yet seen in final smoke: electronics shortage, semiconductor fab disruption, White House, market-crash, gas/freight, nuclear-risk, and Congressional-hearing imagery.
-- Finish `ALT-38`: durable rate limits, idempotency/retry behavior, D1 migration governance, and bootstrap payload strategy.
+- Add targeted browser/screenshot paths for the remaining selector-reachable public/sanctions assets, then finish `ALT-38`: durable rate limits, idempotency/retry behavior, D1 migration governance, and bootstrap payload strategy.
