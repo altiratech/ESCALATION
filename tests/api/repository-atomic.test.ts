@@ -220,4 +220,48 @@ describe('repository atomic persistence', () => {
     expect(preparedQueries).not.toContain('ROLLBACK');
     expect((rawDb as unknown as MockD1Database).batchCalls).toHaveLength(1);
   });
+
+  it('treats an already-applied turn retry as idempotent when the target state is present', async () => {
+    const rawDb = new MockD1Database([
+      [makeResult(0), makeResult(0), makeResult(0), makeResult(0, [{ applied: 1 }])]
+    ]) as unknown as D1Database;
+
+    const result = await persistResolvedTurnAtomic(rawDb, {
+      episodeId: 'episode-1',
+      expectedTurn: 1,
+      expectedStateJson: '{"before":true}',
+      nextState,
+      resolution,
+      beatProgress,
+      endedAt: null
+    });
+
+    expect(result).toEqual({
+      updated: true,
+      turnInserted: false,
+      beatInserted: false
+    });
+  });
+
+  it('reports a real conflict as stale when neither update nor applied-state check succeeds', async () => {
+    const rawDb = new MockD1Database([
+      [makeResult(0), makeResult(0), makeResult(0), makeResult(0)]
+    ]) as unknown as D1Database;
+
+    const result = await persistResolvedTurnAtomic(rawDb, {
+      episodeId: 'episode-1',
+      expectedTurn: 1,
+      expectedStateJson: '{"before":true}',
+      nextState,
+      resolution,
+      beatProgress,
+      endedAt: null
+    });
+
+    expect(result).toEqual({
+      updated: false,
+      turnInserted: false,
+      beatInserted: false
+    });
+  });
 });

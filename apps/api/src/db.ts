@@ -7,6 +7,7 @@ export interface Env {
   APP_ENV?: string;
   CORS_ALLOW_ORIGINS?: string;
   RATE_LIMIT_ENABLED?: '0' | '1';
+  RATE_LIMIT_STORAGE?: 'd1' | 'memory';
   RATE_LIMIT_MAX_REQUESTS?: string;
   RATE_LIMIT_WINDOW_SECONDS?: string;
   LLM_MODE?: 'off' | 'mock';
@@ -118,6 +119,13 @@ const schemaStatements = [
   )`,
   `CREATE INDEX IF NOT EXISTS idx_client_telemetry_episode ON client_telemetry(episode_id)`,
   `CREATE INDEX IF NOT EXISTS idx_client_telemetry_event_created ON client_telemetry(event_name, created_at)`,
+  `CREATE TABLE IF NOT EXISTS rate_limit_buckets (
+    bucket_key TEXT PRIMARY KEY,
+    count INTEGER NOT NULL,
+    reset_at INTEGER NOT NULL,
+    updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+  )`,
+  `CREATE INDEX IF NOT EXISTS idx_rate_limit_buckets_reset ON rate_limit_buckets(reset_at)`,
   `CREATE TABLE IF NOT EXISTS reports (
     episode_id TEXT PRIMARY KEY,
     report_json TEXT NOT NULL,

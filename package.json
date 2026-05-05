@@ -25,6 +25,7 @@
     "lint": "npm run typecheck --workspace @wargames/engine && npm run typecheck --workspace @wargames/api && npm run typecheck --workspace @wargames/web",
     "generate:images": "node scripts/generate-placeholders.mjs",
     "db:migrate": "npm run db:migrate --workspace @wargames/api",
+    "db:migrate:plan": "npm run db:migrate:plan --workspace @wargames/api",
     "db:seed": "npm run db:seed --workspace @wargames/api",
     "quickstart": "npm install && npm run generate:images && npm run db:migrate && npm run db:seed && npm run dev"
   },

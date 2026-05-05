@@ -48,6 +48,12 @@ import type {
 import { createDb, ensureSchema, type Env } from './db';
 import { createPolisher } from './polisher';
 import {
+  buildRateLimitKey,
+  consumeD1RateLimit,
+  consumeMemoryRateLimit,
+  type RateLimitEntry
+} from './rateLimit';
+import {
   type BeatTransitionSource,
   createEpisode,
   findOrCreateProfile,
@@ -71,11 +77,6 @@ const DEFAULT_ALLOWED_ORIGINS = [
 
 const RATE_LIMITED_METHODS = new Set(['POST', 'PUT', 'PATCH', 'DELETE']);
 const RATE_LIMIT_PRUNE_THRESHOLD = 2_000;
-
-type RateLimitEntry = {
-  count: number;
-  resetAt: number;
-};
 
 const rateLimitStore = new Map<string, RateLimitEntry>();
 
@@ -128,6 +129,11 @@ app.use('*', cors({
   allowMethods: ['GET', 'POST', 'OPTIONS']
 }));
 
+app.use('*', async (context, next) => {
+  await ensureSchema(context.env);
+  await next();
+});
+
 app.use('/api/*', async (context, next) => {
   if (!RATE_LIMITED_METHODS.has(context.req.method)) {
     await next();
@@ -145,11 +151,15 @@ app.use('/api/*', async (context, next) => {
   }
 
   const maxRequests = parsePositiveInt(context.env.RATE_LIMIT_MAX_REQUESTS, 120);
-  const windowMs = parsePositiveInt(context.env.RATE_LIMIT_WINDOW_SECONDS, 60) * 1000;
+  const windowSeconds = parsePositiveInt(context.env.RATE_LIMIT_WINDOW_SECONDS, 60);
   const now = Date.now();
   const forwardedFor = context.req.header('CF-Connecting-IP') ?? context.req.header('X-Forwarded-For') ?? 'unknown';
   const clientIp = forwardedFor.split(',')[0]?.trim() || 'unknown';
-  const key = `${clientIp}:${context.req.method}`;
+  const key = buildRateLimitKey({
+    clientIp,
+    method: context.req.method,
+    path: context.req.path
+  });
 
   if (rateLimitStore.size > RATE_LIMIT_PRUNE_THRESHOLD) {
     for (const [entryKey, entry] of rateLimitStore.entries()) {
@@ -159,37 +169,58 @@ app.use('/api/*', async (context, next) => {
     }
   }
 
-  let entry = rateLimitStore.get(key);
-  if (!entry || now >= entry.resetAt) {
-    entry = { count: 0, resetAt: now + windowMs };
-    rateLimitStore.set(key, entry);
-  }
+  const rateLimit = context.env.RATE_LIMIT_STORAGE === 'memory'
+    ? consumeMemoryRateLimit(rateLimitStore, {
+        bucketKey: key,
+        maxRequests,
+        windowSeconds,
+        nowMs: now
+      })
+    : await consumeD1RateLimit(context.env.DB, {
+        bucketKey: key,
+        maxRequests,
+        windowSeconds,
+        nowMs: now
+      });
 
-  if (entry.count >= maxRequests) {
-    const retryAfterSeconds = Math.max(1, Math.ceil((entry.resetAt - now) / 1000));
-    context.header('Retry-After', String(retryAfterSeconds));
-    context.header('X-RateLimit-Limit', String(maxRequests));
-    context.header('X-RateLimit-Remaining', '0');
-    context.header('X-RateLimit-Reset', String(Math.ceil(entry.resetAt / 1000)));
+  context.header('X-RateLimit-Limit', String(rateLimit.limit));
+  context.header('X-RateLimit-Remaining', String(rateLimit.remaining));
+  context.header('X-RateLimit-Reset', String(Math.ceil(rateLimit.resetAt / 1000)));
+
+  if (!rateLimit.allowed) {
+    context.header('Retry-After', String(rateLimit.retryAfterSeconds));
     return context.json({ message: 'Rate limit exceeded. Try again shortly.' }, 429);
   }
 
-  entry.count += 1;
-  context.header('X-RateLimit-Limit', String(maxRequests));
-  context.header('X-RateLimit-Remaining', String(Math.max(0, maxRequests - entry.count)));
-  context.header('X-RateLimit-Reset', String(Math.ceil(entry.resetAt / 1000)));
-
-  await next();
-});
-
-app.use('*', async (context, next) => {
-  await ensureSchema(context.env);
   await next();
 });
 
 const actionMap = buildActionMap(actions);
 const imageMap = new Map(images.map((asset) => [asset.id, asset]));
 const debriefVariants = getDebriefVariants();
+const bootstrapPayload = {
+  scenarios,
+  adversaryProfiles,
+  actions: playerActions,
+  images,
+  narrativeCandidates,
+  intelFragments,
+  newsWire,
+  actionNarratives,
+  cinematics,
+  scenarioWorld,
+  advisorDossiers,
+  rivalLeaders
+};
+const hashString = (value: string): string => {
+  let hash = 2166136261;
+  for (let index = 0; index < value.length; index += 1) {
+    hash ^= value.charCodeAt(index);
+    hash = Math.imul(hash, 16777619);
+  }
+  return (hash >>> 0).toString(16);
+};
+const bootstrapEtag = `"bootstrap-${hashString(JSON.stringify(bootstrapPayload))}"`;
 
 const computeCompositeScore = (view: EpisodeView): number => {
   const outcomeBonus: Record<string, number> = {
@@ -1015,21 +1046,12 @@ app.get('/api/episodes/:episodeId/report', async (context) => {
 });
 
 app.get('/api/reference/bootstrap', (context) => {
-  context.header('Cache-Control', 'public, max-age=300');
-  return context.json({
-    scenarios,
-    adversaryProfiles,
-    actions: playerActions,
-    images,
-    narrativeCandidates,
-    intelFragments,
-    newsWire,
-    actionNarratives,
-    cinematics,
-    scenarioWorld,
-    advisorDossiers,
-    rivalLeaders
-  });
+  context.header('Cache-Control', 'public, max-age=300, stale-while-revalidate=86400');
+  context.header('ETag', bootstrapEtag);
+  if (context.req.header('If-None-Match') === bootstrapEtag) {
+    return context.body(null, 304);
+  }
+  return context.json(bootstrapPayload);
 });
 
 app.get('/healthz', (context) => {
