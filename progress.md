@@ -51,3 +51,13 @@ Original prompt: Ok please start working through each Linear task. Keep going un
 - Remaining visual coverage gap: public/sanctions assets are selector-reachable but not yet naturally smoke-verified in browser runs: semiconductor fab disruption, White House press briefing, and market-crash imagery. That should be handled with a targeted browser path or careful offer-path tuning, not another broad image-generation pass.
 - Added `npm run smoke:browser:public-econ` with deterministic seed `public-econ-2`. The path fills the existing setup seed field, prefers public/economic responses, and fails unless White House, market-crash, and semiconductor-fab images appear in the real browser gallery.
 - Verification after public-econ smoke: `npm run build`, `npm run lint`, `npm run diagnose:visual-targets`, `PLAYTEST_WEB_URL=http://127.0.0.1:5179 npm run smoke:browser:public-econ`, `npm run simulate:balance`, `npm test`, `PLAYTEST_WEB_URL=http://127.0.0.1:5179 npm run smoke:browser`, and `PLAYTEST_WEB_URL=http://127.0.0.1:5179 npm run smoke:browser:varied` all passed. Screenshot inspection confirmed the fab disruption hero with market-crash and Congressional-hearing support imagery on window 5.
+
+## 2026-05-05
+
+- Started the ALT-38 production-hardening slice after confirming the repo was clean on `main` and synced with `origin/main`.
+- Replaced the default isolate-memory API rate limiter with D1-backed `rate_limit_buckets` storage. `RATE_LIMIT_STORAGE=memory` remains available as a local override, but the default path is durable across Worker isolates.
+- Added route-aware rate-limit keys that normalize episode UUIDs, preventing unique `/api/episodes/:id/...` paths from bypassing the bucket.
+- Added `db/migrations/0004_rate_limit_buckets.sql` and changed `db:migrate` to run every numbered migration through `scripts/apply-d1-migrations.mjs`; `npm run db:migrate:plan` dry-runs the full ordered plan and caught the existing telemetry migration in the list.
+- Added ETag and `stale-while-revalidate` handling for `/api/reference/bootstrap` using a module-stable bootstrap payload.
+- Added API tests for D1-backed rate limit behavior and explicit already-applied turn retry semantics.
+- Verification: `npm test`, `npm run lint`, `npm run validate:content`, `npm run simulate:balance`, `npm run db:migrate:plan`, `npm run build`, and `git diff --check` all passed.
